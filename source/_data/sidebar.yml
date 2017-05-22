@@ -1,0 +1,32 @@
+docs:
+  getting_started:
+    overview: index.html
+    install: install.html
+    usage: usage.html
+    modules: modules.html
+    examples: examples.html
+    repl: repl.html
+    cli: cli.html
+
+  core_modules:
+    broker: broker.html
+    service: service.html
+    context: context.html
+    logger: logger.html
+    cachers: cachers.html
+    transporters: transporters.html
+    serializers: serializers.html
+    metrics: metrics.html
+    statistics: statistics.html
+
+  official_modules:
+    moleculer_web: moleculer-web.html
+
+  miscellaneous:
+    nodes: nodes.html
+    benchmark: benchmark.html
+    faq: faq.html
+    contributing: contributing.html
+
+api:
+  index: index.html

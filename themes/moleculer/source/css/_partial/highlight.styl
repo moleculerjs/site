@@ -1,0 +1,124 @@
+// https://github.com/chriskempson/tomorrow-theme
+/*
+highlight-background = #fff
+highlight-current-line = #efefef
+highlight-selection = #d6d6d6
+highlight-foreground = #4d4d4c
+highlight-comment = #8e908c
+highlight-red = #c82829
+highlight-orange = #f5871f
+highlight-yellow = #eab700
+highlight-green = #718c00
+highlight-aqua = #3e999f
+highlight-blue = #4271ae
+highlight-purple = #8959a8
+*/
+highlight-background = #1d1f21
+highlight-current-line = #282a2e
+highlight-selection = #373b41
+highlight-foreground = #e5e8e6
+highlight-comment = #969896
+highlight-red = #cc6666
+highlight-orange = #de935f
+highlight-yellow = #f0c674
+highlight-green = #b5bd68
+highlight-aqua = #8abeb7
+highlight-blue = #81a2be
+highlight-purple = #b294bb
+
+highlight-inline = rgba(27,31,35,0.05)
+
+pre, code
+  font-family: font-mono
+  font-size: 1.0em
+
+code
+  padding: 0 5px
+  color: color-default
+  background: highlight-inline
+
+pre
+  padding: 10px 15px
+  line-height: 22px
+  background: highlight-background
+  color: highlight-foreground
+  code
+    border: none
+    display: block
+    padding: 0
+
+.highlight
+  background: highlight-background
+  border-radius: 0.5em;
+  padding: 10px 15px
+  color: highlight-foreground
+  overflow: auto
+  margin: 0
+  table
+    margin: 0 !important
+    border: 0
+    th, td
+      padding: 0
+  figcaption
+    clearfix()
+    margin: -5px 0 5px
+    font-size: 0.9em
+    color: color-gray
+    a
+      float: right
+  pre
+    padding: 0
+    border: none
+    background: none
+  .line
+    height: 22px
+
+pre
+  .comment
+  .title
+    color: highlight-comment
+  .variable
+  .attribute
+  .tag
+  .regexp
+  .ruby .constant
+  .xml .tag .title
+  .xml .pi
+  .xml .doctype
+  .html .doctype
+  .css .id
+  .css .class
+  .css .pseudo
+    color: highlight-red
+  .number
+  .preprocessor
+  .built_in
+  .literal
+  .params
+  .constant
+    color: highlight-orange
+  .class
+  .ruby .class .title
+  .css .rules .attribute
+    color: highlight-green
+  .string
+  .value
+  .inheritance
+  .header
+  .ruby .symbol
+  .xml .cdata
+    color: highlight-green
+  .css .hexcolor
+    color: highlight-aqua
+  .function
+  .python .decorator
+  .python .title
+  .ruby .function .title
+  .ruby .title .keyword
+  .perl .sub
+  .javascript .title
+  .coffeescript .title
+    color: highlight-blue
+  .keyword
+  .javascript .function
+    color: highlight-purple

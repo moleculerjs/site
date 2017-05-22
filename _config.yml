@@ -1,0 +1,44 @@
+title: Moleculer
+subtitle: "Fast & powerful microservices framework for NodeJS."
+description: "Moleculer is a fast & powerful microservices framework powered by NodeJS."
+author: Icebob
+language: en
+timezone: UTC
+url: https://moleculer.services
+root: /
+permalink: news/:year/:month/:day/:title/
+#archive_dir: news
+code_dir: downloads/code
+#new_post_name: :year-:month-:day-:title.md # File name of new posts
+#post_asset_folder: true
+highlight:
+  enable: true
+  line_number: false
+per_page: 0
+
+theme: moleculer
+# Markdown
+## https://github.com/chjj/marked
+markdown:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
+
+#deploy:
+#  type: git
+#  repo: git@github.com:ice-services/ice-services.github.io.git
+
+# disqus_shortname: moleculer
+google_analytics: UA-99099811-1
+# fb_admins: 100000247608790
+algolia:
+  en:
+    api_key: xyz
+    index_name: moleculer_web
+
+twitter: MoleculerJS
+github: ice-services/moleculer

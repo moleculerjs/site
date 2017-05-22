@@ -1,0 +1,48 @@
+menu:
+  docs: Documentation
+  api: API
+  search: Search
+
+index:
+  get_started: Get started
+
+page:
+  contents: Contents
+  back_to_top: Back to Top
+  improve: Improve this doc
+  prev: Prev
+  next: Next
+  last_updated: "Last updated: %s"
+
+sidebar:
+  docs:
+    getting_started: Getting Started
+    overview: Overview
+    install: Install
+    usage: Usage
+    modules: Modules
+    examples: Examples
+    repl: REPL mode
+    cli: CLI Tool
+
+    core_modules: Core Modules
+    broker: Service Broker
+    service: Service
+    context: Context
+    logger: Logger
+    cachers: Cachers
+    transporters: Transporters
+    serializers: Serializers
+    metrics: Metrics
+    statistics: Statistics
+
+    official_modules: Official Modules
+    moleculer_web: Moleculer-web
+
+    miscellaneous: Miscellaneous
+    nodes: Nodes
+    benchmark: Benchmark
+    faq: FAQ
+    contributing: Contributing
+  api:
+    index: Index
