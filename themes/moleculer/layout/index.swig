@@ -21,7 +21,7 @@
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-bolt"></i></div>
             <h3 class="intro-feature-title">Blazing fast</h3>
-            <p class="intro-feature-desc">High performance microservices framework. Check our benchmark results!</p>
+            <p class="intro-feature-desc">High performance microservices framework. Check our <a href="/docs/benchmark.html">benchmark results</a>!</p>
           </div>
         </li>
         <li class="intro-feature-wrap">

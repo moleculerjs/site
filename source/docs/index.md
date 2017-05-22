@@ -33,3 +33,5 @@ Source code of Moleculer is written in ES2015. So the minimum version of NodeJS 
 We [tested](https://github.com/icebob/microservices-benchmark) some other frameworks and measured the request times.
 [![Result chart](https://cloud.highcharts.com/images/utideti/5/600.png)](http://cloud.highcharts.com/show/utideti)
 [![Result chart](https://cloud.highcharts.com/images/abyfite/1/600.png)](http://cloud.highcharts.com/show/abyfite)
+
+[Check out benchmark results](benchmark.html)
