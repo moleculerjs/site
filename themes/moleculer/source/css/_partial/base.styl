@@ -37,6 +37,9 @@ body
   background-color: #935d8c;
   background-image: url(images/overlay.png), linear-gradient(45deg, #e37682 15%, #5f4d93 85%);  
 
+  @media mq-mobile
+    font-size: font-size - 1px
+
 .wrapper
   clearfix()
   @media screen
@@ -45,7 +48,7 @@ body
 
 .inner
   clearfix()
-  @media screen
+  @media mq-normal
     padding: 0 gutter-width
 
 #content-wrap
@@ -53,3 +56,21 @@ body
   border-top: 1px solid darken(color-navy, 5%)
   border-bottom: 1px solid darken(color-navy, 5%)
   margin: -1px 0
+
+  @media mq-mobile
+    padding: 1em 1em 0;
+
+.gitter-open-chat-button
+  display: none
+  @media mq-normal
+    display: block;
+
+#particles-js
+  position: fixed
+  width: 100%
+  height: 100%
+  z-index: -1    
+
+  display: none
+  @media mq-normal
+    display: block;

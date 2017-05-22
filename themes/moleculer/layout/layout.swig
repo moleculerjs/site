@@ -3,8 +3,8 @@
 {{ partial('partial/head') }}
 <body>
   <div id="particles-js"></div>
+  {{ partial('partial/header') }}
   <div id="container">
-    {{ partial('partial/header') }}
     {{ body }}
     {{ partial('partial/footer') }}
   </div>
