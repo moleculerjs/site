@@ -5,8 +5,8 @@ This is the official website of Moleculer project. This site is built with [hexo
 # Development
 
 ```bash
-$ git clone git@github.com:ice-services/ice-services.github.io.git
-$ cd ice-services.github.io
+$ git clone git@github.com:ice-services/site.git
+$ cd site
 $ npm install
 $ npm run dev
 ```

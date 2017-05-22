@@ -54,6 +54,8 @@ Follow this workflow if you would like to modify the core modules.
 
 7. Create a pull request and describe the change.
 
+8. If you've changed APIs, update the [documentation](https://github.com/ice-services/site).
+
 ## Contribute to create a new Moleculer module
 
 Follow this workflow if you would like to create a new module for Moleculer
