@@ -1,6 +1,6 @@
 # Moleculer official website
 
-This is the official website of Moleculer project. This site is built with [hexo](https://hexo.io/). Site content is written in Markdown format and located in `src`.
+This is the official website of Moleculer project. This site is built with [hexo](https://hexo.io/). Site content is written in Markdown format and located in `source`.
 
 # Development
 
