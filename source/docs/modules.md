@@ -12,4 +12,4 @@ title: Modules
 | Module name | Description | Version |
 |--------------|-------------|---------|
 
-> Do you have a custom Moleculer modules? [Tell us!](https://github.com/ice-services/moleculer/issues)
+> Do you have a custom module for Moleculer? [Tell us!](https://github.com/ice-services/moleculer/issues)

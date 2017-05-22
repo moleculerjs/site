@@ -1,93 +1,97 @@
 title: Contributing
 ---
-## Development
-<!--
-
 We welcome you to join the development of Moleculer. This document will help you through the process.
 
-### Before You Start
+## Before You Start
 
 Please follow the coding style:
+- Use tabs with size of 4 for indents.
+- Always use strict mode & commas.
+- Use double quotes.
 
-- Follow [Google JavaScript Style Guide](https://google.github.io/styleguide/javascriptguide.xml).
-- Use soft-tabs with a two space indent.
-- Don't put commas first.
+## Contribute to core modules
+
+Follow this workflow if you would like to modify the core modules.
 
 ### Workflow
 
-1. Fork [hexojs/hexo].
+1. Fork the [ice-services/moleculer](https://github.com/ice-services/moleculer) repo.
 2. Clone the repository to your computer and install dependencies.
 
-    {% code %}
-    $ git clone https://github.com/<username>/hexo.git
-    $ cd hexo
+    ```bash
+    $ git clone https://github.com/<username>/moleculer.git
+    $ cd moleculer
     $ npm install
-    $ git submodule update --init
-    {% endcode %}
+    ```
 
-3. Create a feature branch.
+3. Start Moleculer in dev mode
 
-    {% code %}
-    $ git checkout -b new_feature
-    {% endcode %}
+    ```bash
+    $ npm run dev
+    ```
 
-4. Start hacking.
-5. Push the branch:
+    or in continuous test mode
 
-    {% code %}
-    $ git push origin new_feature
-    {% endcode %}
+    ```bash
+    $ npm run ci
+    ```
 
-6. Create a pull request and describe the change.
+4. Fix the bug or add a new feature.
+5. Run tests & check the coverage report.
 
-### Notice
-
-- Don't modify version number in `package.json`.
-- Your pull request will only get merged when tests passed. Don't forget to run tests before submission.
-
-    {% code %}
+    ```bash
     $ npm test
-    {% endcode %}
+    ```
 
-## Updating Documentation
+    > If you added new features, please add relevant new test cases!
 
-The Hexo documentation is open source and you can find the source code on [hexojs/site].
+    {% note info %}
+    Your pull request will only get merged when tests passed and covered all codes. Don't forget to run tests before submission.
+    {% endnote %}
+
+
+6. Commit & push the branch.
+
+7. Create a pull request and describe the change.
+
+## Contribute to create a new Moleculer module
+
+Follow this workflow if you would like to create a new module for Moleculer
 
 ### Workflow
 
-1. Fork [hexojs/site]
-2. Clone the repository to your computer and install dependencies.
+1. Install the command-line tool.
+    ```bash
+    $ npm install moleculer-cli -g
+    ```
 
-    {% code %}
-    $ git clone https://github.com/<username>/site.git
-    $ cd site
-    $ npm install
-    {% endcode %}
+2. Create a new module skeleton (named `moleculer-awesome`).
+    ```bash
+    $ moleculer init module moleculer-awesome
+    ```
 
-3. Start editing the documentation. You can start the server for live previewing.
+3. Edit `src/index.js` and implement the logic.
 
-    {% code %}
-    $ hexo server
-    {% endcode %}
+4. For developing use the `dev` mode (it starts your module with `example/simple/index.js`)
 
-4. Push the branch.
-5. Create a pull request and describe the change.
+    ```bash
+    $ npm run dev
+    ```
 
-### Translating
+    or continuous test mode
 
-1. Add a new language folder in `source` folder. (All lower case)
-2. Copy Markdown and template files in `source` folder to the new language folder.
-3. Add the new language to `source/_data/language.yml`.
-4. Copy `en.yml` in `themes/moleculer/languages` and rename to the language name (all lower case).
+    ```bash
+    $ npm run ci
+    ```
+
+4. Create tests in `test/unit/index.spec.js` & cover the full source.
+
+    ```bash
+    $ npm test
+    ```
+
+5. If it's done and you think it will be useful many developers [tell us!](https://github.com/ice-services/moleculer/issues)
 
 ## Reporting Issues
 
-When you encounter some problems when using Hexo, you can find the solutions in [Troubleshooting](troubleshooting.html) or ask me on [GitHub](https://github.com/ice-services/moleculer/issues) or [Google Group](https://groups.google.com/group/hexo). If you can't find the answer, please report it on GitHub.
-
-1. Represent the problem in [debug mode](commands.html#Debug_mode).
-2. Run `hexo version` and check the version info.    
-3. Post both debug message and version info on GitHub.
-
-[hexojs/hexo]: https://github.com/ice-services/moleculer
-[hexojs/site]: https://github.com/hexojs/site
--->
+When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/ice-services/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/ice-services/moleculer/issues).

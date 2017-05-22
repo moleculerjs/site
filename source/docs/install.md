@@ -3,12 +3,12 @@ title: Installation
 
 ### Install Moleculer
 
-You can install Moleculer with npm or yarn.
+You can install Moleculer with npm
 
 ``` bash
 $ npm install moleculer --save
 ```
-or
+or with yarn
 ```
 $ yarn add moleculer
 ```

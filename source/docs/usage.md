@@ -45,6 +45,8 @@ broker.call("math.add", { a: 3, b: 5})
     .then(res => broker.call("math.sub", { a: res, b: 2 }))
     .then(res => console.log("3 + 5 - 2 =", res));
 ```
-[Try it in your browser](https://runkit.com/icebob/moleculer-quick-example)
+{% note info Try it in your browser! %}
+Open this example on [Runkit!](https://runkit.com/icebob/moleculer-quick-example)
+{% endnote %}
 
 

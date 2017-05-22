@@ -1,6 +1,6 @@
 title: REPL mode
 ---
-Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. You can list registered nodes & actions & broker information and settings.
+Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. You can list registered nodes, actions, broker information and broker settings.
 
 **Start broker in REPL mode**
 ```js
@@ -19,7 +19,7 @@ broker.repl();
     exit                                   Exits application.
     q                                      Exit application
     call <actionName> [params]             Call an action
-    dcall <nodeID> <actionName> [params]   Call a direct action
+    dcall <nodeID> <actionName> [params]   Direct call an action
     emit <eventName> [payload]             Emit an event
     load <servicePath>                     Load a service from file
     loadFolder <serviceFolder> [fileMask]  Load all service from folder
