@@ -1,5 +1,6 @@
 title: Benchmark
 ---
+Under development we measure every important parts of the framework that we can ensure the best performance.
 
 ## Request times
 We [tested](https://github.com/icebob/microservices-benchmark) Moleculer against some other frameworks and measured the request times.
