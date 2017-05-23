@@ -6,7 +6,7 @@
     <nav id="main-nav">
       {{ header_menu('main-nav') }}
       <a href="https://github.com/{{ config.github }}" class="main-nav-link">Github</a>
-      <div id="search-input-wrap">
+      <div id="search-input-wrap" class="on">
         <div id="search-input-icon">
           <i class="fa fa-search"></i>
         </div>

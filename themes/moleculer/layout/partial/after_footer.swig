@@ -15,13 +15,12 @@
 {% endif %}
 <!-- Algolia -->
 {% if config.algolia[page.lang] %}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
-<script type="text/javascript">
-document.getElementById('search-input-wrap').classList.add('on');
-docsearch({
-  apiKey: '{{ config.algolia[page.lang].api_key }}',
-  indexName: '{{ config.algolia[page.lang].index_name }}',
-  inputSelector: '#search-input'
+<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+apiKey: '7d5514b7c3e161a428f04f33ba1bdab4',
+indexName: 'moleculer',
+inputSelector: '#search-input',
+debug: true // Set debug to true if you want to inspect the dropdown
 });
 </script>
 {% endif %}
