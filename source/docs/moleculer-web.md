@@ -29,7 +29,7 @@ You can access to all services (including internal `$node.`) via `http://localho
 let { ServiceBroker } = require("moleculer");
 let ApiService = require("moleculer-web");
 
-let broker = new ServiceBroker();
+let broker = new ServiceBroker({ logger: console });
 
 // Load your services
 broker.loadService(...);

@@ -41,6 +41,8 @@ sidebar:
 
     miscellaneous: Miscellaneous
     nodes: Nodes
+    docker: Docker
+    serverless: Serverless
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing

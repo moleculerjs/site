@@ -24,6 +24,8 @@ docs:
 
   miscellaneous:
     nodes: nodes.html
+    docker: docker.html
+    serverless: serverless.html
     benchmark: benchmark.html
     faq: faq.html
     contributing: contributing.html
