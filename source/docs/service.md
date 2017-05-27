@@ -205,6 +205,29 @@ There are some lifecycle service events, that will be triggered by ServiceBroker
 }
 ```
 
+## Mixins
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services. A mixin schema can contain any service schemas. When a service uses a mixin, all properties in the mixin will be "mixed" into the service’s own properties.
+
+**Example**
+
+```js
+const ApiGwService = require("moleculer-web");
+
+module.exports = {
+    name: "api",
+    mixins: [ApiGwService]
+    settings: {
+        // Overwrite the port setting
+        port: 8080
+    },
+    actions: {
+        myAction() {
+            // Add a new action to apiGwService service
+        }
+    }
+}
+```
+
 ## Properties of `this`
 In service functions the `this` is always binded to the instance of service. It has some properties & methods that you can use in service functions.
 

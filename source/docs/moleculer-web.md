@@ -53,7 +53,9 @@ If you don't want to public all actions, you can filter them with a whitelist.
 You can use [match strings](https://github.com/micromatch/nanomatch) or regexp.
 
 ```js
-broker.createService(ApiService, {
+broker.createService({
+	mixins: ApiService,
+
     settings: {
         routes: [{
             path: "/api",
@@ -75,7 +77,9 @@ broker.createService(ApiService, {
 You can use alias names instead of action names.
 
 ```js
-broker.createService(ApiService, {
+broker.createService({
+	mixins: ApiService,
+
     settings: {
         routes: [{
             aliases: {
@@ -93,7 +97,9 @@ broker.createService(ApiService, {
 With this you can create RESTful APIs.
 
 ```js
-broker.createService(ApiService, {
+broker.createService({
+	mixins: ApiService,
+
     settings: {
         routes: [{
             aliases: {
@@ -111,7 +117,9 @@ broker.createService(ApiService, {
 Serve assets files with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
 ```js
-broker.createService(ApiService, {
+broker.createService({
+	mixins: ApiService,
+
     settings: {
         assets: {
             // Root folder of assets
@@ -128,7 +136,9 @@ broker.createService(ApiService, {
 You can create multiple routes with different prefix, whitelist, alias & authorization
 
 ```js
-broker.createService(ApiService, {
+broker.createService({
+	mixins: ApiService,
+
     settings: {
         routes: [
             {
@@ -165,7 +175,9 @@ You can find a more detailed role-based JWT authorization example in [full examp
 
 **Example authorization**
 ```js
-broker.createService(ApiService, {
+broker.createService({
+	mixins: ApiService,
+
     settings: {
         routes: [{
             // First thing
