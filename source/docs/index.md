@@ -12,10 +12,11 @@ Moleculer is a fast and powerful microservices framework for [NodeJS](https://no
 - request-reply concept
 - event bus system
 - supports middlewares
+- service mixins
 - multiple services on a node/server
 - built-in caching solution (memory, Redis)
-- multiple supported transporters (NATS, MQTT, Redis)
-- multiple supported serializers (JSON, Avro, MsgPack, Protocol Buffer)
+- pluggable transporters (NATS, MQTT, Redis)
+- pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer)
 - load balanced requests (round-robin, random)
 - every nodes are equal, no master/leader node
 - auto discovery services
@@ -25,7 +26,7 @@ Moleculer is a fast and powerful microservices framework for [NodeJS](https://no
 - supports versioned services
 
 {% note warn Requirements %}
-Source code of Moleculer is written in ES2015. The minimum version of NodeJS is **v6.x.x**.
+Moleculer is written in ES2015. The minimum version of NodeJS is **v6.x.x**.
 {% endnote %}
 
 ## How fast?
