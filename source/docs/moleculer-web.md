@@ -55,7 +55,7 @@ You can use [match strings](https://github.com/micromatch/nanomatch) or regexp.
 
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         routes: [{
@@ -79,7 +79,7 @@ You can use alias names instead of action names.
 
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         routes: [{
@@ -99,7 +99,7 @@ With this you can create RESTful APIs.
 
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         routes: [{
@@ -119,7 +119,7 @@ Serve assets files with the [serve-static](https://github.com/expressjs/serve-st
 
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         assets: {
@@ -138,7 +138,7 @@ You can create multiple routes with different prefix, whitelist, alias & authori
 
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         routes: [
@@ -177,7 +177,7 @@ You can find a more detailed role-based JWT authorization example in [full examp
 **Example authorization**
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         routes: [{
@@ -222,7 +222,7 @@ You can set before & after call hooks in the route.
 
 ```js
 broker.createService({
-	mixins: ApiService,
+    mixins: ApiService,
 
     settings: {
         routes: [
@@ -348,14 +348,14 @@ settings: {
             },
 
             // Call before `broker.call`
-			onBeforeCall(ctx, route, req, res) {
-				ctx.meta.userAgent = req.headers["user-agent"];
-			},
+            onBeforeCall(ctx, route, req, res) {
+                ctx.meta.userAgent = req.headers["user-agent"];
+            },
 
             // Call after `broker.call` and before send back the response
-			onAfterCall(ctx, route, req, res, data) {
-				res.setHeader("X-Custom-Header", "123456");
-			}            
+            onAfterCall(ctx, route, req, res, data) {
+                res.setHeader("X-Custom-Header", "123456");
+            }            
         }
     ],
 
