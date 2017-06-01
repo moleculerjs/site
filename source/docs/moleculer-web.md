@@ -11,6 +11,7 @@ The [moleculer-web](https://github.com/ice-services/moleculer-web) is the offici
 * whitelist
 * multiple body parsers (json, urlencoded)
 * Buffer & Stream handling
+* before & after call hooks
 * middleware mode (use as a middleware with Express)
 * support authorization
 
@@ -216,6 +217,32 @@ broker.createService({
 }
 ```
 
+### Route hooks
+You can set before & after call hooks in the route.
+
+```js
+broker.createService({
+	mixins: ApiService,
+
+    settings: {
+        routes: [
+            {
+                path: "/",
+
+                onBeforeCall(ctx, route, req, res) {
+                    // Set request headers to context meta
+                    ctx.meta.userAgent = req.headers["user-agent"];
+                },
+
+                onAfterCall(ctx, route, req, res, data) {
+                    // Async function which return with Promise
+                    return doSomething(ctx, res, data);
+                }
+            }
+        ]
+    }
+});
+```
 
 ### ExpressJS middleware usage
 You can use Moleculer-Web as a middleware for [ExpressJS](http://expressjs.com/).
@@ -318,7 +345,17 @@ settings: {
             bodyParsers: {
                 json: false,
                 urlencoded: { extended: true }
-            }
+            },
+
+            // Call before `broker.call`
+			onBeforeCall(ctx, route, req, res) {
+				ctx.meta.userAgent = req.headers["user-agent"];
+			},
+
+            // Call after `broker.call` and before send back the response
+			onAfterCall(ctx, route, req, res, data) {
+				res.setHeader("X-Custom-Header", "123456");
+			}            
         }
     ],
 
