@@ -85,8 +85,8 @@ The actions should be placed under `actions` key in the service schema.
 		mult: {
             cache: false,
 			params: {
-				a: "required|numeric",
-				b: "required|numeric"
+				a: "number",
+				b: "number"
 			},
 			handler(ctx) {
                 // You can reach action params with `ctx.action.*`
