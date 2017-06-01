@@ -7,7 +7,7 @@ The [moleculer-web](https://github.com/ice-services/moleculer-web) is the offici
 * support HTTP & HTTPS
 * serve static files
 * multiple routes
-* alias names
+* alias names (with named parameters)
 * whitelist
 * multiple body parsers (json, urlencoded)
 * Buffer & Stream handling
@@ -75,7 +75,7 @@ broker.createService({
 ```
 
 ### Aliases
-You can use alias names instead of action names.
+You can use alias names instead of action names. You can specify the method. If not it will handle every request methods. It is possible to use named parameters in aliases. Named paramters are defined by prefixing a colon to the parameter name (`:name`).
 
 ```js
 broker.createService({
@@ -89,6 +89,9 @@ broker.createService({
 
                 // Restrict the request method
                 "POST users": "users.create",
+
+                // The `name` comes from named param
+                "GET greeter/:name": "test.greeter",
             }
         }]
     }
@@ -105,14 +108,19 @@ broker.createService({
         routes: [{
             aliases: {
                 "GET users": "users.list",
+                "GET users/:id": "users.get",
                 "POST users": "users.create",
-                "PUT users": "users.update",
-                "DELETE users": "users.remove",
+                "PUT users/:id": "users.update",
+                "DELETE users/:id": "users.remove"
             }
         }]
     }
 });
 ```
+
+{% note info %}
+The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters as well.
+{% endnote %}
 
 ### Serve static files
 Serve assets files with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
@@ -339,6 +347,8 @@ settings: {
                 "add": "math.add",
                 "GET sub": "math.sub",
                 "POST divide": "math.div",
+                "GET greeter/:name": "test.greeter",
+                "GET /": "test.hello"                
             },
             
             // Use bodyparser module
@@ -399,7 +409,7 @@ settings: {
     - multiple routes with different roles
     - role-based authorization with JWT
     - whitelist
-    - aliases
+    - aliases with named params
     - multiple body-parsers
     - before & after hooks
     - metrics, statistics & validation from Moleculer
