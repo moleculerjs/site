@@ -202,13 +202,13 @@ broker.createService({
                 } else {
                     // Invalid token
                     return Promise.reject(
-                        new CustomError("Unauthorized! Invalid token", 401));
+                        new MoleculerError("Unauthorized! Invalid token", 401));
                 }
 
             } else {
                 // No token
                 return Promise.reject(
-                    new CustomError("Unauthorized! Missing token", 401));
+                    new MoleculerError("Unauthorized! Missing token", 401));
             }
         }
 
