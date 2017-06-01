@@ -401,5 +401,6 @@ settings: {
     - whitelist
     - aliases
     - multiple body-parsers
+    - before & after hooks
     - metrics, statistics & validation from Moleculer
 
