@@ -7,7 +7,7 @@ The [moleculer-web](https://github.com/ice-services/moleculer-web) is the offici
 * support HTTP & HTTPS
 * serve static files
 * multiple routes
-* alias names (with named parameters)
+* alias names (with named parameters & REST routes)
 * whitelist
 * multiple body parsers (json, urlencoded)
 * Buffer & Stream handling
@@ -49,7 +49,7 @@ broker.start();
 - Get health info of node: `http://localhost:3000/~node/health`
 - List all actions: `http://localhost:3000/~node/actions`
 
-### Whitelist
+## Whitelist
 If you don't want to public all actions, you can filter them with a whitelist.
 You can use [match strings](https://github.com/micromatch/nanomatch) or regexp.
 
@@ -74,7 +74,7 @@ broker.createService({
 });
 ```
 
-### Aliases
+## Aliases
 You can use alias names instead of action names. You can specify the method. If not it will handle every request methods. It is possible to use named parameters in aliases. Named paramters are defined by prefixing a colon to the parameter name (`:name`).
 
 ```js
@@ -98,8 +98,12 @@ broker.createService({
 });
 ```
 
-With this you can create RESTful APIs.
+{% note info %}
+The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters as well.
+{% endnote %}
 
+
+With this you can create RESTful APIs as well.
 ```js
 broker.createService({
     mixins: ApiService,
@@ -118,11 +122,25 @@ broker.createService({
 });
 ```
 
-{% note info %}
-The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters as well.
+For REST routes you can use this simple shorthand alias:
+```js
+broker.createService({
+    mixins: ApiService,
+
+    settings: {
+        routes: [{
+            aliases: {
+                "REST users": "users"
+            }
+        }]
+    }
+});
+```
+{% note warn %}
+To use this shorthand alias you need to create a service which has `find`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
-### Serve static files
+## Serve static files
 Serve assets files with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
 ```js
@@ -141,7 +159,7 @@ broker.createService({
 });
 ```
 
-### Multiple routes 
+## Multiple routes 
 You can create multiple routes with different prefix, whitelist, alias & authorization
 
 ```js
@@ -173,7 +191,7 @@ broker.createService({
 });
 ```
 
-### Authorization
+## Authorization
 You can implement your authorization method to Moleculer Web. For this you have to do 2 things.
 1. Set `authorization: true` in your routes
 2. Define the `authorize` method.
@@ -184,13 +202,15 @@ You can find a more detailed role-based JWT authorization example in [full examp
 
 **Example authorization**
 ```js
+const E = require("moleculer-web").Errors;
+
 broker.createService({
     mixins: ApiService,
 
     settings: {
         routes: [{
             // First thing
-            authorization: true,
+            authorization: true
         }]
     },
 
@@ -210,14 +230,12 @@ broker.createService({
 
                 } else {
                     // Invalid token
-                    return Promise.reject(
-                        new MoleculerError("Unauthorized! Invalid token", 401));
+                    return Promise.reject(new E.UnAuthorizedError(E.ERR_INVALID_TOKEN));
                 }
 
             } else {
                 // No token
-                return Promise.reject(
-                    new MoleculerError("Unauthorized! Missing token", 401));
+                return Promise.reject(new E.UnAuthorizedError(E.ERR_NO_TOKEN));
             }
         }
 
@@ -225,7 +243,7 @@ broker.createService({
 }
 ```
 
-### Route hooks
+## Route hooks
 You can set before & after call hooks in the route.
 
 ```js
@@ -252,7 +270,7 @@ broker.createService({
 });
 ```
 
-### ExpressJS middleware usage
+## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware for [ExpressJS](http://expressjs.com/).
 
 **Usage**
@@ -398,6 +416,10 @@ settings: {
 - [Authorization](https://github.com/ice-services/moleculer-web/blob/master/examples/authorization/index.js)
     - simple authorization demo
     - set the authorized user to `Context.meta`
+
+- [REST](https://github.com/ice-services/moleculer-web/blob/master/examples/rest/index.js)
+    - simple server with RESTful aliases
+    - example `posts` service with CRUD actions
 
 - [Express](https://github.com/ice-services/moleculer-web/blob/master/examples/express/index.js)
     - webserver with Express
