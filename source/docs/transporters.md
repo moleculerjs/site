@@ -16,6 +16,9 @@ let broker = new ServiceBroker({
 	requestTimeout: 5 * 1000
 });
 ```
+{% note info Depedencies %}
+To use this serializer install the `nats` module with `npm install nats --save` command.
+{% endnote %}
 
 ### Transporter options
 You can pass options to `nats.connect()` method.
@@ -58,6 +61,9 @@ let broker = new ServiceBroker({
 	requestTimeout: 5 * 1000
 });
 ```
+{% note info Depedencies %}
+To use this serializer install the `ioredis` module with `npm install ioredis --save` command.
+{% endnote %}
 
 ### Transporter options
 You can pass options to `new Redis()` method.
@@ -100,6 +106,9 @@ let broker = new ServiceBroker({
 	requestTimeout: 5 * 1000
 });
 ```
+{% note info Depedencies %}
+To use this serializer install the `mqtt` module with `npm install mqtt --save` command.
+{% endnote %}
 
 ### Transporter options
 You can pass options to `mqtt.connect()` method.

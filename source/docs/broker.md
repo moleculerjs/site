@@ -80,14 +80,14 @@ All available options:
 | `nodeID` | `String` | Computer name | This is the ID of node. It identifies a node in the cluster when there are many nodes. |
 | `logger` | `Object` | `null` | Logger class. During development you can set to `console`. In production you can set an external logger e.g. [winston](https://github.com/winstonjs/winston) or [pino](https://github.com/pinojs/pino) |
 | `logLevel` | `String` or `Object` | `info` | Level of logging (debug, info, warn, error) |
-| `transporter` | `Transporter` | `null` | Instance of transporter. Required if you have 2 or more nodes. Internal transporters: [NatsTransporter](#nats-transporter)  |
+| `transporter` | `Transporter` | `null` | Instance of transporter. Required if you have 2 or more nodes. Internal transporters: [NatsTransporter](transporters.html#NATS-Transporter)  |
 | `requestTimeout` | `Number` | `0` | Timeout of request in milliseconds. If the request is timed out, broker will throw a `RequestTimeout` error. Disable: 0 |
 | `requestRetry` | `Number` | `0` | Count of retry of request. If the request is timed out, broker will try to call again. |
 | `maxCallLevel` | `Number` | `0` | Limit of call level. If reach the limit, broker will throw an error. |
-| `cacher` | `Cacher` | `null` | Instance of cacher. Built-in cachers: [MemoryCacher](#memory-cacher) or [RedisCacher](#redis-cacher) |
-| `serializer` | `Serializer` | `JSONSerializer` | Instance of serializer. Built-in serializers: [JSON](#json-serializer), [Avro](#avro-serializer) or [MsgPack](#msgpack-serializer) |
-| `validation` | `Boolean` | `false` | Enable action [parameters validation](). |
-| `metrics` | `Boolean` | `false` | Enable [metrics](#metrics) function. |
+| `cacher` | `Cacher` | `null` | Instance of cacher. Built-in cachers: [MemoryCacher](#cachers.html#Memory-cacher) or [RedisCacher](cachers.html#Redis-cacher) |
+| `serializer` | `Serializer` | `JSONSerializer` | Instance of serializer. Built-in serializers: [JSON](serializers.html#JSON-serializer), [Avro](serializers.html#Avro-serializer), [MsgPack](serializers.html#MsgPack-serializer) or [Protocol Buffer](serializers.html#ProtoBuf-serializer) |
+| `validation` | `Boolean` | `false` | Enable action [parameters validation](validation.html). |
+| `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means 100% |
 | `statistics` | `Boolean` | `false` | Enable broker [statistics](). Measure the requests count & latencies |
 | `internalActions` | `Boolean` | `true` | Register internal actions for metrics & statistics functions |
@@ -105,7 +105,7 @@ let promise = broker.call(actionName, params, opts);
 ```
 The `actionName` is a dot-separated string. The first part of it is service name. The seconds part of it is action name. So if you have a `posts` service which contains a `create` action, you need to use `posts.create` string as first parameter.
 
-The `params` is an object that will be passed to the action as part of the [Context](#context).
+The `params` is an object that will be passed to the action as part of the [Context](context.html).
 
 The `opts` is an object. With this, you can set/override some request parameters, e.g.: `timeout`, `retryCount`.
 
@@ -115,7 +115,7 @@ Available options:
 | ------- | ----- | ------- | ------- |
 | `timeout` | `Number` | `requestTimeout` of broker | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. Disable: `0` or `null`|
 | `retryCount` | `Number` | `requestRetry` of broker | Count of retry of request. If the request timed out, broker will try to call again. |
-| `fallbackResponse` | `Any` | `null` | Return with it, if the request is timed out. [More info](#request-timeout-fallback-response) |
+| `fallbackResponse` | `Any` | `null` | Return with it, if the request is timed out. [More info](#Request-timeout-amp-fallback-response) |
 
 
 ### Usage
@@ -159,7 +159,7 @@ broker.emit("user.created", user);
 ```
 
 ### Subscribe to events
-To subscribe for events use the `on` or `once` methods. Or in [Service](#service) use the `events` property.
+To subscribe for events use the `on` or `once` methods. Or in [Service](service.html) use the `events` property.
 In event names you can use wildcards too.
 
 ```js
@@ -193,7 +193,7 @@ return function validatorMiddleware(handler, action) {
 }.bind(this);
 ```
 
-The `handler` is the request handler of action, what is defined in [Service](#service) schema. The `action` is the action object from Service schema. The middleware should return with the `handler` or a new wrapped handler. In this example above, we check whether the action has a `params` props. If yes we return a wrapped handler that calls the validator before calling the original `handler`. 
+The `handler` is the request handler of action, what is defined in [Service](service.html) schema. The `action` is the action object from Service schema. The middleware should return with the `handler` or a new wrapped handler. In this example above, we check whether the action has a `params` props. If yes we return a wrapped handler that calls the validator before calling the original `handler`. 
 If there is no `params` property we return the original `handler` (skip wrapping).
 
 _If you don't call the original `handler` it will break the request. You can use it in cachers. If you find the data in cache, don't call the handler, instead return the cached data._
@@ -306,7 +306,7 @@ Example health info:
 
 
 ### Statistics
-This action returns the request statistics if the `statistics` is enabled in [options](#constructor-options).
+This action returns the request statistics if the `statistics` is enabled in [options](broker.html#Constructor-options).
 ```js
 broker.call("$node.stats").then(res => console.log(res));
 ```

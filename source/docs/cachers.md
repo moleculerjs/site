@@ -48,7 +48,7 @@ Console messages:
 Users count: 2
 Users count from cache: 2
 ```
-[Try it on Runkit](https://runkit.com/icebob/58b1fa48215e1500140b8fa7)
+[Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example)
 
 ## Cache keys
 The cacher creates keys by service name, action name, and hash of params of context.
@@ -166,6 +166,10 @@ let broker = new ServiceBroker({
     })
 });
 ```
+
+{% note info Depedencies %}
+To use this cacher install the `ioredis` module with `npm install ioredis --save` command.
+{% endnote %}
 
 ## Custom cacher
 You can also create your custom cache module. We recommend you to copy the source of [`MemoryCacher`](src/cachers/memory.js) or [`RedisCacher`](src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.

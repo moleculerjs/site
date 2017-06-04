@@ -13,6 +13,7 @@ docs:
     service: service.html
     context: context.html
     logger: logger.html
+    validation: validation.html
     cachers: cachers.html
     transporters: transporters.html
     serializers: serializers.html
@@ -31,4 +32,5 @@ docs:
     contributing: contributing.html
 
 api:
-  index: index.html
+  core: 
+    index: index.html

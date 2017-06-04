@@ -35,6 +35,9 @@ let broker = new ServiceBroker({
     serializer: new AvroSerializer()
 });
 ```
+{% note info Depedencies %}
+To use this serializer install the `avsc` module with `npm install avsc --save` command.
+{% endnote %}
 
 ## MsgPack serializer
 This is an [MsgPack](https://github.com/mcollina/msgpack5) serializer.
@@ -47,6 +50,9 @@ let broker = new ServiceBroker({
     serializer: new MsgPackSerializer()
 });
 ```
+{% note info Depedencies %}
+To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
+{% endnote %}
 
 ## ProtoBuf serializer
 This is a [Protocol Buffer](https://developers.google.com/protocol-buffers/) serializer.
@@ -59,6 +65,9 @@ let broker = new ServiceBroker({
     serializer: new ProtoBufSerializer()
 });
 ```
+{% note info Depedencies %}
+To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
+{% endnote %}
 
 ## Custom serializer
 You can also create your custom serializer module. We recommend you that copy the source of [JSONSerializer](src/serializers/json.js) and implement the `serialize` and `deserialize` methods.

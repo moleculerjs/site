@@ -30,6 +30,7 @@ sidebar:
     service: Service
     context: Context
     logger: Logger
+    validation: Validation
     cachers: Cachers
     transporters: Transporters
     serializers: Serializers
@@ -47,4 +48,5 @@ sidebar:
     faq: FAQ
     contributing: Contributing
   api:
+    core: Core
     index: Index
