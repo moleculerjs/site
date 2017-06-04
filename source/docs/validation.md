@@ -35,3 +35,16 @@ broker.call("say.hello", { name: "Walter" }).then(console.log).catch(err => cons
 
 ```
 [Play it on Runkit](https://runkit.com/icebob/moleculer-validation-example)
+
+**Example schema**
+```js
+{
+    id: { type: "number", positive: true, integer: true },
+    name: { type: "string", min: 3, max: 255 },
+    status: "boolean" // short-hand def
+}
+```
+
+{% note info Documentation %}
+You can find more information in the [documentation of library](https://github.com/icebob/fastest-validator#readme)
+{% endnote %}

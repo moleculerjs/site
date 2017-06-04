@@ -16,7 +16,7 @@ let broker = new ServiceBroker({
 	requestTimeout: 5 * 1000
 });
 ```
-{% note info Depedencies %}
+{% note info Dependencies %}
 To use this serializer install the `nats` module with `npm install nats --save` command.
 {% endnote %}
 
@@ -61,7 +61,7 @@ let broker = new ServiceBroker({
 	requestTimeout: 5 * 1000
 });
 ```
-{% note info Depedencies %}
+{% note info Dependencies %}
 To use this serializer install the `ioredis` module with `npm install ioredis --save` command.
 {% endnote %}
 
@@ -106,7 +106,7 @@ let broker = new ServiceBroker({
 	requestTimeout: 5 * 1000
 });
 ```
-{% note info Depedencies %}
+{% note info Dependencies %}
 To use this serializer install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
@@ -139,4 +139,4 @@ new MqttTransporter({
 ```
 
 ## Custom transporter
-You can also create your custom transporter module. We recommend you that copy the source of [`NatsTransporter`](src/transporters/nats.js) and implement the `connect`, `disconnect`,  `subscribe` and `publish` methods.
+You can also create your custom transporter module. We recommend you that copy the source of [NatsTransporter](https://github.com/ice-services/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`,  `subscribe` and `publish` methods.

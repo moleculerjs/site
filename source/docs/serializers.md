@@ -35,7 +35,7 @@ let broker = new ServiceBroker({
     serializer: new AvroSerializer()
 });
 ```
-{% note info Depedencies %}
+{% note info Dependencies %}
 To use this serializer install the `avsc` module with `npm install avsc --save` command.
 {% endnote %}
 
@@ -50,7 +50,7 @@ let broker = new ServiceBroker({
     serializer: new MsgPackSerializer()
 });
 ```
-{% note info Depedencies %}
+{% note info Dependencies %}
 To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
 {% endnote %}
 
@@ -65,9 +65,9 @@ let broker = new ServiceBroker({
     serializer: new ProtoBufSerializer()
 });
 ```
-{% note info Depedencies %}
+{% note info Dependencies %}
 To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
 {% endnote %}
 
 ## Custom serializer
-You can also create your custom serializer module. We recommend you that copy the source of [JSONSerializer](src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
+You can also create your custom serializer module. We recommend you that copy the source of [JSONSerializer](https://github.com/ice-services/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
