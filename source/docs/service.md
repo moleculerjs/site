@@ -1,11 +1,12 @@
 title: Service
 ---
-The Service is the other main module in the Moleculer. With the help of this you can define actions.
+The Service represents a microservice in the Moleculer. You can define any number of actions and subscribe to events. To create a service you need to create a schema. The schema of service is similar as [the component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
 ## Schema
-You need to create a schema to define a service. The schema has some main parts (`name`, `version`, `settings`, `actions`, `methods`, `events`).
+The schema has some main fixed parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+The schema looks like the following:
 
-### Simple service schema
+### Simple service schema to create two actions
 ```js
 {
 	name: "math",
@@ -41,13 +42,16 @@ The `version` is an optional property. If you are running multiple version of th
     }
 }
 ```
-You need to call the `find` action as
+You need to call this `find` action version `2` as
 ```js
 broker.call("v2.posts.find");
 ```
+{% note info REST call %}
+If you are using our [Moleculer Web](moleculer-web.html) module, you can request it as `GET /v2/posts/find`.
+{% endnote %}
 
 ## Settings
-You can add custom settings to your service under `settings` property in schema. You can reach it in the service via `this.settings`.
+The `settings` property is a store, where you can store every settings/options to your service. You can reach it inside the service via `this.settings`.
 
 ```js
 {
@@ -66,21 +70,46 @@ You can add custom settings to your service under `settings` property in schema.
 }
 ```
 
+## Mixins
+ixins are a flexible way to distribute reusable functionalities for Moleculer services. The constructor of Service will merge these mixins with the schema of Service. Use it to reuse an other Service in your service. Or you can extend an other Service. When a service uses mixins, all properties in the mixin will be "mixed" into the service’s own properties.
+_It can be a schema object or an array of schemas._
+
+**An example to extend the `moleculer-web` service**
+
+```js
+const ApiGwService = require("moleculer-web");
+
+module.exports = {
+    name: "api",
+    mixins: [ApiGwService]
+    settings: {
+        // Change port setting
+        port: 8080
+    },
+    actions: {
+        myAction() {
+            // Add a new action to apiGwService service
+        }
+    }
+}
+```
+The above example creates an `api` service which is inherit all from `ApiGwService` but override the port setting and add a new `myAction` action. 
+
 ## Actions
-The actions are the callable/public methods of the service. They can be called with `broker.call` method.
-The action could be a function (handler) or an object with some properties and with `handler`.
-The actions should be placed under `actions` key in the service schema.
+The actions are the callable/public methods of the service. It becomes callable with `broker.call`.
+The action could be a function (shorthand for handler) or an object with some properties above all with the `handler`.
+The actions should be placed under the `actions` key.
 
 ```js
 {
 	name: "math",
 	actions: {
-        // Simple definition, only the handler function
+        // Shorthand definition, only the handler function
 		add(ctx) {
 			return Number(ctx.params.a) + Number(ctx.params.b);
 		},
 
-        // Complex definition, set other properties. In this case
+        // Normal definition with other properties. In this case
         // the `handler` function is required!
 		mult: {
             cache: false,
@@ -89,22 +118,21 @@ The actions should be placed under `actions` key in the service schema.
 				b: "number"
 			},
 			handler(ctx) {
-                // You can reach action params with `ctx.action.*`
-                if (ctx.action.cache)
+                // The action params becomes accessible as `ctx.action.*`
+                if (!ctx.action.cache)
 				    return Number(ctx.params.a) * Number(ctx.params.b);
 			}
 		}
 	}
 }
 ```
-You can call these actions as
+You can call the above actions as
 ```js
 broker.call("math.add", { a: 5, b: 7 }).then(res => console.log(res));
-
 broker.call("math.mult", { a: 10, b: 31 }).then(res => console.log(res));
 ```
 
-Inside the action you can sub-call other actions in other services with `ctx.call` method. It is an alias to `broker.call`, just set itself as parent context.
+Inside the action you can call other actions in other services with `ctx.call` method. It is an alias to `broker.call`, just set itself as parent context (due to metrics).
 ```js
 {
     name: "posts",
@@ -127,22 +155,24 @@ Inside the action you can sub-call other actions in other services with `ctx.cal
     }
 }
 ```
+> In handlers the `this` is pointed to the instance of Service.
+
 
 ## Events
-You can subscribe to events and can define event handlers in the schema under `events` key.
+You can subscribe to events and can define event handlers under the `events` key.
 
 ```js
 {
-    name: "users",
+    name: "report",
     actions: {
         ...
     },
 
     events: {
-        // Subscribe to "user.create" event
-        // Same as you subscribe with `broker.on("user.create", ...)` in the `created()` method
-        "user.create": function(payload) {
-            this.logger.info("Create user...");
+        // Subscribe to "user.created" event
+        // Same as you subscribe as `broker.on("user.created", ...)` in the `created()` method
+        "user.created": function(payload) {
+            this.logger.info("User created:", payload);
             // Do something
         },
 
@@ -155,10 +185,12 @@ You can subscribe to events and can define event handlers in the schema under `e
 
 }
 ```
+> In handlers the `this` is pointed to the instance of Service.
 
 ## Methods
-You can also create private functions in the Service. They are called as `methods`. These functions are private, can't be called with `broker.call`. But you can call it inside service actions.
+You can also create private functions in the Service. They are called as `methods`. These functions are private, can't be called with `broker.call`. But you can call it inside action handlers, event handlers or lifecycle event handlers.
 
+**Usage**
 ```js
 {
     name: "mailer",
@@ -179,10 +211,12 @@ You can also create private functions in the Service. They are called as `method
     }
 }
 ```
-> The name of method can't be `name`, `version`, `settings`, `schema`, `broker`, `actions`, `logger`, because these words are reserved.
+> The name of the method can't be `name`, `version`, `settings`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
+
+> In methods the `this` is pointed to the instance of Service.
 
 ## Lifecycle events
-There are some lifecycle service events, that will be triggered by ServiceBroker.
+There are some lifecycle service events, that will be triggered by broker.
 
 ```js
 {
@@ -192,7 +226,7 @@ There are some lifecycle service events, that will be triggered by ServiceBroker
     methods: {...},
 
     created() {
-        // Fired when the service instance created.
+        // Fired when the service instance created. (broker.loadService or broker.createService)
     },
 
     started() {
@@ -205,48 +239,25 @@ There are some lifecycle service events, that will be triggered by ServiceBroker
 }
 ```
 
-## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. A mixin schema can contain any service schemas. When a service uses a mixin, all properties in the mixin will be "mixed" into the service’s own properties.
-
-**Example**
-
-```js
-const ApiGwService = require("moleculer-web");
-
-module.exports = {
-    name: "api",
-    mixins: [ApiGwService]
-    settings: {
-        // Overwrite the port setting
-        port: 8080
-    },
-    actions: {
-        myAction() {
-            // Add a new action to apiGwService service
-        }
-    }
-}
-```
-
 ## Properties of `this`
-In service functions the `this` is always binded to the instance of service. It has some properties & methods that you can use in service functions.
+In service functions the `this` is always pointed to the instance of service. It has some properties & methods which you can use in your service functions.
 
 | Name | Type |  Description |
 | ------- | ----- | ------- |
-| `this.name` | `String` | Name of service from schema |
-| `this.version` | `Number` | Version of service from schema |
-| `this.settings` | `Object` | Settings of service from schema |
+| `this.name` | `String` | Name of service (from schema) |
+| `this.version` | `Number` | Version of service (from schema) |
+| `this.settings` | `Object` | Settings of service (from schema) |
 | `this.schema` | `Object` | Schema definition of service |
 | `this.broker` | `ServiceBroker` | Instance of broker |
 | `this.Promise` | `Promise` | Class of Promise (Bluebird) |
-| `this.logger` | `Logger` | Logger module |
+| `this.logger` | `Logger` | Logger instance |
 | `this.actions` | `Object` | Actions of service. *Service can call its own actions directly.* |
 
 ## Create a service
 There are several ways to create/load a service.
 
 ### broker.createService()
-Call the `broker.createService` method with the schema of service as argument. You can use this method when developing or testing.
+Call the `broker.createService` method with the schema of service as argument. It's simple & fast. Use it when you are developing or prototyping.
 
 ```js
 broker.createService({
@@ -254,20 +265,15 @@ broker.createService({
     actions: {
         add(ctx) {
             return Number(ctx.params.a) + Number(ctx.params.b);
-        },
-
-        sub(ctx) {
-            return Number(ctx.params.a) - Number(ctx.params.b);
         }
     }
 });
 ```
 
-### Load service
-You can place your service code to a single file and load this file with broker.
+### Load service from file
+The recommended way (in production) is to place your service code to a single file and load this file with the broker.
 
-**math.service.js**
-```js
+{% codeblock lang:js math.service.js %}
 // Export the schema of service
 module.exports = {
     name: "math",
@@ -280,10 +286,10 @@ module.exports = {
         }
     }
 }
-```
+{% endcodeblock %}
 
-**index.js**
-```js
+Load it:
+{% codeblock lang:js index.js %}
 // Create broker
 let broker = new ServiceBroker();
 
@@ -292,7 +298,7 @@ broker.loadService("./math.service");
 
 // Start broker
 broker.start();
-```
+{% endcodeblock %}
 
 In the service file you can also be create the instance of Service. In this case you need to export a function that returns the instance of [Service](#service).
 ```js
@@ -330,7 +336,7 @@ module.exports = function() {
 ```
 
 ### Load multiple services from a folder
-You can load multiple services from a folder.
+If you have many services (and you will have) we suggest to place them to a `services` folder and load all of them with the `broker.loadServices` method.
 
 **Syntax**
 ```js
@@ -350,13 +356,12 @@ broker.loadServices("./svc", "user*.service.js");
 ```
 
 ## Local variables
-If you would like to create local properties/variables in service, we recommend to declare them in the `created` handler.
+If you would like to use local properties/variables in your service, declare them in the `created` event handler.
 
-**Example for local properties**
+**Example for local variables**
 ```js
 const http = require("http");
 
-// Simple HTTP server service
 module.exports = {
     name: "www",
 
@@ -387,3 +392,6 @@ module.exports = {
     }
 }
 ```
+{% note warn Restriction %}
+It is important to be aware that you can't use such variable names which are reserved in service. E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.  
+{% endnote %}

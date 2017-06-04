@@ -31,6 +31,8 @@ sidebar:
     context: Context
     logger: Logger
     validation: Validation
+    circuit-breaker: Circuit Breaker
+    service-registry: Service Registry
     cachers: Cachers
     transporters: Transporters
     serializers: Serializers
