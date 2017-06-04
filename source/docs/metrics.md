@@ -1,11 +1,11 @@
 title: Metrics
 ---
-Moleculer has a metrics function. You can turn on it in the [broker options](#constructor-options) with `metrics: true` property.
-If enabled, the broker emits metrics events in every `broker.call`. You can catch this events and transfer to your Tracer system (ZipKin, OpenTracing...etc)
+Moleculer has a metrics function. You can enable it in the [broker options](broker.html#Constructor-options) with `metrics: true` option.
+If enabled, the broker emits metrics events in every `broker.call`. You can catch this events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc)
 
 ### Request started event
 The broker emit an `metrics.trace.span.start` event when a new call/request started.
-The payload contains the following values:
+The payload looks like the following:
 ```js
 { 
     // Context ID
@@ -20,7 +20,7 @@ The payload contains the following values:
 	remoteCall: false,
     // Called action
 	action: { 
-        name: 'v2.users.get' 
+        name: 'users.get' 
     }
     // Node ID of caller
     nodeID: "node-1",
@@ -35,7 +35,7 @@ The payload contains the following values:
 
 ### Request finished event
 The broker emit an `metrics.trace.span.finish` when a call/request finished.
-The payload contains the following values:
+The payload looks like the following:
 ```js
 { 
 	// Context ID
@@ -48,7 +48,7 @@ The payload contains the following values:
     startTime: 1493903164726,
     // End time
     endTime: 1493903164731.3684,
-    // Duration
+    // Duration of request
 	duration: 5.368304,
     // Is it a remote call
 	remoteCall: false,
@@ -56,7 +56,7 @@ The payload contains the following values:
 	fromCache: false,
 	// Called action
     action: { 
-		name: 'v2.users.get' 
+		name: 'users.get' 
 	}
     // Node ID of caller
     nodeID: "node-1",

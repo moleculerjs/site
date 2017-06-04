@@ -9,7 +9,7 @@ Please follow the coding style:
 - Always use strict mode & commas.
 - Use double quotes.
 
-## Contribute to core modules
+## Contribution in the core modules
 
 Follow this workflow if you would like to modify the core modules.
 
@@ -43,20 +43,19 @@ Follow this workflow if you would like to modify the core modules.
     $ npm test
     ```
 
-    > If you added new features, please add relevant new test cases!
+    > If you added new features, please add relevant new test cases! We aim to 100% cover.
 
     {% note info %}
     Your pull request will only get merged when tests passed and covered all codes. Don't forget to run tests before submission.
     {% endnote %}
 
-
 6. Commit & push the branch.
 
 7. Create a pull request and describe the change.
 
-8. If you've changed APIs, update the [documentation](https://github.com/ice-services/site).
+8. If you've changed APIs, update the [documentation](https://github.com/ice-services/site) as well.
 
-## Contribute to create a new Moleculer module
+## Contribution to create a new Moleculer module
 
 Follow this workflow if you would like to create a new module for Moleculer
 
@@ -74,26 +73,28 @@ Follow this workflow if you would like to create a new module for Moleculer
 
 3. Edit `src/index.js` and implement the logic.
 
-4. For developing use the `dev` mode (it starts your module with `example/simple/index.js`)
+4. For development use the `dev` mode (it starts your module with `example/simple/index.js`)
 
     ```bash
     $ npm run dev
     ```
 
-    or continuous test mode
+    or the continuous test mode
 
     ```bash
     $ npm run ci
     ```
 
-4. Create tests in `test/unit/index.spec.js` & cover the full source.
+5. Create tests in `test/unit/index.spec.js` & cover the full source.
 
     ```bash
     $ npm test
     ```
 
-5. If it's done and you think it will be useful many developers [tell us!](https://github.com/ice-services/moleculer/issues)
+6. If it's done and you think it will be useful other users, [tell us!](https://github.com/ice-services/moleculer/issues)
 
 ## Reporting Issues
 
 When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/ice-services/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/ice-services/moleculer/issues).
+
+Thank you!
