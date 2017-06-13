@@ -106,7 +106,7 @@ broker.cacher.clean();
 ## Clear cache
 When you create a new model in your service, sometimes you have to clear the old cached model entries. For this purpose there are internal events. When an event like this is emitted, the cacher will clean the cache.
 
-**Example how you can clean the cache inside actions**
+**Example to clean the cache inside actions**
 ```js
 {
     name: "users",

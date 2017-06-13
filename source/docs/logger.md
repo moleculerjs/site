@@ -1,6 +1,6 @@
 title: Logger
 ---
-In Moleculer every main modules have a custom logger instance. It is inherited from the broker logger instance and you can set in [options of broker](broker.html#Constructor-options).
+In Moleculer every main modules have a custom logger instance. It is inherited from the broker logger instance what you can set in [options of broker](broker.html#Constructor-options).
 Every modules add a prefix to the log messages. Using that prefix you can identify the module.
 
 ```js
@@ -14,11 +14,8 @@ broker.createService({
     name: "posts",
     actions: {
         get(ctx) {
-            ctx.logger.info("Log message via Context logger");
+            this.logger.info("Log message via Service logger");
         }
-    },
-    created() {
-        this.logger.info("Log message via Service logger");
     }
 });
 
@@ -28,7 +25,6 @@ Console messages:
 ```
 [BROKER] posts service registered!
 [POSTS-SVC] Log message via Service logger
-[CTX] Log message via Context logger
 [BROKER] Log message via Broker logger
 ```
 > [Try it on Runkit!](https://runkit.com/icebob/58b1f93be302c300142e2aae)

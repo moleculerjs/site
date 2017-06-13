@@ -4,21 +4,20 @@ The Service represents a microservice in the Moleculer. You can define any numbe
 
 ## Schema
 The schema has some main fixed parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
-The schema looks like the following:
 
 ### Simple service schema to create two actions
 ```js
 {
-	name: "math",
-	actions: {
-		add(ctx) {
-			return Number(ctx.params.a) + Number(ctx.params.b);
-		},
+    name: "math",
+    actions: {
+        add(ctx) {
+            return Number(ctx.params.a) + Number(ctx.params.b);
+        },
 
-		sub(ctx) {
-			return Number(ctx.params.a) - Number(ctx.params.b);
-		}
-	}
+        sub(ctx) {
+            return Number(ctx.params.a) - Number(ctx.params.b);
+        }
+    }
 }
 ```
 
@@ -50,6 +49,8 @@ broker.call("v2.posts.find");
 If you are using our [Moleculer Web](moleculer-web.html) module, you can request it as `GET /v2/posts/find`.
 {% endnote %}
 
+> You can disable it with the `useVersionPrefix: false` setting in Service schema.
+
 ## Settings
 The `settings` property is a store, where you can store every settings/options to your service. You can reach it inside the service via `this.settings`.
 
@@ -69,9 +70,10 @@ The `settings` property is a store, where you can store every settings/options t
     }
 }
 ```
+> It is obtainable on remote nodes as well.
 
 ## Mixins
-ixins are a flexible way to distribute reusable functionalities for Moleculer services. The constructor of Service will merge these mixins with the schema of Service. Use it to reuse an other Service in your service. Or you can extend an other Service. When a service uses mixins, all properties in the mixin will be "mixed" into the service’s own properties.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The constructor of Service will merge these mixins with the schema of Service. Use it to reuse an other Service in your service. Or you can extend an other Service. When a service uses mixins, all properties in the mixin will be "mixed" into the service’s own properties.
 _It can be a schema object or an array of schemas._
 
 **An example to extend the `moleculer-web` service**
@@ -102,28 +104,28 @@ The actions should be placed under the `actions` key.
 
 ```js
 {
-	name: "math",
-	actions: {
+    name: "math",
+    actions: {
         // Shorthand definition, only the handler function
-		add(ctx) {
-			return Number(ctx.params.a) + Number(ctx.params.b);
-		},
+        add(ctx) {
+            return Number(ctx.params.a) + Number(ctx.params.b);
+        },
 
         // Normal definition with other properties. In this case
         // the `handler` function is required!
-		mult: {
+        mult: {
             cache: false,
-			params: {
-				a: "number",
-				b: "number"
-			},
-			handler(ctx) {
+            params: {
+                a: "number",
+                b: "number"
+            },
+            handler(ctx) {
                 // The action params becomes accessible as `ctx.action.*`
                 if (!ctx.action.cache)
-				    return Number(ctx.params.a) * Number(ctx.params.b);
-			}
-		}
-	}
+                    return Number(ctx.params.a) * Number(ctx.params.b);
+            }
+        }
+    }
 }
 ```
 You can call the above actions as
@@ -170,7 +172,8 @@ You can subscribe to events and can define event handlers under the `events` key
 
     events: {
         // Subscribe to "user.created" event
-        // Same as you subscribe as `broker.on("user.created", ...)` in the `created()` method
+        // Same as you subscribe as `broker.on("user.created", ...)` 
+        // in the `created()` method
         "user.created": function(payload) {
             this.logger.info("User created:", payload);
             // Do something
@@ -178,8 +181,10 @@ You can subscribe to events and can define event handlers under the `events` key
 
         // Subscribe to all "user.*" event
         "user.*": function(payload, sender, eventName) {
-            // Do something with payload. The `eventName` contains the original event name. E.g. `user.modified`.
-            // The `sender` is the nodeID of sender if the event came from remote node. If the event is local, it'll be `undefined`
+            // Do something with payload. The `eventName` contains 
+            // the original event name. E.g. `user.modified`.
+            // The `sender` is the nodeID of sender if the event 
+            // came from remote node. If the event is local, it'll be `undefined`
         }
     }
 

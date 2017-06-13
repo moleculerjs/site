@@ -50,12 +50,6 @@ Instead of a GitHub repo, you can also use a template on your local file system:
 moleculer init ./path/to-custom-template my-project
 ```
 
-### Create a new service
-With this command you can create a new empty service file.
-```bash
-moleculer create service
-```
-
 ### Start a broker locally
 This command start a new ServiceBroker locally and switch to REPL mode.
 ```bash

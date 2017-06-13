@@ -24,19 +24,22 @@ broker.createService({
     }
 });
 
-broker.call("say.hello").then(console.log).catch(err => console.error(err.message));
+broker.call("say.hello").then(console.log)
+    .catch(err => console.error(err.message));
 // -> throw ValidationError: "The 'name' field is required!"
 
-broker.call("say.hello", { name: 123 }).then(console.log).catch(err => console.error(err.message));
+broker.call("say.hello", { name: 123 }).then(console.log)
+    .catch(err => console.error(err.message));
 // -> throw ValidationError: "The 'name' field must be a string!"
 
-broker.call("say.hello", { name: "Walter" }).then(console.log).catch(err => console.error(err.message));
+broker.call("say.hello", { name: "Walter" }).then(console.log)
+    .catch(err => console.error(err.message));
 // -> "Hello Walter"
 
 ```
 [Play it on Runkit](https://runkit.com/icebob/moleculer-validation-example)
 
-**Example schema**
+**Example validation schema**
 ```js
 {
     id: { type: "number", positive: true, integer: true },
@@ -46,5 +49,5 @@ broker.call("say.hello", { name: "Walter" }).then(console.log).catch(err => cons
 ```
 
 {% note info Documentation %}
-You can find more information in the [documentation of library](https://github.com/icebob/fastest-validator#readme)
+You can find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}

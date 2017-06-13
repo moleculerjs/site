@@ -99,8 +99,8 @@ All available options:
 | `maxCallLevel` | `Number` | `0` | Limit of call level. If reach the limit, broker will throw an `MaxCallLevelError` error. |
 | `heartbeatInterval` | `Number` | `10` | Number of seconds to send heartbeat packet to other nodes |
 | `heartbeatTimeout` | `Number` | `30` | Number of seconds to wait before setting the node to unavailable status |
-| `registry` | `Object` | | Settings of [Service Registry]() |
-| `circuitBreaker` | `Object` | | Settings of [Circuit Breaker]() |
+| `registry` | `Object` | | Settings of [Service Registry](service-registry.html) |
+| `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](circuit-breaker.html) |
 | `cacher` | `Cacher` | `null` | Instance of cacher. [Read more](#cachers.html) |
 | `serializer` | `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](serializers.html) |
 | `validation` | `Boolean` | `true` | Enable [parameters validation](validation.html). |
@@ -239,17 +239,35 @@ return (handler, action) => {
 ## Internal actions
 The broker registers some internal actions to check the health of node or get broker statistics.
 
-### List of local services
-This action lists the local services.
+### List of services
+This action lists all registered services (local & remote).
 ```js
 broker.call("$node.services").then(res => console.log(res));
 ```
+It has some options what you can set in `params`.
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `onlyLocal` | `Boolean` | `false` | If `true`, lists only local services. |
+| `skipInternal` | `Boolean` | `false` | If `true`, skips the internal services (`$node`). |
+| `withActions` | `Boolean` | `false` | If `true`, lists also the actions of services. |
 
 ### List of local actions
 This action lists the local actions.
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
+It has some options what you can set in `params`.
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `onlyLocal` | `Boolean` | `false` | If `true`, lists only local actions. |
+| `skipInternal` | `Boolean` | `false` | If `true`, skips the internal actions (`$node`). |
+| `withEndpoints` | `Boolean` | `false` | If `true`, lists also the endpoints _(nodes)_ of actions. |
 
 ### List of nodes
 This actions lists all connected nodes.
@@ -388,4 +406,4 @@ Example statistics:
 ```
 
 ## REPL mode
-Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. [Read more](repl.html)
+Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. [Read more about it](repl.html)

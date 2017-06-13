@@ -1,6 +1,6 @@
 title: REPL mode
 ---
-Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. You can list registered nodes, actions, broker information and broker settings.
+Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. You can list registered nodes, services, actions, broker information and broker settings.
 
 **Start broker in REPL mode**
 ```js
@@ -26,7 +26,8 @@ broker.repl();
     subscribe <eventName>                  Subscribe to an event
     unsubscribe <eventName>                Unsubscribe from an event
     actions [options]                      List of actions
-    nodes                                  List of nodes
+    services [options]                     List of services
+    nodes [options]                        List of nodes
     info                                   Information from broker
 ```
 
@@ -34,18 +35,50 @@ broker.repl();
 ```
 mol $ nodes
 ```
-![image](https://cloud.githubusercontent.com/assets/306521/26260893/67a579d4-3ccf-11e7-955a-70f252aa260d.png)
+
+**Options**
+```
+    -d, --details
+```
+
+**Output**
+![image](https://user-images.githubusercontent.com/306521/27083082-9fcb9cb8-5047-11e7-9817-1b1a0de42f3e.png)
+
+### List services
+```
+mol $ services
+```
+
+**Options**
+```
+    -l, --local         Only local services
+    -i, --skipinternal  Skip internal services
+```
+
+**Output**
+![image](https://user-images.githubusercontent.com/306521/27083119-bdea2426-5047-11e7-879e-0634c1aba258.png)
 
 ### List actions
 ```
 mol $ actions
 ```
+
+**Options**
+```
+    -l, --local         Only local services
+    -i, --skipinternal  Skip internal services
+    -d, --details       Print endpoints
+```
+
+**Output**
 ![image](https://cloud.githubusercontent.com/assets/306521/26260954/8ef9d44e-3ccf-11e7-995a-ccbe035b2a9a.png)
 
 ### Show common informations
 ```
 mol $ info
 ```
+
+**Output**
 ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
 
 ### Call an action
@@ -78,12 +111,12 @@ mol $ subscribe "user.created"
 mol $ unsubscribe "user.created"
 ```
 
-### Load a service
+### Load a service from file
 ```
 mol $ load "./math.service.js"
 ```
 
-### Load services from folder
+### Load all services from a folder
 ```
 mol $ load "./services"
 ```
