@@ -1,6 +1,14 @@
-title: REPL mode
+title: REPL console
 ---
-Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. You can list registered nodes, services, actions, broker information and broker settings.
+## moleculer repl [![npm](https://img.shields.io/npm/v/moleculer-repl.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-repl)
+The [moleculer-repl](https://github.com/ice-services/moleculer-repl) is a REPL interactive console for Moleculer.
+
+## Install
+```bash
+npm install moleculer-repl --save
+```
+
+## Usage
 
 **Start broker in REPL mode**
 ```js

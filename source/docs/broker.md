@@ -404,6 +404,3 @@ Example statistics:
   }
 }
 ```
-
-## REPL mode
-Broker has an interactive REPL mode to help the development & testing. With REPL you can load services, call actions, emit events, subscribe & unsubscribe events from your console. [Read more about it](repl.html)

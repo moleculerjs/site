@@ -3,10 +3,8 @@ docs:
     overview: index.html
     install: install.html
     usage: usage.html
-    modules: modules.html
     examples: examples.html
-    repl: repl.html
-    cli: cli.html
+    modules: modules.html
 
   core_modules:
     broker: broker.html
@@ -24,6 +22,8 @@ docs:
 
   official_modules:
     moleculer_web: moleculer-web.html
+    moleculer_repl: moleculer-repl.html
+    moleculer_cli: moleculer-cli.html
 
   miscellaneous:
     nodes: nodes.html

@@ -1,11 +1,13 @@
 title: Command Line Tool
 ---
-Moleculer has an official [command-line tool](https://github.com/ice-services/moleculer-cli) to help developing & testing.
+
+## moleculer-cli [![npm](https://img.shields.io/npm/v/moleculer-cli.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-cli)
+This is a [command-line tool](https://github.com/ice-services/moleculer-cli) for Moleculer to help developing & testing.
 
 ## Install
 
 ``` bash
-npm install -g moleculer-cli
+$ npm install -g moleculer-cli
 ```
 
 ## Commands
@@ -14,9 +16,9 @@ npm install -g moleculer-cli
 With this command you can scaffold a new Moleculer project.
 
 ``` bash
-moleculer init module my-module
+$ moleculer init module my-module
 ```
-The above command download the template from [ice-services/moleculer-template-module](https://github.com/ice-services/moleculer-template-module), prompts some information and generate a new module to the `./my-module` folder.
+The above command downloads the template from [ice-services/moleculer-template-module](https://github.com/ice-services/moleculer-template-module), prompts some information and generates a new module to the `./my-module` folder.
 
 #### Official templates
 
@@ -37,7 +39,7 @@ The above command download the template from [ice-services/moleculer-template-mo
 #### Custom templates
 
 ``` bash
-moleculer init username/repo my-project
+$ moleculer init username/repo my-project
 ```
 Where username/repo is the GitHub repo shorthand for your fork.
 
@@ -47,24 +49,24 @@ The shorthand repo notation is passed to [download-git-repo](https://github.com/
 
 Instead of a GitHub repo, you can also use a template on your local file system:
 ``` bash
-moleculer init ./path/to-custom-template my-project
+$ moleculer init ./path/to-custom-template my-project
 ```
 
 ### Start a broker locally
 This command start a new ServiceBroker locally and switch to REPL mode.
 ```bash
-moleculer start
+$ moleculer start
 ```
 
 ### Start a broker and connect to a transporter
 This command start a new ServiceBroker, connect to a transporter server and switch to REPL mode.
 ```bash
 # Connect to NATS
-moleculer connect nats://localhost:4222
+$ moleculer connect nats://localhost:4222
 
 # Connect to Redis
-moleculer connect redis://localhost
+$ moleculer connect redis://localhost
 
 # Connect to MQTT
-moleculer connect mqtt://localhost
+$ moleculer connect mqtt://localhost
 ```

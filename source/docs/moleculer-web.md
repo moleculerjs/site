@@ -1,6 +1,6 @@
-title: Moleculer-web
+title: API Gateway
 ---
-## Official API Gateway [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
+## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
 The [moleculer-web](https://github.com/ice-services/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services.
 
 ## Features

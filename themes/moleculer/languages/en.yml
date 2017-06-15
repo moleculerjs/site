@@ -22,8 +22,7 @@ sidebar:
     usage: Usage
     modules: Modules
     examples: Examples
-    repl: REPL mode
-    cli: CLI Tool
+    
 
     core_modules: Core Modules
     broker: Service Broker
@@ -40,7 +39,9 @@ sidebar:
     statistics: Statistics
 
     official_modules: Official Modules
-    moleculer_web: Moleculer-web
+    moleculer_web: API Gateway
+    moleculer_repl: REPL console
+    moleculer_cli: CLI Tool
 
     miscellaneous: Miscellaneous
     nodes: Nodes
