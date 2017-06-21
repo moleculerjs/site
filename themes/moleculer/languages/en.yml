@@ -37,6 +37,7 @@ sidebar:
     serializers: Serializers
     metrics: Metrics
     statistics: Statistics
+    runner: Project runner
 
     official_modules: Official Modules
     moleculer_web: API Gateway

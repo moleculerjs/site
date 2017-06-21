@@ -19,6 +19,7 @@ docs:
     serializers: serializers.html
     metrics: metrics.html
     statistics: statistics.html
+    runner: runner.html
 
   official_modules:
     moleculer_web: moleculer-web.html
