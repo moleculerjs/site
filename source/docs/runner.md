@@ -1,4 +1,4 @@
-title: Project runner
+title: Moleculer Runner
 ---
 _Added in: v0.8.0_
 
