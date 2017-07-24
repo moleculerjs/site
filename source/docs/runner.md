@@ -6,7 +6,7 @@ There is a project runner helper script in the Moleculer project. You can use it
 As an other solution you can put it to the environment variables instead of putting options to file.
 
 {% note info Production-ready %}
-In production we recommend put options to the environment variables! Use `moleculer.config.js` only in development.
+In production we recommend to put options to the environment variables! Use the `moleculer.config.js` only in development.
 {% endnote %}
 
 ## Syntax
@@ -45,7 +45,7 @@ The runner does the following steps to load & merge configurations:
 4. The runner walks through the options and try to override them from environment variables. So if you set `logLevel: "warn"` in the config file, but define the `LOGLEVEL=debug` environment variable, the runner will override it and the result will be `logLevel: "debug"`.
 
 ### Configuration file
-The structure of the configuration file is same as the broker options. Every property has the same name.
+The structure of the configuration file is same as the broker options. Every property has the same name. Use shorthand formats in `transporter`, `cacher` and `serializer` options.
 
 **Example config file**
 ```js
@@ -67,17 +67,19 @@ module.exports = {
 ```
 
 ### Environment variables
-The runner when searches environment variables transforms the property name to uppercase. If it is a nested property, join the nested names with `_`
+The runner transforms the property names to uppercase. If it is a nested property, it joins names with `_`
 
 **Example environment variables**
-```
+```bash
 NODEID=node-test
 LOGGER=true
 LOGLEVEL=debug
 
+# Shorthand transporter
 TRANSPORTER=nats://localhost:4222
 REQUESTTIMEOUT=5000
 
+# Nested property
 CIRCUITBREAKER_ENABLED=true
 
 METRICS=true
@@ -85,8 +87,7 @@ STATISTICS=true
 ```
 
 ## Services loading logic
-If you define service files or folders in CLI arguments, the runner will try to load them. If you define folder(s), the runner will load all services `*.service.js` from this folder(s).
-Or else it find `SERVICES` and `SERVICEDIR` environment variables.
+If you define service files or folders in CLI arguments, the runner will try to load them. If you define folder(s), the runner will load all services `*.service.js` from this folder(s). You can define services & service folder with `SERVICES` and `SERVICEDIR` environment variables.
 
  1. If it find `SERVICEDIR` env, but isn't find `SERVICES` env, it'll load all services from the `SERVICEDIR` directory.
  2. If it find `SERVICEDIR` & `SERVICES` env, it'll load the specified services from the `SERVICEDIR` directory.
