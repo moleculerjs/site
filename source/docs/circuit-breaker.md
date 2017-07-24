@@ -4,7 +4,7 @@ _Added in: v0.7.6_
 
 The Moleculer has a built-in circuit-breaker solution.
 {% note info What is the circuit breaker? %}
-Read more from circuit breaker on [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html).
+Read more about circuit breaker on [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html).
 {% endnote %}
 
 If you enable it, every service call will be protected with the built-in circuit breaker.

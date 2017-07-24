@@ -37,6 +37,11 @@ let broker = new ServiceBroker({
     ...
     serializer: new AvroSerializer()
 });
+
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    serializer: "Avro"
+});
 ```
 {% note info Dependencies %}
 To use this serializer install the `avsc` module with `npm install avsc --save` command.
@@ -52,6 +57,11 @@ let broker = new ServiceBroker({
     ...
     serializer: new MsgPackSerializer()
 });
+
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    serializer: "MsgPack"
+});
 ```
 {% note info Dependencies %}
 To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
@@ -66,6 +76,11 @@ let ProtoBufSerializer = require("moleculer").Serializers.ProtoBuf;
 let broker = new ServiceBroker({
     ...
     serializer: new ProtoBufSerializer()
+});
+
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    serializer: "ProtoBuf"
 });
 ```
 {% note info Dependencies %}

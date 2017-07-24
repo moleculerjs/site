@@ -2,7 +2,12 @@ title: Project runner
 ---
 _Added in: v0.8.0_
 
-There is a project runner helper script in the Moleculer project. You can use it if you want to create small repos for services. In this case you needn't to create a ServiceBroker with options. Just put your options to the environment variables or create a `moleculer.config.js` or `moleculer.config.json` file in the root of repo fill it with your options and call the `moleculer-runner` in the NPM scripts.
+There is a project runner helper script in the Moleculer project. You can use it if you want to create small repos for services. In this case you needn't to create a ServiceBroker with options. Just create a `moleculer.config.js` or `moleculer.config.json` file in the root of repo fill it with your options and call the `moleculer-runner` within the NPM scripts.
+As an other solution you can put it to the environment variables instead of putting options to file.
+
+{% note info Production-ready %}
+In production we recommend put options to the environment variables! Use `moleculer.config.js` only in development.
+{% endnote %}
 
 ## Syntax
 ```

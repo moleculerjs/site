@@ -1,7 +1,7 @@
 title: Metrics
 ---
-Moleculer has a metrics function. You can enable it in the [broker options](broker.html#Constructor-options) with `metrics: true` option.
-If enabled, the broker emits metrics events at every `broker.call`. You can catch this events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc)
+Moleculer has a metrics feature. You can enable it in the [broker options](broker.html#Constructor-options) with `metrics: true` option.
+If enabled, the broker emits metrics events at every `broker.call`. You can catch this events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc).
 
 ### Request started event
 The broker emits an `metrics.trace.span.start` event when a new call/request is started.

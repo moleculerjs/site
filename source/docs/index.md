@@ -20,10 +20,11 @@ Moleculer is a fast and powerful microservices framework for [NodeJS](https://no
 - load balanced requests (round-robin, random)
 - every nodes are equal, no master/leader node
 - auto discovery services
-- parameter validation
+- parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
 - distributed timeout handling with fallback response
 - health monitoring, metrics & statistics
 - supports versioned services
+- official [API gateway module](https://github.com/ice-services/moleculer-web)
 
 {% note warn Requirements %}
 Moleculer is written in ES2015. The minimum version of NodeJS is **v6.x.x**.

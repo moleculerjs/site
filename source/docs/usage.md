@@ -52,7 +52,7 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer based
     ```bash
     $ npm run dev
     ```
-5. Open the [http://localhost:3000/math.add?a=5&b=3](http://localhost:3000/math.add?a=5&b=3) link in your browser. It will call the `add` action of `math` service with two params via [API gateway](https://github.com/ice-services/moleculer-web) and returns with the result.
+5. Open the [http://localhost:3000/greeter/hello](http://localhost:3000/greeter/hello) link in your browser. It will call the `hello` action of `greeter` service via [API gateway](https://github.com/ice-services/moleculer-web) and will return with the result.
 
 {% note info Congratulations! %}
 You created your first Moleculer based microservices project! The next step is to check our [examples](examples.html) or [demo projects](https://github.com/ice-services/moleculer-examples).

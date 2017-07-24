@@ -146,6 +146,11 @@ let broker = new ServiceBroker({
         ttl: 30 // Set Time-to-live to 30sec. Disabled: 0 or null
     })
 });
+
+// Shorthand
+let broker = new ServiceBroker({
+    cacher: "memory"
+});
 ```
 
 ### Redis cacher
@@ -168,6 +173,29 @@ let broker = new ServiceBroker({
             db: 0
         }
     })
+});
+
+// Shorthand
+let broker = new ServiceBroker({
+    cacher: "Redis"
+});
+
+// Shorthand with connection string
+let broker = new ServiceBroker({
+    cacher: "redis://redis-server:6379"
+});
+
+// Shorthand with options
+let broker = new ServiceBroker({
+    cacher: {
+        type: "Redis",
+        options: {
+            prefix: "MOL",
+            redis: {
+                db: 3
+            }
+        }
+    }
 });
 ```
 

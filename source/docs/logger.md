@@ -1,7 +1,7 @@
 title: Logger
 ---
-In Moleculer every main modules have a custom logger instance. It is inherited from the broker logger instance what you can set in [options of broker](broker.html#Constructor-options).
-Every modules add a prefix to the log messages. Using that prefix you can identify the module.
+In Moleculer project every main modules have a custom logger instance. It is inherited from the broker logger instance what you can set in [options of broker](broker.html#Constructor-options).
+Every modules add a prefix to the log messages. You can identify the modules by this prefix.
 
 ```js
 let { ServiceBroker } = require("moleculer");
@@ -37,7 +37,7 @@ You can change the log level with `logLevel` option in broker options.
 ```js
 let broker = new ServiceBroker({
     logger: console,
-    logLevel: "warn" // only logs the 'warn' & 'error' entries
+    logLevel: "warn" // only logs the 'warn' & 'error' entries to the console
 });
 ```
 
@@ -48,7 +48,6 @@ let broker = new ServiceBroker({
     logLevel: {
         "*": "warn",            // global settings
         "BROKER": "info",       // Broker logger
-        "CTX": "debug",         // Context logger
         "CACHER": "warn",       // Cacher logger
         "TRANSIT": "trace",     // Transit logger
         "TX": "info",           // Transporter logger

@@ -1,6 +1,6 @@
 title: Transporters
 ---
-Transporter is an important module if you are running services on more nodes. Transporter communicates with other nodes. Send events, call requests...etc.
+Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, call requests, responses ...etc. If a service is running on multiple instances on different nodes, the requests will be load-balanced between nodes.
 
 ## Built-in transporters
 
@@ -18,6 +18,7 @@ let broker = new ServiceBroker({
     requestTimeout: 5 * 1000
 });
 ```
+
 {% note info Dependencies %}
 To use this transporter install the `nats` module with `npm install nats --save` command.
 {% endnote %}
@@ -47,6 +48,32 @@ new NatsTransporter({
         user: "admin",
         pass: "1234"
     }
+});
+```
+
+#### Shorthands
+You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+```js
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    transporter: "NATS"
+});
+
+// Shorthand with connection string
+let broker = new ServiceBroker({
+    transporter: "nats://localhost:4222"
+});
+
+// Shorthand with options
+let broker = new ServiceBroker({
+    transporter: {
+        type: "NATS",
+        options: {
+            prefix: "MY-PREFIX",
+            nats: {
+                url: "nats://localhost:4222"
+            }
+        }
 });
 ```
 
@@ -97,6 +124,33 @@ new RedisTransporter({
 });
 ```
 
+#### Shorthands
+You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+```js
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    transporter: "Redis"
+});
+
+// Shorthand with connection string
+let broker = new ServiceBroker({
+    transporter: "redis://localhost:6379"
+});
+
+// Shorthand with options
+let broker = new ServiceBroker({
+    transporter: {
+        type: "Redis",
+        options: {
+            prefix: "MY-PREFIX",
+            redis: {
+                host: "redis-server",
+                db: 0
+            }
+        }
+});
+```
+
 ### MQTT Transporter
 Built-in transporter for [MQTT](http://mqtt.org/) protocol *(e.g.: [Mosquitto](https://mosquitto.org/))*.
 
@@ -140,6 +194,33 @@ new MqttTransporter({
         username: "admin",
         password: "1234"
     }
+});
+```
+
+#### Shorthands
+You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+```js
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    transporter: "MQTT"
+});
+
+// Shorthand with connection string
+let broker = new ServiceBroker({
+    transporter: "mqtt://mqtt.server:1883"
+});
+
+// Shorthand with options
+let broker = new ServiceBroker({
+    transporter: {
+        type: "MQTT",
+        options: {
+            prefix: "MY-PREFIX",
+            mqtt: {
+                host: "mqtt-server",
+                port: 1883,
+            }
+        }
 });
 ```
 

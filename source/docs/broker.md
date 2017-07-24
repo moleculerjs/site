@@ -111,6 +111,10 @@ All available options:
 | `ServiceFactory` | `Class` | `null` | Custom Service class. If not `null`, broker will use it when creating services |
 | `ContextFactory` | `Class` | `null` | Custom Context class. If not `null`, broker will use it when creating contexts |
 
+{% note info Moleculer runner %}
+Since v0.8.0 you don't need to create ServiceBroker in your project. You can use our new [Moleculer Runner](runner.html) to execute a broker and load services. [Read more about Moleculer Runner](runner.html).
+{% endnote %}
+
 ## Call services
 You can call a service by calling the `broker.call` method. Broker will search the service (and the node) that has the given action and call it. The function will return a `Promise`.
 
@@ -154,8 +158,20 @@ broker.call("posts.update", { id: 2, title: "Modified post title" })
 ### Request timeout & fallback response
 If you call action with `timeout` and the request is timed out, broker will throw a `RequestTimeoutError` error.
 But if you set `fallbackResponse` in calling options, broker won't throw error, instead will return with this given value. It can be an `Object`, `Array`...etc. 
-This can be also a `Function`, which returns a `Promise`. In this case the broker will pass the current `Context` to this function as an argument.
 
+> The `fallbackResponse` can be also a `Function`, which returns a `Promise`. In this case the broker will pass the current `Context` & `Error` to this function as arguments.
+
+```js
+broker.call("user.recommendation", { limit: 5 }, { 
+    timeout: 500,
+    fallbackResponse(ctx, err) {
+        // Return a common response from cache
+        return broker.cacher.get("user.commonRecommendation");
+    }
+}).then(res => console.log("Result: ", res));
+```
+
+### Distributed timeouts
 Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/).In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected any way.
 
 ## Emit events
@@ -174,7 +190,7 @@ broker.emit("user.created", user);
 ```
 
 ### Subscribe to events
-To subscribe for events use the `on` or `once` methods. Or in [Service](service.html) you can use the `events` property.
+To subscribe to events use the `on` or `once` methods. Or inside [Services](service.html) you can use the [`events` property](service.html#events).
 In event names you can use wildcards too.
 
 ```js
@@ -188,7 +204,7 @@ broker.on("user.*", user => console.log("User event:", user));
 broker.on("**", (payload, sender) => console.log(`Event from ${sender || "local"}:`, payload));
 ```
 
-To unsubscribe call the `off` method of broker.
+> To unsubscribe call the `off` method of broker.
 
 ## Middlewares
 Broker supports middlewares. You can add your custom middleware, and it'll be called before every local request. The middleware is a `Function` that returns a wrapped action handler. 
