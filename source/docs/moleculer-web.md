@@ -50,12 +50,12 @@ broker.start();
 - List all actions: `http://localhost:3000/~node/actions`
 
 ## Whitelist
-If you don't want to public all actions, you can filter them with a whitelist.
-You can use [match strings](https://github.com/micromatch/nanomatch) or regexp.
+If you don't want to public all actions, you can filter them with whitelist option.
+You can use [match strings](https://github.com/micromatch/nanomatch) or regexp in list.
 
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         routes: [{
@@ -75,11 +75,13 @@ broker.createService({
 ```
 
 ## Aliases
-You can use alias names instead of action names. You can specify the method. If not it will handle every request methods. It is possible to use named parameters in aliases. Named paramters are defined by prefixing a colon to the parameter name (`:name`).
+You can use alias names instead of action names. You can also specify the method. Otherwise it will handle every method types. 
+
+It is possible to use named parameters in aliases. Named parameters are defined by prefixing a colon to the parameter name (`:name`).
 
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         routes: [{
@@ -90,7 +92,8 @@ broker.createService({
                 // Restrict the request method
                 "POST users": "users.create",
 
-                // The `name` comes from named param
+                // The `name` comes from named param. 
+                // You can access it with `ctx.params.name` in action
                 "GET greeter/:name": "test.greeter",
             }
         }]
@@ -103,10 +106,10 @@ The named parameter is handled with [path-to-regexp](https://github.com/pillarjs
 {% endnote %}
 
 
-With this you can create RESTful APIs as well.
+You can also create RESTful APIs.
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         routes: [{
@@ -122,10 +125,10 @@ broker.createService({
 });
 ```
 
-For REST routes you can use this simple shorthand alias:
+For REST routes you can also use this simple shorthand alias:
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         routes: [{
@@ -137,15 +140,15 @@ broker.createService({
 });
 ```
 {% note warn %}
-To use this shorthand alias you need to create a service which has `find`, `get`, `create`, `update` and `remove` actions.
+To use this shorthand alias you need to create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
 ## Serve static files
-Serve assets files with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
+It can serve assets files with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         assets: {
@@ -159,12 +162,33 @@ broker.createService({
 });
 ```
 
-## Multiple routes 
-You can create multiple routes with different prefix, whitelist, alias & authorization
+## Calling options
+The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retryCount` or `fallbackResponse` options for routes. [Read more about calling options](broker.html#Call-services)
 
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
+
+    settings: {
+        routes: [{
+
+            callOptions: {
+                timeout: 500,
+                retryCount: 0,
+                fallbackResponse(ctx, err) { ... }
+            }
+
+        }]		
+    }
+});
+```
+
+## Multiple routes 
+You can create multiple routes with different prefix, whitelist, alias, calling options & authorization.
+
+```js
+broker.createService({
+    mixins: [ApiService],
 
     settings: {
         routes: [
@@ -192,20 +216,16 @@ broker.createService({
 ```
 
 ## Authorization
-You can implement your authorization method to Moleculer Web. For this you have to do 2 things.
+You can implement authorization. For this you have to do 2 things.
 1. Set `authorization: true` in your routes
-2. Define the `authorize` method.
-
-{% note info %}
-You can find a more detailed role-based JWT authorization example in [full example](/examples/full)
-{% endnote %}
+2. Define the `authorize` method in service.
 
 **Example authorization**
 ```js
 const E = require("moleculer-web").Errors;
 
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         routes: [{
@@ -243,12 +263,16 @@ broker.createService({
 }
 ```
 
+{% note info %}
+You can find a more detailed role-based JWT authorization example in [full example](https://github.com/ice-services/moleculer-web/blob/master/examples/full/index.js#L239).
+{% endnote %}
+
 ## Route hooks
-You can set before & after call hooks in the route.
+The `route` has before & after call hooks. You can use it to set `ctx.meta`, access to `req.headers` or modify the response `data`.
 
 ```js
 broker.createService({
-    mixins: ApiService,
+    mixins: [ApiService],
 
     settings: {
         routes: [
@@ -373,6 +397,12 @@ settings: {
             bodyParsers: {
                 json: false,
                 urlencoded: { extended: true }
+            },
+
+            // Calling options
+            callOptions: {
+                timeout: 3000,
+                fallbackResponse: "Static fallback response"
             },
 
             // Call before `broker.call`

@@ -4,9 +4,14 @@ docs:
     install: install.html
     usage: usage.html
     examples: examples.html
-    modules: modules.html
 
-  core_modules:
+  modules:
+    moleculer_web: moleculer-web.html
+    moleculer_repl: moleculer-repl.html
+    moleculer_cli: moleculer-cli.html
+    other_modules: modules.html
+
+  core:
     broker: broker.html
     service: service.html
     context: context.html
@@ -21,11 +26,6 @@ docs:
     statistics: statistics.html
     runner: runner.html
 
-  official_modules:
-    moleculer_web: moleculer-web.html
-    moleculer_repl: moleculer-repl.html
-    moleculer_cli: moleculer-cli.html
-
   miscellaneous:
     nodes: nodes.html
     docker: docker.html
@@ -34,6 +34,8 @@ docs:
     faq: faq.html
     contributing: contributing.html
 
-api:
-  core: 
-    index: index.html
+"api-0.8":
+  api:
+    api_servicebroker: broker.html
+    api_service: service.html
+    api_context: context.html

@@ -20,11 +20,9 @@ sidebar:
     overview: Overview
     install: Install
     usage: Usage
-    modules: Modules
-    examples: Examples
-    
+    examples: Examples    
 
-    core_modules: Core Modules
+    core: Core
     broker: Service Broker
     service: Service
     context: Context
@@ -39,10 +37,11 @@ sidebar:
     statistics: Statistics
     runner: Moleculer Runner
 
-    official_modules: Official Modules
+    modules: Modules
     moleculer_web: API Gateway
     moleculer_repl: REPL console
     moleculer_cli: CLI Tool
+    other_modules: Other modules
 
     miscellaneous: Miscellaneous
     nodes: Nodes
@@ -51,6 +50,8 @@ sidebar:
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing
-  api:
-    core: Core
-    index: Index
+  api-0.8:
+    api: API
+    api_servicebroker: ServiceBroker API
+    api_service: Service API
+    api_context: Context API
