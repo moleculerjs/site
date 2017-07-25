@@ -24,20 +24,3 @@ table
 					td -
 
 				td.description= tag.description
-//ul
-	each param in params
-		- var tag = getTag(param, tags)
-		if tag
-			li
-				.name
-					code= tag.name
-				if tag.type
-					span.type
-						| : 
-						code= tag.type.name
-				if tag.default
-					span.default
-						| = 
-						code= tag.default
-
-				span.description= tag.description

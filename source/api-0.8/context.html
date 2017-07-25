@@ -1,5 +1,4 @@
 
-<div class="apiVersion"> <a href="/api-0.8/">API 0.8</a></div>
 <div class="api-module">
   <h1 class="module-name" id="Context">Context</h1><code class="signature">new Context(broker, action)</code>
   <p class="description">Context class for action calls</p>
@@ -58,24 +57,6 @@
         <td class="description">Level of context</td>
       </tr>
     </table>
-    <!--ul
-    each param in params
-    	- var tag = getTag(param, tags)
-    	if tag
-    		li
-    			.name
-    				code= tag.name
-    			if tag.type
-    				span.type
-    					| : 
-    					code= tag.type.name
-    			if tag.default
-    				span.default
-    					| = 
-    					code= tag.default
-    
-    			span.description= tag.description
-    -->
   </div>
   <div class="api-members">
     <h2 id="Context-instances">Instance Members</h2>
@@ -108,24 +89,6 @@
               <td class="description">Action definition</td>
             </tr>
           </table>
-          <!--ul
-          each param in params
-          	- var tag = getTag(param, tags)
-          	if tag
-          		li
-          			.name
-          				code= tag.name
-          			if tag.type
-          				span.type
-          					| : 
-          					code= tag.type.name
-          			if tag.default
-          				span.default
-          					| = 
-          					code= tag.default
-          
-          			span.description= tag.description
-          -->
         </div>
         <div class="api-examples">
           <h4 id="member-constructor-examples">Examples</h4>
@@ -165,24 +128,6 @@ let ctx2 = new Context(broker, action);
               <td class="description"></td>
             </tr>
           </table>
-          <!--ul
-          each param in params
-          	- var tag = getTag(param, tags)
-          	if tag
-          		li
-          			.name
-          				code= tag.name
-          			if tag.type
-          				span.type
-          					| : 
-          					code= tag.type.name
-          			if tag.default
-          				span.default
-          					| = 
-          					code= tag.default
-          
-          			span.description= tag.description
-          -->
         </div>
       </li>
       <li class="api-member">
@@ -219,24 +164,6 @@ let ctx2 = new Context(broker, action);
               <td class="description"></td>
             </tr>
           </table>
-          <!--ul
-          each param in params
-          	- var tag = getTag(param, tags)
-          	if tag
-          		li
-          			.name
-          				code= tag.name
-          			if tag.type
-          				span.type
-          					| : 
-          					code= tag.type.name
-          			if tag.default
-          				span.default
-          					| = 
-          					code= tag.default
-          
-          			span.description= tag.description
-          -->
         </div>
         <div class="api-examples">
           <h4 id="member-call-examples">Examples</h4><strong>Call an other service with params &amp; options</strong>
@@ -273,24 +200,6 @@ ctx.call("posts.get", { id: 12 }, { timeout: 1000 });
               <td class="description"></td>
             </tr>
           </table>
-          <!--ul
-          each param in params
-          	- var tag = getTag(param, tags)
-          	if tag
-          		li
-          			.name
-          				code= tag.name
-          			if tag.type
-          				span.type
-          					| : 
-          					code= tag.type.name
-          			if tag.default
-          				span.default
-          					| = 
-          					code= tag.default
-          
-          			span.description= tag.description
-          -->
         </div>
         <div class="api-examples">
           <h4 id="member-emit-examples">Examples</h4>

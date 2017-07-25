@@ -1,8 +1,4 @@
 each doc in docs
-
-	.apiVersion 
-		a(href='/api-' + apiVersion + '/') API #{apiVersion}
-
 	.api-module
 		h1.module-name(id=doc.name)= doc.name
 		code.signature= signature(doc)	

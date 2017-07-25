@@ -51,7 +51,7 @@ sidebar:
     faq: FAQ
     contributing: Contributing
   api-0.8:
-    api: API
-    api_servicebroker: ServiceBroker API
-    api_service: Service API
-    api_context: Context API
+    api: API v0.8.x
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
