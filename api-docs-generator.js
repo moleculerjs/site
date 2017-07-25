@@ -72,7 +72,7 @@ mkdir(targetFolder);
 
 Promise.each(sourceFiles, sourceFile => {
 
-	let f = path.join(__dirname, "..", "node_modules", "moleculer", "src", sourceFile.path);
+	let f = path.join(__dirname, ".", "node_modules", "moleculer", "src", sourceFile.path);
 	return documentation.build([f], {
 		//access: ["public"]
 		shallow: true,
