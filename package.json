@@ -7,7 +7,6 @@
   },
   "scripts": {
     "api": "node scripts/api-docs-generator.js",
-    "__prebuild": "npm run api",
     "build": "hexo generate",
     "dev": "hexo server",
     "deploy": "hexo deploy"
