@@ -1,0 +1,304 @@
+
+<div class="apiVersion"> <a href="/api-0.8/">API 0.8</a></div>
+<div class="api-module">
+  <h1 class="module-name" id="Context">Context</h1><code class="signature">new Context(broker, action)</code>
+  <p class="description">Context class for action calls</p>
+  <ul class="tags">
+  </ul>
+  <div class="api-properties">
+    <h3 id="Context-properties">Properties</h3>
+    <table>
+      <thead>
+        <th>Property</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </thead>
+      <tbody></tbody>
+      <tr>
+        <td class="name"><code>id</code></td>
+        <td class="type"><code>String</code></td>
+        <td>-</td>
+        <td class="description">Context ID</td>
+      </tr>
+      <tr>
+        <td class="name"><code>broker</code></td>
+        <td class="type"><code>ServiceBroker</code></td>
+        <td>-</td>
+        <td class="description">Broker instance</td>
+      </tr>
+      <tr>
+        <td class="name"><code>action</code></td>
+        <td class="type"><code>Action</code></td>
+        <td>-</td>
+        <td class="description">Action definition</td>
+      </tr>
+      <tr>
+        <td class="name"><code>nodeID</code></td>
+        <td></td>
+        <td class="default"><code>null</code></td>
+        <td class="description">Node ID</td>
+      </tr>
+      <tr>
+        <td class="name"><code>parentID</code></td>
+        <td class="type"><code>String</code></td>
+        <td>-</td>
+        <td class="description">Parent Context ID</td>
+      </tr>
+      <tr>
+        <td class="name"><code>metrics</code></td>
+        <td class="type"><code>Boolean</code></td>
+        <td>-</td>
+        <td class="description">Need send metrics events</td>
+      </tr>
+      <tr>
+        <td class="name"><code>level</code></td>
+        <td></td>
+        <td class="default"><code>1</code></td>
+        <td class="description">Level of context</td>
+      </tr>
+    </table>
+    <!--ul
+    each param in params
+    	- var tag = getTag(param, tags)
+    	if tag
+    		li
+    			.name
+    				code= tag.name
+    			if tag.type
+    				span.type
+    					| : 
+    					code= tag.type.name
+    			if tag.default
+    				span.default
+    					| = 
+    					code= tag.default
+    
+    			span.description= tag.description
+    -->
+  </div>
+  <div class="api-members">
+    <h2 id="Context-instances">Instance Members</h2>
+    <ul>
+      <li class="api-member">
+        <h3 class="api-member-name" id="member-constructor">constructor</h3><code class="signature">constructor(broker: ServiceBroker, action: Action)</code>
+        <p class="description">Creates an instance of Context.</p>
+        <ul class="tags">
+        </ul>
+        <div class="api-parameters">
+          <h4 id="member-constructor-parameters">Parameters</h4>
+          <table>
+            <thead>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </thead>
+            <tbody></tbody>
+            <tr>
+              <td class="name"><code>broker</code></td>
+              <td class="type"><code>ServiceBroker</code></td>
+              <td>-</td>
+              <td class="description">Broker instance</td>
+            </tr>
+            <tr>
+              <td class="name"><code>action</code></td>
+              <td class="type"><code>Action</code></td>
+              <td>-</td>
+              <td class="description">Action definition</td>
+            </tr>
+          </table>
+          <!--ul
+          each param in params
+          	- var tag = getTag(param, tags)
+          	if tag
+          		li
+          			.name
+          				code= tag.name
+          			if tag.type
+          				span.type
+          					| : 
+          					code= tag.type.name
+          			if tag.default
+          				span.default
+          					| = 
+          					code= tag.default
+          
+          			span.description= tag.description
+          -->
+        </div>
+        <div class="api-examples">
+          <h4 id="member-constructor-examples">Examples</h4>
+          <div>{% codeblock lang:js %}
+let ctx = new Context(broker, action);
+{% endcodeblock %}</div>
+          <div>{% codeblock lang:js %}
+let ctx2 = new Context(broker, action);
+{% endcodeblock %}</div>
+        </div>
+      </li>
+      <li class="api-member">
+        <h3 class="api-member-name" id="member-setParams">setParams</h3><code class="signature">setParams(newParams: Object, cloning: Boolean)</code>
+        <p class="description">Set params of context</p>
+        <ul class="tags">
+        </ul>
+        <div class="api-parameters">
+          <h4 id="member-setParams-parameters">Parameters</h4>
+          <table>
+            <thead>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </thead>
+            <tbody></tbody>
+            <tr>
+              <td class="name"><code>newParams</code></td>
+              <td class="type"><code>Object</code></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+            <tr>
+              <td class="name"><code>cloning</code></td>
+              <td class="type"><code>Boolean</code></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+          </table>
+          <!--ul
+          each param in params
+          	- var tag = getTag(param, tags)
+          	if tag
+          		li
+          			.name
+          				code= tag.name
+          			if tag.type
+          				span.type
+          					| : 
+          					code= tag.type.name
+          			if tag.default
+          				span.default
+          					| = 
+          					code= tag.default
+          
+          			span.description= tag.description
+          -->
+        </div>
+      </li>
+      <li class="api-member">
+        <h3 class="api-member-name" id="member-call">call</h3><code class="signature">call(actionName: String, params, opts): Promise</code>
+        <p class="description">Call an other action. It will be create a sub-context.</p>
+        <ul class="tags">
+        </ul>
+        <div class="api-parameters">
+          <h4 id="member-call-parameters">Parameters</h4>
+          <table>
+            <thead>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </thead>
+            <tbody></tbody>
+            <tr>
+              <td class="name"><code>actionName</code></td>
+              <td class="type"><code>String</code></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+            <tr>
+              <td class="name"><code>params</code></td>
+              <td></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+            <tr>
+              <td class="name"><code>opts</code></td>
+              <td></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+          </table>
+          <!--ul
+          each param in params
+          	- var tag = getTag(param, tags)
+          	if tag
+          		li
+          			.name
+          				code= tag.name
+          			if tag.type
+          				span.type
+          					| : 
+          					code= tag.type.name
+          			if tag.default
+          				span.default
+          					| = 
+          					code= tag.default
+          
+          			span.description= tag.description
+          -->
+        </div>
+        <div class="api-examples">
+          <h4 id="member-call-examples">Examples</h4><strong>Call an other service with params &amp; options</strong>
+          <div>{% codeblock lang:js %}
+ctx.call("posts.get", { id: 12 }, { timeout: 1000 });
+{% endcodeblock %}</div>
+        </div>
+      </li>
+      <li class="api-member">
+        <h3 class="api-member-name" id="member-emit">emit</h3><code class="signature">emit(eventName: String, data: any)</code>
+        <p class="description">Call a global event (with broker.emit).</p>
+        <ul class="tags">
+        </ul>
+        <div class="api-parameters">
+          <h4 id="member-emit-parameters">Parameters</h4>
+          <table>
+            <thead>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </thead>
+            <tbody></tbody>
+            <tr>
+              <td class="name"><code>eventName</code></td>
+              <td class="type"><code>String</code></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+            <tr>
+              <td class="name"><code>data</code></td>
+              <td class="type"><code>any</code></td>
+              <td>-</td>
+              <td class="description"></td>
+            </tr>
+          </table>
+          <!--ul
+          each param in params
+          	- var tag = getTag(param, tags)
+          	if tag
+          		li
+          			.name
+          				code= tag.name
+          			if tag.type
+          				span.type
+          					| : 
+          					code= tag.type.name
+          			if tag.default
+          				span.default
+          					| = 
+          					code= tag.default
+          
+          			span.description= tag.description
+          -->
+        </div>
+        <div class="api-examples">
+          <h4 id="member-emit-examples">Examples</h4>
+          <div>{% codeblock lang:js %}
+ctx.emit("user.created", { entity: user, creator: ctx.meta.user });
+{% endcodeblock %}</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

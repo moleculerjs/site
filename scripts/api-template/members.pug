@@ -1,0 +1,35 @@
+each member in members
+	li.api-member
+		- var name = member.name
+		h3.api-member-name(id="member-" + name)= name
+		code.signature= signature(member)
+
+		p.description= getDesc(member.description)
+		ul.tags
+			if member.deprecated
+				li.orange deprecated
+			if member.since
+				li.blue Since: #{since}
+
+		if member.params.length
+			.api-parameters
+				h4(id="member-" + name + "-parameters") Parameters
+				- var params = member.params
+				- var tags = member.tags
+				include params
+
+		if member.properties.length
+			.api-properties
+				h4(id="member-" + name + "-properties") Properties
+				- var params = member.properties
+				- var tags = member.tags
+				include params
+
+		if member.examples.length
+			.api-examples
+				h4(id="member-" + name + "-examples") Examples
+				each example in member.examples
+					if example.caption
+						strong= getDesc(example.caption)
+					- code = "{% codeblock lang:js %}\n" + example.description + "\n{% endcodeblock %}"
+					div !{code}

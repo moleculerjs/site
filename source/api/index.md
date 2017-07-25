@@ -1,1 +1,1 @@
-## [v0.8.x API](/api-0.8/broker.html)
+## [API v0.8.x](/api-0.8/)

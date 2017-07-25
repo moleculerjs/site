@@ -36,6 +36,6 @@ docs:
 
 "api-0.8":
   api:
-    api_servicebroker: broker.html
+    api_servicebroker: service-broker.html
     api_service: service.html
     api_context: context.html

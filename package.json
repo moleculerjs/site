@@ -6,12 +6,16 @@
     "version": "3.3.7"
   },
   "scripts": {
+    "api": "node scripts/api-docs-generator.js",
+    "__prebuild": "npm run api",
     "build": "hexo generate",
     "dev": "hexo server",
     "deploy": "hexo deploy"
   },
   "dependencies": {
+    "bluebird": "3.5.0",
     "cheerio": "0.22.0",
+    "documentation": "4.0.0-rc.1",
     "hexo": "3.3.7",
     "hexo-deployer-git": "0.3.0",
     "hexo-generator-sitemap": "1.2.0",
@@ -19,8 +23,13 @@
     "hexo-renderer-marked": "0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "0.2.1",
+    "highlight.js": "9.12.0",
     "lodash": "^4.5.1",
-    "lunr": "^0.6.0"
-  },
-  "devDependencies": {}
+    "lunr": "^0.6.0",
+    "marked": "0.3.6",
+    "mkdirp": "0.5.1",
+    "moleculer": "0.8.4",
+    "pug": "2.0.0-rc.2",
+    "semver": "5.4.1"
+  }
 }

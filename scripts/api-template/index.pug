@@ -1,0 +1,52 @@
+each doc in docs
+
+	.apiVersion 
+		a(href='/api-' + apiVersion + '/') API #{apiVersion}
+
+	.api-module
+		h1.module-name(id=doc.name)= doc.name
+		code.signature= signature(doc)	
+		p.description= getDesc(doc.description)
+		ul.tags
+			if doc.deprecated
+				li.orange deprecated
+			if doc.since
+				li.blue Since: #{since}
+
+		if hasValidParam(doc.params, doc.tags)
+			.api-parameters
+				h3(id=doc.name + "-parameters") Parameters
+				- var params = doc.params
+				- var tags = doc.tags
+				include params
+
+		if hasValidParam(doc.properties, doc.tags)
+			.api-properties
+				h3(id=doc.name + "-properties") Properties
+				- var params = doc.properties
+				- var tags = doc.tags
+				include params
+
+		if doc.examples.length
+			.api-examples
+				h3(id=doc.name + "-examples") Examples
+				each example in doc.examples
+					if example.caption
+						strong= getDesc(example.caption)
+					- code = "{% codeblock lang:js %}\n" + example.description + "\n{% endcodeblock %}"
+					div !{code}
+
+
+		if doc.members.instance && doc.members.instance.length
+			.api-members
+				h2(id=doc.name + "-instances") Instance Members
+				ul
+					- var members = doc.members.instance
+					include members
+
+		if doc.members.static && doc.members.static.length
+			.api-members
+				h2(id=doc.name + "-statics") Static Members
+				ul
+					- var members = doc.members.static
+					include members

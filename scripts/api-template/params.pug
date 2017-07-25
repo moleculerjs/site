@@ -1,0 +1,43 @@
+table
+	thead
+		th Property
+		th Type
+		th Default
+		th Description
+	tbody
+	each param in params
+		- var tag = getTag(param, tags)
+		if tag
+			tr
+				td.name
+					code= tag.name
+				if tag.type && tag.type.name
+					td.type
+						code= tag.type.name
+				else
+					td
+
+				if tag.default
+					td.default
+						code= tag.default
+				else
+					td -
+
+				td.description= tag.description
+//ul
+	each param in params
+		- var tag = getTag(param, tags)
+		if tag
+			li
+				.name
+					code= tag.name
+				if tag.type
+					span.type
+						| : 
+						code= tag.type.name
+				if tag.default
+					span.default
+						| = 
+						code= tag.default
+
+				span.description= tag.description
