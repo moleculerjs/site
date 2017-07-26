@@ -8,7 +8,7 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch API docs generator",
-			"program": "${workspaceRoot}\\scripts\\api-docs-generator.js",
+			"program": "${workspaceRoot}\\api-docs-generator.js",
 			"cwd": "${workspaceRoot}"
 		},
 	]

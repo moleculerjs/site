@@ -4,13 +4,17 @@
 const documentation = require("documentation");
 const fs = require("fs");
 const path = require("path");
-const _ = require("lodash");
+const pug = require("pug");
 const semver = require("semver");
 const marked = require("marked");
+const hljs = require("highlight.js");
 const mkdir = require("mkdirp").sync;
 const Promise = require("bluebird");
 
-const template = _.template(fs.readFileSync(path.join(__dirname, "api-template", "md", "index.md"), "utf8"));
+const template = pug.compileFile(path.join(__dirname, "api-template", "index.pug"), {
+	pretty: true,
+	//debug: true
+});
 
 function isFunction(section) {
 	return (
@@ -45,6 +49,10 @@ function formatParameter(param, short) {
 	return param.name;
 }
 
+function codeHighlight(code) {
+	return "<pre class='hljs'>" + hljs.highlightAuto(code, "js") + "</pre>";
+}
+
 const pkg = require("moleculer/package.json");
 
 const apiVersion = semver.major(pkg.version) + "." + semver.minor(pkg.version);
@@ -70,9 +78,9 @@ Promise.each(sourceFiles, sourceFile => {
 		shallow: true,
 		inferPrivate: '^_'
 	}).then(docs => {
-		const markdown = template({
+		const html = template({
 			docs,
-			title: sourceFile.name,
+			title: "Context API documentation",
 			apiVersion,
 
 			md: marked,
@@ -110,10 +118,11 @@ Promise.each(sourceFiles, sourceFile => {
 					returns = ": " + section.returns[0].type.name;
 				}
 				return prefix + section.name + formatParameters(section) + returns;
-			}
+			},
+			highlight: code => hljs.highlight("js", code).value
 		});
 
-		fs.writeFileSync(path.join(targetFolder, sourceFile.path.replace(/\.[^/.]+$/, ".md")), markdown, "utf8");
+		fs.writeFileSync(path.join(targetFolder, sourceFile.path.replace(/\.[^/.]+$/, ".html")), html, "utf8");
 
 		console.log(`Done '${sourceFile.path}'!`);
 	}).catch(err => console.error(err))
