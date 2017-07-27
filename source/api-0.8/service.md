@@ -27,8 +27,7 @@ Main Service class
 
 
 
-
-`constructor(broker: ServiceBroker, schema: Object)`
+`new Service(broker: ServiceBroker, schema: Object)`
 
 Creates an instance of Service by schema.
 
@@ -37,12 +36,8 @@ Creates an instance of Service by schema.
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `broker` | ServiceBroker | - | Context ID |
-| `schema` | Object | - | Context ID |
-
-
-
-
+| `broker` | ServiceBroker | - | broker of service |
+| `schema` | Object | - | schema of service |
 
 
 
@@ -53,6 +48,28 @@ Creates an instance of Service by schema.
 
 
 ## Static Members
+
+
+
+### applyMixins
+
+
+
+`applyMixins(schema: Schema): Schema`
+
+Apply 
+
+
+### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `schema` | Schema | - |  |
+
+
+
+
+
 
 
 

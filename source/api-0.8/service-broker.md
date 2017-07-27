@@ -27,8 +27,7 @@ Service broker class
 
 
 
-
-`constructor(options: any)`
+`new ServiceBroker(options: any)`
 
 Creates an instance of ServiceBroker.
 
@@ -37,9 +36,7 @@ Creates an instance of ServiceBroker.
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `options` | any | - | Context ID |
-
-
+| `options` | any | - |  |
 
 
 
@@ -49,7 +46,6 @@ Creates an instance of ServiceBroker.
 
 
 ### start
-
 
 
 
@@ -69,7 +65,6 @@ Start broker. If has transporter, transporter.connect will be called.
 
 
 
-
 `stop()`
 
 Stop broker. If has transporter, transporter.disconnect will be called.
@@ -86,10 +81,10 @@ Stop broker. If has transporter, transporter.disconnect will be called.
 
 
 
-
 `repl()`
 
 Switch the console to REPL mode.
+
 
 
 
@@ -110,10 +105,7 @@ broker.start().then(() => broker.repl());
 
 
 
-
-
 ### getLogger
-
 
 
 
@@ -126,9 +118,7 @@ Get a custom logger for sub-modules (service, transporter, cacher, context...etc
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `name` | String | - | Context ID |
-
-
+| `name` | String | - | name of module |
 
 
 
@@ -141,7 +131,6 @@ Get a custom logger for sub-modules (service, transporter, cacher, context...etc
 
 
 
-
 `fatal(message: String, err, needExit: boolean)`
 
 Fatal error. Print the message to console (if logger is not exists). And exit the process (if need)
@@ -151,11 +140,9 @@ Fatal error. Print the message to console (if logger is not exists). And exit th
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `message` | String | - | Context ID |
-| `err` |  | - | Context ID |
-| `needExit` |  | - | Context ID |
-
-
+| `message` | String | - |  |
+| `err` |  | - |  |
+| `needExit` |  | - |  |
 
 
 
@@ -168,7 +155,6 @@ Fatal error. Print the message to console (if logger is not exists). And exit th
 
 
 
-
 `loadServices(folder: string, fileMask: string): Number`
 
 Load services from a folder
@@ -178,10 +164,8 @@ Load services from a folder
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `folder` |  | - | Context ID |
-| `fileMask` |  | - | Context ID |
-
-
+| `folder` |  | - | Folder of services |
+| `fileMask` |  | - | Service filename mask |
 
 
 
@@ -194,7 +178,6 @@ Load services from a folder
 
 
 
-
 `loadService(filePath, Path: string): Service`
 
 Load a service from file
@@ -204,9 +187,7 @@ Load a service from file
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `Path` | string | - | Context ID |
-
-
+| `Path` | string | - | of service |
 
 
 
@@ -219,7 +200,6 @@ Load a service from file
 
 
 
-
 `createService(schema: any, schemaMods): Service`
 
 Create a new service by schema
@@ -229,10 +209,8 @@ Create a new service by schema
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `schema` | any | - | Context ID |
-| `schemaMods` |  | - | Context ID |
-
-
+| `schema` | any | - | Schema of service |
+| `schemaMods` |  | - | Modified schema |
 
 
 
@@ -245,7 +223,6 @@ Create a new service by schema
 
 
 
-
 `registerLocalService(service: Service)`
 
 Register a local service
@@ -255,9 +232,7 @@ Register a local service
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `service` | Service | - | Context ID |
-
-
+| `service` | Service | - |  |
 
 
 
@@ -270,7 +245,6 @@ Register a local service
 
 
 
-
 `registerRemoteService(nodeID: any, service: any)`
 
 Register a remote service
@@ -280,10 +254,8 @@ Register a remote service
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `nodeID` | any | - | Context ID |
-| `service` | any | - | Context ID |
-
-
+| `nodeID` | any | - | NodeID if it is on a remote server/node |
+| `service` | any | - |  |
 
 
 
@@ -296,7 +268,6 @@ Register a remote service
 
 
 
-
 `registerAction(nodeID: any, action: any)`
 
 Register an action in a local server
@@ -306,10 +277,8 @@ Register an action in a local server
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `nodeID` | any | - | Context ID |
-| `action` | any | - | Context ID |
-
-
+| `nodeID` | any | - | NodeID if it is on a remote server/node |
+| `action` | any | - | action schema |
 
 
 
@@ -322,7 +291,6 @@ Register an action in a local server
 
 
 
-
 `wrapAction(action: any)`
 
 Wrap action handler for middlewares
@@ -332,9 +300,7 @@ Wrap action handler for middlewares
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `action` | any | - | Context ID |
-
-
+| `action` | any | - |  |
 
 
 
@@ -347,7 +313,6 @@ Wrap action handler for middlewares
 
 
 
-
 `unregisterServicesByNode(nodeID: String)`
 
 Unregister services by node
@@ -357,9 +322,7 @@ Unregister services by node
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `nodeID` | String | - | Context ID |
-
-
+| `nodeID` | String | - |  |
 
 
 
@@ -369,7 +332,6 @@ Unregister services by node
 
 
 ### unregisterAction
-
 
 
 
@@ -383,10 +345,8 @@ It will be called when a remote node disconnected.
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `nodeID` | any | - | Context ID |
-| `action` | any | - | Context ID |
-
-
+| `nodeID` | any | - | NodeID if it is on a remote server/node |
+| `action` | any | - | action schema |
 
 
 
@@ -396,7 +356,6 @@ It will be called when a remote node disconnected.
 
 
 ### registerInternalActions
-
 
 
 
@@ -416,7 +375,6 @@ Register internal actions
 
 
 
-
 `on(name: any, handler: any)`
 
 Subscribe to an event
@@ -426,10 +384,8 @@ Subscribe to an event
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `name` | any | - | Context ID |
-| `handler` | any | - | Context ID |
-
-
+| `name` | any | - |  |
+| `handler` | any | - |  |
 
 
 
@@ -442,7 +398,6 @@ Subscribe to an event
 
 
 
-
 `once(name: any, handler: any)`
 
 Subscribe to an event once
@@ -452,10 +407,8 @@ Subscribe to an event once
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `name` | any | - | Context ID |
-| `handler` | any | - | Context ID |
-
-
+| `name` | any | - |  |
+| `handler` | any | - |  |
 
 
 
@@ -468,7 +421,6 @@ Subscribe to an event once
 
 
 
-
 `off(name: any, handler: any)`
 
 Unsubscribe from an event
@@ -478,10 +430,8 @@ Unsubscribe from an event
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `name` | any | - | Context ID |
-| `handler` | any | - | Context ID |
-
-
+| `name` | any | - |  |
+| `handler` | any | - |  |
 
 
 
@@ -494,7 +444,6 @@ Unsubscribe from an event
 
 
 
-
 `getService(serviceName: any)`
 
 Get a local service by name
@@ -504,9 +453,7 @@ Get a local service by name
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `serviceName` | any | - | Context ID |
-
-
+| `serviceName` | any | - |  |
 
 
 
@@ -519,7 +466,6 @@ Get a local service by name
 
 
 
-
 `hasService(serviceName: any)`
 
 Has a local service by name
@@ -529,9 +475,7 @@ Has a local service by name
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `serviceName` | any | - | Context ID |
-
-
+| `serviceName` | any | - |  |
 
 
 
@@ -544,7 +488,6 @@ Has a local service by name
 
 
 
-
 `hasAction(actionName: any)`
 
 Has an action by name
@@ -554,9 +497,7 @@ Has an action by name
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `actionName` | any | - | Context ID |
-
-
+| `actionName` | any | - |  |
 
 
 
@@ -569,7 +510,6 @@ Has an action by name
 
 
 
-
 `getAction(actionName: any): Object`
 
 Get an action by name
@@ -579,9 +519,7 @@ Get an action by name
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `actionName` | any | - | Context ID |
-
-
+| `actionName` | any | - |  |
 
 
 
@@ -594,7 +532,6 @@ Get an action by name
 
 
 
-
 `isActionAvailable(actionName: any)`
 
 Check has available action handler
@@ -604,9 +541,7 @@ Check has available action handler
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `actionName` | any | - | Context ID |
-
-
+| `actionName` | any | - |  |
 
 
 
@@ -619,7 +554,6 @@ Check has available action handler
 
 
 
-
 `use(mws, mw: any)`
 
 Add a middleware to the broker
@@ -629,9 +563,7 @@ Add a middleware to the broker
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `mw` | any | - | Context ID |
-
-
+| `mw` | any | - |  |
 
 
 
@@ -644,7 +576,6 @@ Add a middleware to the broker
 
 
 
-
 `createNewContext(action: Object, nodeID, params, opts: Object): Context`
 
 Create a new Context instance
@@ -654,12 +585,10 @@ Create a new Context instance
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `action` | Object | - | Context ID |
-| `nodeID` |  | - | Context ID |
-| `params` |  | - | Context ID |
-| `opts` | Object | - | Context ID |
-
-
+| `action` | Object | - |  |
+| `nodeID` |  | - |  |
+| `params` |  | - |  |
+| `opts` | Object | - |  |
 
 
 
@@ -672,7 +601,6 @@ Create a new Context instance
 
 
 
-
 `call(actionName: any, params: any, opts: any)`
 
 Call an action (local or remote)
@@ -682,11 +610,9 @@ Call an action (local or remote)
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `actionName` | any | - | Context ID |
-| `params` | any | - | Context ID |
-| `opts` | any | - | Context ID |
-
-
+| `actionName` | any | - | name of action |
+| `params` | any | - | params of action |
+| `opts` | any | - | options of call (optional) |
 
 
 
@@ -696,7 +622,6 @@ Call an action (local or remote)
 
 
 ### shouldMetric
-
 
 
 
@@ -716,7 +641,6 @@ Check should metric the current call
 
 
 
-
 `emit(eventName: string, payload: any): boolean`
 
 Emit an event (global & local)
@@ -726,10 +650,8 @@ Emit an event (global & local)
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - | Context ID |
-| `payload` | any | - | Context ID |
-
-
+| `eventName` | string | - |  |
+| `payload` | any | - |  |
 
 
 
@@ -742,7 +664,6 @@ Emit an event (global & local)
 
 
 
-
 `emitLocal(eventName: string, payload: any, sender, nodeID): boolean`
 
 Emit an event only local
@@ -752,11 +673,9 @@ Emit an event only local
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - | Context ID |
-| `payload` | any | - | Context ID |
-| `nodeID` |  | - | Context ID |
-
-
+| `eventName` | string | - |  |
+| `payload` | any | - |  |
+| `nodeID` |  | - | of server |
 
 
 
@@ -766,7 +685,6 @@ Emit an event only local
 
 
 ### MOLECULER_VERSION
-
 
 
 
@@ -783,9 +701,39 @@ Version of Moleculer
 
 
 
-
-
 ## Static Members
+
+
+
+### MOLECULER_VERSION
+
+
+
+`MOLECULER_VERSION`
+
+Version of Moleculer
+
+
+
+
+
+
+
+
+
+### defaultConfig
+
+
+
+`defaultConfig`
+
+Default configuration
+
+
+
+
+
+
 
 
 
