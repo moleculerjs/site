@@ -236,7 +236,7 @@ broker.createService({
 
     methods: {
         // Second thing
-        authorize(ctx, req, res) {
+        authorize(ctx, route, req, res) {
             // Read the token from header
             let auth = req.headers["authorization"];
             if (auth && auth.startsWith("Bearer")) {
