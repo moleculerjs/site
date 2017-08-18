@@ -5,13 +5,11 @@ For transportation needs a serializer module which serialize & deserialize the t
 **Example**
 ```js
 let { ServiceBroker } = require("moleculer");
-let NatsTransporter = require("moleculer").Transporters.NATS;
-let AvroSerializer = require("moleculer").Serializers.Avro;
 
 let broker = new ServiceBroker({
     nodeID: "server-1",
-    transporter: new NatsTransporter(),
-    serializer: new AvroSerializer()
+    transporter: "NATS",
+    serializer: "ProtoBuf"
 });
 ```
 

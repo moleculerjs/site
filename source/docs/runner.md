@@ -2,7 +2,7 @@ title: Moleculer Runner
 ---
 _Added in: v0.8.0_
 
-There is a project runner helper script in the Moleculer project. You can use it if you want to create small repos for services. In this case you needn't to create a ServiceBroker with options. Just create a `moleculer.config.js` or `moleculer.config.json` file in the root of repo fill it with your options and call the `moleculer-runner` within the NPM scripts.
+There is a project runner helper script in the Moleculer project. You can use it if you want to create small repos for services. In this case you don't need to create a ServiceBroker with options. Just create a `moleculer.config.js` or `moleculer.config.json` file in the root of repo fill it with your options and call the `moleculer-runner` within the NPM scripts.
 As an other solution you can put it to the environment variables instead of putting options to file.
 
 {% note info Production-ready %}
@@ -21,6 +21,7 @@ $ moleculer-runner [options] [service files or directories]
 | ------ | ----- | ------- | ---------- |
 | `-r`, `--repl` | `Boolean` | `false` | If true, it will switch to [REPL](moleculer-repl.html) mode after broker started. |
 | `-s`, `--silent` | `Boolean` | `false` | Disable the logger of broker. It won't print anything to the console. |
+| `-H`, `--hot` | `Boolean` | `false` | Hot reload services if they changed. |
 | `-c`, `--config <file>` | `String` | `null` | Use it if you store your configuration file in different path or with different filename. |
 
 
@@ -28,12 +29,12 @@ $ moleculer-runner [options] [service files or directories]
 ```js
 {
     "scripts": {
-        "dev": "moleculer-runner --repl --config moleculer.dev.config.js services",
+        "dev": "moleculer-runner --repl --hot --config moleculer.dev.config.js services",
         "start": "moleculer-runner services"
     }
 }
 ```
-As you can see above we defined two scripts. The `dev` script load the development configurations from the `moleculer.dev.config.js` file, start all your services from the `services` folder and switch to REPL mode. You can call it with `npm run dev` command.
+As you can see above we defined two scripts. The `dev` script load the development configurations from the `moleculer.dev.config.js` file, start all your services from the `services` folder, enable hot-reloading and switch to REPL mode. You can call it with `npm run dev` command.
 The `start` script is try to load the default `moleculer.config.js` file if it exists, or load options from environment variables. After that, start all your services from the `services` folder. You can call it with `npm start` command.
 
 ## Configuration loading logic

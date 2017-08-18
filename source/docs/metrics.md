@@ -22,14 +22,12 @@ The payload looks like the following:
     action: { 
         name: 'users.get' 
     }
-    // Node ID of caller
+    // Node ID
     nodeID: "node-1",
-
-    // Target nodeID if it's a remote call
-    //targetNodeID: "node-2",
-
+    // Caller nodeID if it's requested from a remote node
+    callerNodeID: "node-2",
     // Parent context ID if it is a sub-call
-    //parent: null
+    parentID: '123456'
 }
 ```
 
@@ -58,14 +56,12 @@ The payload looks like the following:
     action: { 
         name: 'users.get' 
     }
-    // Node ID of caller
+    // Node ID
     nodeID: "node-1",
-
-    // Target nodeID if it's a remote call
-    //targetNodeID: "node-2",
-
+    // Caller nodeID if it's a remote call
+    callerNodeID: "node-2",
     // Parent context ID if it is a sub-call
-    //parent: null
+    parentID: '123456'
 
     // Error if the call returned with error
     error: {
