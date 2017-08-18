@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "hexo": {
-    "version": "3.3.7"
+    "version": "3.3.8"
   },
   "scripts": {
     "api": "node api-docs-generator.js",
@@ -15,7 +15,7 @@
   "dependencies": {
     "bluebird": "3.5.0",
     "cheerio": "0.22.0",
-    "documentation": "4.0.0-rc.1",
+    "documentation": "5.2.1",
     "hexo": "3.3.8",
     "hexo-deployer-git": "0.3.1",
     "hexo-generator-sitemap": "1.2.0",

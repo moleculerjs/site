@@ -159,6 +159,16 @@ Promise.each(sourceFiles, sourceFile => {
 	}).catch(err => console.error(err))
 	
 }).then(() => {
+	console.log(`Copy PROTOCOL.md...`);
+	let content = fs.readFileSync(path.join(__dirname, ".", "node_modules", "moleculer", "docs", "PROTOCOL.md"), "utf8");
+	fs.writeFileSync(path.join(targetFolder, "protocol.md"), content, "utf8");
+	
+}).then(() => {
+	console.log(`Create index.md...`);
+	if (!fs.existsSync(path.join(targetFolder, "index.md")))
+		fs.writeFileSync(path.join(targetFolder, "index.md"), "", "utf8");
+	
+}).then(() => {
 	console.log("All files done!");
 	process.exit(0);
 });

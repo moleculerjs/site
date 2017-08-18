@@ -55,3 +55,15 @@ sidebar:
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context
+  api-0.9:
+    api: API v0.9.x
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
+    api_protocol: Protocol
+  api-0.10:
+    api: API v0.10.x
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
+    api_protocol: Protocol

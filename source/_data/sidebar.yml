@@ -39,3 +39,17 @@ docs:
     api_servicebroker: service-broker.html
     api_service: service.html
     api_context: context.html
+
+"api-0.9":
+  api:
+    api_servicebroker: service-broker.html
+    api_service: service.html
+    api_context: context.html
+    api_protocol: protocol.html
+
+"api-0.10":
+  api:
+    api_servicebroker: service-broker.html
+    api_service: service.html
+    api_context: context.html
+    api_protocol: protocol.html
