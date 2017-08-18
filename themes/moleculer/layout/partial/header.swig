@@ -6,6 +6,7 @@
     <nav id="main-nav">
       {{ header_menu('main-nav') }}
       <a href="https://github.com/{{ config.github }}" class="main-nav-link">Github</a>
+      <a href="https://gitter.im/ice-services/moleculer" class="main-nav-link">Chat</a>
       <a href="https://medium.com/moleculer" class="main-nav-link">Blog</a>
       <div id="search-input-wrap" class="on">
         <div id="search-input-icon">
