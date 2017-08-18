@@ -1,6 +1,6 @@
 title: Transporters
 ---
-Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, call requests, responses ...etc. If a service is running on multiple instances on different nodes, the requests will be load-balanced between nodes.
+Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests, processes responses ...etc. If a service is running on multiple instances on different nodes, the requests will be load-balanced between nodes.
 
 ## Built-in transporters
 
@@ -33,12 +33,11 @@ new NatsTransporter();
 // Connect to a remote server
 new NatsTransporter("nats://nats.server:4222"); 
 
-// Connect to a remote server and change the prefix of channels
+// Connect to a remote server
 new NatsTransporter({
     nats: {
         url: "nats://nats-server:4222",
-    },
-    prefix: "MY-PREFIX" // Use for channel names at subscribe & publish. Default: "MOL"
+    }
 });
 
 // Connect to a remote server with credentials
@@ -69,7 +68,6 @@ let broker = new ServiceBroker({
     transporter: {
         type: "NATS",
         options: {
-            prefix: "MY-PREFIX",
             nats: {
                 url: "nats://localhost:4222"
             }
@@ -104,12 +102,11 @@ new RedisTransporter();
 // Connect to a remote server
 new RedisTransporter("redis://redis.server:6379"); 
 
-// Connect to a remote server and change the prefix of channels
+// Connect to a remote server
 new RedisTransporter({
     redis: {
         url: "redis://redis-server:6379",
-    },
-    prefix: "MY-PREFIX" // Use for channel names at subscribe & publish. Default: "MOL"
+    }
 });
 
 // Connect to a remote server with credentials
@@ -142,7 +139,6 @@ let broker = new ServiceBroker({
     transporter: {
         type: "Redis",
         options: {
-            prefix: "MY-PREFIX",
             redis: {
                 host: "redis-server",
                 db: 0
@@ -178,12 +174,11 @@ new MqttTransporter();
 // Connect to a remote server
 new MqttTransporter("mqtt://mqtt.server:1883"); 
 
-// Connect to a remote server and change the prefix of channels
+// Connect to a remote server
 new MqttTransporter({
     mqtt: {
         url: "mqtt://mqtt-server:1883",
-    },
-    prefix: "MY-PREFIX" // Use for channel names at subscribe & publish. Default: "MOL"
+    }
 });
 
 // Connect to a remote server with credentials
@@ -215,10 +210,79 @@ let broker = new ServiceBroker({
     transporter: {
         type: "MQTT",
         options: {
-            prefix: "MY-PREFIX",
             mqtt: {
                 host: "mqtt-server",
                 port: 1883,
+            }
+        }
+});
+```
+
+### AMQP Transporter
+Built-in transporter for [AMQP](https://www.amqp.org/) protocol *(e.g.: [RabbitMQ](https://www.rabbitmq.com/))*.
+
+```js
+let { ServiceBroker } = require("moleculer");
+let AmqpTransporter = require("moleculer").Transporters.AMQP;
+
+let broker = new ServiceBroker({
+    nodeID: "server-1",
+    transporter: new AmqpTransporter(),
+    requestTimeout: 5 * 1000
+});
+```
+{% note info Dependencies %}
+To use this transporter install the `amqplib` module with `npm install amqplib --save` command.
+{% endnote %}
+
+#### Transporter options
+You can pass options to `amqp.connect()` method.
+
+```js
+// Connect to 'amqp://guest:guest@localhost:5672'
+new AmqpTransporter(); 
+
+// Connect to a remote server
+new AmqpTransporter("amqp://rabbitmq-server:5672"); 
+
+// Connect to a remote server
+new AmqpTransporter({
+    amqp: {
+        url: "amqp://rabbitmq-server:5672",
+    }
+});
+
+// Connect to a remote server with options & credentials
+new AmqpTransporter({
+    amqp: {
+        url: "amqp://user:pass@rabbitmq-server:5672",
+        eventTimeToLive: 5000,
+        prefetch: 1
+    }
+});
+```
+
+#### Shorthands
+You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+```js
+// Shorthand with default settings
+let broker = new ServiceBroker({
+    transporter: "AMQP"
+});
+
+// Shorthand with connection string
+let broker = new ServiceBroker({
+    transporter: "amqp://rabbitmq-server:5672"
+});
+
+// Shorthand with options
+let broker = new ServiceBroker({
+    transporter: {
+        type: "AMQP",
+        options: {
+            amqp: {
+                host: "rabbitmq-server",
+                port: 5672,
             }
         }
 });

@@ -31,3 +31,5 @@ let broker = new ServiceBroker({
 | `halfOpenTime` | `Number` | `10000` | Number of milliseconds to switch from `open` to `half-open` state |
 | `failureOnTimeout` | `Boolean` | `true` | Increment failures if the request is timed out |
 | `failureOnReject` | `Boolean` | `true` | Increment failures if the request is rejected (by any `Error`) |
+
+> If the circuit-breaker state is changed, ServiceBroker will send event about changes. [Read more about it.](http://localhost:4000/docs/broker.html#Internal-events)
