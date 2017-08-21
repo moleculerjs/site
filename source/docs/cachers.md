@@ -1,16 +1,15 @@
 title: Cachers
 ---
 Moleculer has built-in caching solution. To enable it:
-1. Set a cacher instance to the broker in [constructor options](broker.html#Constructor-options)
+1. Set the `cacher` [broker option](broker.html#Constructor-options).
 2. Set the `cache: true` in [action definition](service.html#Actions).
 
 ```js
 let { ServiceBroker } = require("moleculer");
-let MemoryCacher = require("moleculer").Cachers.Memory;
 
 let broker = new ServiceBroker({
     logger: console,
-    cacher: new MemoryCacher()
+    cacher: "Memory"
 });
 
 broker.createService({
@@ -30,28 +29,28 @@ broker.createService({
     }
 });
 
-Promise.resolve()
-.then(() => {
-    // Will be called the handler, because the cache is empty
-    return broker.call("users.list").then(res => console.log("Users count: " + res.length));
-})
-.then(() => {
-    // Return from cache, handler won't be called
-    return broker.call("users.list").then(res => console.log("Users count from cache: " + res.length));
-});
+broker.start()
+    .then(() => {
+        // Will be called the handler, because the cache is empty
+        return broker.call("users.list").then(res => broker.logger.info("Users count:", res.length));
+    })
+    .then(() => {
+        // Return from cache, handler won't be called
+        return broker.call("users.list").then(res => broker.logger.info("Users count from cache:", res.length));
+    });
 ```
 Console messages:
 ```
-[BROKER] users service registered!
-[USERS-SVC] Handler called!
-Users count: 2
-Users count from cache: 2
+[2017-08-18T13:04:33.845Z] INFO  dev-pc/BROKER: Broker started.
+[2017-08-18T13:04:33.848Z] INFO  dev-pc/USERS: Handler called!
+[2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
+[2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
 > [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example)
 
 ## Cache keys
 The cacher creates keys by service name, action name, and hash of params of context.
-The syntax of key is
+The syntax of key is:
 ```
     <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
@@ -149,7 +148,12 @@ let broker = new ServiceBroker({
 
 // Shorthand
 let broker = new ServiceBroker({
-    cacher: "memory"
+    cacher: "Memory"
+});
+
+// Or
+let broker = new ServiceBroker({
+    cacher: true
 });
 ```
 
@@ -162,7 +166,6 @@ let RedisCacher = require("moleculer").Cachers.Redis;
 let broker = new ServiceBroker({
     cacher: new RedisCacher({
         ttl: 30, // set Time-to-live to 30sec. Disabled: 0 or null
-        prefix: "MOL" // Prefix for cache keys
         monitor: false // Turn on/off Redis client monitoring. If enabled there will be logged (on debug level) every client operations.
 
         // Redis settings, pass it to the `new Redis()` constructor
