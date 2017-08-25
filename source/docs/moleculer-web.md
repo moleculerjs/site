@@ -454,7 +454,12 @@ settings: {
 - [Express](https://github.com/ice-services/moleculer-web/blob/master/examples/express/index.js)
     - webserver with Express
     - use moleculer-web as a middleware
-
+    
+- [Socket.io](https://github.com/ice-services/moleculer-web/blob/master/examples/socket.io/index.js)
+    - start socket.io websocket server
+    - call action and send back the response via websocket
+    - send Moleculer events to the browser via websocket
+    
 - [Full](https://github.com/ice-services/moleculer-web/blob/master/examples/full/index.js)
     - SSL
     - static files
