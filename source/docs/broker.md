@@ -139,6 +139,7 @@ The `opts` is an object. With this, you can set/override some request parameters
 | `retryCount` | `Number` | `requestRetry` of broker | Count of retry of request. If the request timed out, broker will try to call again. |
 | `fallbackResponse` | `Any` | `null` | Return with it, if the request is failed. [More info](#Request-timeout-amp-fallback-response) |
 | `nodeID` | `String` | `null` | Target nodeID. If you set, it will make a direct call. |
+| `meta` | `Object` | `null` | Metadata of request. It will be transferred in sub-calls as well. |
 
 
 ### Usage
