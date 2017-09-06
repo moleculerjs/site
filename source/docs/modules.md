@@ -32,8 +32,8 @@ title: Modules
 ## Third-party modules
 
 ### General
-| Module name | Description | Version |
-|-------------|-------------|---------|
-| [moleculer-sc](https://github.com/tiaod/moleculer-sc#readme) | API Gateway service for Moleculer framework using SocketCluster. | [![npm](https://img.shields.io/npm/v/moleculer-sc.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-sc)
+| Module name | Author |Description | Version |
+|-------------|--------|------------|---------|
+| [moleculer-sc](https://github.com/tiaod/moleculer-sc#readme) | [tiaod](https://github.com/tiaod) | API Gateway service for Moleculer framework using SocketCluster. | [![npm](https://img.shields.io/npm/v/moleculer-sc.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-sc)
 
 > Do you have a custom module for Moleculer? [Tell us!](https://github.com/ice-services/moleculer/issues)
