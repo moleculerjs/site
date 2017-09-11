@@ -4,29 +4,30 @@ Welcome to the Moleculer documentation. Navigate through the documentation to le
 
 ## What is Moleculer?
 
-Moleculer is a fast and powerful microservices framework for [NodeJS](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+Moleculer is a fast, modern and powerful microservices framework for [NodeJS](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
 
 ## Features
 
 - Promise-based solution
 - request-reply concept
-- event bus system
+- support event driven architecture with balancing
+- built-in service registry & auto discovery
+- load balanced requests & events (round-robin, random, custom)
 - supports middlewares
 - service mixins
 - multiple services on a node/server
 - built-in caching solution (memory, Redis)
 - pluggable transporters (NATS, MQTT, Redis)
 - pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer)
-- load balanced requests (round-robin, random)
+- pluggable validator
 - every nodes are equal, no master/leader node
-- auto discovery services
 - parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
 - distributed timeout handling with fallback response
 - health monitoring, metrics & statistics
 - supports versioned services
-- official [API gateway module](https://github.com/ice-services/moleculer-web)
+- official [API gateway module](https://github.com/ice-services/moleculer-web) and many other modules...
 
-{% note warn Requirements %}
+{% note info Requirements %}
 Moleculer is written in ES2015. The minimum version of NodeJS is **v6.x.x**.
 {% endnote %}
 
@@ -39,4 +40,4 @@ We spent a lot of hours to improve the performance of Moleculer and create the f
 
 You can check the results in your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
 
-[Check out the all benchmark results](benchmark.html)
+[Check out our benchmark results.](benchmark.html)

@@ -54,7 +54,7 @@ $ node examples/multi-server/client
 [Source code is available on Github](https://github.com/ice-services/moleculer/tree/master/examples/multi-server)
 
 ## Load tester
-With this example you can start a load test. The server & client will be print how many requests executed in a second.
+With this example you can start a load test. The server & client prints how many requests executed in a second.
 
 **Start server**
 ```bash
