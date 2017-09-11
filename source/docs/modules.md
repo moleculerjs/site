@@ -35,5 +35,7 @@ title: Modules
 | Module name | Author |Description | Version |
 |-------------|--------|------------|---------|
 | [moleculer-sc](https://github.com/tiaod/moleculer-sc#readme) | [tiaod](https://github.com/tiaod) | API Gateway service for Moleculer framework using SocketCluster. | [![npm](https://img.shields.io/npm/v/moleculer-sc.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-sc)
+| [moleculer-config](https://github.com/idwall/moleculer-config#readme) | [WoLfulus](https://github.com/WoLfulus) | Configuration service & mixin for service settings. | [![NPM version](https://img.shields.io/npm/v/moleculer-config.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-config)
+| [moleculer-adapter-feathers](https://github.com/zygos/moleculer-adapter-feathers#readme) | [zygos](zygos) | Moleculer service mixin wrapping Feathers.js services. | [![NPM version](https://img.shields.io/npm/v/moleculer-adapter-feathers.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-adapter-feathers)
 
 > Do you have a custom module for Moleculer? [Tell us!](https://github.com/ice-services/moleculer/issues)
