@@ -614,6 +614,29 @@ Get an action endpoint
 
 
 
+### findNextActionEndpoint
+
+
+
+`findNextActionEndpoint(actionName: String, opts: Object): undefined`
+
+Find the next available endpoint for action
+
+
+### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `actionName` | String | - |  |
+| `opts` | Object | - |  |
+
+
+
+
+
+
+
+
 ### mcall
 
 
