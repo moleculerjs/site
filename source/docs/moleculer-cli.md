@@ -22,7 +22,7 @@ The above command downloads the template from [ice-services/moleculer-template-m
 
 #### Official templates
 
-* [`module`](https://github.com/ice-services/moleculer-template-module) - Generate a new Moleculer module project (e.g.: `moleculer-xyz`). *Use it if you want to create a module for Moleculer framework*
+* [**module**](https://github.com/ice-services/moleculer-template-module) - Generate a new Moleculer module project (e.g.: `moleculer-xyz`). *Use it if you want to create a module for Moleculer framework*
 	* empty service skeleton
 	* examples skeleton
 	* readme skeleton
@@ -30,9 +30,15 @@ The above command downloads the template from [ice-services/moleculer-template-m
 	* lint with [ESLint](http://eslint.org/)
 
 
-* [`project-simple`](https://github.com/ice-services/moleculer-template-project-simple) - Generate a simple Moleculer-based project. *Use it if you want to start a new project which is based on Moleculer framework*
-	* two example service (`math`, `test`)
+* [**project-simple**](https://github.com/ice-services/moleculer-template-project-simple) - Generate a simple Moleculer-based project. *Use it if you want to start a new project which is based on Moleculer framework*
+	* sample service (`greeter`)
 	* official [API Gateway](https://github.com/ice-services/moleculer-web) (optional)
+	* tests & coverage with [Jest](http://facebook.github.io/jest/)
+	* lint with [ESLint](http://eslint.org/)
+
+
+* [**nano**](https://github.com/ice-services/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*
+	* sample service (`greeter`)
 	* tests & coverage with [Jest](http://facebook.github.io/jest/)
 	* lint with [ESLint](http://eslint.org/)
 
@@ -47,7 +53,7 @@ The shorthand repo notation is passed to [download-git-repo](https://github.com/
 
 #### Local Templates
 
-Instead of a GitHub repo, you can also use a template on your local file system:
+Instead of a GitHub repo, use a template from local filesystem:
 ``` bash
 $ moleculer init ./path/to-custom-template my-project
 ```
@@ -58,15 +64,39 @@ This command start a new ServiceBroker locally and switch to REPL mode.
 $ moleculer start
 ```
 
+**Options**
+```
+  --ns           Namespace                                [string] [default: ""]
+  --id           NodeID                                 [string] [default: null]
+  --metrics, -m  Enable metrics                       [boolean] [default: false]
+  --hot, -h      Enable hot-reload                    [boolean] [default: false]
+  --cb           Enable circuit breaker               [boolean] [default: false]
+```
+
 ### Start a broker and connect to a transporter
 This command start a new ServiceBroker, connect to a transporter server and switch to REPL mode.
 ```bash
-# Connect to NATS
+# Connect to local NATS (default)
 $ moleculer connect nats://localhost:4222
+# or without URI
+$ moleculer connect
 
 # Connect to Redis
 $ moleculer connect redis://localhost
 
 # Connect to MQTT
 $ moleculer connect mqtt://localhost
+
+# Connect to AMQP
+$ moleculer connect amqp://localhost:5672
+```
+
+**Options**
+```
+  --ns           Namespace                                [string] [default: ""]
+  --id           NodeID                                 [string] [default: null]
+  --metrics, -m  Enable metrics                       [boolean] [default: false]
+  --hot, -h      Enable hot-reload                    [boolean] [default: false]
+  --cb           Enable circuit breaker               [boolean] [default: false]
+  --serializer   Serializer                             [string] [default: null]
 ```

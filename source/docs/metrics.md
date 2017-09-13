@@ -3,7 +3,7 @@ title: Metrics
 Moleculer has a metrics feature. You can enable it in the [broker options](broker.html#Constructor-options) with `metrics: true` option.
 If enabled, the broker emits metrics events at every `broker.call`. You can catch this events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc).
 
-### Request started event
+## Request started event
 The broker emits an `metrics.trace.span.start` event when a new call/request is started.
 The payload looks like the following:
 ```js
@@ -31,7 +31,7 @@ The payload looks like the following:
 }
 ```
 
-### Request finished event
+## Request finished event
 The broker emits an `metrics.trace.span.finish` event when the call/request is finished.
 The payload looks like the following:
 ```js
@@ -70,3 +70,37 @@ The payload looks like the following:
     }
 }
 ```
+
+## Circuit-breaker events
+
+### `metrics.circuit-breaker.open`
+The broker send this event if the circuit breaker module changed the state to `open`.
+
+**Payload**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `nodeID` | `String` | Node ID |
+| `action` | `String` | Action name |
+| `failures` | `Number` | Count of failures |
+
+
+### `metrics.circuit-breaker.half-open`
+The broker send this event if the circuit breaker module changed the state to `half-open`.
+
+**Payload**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `nodeID` | `String` | Node ID |
+| `action` | `String` | Action name |
+
+### `metrics.circuit-breaker.close`
+The broker send this event if the circuit breaker module changed the state to `closed`.
+
+**Payload**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `nodeID` | `String` | Node ID |
+| `action` | `String` | Action name |

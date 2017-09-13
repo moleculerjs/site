@@ -27,9 +27,9 @@ let broker = new ServiceBroker({
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `enabled` | `Boolean` | `false` | Enable the protection |
-| `maxFailures` | `5` | `false` | Trip breaker after 5 failures |
+| `maxFailures` | `3` | `false` | Trip breaker after 3 failures |
 | `halfOpenTime` | `Number` | `10000` | Number of milliseconds to switch from `open` to `half-open` state |
 | `failureOnTimeout` | `Boolean` | `true` | Increment failures if the request is timed out |
 | `failureOnReject` | `Boolean` | `true` | Increment failures if the request is rejected (by any `Error`) |
 
-> If the circuit-breaker state is changed, ServiceBroker will send event about changes. [Read more about it.](http://localhost:4000/docs/broker.html#Internal-events)
+> If the circuit-breaker state is changed, ServiceBroker will send [internal](broker.html#Internal-events) & [metrics](metrics.html#Circuit-breaker-events) events.

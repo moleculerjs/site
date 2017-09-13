@@ -16,6 +16,7 @@ docs:
     service: service.html
     context: context.html
     logger: logger.html
+    errors: errors.html
     validation: validation.html
     circuit-breaker: circuit-breaker.html
     service-registry: service-registry.html
@@ -48,6 +49,13 @@ docs:
     api_protocol: protocol.html
 
 "api-0.10":
+  api:
+    api_servicebroker: service-broker.html
+    api_service: service.html
+    api_context: context.html
+    api_protocol: protocol.html
+
+"api-0.11":
   api:
     api_servicebroker: service-broker.html
     api_service: service.html

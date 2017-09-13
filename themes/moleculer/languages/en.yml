@@ -27,6 +27,7 @@ sidebar:
     service: Service
     context: Context
     logger: Logger
+    errors: Errors
     validation: Validation
     circuit-breaker: Circuit Breaker
     service-registry: Service Registry
@@ -63,6 +64,12 @@ sidebar:
     api_protocol: Protocol
   api-0.10:
     api: API v0.10.x
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
+    api_protocol: Protocol
+  api-0.11:
+    api: API v0.11.x
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context

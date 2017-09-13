@@ -189,7 +189,7 @@ Inside the action you can call other actions in other services with `ctx.call` m
 
 
 ## Events
-You can subscribe to events and can define event handlers under the `events` key.
+You can subscribe to events under the `events` key.
 
 ```js
 {
@@ -200,18 +200,21 @@ You can subscribe to events and can define event handlers under the `events` key
 
     events: {
         // Subscribe to "user.created" event
-        // Same as you subscribe as `broker.on("user.created", ...)` 
-        // in the `created()` method
-        "user.created": function(payload) {
+        "user.created"(payload) {
             this.logger.info("User created:", payload);
             // Do something
         },
 
         // Subscribe to all "user.*" event
-        "user.*": function(payload, sender, eventName) {
+        "user.*"(payload, sender, eventName) {
             // Do something with payload. The `eventName` contains 
             // the original event name. E.g. `user.modified`.
             // The `sender` is the nodeID of sender.
+        }
+
+        // Subscribe to a local event
+        "$node.connected"({ node }) {
+            this.logger.info(`Node '${node.id}' is connected!`);
         }
     }
 
@@ -284,6 +287,7 @@ In service functions the `this` is always pointed to the Service instance. It ha
 | `this.Promise` | `Promise` | Class of Promise (Bluebird) |
 | `this.logger` | `Logger` | Logger instance |
 | `this.actions` | `Object` | Actions of service. *Service can call own actions directly but it is not recommended. Use the `ctx.call` instead!* |
+| `this.waitForServices` | `Function` | Link to ['broker.waitForServices' method](broker.html#Wait-for-services) |
 
 ## Create a service
 There are several ways to create/load a service.
@@ -413,7 +417,7 @@ Turn it on with `--hot` or `-H` flags.
 $ moleculer-runner --hot ./services/test.service.js
 ```
 
-{% note warn Please note %}
+{% note info Please note %}
 Hot reloading function is working only with Moleculer Runner or if you load your services with `broker.loadService` or `broker.loadServices`.
 {% endnote %}
 
