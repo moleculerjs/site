@@ -14,7 +14,6 @@ let broker = new ServiceBroker({
 
 broker.createService({
     name: "users",
-    // cache: true, // If you enable here, all actions will be cached!
     actions: {
         list: {
             cache: true, // Enable caching to this action
@@ -103,7 +102,7 @@ broker.cacher.clean();
 ```
 
 ## Clear cache
-When you create a new model in your service, sometimes you have to clear the old cached model entries. For this purpose there are internal events. When an event like this is emitted, the cacher will clean the cache.
+When you create a new model in your service, sometimes you have to clear the old cached model entries.
 
 **Example to clean the cache inside actions**
 ```js
@@ -115,19 +114,19 @@ When you create a new model in your service, sometimes you have to clear the old
             let user = new User(ctx.params);
 
             // Clear all cache entries
-            ctx.emit("cache.clean");
+            this.broker.cacher.clean();
 
             // Clear all cache entries which keys start with `users.`
-            ctx.emit("cache.clean", "users.*");
+            this.broker.cacher.clean("users.*");
 
             // Clear multiple cache entries
-            ctx.emit("cache.clean", [ "users.*", "posts.*" ]);
+            this.broker.cacher.clean([ "users.*", "posts.*" ]);
 
             // Delete only one entry
-            ctx.emit("cache.del", "users.list");
+            this.broker.cacher.del("users.list");
 
             // Delete multiple entries
-            ctx.emit("cache.del", [ "users.model:5", "users.model:8" ]);
+            this.broker.cacher.del([ "users.model:5", "users.model:8" ]);
         }
     }
 }

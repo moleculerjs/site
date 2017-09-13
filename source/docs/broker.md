@@ -306,6 +306,30 @@ return (handler, action) => {
 };
 ```
 
+## Wait for services
+The broker has a `waitForServices` method. With it you can wait services with a `Promise`.
+
+**Parameters**
+
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `services` | `String` or `Array` | - | Service list to waiting |
+| `timeout` | `Number` | `0` | Waiting timeout. `0` means no timeout. If reached the broker throw a `MoleculerServerError` |
+| `interval` | `Number` | `1000` | Delay between watches in milliseconds |
+
+**Example**
+```js
+broker.waitForServices(["posts", "users"]).then(() => {
+    // Call it after the `posts` & `users` services are available
+});
+```
+
+```js
+broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
+    // Call it after `accounts` service is available in 10 seconds
+});
+```
+
 ## Internal services
 The broker contains some internal services to check the health of node or get broker statistics. You can disable it with the `internalServices: false` broker option in constructor.
 

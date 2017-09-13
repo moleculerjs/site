@@ -27,6 +27,7 @@ sidebar:
     service: Service
     context: Context
     logger: Logger
+    errors: Errors
     validation: Validation
     circuit-breaker: Circuit Breaker
     service-registry: Service Registry

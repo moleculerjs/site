@@ -16,6 +16,7 @@ docs:
     service: service.html
     context: context.html
     logger: logger.html
+    errors: errors.html
     validation: validation.html
     circuit-breaker: circuit-breaker.html
     service-registry: service-registry.html

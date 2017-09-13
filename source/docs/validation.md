@@ -2,6 +2,8 @@ title: Validation
 ---
 Moleculer has a built-in validator module. It uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
 
+## Built-in validator
+
 ```js
 let { ServiceBroker } = require("moleculer");
 
@@ -51,3 +53,73 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 {% note info Documentation %}
 You can find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
+
+## Custom validator
+You can create your custom validator. You should implement `compile` and `validate` methods of `BaseValidator`.
+
+**[Example for Joi](https://gist.github.com/icebob/07024c0ac22589a5496473c2a8a91146)**
+```js
+// --- JOI VALIDATOR CLASS ---
+
+let BaseValidator = require("moleculer").Validators.Base;
+let { ValidationError } = require("moleculer").Errors;
+
+class JoiValidator extends BaseValidator {
+    constructor() {
+        super();
+        this.validator = require("joi");
+    }
+
+    compile(schema) {
+        return (params) => this.validate(params, schema);
+    }
+
+    validate(params, schema) {
+        const res = this.validator.validate(params, schema);
+        if (res.error)
+            throw new ValidationError(res.error.message, null, res.error.details);
+
+        return true;
+    }
+}
+
+// --- BROKER ---
+
+let ServiceBroker = require("../src/service-broker");
+let Joi = require("joi");
+
+let broker = new ServiceBroker({
+    logger: true,
+    validation: true,
+    validator: new JoiValidator()
+});
+
+// --- SERVICE ---
+broker.createService({
+    name: "greeter",
+    actions: {
+        hello: {
+            params: Joi.object().keys({
+                name: Joi.string().min(4).max(30).required()
+            }),
+            handler(ctx) {
+                return `Hello ${ctx.params.name}`;
+            }
+        }
+    }
+});
+
+// --- TEST ---
+broker.start()
+    .then(() => broker.call("greeter.hello").then(res => broker.logger.info(res)))
+    .catch(err => broker.logger.error(err.message, err.data))
+
+    .then(() => broker.call("greeter.hello", { name: 100 }).then(res => broker.logger.info(res)))
+    .catch(err => broker.logger.error(err.message, err.data))
+
+    .then(() => broker.call("greeter.hello", { name: "Joe" }).then(res => broker.logger.info(res)))
+    .catch(err => broker.logger.error(err.message, err.data))
+
+    .then(() => broker.call("greeter.hello", { name: "John" }).then(res => broker.logger.info(res)))
+    .catch(err => broker.logger.error(err.message, err.data));
+```
