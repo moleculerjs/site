@@ -18,16 +18,15 @@ broker.createService({
     }
 });
 
-broker.start();
-
-// Call service
-broker.call("math.add", { a: 5, b: 3 })
+broker.start()
+    // Call service
+    .then(() => broker.call("math.add", { a: 5, b: 3 }))
     .then(res => console.log("5 + 3 =", res))
     .catch(err => console.error(`Error occured! ${err.message}`));
 ```
 
 {% note info Try it in your browser! %}
-Open this example on [Runkit!](https://runkit.com/icebob/moleculer-quick-example)
+Open this example on [Runkit!](https://runkit.com/icebob/moleculer-usage)
 {% endnote %}
 
 # Create a Moleculer project
@@ -41,7 +40,7 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer based
     ```bash
     $ moleculer init project-simple first-demo
     ```
-    > Add API Gateway and press Y to `npm install`
+    > Press Y to all questions
     
 3. Open project folder
     ```bash

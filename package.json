@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "hexo": {
-    "version": "3.3.8"
+    "version": "3.3.9"
   },
   "scripts": {
     "api": "node api-docs-generator.js",

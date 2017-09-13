@@ -32,9 +32,6 @@ let ApiService = require("moleculer-web");
 
 let broker = new ServiceBroker({ logger: console });
 
-// Load your services
-broker.loadService(...);
-
 // Load API Gateway
 broker.createService(ApiService);
 
@@ -143,8 +140,25 @@ broker.createService({
 To use this shorthand alias you need to create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
+You can use custom function is aliases:
+```js
+broker.createService({
+    mixins: [ApiService],
+
+    settings: {
+        routes: [{
+            aliases: {
+                "POST upload"(route, req, res) {
+                    this.parseUploadedFile(route, req, res);
+                }
+            }
+        }]
+    }
+});
+```
+
 ## Serve static files
-It can serve assets files with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
+It serves assets with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
 ```js
 broker.createService({
@@ -295,11 +309,13 @@ broker.createService({
 ```
 
 ## ExpressJS middleware usage
-You can use Moleculer-Web as a middleware for [ExpressJS](http://expressjs.com/).
+You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
 **Usage**
 ```js
-const svc = broker.createService(ApiGatewayService, {
+const svc = broker.createService({
+    mixins: [ApiService],
+
     settings: {
         middleware: true
     }
@@ -340,7 +356,7 @@ settings: {
     // Middleware mode (for ExpressJS)
     middleware: false,
 
-    // Exposed path prefix
+    // Exposed global path prefix
     path: "/api",
 
     // Routes
@@ -355,7 +371,7 @@ settings: {
                 "$node.*"
             ],
 
-            // It will call the `this.authorize` method before call the action
+            // Call the `this.authorize` method before call the action
             authorization: true,
 
             // Action aliases
@@ -381,7 +397,7 @@ settings: {
                 /^math\.\w+$/
             ],
 
-            // No need authorization
+            // No authorization
             authorization: false,
             
             // Action aliases
