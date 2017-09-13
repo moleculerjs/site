@@ -5,25 +5,25 @@ The `ServiceBroker` is the main component of Moleculer. It handles services & ev
 ## Create broker
 Create broker with default settings:
 ```js
-let { ServiceBroker } = require("moleculer");
-let broker = new ServiceBroker();
+const { ServiceBroker } = require("moleculer");
+const broker = new ServiceBroker();
 ```
 
 Create broker with custom settings:
 ```js
-let { ServiceBroker } = require("moleculer");
-let broker = new ServiceBroker({
+const { ServiceBroker } = require("moleculer");
+const broker = new ServiceBroker({
     logger: console,
     logLevel: "info"
 });
 ```
 
-Create broker with transporter:
+Create broker with NATS transporter:
 ```js
-let { ServiceBroker, NatsTransporter } = require("moleculer");
-let broker = new ServiceBroker({
+const { ServiceBroker } = require("moleculer");
+const broker = new ServiceBroker({
     nodeID: "node-1",
-    transporter: new NatsTransporter(),
+    transporter: "nats://localhost:4222",
     logger: console,
     logLevel: "debug",
     requestTimeout: 5 * 1000,
@@ -33,16 +33,15 @@ let broker = new ServiceBroker({
 
 Create broker with cacher:
 ```js
-let ServiceBroker = require("moleculer").ServiceBroker;
-let MemoryCacher = require("moleculer").Cachers.Memory;
-let broker = new ServiceBroker({
-    cacher: new MemoryCacher(),
+const { ServiceBroker } = require("moleculer");
+const broker = new ServiceBroker({
+    cacher: "memory",
     logger: console
-});    
+});   
 ```
 
-### Constructor options
-All available options:
+### Broker options
+All available options in constructor:
 ```js
 {
     namespace: "staging",
@@ -50,23 +49,25 @@ All available options:
 
     logger: true,
     logLevel: "info",
-    logFormatter: null,
+    logFormatter: "default",
 
     transporter: "nats://localhost:4222",
     requestTimeout: 0,
     requestRetry: 0,
-    maxCallLevel: 500,
-    heartbeatInterval: 10,
-    heartbeatTimeout: 30,
+    maxCallLevel: 100,
+    heartbeatInterval: 5,
+    heartbeatTimeout: 15,
+
+    disableBalancer: false,
 
     registry: {
-        strategy: new RoundRobinStrategy(),
+        strategy: Moleculer.Strategies.RoundRobinStrategy,
         preferLocal: true
     },
 
     circuitBreaker: {
         enabled: true,
-        maxFailures: 5,
+        maxFailures: 3,
         halfOpenTime: 10 * 1000,
         failureOnTimeout: true,
         failureOnReject: true
@@ -76,6 +77,8 @@ All available options:
     serializer: null,
 
     validation: true,
+    validator: null,
+
     metrics: false,
     metricsRate: 1,
     statistics: false,
@@ -90,22 +93,24 @@ All available options:
 
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
-| `namespace` | `String` | `""` | Namespace of nodes. You can segment your nodes. |
+| `namespace` | `String` | `""` | Namespace of nodes. With it you can segment your nodes. |
 | `nodeID` | `String` | Computer name | This is the ID of node. It identifies a node in a cluster when there are many nodes. |
 | `logger` | `Boolean` or `Object` or `Function` | `null` | Logger class. During development you can set to `console` or `true`. In production you can use an external logger e.g. [winston](https://github.com/winstonjs/winston) or [pino](https://github.com/pinojs/pino). [Read more](logger.html) |
 | `logLevel` | `String` or `Object` | `info` | Log level for built-in console logger (trace, debug, info, warn, error, fatal). |
-| `logFormatter` | `Function` | `null` | Custom log formatter for built-in console logger. |
+| `logFormatter` | `String` or `Function` | `default` | Log formatting for built-in console logger. Values: `default`, `simple`. It can be also Function. |
 | `transporter` | `String` or `Object` or `Transporter` | `null` | Transporter settings. Required if you have 2 or more nodes. [Read more](transporters.html)  |
 | `requestTimeout` | `Number` | `0` | Number of milliseconds to wait before returning a `RequestTimeout` error when it takes too long to return a value. Disable: 0 |
 | `requestRetry` | `Number` | `0` | Count of retries. If the request is timed out, broker will try to call again. |
 | `maxCallLevel` | `Number` | `0` | Limit of call level. If reach the limit, broker will throw an `MaxCallLevelError` error. |
-| `heartbeatInterval` | `Number` | `10` | Number of seconds to send heartbeat packet to other nodes |
-| `heartbeatTimeout` | `Number` | `30` | Number of seconds to wait before setting the node to unavailable status |
+| `heartbeatInterval` | `Number` | `5` | Number of seconds to send heartbeat packet to other nodes |
+| `heartbeatTimeout` | `Number` | `15` | Number of seconds to wait before setting the node to unavailable status |
+| `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Only if the transporter support it._ |
 | `registry` | `Object` | | Settings of [Service Registry](service-registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](circuit-breaker.html) |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](#cachers.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](serializers.html) |
 | `validation` | `Boolean` | `true` | Enable [parameters validation](validation.html). |
+| `validator` | `Validator` | `null` | Custom Validator class for validation. |
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means 100% (measure every request) |
 | `statistics` | `Boolean` | `false` | Enable broker [statistics](statistics.html). Collect the requests count & latencies |
@@ -115,7 +120,7 @@ All available options:
 | `ContextFactory` | `Class` | `null` | Custom Context class. If not `null`, broker will use it when creating contexts |
 
 {% note info Moleculer runner %}
-Since v0.8.0 you don't need to create ServiceBroker in your project. You can use our new [Moleculer Runner](runner.html) to execute a broker and load services. [Read more about Moleculer Runner](runner.html).
+You don't need to create ServiceBroker in your project. You can use our new [Moleculer Runner](runner.html) to execute a broker and load services. [Read more about Moleculer Runner](runner.html).
 {% endnote %}
 
 ## Call services
@@ -145,21 +150,26 @@ The `opts` is an object. With this, you can set/override some request parameters
 ### Usage
 ```js
 // Call without params
-broker.call("user.list").then(res => console.log("User list: ", res));
+broker.call("user.list")
+    .then(res => console.log("User list: ", res));
 
 // Call with params
-broker.call("user.get", { id: 3 }).then(res => console.log("User: ", res));
+broker.call("user.get", { id: 3 })
+    .then(res => console.log("User: ", res));
 
 // Call with options
-broker.call("user.recommendation", { limit: 5 }, { timeout: 500, fallbackResponse: defaultRecommendation })
-    .then(res => console.log("Result: ", res));
+broker.call("user.recommendation", { limit: 5 }, { 
+    timeout: 500, 
+    retry: 3,
+    fallbackResponse: defaultRecommendation 
+}).then(res => console.log("Result: ", res));
 
 // Call with error handling
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
     .catch(err => console.error("Unable to update Post!", err));    
 
-// Direct call health info from a specified node
+// Direct call: get health info from the "node-21" node
 broker.call("$node.health", {}, { nodeID: "node-21" })
     .then(res => console.log("Result: ", res));    
 ```
@@ -181,39 +191,74 @@ broker.call("user.recommendation", { limit: 5 }, {
 ```
 
 ### Distributed timeouts
-Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/).In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected any way.
+Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected any way.
+
+### Retries
+If you set the `retry` property in calling options and the request returns with an `MoleculerRetryableError` error, broker will recall the action with the same parameters while `retry` is greater than `0`.
+```js
+broker.call("user.list", { limit: 5 }, { timeout: 500, retry: 3 })
+    .then(res => console.log("Result: ", res));
+```
 
 ## Emit events
-Broker has an internal event bus. You can send events locally or globally. The local event will be received only by local services. The global event that will be received by all services on all nodes (it is transferred via transporter).
+Broker has a built-in balanced event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html). You can send events to the local and remote services.
 
-### Send event
-You can send events with `emit` and `emitLocal` functions. First parameter is the name of event, second parameter is the payload. 
+### Balanced emit with grouping
+You can send balanced events with `emit` functions. In this case only one instance per services receives the event.
+> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances from `users` service and 2 instances from `payments` service. If you emit the `user.created` event, only one `users` and one `payments` service will receive the event.
+
+First parameter is the name of event, second parameter is the payload. If you want to send multiple values, you should wrap them to an object.
 
 ```js
-// Emit a local event that will be received only by local services
-broker.emitLocal("service.started", { service: service, version: 1 });
-
-// Emit a global event that will be received by all nodes. 
 // The `user` will be serialized to transportation.
 broker.emit("user.created", user);
 ```
 
-### Subscribe to events
-To subscribe to events use the `on` or `once` methods. Or inside [Services](service.html) you can use the [`events` property](service.html#events).
-In event names you can use wildcards too.
-
+You can specify which services receives the event:
 ```js
-// Subscribe to `user.created` event
-broker.on("user.created", user => console.log("User created:", user));
-
-// Subscribe to `user` events
-broker.on("user.*", user => console.log("User event:", user));
-
-// Subscribe to all events
-broker.on("**", (payload, sender) => console.log(`Event received from ${sender} node:`, payload));
+// Only the `mail` & `payments` services receives it
+broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-> To unsubscribe from event call the `off` method of broker.
+### Broadcast event
+With `broker.broadcast` method you can send events to all local remote services. It is not balanced.
+```js
+broker.broadcast("config.changed", config);
+```
+
+### Local broadcast event
+With `broker.broadcastLocal` method you can send events to all **local** services. It is not balanced and not transferred.
+```js
+broker.broadcastLocal("$services.changed");
+```
+
+### Local events
+Every local events must start with `$` _(dollar sign)_. E.g.: `$node.connected`. If you call these events with `emit` or `broadcast`, they will send to only local services.
+
+### Subscribe to events
+You can only subscribe to events in ['events' property of services](service.html#events).
+_In event names you can use wildcards too._
+
+```js
+module.exports = {
+    events: {
+        // Subscribe to `user.created` event
+        "user.created"(user) {
+            console.log("User created:", user));
+        },
+
+        // Subscribe to all `user` events
+        "user.*"(user) {
+            console.log("User event:", user));
+        }
+
+        // Subscribe to all events
+        "**"(payload, sender, event) {
+            console.log(`Event '${event}' received from ${sender} node:`, payload));
+        }
+    }
+}
+```
 
 ## Middlewares
 Broker supports middlewares. You can add your custom middleware, and it'll be called before every local request. The middleware is a `Function` that returns a wrapped action handler. 
@@ -262,7 +307,7 @@ return (handler, action) => {
 ```
 
 ## Internal services
-The broker contains some internal services to check the health of node or get broker statistics.
+The broker contains some internal services to check the health of node or get broker statistics. You can disable it with the `internalServices: false` broker option in constructor.
 
 ### List of nodes
 This actions lists all connected nodes.
@@ -286,7 +331,7 @@ It has some options what you can set in `params`.
 | `withActions` | `Boolean` | `false` | If `true`, lists also the actions of services. |
 
 ### List of local actions
-This action lists the local actions.
+This action lists all registered actions.
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
@@ -299,6 +344,21 @@ It has some options what you can set in `params`.
 | `onlyLocal` | `Boolean` | `false` | If `true`, lists only local actions. |
 | `skipInternal` | `Boolean` | `false` | If `true`, skips the internal actions (`$node`). |
 | `withEndpoints` | `Boolean` | `false` | If `true`, lists also the endpoints _(nodes)_ of actions. |
+
+### List of local events
+This action lists all event subscriptions.
+```js
+broker.call("$node.events").then(res => console.log(res));
+```
+It has some options what you can set in `params`.
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `onlyLocal` | `Boolean` | `false` | If `true`, lists only local subscriptions. |
+| `skipInternal` | `Boolean` | `false` | If `true`, skips the internal event subscriptions `$`. |
+| `withEndpoints` | `Boolean` | `false` | If `true`, lists also the endpoints _(nodes)_ of subscription. |
 
 ### Health of node
 This action returns the health info of process & OS.
@@ -344,6 +404,11 @@ Example health info:
             "heapUsed": 22112024
         },
         "uptime": 25.447
+    },
+    "client": { 
+        "type": "nodejs", 
+        "version": "0.11.0", 
+        "langVersion": "v6.11.3" 
     },
     "net": {
         "ip": [
@@ -433,16 +498,16 @@ Example statistics:
 ## Internal events
 The broker emits some internal local events.
 
-### `services.changed`
-The broker send this event if you load or destroy services after `broker.start`.
+### `$services.changed`
+The broker send this event if some node loads or destroys services after `broker.start`.
 
 **Parameters**
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _No params_ |
+| `localService ` | `Boolean` | True if a local service changed. |
 
-### `circuit-breaker.open`
+### `$circuit-breaker.open`
 The broker send this event if the circuit breaker module changed the state to `open`.
 
 **Parameters**
@@ -454,7 +519,7 @@ The broker send this event if the circuit breaker module changed the state to `o
 | `failures` | `Number` | Count of failures |
 
 
-### `circuit-breaker.half-open`
+### `$circuit-breaker.half-open`
 The broker send this event if the circuit breaker module changed the state to `half-open`.
 
 **Parameters**
@@ -464,7 +529,7 @@ The broker send this event if the circuit breaker module changed the state to `h
 | `nodeID` | `String` | Node ID |
 | `action` | `String` | Action  name |
 
-### `circuit-breaker.close`
+### `$circuit-breaker.close`
 The broker send this event if the circuit breaker module changed the state to `closed`.
 
 **Parameters**
@@ -474,7 +539,7 @@ The broker send this event if the circuit breaker module changed the state to `c
 | `nodeID` | `String` | Node ID |
 | `action` | `String` | Action  name |
 
-### `node.connected`
+### `$node.connected`
 The broker send this event if a node connected or reconnected.
 
 **Parameters**
@@ -484,8 +549,8 @@ The broker send this event if a node connected or reconnected.
 | `node` | `Node` | Node info object |
 | `reconnected` | `Boolean` | Is reconnected? |
 
-### `node.info`
-The broker send this event if received an INFO message from node. E.g. changed the service list on the node.
+### `$node.updated`
+The broker send this event if received an INFO message from node, i.e. changed the service list on the node.
 
 **Parameters**
 
@@ -493,7 +558,7 @@ The broker send this event if received an INFO message from node. E.g. changed t
 | ---- | ---- | ----------- |
 | `node` | `Node` | Node info object |
 
-### `node.disconnected`
+### `$node.disconnected`
 The broker send this event if a node disconnected.
 
 **Parameters**
