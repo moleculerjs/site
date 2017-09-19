@@ -51,5 +51,14 @@
         <a href="docs/" id="intro-get-started-link">{{ __('index.get_started') }}</a>
       </div>
     </div>
+    <section>
+      <h2 class="section-title">Who is using Moleculer</h2>
+      <div class="company-list">
+        <a href="https://www.conciergeauctions.com/" class="company-logo" target="_blank">
+          <img src="https://s3.amazonaws.com/media.conciergeauctions.com/logo.jpg" alt="Concierge Auctions">
+        </a>
+      </div>
+      <div class="company-missing">If you don't see here your company, <a href="https://github.com/ice-services/moleculer/issues/101" target="_blank">tell us.</a></div>
+    </section>
   </div>
 </div>
