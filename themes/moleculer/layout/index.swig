@@ -52,7 +52,7 @@
       </div>
     </div>
     <section>
-      <h2 class="section-title">Who is using Moleculer</h2>
+      <h2 class="section-title">Who is using Moleculer?</h2>
       <div class="company-list">
         <a href="https://www.conciergeauctions.com/" class="company-logo" target="_blank">
           <img src="https://s3.amazonaws.com/media.conciergeauctions.com/logo.jpg" alt="Concierge Auctions">
