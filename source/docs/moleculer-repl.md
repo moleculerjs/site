@@ -29,6 +29,8 @@ broker.repl();
     call <actionName>                      Call an action
     dcall <nodeID> <actionName>            Direct call an action
     emit <eventName>                       Emit an event
+    broadcast <eventName>                  Broadcast an event
+    broadcastLocal <eventName>             Broadcast an event to local services    
     load <servicePath>                     Load a service from file
     loadFolder <serviceFolder> [fileMask]  Load all service from folder
     actions [options]                      List of actions
@@ -45,7 +47,8 @@ mol $ nodes
 
 **Options**
 ```
-    -d, --details
+    -d, --details  Detailed list
+    -a, --all      List all (offline) nodes
 ```
 
 **Output**
