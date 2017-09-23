@@ -114,9 +114,9 @@ mol $ call "test.hello"
 
 ### Call an action with parameters
 ```bash
-mol $ call "math.add" --a 5 --b Bob --c --no-d
+mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false }`
+Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
 ### Direct call
 Get health info of `node-12` node
@@ -131,9 +131,9 @@ mol $ emit "user.created"
 
 ### Emit an event with parameters
 ```bash
-mol $ emit "user.created" --a 5 --b Bob --c --no-d
+mol $ emit "user.created" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false }`
+Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
 ### Load a service from file
 ```bash
