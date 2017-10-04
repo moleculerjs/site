@@ -8,15 +8,15 @@ We [tested](https://github.com/icebob/microservices-benchmark) Moleculer against
 ### Local request
 ```
 Suite: Call local actions
-√ Seneca*                 12,081 rps
-√ Nanoservices*           64,921 rps
-√ Moleculer*             723,033 rps
+√ Moleculer*           2,021,189 rps
+√ Nanoservices*           94,116 rps
+√ Seneca*                 13,621 rps
 
-   Seneca* (#)             0%         (12,081 rps)   (avg: 82μs)
-   Nanoservices*      +437.4%         (64,921 rps)   (avg: 15μs)
-   Moleculer*        +5,885.11%        (723,033 rps)   (avg: 1μs)
+   Moleculer*              0%      (2,021,189 rps)   (avg: 494ns)
+   Nanoservices*      -95.34%         (94,116 rps)   (avg: 10μs)
+   Seneca*            -99.33%         (13,621 rps)   (avg: 73μs)
 ```
-[![Result chart](https://cloud.highcharts.com/images/utideti/5/600.png)](http://cloud.highcharts.com/show/utideti)
+[![Result chart](https://cloud.highcharts.com/images/utideti/6/600.png)](http://cloud.highcharts.com/show/utideti)
 
 ### Remote request
 ```
@@ -35,8 +35,8 @@ Suite: Call remote actions
 
 **Tester platform:**
 - **OS**: Windows_NT 6.1.7601 x64
-- **Node**: 6.10.0
-- **v8**: 5.1.281.93
+- **Node**: 8.4.0
+- **v8**: 6.0.286.52
 - **CPU**: Intel(R) Core(TM) i7-4770K CPU @ 3.50GHz × 8
 - **Memory**: 16 GB
 
