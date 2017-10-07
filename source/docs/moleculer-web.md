@@ -10,8 +10,10 @@ The [moleculer-web](https://github.com/ice-services/moleculer-web) is the offici
 * alias names (with named parameters & REST routes)
 * whitelist
 * multiple body parsers (json, urlencoded)
-* Buffer & Stream handling
+* CORS headers
+* Rate limiter
 * before & after call hooks
+* Buffer & Stream handling
 * middleware mode (use as a middleware with Express)
 * support authorization
 
@@ -306,6 +308,114 @@ broker.createService({
         ]
     }
 });
+```
+
+## CORS headers
+You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
+
+**Usage**
+```js
+const svc = broker.createService({
+    mixins: [ApiService],
+
+    settings: {
+
+        // Global CORS settings for all routes
+        cors: {
+            // Configures the Access-Control-Allow-Origin CORS header.
+            origin: "*",
+            // Configures the Access-Control-Allow-Methods CORS header. 
+            methods: ["GET", "OPTIONS", "POST", "PUT", "DELETE"],
+            // Configures the Access-Control-Allow-Headers CORS header.
+            allowedHeaders: [],
+            // Configures the Access-Control-Expose-Headers CORS header.
+            exposedHeaders: [],
+            // Configures the Access-Control-Allow-Credentials CORS header.
+            credentials: false,
+            // Configures the Access-Control-Max-Age CORS header.
+            maxAge: 3600
+        },
+
+        routes: [{
+            path: "/api",
+
+            // Route CORS settings (overwrite global settings)
+            cors: {
+                origin: ["http://localhost:3000", "https://localhost:4000"],
+                methods: ["GET", "OPTIONS", "POST"],
+                credentials: true
+            },
+        }]
+    }
+});
+```
+
+## Rate limiter
+The Moleculer-Web has a built-in rate limiter with a memory store.
+
+**Usage**
+```js
+const svc = broker.createService({
+    mixins: [ApiService],
+
+    settings: {
+        rateLimit: {
+            // How long to keep record of requests in memory (in milliseconds). 
+            // Defaults to 60000 (1 min)
+            window: 60 * 1000,
+
+            // Max number of requests during window. Defaults to 30
+            limit: 30,
+            
+            // Set rate limit headers to response. Defaults to false
+            headers: true,
+
+            // Function used to generate keys. Defaults to: 
+            key: (req) => {
+                return req.headers["x-forwarded-for"] ||
+                    req.connection.remoteAddress ||
+                    req.socket.remoteAddress ||
+                    req.connection.socket.remoteAddress;
+            },
+            //StoreFactory: CustomStore
+        }
+    }
+});
+```
+
+### Custom Store example
+```js
+class CustomStore {
+    constructor(window, opts) {
+        this.hits = new Map();
+        this.resetTime = Date.now() + clearPeriod;
+
+        setInterval(() => {
+            this.resetTime = Date.now() + clearPeriod;
+            this.reset();
+        }, clearPeriod);
+    }
+
+    /**
+     * Increment the counter by key
+     *
+     * @param {String} key
+     * @returns {Number}
+     */
+    inc(key) {
+        let counter = this.hits.get(key) || 0;
+        counter++;
+        this.hits.set(key, counter);
+        return counter;
+    }
+
+    /**
+     * Reset all counters
+     */
+    reset() {
+        this.hits.clear();
+    }
+}
 ```
 
 ## ExpressJS middleware usage
