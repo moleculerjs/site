@@ -55,10 +55,10 @@
       <h2 class="section-title">Who is using Moleculer?</h2>
       <div class="company-list">
         <a href="https://www.conciergeauctions.com/" class="company-logo" target="_blank">
-          <img src="https://s3.amazonaws.com/media.conciergeauctions.com/logo.jpg" alt="Concierge Auctions">
+          <img src="https://s3.amazonaws.com/media.conciergeauctions.com/logo.jpg" alt="Concierge Auctions" />
         </a>
         <a href="http://www.ingsw.com/" class="company-logo" target="_blank">
-          <img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious">
+          <img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious" />
         </a>
       </div>
       <div class="company-missing">If you don't see here your company, <a href="https://github.com/ice-services/moleculer/issues/101" target="_blank">tell us.</a></div>
