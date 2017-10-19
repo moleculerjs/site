@@ -1,6 +1,6 @@
 title: Context
 ---
-When you call an action, the broker creates a `Context` instance which contains all request informations and pass it to the action handler as single argument.
+When you call an action, the broker creates a `Context` instance which contains all the request information and pass it to the action handler as a single argument.
 
 **Available properties & methods of `Context`:**
 
