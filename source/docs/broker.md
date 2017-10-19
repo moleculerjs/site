@@ -41,7 +41,7 @@ const broker = new ServiceBroker({
 ```
 
 ### Broker options
-All available options in constructor:
+All available options within the constructor:
 ```js
 {
     namespace: "staging",
@@ -101,7 +101,7 @@ All available options in constructor:
 | `transporter` | `String` or `Object` or `Transporter` | `null` | Transporter settings. Required if you have 2 or more nodes. [Read more](transporters.html)  |
 | `requestTimeout` | `Number` | `0` | Number of milliseconds to wait before returning a `RequestTimeout` error when it takes too long to return a value. Disable: 0 |
 | `requestRetry` | `Number` | `0` | Count of retries. If the request is timed out, broker will try to call again. |
-| `maxCallLevel` | `Number` | `0` | Limit of call level. If reach the limit, broker will throw an `MaxCallLevelError` error. |
+| `maxCallLevel` | `Number` | `0` | Limit of call level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. |
 | `heartbeatInterval` | `Number` | `5` | Number of seconds to send heartbeat packet to other nodes |
 | `heartbeatTimeout` | `Number` | `15` | Number of seconds to wait before setting the node to unavailable status |
 | `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Only if the transporter support it._ |
@@ -119,9 +119,8 @@ All available options in constructor:
 | `ServiceFactory` | `Class` | `null` | Custom Service class. If not `null`, broker will use it when creating services |
 | `ContextFactory` | `Class` | `null` | Custom Context class. If not `null`, broker will use it when creating contexts |
 
-{% note info Moleculer runner %}
+**Info Moleculer runner:**
 You don't need to create ServiceBroker in your project. You can use our new [Moleculer Runner](runner.html) to execute a broker and load services. [Read more about Moleculer Runner](runner.html).
-{% endnote %}
 
 ## Call services
 You can call a service by calling the `broker.call` method. Broker will search the service (and the node) that has the given action and call it. The function will return a `Promise`.
@@ -130,7 +129,7 @@ You can call a service by calling the `broker.call` method. Broker will search t
 ```js
 let promise = broker.call(actionName, params, opts);
 ```
-The `actionName` is a dot-separated string. The first part of it is the service name. The seconds part of it is the action name. So if you have a `posts` service which has a `create` action, you need to use `posts.create` as `actionName` to call it.
+The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service which has a `create` action, you'll need to use `posts.create` as the `actionName` to call it.
 
 The `params` is an object that will be passed to the action as part of the [Context](context.html). *It is optional.*
 
@@ -142,8 +141,8 @@ The `opts` is an object. With this, you can set/override some request parameters
 | ------- | ----- | ------- | ------- |
 | `timeout` | `Number` | `requestTimeout` of broker | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. Disable: `0` or `null`|
 | `retryCount` | `Number` | `requestRetry` of broker | Count of retry of request. If the request timed out, broker will try to call again. |
-| `fallbackResponse` | `Any` | `null` | Return with it, if the request is failed. [More info](#Request-timeout-amp-fallback-response) |
-| `nodeID` | `String` | `null` | Target nodeID. If you set, it will make a direct call. |
+| `fallbackResponse` | `Any` | `null` | Returns with it, if the request has failed. [More info](#Request-timeout-amp-fallback-response) |
+| `nodeID` | `String` | `null` | Target nodeID. If set, it will make a direct call. |
 | `meta` | `Object` | `null` | Metadata of request. It will be transferred in sub-calls as well. |
 
 
@@ -176,9 +175,9 @@ broker.call("$node.health", {}, { nodeID: "node-21" })
 
 ### Request timeout & fallback response
 If you call action with `timeout` and the request is timed out, broker will throw a `RequestTimeoutError` error.
-But if you set `fallbackResponse` in calling options, broker won't throw error, will return with this given value instead. The `fallbackResponse` can be an `Object`, `Array`...etc. 
+But if you set `fallbackResponse` in calling options, broker won't throw error. Instead it will return with this given value. The `fallbackResponse` can be an `Object`, `Array`...etc. 
 
-The `fallbackResponse` can be also a `Function`, which returns a `Promise`. In this case the broker will pass the current `Context` & `Error` objects to this function as arguments.
+The `fallbackResponse` can also be a `Function`, which returns a `Promise`. In this case the broker will pass the current `Context` & `Error` objects to this function as arguments.
 
 ```js
 broker.call("user.recommendation", { limit: 5 }, { 
@@ -191,10 +190,10 @@ broker.call("user.recommendation", { limit: 5 }, {
 ```
 
 ### Distributed timeouts
-Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected any way.
+Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected anyway.
 
 ### Retries
-If you set the `retry` property in calling options and the request returns with an `MoleculerRetryableError` error, broker will recall the action with the same parameters while `retry` is greater than `0`.
+If you set the `retry` property in calling options and the request returns with a `MoleculerRetryableError` error, broker will recall the action with the same parameters as long as `retry` is greater than `0`.
 ```js
 broker.call("user.list", { limit: 5 }, { timeout: 500, retry: 3 })
     .then(res => console.log("Result: ", res));
@@ -204,7 +203,7 @@ broker.call("user.list", { limit: 5 }, { timeout: 500, retry: 3 })
 Broker has a built-in balanced event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html). You can send events to the local and remote services.
 
 ### Balanced emit with grouping
-You can send balanced events with `emit` functions. In this case only one instance per services receives the event.
+You can send balanced events with `emit` functions. In this case only one instance per service receives the event.
 > **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances from `users` service and 2 instances from `payments` service. If you emit the `user.created` event, only one `users` and one `payments` service will receive the event.
 
 First parameter is the name of event, second parameter is the payload. If you want to send multiple values, you should wrap them to an object.
@@ -233,7 +232,7 @@ broker.broadcastLocal("$services.changed");
 ```
 
 ### Local events
-Every local events must start with `$` _(dollar sign)_. E.g.: `$node.connected`. If you call these events with `emit` or `broadcast`, they will send to only local services.
+Every local event must start with `$` _(dollar sign)_. E.g.: `$node.connected`. If you call these events with `emit` or `broadcast`, they will only send to local services.
 
 ### Subscribe to events
 You can only subscribe to events in ['events' property of services](service.html#events).
@@ -278,10 +277,10 @@ return function validatorMiddleware(handler, action) {
 }.bind(this);
 ```
 
-The `handler` is the request handler of action, what is defined in [Service](service.html) schema. The `action` is the action object from Service schema. The middleware should return with the original `handler` or a new wrapped handler. As you can see above, we check whether the action has a `params` props. If yes we'll return a wrapped handler which will call the validator module before calling the original `handler`. 
-If there is not defined the  `params` property we will return the original `handler` (skipped wrapping).
+The `handler` is the request handler of an action, that is defined in [Service](service.html) schema. The `action` is the action object from Service schema. The middleware should return with the original `handler` or a new wrapped handler. As you can see above, we check whether the action has a `params` props. If yes, we'll return a wrapped handler which will call the validator module before calling the original `handler`. 
+If the `params` property is not defined, we will return the original `handler` (skipped wrapping).
 
->If you don't call the original `handler` in the middleware it will break the request. You can use it in cachers. For example, if it find the requested data in the cache, it'll return the cached data instead of call the `handler`.
+>If you don't call the original `handler` in the middleware it will break the request. You can use it in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `handler`.
 
 **Example code from cacher middleware**
 ```js
@@ -314,7 +313,7 @@ The broker has a `waitForServices` method. With it you can wait services with a 
 | Parameter | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
 | `services` | `String` or `Array` | - | Service list to waiting |
-| `timeout` | `Number` | `0` | Waiting timeout. `0` means no timeout. If reached the broker throw a `MoleculerServerError` |
+| `timeout` | `Number` | `0` | Waiting timeout. `0` means no timeout. If reached, the broker throw a `MoleculerServerError` |
 | `interval` | `Number` | `1000` | Delay between watches in milliseconds |
 
 **Example**
@@ -331,7 +330,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 ```
 
 ## Internal services
-The broker contains some internal services to check the health of node or get broker statistics. You can disable it with the `internalServices: false` broker option in constructor.
+The broker contains some internal services to check the health of node or get broker statistics. You can disable it with the `internalServices: false` broker option within the constructor.
 
 ### List of nodes
 This actions lists all connected nodes.
@@ -344,7 +343,7 @@ This action lists all registered services (local & remote).
 ```js
 broker.call("$node.services").then(res => console.log(res));
 ```
-It has some options what you can set in `params`.
+It has some options which you can declare within `params`.
 
 **Options**
 
@@ -359,7 +358,7 @@ This action lists all registered actions.
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
-It has some options what you can set in `params`.
+It has some options which you can declare within `params`.
 
 **Options**
 
@@ -374,7 +373,7 @@ This action lists all event subscriptions.
 ```js
 broker.call("$node.events").then(res => console.log(res));
 ```
-It has some options what you can set in `params`.
+It has some options which you can declare within `params`.
 
 **Options**
 
@@ -544,7 +543,7 @@ The broker send this event if the circuit breaker module changed the state to `o
 
 
 ### `$circuit-breaker.half-open`
-The broker send this event if the circuit breaker module changed the state to `half-open`.
+The broker send this event if the circuit breaker module changed its state to `half-open`.
 
 **Parameters**
 
@@ -554,7 +553,7 @@ The broker send this event if the circuit breaker module changed the state to `h
 | `action` | `String` | Action  name |
 
 ### `$circuit-breaker.close`
-The broker send this event if the circuit breaker module changed the state to `closed`.
+The broker send this event if the circuit breaker module changed its state to `closed`.
 
 **Parameters**
 
@@ -574,7 +573,7 @@ The broker send this event if a node connected or reconnected.
 | `reconnected` | `Boolean` | Is reconnected? |
 
 ### `$node.updated`
-The broker send this event if received an INFO message from node, i.e. changed the service list on the node.
+The broker send this event if it has received an INFO message from node, i.e. changed the service list on the node.
 
 **Parameters**
 
