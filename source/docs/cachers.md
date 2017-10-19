@@ -53,7 +53,7 @@ The syntax of key is:
 ```
     <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculate a hash from the params. So next time if you call this action with the same params, it will find in the cache by key. 
+So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find it within the cache by key. 
 ```
 // Hashed cache key for "posts.find" action
 posts.find:0d6bcb785d1ae84c8c20203401460341b84eb8b968cffcf919a9904bb1fbc29a
@@ -165,7 +165,7 @@ let RedisCacher = require("moleculer").Cachers.Redis;
 let broker = new ServiceBroker({
     cacher: new RedisCacher({
         ttl: 30, // set Time-to-live to 30sec. Disabled: 0 or null
-        monitor: false // Turn on/off Redis client monitoring. If enabled there will be logged (on debug level) every client operations.
+        monitor: false // Turns Redis client monitoring on/off. If enabled, every client operation will be logged (on debug level)
 
         // Redis settings, pass it to the `new Redis()` constructor
         redis: { 
@@ -202,7 +202,7 @@ let broker = new ServiceBroker({
 ```
 
 {% note info Dependencies %}
-To use this cacher install the `ioredis` module with `npm install ioredis --save` command.
+To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
 {% endnote %}
 
 ### Custom cacher
