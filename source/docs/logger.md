@@ -1,6 +1,6 @@
 title: Logger
 ---
-In Moleculer project every main modules have a custom logger instance. It is inherited from the broker logger instance what you can set in [options of broker](broker.html#Constructor-options).
+In Moleculer project every main modules have a custom logger instance. They inherit from the broker logger instance in which you can set the [options of broker](broker.html#Constructor-options).
 
 It supports also external loggers ([Pino](http://getpino.io/), [Bunyan](https://github.com/trentm/node-bunyan), [Winston](https://github.com/winstonjs/winston), ...etc)
 
