@@ -14,10 +14,10 @@ This is the well-known microservices architecture when every services are runnin
 
 ## Mixed architecture
 In this case we are running coherent services in a group on the same node. It combines the advantages of monolith and microservices architectures.
-For example, if the `posts` service calls a lot of times the `users` service, we put them together, that we cut down the network latency between services. If this node is overloaded, we will scale it up together. 
+For example, if the `posts` service calls the `users` service multiple times, we put them together,so that we can cut down the network latency between those services. If this node is overloaded, we will scale it up together. 
 
 ![Mixed architecture](/images/mixed-architecture.png)
 
 {% note info Tip %}
-The ServiceBroker tries to call first the local instances of service (if exists) to reduce network latencies. You can turn off this logic in [broker options](broker.html#Constructor-options) with `preferLocal: false` under the `serviceRegistry` key.
+The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. You can turn off this logic in [broker options](broker.html#Constructor-options) with `preferLocal: false` under the `serviceRegistry` key.
 {% endnote %}
