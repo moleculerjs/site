@@ -40,10 +40,10 @@ The `start` script is try to load the default `moleculer.config.js` file if it e
 ## Configuration loading logic
 The runner does the following steps to load & merge configurations:
 
-1. If you defined config file in CLI options, try to load it. If it's not exist, throw an error.
-2. If you not defined, try to load the `moleculer.config.js` file from the current directory. If it's not exist try to load the `moleculer.config.json` file.
-3. If it found any config file, load it and merge options with the default options of the [ServiceBroker](broker.html).
-4. The runner walks through the options and try to override them from environment variables. So if you set `logLevel: "warn"` in the config file, but define the `LOGLEVEL=debug` environment variable, the runner will override it and the result will be `logLevel: "debug"`.
+1. If you defined config file in CLI options, it tries to load it. If it doesn't exist, throw an error.
+2. If you not defined, it tries to load the `moleculer.config.js` file from the current directory. If it doesn't exist, it tries to load the `moleculer.config.json` file.
+3. If it founds any config file, it loads and merges options with the default options of the [ServiceBroker](broker.html).
+4. The runner walks through the options and tries to override them from environment variables. So if you set `logLevel: "warn"` in the config file, but define the `LOGLEVEL=debug` environment variable, the runner will override it and the result will be `logLevel: "debug"`.
 
 ### Configuration file
 The structure of the configuration file is same as the broker options. Every property has the same name. Use shorthand formats in `transporter`, `cacher` and `serializer` options.

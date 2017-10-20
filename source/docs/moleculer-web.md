@@ -142,7 +142,7 @@ broker.createService({
 To use this shorthand alias you need to create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
-You can use custom function is aliases:
+You can make use of custom functions within the declaration of aliases.
 ```js
 broker.createService({
     mixins: [ApiService],

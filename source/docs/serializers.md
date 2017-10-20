@@ -1,6 +1,6 @@
 title: Serializers
 ---
-For transportation needs a serializer module which serialize & deserialize the transferred packets. If you don't set serializer, the default is the JSON serializer.
+Transportation needs a serializer module which serializes & deserializes the transferred packets. If you don't set serializer, the default is the JSON serializer.
 
 **Example**
 ```js
@@ -16,7 +16,7 @@ let broker = new ServiceBroker({
 ## Built-in serializers
 
 ### JSON serializer
-This is the default serializer. Serialize the packets to JSON string and deserialize the received data to packet.
+This is the default serializer. It serializes the packets to JSON string and deserializes the received data to packet.
 
 ```js
 let broker = new ServiceBroker({

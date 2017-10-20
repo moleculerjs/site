@@ -1,7 +1,7 @@
 title: Metrics
 ---
-Moleculer has a metrics feature. You can enable it in the [broker options](broker.html#Constructor-options) with `metrics: true` option.
-If enabled, the broker emits metrics events at every `broker.call`. You can catch this events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc).
+Moleculer has a metrics feature. You can enable it within the [broker options](broker.html#Constructor-options) with `metrics: true` option.
+If enabled, the broker emits metrics events with every `broker.call`. You can catch these events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc).
 
 ## Request started event
 The broker emits an `metrics.trace.span.start` event when a new call/request is started.
@@ -74,7 +74,7 @@ The payload looks like the following:
 ## Circuit-breaker events
 
 ### `metrics.circuit-breaker.open`
-The broker send this event if the circuit breaker module changed the state to `open`.
+The broker send this event if the circuit breaker module changed its state to `open`.
 
 **Payload**
 
@@ -86,7 +86,7 @@ The broker send this event if the circuit breaker module changed the state to `o
 
 
 ### `metrics.circuit-breaker.half-open`
-The broker send this event if the circuit breaker module changed the state to `half-open`.
+The broker send this event if the circuit breaker module changed its state to `half-open`.
 
 **Payload**
 
@@ -96,7 +96,7 @@ The broker send this event if the circuit breaker module changed the state to `h
 | `action` | `String` | Action name |
 
 ### `metrics.circuit-breaker.close`
-The broker send this event if the circuit breaker module changed the state to `closed`.
+The broker send this event if the circuit breaker module changed its state to `closed`.
 
 **Payload**
 

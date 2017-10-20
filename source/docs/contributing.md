@@ -91,7 +91,7 @@ Follow this workflow if you would like to create a new module for Moleculer
     $ npm test
     ```
 
-6. If it's done and you think it will be useful other users, [tell us!](https://github.com/ice-services/moleculer/issues)
+6. If it's done and you think it will be useful for other users, [tell us!](https://github.com/ice-services/moleculer/issues)
 
 ## Reporting Issues
 
