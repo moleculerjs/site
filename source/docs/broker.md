@@ -119,8 +119,9 @@ All available options within the constructor:
 | `ServiceFactory` | `Class` | `null` | Custom Service class. If not `null`, broker will use it when creating services |
 | `ContextFactory` | `Class` | `null` | Custom Context class. If not `null`, broker will use it when creating contexts |
 
-**Info Moleculer runner:**
+{% note info Moleculer runner %}
 You don't need to create ServiceBroker in your project. You can use our new [Moleculer Runner](runner.html) to execute a broker and load services. [Read more about Moleculer Runner](runner.html).
+{% endnote %}
 
 ## Call services
 You can call a service by calling the `broker.call` method. Broker will search the service (and the node) that has the given action and call it. The function will return a `Promise`.
