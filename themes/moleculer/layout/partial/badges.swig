@@ -12,3 +12,6 @@
 
 <!-- Snyk badge -->
 <img src="https://snyk.io/test/github/ice-services/moleculer/badge.svg" />
+
+<!-- NPM downloads -->
+<img src="https://img.shields.io/npm/dm/moleculer.svg" />
