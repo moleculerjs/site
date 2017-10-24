@@ -159,6 +159,29 @@ broker.createService({
 });
 ```
 
+### Mapping policy
+The `route` has a `mappingPolicy` property to handle routes without aliases.
+
+**Available options:**
+- `all` - enable to request all routes with or without aliases (default)
+- `restrict` - enable to request only the routes with aliases.
+
+```js
+broker.createService({
+    mixins: [ApiService],
+
+    settings: {
+        routes: [{
+            mappingPolicy: "restrict",
+            aliases: {
+                "POST add": "math.add"
+            }
+        }]
+    }
+});
+```
+You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
+
 ## Serve static files
 It serves assets with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
