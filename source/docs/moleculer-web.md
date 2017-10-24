@@ -513,6 +513,8 @@ settings: {
                 "health": "$node.health"
             },
 
+            mappingPolicy: "all",
+
             // Use bodyparser module
             bodyParsers: {
                 json: true,
@@ -541,6 +543,8 @@ settings: {
                 "GET greeter/:name": "test.greeter",
                 "GET /": "test.hello"                
             },
+
+            mappingPolicy: "restrict",
             
             // Use bodyparser module
             bodyParsers: {
