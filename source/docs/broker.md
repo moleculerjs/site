@@ -194,9 +194,9 @@ broker.call("user.recommendation", { limit: 5 }, {
 Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected anyway.
 
 ### Retries
-If you set the `retry` property in calling options and the request returns with a `MoleculerRetryableError` error, broker will recall the action with the same parameters as long as `retry` is greater than `0`.
+If you set the `retryCount` property in calling options and the request returns with a `MoleculerRetryableError` error, broker will recall the action with the same parameters as long as `retryCount` is greater than `0`.
 ```js
-broker.call("user.list", { limit: 5 }, { timeout: 500, retry: 3 })
+broker.call("user.list", { limit: 5 }, { timeout: 500, retryCount: 3 })
     .then(res => console.log("Result: ", res));
 ```
 
