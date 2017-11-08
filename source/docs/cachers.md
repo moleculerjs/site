@@ -89,7 +89,7 @@ You can also use the cacher module manually. Just call the `get`, `set`, `del` m
 broker.cacher.set("mykey.a", { a: 5 });
 
 // Get from cache (Please note! Some cacher maybe returns with Promise)
-broker.cacher.get("mykey.a", { a: 5 }).then(obj => console.log(obj));
+broker.cacher.get("mykey.a").then(obj => console.log(obj));
 
 // Remove entry from cache
 broker.cacher.del("mykey.a");
