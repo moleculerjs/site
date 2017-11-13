@@ -36,8 +36,9 @@ title: Modules
 ### General
 | Module name | Author |Description | Version |
 |-------------|--------|------------|---------|
-| [moleculer-sc](https://github.com/tiaod/moleculer-sc#readme) | [tiaod](https://github.com/tiaod) | API Gateway service for Moleculer framework using SocketCluster. | [![npm](https://img.shields.io/npm/v/moleculer-sc.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-sc)
-| [moleculer-config](https://github.com/idwall/moleculer-config#readme) | [WoLfulus](https://github.com/WoLfulus), [IDwall](https://github.com/idwall) | Configuration service & mixin for service settings. | [![NPM version](https://img.shields.io/npm/v/moleculer-config.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-config)
 | [moleculer-adapter-feathers](https://github.com/zygos/moleculer-adapter-feathers#readme) | [zygos](zygos) | Moleculer service mixin wrapping Feathers.js services. | [![NPM version](https://img.shields.io/npm/v/moleculer-adapter-feathers.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-adapter-feathers)
+| [moleculer-config](https://github.com/idwall/moleculer-config#readme) | [WoLfulus](https://github.com/WoLfulus), [IDwall](https://github.com/idwall) | Configuration service & mixin for service settings. | [![NPM version](https://img.shields.io/npm/v/moleculer-config.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-config)
+| [moleculer-graphql](https://github.com/ConciergeAuctions/moleculer-graphql#readme) | [brad-decker](https://github.com/brad-decker) | GraphQL Schema stitching over a microservice network for co-located type definitions. | [![npm](https://img.shields.io/npm/v/moleculer-graphql.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-graphql)
+| [moleculer-sc](https://github.com/tiaod/moleculer-sc#readme) | [tiaod](https://github.com/tiaod) | API Gateway service for Moleculer framework using SocketCluster. | [![npm](https://img.shields.io/npm/v/moleculer-sc.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-sc)
 
 > Do you have a custom module for Moleculer? [Tell us!](https://github.com/ice-services/moleculer/issues)
