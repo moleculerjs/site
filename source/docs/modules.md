@@ -13,8 +13,10 @@ title: Modules
 ### Databases & stores
 | Module name | Description | Version |
 |-------------|-------------|---------|
-| [moleculer-db](https://github.com/ice-services/moleculer-addons/tree/master/packages/moleculer-db#readme) | Moleculer service to store entities in database. | [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
-| [moleculer-db-adapter-mongoose](https://github.com/ice-services/moleculer-addons/tree/master/packages/moleculer-db-adapter-mongoose#readme) | Mongoose adapter for Moleculer DB service. | [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
+| [moleculer-db](https://github.com/ice-services/moleculer-db/tree/master/packages/moleculer-db#readme) | Moleculer service to store entities in database. | [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
+| [moleculer-db-adapter-mongo](https://github.com/ice-services/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo#readme) | MongoDB native adapter for Moleculer DB service. | [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
+| [moleculer-db-adapter-mongoose](https://github.com/ice-services/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose#readme) | Mongoose adapter for Moleculer DB service. | [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
+| [moleculer-db-adapter-sequelize](https://github.com/ice-services/moleculer-db/tree/master/packages/moleculer-db-adapter-sequelize#readme) | SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service. | [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
 
 ### Tasks, queues & jobs
 | Module name | Description | Version |
