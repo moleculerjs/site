@@ -73,7 +73,7 @@ $ node examples/loadtest/clients
 ## Project examples
 
 ### Realworld backend server
-This is a [RealWorld.io] example application with Moleculer.
+This is a [RealWorld.io](https://realworld.io/) example application with Moleculer.
 
 **Key features**
 - 7 microservices
