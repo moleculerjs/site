@@ -7,6 +7,7 @@ The [moleculer-web](https://github.com/ice-services/moleculer-web) is the offici
 * support HTTP & HTTPS
 * serve static files
 * multiple routes
+* support Connect-like middlewares in global-level, route-level and alias-level.
 * alias names (with named parameters & REST routes)
 * whitelist
 * multiple body parsers (json, urlencoded)
@@ -150,8 +151,8 @@ broker.createService({
     settings: {
         routes: [{
             aliases: {
-                "POST upload"(route, req, res) {
-                    this.parseUploadedFile(route, req, res);
+                "POST upload"(req, res) {
+                    this.parseUploadedFile(req, res);
                 }
             }
         }]
@@ -181,6 +182,48 @@ broker.createService({
 });
 ```
 You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
+
+## Middlewares
+It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`.
+
+**Example**
+```js
+broker.createService({
+    mixins: [ApiService],
+    settings: {
+        // Global middlewares. Applied to all routes.
+        use: [
+            cookieParser(),
+            helmet()
+        ],
+
+        routes: [
+            {
+                path: "/",
+
+                // Route-level middlewares.
+                use: [
+                    compression(),
+                    
+                    passport.initialize(),
+                    passport.session(),
+
+                    serveStatic(path.join(__dirname, "public"))
+                ],
+                
+                aliases: {
+                    "GET /secret": [
+                        // Alias-level middlewares.
+                        auth.isAuthenticated(),
+                        auth.hasRole("admin"),
+                        "top.secret" // Call the `top.secret` action
+                    ]
+                }
+            }
+        ]
+    }
+});
+```
 
 ## Serve static files
 It serves assets with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
@@ -468,8 +511,8 @@ broker.start();
 ```
 
 
-## Service settings
-List of all settings of Moleculer Web servie
+## Full service settings
+List of all settings of Moleculer Web service:
 
 ```js
 settings: {
@@ -491,6 +534,12 @@ settings: {
 
     // Exposed global path prefix
     path: "/api",
+    
+    // Global-level middlewares
+    use: [
+        compression(),
+        cookieParser()
+    ],
 
     // Routes
     routes: [
@@ -506,6 +555,12 @@ settings: {
 
             // Call the `this.authorize` method before call the action
             authorization: true,
+            
+            // Route-level middlewares
+            uses: [
+                helmet(),
+                passport.initialize()
+            ],
 
             // Action aliases
             aliases: {
@@ -541,7 +596,10 @@ settings: {
                 "GET sub": "math.sub",
                 "POST divide": "math.div",
                 "GET greeter/:name": "test.greeter",
-                "GET /": "test.hello"                
+                "GET /": "test.hello",
+                "POST upload"(req, res) {
+                    this.parseUploadedFile(req, res);
+                }
             },
 
             mappingPolicy: "restrict",
@@ -566,19 +624,31 @@ settings: {
             // Call after `broker.call` and before send back the response
             onAfterCall(ctx, route, req, res, data) {
                 res.setHeader("X-Custom-Header", "123456");
-            }            
+            },
+            
+            // Route error handler
+            onError(req, res, err) {
+                res.setHeader("Content-Type", "text/plain");
+                res.writeHead(err.code || 500);
+                res.end("Route error: " + err.message);
+            }
         }
     ],
 
     // Folder to server assets (static files)
     assets: {
-
         // Root folder of assets
         folder: "./examples/www/assets",
         
         // Options to `server-static` module
         options: {}
-    }
+    },
+    // Global error handler
+    onError(req, res, err) {
+        res.setHeader("Content-Type", "text/plain");
+        res.writeHead(err.code || 500);
+        res.end("Global error: " + err.message);
+    }    
 }
 ```
 
@@ -616,6 +686,7 @@ settings: {
 - [Full](https://github.com/ice-services/moleculer-web/blob/master/examples/full/index.js)
     - SSL
     - static files
+    - middlewares
     - multiple routes with different roles
     - role-based authorization with JWT
     - whitelist
@@ -623,4 +694,16 @@ settings: {
     - multiple body-parsers
     - before & after hooks
     - metrics, statistics & validation from Moleculer
+    - custom error handlers
 
+- [Webpack](https://github.com/ice-services/moleculer-web/blob/master/examples/webpack)
+    - Webpack development environment for client-side developing
+    - webpack config file
+    - compression
+    - static file serving
+
+- [Webpack-Vue](https://github.com/ice-services/moleculer-web/blob/master/examples/webpack-vue)
+    - Webpack+Vue development environment for VueJS client developing
+    - webpack config file
+    - Hot-replacement
+    - Babel, SASS, SCSS, Vue SFC
