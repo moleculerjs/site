@@ -22,22 +22,21 @@ broker.repl();
 
 ```
   Commands:
-
-    help [command...]                      Provides help for a given command.
-    exit                                   Exits application.
-    q                                      Exit application
-    call <actionName>                      Call an action
-    dcall <nodeID> <actionName>            Direct call an action
-    emit <eventName>                       Emit an event
-    broadcast <eventName>                  Broadcast an event
-    broadcastLocal <eventName>             Broadcast an event to local services    
-    load <servicePath>                     Load a service from file
-    loadFolder <serviceFolder> [fileMask]  Load all service from folder
-    actions [options]                      List of actions
-    events [options]                       List of events
-    services [options]                     List of services
-    nodes [options]                        List of nodes
-    info                                   Information from broker
+    help [command...]                         Provides help for a given command.
+    exit                                      Exits application.
+    q                                         Exit application
+    call <actionName> [jsonParams]            Call an action
+    dcall <nodeID> <actionName> [jsonParams]  Direct call an action
+    emit <eventName>                          Emit an event
+    broadcast <eventName>                     Broadcast an event
+    broadcastLocal <eventName>                Broadcast an event to local services
+    load <servicePath>                        Load a service from file
+    loadFolder <serviceFolder> [fileMask]     Load all service from folder
+    actions [options]                         List of actions
+    events [options]                          List of events
+    services [options]                        List of services
+    nodes [options]                           List of nodes
+    info                                      Information from broker
 ```
 
 ### List nodes
@@ -118,11 +117,18 @@ mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
 Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
+**Call with JSON string parameter**
+```bash
+mol $ call "math.add" '{"a": 5, "b": "Bob", "c": true, "d": false, "e": { "f": "hello" } }'
+```
+Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+
 ### Direct call
 Get health info of `node-12` node
 ```bash
 mol $ dcall "node-12" "$node.health"
 ```
+>Parameter passing is similar to `call` command.
 
 ### Emit an event
 ```bash
