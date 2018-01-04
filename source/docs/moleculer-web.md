@@ -160,7 +160,7 @@ broker.createService({
 });
 ```
 
-{% note warn %}
+{% note info %}
 You have some internal pointer in `req` & `res` to some important instances:
 * `req.$service` & `res.$service` is pointed to the service instance.
 * `req.$route` & `res.$route` is pointed to the route definition.
