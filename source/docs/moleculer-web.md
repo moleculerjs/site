@@ -160,6 +160,17 @@ broker.createService({
 });
 ```
 
+{% note warn %}
+You have some internal pointer in `req` & `res` to some important instances:
+* `req.$service` & `res.$service` is pointed to the service instance.
+* `req.$route` & `res.$route` is pointed to the route definition.
+* `req.$params` is pointed to the resolved parameters (from query string & post body)
+* `req.$alias` is pointed to the alias definition.
+* `req.$endpoint` is pointed to the resolved action endpoint. It contains action and nodeID.
+
+E.g.: if you would like to access to broker, use `req.$service.broker` path.
+{% endnote %}
+
 ### Mapping policy
 The `route` has a `mappingPolicy` property to handle routes without aliases.
 
@@ -376,6 +387,36 @@ broker.createService({
 });
 ```
 
+## Error handlers
+You can add route-level & global-level custom error handlers. 
+> In handlers you must call the `res.end`. Otherwise the requests will be unhandled.
+
+```js
+broker.createService({
+    mixins: [ApiService],
+    settings: {
+
+        routes: [{
+            path: "/api",
+
+            // Route error handler
+            onError(req, res, err) {
+                res.setHeader("Content-Type", "application/json; charset=utf-8");
+                res.writeHead(500);
+                res.end(JSON.stringify(err));
+            }
+        }],
+
+        // Global error handler
+        onError(req, res, err) {
+            res.setHeader("Content-Type", "text/plain");
+            res.writeHead(501);
+            res.end("Global error: " + err.message);
+        }		
+    }
+}
+```
+
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
@@ -540,6 +581,12 @@ settings: {
         compression(),
         cookieParser()
     ],
+    
+    // Logging request parameters with 'info' level
+    logRequestParams: "info",
+    
+    // Logging response data with 'debug' level
+    logResponseData: "debug"
 
     // Routes
     routes: [
