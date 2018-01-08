@@ -70,6 +70,26 @@ let broker = new ServiceBroker({
         options: {
             nats: {
                 url: "nats://localhost:4222"
+                user: "admin",
+                pass: "1234"
+            }
+        }
+});
+
+// Shorthand with TLS
+let broker = new ServiceBroker({
+    transporter: {
+        type: "NATS",
+        options: {
+            nats: {
+                url: "nats://localhost:4222"
+                
+                // More info: https://github.com/nats-io/node-nats#tls
+                tls: {
+                    key: fs.readFileSync('./client-key.pem'),
+                    cert: fs.readFileSync('./client-cert.pem'),
+                    ca: [ fs.readFileSync('./ca.pem') ]
+                }
             }
         }
 });
