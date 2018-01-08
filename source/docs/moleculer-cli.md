@@ -41,6 +41,7 @@ The above command downloads the template from [ice-services/moleculer-template-m
 	* sample service (`greeter`)
 	* tests & coverage with [Jest](http://facebook.github.io/jest/)
 	* lint with [ESLint](http://eslint.org/)
+	* Minimal Docker file
 
 #### Custom templates
 
