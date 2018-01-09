@@ -2,7 +2,7 @@ title: Usage
 ---
 
 # Create your first microservice
-This example shows you how to create a small service with an `add` action which can add two numbers.
+This example shows you how to create a small service with a `math` service which is able to add two numbers.
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -30,7 +30,7 @@ Open this example on [Runkit!](https://runkit.com/icebob/moleculer-usage)
 {% endnote %}
 
 # Create a Moleculer project
-Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer based microservices project.
+Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based microservices project.
 
 1. Install `moleculer-cli` globally
     ```bash
@@ -51,10 +51,10 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer based
     ```bash
     $ npm run dev
     ```
-5. Open the [http://localhost:3000/greeter/hello](http://localhost:3000/greeter/hello) link in your browser. It will call the `hello` action of `greeter` service via [API gateway](https://github.com/ice-services/moleculer-web) and will return with the result.
+5. Open the [http://localhost:3000/greeter/hello](http://localhost:3000/greeter/hello) link in your browser. It calls the `hello` action of `greeter` service via [API gateway](https://github.com/ice-services/moleculer-web) and returns with the result.
 
 {% note info Congratulations! %}
-You created your first Moleculer based microservices project! The next step is to check our [examples](examples.html) or [demo projects](https://github.com/ice-services/moleculer-examples).
+You have just created your first Moleculer-based microservices project! The next step is to check our [examples](examples.html) or [demo projects](https://github.com/ice-services/moleculer-examples).
 {% endnote %}
 
 
