@@ -10,7 +10,7 @@ Moleculer is a fast, modern and powerful microservices framework for [NodeJS](ht
 
 - Promise-based solution
 - request-reply concept
-- support event driven architecture with balancing
+- support event-driven architecture with balancing
 - built-in service registry & auto discovery
 - load balanced requests & events (round-robin, random, custom)
 - supports middlewares
@@ -20,9 +20,9 @@ Moleculer is a fast, modern and powerful microservices framework for [NodeJS](ht
 - pluggable transporters (NATS, MQTT, Redis)
 - pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer)
 - pluggable validator
-- every nodes are equal, no master/leader node
+- every node is equal, no master/leader node
 - parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
-- distributed timeout handling with fallback response
+- distributed timeout handling with the fallback response
 - health monitoring, metrics & statistics
 - supports versioned services
 - official [API gateway module](https://github.com/ice-services/moleculer-web) and many other modules...
@@ -38,6 +38,6 @@ We spent a lot of hours to improve the performance of Moleculer and create the f
 [![Result chart](https://cloud.highcharts.com/images/utideti/6/600.png)](http://cloud.highcharts.com/show/utideti)
 [![Result chart](https://cloud.highcharts.com/images/abyfite/1/600.png)](http://cloud.highcharts.com/show/abyfite)
 
-You can check the results in your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
+You can check the results on your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
 
 [Check out our benchmark results.](benchmark.html)
