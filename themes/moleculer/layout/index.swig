@@ -60,6 +60,9 @@
         <a href="http://www.ingsw.com/" class="company-logo" target="_blank">
           <img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious" />
         </a>
+        <a href="https://www.thb.co.in/" class="company-logo" target="_blank">
+          <img src="https://thehealthybillion.com/images/thb/landingpage/logobig.png" alt="THB" />
+        </a>
       </div>
       <div class="company-missing">If you don't see here your company, <a href="https://github.com/ice-services/moleculer/issues/101" target="_blank">tell us.</a></div>
     </section>
