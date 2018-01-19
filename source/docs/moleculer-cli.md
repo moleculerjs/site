@@ -13,7 +13,7 @@ $ npm install -g moleculer-cli
 ## Commands
 
 ### Init a new project
-With this command you can scaffold a new Moleculer project.
+With this command, you can scaffold a new Moleculer project.
 
 ``` bash
 $ moleculer init module my-module
@@ -60,7 +60,7 @@ $ moleculer init ./path/to-custom-template my-project
 ```
 
 ### Start a broker locally
-This command start a new ServiceBroker locally and switch to REPL mode.
+This command starts a new `ServiceBroker` locally and switches to REPL mode.
 ```bash
 $ moleculer start
 ```
@@ -75,7 +75,7 @@ $ moleculer start
 ```
 
 ### Start a broker and connect to a transporter
-This command start a new ServiceBroker, connect to a transporter server and switch to REPL mode.
+This command starts a new `ServiceBroker`, connects to a transporter server and switches to REPL mode.
 ```bash
 # Connect to local NATS (default)
 $ moleculer connect nats://localhost:4222

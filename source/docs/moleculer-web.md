@@ -27,7 +27,7 @@ npm install moleculer-web --save
 
 ### Run with default settings
 This example uses API Gateway service with default settings.
-You can access to all services (including internal `$node.`) via `http://localhost:3000/`
+You can access all services (including internal `$node.`) via `http://localhost:3000/`
 
 ```js
 let { ServiceBroker } = require("moleculer");
@@ -50,7 +50,7 @@ broker.start();
 - List all actions: `http://localhost:3000/~node/actions`
 
 ## Whitelist
-If you don't want to public all actions, you can filter them with whitelist option.
+If you don't want to publish all actions, you can filter them with whitelist option.
 You can use [match strings](https://github.com/micromatch/nanomatch) or regexp in list.
 
 ```js
@@ -62,11 +62,11 @@ broker.createService({
             path: "/api",
 
             whitelist: [
-                // Access to any actions in 'posts' service
+                // Access any actions in 'posts' service
                 "posts.*",
-                // Access to call only the `users.list` action
+                // Access call only the `users.list` action
                 "users.list",
-                // Access to any actions in 'math' service
+                // Access any actions in 'math' service
                 /^math\.\w+$/
             ]
         }]
@@ -77,7 +77,7 @@ broker.createService({
 ## Aliases
 You can use alias names instead of action names. You can also specify the method. Otherwise it will handle every method types. 
 
-It is possible to use named parameters in aliases. Named parameters are defined by prefixing a colon to the parameter name (`:name`).
+Using named parameters in aliases is possible. Named parameters are defined by prefixing a colon to the parameter name (`:name`).
 
 ```js
 broker.createService({
@@ -168,7 +168,7 @@ You have some internal pointer in `req` & `res` to some important instances:
 * `req.$alias` is pointed to the alias definition.
 * `req.$endpoint` is pointed to the resolved action endpoint. It contains action and nodeID.
 
-E.g.: if you would like to access to broker, use `req.$service.broker` path.
+E.g., if you would like to access the broker, use `req.$service.broker` path.
 {% endnote %}
 
 ### Mapping policy
@@ -311,7 +311,7 @@ broker.createService({
 ## Authorization
 You can implement authorization. For this you have to do 2 things.
 1. Set `authorization: true` in your routes
-2. Define the `authorize` method in service.
+2. Define the `authorize` method of service.
 
 **Example authorization**
 ```js
@@ -361,7 +361,7 @@ You can find a more detailed role-based JWT authorization example in [full examp
 {% endnote %}
 
 ## Route hooks
-The `route` has before & after call hooks. You can use it to set `ctx.meta`, access to `req.headers` or modify the response `data`.
+The `route` has before & after call hooks. You can use it to set `ctx.meta`, access `req.headers` or modify the response `data`.
 
 ```js
 broker.createService({
@@ -389,7 +389,7 @@ broker.createService({
 
 ## Error handlers
 You can add route-level & global-level custom error handlers. 
-> In handlers you must call the `res.end`. Otherwise the requests will be unhandled.
+> In handlers, you must call the `res.end`. Otherwise, the request is unhandled.
 
 ```js
 broker.createService({

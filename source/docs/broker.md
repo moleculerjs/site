@@ -124,7 +124,7 @@ You don't need to create ServiceBroker in your project. You can use our new [Mol
 {% endnote %}
 
 ## Call services
-You can call a service by calling the `broker.call` method. Broker will search the service (and the node) that has the given action and call it. The function will return a `Promise`.
+You can call service by calling the `broker.call` method. The broker searches the service (and the node) that has the given action and call it. The function returns a `Promise`.
 
 ### Syntax
 ```js
@@ -132,7 +132,7 @@ let promise = broker.call(actionName, params, opts);
 ```
 The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service which has a `create` action, you'll need to use `posts.create` as the `actionName` to call it.
 
-The `params` is an object that will be passed to the action as part of the [Context](context.html). *It is optional.*
+The `params` is an object which is passed to the action as a part of the [Context](context.html). *It is optional.*
 
 The `opts` is an object. With this, you can set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
 
@@ -175,10 +175,10 @@ broker.call("$node.health", {}, { nodeID: "node-21" })
 ```
 
 ### Request timeout & fallback response
-If you call action with `timeout` and the request is timed out, broker will throw a `RequestTimeoutError` error.
-But if you set `fallbackResponse` in calling options, broker won't throw error. Instead it will return with this given value. The `fallbackResponse` can be an `Object`, `Array`...etc. 
+If you call the action with `timeout` and the request is timed out, broker will throw a `RequestTimeoutError` error.
+But if you set `fallbackResponse` in calling options, broker won't throw error. Instead, it will return with this given value. The `fallbackResponse` can be an `Object`, `Array`...etc. 
 
-The `fallbackResponse` can also be a `Function`, which returns a `Promise`. In this case the broker will pass the current `Context` & `Error` objects to this function as arguments.
+The `fallbackResponse` can also be a `Function`, which returns a `Promise`. In this case, the broker passes the current `Context` & `Error` objects to this function as arguments.
 
 ```js
 broker.call("user.recommendation", { limit: 5 }, { 
@@ -191,7 +191,7 @@ broker.call("user.recommendation", { limit: 5 }, {
 ```
 
 ### Distributed timeouts
-Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of chained calls the timeout value will be decremented with the elapsed time. If the timeout value is less or equal than 0, next calls will be skipped (`RequestSkippedError`) because the first call is rejected anyway.
+Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of chained calls, the timeout value is decremented with the elapsed time. If the timeout value is less or equal than 0, the next calls is skipped (`RequestSkippedError`) because the first call has been already rejected.
 
 ### Retries
 If you set the `retryCount` property in calling options and the request returns with a `MoleculerRetryableError` error, broker will recall the action with the same parameters as long as `retryCount` is greater than `0`.
@@ -204,10 +204,10 @@ broker.call("user.list", { limit: 5 }, { timeout: 500, retryCount: 3 })
 Broker has a built-in balanced event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html). You can send events to the local and remote services.
 
 ### Balanced emit with grouping
-You can send balanced events with `emit` functions. In this case only one instance per service receives the event.
+You can send balanced events with `emit` functions. In this case, only one instance per service receives the event.
 > **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances from `users` service and 2 instances from `payments` service. If you emit the `user.created` event, only one `users` and one `payments` service will receive the event.
 
-First parameter is the name of event, second parameter is the payload. If you want to send multiple values, you should wrap them to an object.
+The first parameter is the name of the event, the second parameter is the payload. If you want to send multiple values, you should wrap them in an object.
 
 ```js
 // The `user` will be serialized to transportation.
@@ -233,7 +233,8 @@ broker.broadcastLocal("$services.changed");
 ```
 
 ### Local events
-Every local event must start with `$` _(dollar sign)_. E.g.: `$node.connected`. If you call these events with `emit` or `broadcast`, they will only send to local services.
+Every local event must start with `$` _(dollar sign)_. E.g.: `$node.connected`. 
+If you publish these events with `emit` or `broadcast`, only local services will receive them.
 
 ### Subscribe to events
 You can only subscribe to events in ['events' property of services](service.html#events).
@@ -261,7 +262,7 @@ module.exports = {
 ```
 
 ## Middlewares
-Broker supports middlewares. You can add your custom middleware, and it'll be called before every local request. The middleware is a `Function` that returns a wrapped action handler. 
+Broker supports middlewares. You can add your custom middleware, and it will be called before every local request. The middleware is a `Function` that returns a wrapped action handler. 
 
 **Example middleware from the validator modules**
 ```js
@@ -278,7 +279,7 @@ return function validatorMiddleware(handler, action) {
 }.bind(this);
 ```
 
-The `handler` is the request handler of an action, that is defined in [Service](service.html) schema. The `action` is the action object from Service schema. The middleware should return with the original `handler` or a new wrapped handler. As you can see above, we check whether the action has a `params` props. If yes, we'll return a wrapped handler which will call the validator module before calling the original `handler`. 
+The `handler` is the request handler of action, which is defined in [Service](service.html) schema. The `action` is the action object from Service schema. The middleware should return with the original `handler` or a new wrapped handler. As you can see above, we check whether the action has a `params` props. If yes, we'll return a wrapped handler which will call the validator module before calling the original `handler`. 
 If the `params` property is not defined, we will return the original `handler` (skipped wrapping).
 
 >If you don't call the original `handler` in the middleware it will break the request. You can use it in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `handler`.
@@ -307,7 +308,7 @@ return (handler, action) => {
 ```
 
 ## Wait for services
-The broker has a `waitForServices` method. With it you can wait services with a `Promise`.
+The broker has a `waitForServices` method. With it, you can wait for services with a `Promise`.
 
 **Parameters**
 
@@ -331,7 +332,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 ```
 
 ## Internal services
-The broker contains some internal services to check the health of node or get broker statistics. You can disable it with the `internalServices: false` broker option within the constructor.
+The broker contains some internal services to check the node health or get broker statistics. You can disable it with the `internalServices: false` broker option within the constructor.
 
 ### List of nodes
 This actions lists all connected nodes.
@@ -523,7 +524,7 @@ Example statistics:
 The broker emits some internal local events.
 
 ### `$services.changed`
-The broker send this event if some node loads or destroys services after `broker.start`.
+The broker sends this event if some node loads or destroys services after `broker.start`.
 
 **Parameters**
 
@@ -532,7 +533,7 @@ The broker send this event if some node loads or destroys services after `broker
 | `localService ` | `Boolean` | True if a local service changed. |
 
 ### `$circuit-breaker.open`
-The broker send this event if the circuit breaker module changed the state to `open`.
+The broker sends this event when the circuit breaker module change its state to `open`.
 
 **Parameters**
 
@@ -544,7 +545,7 @@ The broker send this event if the circuit breaker module changed the state to `o
 
 
 ### `$circuit-breaker.half-open`
-The broker send this event if the circuit breaker module changed its state to `half-open`.
+The broker sends this event when the circuit breaker module change its state to `half-open`.
 
 **Parameters**
 
@@ -554,7 +555,7 @@ The broker send this event if the circuit breaker module changed its state to `h
 | `action` | `String` | Action  name |
 
 ### `$circuit-breaker.close`
-The broker send this event if the circuit breaker module changed its state to `closed`.
+The broker sends this event when the circuit breaker module change its state to `closed`.
 
 **Parameters**
 
@@ -564,7 +565,7 @@ The broker send this event if the circuit breaker module changed its state to `c
 | `action` | `String` | Action  name |
 
 ### `$node.connected`
-The broker send this event if a node connected or reconnected.
+The broker sends this event when a node connected or reconnected.
 
 **Parameters**
 
@@ -574,7 +575,7 @@ The broker send this event if a node connected or reconnected.
 | `reconnected` | `Boolean` | Is reconnected? |
 
 ### `$node.updated`
-The broker send this event if it has received an INFO message from node, i.e. changed the service list on the node.
+The broker sends this event when it has received an INFO message from a node, i.e. changed the service list on the node.
 
 **Parameters**
 
@@ -583,7 +584,7 @@ The broker send this event if it has received an INFO message from node, i.e. ch
 | `node` | `Node` | Node info object |
 
 ### `$node.disconnected`
-The broker send this event if a node disconnected.
+The broker sends this event when a node disconnected.
 
 **Parameters**
 

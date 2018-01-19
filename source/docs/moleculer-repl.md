@@ -98,7 +98,7 @@ mol $ events
 **Output**
 !TODO!
 
-### Show common informations
+### Show common information
 ```bash
 mol $ info
 ```
@@ -124,7 +124,7 @@ mol $ call "math.add" '{"a": 5, "b": "Bob", "c": true, "d": false, "e": { "f": "
 Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
 ### Direct call
-Get health info of `node-12` node
+Get health info from `node-12` node
 ```bash
 mol $ dcall "node-12" "$node.health"
 ```

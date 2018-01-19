@@ -1,6 +1,6 @@
 title: Service
 ---
-The Service represents a microservice in the Moleculer. You can define actions and subscribe to events. To create a service you need to define a schema. The service schema is similar as [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+The Service represents a microservice in the Moleculer. You can define actions and subscribe to events. To create a service you need to define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
 ## Schema
 The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`, `created`, `started`, `stopped`.
@@ -54,7 +54,7 @@ If you are using our [Moleculer Web](moleculer-web.html) module, you can request
 > You can disable version prefixing with the `$noVersionPrefix: true` setting in Service settings.
 
 ## Settings
-The `settings` property is a store, where you can store every settings/options to your service. You can reach it inside the service via `this.settings`.
+The `settings` property is a store, where you can store every settings/options to your service. You can access it in the service via `this.settings`.
 
 ```js
 {
@@ -75,7 +75,7 @@ The `settings` property is a store, where you can store every settings/options t
 > The settings is also obtainable on remote nodes. It is transferred during service discovering.
 
 ## Internal settings
-There are some internal settings which is used by core modules. These settings name starts with `$` sign.
+There are some internal settings which are used by core modules. These settings name starts with `$` sign.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -83,7 +83,7 @@ There are some internal settings which is used by core modules. These settings n
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names. |
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the Service schema. It is to reuse an other Service in your service or you can extend an other Service. When a service uses mixins, all properties in the mixin will be "mixed" into the service’s own properties.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the Service schema. It is to reuse another Service in your service or you can extend another Service. When a service uses mixins, all properties in the mixin will be "mixed" into the service’s own properties.
 
 **Example how to extend `moleculer-web` service**
 
@@ -104,10 +104,10 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which is inherit all from `ApiGwService` but overwrite the port setting and add a new `myAction` action. 
+The above example creates an `api` service which inherits all from `ApiGwService` but overwrite the port setting and add a new `myAction` action. 
 
 ### Merge algorithm
-The merge algorith depends of the property type.
+The merge algorithm depends on the property type.
 
 | Property | Algorithm |
 |----------|-----------|
@@ -275,7 +275,7 @@ There are some lifecycle service events, that will be triggered by broker.
 ```
 
 ## Properties of `this`
-In service functions the `this` is always pointed to the Service instance. It has some properties & methods which you can use in your service functions.
+In service functions, `this` is always pointed to the Service instance. It has some properties & methods which you can use in your service functions.
 
 | Name | Type |  Description |
 | ------- | ----- | ------- |
@@ -293,7 +293,7 @@ In service functions the `this` is always pointed to the Service instance. It ha
 There are several ways to create/load a service.
 
 ### broker.createService()
-Call the `broker.createService` method with the schema of service as argument. It's simple & fast. Use it when you are developing or prototyping.
+Call the `broker.createService` method with the schema of service as the first argument. It's simple & fast. Use it when you are developing or prototyping.
 
 ```js
 broker.createService({
@@ -338,7 +338,7 @@ broker.start();
 
 In the service file you can also be create the Service instance. In this case you need to export a function that returns the instance of [Service](#service).
 ```js
-// Export a function, that the `loadService` will be call it with the Service instanceBroker
+// Export a function, the `loadService` will call it with the ServiceBroker instance.
 module.exports = function(broker) {
     return new Service(broker, {
         name: "math",
@@ -354,9 +354,9 @@ module.exports = function(broker) {
 }
 ```
 
-Or create a function that returns with the schema of service
+Or create a function which returns with the schema of service
 ```js
-// Export a function, that the `loadService` will be call with the Service instanceBroker
+// Export a function, the `loadService` will call with the ServiceBroker instance.
 module.exports = function() {
     let users = [....];
 
@@ -372,7 +372,7 @@ module.exports = function() {
 ```
 
 ### Load multiple services from a folder
-If you have many services (and you will have) we suggest to place them to a `services` folder and load all of them with the `broker.loadServices` method.
+If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
 
 **Syntax**
 ```js
@@ -395,7 +395,7 @@ broker.loadServices("./svc", "user*.service.js");
 We recommend to use the new [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html).
 
 ## Hot reloading services
-When you are developing your microservices project would be useful a hot reload function which reload your services when you modify it. Moleculer has a built-in hot-reloading function. You can enable it in broker options or in [Moleculer Runner](runner.html).
+When you are developing your microservices project would be useful a hot reload function which reloads your services when you modify it. Moleculer has a built-in hot-reloading function. You can enable it in broker options or in [Moleculer Runner](runner.html).
 [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
 **Usage**
@@ -459,5 +459,5 @@ module.exports = {
 }
 ```
 {% note warn Naming restriction %}
-It is important to be aware that you can't use such variable names which are reserved in service or names of your methods! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.  
+It is important to be aware that you can't use such variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.  
 {% endnote %}
