@@ -1,6 +1,6 @@
 title: Contributing
 ---
-We welcome you to join the development of Moleculer. This document will help you through the process.
+We welcome you to join the development of Moleculer. This document helps you through the process.
 
 ## Before You Start
 

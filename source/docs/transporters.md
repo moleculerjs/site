@@ -1,12 +1,12 @@
 title: Transporters
 ---
-Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests, processes responses ...etc. If a service is running on multiple instances on different nodes, the requests will be load-balanced between nodes.
+Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests, processes responses ...etc. If a service runs on multiple instances on different nodes, the requests are load-balanced between nodes.
 
 ## Built-in transporters
 
 ### NATS Transporter
 Built-in transporter for [NATS](http://nats.io/).
-> NATS Server is a simple, high performance open source messaging system for cloud native applications, IoT messaging, and microservices architectures.
+> NATS Server is a simple, high performance open source messaging system for cloud-native applications, IoT messaging, and microservices architectures.
 
 ```js
 let { ServiceBroker } = require("moleculer");
@@ -51,7 +51,7 @@ new NatsTransporter({
 ```
 
 #### Shorthands
-You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+You can also set transporter with shorthands. With them, you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
 ```js
 // Shorthand with default settings
 let broker = new ServiceBroker({
@@ -142,7 +142,7 @@ new RedisTransporter({
 ```
 
 #### Shorthands
-You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+You can also set transporter with shorthands. With them, you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
 ```js
 // Shorthand with default settings
 let broker = new ServiceBroker({
@@ -213,7 +213,7 @@ new MqttTransporter({
 ```
 
 #### Shorthands
-You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+You can also set transporter with shorthands. With them, you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
 ```js
 // Shorthand with default settings
 let broker = new ServiceBroker({
@@ -283,7 +283,7 @@ new AmqpTransporter({
 ```
 
 #### Shorthands
-You can also set transporter with shorthands. With them you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
+You can also set transporter with shorthands. With them, you can configure transporter in configuration files. No need to create an instance of transporter. Use this form, if you are running your services with [Moleculer Runner](runner.html).
 ```js
 // Shorthand with default settings
 let broker = new ServiceBroker({

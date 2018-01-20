@@ -1,6 +1,6 @@
 title: Cachers
 ---
-Moleculer has built-in caching solution. To enable it:
+Moleculer has a built-in caching solution. To enable it:
 1. Set the `cacher` [broker option](broker.html#Constructor-options).
 2. Set the `cache: true` in [action definition](service.html#Actions).
 
@@ -48,18 +48,18 @@ Console messages:
 > [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example)
 
 ## Cache keys
-The cacher creates keys by service name, action name, and hash of params of context.
+The cacher creates keys by service name, action name, and the hash of params of context.
 The syntax of key is:
 ```
     <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find it within the cache by key. 
+So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it finds it within the cache by key. 
 ```
 // Hashed cache key for "posts.find" action
 posts.find:0d6bcb785d1ae84c8c20203401460341b84eb8b968cffcf919a9904bb1fbc29a
 ```
 
-However the hash calculation is an expensive operation. So you can specify which parameters you want to use for caching. In this case you need to set an object for `cache` property that contains the list of parameters under the `keys` property.
+However, the hash calculation is an expensive operation. So you can specify which parameters you want to use for caching. In this case, you need to set an object for `cache` property that contains the list of parameters under the `keys` property.
 ```js
 {
     name: "posts",

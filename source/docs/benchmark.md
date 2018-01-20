@@ -1,6 +1,6 @@
 title: Benchmark
 ---
-In development, we measure every important part of the framework to ensure the best possible performance.
+In development, we measure every critical part of the framework to ensure the best possible performance.
 
 ## Request times
 We [tested](https://github.com/icebob/microservices-benchmark) Moleculer against some other frameworks and measured the request times.

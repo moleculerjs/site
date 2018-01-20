@@ -2,27 +2,27 @@ title: Moleculer Runner
 ---
 _Added in: v0.8.0_
 
-There is a project runner helper script in the Moleculer project. You can use it if you want to create small repos for services. In this case you don't need to create a ServiceBroker with options. Just create a `moleculer.config.js` or `moleculer.config.json` file in the root of repo fill it with your options and call the `moleculer-runner` within the NPM scripts.
-As an other solution you can put it to the environment variables instead of putting options to file.
+There is a project runner helper script in the Moleculer project. Use it if you have small repos for services. In this case, you don't need to create a ServiceBroker with options, but a `moleculer.config.js` or `moleculer.config.json` file in the root of repo, fill it with your options, then call the `moleculer-runner` within the NPM scripts.
+Another solution is to put it into the environment variables instead of putting options to file.
 
 {% note info Production-ready %}
-In production we recommend to put options to the environment variables! Use the `moleculer.config.js` only in development.
+In production, we recommend putting options into the environment variables! Use the `moleculer.config.js` only in development.
 {% endnote %}
 
 ## Syntax
 ```
 $ moleculer-runner [options] [service files or directories]
 ```
-> Please note! It's working in this format in NPM scripts. If you want to call it directly from your console, use the `./node_modules/.bin/moleculer-runner --repl` format.
+> Note: It runs in this format in NPM scripts only. To call it directly from your console, use the `./node_modules/.bin/moleculer-runner --repl` format.
 
 ## Options
 
 | Option | Type | Default | Description |
 | ------ | ----- | ------- | ---------- |
-| `-r`, `--repl` | `Boolean` | `false` | If true, it will switch to [REPL](moleculer-repl.html) mode after broker started. |
-| `-s`, `--silent` | `Boolean` | `false` | Disable the logger of broker. It won't print anything to the console. |
-| `-H`, `--hot` | `Boolean` | `false` | Hot reload services if they changed. |
-| `-c`, `--config <file>` | `String` | `null` | Use it if you store your configuration file in different path or with different filename. |
+| `-r`, `--repl` | `Boolean` | `false` | If true, it switches to [REPL](moleculer-repl.html) mode after broker started. |
+| `-s`, `--silent` | `Boolean` | `false` | Disable the broker logger. It prints nothing to the console. |
+| `-H`, `--hot` | `Boolean` | `false` | Hot reload services when they change. |
+| `-c`, `--config <file>` | `String` | `null` | Load configuration file from a different path or a different filename. |
 
 
 **Example NPM scripts**
@@ -34,19 +34,19 @@ $ moleculer-runner [options] [service files or directories]
     }
 }
 ```
-As you can see above we defined two scripts. The `dev` script load the development configurations from the `moleculer.dev.config.js` file, start all your services from the `services` folder, enable hot-reloading and switch to REPL mode. You can call it with `npm run dev` command.
-The `start` script is try to load the default `moleculer.config.js` file if it exists, or load options from environment variables. After that, start all your services from the `services` folder. You can call it with `npm start` command.
+Two scripts are defined above. The `dev` script loads development configurations from the `moleculer.dev.config.js` file, start all services from the `services` folder, enable hot-reloading and switches to REPL mode. Run it with the `npm run dev` command.
+The `start` script is to load the default `moleculer.config.js` file if it exists, otherwise only loads options from environment variables. Then it starts all services from the `services` folder. Run it with `npm start` command.
 
 ## Configuration loading logic
 The runner does the following steps to load & merge configurations:
 
-1. If you defined config file in CLI options, it tries to load it. If it doesn't exist, throw an error.
-2. If you not defined, it tries to load the `moleculer.config.js` file from the current directory. If it doesn't exist, it tries to load the `moleculer.config.json` file.
-3. If it founds any config file, it loads and merges options with the default options of the [ServiceBroker](broker.html).
-4. The runner walks through the options and tries to override them from environment variables. So if you set `logLevel: "warn"` in the config file, but define the `LOGLEVEL=debug` environment variable, the runner will override it and the result will be `logLevel: "debug"`.
+1. It loads config file defined in CLI options. If it does not exist, it throws an error.
+2. If not defined, it loads the `moleculer.config.js` file from the current directory. If it does not exist, it loads the `moleculer.config.json` file.
+3. Once a config file has been loaded, it merges options with the default options of the [ServiceBroker](broker.html).
+4. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
 
 ### Configuration file
-The structure of the configuration file is same as the broker options. Every property has the same name. Use shorthand formats in `transporter`, `cacher` and `serializer` options.
+The structure of the configuration file is the same as that of the broker options. Every property has the same name. Use shorthand formats in `transporter`, `cacher` and `serializer` options.
 
 **Example config file**
 ```js
@@ -68,7 +68,7 @@ module.exports = {
 ```
 
 ### Environment variables
-The runner transforms the property names to uppercase. If it is a nested property, it joins names with `_`
+The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`
 
 **Example environment variables**
 ```bash
@@ -88,11 +88,11 @@ STATISTICS=true
 ```
 
 ## Services loading logic
-If you define service files or folders in CLI arguments, the runner will try to load them. If you define folder(s), the runner will load all services `*.service.js` from this folder(s). You can define services & service folder with `SERVICES` and `SERVICEDIR` environment variables.
+The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `*.service.js` from specified one(s). You can set services & service folder with `SERVICES` and `SERVICEDIR` environment variables.
 
- 1. If it find `SERVICEDIR` env, but isn't find `SERVICES` env, it'll load all services from the `SERVICEDIR` directory.
- 2. If it find `SERVICEDIR` & `SERVICES` env, it'll load the specified services from the `SERVICEDIR` directory.
- 3. If it's not find `SERVICEDIR` env but find `SERVICES` env, load the specified services from the current directory.
+ 1. If `SERVICEDIR` env found, but no `SERVICES` env, it loads all services from the `SERVICEDIR` directory.
+ 2. If `SERVICEDIR` & `SERVICES` env found, it loads the specified services from the `SERVICEDIR` directory.
+ 3. If no `SERVICEDIR`, but `SERVICES` env found, it loads the specified services from the current directory.
 
 
  **Example**
@@ -100,9 +100,9 @@ If you define service files or folders in CLI arguments, the runner will try to 
  SERVICEDIR=services
  SERVICES=math,post,user
  ```
- It will load the `math.service.js`, `post.service.js` and `user.service.js` files from the `services` folder.
+ It loads the `math.service.js`, `post.service.js` and `user.service.js` files from the `services` folder.
 
   ```
  SERVICEDIR=my-services
  ```
- It will load all `*.service.js` files from the `my-services` folder.
+ It loads all `*.service.js` files from the `my-services` folder.

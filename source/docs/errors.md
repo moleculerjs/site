@@ -47,7 +47,7 @@ Moleculer Error for server errors which is retryable. Parameters are same as `Mo
 
 
 ### `MoleculerClientError`
-Moleculer Error for client errors which is **not** retryable. Parameters are same as `MoleculerRetryableError`.
+Moleculer Error for client error which is **not** retryable. Parameters are same as `MoleculerRetryableError`.
 
 ## Internal error classes
 
@@ -64,7 +64,7 @@ Retryable: **false**
 | `nodeID` | `String` | Node ID. It has value only at direct call. |
 
 ### `ServiceNotAvailable`
-Throw it if you `call` a currently unavailable service action. E.g. nodes disconnected which contains this service, or circuit breaker opened.
+Throw it if you `call` a currently unavailable service action. E.g. nodes disconnected which contains this service or circuit breaker opened.
 Error code: **404**
 Retryable: **false**
 

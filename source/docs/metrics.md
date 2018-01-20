@@ -74,7 +74,7 @@ The payload looks like the following:
 ## Circuit-breaker events
 
 ### `metrics.circuit-breaker.open`
-The broker send this event if the circuit breaker module changed its state to `open`.
+The broker sends this event when the circuit breaker module changed its state to `open`.
 
 **Payload**
 
@@ -86,7 +86,7 @@ The broker send this event if the circuit breaker module changed its state to `o
 
 
 ### `metrics.circuit-breaker.half-open`
-The broker send this event if the circuit breaker module changed its state to `half-open`.
+The broker sends this event when the circuit breaker module changed its state to `half-open`.
 
 **Payload**
 
@@ -96,7 +96,7 @@ The broker send this event if the circuit breaker module changed its state to `h
 | `action` | `String` | Action name |
 
 ### `metrics.circuit-breaker.close`
-The broker send this event if the circuit breaker module changed its state to `closed`.
+The broker sends this event when the circuit breaker module changed its state to `closed`.
 
 **Payload**
 

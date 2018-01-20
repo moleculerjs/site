@@ -3,7 +3,7 @@ title: Statistics
 Moleculer has a statistics module that collects and aggregates the count & latency info of the requests.
 You can enable it in the [broker options](broker.html#Constructor-options) with `statistics: true`. 
 {% note warn %}
-The data is stored only in **memory**. If you would like to store it you have to do it!
+The data is stored only in **memory**. If you would like to store it, you have to do it!
 You can access the statistics data if you call the internal `$node.stats` action.
 {% endnote %}
 
