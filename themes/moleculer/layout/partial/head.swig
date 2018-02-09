@@ -3,8 +3,9 @@
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ config.title }}</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="microservices, nodejs, javascript">
-	<meta name="robots" content="index, follow">
+  <meta name="keywords" content="microservices, nodejs, node.js, javascript, github, opensource, framework, moleculer, github, scaling">
+  <meta name="description" content="Moleculer is a fast, scalable and powerful microservices framework for NodeJS.">
+  <meta name="robots" content="index, follow">
   <!-- Canonical links -->
   <link rel="canonical" href="{{ url }}">
   <!-- Alternative links -->
