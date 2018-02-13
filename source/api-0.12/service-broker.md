@@ -392,7 +392,7 @@ Emit an event (grouped & balanced global event)
 
 
 
-`broadcast(eventName: string, payload: any)`
+`broadcast(eventName: string, payload: any, groups)`
 
 Emit an event for all local & remote services
 
@@ -403,6 +403,7 @@ Emit an event for all local & remote services
 | -------- | ---- | ------- | ----------- |
 | `eventName` | string | - |  |
 | `payload` | any | - |  |
+| `groups` |  | - |  |
 
 
 
@@ -428,22 +429,6 @@ Emit an event for all local services
 | `payload` | any | - |  |
 | `groups` |  | - |  |
 | `nodeID` |  | - |  |
-
-
-
-
-
-
-
-
-### MOLECULER_VERSION
-
-
-
-`MOLECULER_VERSION`
-
-Version of Moleculer
-
 
 
 
@@ -584,28 +569,6 @@ Wait for other services
 | `serviceNames` |  | - |  |
 | `timeout` | Number | - | Timeout in milliseconds |
 | `interval` | Number | - | Check interval in milliseconds |
-
-
-
-
-
-
-
-
-### getAction
-![Deprecated](https://img.shields.io/badge/status-deprecated-orange.svg)
-
-
-`getAction(actionName: String)`
-
-Get an action endpoint
-
-
-### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `actionName` | String | - |  |
 
 
 
@@ -777,7 +740,7 @@ Get event groups by event name
 
 
 
-`emitLocalServices(event: String, payload: any, groups: any, sender: String)`
+`emitLocalServices(event: String, payload: any, groups: any, sender: String, broadcast: boolean)`
 
 Emit event to local nodes
 
@@ -790,6 +753,7 @@ Emit event to local nodes
 | `payload` | any | - |  |
 | `groups` | any | - |  |
 | `sender` | String | - |  |
+| `broadcast` | boolean | - |  |
 
 
 
@@ -805,6 +769,22 @@ Emit event to local nodes
 `MOLECULER_VERSION`
 
 Version of Moleculer
+
+
+
+
+
+
+
+
+
+### PROTOCOL_VERSION
+
+
+
+`PROTOCOL_VERSION`
+
+Version of Protocol
 
 
 

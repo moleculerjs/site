@@ -74,3 +74,9 @@ sidebar:
     api_service: Service
     api_context: Context
     api_protocol: Protocol
+  api-0.12:
+    api: API v0.12.x
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
+    api_protocol: Protocol
