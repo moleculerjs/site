@@ -52,6 +52,7 @@ sidebar:
     faq: FAQ
     contributing: Contributing
   api:
+    components: Components
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context

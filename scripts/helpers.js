@@ -14,8 +14,10 @@ function startsWith(str, start){
 
 // Generate bottom navigation links (Prev, Next)
 hexo.extend.helper.register('page_nav', function(){
-	var type = this.page.canonical_path.split('/')[1];
-	var sidebar = this.site.data.sidebar[type];
+	var p = this.page.canonical_path.split('/');
+	var type = p[1];
+	var ver = p[0];
+	var sidebar = this.site.data[ver + '/sidebar'][type];
 	var path = pathFn.basename(this.path);
 	var list = {};
 	var prefix = 'sidebar.' + type + '.';
@@ -47,8 +49,8 @@ hexo.extend.helper.register('page_nav', function(){
 hexo.extend.helper.register('doc_sidebar', function(className){
 	var p = this.page.canonical_path.split('/');
 	var type = p[1];
-	var currVer = p[0];
-	var sidebar = this.site.data.sidebar[type];
+	var ver = p[0];
+	var sidebar = this.site.data[ver + '/sidebar'][type];
 	var path = pathFn.basename(this.path);
 	var result = '';
 	var self = this;
@@ -56,8 +58,8 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 
 	// Show version selector
 	result += '<div class="version-selector"><select onchange="changeVersion(this)">';
-	_.each(this.site.data.versions[type], function(menu, title) {
-		result += '<option value="' + menu + '/' + type + '"' + (menu == currVer ? "selected": "")+ '>' + self.__(title) + '</option>';
+	_.each(this.site.data.versions[type], function(title, version) {
+		result += '<option value="' + version + '/' + type + '"' + (version == ver ? "selected": "")+ '>' + self.__(title) + '</option>';
 	});
 	result += '</select></div>';
 
