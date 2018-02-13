@@ -107,7 +107,7 @@ Set params of context
 
 `call(actionName: String, params, opts): Promise`
 
-Call an other action. It creates a sub-context.
+Call an other action. It will be create a sub-context.
 
 
 ### Parameters
@@ -143,18 +143,17 @@ ctx.call("posts.get", { id: 12 }, { timeout: 1000 });
 
 
 
-`emit(eventName: string, data, groups, payload: any)`
+`emit(eventName: String, data: any)`
 
-Emit an event (grouped & balanced global event)
+Call a global event (with broker.emit).
 
 
 ### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `groups` |  | - |  |
-| `payload` | any | - |  |
+| `eventName` | String | - |  |
+| `data` | any | - |  |
 
 
 
@@ -170,71 +169,6 @@ Emit an event (grouped & balanced global event)
 ```js
 ctx.emit("user.created", { entity: user, creator: ctx.meta.user });
 ```
-
-
-
-
-
-### broadcast
-
-
-
-`broadcast(eventName: string, data, groups, payload: any)`
-
-Emit an event for all local & remote services
-
-
-### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `groups` |  | - |  |
-| `payload` | any | - |  |
-
-
-
-
-
-
-### Examples
-
-
-
-
-
-```js
-ctx.broadcast("user.created", { entity: user, creator: ctx.meta.user });
-```
-
-
-
-
-
-
-## Static Members
-
-
-
-### create
-
-
-
-`create(broker: ServiceBroker, action: Object, nodeID, params, opts: Object): Context`
-
-Create a new Context instance.
-
-
-### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `broker` | ServiceBroker | - |  |
-| `action` | Object | - |  |
-| `nodeID` |  | - |  |
-| `params` |  | - |  |
-| `opts` | Object | - |  |
-
 
 
 
