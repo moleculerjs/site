@@ -9,7 +9,7 @@ var lunr = require('lunr');
 var localizedPath = ['docs', 'api'];
 
 function startsWith(str, start){
-	return str.substring(0, start.length) === start;
+	return str && str.substring(0, start.length) === start;
 }
 
 // Generate bottom navigation links (Prev, Next)
