@@ -368,7 +368,7 @@ Check should metric the current call
 
 
 
-`emit(eventName: string, payload: any, groups, groupName)`
+`emit(eventName: string, payload: any, groups)`
 
 Emit an event (grouped & balanced global event)
 
@@ -379,7 +379,7 @@ Emit an event (grouped & balanced global event)
 | -------- | ---- | ------- | ----------- |
 | `eventName` | string | - |  |
 | `payload` | any | - |  |
-| `groupName` |  | - |  |
+| `groups` |  | - |  |
 
 
 
@@ -692,6 +692,28 @@ broker.mcall({
 })
 ```
 ```
+
+
+
+
+
+### sendPing
+
+
+
+`sendPing(nodeID)`
+
+Send ping to a node (or all nodes if nodeID is null)
+
+
+### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `nodeID` |  | - |  |
+
+
+
 
 
 
