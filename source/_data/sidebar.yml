@@ -35,35 +35,8 @@ docs:
     faq: faq.html
     contributing: contributing.html
 
-"api-0.8":
-  api:
-    api_servicebroker: service-broker.html
-    api_service: service.html
-    api_context: context.html
-
-"api-0.9":
-  api:
-    api_servicebroker: service-broker.html
-    api_service: service.html
-    api_context: context.html
-    api_protocol: protocol.html
-
-"api-0.10":
-  api:
-    api_servicebroker: service-broker.html
-    api_service: service.html
-    api_context: context.html
-    api_protocol: protocol.html
-
-"api-0.11":
-  api:
-    api_servicebroker: service-broker.html
-    api_service: service.html
-    api_context: context.html
-    api_protocol: protocol.html
-
-"api-0.12":
-  api:
+api:
+  components:
     api_servicebroker: service-broker.html
     api_service: service.html
     api_context: context.html

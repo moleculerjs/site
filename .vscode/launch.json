@@ -7,8 +7,17 @@
 		{
 			"type": "node",
 			"request": "launch",
+			"name": "Hexo dev",
+			"program": "${workspaceRoot}/node_modules/hexo/bin/hexo",
+			"args": [
+				"server"
+			]
+		},
+		{
+			"type": "node",
+			"request": "launch",
 			"name": "Launch API docs generator",
-			"program": "${workspaceRoot}\\api-docs-generator.js",
+			"program": "${workspaceRoot}/api-docs-generator.js",
 			"cwd": "${workspaceRoot}"
 		},
 	]
