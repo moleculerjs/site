@@ -15,7 +15,7 @@
         <input type="search" id="search-input" placeholder="Search...">
       </div>
     </nav>
-    <div id="lang-select-wrap" style="display: none">
+    <div id="lang-select-wrap">
       <label id="lang-select-label"><i class="fa fa-globe"></i><span>{{ lang_name(page.lang) }}</span></label>
       <select id="lang-select" data-canonical="{{ canonical_path_for_nav() }}">
         {% for lang in site.data.languages %}
