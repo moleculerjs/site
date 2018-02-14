@@ -150,3 +150,35 @@ mol $ load "./math.service.js"
 ```bash
 mol $ load "./services"
 ```
+
+### Custom commands
+You can define your custom REPL commands in broker options to extend Moleculer REPL commands.
+
+```js
+let broker = new ServiceBroker({
+    logger: true,
+    replCommands: [
+        {
+            command: "hello <name>",
+            description: "Call the greeter.hello service with name",
+            alias: "hi",
+            options: [
+                { option: "-u, --uppercase", description: "Uppercase the name" }
+            ],
+            types: {
+                string: ["name"],
+                boolean: ["u", "uppercase"]
+            },
+            //parse(command, args) {},
+            //validate(args) {},
+            //help(args) {},
+            allowUnknownOptions: true,
+            action(args) {
+                return broker.call("greeter.hello", { name: args.name }).then(console.log);
+            }
+        }
+    ]
+});
+
+broker.repl();
+```

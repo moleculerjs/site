@@ -54,7 +54,7 @@ Moleculer Error for client error which is **not** retryable. Parameters are same
 ### `ServiceNotFoundError `
 Throw it if you `call` a not registered service action.
 Error code: **404**
-Retryable: **false**
+Retryable: **true**
 
 **Data properties**
 
@@ -66,7 +66,7 @@ Retryable: **false**
 ### `ServiceNotAvailable`
 Throw it if you `call` a currently unavailable service action. E.g. nodes disconnected which contains this service or circuit breaker opened.
 Error code: **404**
-Retryable: **false**
+Retryable: **true**
 
 **Data properties**
 

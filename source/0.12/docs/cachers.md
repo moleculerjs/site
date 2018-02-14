@@ -53,7 +53,7 @@ The syntax of key is:
 ```
     <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it finds it within the cache by key. 
+So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it finds it within the cache by key.
 ```
 // Hashed cache key for "posts.find" action
 posts.find:0d6bcb785d1ae84c8c20203401460341b84eb8b968cffcf919a9904bb1fbc29a
@@ -66,8 +66,8 @@ However, the hash calculation is an expensive operation. So you can specify whic
     actions: {
         list: {
             cache: {
-                // Only generate cache key from "limit" and "offset" values
-                keys: ["limit", "offset"]
+                //  generate cache key from "limit", "offset", and user.id values
+                keys: ["limit", "offset","#user.id"]
             },
             handler(ctx) {
                 return this.getList(ctx.params.limit, ctx.params.offset);
@@ -80,6 +80,65 @@ However, the hash calculation is an expensive operation. So you can specify whic
 //   posts.list:10-30
 ```
 > This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+
+## Cache options
+
+In action cache keys you can use meta keys with `#` prefix.
+```js
+broker.createService({
+    name: "posts",
+    actions: {
+        list: {
+            cache: {
+                // Cache key:  "limit" & "offset" from ctx.params, "user.id" from ctx.meta
+                keys: ["limit", "offset", "#user.id"],
+                ttl: 5
+            },
+            handler(ctx) {...}
+        }
+    }
+});
+```
+
+You can override the cacher default TTL setting in action definition.
+```js
+let broker = new ServiceBroker({
+    cacher: {
+        type: "memory",
+        options: {
+            ttl: 30 // 30 seconds
+        }
+    }
+});
+
+broker.createService({
+    name: "posts",
+    actions: {
+        list: {
+            cache: {
+                // This cache entries will be expired after 5 seconds instead of 30.
+                ttl: 5
+            },
+            handler(ctx) {...}
+        }
+    }
+});
+```
+
+You can change the built-in cacher keygen function to your own one.
+```js
+let broker = new ServiceBroker({
+    cacher: {
+        type: "memory",
+        options: {
+            keygen(name, params, meta, keys) {
+                // Generate a cache key
+                return ...;
+            }
+        }
+    }
+});
+```
 
 ## Manual caching
 You can also use the cacher module manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
@@ -168,7 +227,7 @@ let broker = new ServiceBroker({
         monitor: false // Turns Redis client monitoring on/off. If enabled, every client operation will be logged (on debug level)
 
         // Redis settings, pass it to the `new Redis()` constructor
-        redis: { 
+        redis: {
             host: "redis",
             port: 6379,
             password: "1234",
