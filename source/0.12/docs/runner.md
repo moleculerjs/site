@@ -106,3 +106,29 @@ The runner loads service files or folders defined in CLI arguments. If you defin
  SERVICEDIR=my-services
  ```
  It loads all `*.service.js` files from the `my-services` folder.
+
+## Built-in clustering
+
+Moleculer Runner has a new built-in clustering function. With it, you can start multiple instances from your broker.
+
+Example to start all services from the `services` folder in 4 instances.
+```bash
+$ moleculer-runner --instances 4 services
+```
+> Please note, the `nodeID` will be suffixed with the worker ID.
+
+## .env files
+
+Moleculer runner can load `.env` file at starting. There are two new cli options to load env file:
+
+* `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
+* `-E, --envfile <filename>` - Load envorinment variables from the specified file.
+
+**Example**
+```sh
+# Load the default .env file from current directory
+$ moleculer-runner --env
+
+# Load the specified .my-env file
+$ moleculer-runner --envfile .my-env
+```

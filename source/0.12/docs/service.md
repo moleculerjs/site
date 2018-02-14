@@ -33,7 +33,7 @@ The `name` is a mandatory property so it must be defined. It's the first part of
 
 > You can disable service name prefixing with the `$noServiceNamePrefix: true` setting in Service settings.
 
-The `version` is an optional property. If you are running multiple version of the same service this needs to be set. It will be a prefix in the actionName. It can be a `Number` or a `String`. 
+The `version` is an optional property. If you are running multiple version of the same service this needs to be set. It will be a prefix in the actionName. It can be a `Number` or a `String`.
 ```js
 {
     name: "posts",
@@ -104,7 +104,7 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which inherits all from `ApiGwService` but overwrite the port setting and add a new `myAction` action. 
+The above example creates an `api` service which inherits all from `ApiGwService` but overwrite the port setting and add a new `myAction` action.
 
 ### Merge algorithm
 The merge algorithm depends on the property type.
@@ -113,7 +113,7 @@ The merge algorithm depends on the property type.
 |----------|-----------|
 | `name`, `version` | Merge & overwrite. |
 | `settings` | Extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
-| `actions` | Merge & overwrite. _You can disable an action from mixin if you set to `false` in your service._ |
+| `actions` | Extend with defaultsDeep. _You can disable an action from mixin if you set to `false` in your service._ |
 | `methods` | Merge & overwrite. |
 | `events` | Concatenate. |
 | `created`, `started`, `stopped` | Concatenate. |
@@ -207,7 +207,7 @@ You can subscribe to events under the `events` key.
 
         // Subscribe to all "user.*" event
         "user.*"(payload, sender, eventName) {
-            // Do something with payload. The `eventName` contains 
+            // Do something with payload. The `eventName` contains
             // the original event name. E.g. `user.modified`.
             // The `sender` is the nodeID of sender.
         }
@@ -221,6 +221,23 @@ You can subscribe to events under the `events` key.
 }
 ```
 > In handlers the `this` is pointed to the Service instance.
+
+The broker groups the event listeners by group name. The group name is the name of the service where your event handler is declared. You can change it in the event definition.
+
+```js
+module.export = {
+    name: "payment",
+    events: {
+        "order.created": {
+            // Register handler to "other" group instead of "payment" group.
+            group: "other",
+            handler(payload) {
+                // ...
+            }
+        }
+    }
+}
+```
 
 ## Methods
 You can also create private functions in the Service. They are called as `methods`. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers or lifecycle event handlers).
@@ -273,6 +290,47 @@ There are some lifecycle service events, that will be triggered by broker.
     }
 }
 ```
+## Dependencies
+
+The `Service` schema has a new `dependencies` property. The serice can wait for other dependening ones when it starts. This way you don't need to call `waitForServices` in `started` any longer.
+
+```js
+module.exports = {
+  name: "posts",
+  settings: {
+      $dependencyTimeout: 30000 // Default: 0 - no timeout
+  },
+  dependencies: [
+      "likes", // shorthand w/o version
+      { name: "users", version: 2 }, // with numeric version
+      { name: "comments", version: "staging" } // with string version
+  ],
+  started() {
+      this.logger.info("Service started after the dependent services available.");
+  }
+  ....
+}
+```
+The `started` service handler is called once the `likes`, `users` and `comments` services are registered (on the local or remote nodes).
+
+## Metadata
+
+The `Service` schema has a new `metadata` property. The Moleculer modules doesn't use it, so you can use it whatever you want.
+
+```js
+broker.createService({
+    name: "posts",
+    settings: {},
+    metadata: {
+        scalable: true,
+        priority: 5
+    },
+
+    actions: { ... }
+});
+```
+
+> The `metadata` is transferred between nodes, you can access it via `$node.services`. Or inside service with `this.metadata` like settings.
 
 ## Properties of `this`
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods which you can use in your service functions.
@@ -376,7 +434,7 @@ If you have many services (and you will have) we suggest to put them to a `servi
 
 **Syntax**
 ```js
-broker.loadServices(folder = "./services", fileMask = "*.service.js");
+broker.loadServices(folder = "./services", fileMask = "**/*.service.js");
 ```
 
 **Example**
@@ -461,3 +519,166 @@ module.exports = {
 {% note warn Naming restriction %}
 It is important to be aware that you can't use such variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.  
 {% endnote %}
+
+## ES6 classes
+
+If you like better ES6 classes than Moleculer service schema, you can write your services in ES6 classes.
+
+There are two ways to do it:
+
+1. **Native ES6 classes with schema parsing**
+
+    Define `actions` and `events` handlers as class methods. Call the `parseServiceSchema` method in constructor with schema definition where the handlers pointed to these class methods.
+    ```js
+    const Service = require("moleculer").Service;
+
+    class GreeterService extends Service {
+
+        constructor(broker) {
+            super(broker);
+
+            this.parseServiceSchema({
+                name: "greeter",
+                version: "v2",
+                meta: {
+                    scalable: true
+                },
+                dependencies: [
+                    "auth",
+                    "users"
+                ],
+
+                settings: {
+                    upperCase: true
+                },
+                actions: {
+                    hello: this.hello,
+                    welcome: {
+                        cache: {
+                            keys: ["name"]
+                        },
+                        params: {
+                            name: "string"
+                        },
+                        handler: this.welcome
+                    }
+                },
+                events: {
+                    "user.created": this.userCreated
+                },
+                created: this.serviceCreated,
+                started: this.serviceStarted,
+                stopped: this.serviceStopped,
+            });
+        }
+
+        // Action handler
+        hello() {
+            return "Hello Moleculer";
+        }
+
+        // Action handler
+        welcome(ctx) {
+            return this.sayWelcome(ctx.params.name);
+        }
+
+        // Private method
+        sayWelcome(name) {
+            this.logger.info("Say hello to", name);
+            return `Welcome, ${this.settings.upperCase ? name.toUpperCase() : name}`;
+        }
+
+        // Event handler
+        userCreated(user) {
+            this.broker.call("mail.send", { user });
+        }
+
+        serviceCreated() {
+            this.logger.info("ES6 Service created.");
+        }
+
+        serviceStarted() {
+            this.logger.info("ES6 Service started.");
+        }
+
+        serviceStopped() {
+            this.logger.info("ES6 Service stopped.");
+        }
+    }
+
+    module.exports = GreeterService;
+    ```
+
+2. **Use decorators**
+
+    Thanks for [@ColonelBundy](https://github.com/ColonelBundy), you can use ES7/TS decorators as well: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
+
+    >Please note, you need to use Typescript or Babel to compile decorators.
+
+    **Example service**
+    ```js
+    const moleculer = require('moleculer');
+    const { Service, Action, Event, Method } = require('moleculer-decorators');
+    const web = require('moleculer-web');
+    const broker = new moleculer.ServiceBroker({
+        logger: console,
+        logLevel: "debug",
+    });
+
+    @Service({
+        mixins: [web],
+        settings: {
+            port: 3000,
+            routes: [
+            ...
+            ]
+        }
+    })
+    class ServiceName {
+        @Action()
+        Login(ctx) {
+            ...
+        }
+
+        // With options
+        @Action({
+            cache: false,
+            params: {
+                a: "number",
+                b: "number"
+            }
+        })
+        Login2(ctx) {
+            ...
+        }
+
+        @Event
+        'event.name'(payload, sender, eventName) {
+            ...
+        }
+
+        @Method
+        authorize(ctx, route, req, res) {
+            ...
+        }
+
+        hello() { // Private
+            ...
+        }
+
+        started() { // Reserved for moleculer, fired when started
+            ...
+        }
+
+        created() { // Reserved for moleculer, fired when created
+            ...
+        }
+
+        stopped() { // Reserved for moleculer, fired when stopped
+            ...
+        }
+    }
+
+    broker.createService(ServiceName);
+    broker.start();
+    ```

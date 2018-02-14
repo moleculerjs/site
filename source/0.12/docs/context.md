@@ -18,3 +18,4 @@ When you call an action, the broker creates a `Context` instance which contains 
 | `ctx.level` | `Number` | Request level (in case of sub-calls). The first level is `1`. |
 | `ctx.call()` | `Function` | You can make a sub-call. Same arguments like `broker.call` |
 | `ctx.emit()` | `Function` | Emit an event, like `broker.emit` |
+| `ctx.broadcast` | `Function` | Broadcast an event |
