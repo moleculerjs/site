@@ -34,14 +34,25 @@ $ npm run demo middlewares
 ### Transporters
 This example starts two brokers and communicates together via NATS server.
 
+**Prepare the environment**
 ```bash
-$ npm run demo transporters
+$ docker-compose -f ./examples/docker-compose.yaml up
+```
+
+**Start transporters**
+```bash
+$ npm run demo transporter
 ```
 
 [Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/transporter)
 
 ### Multiple servers & clients
 In this example, you can start any servers & clients. The servers serve the `math.add` action and clients call it in a loop.
+
+**Prepare the environment**
+```bash
+$ docker-compose -f ./examples/docker-compose.yaml up
+```
 
 **Start a server**
 ```bash
@@ -57,6 +68,10 @@ $ node examples/multi-server/client
 
 ### Load tester
 With this example, you can start a load test. The server & client prints how many requests executed in a second.
+**Prepare the environment**
+```bash
+$ docker-compose -f ./examples/docker-compose.yaml up
+```
 
 **Start server**
 ```bash
