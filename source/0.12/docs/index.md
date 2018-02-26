@@ -11,13 +11,14 @@ Moleculer is a fast, modern and powerful microservices framework for [NodeJS](ht
 - Promise-based solution
 - request-reply concept
 - support event-driven architecture with balancing
-- built-in service registry & auto discovery
+- built-in service registry
+- dynamic service discovery
 - load balanced requests & events (round-robin, random, custom)
 - supports middlewares
 - service mixins
 - multiple services on a node/server
 - built-in caching solution (memory, Redis)
-- pluggable transporters (NATS, MQTT, Redis)
+- pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka)
 - pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer)
 - pluggable validator
 - every node is equal, no master/leader node

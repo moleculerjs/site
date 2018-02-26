@@ -1,8 +1,20 @@
 title: Usage
 ---
 
+# Install Moleculer
+
+You can install Moleculer with npm
+
+``` bash
+$ npm install moleculer --save
+```
+or with yarn
+```
+$ yarn add moleculer
+```
+
 # Create your first microservice
-This example shows you how to create a small service with a `math` service which is able to add two numbers.
+This example shows how you can create a small `math` service to add two numbers.
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -51,7 +63,7 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```bash
     $ npm run dev
     ```
-5. Open the [http://localhost:3000/greeter/hello](http://localhost:3000/greeter/hello) link in your browser. It calls the `hello` action of `greeter` service via [API gateway](https://github.com/ice-services/moleculer-web) and returns with the result.
+5. Open the [http://localhost:3000/greeter/hello](http://localhost:3000/greeter/hello) link in your browser. It calls the `hello` action of `greeter` service via [API gateway](https://github.com/ice-services/moleculer-web) and returns the result.
 
 {% note info Congratulations! %}
 You have just created your first Moleculer-based microservices project! The next step is to check our [examples](examples.html) or [demo projects](https://github.com/ice-services/moleculer-examples).

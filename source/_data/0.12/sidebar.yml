@@ -1,15 +1,8 @@
 docs:
   getting_started:
     overview: index.html
-    install: install.html
     usage: usage.html
     examples: examples.html
-
-  modules:
-    moleculer_web: moleculer-web.html
-    moleculer_repl: moleculer-repl.html
-    moleculer_cli: moleculer-cli.html
-    other_modules: modules.html
 
   core:
     broker: broker.html
@@ -26,6 +19,12 @@ docs:
     metrics: metrics.html
     statistics: statistics.html
     runner: runner.html
+
+  modules:
+    moleculer_web: moleculer-web.html
+    moleculer_repl: moleculer-repl.html
+    moleculer_cli: moleculer-cli.html
+    other_modules: modules.html
 
   miscellaneous:
     nodes: nodes.html
