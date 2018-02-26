@@ -3,7 +3,7 @@
 <!-- GitHub fork -->
 <a class="github-button" href="https://github.com/ice-services/moleculer/fork" data-count-href="/ice-services/moleculer/fork" data-show-count="true" data-count-aria-label="# forks on GitHub" aria-label="Fork ice-services/moleculer on GitHub">Fork</a>
 <!-- Tweet button -->
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://moleculer-services/" data-text="Moleculer - A fast & powerful microservices framework for NodeJS." data-hashtags="moleculer,microservices,nodejs">Tweet</a>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://moleculer-services/" data-text="Moleculer - A fast & powerful microservices framework for Node.js." data-hashtags="moleculer,microservices,nodejs">Tweet</a>
 <!-- Twitter follow button -->
 <a href="https://twitter.com/MoleculerJS" class="twitter-follow-button" data-show-count="false">Follow @MoleculerJS</a>
 <script>
