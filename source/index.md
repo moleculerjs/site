@@ -1,7 +1,7 @@
 layout: index
 headline: Moleculer
-description: Moleculer is a fast & powerful microservices framework powered by NodeJS.
-subtitle: Fast & powerful microservices framework for NodeJS.
+description: Moleculer is a fast & powerful microservices framework powered by Node.js.
+subtitle: Fast & powerful microservices framework for Node.js.
 comments: false
 ---
 <div style="text-align: center">
