@@ -8,7 +8,7 @@ title: Service
 
 
 
-`new Service()`
+`new Service(broker, schema)`
 
 Main Service class
 
@@ -47,6 +47,29 @@ Parse Service schema & register as local service
 
 
 ## Static Members
+
+
+
+### constructor
+
+
+
+`new Service(broker: ServiceBroker, schema: Object)`
+
+Creates an instance of Service by schema.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `broker` | ServiceBroker | - | broker of service |
+| `schema` | Object | - | schema of service |
+
+
+
+
+
 
 
 

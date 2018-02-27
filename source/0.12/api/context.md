@@ -8,7 +8,7 @@ title: Context
 
 
 
-`new Context()`
+`new Context(broker, action)`
 
 Context class for action calls
 
@@ -31,7 +31,78 @@ Context class for action calls
 
 
 
-## Instance Members
+
+
+## Static Members
+
+
+
+### constructor
+
+
+
+`new Context(broker: ServiceBroker, action: Action)`
+
+Creates an instance of Context.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `broker` | ServiceBroker | - | Broker instance |
+| `action` | Action | - | Action definition |
+
+
+
+
+
+
+#### Examples
+
+
+
+
+
+```js
+let ctx = new Context(broker, action);
+```
+
+
+
+
+
+```js
+let ctx2 = new Context(broker, action);
+```
+
+
+
+
+
+### create
+
+
+
+`create(broker: ServiceBroker, action: Object, nodeID, params, opts: Object): Context`
+
+Create a new Context instance.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `broker` | ServiceBroker | - | - |
+| `action` | Object | - | - |
+| `nodeID` |  | - | - |
+| `params` |  | - | - |
+| `opts` | Object | - | - |
+
+
+
+
+
 
 
 
@@ -163,37 +234,6 @@ Emit an event for all local & remote services
 ```js
 ctx.broadcast("user.created", { entity: user, creator: ctx.meta.user });
 ```
-
-
-
-
-
-
-## Static Members
-
-
-
-### create
-
-
-
-`create(broker: ServiceBroker, action: Object, nodeID, params, opts: Object): Context`
-
-Create a new Context instance.
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `broker` | ServiceBroker | - | - |
-| `action` | Object | - | - |
-| `nodeID` |  | - | - |
-| `params` |  | - | - |
-| `opts` | Object | - | - |
-
-
-
 
 
 

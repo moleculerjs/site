@@ -29,7 +29,7 @@ Default broker options
 
 
 
-`new ServiceBroker()`
+`new ServiceBroker(options)`
 
 Service broker class
 
@@ -40,7 +40,31 @@ Service broker class
 
 
 
-## Instance Members
+
+
+## Static Members
+
+
+
+### constructor
+
+
+
+`new ServiceBroker(options: any)`
+
+Creates an instance of ServiceBroker.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `options` | any | - | - |
+
+
+
+
+
 
 
 
@@ -197,6 +221,50 @@ Load a service from file
 
 
 
+### watchService
+
+
+
+`watchService(service: Service)`
+
+Watch a service file and hot reload if it changed.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `service` | Service | - | - |
+
+
+
+
+
+
+
+
+### hotReloadService
+
+
+
+`hotReloadService(service: Service): Service`
+
+Hot reload a service
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `service` | Service | - | - |
+
+
+
+
+
+
+
+
 ### createService
 
 
@@ -212,6 +280,73 @@ Create a new service by schema
 | -------- | ---- | ------- | ----------- |
 | `schema` | any | - | Schema of service |
 | `schemaMods` |  | - | Modified schema |
+
+
+
+
+
+
+
+
+### registerLocalService
+
+
+
+`registerLocalService(service: Service, registryItem: Object)`
+
+Add & register a local service instance
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `service` | Service | - | - |
+| `registryItem` | Object | - | - |
+
+
+
+
+
+
+
+
+### destroyService
+
+
+
+`destroyService(service: Service)`
+
+Destroy a local service
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `service` | Service | - | - |
+
+
+
+
+
+
+
+
+### servicesChanged
+
+
+
+`servicesChanged(localService)`
+
+It will be called when a new local or remote service
+is registered or unregistered.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
 
 
 
@@ -280,6 +415,30 @@ Get a local service by name
 
 
 
+### waitForServices
+
+
+
+`waitForServices(serviceNames, timeout: Number, interval: Number, logger): Promise`
+
+Wait for other services
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `serviceNames` |  | - | - |
+| `timeout` | Number | - | Timeout in milliseconds |
+| `interval` | Number | - | Check interval in milliseconds |
+
+
+
+
+
+
+
+
 ### use
 
 
@@ -294,6 +453,29 @@ Add a middleware to the broker
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `mws` | Function | - | - |
+
+
+
+
+
+
+
+
+### findNextActionEndpoint
+
+
+
+`findNextActionEndpoint(actionName: String, opts: Object): undefined`
+
+Find the next available endpoint for action
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `actionName` | String | - | - |
+| `opts` | Object | - | - |
 
 
 
@@ -321,6 +503,66 @@ Call an action
 
 
 
+
+
+
+
+
+### mcall
+
+
+
+`mcall(def): undefined`
+
+Multiple action calls.
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `def` |  | - | Calling definitions. |
+
+
+
+
+
+
+#### Examples
+
+
+
+
+
+```js
+Call `mcall` with an array:
+```js
+broker.mcall([
+	{ action: "posts.find", params: { limit: 5, offset: 0 } },
+	{ action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
+]).then(results => {
+	let posts = results[0];
+	let users = results[1];
+})
+```
+```
+
+
+
+
+
+```js
+Call `mcall` with an Object:
+```js
+broker.mcall({
+	posts: { action: "posts.find", params: { limit: 5, offset: 0 } },
+	users: { action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
+}).then(results => {
+	let posts = results.posts;
+	let users = results.users;
+})
+```
+```
 
 
 
@@ -410,229 +652,6 @@ Emit an event for all local services
 
 
 
-
-
-
-
-
-
-## Static Members
-
-
-
-### watchService
-
-
-
-`watchService(service: Service)`
-
-Watch a service file and hot reload if it changed.
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `service` | Service | - | - |
-
-
-
-
-
-
-
-
-### hotReloadService
-
-
-
-`hotReloadService(service: Service): Service`
-
-Hot reload a service
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `service` | Service | - | - |
-
-
-
-
-
-
-
-
-### registerLocalService
-
-
-
-`registerLocalService(service: Service, registryItem: Object)`
-
-Add & register a local service instance
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `service` | Service | - | - |
-| `registryItem` | Object | - | - |
-
-
-
-
-
-
-
-
-### destroyService
-
-
-
-`destroyService(service: Service)`
-
-Destroy a local service
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `service` | Service | - | - |
-
-
-
-
-
-
-
-
-### servicesChanged
-
-
-
-`servicesChanged(localService)`
-
-It will be called when a new local or remote service
-is registered or unregistered.
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-
-
-
-
-
-
-
-
-### waitForServices
-
-
-
-`waitForServices(serviceNames, timeout: Number, interval: Number, logger): Promise`
-
-Wait for other services
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `serviceNames` |  | - | - |
-| `timeout` | Number | - | Timeout in milliseconds |
-| `interval` | Number | - | Check interval in milliseconds |
-
-
-
-
-
-
-
-
-### findNextActionEndpoint
-
-
-
-`findNextActionEndpoint(actionName: String, opts: Object): undefined`
-
-Find the next available endpoint for action
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `actionName` | String | - | - |
-| `opts` | Object | - | - |
-
-
-
-
-
-
-
-
-### mcall
-
-
-
-`mcall(def): undefined`
-
-Multiple action calls.
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `def` |  | - | Calling definitions. |
-
-
-
-
-
-
-#### Examples
-
-
-
-
-
-```js
-Call `mcall` with an array:
-```js
-broker.mcall([
-	{ action: "posts.find", params: { limit: 5, offset: 0 } },
-	{ action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
-]).then(results => {
-	let posts = results[0];
-	let users = results[1];
-})
-```
-```
-
-
-
-
-
-```js
-Call `mcall` with an Object:
-```js
-broker.mcall({
-	posts: { action: "posts.find", params: { limit: 5, offset: 0 } },
-	users: { action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
-}).then(results => {
-	let posts = results.posts;
-	let users = results.users;
-})
-```
-```
 
 
 

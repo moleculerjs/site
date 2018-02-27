@@ -2,7 +2,7 @@ title: Support Moleculer development
 ---
 [![Patreon](/images/patreon.svg)][patreon] [![PayPal](/images/paypal_donate.svg)][paypal]
 
-Moleculer is an open source MIT project. It is free to use for your personal or commercial projects. However, Developing it takes up all my free time to make it better and better on a daily basis. If you like Moleculer, please support my efforts.
+Moleculer is an open source MIT project. It is free to use for your personal or commercial projects. However, Developing it takes up all my free time to make it better and better on a daily basis. If you like Moleculer framework, please support my efforts.
 
 **Once you decide to support me, please:**
 * set up a recurring monthly donation [on Patreon](https://www.patreon.com/moleculer) and you will get exciting news about what works on (things that I share with supporters only) or

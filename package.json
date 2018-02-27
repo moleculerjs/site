@@ -15,7 +15,7 @@
   "dependencies": {
     "bluebird": "3.5.1",
     "cheerio": "0.22.0",
-    "documentation": "5.4.0",
+    "documentation": "5.2.1",
     "hexo": "3.5.0",
     "hexo-deployer-git": "0.3.1",
     "hexo-generator-sitemap": "1.2.0",
