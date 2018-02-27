@@ -11,6 +11,7 @@
     </div>
     <div id="banner-badges">{{ partial('partial/badges') }}</div>
     <div id="banner-share">{{ partial('partial/share') }}</div>
+    <div id="banner-donate">{{ partial('partial/donate') }}</div>
   </div>
 </header>
 <div id="content-wrap">

@@ -20,7 +20,8 @@ sidebar:
     overview: Overview
     install: Install
     usage: Usage
-    examples: Examples    
+    examples: Examples   
+    support: Support 
 
     core: Core
     broker: Service Broker

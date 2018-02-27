@@ -3,6 +3,7 @@ docs:
     overview: index.html
     usage: usage.html
     examples: examples.html
+    support: support.html
 
   core:
     broker: broker.html
