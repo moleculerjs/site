@@ -75,7 +75,7 @@ const sourceFiles = [
 ]
 
 // Target folder
-const targetFolder = path.join(".", "source", "api-" + apiVersion);
+const targetFolder = path.join(".", "source", apiVersion, "api");
 console.log("Target folder:", targetFolder);
 mkdir(targetFolder);
 
@@ -159,13 +159,32 @@ Promise.each(sourceFiles, sourceFile => {
 	}).catch(err => console.error(err))
 	
 }).then(() => {
-	console.log(`Copy PROTOCOL.md...`);
-	let content = fs.readFileSync(path.join(__dirname, ".", "node_modules", "moleculer", "docs", "PROTOCOL.md"), "utf8");
-	fs.writeFileSync(path.join(targetFolder, "protocol.md"), content, "utf8");	
+	const fName = path.join(__dirname, ".", "node_modules", "moleculer", "docs", "PROTOCOL.md");
+	if (fs.existsSync(fName)) {
+		console.log(`Copy PROTOCOL.md...`);
+		let content = fs.readFileSync(fName, "utf8");
+		fs.writeFileSync(path.join(targetFolder, "protocol.md"), content, "utf8");	
+	}
 }).then(() => {
 	console.log(`Create index.md...`);
 	if (!fs.existsSync(path.join(targetFolder, "index.md")))
-		fs.writeFileSync(path.join(targetFolder, "index.md"), "", "utf8");
+		fs.writeFileSync(path.join(targetFolder, "index.md"), `
+title: API v${apiVersion}
+---
+
+# [ServiceBroker](service-broker.html)
+ServiceBroker class methods and properties.
+
+# [Service](service.html)
+Service class methods and properties.
+
+# [Context](context.html)
+Context class methods and properties.
+
+# [Protocol](protocol.html)
+Communication protocol of Moleculer.
+
+`, "utf8");
 	
 }).then(() => {
 	console.log("All files done!");
