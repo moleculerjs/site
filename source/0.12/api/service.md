@@ -1,4 +1,4 @@
-title: Context
+title: Service
 ---
 
 
@@ -8,7 +8,7 @@ title: Context
 
 
 
-`new Service(broker, schema)`
+`new Service()`
 
 Main Service class
 
@@ -23,29 +23,6 @@ Main Service class
 
 
 
-### constructor
-
-
-
-`new Service(broker: ServiceBroker, schema: Object)`
-
-Creates an instance of Service by schema.
-
-
-### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `broker` | ServiceBroker | - | broker of service |
-| `schema` | Object | - | schema of service |
-
-
-
-
-
-
-
-
 ### parseServiceSchema
 
 
@@ -55,7 +32,7 @@ Creates an instance of Service by schema.
 Parse Service schema & register as local service
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -82,11 +59,11 @@ Parse Service schema & register as local service
 Wait for other services
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `serviceNames` |  | - |  |
+| `serviceNames` |  | - | - |
 | `timeout` | Number | - | Timeout in milliseconds |
 | `interval` | Number | - | Check interval in milliseconds |
 
@@ -106,11 +83,11 @@ Wait for other services
 Apply 
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `schema` | Schema | - |  |
+| `schema` | Schema | - | - |
 
 
 

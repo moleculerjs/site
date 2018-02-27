@@ -1,4 +1,4 @@
-title: Context
+title: ServiceBroker
 ---
 
 
@@ -29,7 +29,7 @@ Default broker options
 
 
 
-`new ServiceBroker(options)`
+`new ServiceBroker()`
 
 Service broker class
 
@@ -41,28 +41,6 @@ Service broker class
 
 
 ## Instance Members
-
-
-
-### constructor
-
-
-
-`new ServiceBroker(options: any)`
-
-Creates an instance of ServiceBroker.
-
-
-### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `options` | any | - |  |
-
-
-
-
-
 
 
 
@@ -112,7 +90,7 @@ Switch the console to REPL mode.
 
 
 
-### Examples
+#### Examples
 
 
 
@@ -135,7 +113,7 @@ broker.start().then(() => broker.repl());
 Get a custom logger for sub-modules (service, transporter, cacher, context...etc)
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -159,13 +137,13 @@ Get a custom logger for sub-modules (service, transporter, cacher, context...etc
 Fatal error. Print the message to console and exit the process (if need)
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `message` | String | - |  |
-| `err` |  | - |  |
-| `needExit` |  | - |  |
+| `message` | String | - | - |
+| `err` |  | - | - |
+| `needExit` |  | - | - |
 
 
 
@@ -183,7 +161,7 @@ Fatal error. Print the message to console and exit the process (if need)
 Load services from a folder
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -206,7 +184,7 @@ Load services from a folder
 Load a service from file
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -228,7 +206,7 @@ Load a service from file
 Create a new service by schema
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -251,11 +229,11 @@ Create a new service by schema
 Wrap action handler for middlewares
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `action` | any | - |  |
+| `action` | any | - | - |
 
 
 
@@ -284,16 +262,16 @@ Register internal services
 
 
 
-`getLocalService(serviceName: String): Service`
+`getLocalService(name: String, version): Service`
 
 Get a local service by name
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `serviceName` | String | - |  |
+| `name` | String | - | - |
 
 
 
@@ -311,11 +289,11 @@ Get a local service by name
 Add a middleware to the broker
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `mws` | Function | - |  |
+| `mws` | Function | - | - |
 
 
 
@@ -333,7 +311,7 @@ Add a middleware to the broker
 Call an action
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -373,13 +351,13 @@ Check should metric the current call
 Emit an event (grouped & balanced global event)
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `payload` | any | - |  |
-| `groups` |  | - |  |
+| `eventName` | string | - | - |
+| `payload` | any | - | - |
+| `groups` |  | - | - |
 
 
 
@@ -397,13 +375,13 @@ Emit an event (grouped & balanced global event)
 Emit an event for all local & remote services
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `payload` | any | - |  |
-| `groups` |  | - |  |
+| `eventName` | string | - | - |
+| `payload` | any | - | - |
+| `groups` |  | - | - |
 
 
 
@@ -421,14 +399,14 @@ Emit an event for all local & remote services
 Emit an event for all local services
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `payload` | any | - |  |
-| `groups` |  | - |  |
-| `nodeID` |  | - |  |
+| `eventName` | string | - | - |
+| `payload` | any | - | - |
+| `groups` |  | - | - |
+| `nodeID` |  | - | - |
 
 
 
@@ -451,11 +429,11 @@ Emit an event for all local services
 Watch a service file and hot reload if it changed.
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `service` | Service | - |  |
+| `service` | Service | - | - |
 
 
 
@@ -473,11 +451,11 @@ Watch a service file and hot reload if it changed.
 Hot reload a service
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `service` | Service | - |  |
+| `service` | Service | - | - |
 
 
 
@@ -495,12 +473,12 @@ Hot reload a service
 Add & register a local service instance
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `service` | Service | - |  |
-| `registryItem` | Object | - |  |
+| `service` | Service | - | - |
+| `registryItem` | Object | - | - |
 
 
 
@@ -518,11 +496,11 @@ Add & register a local service instance
 Destroy a local service
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `service` | Service | - |  |
+| `service` | Service | - | - |
 
 
 
@@ -541,7 +519,7 @@ It will be called when a new local or remote service
 is registered or unregistered.
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -562,11 +540,11 @@ is registered or unregistered.
 Wait for other services
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `serviceNames` |  | - |  |
+| `serviceNames` |  | - | - |
 | `timeout` | Number | - | Timeout in milliseconds |
 | `interval` | Number | - | Check interval in milliseconds |
 
@@ -586,12 +564,12 @@ Wait for other services
 Find the next available endpoint for action
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `actionName` | String | - |  |
-| `opts` | Object | - |  |
+| `actionName` | String | - | - |
+| `opts` | Object | - | - |
 
 
 
@@ -609,7 +587,7 @@ Find the next available endpoint for action
 Multiple action calls.
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
@@ -620,7 +598,7 @@ Multiple action calls.
 
 
 
-### Examples
+#### Examples
 
 
 
@@ -669,11 +647,11 @@ broker.mcall({
 Send ping to a node (or all nodes if nodeID is null)
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `nodeID` |  | - |  |
+| `nodeID` |  | - | - |
 
 
 
@@ -723,11 +701,11 @@ Get local node info.
 Get event groups by event name
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | String | - |  |
+| `eventName` | String | - | - |
 
 
 
@@ -745,15 +723,15 @@ Get event groups by event name
 Emit event to local nodes
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `event` | String | - |  |
-| `payload` | any | - |  |
-| `groups` | any | - |  |
-| `sender` | String | - |  |
-| `broadcast` | boolean | - |  |
+| `event` | String | - | - |
+| `payload` | any | - | - |
+| `groups` | any | - | - |
+| `sender` | String | - | - |
+| `broadcast` | boolean | - | - |
 
 
 

@@ -9,18 +9,18 @@
 <%= getDesc(member.description) %>
 
 <% if (member.params.length) { %>
-### Parameters
+#### Parameters
 
 <%= renderParams(member.params, member.tags) %><% } %>
 
 
 <% if (member.properties.length) { %>
-### Properties
+#### Properties
 
 <%= renderParams(member.properties, member.tags) %><% } %>
 
 <% if (member.examples.length) {  %>
-### Examples
+#### Examples
 
 <% member.examples.forEach(function(example) { %>
 

@@ -151,7 +151,7 @@ Promise.each(sourceFiles, sourceFile => {
 		shallow: true,
 		inferPrivate: '^_'
 	}).then(docs => {
-		const markdown = template(Object.assign({ docs }, sharedImports));
+		const markdown = template(Object.assign({ docs, name: sourceFile.name }, sharedImports));
 
 		fs.writeFileSync(path.join(targetFolder, sourceFile.path.replace(/\.[^/.]+$/, ".md")), markdown, "utf8");
 
@@ -164,6 +164,8 @@ Promise.each(sourceFiles, sourceFile => {
 		console.log(`Copy PROTOCOL.md...`);
 		let content = fs.readFileSync(fName, "utf8");
 		fs.writeFileSync(path.join(targetFolder, "protocol.md"), content, "utf8");	
+	} else {
+		console.log("PROTOCOL.md is missing!");
 	}
 }).then(() => {
 	console.log(`Create index.md...`);

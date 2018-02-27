@@ -1,4 +1,4 @@
-title: Context
+title: <%= name %>
 ---
 
 <% docs.forEach(function(doc) { %>

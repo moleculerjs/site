@@ -8,7 +8,7 @@ title: Context
 
 
 
-`new Context(broker, action)`
+`new Context()`
 
 Context class for action calls
 
@@ -35,49 +35,6 @@ Context class for action calls
 
 
 
-### constructor
-
-
-
-`new Context(broker: ServiceBroker, action: Action)`
-
-Creates an instance of Context.
-
-
-### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `broker` | ServiceBroker | - | Broker instance |
-| `action` | Action | - | Action definition |
-
-
-
-
-
-
-### Examples
-
-
-
-
-
-```js
-let ctx = new Context(broker, action);
-```
-
-
-
-
-
-```js
-let ctx2 = new Context(broker, action);
-```
-
-
-
-
-
 ### setParams
 
 
@@ -87,12 +44,12 @@ let ctx2 = new Context(broker, action);
 Set params of context
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `newParams` | Object | - |  |
-| `cloning` | Boolean | - |  |
+| `newParams` | Object | - | - |
+| `cloning` | Boolean | - | - |
 
 
 
@@ -110,20 +67,20 @@ Set params of context
 Call an other action. It creates a sub-context.
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `actionName` | String | - |  |
-| `params` |  | - |  |
-| `opts` |  | - |  |
+| `actionName` | String | - | - |
+| `params` |  | - | - |
+| `opts` |  | - | - |
 
 
 
 
 
 
-### Examples
+#### Examples
 
 
 
@@ -148,20 +105,20 @@ ctx.call("posts.get", { id: 12 }, { timeout: 1000 });
 Emit an event (grouped & balanced global event)
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `groups` |  | - |  |
-| `payload` | any | - |  |
+| `eventName` | string | - | - |
+| `groups` |  | - | - |
+| `payload` | any | - | - |
 
 
 
 
 
 
-### Examples
+#### Examples
 
 
 
@@ -184,20 +141,20 @@ ctx.emit("user.created", { entity: user, creator: ctx.meta.user });
 Emit an event for all local & remote services
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `eventName` | string | - |  |
-| `groups` |  | - |  |
-| `payload` | any | - |  |
+| `eventName` | string | - | - |
+| `groups` |  | - | - |
+| `payload` | any | - | - |
 
 
 
 
 
 
-### Examples
+#### Examples
 
 
 
@@ -225,15 +182,15 @@ ctx.broadcast("user.created", { entity: user, creator: ctx.meta.user });
 Create a new Context instance.
 
 
-### Parameters
+#### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `broker` | ServiceBroker | - |  |
-| `action` | Object | - |  |
-| `nodeID` |  | - |  |
-| `params` |  | - |  |
-| `opts` | Object | - |  |
+| `broker` | ServiceBroker | - | - |
+| `action` | Object | - | - |
+| `nodeID` |  | - | - |
+| `params` |  | - | - |
+| `opts` | Object | - | - |
 
 
 
