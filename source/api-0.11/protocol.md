@@ -95,7 +95,7 @@ When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
 | `client` | `object` | ✔ | Client information |
 |   `client.type` | `string` | ✔ | Type of client implementation(`nodejs`, `java`, `go`) |
 |   `client.version` | `string` | ✔ | Client (Moleculer) version |
-|   `client.langVersion` | `string` | ✔ | NodeJS/Java/Go version |
+|   `client.langVersion` | `string` | ✔ | Node.js/Java/Go version |
 
 > (*) In case of `ProtoBuf`, `Avro` or any other schema-based serializer, the field value is encoded to JSON string.
 

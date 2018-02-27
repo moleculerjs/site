@@ -76,7 +76,7 @@ When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
 | `uptime` | `double` | ✔ | Uptime of process. |
 | `ipList` | `[string]` | ✔ | IP address list of node |
 | `versions` | `object` | ✔ | Versions |
-|   `versions.node` | `string` | ✔ | NodeJS version |
+|   `versions.node` | `string` | ✔ | Node.js version |
 |   `versions.moleculer` | `string` | ✔ | Moleculer version |
 
 
