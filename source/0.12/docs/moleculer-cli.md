@@ -7,7 +7,7 @@ This is a [command-line tool](https://github.com/ice-services/moleculer-cli) for
 ## Install
 
 ``` bash
-$ npm install -g moleculer-cli
+$ npm i -g moleculer-cli
 ```
 
 ## Commands
@@ -77,10 +77,11 @@ $ moleculer start
 ### Start a broker and connect to a transporter
 This command starts a new `ServiceBroker`, connects to a transporter server and switches to REPL mode.
 ```bash
-# Connect to local NATS (default)
-$ moleculer connect nats://localhost:4222
-# or without URI
+# Connect with TCP transporter
 $ moleculer connect
+
+# Connect to NATS
+$ moleculer connect nats://localhost:4222
 
 # Connect to Redis
 $ moleculer connect redis://localhost

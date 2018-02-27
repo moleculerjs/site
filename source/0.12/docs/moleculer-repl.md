@@ -5,7 +5,7 @@ The [moleculer-repl](https://github.com/ice-services/moleculer-repl) is an inter
 
 ## Install
 ```bash
-npm install moleculer-repl --save
+npm i moleculer-repl
 ```
 
 ## Usage
@@ -56,7 +56,10 @@ mol $ nodes
 ```
 
 **Output**
-![image](https://user-images.githubusercontent.com/306521/27083082-9fcb9cb8-5047-11e7-9817-1b1a0de42f3e.png)
+![image](assets/repl/nodes.png)
+
+**Detailed output**
+![image](assets/repl/nodes-detailed.png)
 
 ### List services
 ```bash
@@ -72,7 +75,10 @@ mol $ services
 ```
 
 **Output**
-![image](https://user-images.githubusercontent.com/306521/27083119-bdea2426-5047-11e7-879e-0634c1aba258.png)
+![image](assets/repl/services.png)
+
+**Detailed output**
+![image](assets/repl/services-detailed.png)
 
 ### List actions
 ```bash
@@ -88,8 +94,10 @@ mol $ actions
 ```
 
 **Output**
-![image](https://cloud.githubusercontent.com/assets/306521/26260954/8ef9d44e-3ccf-11e7-995a-ccbe035b2a9a.png)
+![image](assets/repl/actions.png)
 
+**Detailed output**
+![image](assets/repl/actions-detailed.png)
 
 ### List events
 ```bash
@@ -105,7 +113,11 @@ mol $ events
 ```
 
 **Output**
-!TODO!
+![image](assets/repl/events.png)
+
+**Detailed output**
+![image](assets/repl/events-detailed.png)
+
 
 ### Show common information
 ```bash
@@ -116,18 +128,18 @@ mol $ info
 ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
 
 
-### List envorinment variables
+### List environment variables
 ```bash
 mol $ env
 ```
-
-**Output**
-!TODO!
 
 ### Call an action
 ```bash
 mol $ call "test.hello"
 ```
+
+**Output**
+![image](assets/repl/call1.png)
 
 #### Call an action with parameters
 ```bash
@@ -181,53 +193,6 @@ mol $ emit "user.created" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
 Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-### Load a service from file
-```bash
-mol $ load "./math.service.js"
-```
-
-### Load all services from a folder
-```bash
-mol $ load "./services"
-```
-
-### Custom commands
-You can define your custom REPL commands in broker options to extend Moleculer REPL commands.
-
-```js
-let broker = new ServiceBroker({
-    logger: true,
-    replCommands: [
-        {
-			command: "hello <name>",
-			description: "Call the greeter.hello service with name",
-			alias: "hi",
-			options: [
-				{ option: "-u, --uppercase", description: "Uppercase the name" }
-			],
-			types: {
-				string: ["name"],
-				boolean: ["u", "uppercase"]
-			},
-			//parse(command, args) {},
-			//validate(args) {},
-			//help(args) {},
-			allowUnknownOptions: true,
-			action(broker, args/*, helpers*/) {
-				const name = args.options.uppercase ? args.name.toUpperCase() : args.name;
-				return broker.call("greeter.hello", { name }).then(console.log);
-			}
-        }
-    ]
-});
-
-broker.repl();
-```
-
-```bash
-mol $ hello -u John
-```
-
 ### Benchmark services
 
 Moleculer REPL module has a new bench command to measure your services.
@@ -251,10 +216,58 @@ mol $ bench --time 30 math.add
 ```
 
 **Output**
-!TODO!
+![image](assets/repl/bench.gif)
+
 
 #### Parameters
 Please note, you can pass parameters only with JSON string.
 ```bash
 mol $ bench math.add '{ "a": 50, "b": 32 }'
+```
+
+### Load a service from file
+```bash
+mol $ load "./math.service.js"
+```
+
+### Load all services from a folder
+```bash
+mol $ load "./services"
+```
+
+### Custom commands
+You can define your custom REPL commands in broker options to extend Moleculer REPL commands.
+
+```js
+let broker = new ServiceBroker({
+    logger: true,
+    replCommands: [
+        {
+            command: "hello <name>",
+            description: "Call the greeter.hello service with name",
+            alias: "hi",
+            options: [
+                { option: "-u, --uppercase", description: "Uppercase the name" }
+            ],
+            types: {
+                string: ["name"],
+                boolean: ["u", "uppercase"]
+            },
+            //parse(command, args) {},
+            //validate(args) {},
+            //help(args) {},
+            allowUnknownOptions: true,
+            action(broker, args/*, helpers*/) {
+                const name = args.options.uppercase ? args.name.toUpperCase() : args.name;
+                return broker.call("greeter.hello", { name }).then(console.log);
+            }
+        }
+    ]
+});
+
+broker.repl();
+```
+
+```bash
+mol $ hello -u John
 ```

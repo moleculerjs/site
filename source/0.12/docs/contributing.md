@@ -6,8 +6,8 @@ We welcome you to join the development of Moleculer. This document helps you thr
 
 Please follow the coding style:
 - Use tabs with size of 4 for indents.
-- Always use strict mode & commas.
-- Use double quotes.
+- Always use strict mode & semicolons.
+- Use double quotes instead of single quotes.
 
 ## Contribution in the core modules
 

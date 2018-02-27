@@ -20,7 +20,7 @@ The [moleculer-web](https://github.com/ice-services/moleculer-web) is the offici
 
 ## Install
 ```bash
-npm install moleculer-web --save
+npm i moleculer-web
 ```
 
 ## Usage
