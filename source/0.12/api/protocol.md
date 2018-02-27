@@ -35,28 +35,28 @@ After the client is connected to the message broker (NATS, Redis, MQTT), it subs
 
 ## Discovering
 After subscriptions, the client broadcasts a `DISCOVER` packet. In response to this, all connected nodes send back `INFO` packet to the sender node. From these responses, the client builds its own service registry. At last, the client broadcasts own INFO packet to all other nodes.
-![](http://moleculer.services/images/protocol-v2/moleculer_protocol_discover.png)
+![](assets/moleculer_protocol_discover.png)
 
 ## Heartbeat
 The client has to broadcast `HEARTBEAT` packets periodically. The period value comes from broker options (`heartbeatInterval`). The default value is 5 secs. 
 If the client does not receive `HEARTBEAT` for `heartbeatTimeout` seconds from a node, marks it broken and doesn't route requests to this node.
-![](http://moleculer.services/images/protocol-v2/moleculer_protocol_heartbeat.png)
+![](assets/moleculer_protocol_heartbeat.png)
 
 ## Request-reply
 When you call the `broker.call` method, the broker sends a `REQUEST` packet to the targetted node. It processes the request and sends back a `RESPONSE` packet to the requester node.
-![](http://moleculer.services/images/protocol-v2/moleculer_protocol_request.png)
+![](assets/moleculer_protocol_request.png)
 
 ## Event
 When you call the `broker.emit` method, the broker sends an `EVENT` packet to the subscriber nodes. The broker groups & balances the subscribers, so only one instance per service receives the event. If you call the `broker.broadcast` method, the broker sends an `ĘVENT` packet to all subscriber nodes. It doesn't group & balance the subscribers.
-![](http://moleculer.services/images/protocol-v2/moleculer_protocol_event.png)
+![](assets/moleculer_protocol_event.png)
 
 ## Ping-pong
 When you call the `broker.transit.sendPing` method, the broker sends a `PING` packet to the targetted node. If node is not defined, it sends to all nodes. If the client receives the `PING` packet, sends back a `PONG` response packet. If it receives, broker broadcasts a local `$node.pong` event to the local services.
-![](http://moleculer.services/images/protocol-v2/moleculer_protocol_pong.png)
+![](assets/moleculer_protocol_pong.png)
 
 ## Disconnect
 When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
-![](http://moleculer.services/images/protocol-v2/moleculer_protocol_disconnect.png)
+![](assets/moleculer_protocol_disconnect.png)
 
 ## Packets
 
