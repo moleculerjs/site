@@ -524,9 +524,7 @@ It is important to be aware that you can't use variable name which is reserved f
 {% endnote %}
 
 ## ES6 classes
-If you like better ES6 classes than Moleculer service schema, you can write your services in ES6 classes.
-
-There are two ways to do it:
+If you like better ES6 classes than Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
 
 ### Native ES6 classes with schema parsing
 

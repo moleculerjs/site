@@ -1,12 +1,12 @@
 title: Metrics
 ---
-Moleculer has a metrics feature. You can enable it within the [broker options](broker.html#Constructor-options) with `metrics: true` option.
-If enabled, the broker emits metrics events with every `broker.call`. You can catch these events in your services and transfer to your Tracer system (ZipKin, OpenTracing...etc).
+Moleculer has a built-in metrics feature. You can enable it within the [broker options](broker.html#Constructor-options) with `metrics: true` option.
+If it is enabled, the broker emits metrics events at every requests. You can subsribe to these events in your services and transfer them to your Tracer system (ZipKin, OpenTracing...etc).
 
-## Context params
-You can set that the broker put some `ctx.meta` and `ctx.params` fields to the metrics events.
-You can define it in the action definition:
+## Context params & meta
+You can customize that the broker puts some `ctx.meta` and `ctx.params` fields to the metrics events.
 
+Define it in the action definition:
 ```js
 module.exports = {
     name: "test",
@@ -14,9 +14,9 @@ module.exports = {
         import: {
             cache: true,
             metrics: {
-                // Disable to add `ctx.params` to metrics payload. Default: false
+                // Don't add `ctx.params` to metrics payload. Default: false
                 params: false,
-                // Enable to add `ctx.meta` to metrics payload. Default: true
+                // Add `ctx.meta` to metrics payload. Default: true
                 meta: true
             },
             handler(ctx) {
@@ -27,63 +27,76 @@ module.exports = {
 }
 ```
 
-If the value is `true`, it adds all fields. If `Array`, it adds the specified fields. If `Function`, it calls with `params` or `meta`and you need to return an `Object`.
+If the value is `true`, it adds all fields. If `Array`, it adds only the specified fields. If `Function`, it calls with `params` or `meta`and you need to return an `Object`.
 
 ### Examples
 
-**Return all fields**
+#### All fields
+
 ```js
-# action def.
+// Action definition
 {
-  ...
-  metrics: { params: true }
-  ...
+    metrics: { params: true }
 }
 
-# metrics payload
+// Request params
+broker.call("user.create", { name: "John", lastname: "Doe" });
+
+// Metrics payload
 {
-  ...
-  params: { name: "Jhon", lastname: "Rick" }
-  ...
+    params: { name: "John", lastname: "Doe" }
 }
 ```
 
-**Return only selected fields**
+#### Only selected fields
+
 ```js
-# action def.
+// Action definition
 {
-  ...
-  metrics: { params: [ "name" ] }
-  ...
+    metrics: { 
+        params: ["name"],
+        meta: ["user"]
+    }
 }
 
-# metrics payload
+// Request params
+broker.call("user.create", { name: "John", lastname: "Doe" }, { meta: { user } });
+
+// Metrics payload
 {
-  ...
-  params: { name: "Jhon" }
-  ...
+    params: { name: "John" },
+    meta: {
+        user: {
+            // ...
+        }
+    }
 }
 ```
 
-**Return mapped fields**
+#### Custom mapping function
 ```js
-# action def.
+// Action definition
 {
-  ...
-  metrics: { params: (p)=>p.name + ' ' + p.lastname }
-  ...
+    metrics: { 
+        params: p => {
+            return { 
+                name: p.name + ' ' + p.lastname
+            };
+        }
+    }
 }
 
-# metrics payload
+// Request params
+broker.call("user.create", { name: "John", lastname: "Doe" });
+
+// Metrics payload
 {
-  ...
-  params: "Jhon Rick"
-  ...
+  params: { name: "John Doe" }
 }
 ```
 
 ## Request started event
-The broker emits an `metrics.trace.span.start` event when a new call/request is started.
+The broker emits an `metrics.trace.span.start` event when a new request is started.
 The payload looks like the following:
 ```js
 {
@@ -101,6 +114,12 @@ The payload looks like the following:
     action: {
         name: 'users.get'
     }
+    // Params
+    params: {
+        id: 5
+    }
+    // Meta
+    meta: {}
     // Node ID
     nodeID: "node-1",
     // Caller nodeID if it's requested from a remote node
@@ -135,6 +154,13 @@ The payload looks like the following:
     action: {
         name: 'users.get'
     }
+    // Params
+    params: {
+        id: 5
+    }
+    // Meta
+    meta: {}
+   
     // Node ID
     nodeID: "node-1",
     // Caller nodeID if it's a remote call

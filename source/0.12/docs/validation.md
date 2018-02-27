@@ -5,9 +5,9 @@ Moleculer has a built-in validator module. It uses the [fastest-validator](https
 ## Built-in validator
 
 ```js
-let { ServiceBroker } = require("moleculer");
+const { ServiceBroker } = require("moleculer");
 
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     validation: true // Default is true
 });
 
@@ -61,8 +61,8 @@ You can create your custom validator. You should implement `compile` and `valida
 ```js
 // --- JOI VALIDATOR CLASS ---
 
-let BaseValidator = require("moleculer").Validators.Base;
-let { ValidationError } = require("moleculer").Errors;
+const BaseValidator = require("moleculer").Validators.Base;
+const { ValidationError } = require("moleculer").Errors;
 
 class JoiValidator extends BaseValidator {
     constructor() {
@@ -85,10 +85,10 @@ class JoiValidator extends BaseValidator {
 
 // --- BROKER ---
 
-let ServiceBroker = require("../src/service-broker");
-let Joi = require("joi");
+const { ServiceBroker } = require("moleculer");
+const Joi = require("joi");
 
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     logger: true,
     validation: true,
     validator: new JoiValidator()

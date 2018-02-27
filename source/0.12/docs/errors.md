@@ -1,6 +1,6 @@
 title: Errors
 ---
-Moleculer has some error classes. You can use it when you raise an error in services.
+Moleculer has some built-in `Error`. You can use it when you raise an error in services.
 
 ## Base error classes
 
@@ -24,7 +24,7 @@ throw new MoleculerError("Something happened", 501, "ERR_SOMETHING", { a: 5, nod
 ```
 
 ### `MoleculerRetryableError`
-Moleculer Error for retryable errors. If the caller set `retry` in [calling options](broker.html#Retries) and get this `MoleculerRetryableError`, it will try to recall it.
+Error for retryable errors. It uses in `broker.call`. The broker retries requests if they rejected a `MoleculerRetryableError`.
 
 **Parameters**
 
@@ -43,11 +43,11 @@ throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOM
 ```
 
 ### `MoleculerServerError`
-Moleculer Error for server errors which is retryable. Parameters are same as `MoleculerRetryableError`.
+Error for retryable server errors. Parameters are same as `MoleculerRetryableError`.
 
 
 ### `MoleculerClientError`
-Moleculer Error for client error which is **not** retryable. Parameters are same as `MoleculerRetryableError`.
+Error for client error which is **not** retryable. Parameters are same as `MoleculerRetryableError`.
 
 ## Internal error classes
 
@@ -88,7 +88,7 @@ Retryable: **true**
 | `nodeID` | `String` | Node ID. It has value only at direct call. |
 
 ### `RequestSkippedError`
-Throw it if your sub call is skipped because the execution is timed out.
+Throw it if your nested call is skipped because the execution is timed out.
 Error code: **514**
 Retryable: **false**
 
@@ -100,7 +100,7 @@ Retryable: **false**
 | `nodeID` | `String` | Node ID. It has value only at direct call. |
 
 ### `MaxCallLevelError`
-Throw it if your sub calls reached the `maxCallLevel` value to avoid infinite calling loops.
+Throw it if your nested calls reached the `maxCallLevel` value (to avoid infinite calling loops).
 Error code: **500**
 Retryable: **false**
 
@@ -111,7 +111,7 @@ Retryable: **false**
 | `level` | `Number` | Current calling level |
 
 ### `ValidationError`
-Validator throws it if calling parameters are not valid.
+Validator throws it if the calling parameters are not valid.
 Error code: **422**
 Retryable: **false**
 
@@ -122,7 +122,7 @@ Error code: **500**
 Retryable: **false**
 
 ### `ProtocolVersionMismatchError`
-Throw it if an old nodeID connected which uses an older protocol.
+Throw it if an old nodeID connected with older protocol version.
 Error code: **500**
 Retryable: **false**
 

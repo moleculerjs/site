@@ -1,25 +1,28 @@
 title: Service Registry
 ---
-## Strategies
+## Built-in Registry
+The Moleculer has a built-in service registry module. It stores all information about services, event listeners and nodes. When you call a service or emit an event, broker asks the registry to look up a node which executes the given service.
 
-ServiceBroker can resolve the `strategy` from a string. There are 3 types of strategies.
+>You can access the stored data via [internal service](http://localhost:4000/0.12/docs/broker.html#Internal-services).
+
+If a service has multiple running instances, Registry uses strategies to select a node from all available nodes. There are some built-in strategies, or you can create your custom strategies too.
+
+## Built-in strategies
+
+ServiceBroker can resolve the `strategy` from a string or set a `BaseStrategy` class to the `strategy` property.
+
 ```js
 let broker = new ServiceBroker({
     registry: {
         strategy: "Random"
-        // strategy: "RoundRobin"
-        // strategy: "CpuUsage"
     }
 });
 ```
-You can set it via env variables as well, if you are using the Moleculer Runner:
 
-```js
-$ REGISTRY_STRATEGY=random
-```
 ## RoundRobin strategy
-In this strategy, it selects a node based on RoundRobin algorithm.
-### Usage:
+This strategy selects a node based on RoundRobin algorithm.
+
+**Usage**
 ```js
 let broker = new ServiceBroker({
     registry: {
@@ -29,25 +32,20 @@ let broker = new ServiceBroker({
 ```
 
 ## Random strategy
-In this strategy, it selects a node randomly.
-### Usage:
+This strategy selects a node randomly.
+
+**Usage**
 ```js
 let broker = new ServiceBroker({
     registry: {
-        strategy: "RoundRobin"
+        strategy: "Random"
     }
 });
 ```
 ## CPU usage-based strategy
+This strategy selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
 
-There is a new `CpuUsageStrategy` strategy. It selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
-
-There are 2 options for the strategy:
-
-- `sampleCount`: the number of samples. Default: `3`
-- `lowCpuUsage`: the low CPU usage percent. The node which has lower CPU usage than this value is selected immediately. Default: `10`
-
-### Usage:
+**Usage**
 ```js
 let broker = new ServiceBroker({
     registry: {
@@ -55,7 +53,15 @@ let broker = new ServiceBroker({
     }
 });
 ```
-### Usage with custom options
+
+**Strategy options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | --------| ----------- |
+| `sampleCount` | `Number` | `3` | the number of samples. |
+| `lowCpuUsage` | `Number` | `10` | the low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
+
+**Usage with custom options**
 ```js
 let broker = new ServiceBroker({
     registry: {
