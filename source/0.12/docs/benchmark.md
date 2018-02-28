@@ -35,363 +35,265 @@ Suite: Call remote actions
 
 **Tester platform:**
 - **OS**: Windows_NT 6.1.7601 x64
-- **Node**: 8.4.0
-- **v8**: 6.0.286.52
+- **Node**: 8.9.4
+- **v8**: 6.1.534.50
 - **CPU**: Intel(R) Core(TM) i7-4770K CPU @ 3.50GHz × 8
 - **Memory**: 16 GB
 
 ### Common test suite
 ```
 Suite: Local call
-√ broker.call (normal)*             1,244,250 rps
-√ broker.call (with params)*        1,220,171 rps
+√ broker.call (normal)*             1,654,091 rps
+√ broker.call (with params)*        1,846,689 rps
 
-   broker.call (normal)* (#)            0%      (1,244,250 rps)   (avg: 803ns)
-   broker.call (with params)*       -1.94%      (1,220,171 rps)   (avg: 819ns)
+   broker.call (normal)* (#)            0%      (1,654,091 rps)   (avg: 604ns)
+   broker.call (with params)*      +11.64%      (1,846,689 rps)   (avg: 541ns)
 -----------------------------------------------------------------------
 
 Suite: Call with middlewares
-√ No middlewares*        1,123,681 rps
-√ 5 middlewares*         1,159,550 rps
+√ No middlewares*        1,660,456 rps
+√ 5 middlewares*         1,588,124 rps
 
-   No middlewares* (#)       0%      (1,123,681 rps)   (avg: 889ns)
-   5 middlewares*        +3.19%      (1,159,550 rps)   (avg: 862ns)
+   No middlewares* (#)       0%      (1,660,456 rps)   (avg: 602ns)
+   5 middlewares*        -4.36%      (1,588,124 rps)   (avg: 629ns)
 -----------------------------------------------------------------------
 
 Suite: Call with statistics & metrics
-√ No statistics*                    1,184,427 rps
-√ With metrics*                       305,400 rps
-√ With metrics & statistics*          280,921 rps
+√ No statistics*                    1,616,265 rps
+√ With metrics*                       549,124 rps
+√ With statistics*                    768,617 rps
+√ With metrics & statistics*          408,013 rps
 
-   No statistics* (#)                   0%      (1,184,427 rps)   (avg: 844ns)
-   With metrics*                   -74.22%        (305,400 rps)   (avg: 3μs)
-   With metrics & statistics*      -76.28%        (280,921 rps)   (avg: 3μs)
+   No statistics* (#)                   0%      (1,616,265 rps)   (avg: 618ns)
+   With metrics*                   -66.03%        (549,124 rps)   (avg: 1μs)
+   With statistics*                -52.44%        (768,617 rps)   (avg: 1μs)
+   With metrics & statistics*      -74.76%        (408,013 rps)   (avg: 2μs)
 -----------------------------------------------------------------------
 
 Suite: Remote call with FakeTransporter
-√ Remote call echo.reply*           70,667 rps
+√ Remote call echo.reply*           45,987 rps
 
-   Remote call echo.reply*           0%         (70,667 rps)   (avg: 14μs)
+   Remote call echo.reply*           0%         (45,987 rps)   (avg: 21μs)
 -----------------------------------------------------------------------
 ```
 
 ### Calling test suite
 ```
 Suite: Call methods
-√ broker.call (normal)*             1,239,453 rps
-√ broker.call (with params)*        1,181,153 rps
+√ broker.call (normal)*             1,738,486 rps
+√ broker.call (with params)*        1,807,759 rps
 
-   broker.call (normal)* (#)            0%      (1,239,453 rps)   (avg: 806ns)
-   broker.call (with params)*        -4.7%      (1,181,153 rps)   (avg: 846ns)
+   broker.call (normal)* (#)            0%      (1,738,486 rps)   (avg: 575ns)
+   broker.call (with params)*       +3.98%      (1,807,759 rps)   (avg: 553ns)
 -----------------------------------------------------------------------
 
 Suite: Call with middlewares
-√ Call without middlewares*        1,200,847 rps
-√ Call with 1 middleware*          1,195,808 rps
-√ Call with 5 middlewares*         1,195,328 rps
+√ Call without middlewares*        1,716,913 rps
+√ Call with 1 middleware*          1,662,845 rps
+√ Call with 5 middlewares*         1,666,777 rps
 
-   Call without middlewares* (#)       0%      (1,200,847 rps)   (avg: 832ns)
-   Call with 1 middleware*         -0.42%      (1,195,808 rps)   (avg: 836ns)
-   Call with 5 middlewares*        -0.46%      (1,195,328 rps)   (avg: 836ns)
+   Call without middlewares* (#)       0%      (1,716,913 rps)   (avg: 582ns)
+   Call with 1 middleware*         -3.15%      (1,662,845 rps)   (avg: 601ns)
+   Call with 5 middlewares*        -2.92%      (1,666,777 rps)   (avg: 599ns)
 -----------------------------------------------------------------------
 
 Suite: Call with cachers
-√ No cacher*                            1,054,783 rps
-√ Built-in cacher*                        226,415 rps
-√ Built-in cacher (keys filter)*          794,494 rps
+√ No cacher*                            1,344,920 rps
+√ Built-in cacher*                        315,524 rps
+√ Built-in cacher (keys filter)*          964,395 rps
+√ With statistics*                        811,574 rps
 
-   No cacher* (#)                           0%      (1,054,783 rps)   (avg: 948ns)
-   Built-in cacher*                    -78.53%        (226,415 rps)   (avg: 4μs)
-   Built-in cacher (keys filter)*      -24.68%        (794,494 rps)   (avg: 1μs)
+   No cacher* (#)                           0%      (1,344,920 rps)   (avg: 743ns)
+   Built-in cacher*                    -76.54%        (315,524 rps)   (avg: 3μs)
+   Built-in cacher (keys filter)*      -28.29%        (964,395 rps)   (avg: 1μs)
+   With statistics*                    -39.66%        (811,574 rps)   (avg: 1μs)
 -----------------------------------------------------------------------
 
 Suite: Call with param validator
-√ No validator*                   975,769 rps
-√ With validator passes*          858,968 rps
-√ With validator fail*             56,250 rps
+√ No validator*                 1,055,690 rps
+√ With validator passes*        1,082,886 rps
+√ With validator fail*              6,994 rps
 
-   No validator* (#)                0%        (975,769 rps)   (avg: 1μs)
-   With validator passes*      -11.97%        (858,968 rps)   (avg: 1μs)
-   With validator fail*        -94.24%         (56,250 rps)   (avg: 17μs)
+   No validator* (#)                0%      (1,055,690 rps)   (avg: 947ns)
+   With validator passes*       +2.58%      (1,082,886 rps)   (avg: 923ns)
+   With validator fail*        -99.34%          (6,994 rps)   (avg: 142μs)
 -----------------------------------------------------------------------
 
 Suite: Call with statistics & metrics
-√ No statistics*                    1,170,614 rps
-√ With metrics*                       337,038 rps
-√ With statistics*                  1,190,222 rps
-√ With metrics & statistics*          306,707 rps
+√ No statistics*                    1,311,912 rps
+√ With metrics*                       453,033 rps
+√ With metrics & statistics*          396,287 rps
 
-   No statistics* (#)                   0%      (1,170,614 rps)   (avg: 854ns)
-   With metrics*                   -71.21%        (337,038 rps)   (avg: 2μs)
-   With statistics*                 +1.68%      (1,190,222 rps)   (avg: 840ns)
-   With metrics & statistics*       -73.8%        (306,707 rps)   (avg: 3μs)
+   No statistics* (#)                   0%      (1,311,912 rps)   (avg: 762ns)
+   With metrics*                   -65.47%        (453,033 rps)   (avg: 2μs)
+   With metrics & statistics*      -69.79%        (396,287 rps)   (avg: 2μs)
 -----------------------------------------------------------------------
 ```
 
 ### Cachers test suite
 ```
 Suite: Set & get 1k data with cacher
-√ Memory*           1,949,992 rps
-√ MemoryMap         4,753,352 rps
-√ Redis*               11,533 rps
+√ Memory*        2,066,824 rps
+√ Redis*            10,915 rps
 
-   Memory*         -58.98%      (1,949,992 rps)   (avg: 512ns)
-   MemoryMap            0%      (4,753,352 rps)   (avg: 210ns)
-   Redis*          -99.76%         (11,533 rps)   (avg: 86μs)
+   Memory*           0%      (2,066,824 rps)   (avg: 483ns)
+   Redis*       -99.47%         (10,915 rps)   (avg: 91μs)
 -----------------------------------------------------------------------
 
 Suite: Test getCacheKey
-√ Dynamic           507,894 rps
-√ Static         19,409,900 rps
+√ Dynamic           679,228 rps
+√ Static          5,981,643 rps
 
-   Dynamic       -97.38%        (507,894 rps)   (avg: 1μs)
-   Static             0%     (19,409,900 rps)   (avg: 51ns)
+   Dynamic       -88.64%        (679,228 rps)   (avg: 1μs)
+   Static             0%      (5,981,643 rps)   (avg: 167ns)
 -----------------------------------------------------------------------
 ```
 
 ### Events test suite
 ```
 Suite: Emit event
-√ Emit event without subscribers                                     2,161,567 rps
-√ Emit simple event to 1 subscribers                                 1,785,380 rps
-√ Emit simple event to 20 subscribers                                1,076,511 rps
-√ Emit wildcard event to 20 subscribers                                977,945 rps
-√ Emit multi-wildcard event to 20 subscribers without params           894,379 rps
-√ Emit multi-wildcard event to 20 subscribers with params              880,544 rps
+√ Emit event without subscribers                                     7,450,694 rps
+√ Emit simple event to 1 subscribers                                   663,669 rps
+√ Emit simple event to 20 subscribers                                   41,231 rps
+√ Emit wildcard event to 20 subscribers                                 30,902 rps
+√ Emit multi-wildcard event to 20 subscribers without params            30,608 rps
+√ Emit multi-wildcard event to 20 subscribers with params               30,355 rps
 
-   Emit event without subscribers (#)                                    0%      (2,161,567 rps)   (avg: 462ns)
-   Emit simple event to 1 subscribers                                -17.4%      (1,785,380 rps)   (avg: 560ns)
-   Emit simple event to 20 subscribers                               -50.2%      (1,076,511 rps)   (avg: 928ns)
-   Emit wildcard event to 20 subscribers                            -54.76%        (977,945 rps)   (avg: 1μs)
-   Emit multi-wildcard event to 20 subscribers without params       -58.62%        (894,379 rps)   (avg: 1μs)
-   Emit multi-wildcard event to 20 subscribers with params          -59.26%        (880,544 rps)   (avg: 1μs)
+   Emit event without subscribers (#)                                    0%      (7,450,694 rps)   (avg: 134ns)
+   Emit simple event to 1 subscribers                               -91.09%        (663,669 rps)   (avg: 1μs)
+   Emit simple event to 20 subscribers                              -99.45%         (41,231 rps)   (avg: 24μs)
+   Emit wildcard event to 20 subscribers                            -99.59%         (30,902 rps)   (avg: 32μs)
+   Emit multi-wildcard event to 20 subscribers without params       -99.59%         (30,608 rps)   (avg: 32μs)
+   Emit multi-wildcard event to 20 subscribers with params          -99.59%         (30,355 rps)   (avg: 32μs)
 -----------------------------------------------------------------------
 ```
 
 ### Middlewares test suite
 ```
 Suite: Middleware test
-√ Without middlewares*        1,368,899 rps
-√ With 1 middlewares*         1,007,793 rps
-√ With 10 middlewares*        1,343,916 rps
+√ Without middlewares*        1,725,594 rps
+√ With 1 middlewares*         1,395,079 rps
+√ With 10 middlewares*        1,841,953 rps
 
-   Without middlewares* (#)       0%      (1,368,899 rps)   (avg: 730ns)
-   With 1 middlewares*       -26.38%      (1,007,793 rps)   (avg: 992ns)
-   With 10 middlewares*       -1.83%      (1,343,916 rps)   (avg: 744ns)
+   Without middlewares* (#)       0%      (1,725,594 rps)   (avg: 579ns)
+   With 1 middlewares*       -19.15%      (1,395,079 rps)   (avg: 716ns)
+   With 10 middlewares*       +6.74%      (1,841,953 rps)   (avg: 542ns)
 -----------------------------------------------------------------------
 ```
 
 ### Transporters test suite
 ```
 Suite: Transport with 10bytes
-√ Fake*            74,742 rps
-√ NATS*             8,651 rps
-√ Redis*            7,897 rps
-√ MQTT*             7,992 rps
+√ Fake*            55,626 rps
+√ NATS*             8,729 rps
+√ Redis*            8,590 rps
+√ MQTT*             8,103 rps
+√ TCP*             11,249 rps
 
-   Fake* (#)        0%         (74,742 rps)   (avg: 13μs)
-   NATS*       -88.43%          (8,651 rps)   (avg: 115μs)
-   Redis*      -89.43%          (7,897 rps)   (avg: 126μs)
-   MQTT*       -89.31%          (7,992 rps)   (avg: 125μs)
+   Fake* (#)        0%         (55,626 rps)   (avg: 17μs)
+   NATS*       -84.31%          (8,729 rps)   (avg: 114μs)
+   Redis*      -84.56%          (8,590 rps)   (avg: 116μs)
+   MQTT*       -85.43%          (8,103 rps)   (avg: 123μs)
+   TCP*        -79.78%         (11,249 rps)   (avg: 88μs)
 -----------------------------------------------------------------------
 ```
 
 ### Serializers test suite
 ```
-JSON length: 177
-Avro length: 75
-MsgPack length: 137
-ProtoBuf length: 82
-Suite: Serialize event packet with 10bytes
-√ JSON             1,127,978 rps
-√ Avro               921,266 rps
-√ MsgPack             98,007 rps
-√ ProtoBuf           826,795 rps
+JSON length: 89
+Avro length: 38
+MsgPack length: 69
+ProtoBuf length: 45
+Suite: Serialize packet with 10bytes
+√ JSON             1,276,006 rps
+√ Avro               608,887 rps
+√ MsgPack             61,587 rps
+√ ProtoBuf           927,611 rps
 
-   JSON (#)            0%      (1,127,978 rps)   (avg: 886ns)
-   Avro           -18.33%        (921,266 rps)   (avg: 1μs)
-   MsgPack        -91.31%         (98,007 rps)   (avg: 10μs)
-   ProtoBuf        -26.7%        (826,795 rps)   (avg: 1μs)
+   JSON (#)            0%      (1,276,006 rps)   (avg: 783ns)
+   Avro           -52.28%        (608,887 rps)   (avg: 1μs)
+   MsgPack        -95.17%         (61,587 rps)   (avg: 16μs)
+   ProtoBuf        -27.3%        (927,611 rps)   (avg: 1μs)
 -----------------------------------------------------------------------
 
-Suite: Serialize request packet with 10bytes
-√ JSON               621,247 rps
-√ Avro               585,392 rps
-√ MsgPack             53,962 rps
-√ ProtoBuf           476,540 rps
+JSON length: 1131
+Avro length: 1081
+MsgPack length: 1113
+ProtoBuf length: 1170
+Suite: Serialize packet with 1kbytes
+√ JSON               205,813 rps
+√ Avro               123,731 rps
+√ MsgPack             12,661 rps
+√ ProtoBuf           147,930 rps
 
-   JSON (#)            0%        (621,247 rps)   (avg: 1μs)
-   Avro            -5.77%        (585,392 rps)   (avg: 1μs)
-   MsgPack        -91.31%         (53,962 rps)   (avg: 18μs)
-   ProtoBuf       -23.29%        (476,540 rps)   (avg: 2μs)
+   JSON (#)            0%        (205,813 rps)   (avg: 4μs)
+   Avro           -39.88%        (123,731 rps)   (avg: 8μs)
+   MsgPack        -93.85%         (12,661 rps)   (avg: 78μs)
+   ProtoBuf       -28.12%        (147,930 rps)   (avg: 6μs)
 -----------------------------------------------------------------------
 
-JSON length: 331
-Avro length: 216
-MsgPack length: 278
-ProtoBuf length: 223
-Suite: Serialize event packet with 150bytes
-√ JSON               461,563 rps
-√ Avro               351,653 rps
-√ MsgPack             80,712 rps
-√ ProtoBuf           377,706 rps
+JSON length: 10528
+Avro length: 10479
+MsgPack length: 10510
+ProtoBuf length: 11213
+Suite: Serialize packet with 10kbytes
+√ JSON                26,892 rps
+√ Avro                18,671 rps
+√ MsgPack              1,642 rps
+√ ProtoBuf            20,388 rps
 
-   JSON (#)            0%        (461,563 rps)   (avg: 2μs)
-   Avro           -23.81%        (351,653 rps)   (avg: 2μs)
-   MsgPack        -82.51%         (80,712 rps)   (avg: 12μs)
-   ProtoBuf       -18.17%        (377,706 rps)   (avg: 2μs)
+   JSON (#)            0%         (26,892 rps)   (avg: 37μs)
+   Avro           -30.57%         (18,671 rps)   (avg: 53μs)
+   MsgPack        -93.89%          (1,642 rps)   (avg: 608μs)
+   ProtoBuf       -24.18%         (20,388 rps)   (avg: 49μs)
 -----------------------------------------------------------------------
 
-Suite: Serialize request packet with 150bytes
-√ JSON               346,086 rps
-√ Avro               292,872 rps
-√ MsgPack             44,776 rps
-√ ProtoBuf           277,967 rps
+JSON length: 50601
+Avro length: 50552
+MsgPack length: 50583
+ProtoBuf length: 54187
+Suite: Serialize packet with 50kbytes
+√ JSON                 5,851 rps
+√ Avro                 4,065 rps
+√ MsgPack                338 rps
+√ ProtoBuf             4,455 rps
 
-   JSON (#)            0%        (346,086 rps)   (avg: 2μs)
-   Avro           -15.38%        (292,872 rps)   (avg: 3μs)
-   MsgPack        -87.06%         (44,776 rps)   (avg: 22μs)
-   ProtoBuf       -19.68%        (277,967 rps)   (avg: 3μs)
+   JSON (#)            0%          (5,851 rps)   (avg: 170μs)
+   Avro           -30.53%          (4,065 rps)   (avg: 246μs)
+   MsgPack        -94.22%            (338 rps)   (avg: 2ms)
+   ProtoBuf       -23.86%          (4,455 rps)   (avg: 224μs)
 -----------------------------------------------------------------------
 
-JSON length: 1301
-Avro length: 1118
-MsgPack length: 1181
-ProtoBuf length: 1125
-Suite: Serialize event packet with 1kbytes
-√ JSON               122,647 rps
-√ Avro               104,191 rps
-√ MsgPack             57,945 rps
-√ ProtoBuf           141,024 rps
+JSON length: 101100
+Avro length: 101051
+MsgPack length: 101084
+ProtoBuf length: 108312
+Suite: Serialize packet with 100kbytes
+√ JSON                 2,980 rps
+√ Avro                 2,075 rps
+√ MsgPack                169 rps
+√ ProtoBuf             2,254 rps
 
-   JSON (#)            0%        (122,647 rps)   (avg: 8μs)
-   Avro           -15.05%        (104,191 rps)   (avg: 9μs)
-   MsgPack        -52.75%         (57,945 rps)   (avg: 17μs)
-   ProtoBuf       +14.98%        (141,024 rps)   (avg: 7μs)
+   JSON (#)            0%          (2,980 rps)   (avg: 335μs)
+   Avro           -30.36%          (2,075 rps)   (avg: 481μs)
+   MsgPack        -94.34%            (169 rps)   (avg: 5ms)
+   ProtoBuf       -24.39%          (2,254 rps)   (avg: 443μs)
 -----------------------------------------------------------------------
 
-Suite: Serialize request packet with 1kbytes
-√ JSON               112,659 rps
-√ Avro                99,252 rps
-√ MsgPack             38,276 rps
-√ ProtoBuf           121,798 rps
+JSON length: 1010082
+Avro length: 1010033
+MsgPack length: 1010066
+ProtoBuf length: 1082562
+Suite: Serialize packet with 1Mbytes
+√ JSON                   300 rps
+√ Avro                   188 rps
+√ MsgPack                 16 rps
+√ ProtoBuf               199 rps
 
-   JSON (#)            0%        (112,659 rps)   (avg: 8μs)
-   Avro            -11.9%         (99,252 rps)   (avg: 10μs)
-   MsgPack        -66.02%         (38,276 rps)   (avg: 26μs)
-   ProtoBuf        +8.11%        (121,798 rps)   (avg: 8μs)
------------------------------------------------------------------------
-
-JSON length: 11344
-Avro length: 10516
-MsgPack length: 10578
-ProtoBuf length: 10522
-Suite: Serialize event packet with 10kbytes
-√ JSON                14,996 rps
-√ Avro                13,267 rps
-√ MsgPack             14,009 rps
-√ ProtoBuf            21,902 rps
-
-   JSON (#)            0%         (14,996 rps)   (avg: 66μs)
-   Avro           -11.53%         (13,267 rps)   (avg: 75μs)
-   MsgPack         -6.58%         (14,009 rps)   (avg: 71μs)
-   ProtoBuf       +46.05%         (21,902 rps)   (avg: 45μs)
------------------------------------------------------------------------
-
-Suite: Serialize request packet with 10kbytes
-√ JSON                15,310 rps
-√ Avro                12,822 rps
-√ MsgPack             12,595 rps
-√ ProtoBuf            20,763 rps
-
-   JSON (#)            0%         (15,310 rps)   (avg: 65μs)
-   Avro           -16.25%         (12,822 rps)   (avg: 77μs)
-   MsgPack        -17.73%         (12,595 rps)   (avg: 79μs)
-   ProtoBuf       +35.61%         (20,763 rps)   (avg: 48μs)
------------------------------------------------------------------------
-
-JSON length: 54317
-Avro length: 50589
-MsgPack length: 50651
-ProtoBuf length: 50596
-Suite: Serialize event packet with 50kbytes
-√ JSON                 3,319 rps
-√ Avro                 2,893 rps
-√ MsgPack              3,657 rps
-√ ProtoBuf             4,549 rps
-
-   JSON (#)            0%          (3,319 rps)   (avg: 301μs)
-   Avro           -12.83%          (2,893 rps)   (avg: 345μs)
-   MsgPack        +10.19%          (3,657 rps)   (avg: 273μs)
-   ProtoBuf       +37.06%          (4,549 rps)   (avg: 219μs)
------------------------------------------------------------------------
-
-Suite: Serialize request packet with 50kbytes
-√ JSON                 3,307 rps
-√ Avro                 2,872 rps
-√ MsgPack              3,478 rps
-√ ProtoBuf             4,527 rps
-
-   JSON (#)            0%          (3,307 rps)   (avg: 302μs)
-   Avro           -13.14%          (2,872 rps)   (avg: 348μs)
-   MsgPack         +5.19%          (3,478 rps)   (avg: 287μs)
-   ProtoBuf       +36.89%          (4,527 rps)   (avg: 220μs)
------------------------------------------------------------------------
-
-JSON length: 108442
-Avro length: 101088
-MsgPack length: 101152
-ProtoBuf length: 101095
-Suite: Serialize event packet with 100kbytes
-√ JSON                 1,679 rps
-√ Avro                 1,462 rps
-√ MsgPack              1,936 rps
-√ ProtoBuf             2,325 rps
-
-   JSON (#)            0%          (1,679 rps)   (avg: 595μs)
-   Avro           -12.97%          (1,462 rps)   (avg: 684μs)
-   MsgPack        +15.26%          (1,936 rps)   (avg: 516μs)
-   ProtoBuf       +38.42%          (2,325 rps)   (avg: 430μs)
------------------------------------------------------------------------
-
-Suite: Serialize request packet with 100kbytes
-√ JSON                 1,683 rps
-√ Avro                 1,464 rps
-√ MsgPack              1,890 rps
-√ ProtoBuf             2,357 rps
-
-   JSON (#)            0%          (1,683 rps)   (avg: 594μs)
-   Avro              -13%          (1,464 rps)   (avg: 682μs)
-   MsgPack        +12.32%          (1,890 rps)   (avg: 529μs)
-   ProtoBuf       +40.08%          (2,357 rps)   (avg: 424μs)
------------------------------------------------------------------------
-
-JSON length: 1082692
-Avro length: 1010070
-MsgPack length: 1010134
-ProtoBuf length: 1010077
-Suite: Serialize event packet with 1Mbytes
-√ JSON                   158 rps
-√ Avro                   131 rps
-√ MsgPack                191 rps
-√ ProtoBuf               193 rps
-
-   JSON (#)            0%            (158 rps)   (avg: 6ms)
-   Avro           -17.29%            (131 rps)   (avg: 7ms)
-   MsgPack        +21.13%            (191 rps)   (avg: 5ms)
-   ProtoBuf       +22.28%            (193 rps)   (avg: 5ms)
------------------------------------------------------------------------
-
-Suite: Serialize request packet with 1Mbytes
-√ JSON                   157 rps
-√ Avro                   131 rps
-√ MsgPack                190 rps
-√ ProtoBuf               192 rps
-
-   JSON (#)            0%            (157 rps)   (avg: 6ms)
-   Avro           -16.91%            (131 rps)   (avg: 7ms)
-   MsgPack        +21.22%            (190 rps)   (avg: 5ms)
-   ProtoBuf       +22.22%            (192 rps)   (avg: 5ms)
+   JSON (#)            0%            (300 rps)   (avg: 3ms)
+   Avro           -37.21%            (188 rps)   (avg: 5ms)
+   MsgPack        -94.51%             (16 rps)   (avg: 60ms)
+   ProtoBuf       -33.69%            (199 rps)   (avg: 5ms)
 -----------------------------------------------------------------------
 
 ```
