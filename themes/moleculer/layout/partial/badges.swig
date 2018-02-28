@@ -5,10 +5,10 @@
 <img src="https://coveralls.io/repos/github/moleculerjs/moleculer/badge.svg?branch=master" />
 
 <!-- Codacy badge -->
-<img src="https://api.codacy.com/project/badge/Grade/b108c12cbf554fca9c66dd1925d11cd0" />
+<img src="https://api.codacy.com/project/badge/Grade/ec4dab24e4ea4c1eb0d1590f12c81a46" />
 
 <!-- Code Climate badge -->
-<img src="https://codeclimate.com/github/moleculerjs/moleculer/badges/gpa.svg" />
+<img src="https://api.codeclimate.com/v1/badges/05ef990fe1ccb3e56067/maintainability" />
 
 <!-- Snyk badge -->
 <img src="https://snyk.io/test/github/moleculerjs/moleculer/badge.svg" />

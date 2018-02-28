@@ -22,7 +22,7 @@
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-bolt"></i></div>
             <h3 class="intro-feature-title">Blazing fast</h3>
-            <p class="intro-feature-desc">High-performance microservices framework. Check our <a href="/docs/benchmark.html">benchmark results</a>!</p>
+            <p class="intro-feature-desc">High-performance microservices framework. Check our <a href="/0.12/docs/benchmark.html">benchmark results</a>!</p>
           </div>
         </li>
         <li class="intro-feature-wrap">
@@ -49,27 +49,10 @@
       </ul>
       {{ page.content }}
       <div id="intro-get-started-wrap">
-        <a href="docs/" id="intro-get-started-link">{{ __('index.get_started') }}</a>
+        <a href="{{ page.site.data.menu.docs }}" id="intro-get-started-link">{{ __('index.get_started') }}</a>
       </div>
     </div>
-    <section>
-      <h2 class="section-title">Who is using Moleculer?</h2>
-      <div class="company-list">
-        <a href="https://www.conciergeauctions.com/" class="company-logo" target="_blank">
-          <img src="https://s3.amazonaws.com/media.conciergeauctions.com/logo.jpg" alt="Concierge Auctions" />
-        </a>
-        <a href="http://www.ingsw.com/" class="company-logo" target="_blank">
-          <img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious" />
-        </a>
-        <a href="https://www.thb.co.in/" class="company-logo" target="_blank">
-          <img src="https://thehealthybillion.com/images/thb/landingpage/logobig.png" alt="THB" />
-        </a>
-        <a href="https://zaoblako.ru/" class="company-logo" target="_blank">
-          <img src="https://zaoblako.ru/images/zaoblako_l.png" alt="Zaoblako" />
-        </a>
-      </div>
-      <div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
-    </section>
+    {{ partial('partial/companies') }}
   </div>
 </div>
 
