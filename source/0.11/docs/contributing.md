@@ -15,7 +15,7 @@ Follow this workflow if you would like to modify the core modules.
 
 ### Workflow
 
-1. Fork the [ice-services/moleculer](https://github.com/ice-services/moleculer) repo.
+1. Fork the [moleculerjs/moleculer](https://github.com/moleculerjs/moleculer) repo.
 2. Clone the repository to your computer and install dependencies.
 
     ```bash
@@ -53,7 +53,7 @@ Follow this workflow if you would like to modify the core modules.
 
 7. Create a pull request and describe the change.
 
-8. If you've changed APIs, update the [documentation](https://github.com/ice-services/site) as well.
+8. If you've changed APIs, update the [documentation](https://github.com/moleculerjs/site) as well.
 
 ## Contribution to create a new Moleculer module
 
@@ -91,10 +91,10 @@ Follow this workflow if you would like to create a new module for Moleculer
     $ npm test
     ```
 
-6. If it's done and you think it will be useful for other users, [tell us!](https://github.com/ice-services/moleculer/issues)
+6. If it's done and you think it will be useful for other users, [tell us!](https://github.com/moleculerjs/moleculer/issues)
 
 ## Reporting Issues
 
-When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/ice-services/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/ice-services/moleculer/issues).
+When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/moleculerjs/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
 
 Thank you!

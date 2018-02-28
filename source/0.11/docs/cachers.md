@@ -206,4 +206,4 @@ To be able to use this cacher, install the `ioredis` module with the `npm instal
 {% endnote %}
 
 ### Custom cacher
-You can also create your custom cache module. We recommend you to copy the source of [MemoryCacher](https://github.com/ice-services/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/ice-services/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+You can also create your custom cache module. We recommend you to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.

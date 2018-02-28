@@ -30,7 +30,7 @@ markdown:
 
 #deploy:
 #  type: git
-#  repo: git@github.com:ice-services/ice-services.github.io.git
+#  repo: git@github.com:moleculerjs/moleculerjs.github.io.git
 
 # disqus_shortname: moleculer
 google_analytics: UA-99099811-1
@@ -41,4 +41,4 @@ algolia:
     index_name: moleculer_web
 
 twitter: MoleculerJS
-github: ice-services/moleculer
+github: moleculerjs/moleculer

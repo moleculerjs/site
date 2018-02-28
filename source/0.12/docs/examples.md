@@ -2,7 +2,7 @@ title: Examples
 ---
 
 ## Short examples
-The main Moleculer repository contains [some examples](https://github.com/ice-services/moleculer/blob/master/examples/).
+The main Moleculer repository contains [some examples](https://github.com/moleculerjs/moleculer/blob/master/examples/).
 
 ### Simple
 This is a simple demo with a Math service which can `add`, `sub`, `mult` and `divide` two numbers.
@@ -11,7 +11,7 @@ This is a simple demo with a Math service which can `add`, `sub`, `mult` and `di
 $ npm run demo simple
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/simple/index.js)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/simple/index.js)
 
 ### Server & client nodes
 In this example, you can start any servers & clients. The servers serve the `math.add` action and clients call it in a loop. You can start multiple instances from both.
@@ -27,7 +27,7 @@ $ node examples/client-server/server
 $ node examples/client-server/client
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/tree/master/examples/client-server)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
 
 ### Middlewares
 This example demonstrates how the middleware system works.
@@ -36,7 +36,7 @@ This example demonstrates how the middleware system works.
 $ npm run demo middlewares
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/middlewares/index.js)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
 
 ### Runner
 This example shows how you can start a broker and load services with [Moleculer Runner](moleculer-runner.html).
@@ -46,7 +46,7 @@ $ node ./bin/moleculer-runner.js -c examples/runner/moleculer.config.js -r examp
 ```
 It starts a broker with options from `moleculer.config.js`, loads the user service from `user.service.js` file and switch to REPL mode.
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/runner)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/runner)
 
 ### Load tester
 With this example, you can start a load test. The server & client prints how many requests executed in a second.
@@ -61,7 +61,7 @@ $ node examples/loadtest/server
 $ node examples/loadtest/clients
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/loadtest)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
 
 ## Project examples
 
@@ -84,10 +84,10 @@ This is a simple blog example.
 **Key features**
 - Docker files
 - ExpressJS www server with Pug
-- MongoDB database with [moleculer-db](https://github.com/ice-services/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/ice-services/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
+- MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
 - NATS transporter
 - Redis cacher
 - [Traefik](https://traefik.io/) reverse proxy (in micro arch)
 - static client side
 
-**Repo: https://github.com/ice-services/moleculer-examples/blob/master/blog/README.md**
+**Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog/README.md**

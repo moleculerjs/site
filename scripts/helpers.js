@@ -114,7 +114,7 @@ hexo.extend.helper.register('url_for_lang', function(path){
 
 // Link for page edit
 hexo.extend.helper.register('raw_link', function(path){
-	return 'https://github.com/ice-services/site/edit/master/source/' + path;
+	return 'https://github.com/moleculerjs/site/edit/master/source/' + path;
 });
 
 // Anchor for heading tags

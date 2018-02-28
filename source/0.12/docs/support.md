@@ -9,7 +9,7 @@ Moleculer is an open source MIT project. It is free to use for your personal or 
 * make a one-time donation via [PayPal][paypal].
 
 **Other ways to support me:**
-* make additional modules & services to Moleculer. I have a [wishlist](https://github.com/ice-services/moleculer/issues/100).
+* make additional modules & services to Moleculer. I have a [wishlist](https://github.com/moleculerjs/moleculer/issues/100).
 * help with documentation. Fix typos, fill missing sections or add better examples.
 * promote Moleculer framework. Write Medium articles or blog posts about why Moleculer is an excellent microservices framework. Share your positive experience with potential users to make Moleculer community more vivid.
 

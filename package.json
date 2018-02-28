@@ -28,7 +28,7 @@
     "lunr": "^0.6.0",
     "marked": "0.3.12",
     "mkdirp": "0.5.1",
-    "moleculer": "github:ice-services/moleculer#next",
+    "moleculer": "github:moleculerjs/moleculer#next",
     "pug": "2.0.0-rc.2",
     "semver": "5.5.0"
   }

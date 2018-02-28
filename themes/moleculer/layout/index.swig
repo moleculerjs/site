@@ -68,7 +68,7 @@
           <img src="https://zaoblako.ru/images/zaoblako_l.png" alt="Zaoblako" />
         </a>
       </div>
-      <div class="company-missing">If you don't see here your company, <a href="https://github.com/ice-services/moleculer/issues/101" target="_blank">tell us.</a></div>
+      <div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
     </section>
   </div>
 </div>

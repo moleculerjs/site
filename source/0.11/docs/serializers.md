@@ -86,4 +86,4 @@ To use this serializer install the `protobufjs` module with `npm install protobu
 {% endnote %}
 
 ### Custom serializer
-You can also create your custom serializer module. We recommend you that copy the source of [JSONSerializer](https://github.com/ice-services/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
+You can also create your custom serializer module. We recommend you that copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.

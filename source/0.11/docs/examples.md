@@ -2,7 +2,7 @@ title: Examples
 ---
 
 ## Short examples
-The main repo of Moleculer contains [some examples](https://github.com/ice-services/moleculer/blob/master/examples/).
+The main repo of Moleculer contains [some examples](https://github.com/moleculerjs/moleculer/blob/master/examples/).
 
 ### Simple
 This is a simple demo with a Math service which can `add`, `sub`, `mult` and `divide` two numbers.
@@ -11,7 +11,7 @@ This is a simple demo with a Math service which can `add`, `sub`, `mult` and `di
 $ npm run demo simple
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/simple/index.js)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/simple/index.js)
 
 ### Caching
 This example demonstrates how the cacher module works.
@@ -20,7 +20,7 @@ This example demonstrates how the cacher module works.
 $ npm run demo caching
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/caching/index.js)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/caching/index.js)
 
 ### Middlewares
 This example demonstrates how the middleware system works.
@@ -29,7 +29,7 @@ This example demonstrates how the middleware system works.
 $ npm run demo middlewares
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/middlewares/index.js)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
 
 ### Transporters
 This example starts two brokers and communicates together via NATS server.
@@ -38,7 +38,7 @@ This example starts two brokers and communicates together via NATS server.
 $ npm run demo transporters
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/transporter)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/transporter)
 
 ### Multiple servers & clients
 In this example, you can start any servers & clients. The servers serve the `math.add` action and clients call it in a loop.
@@ -53,7 +53,7 @@ $ node examples/multi-server/server
 $ node examples/multi-server/client
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/tree/master/examples/multi-server)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/tree/master/examples/multi-server)
 
 ### Load tester
 With this example, you can start a load test. The server & client prints how many requests executed in a second.
@@ -68,7 +68,7 @@ $ node examples/loadtest/server
 $ node examples/loadtest/clients
 ```
 
-[Source code is available on Github](https://github.com/ice-services/moleculer/blob/master/examples/loadtest)
+[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
 
 ## Project examples
 

@@ -309,4 +309,4 @@ let broker = new ServiceBroker({
 ```
 
 ### Custom transporter
-You can also create your custom transporter module. We recommend you that copy the source of [NatsTransporter](https://github.com/ice-services/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`,  `subscribe` and `publish` methods.
+You can also create your custom transporter module. We recommend you that copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`,  `subscribe` and `publish` methods.

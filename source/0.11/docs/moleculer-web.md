@@ -1,7 +1,7 @@
 title: API Gateway
 ---
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
-The [moleculer-web](https://github.com/ice-services/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services.
+The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services.
 
 ## Features
 * support HTTP & HTTPS
@@ -357,7 +357,7 @@ broker.createService({
 ```
 
 {% note info %}
-You can find a more detailed role-based JWT authorization example in [full example](https://github.com/ice-services/moleculer-web/blob/master/examples/full/index.js#L239).
+You can find a more detailed role-based JWT authorization example in [full example](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js#L239).
 {% endnote %}
 
 ## Route hooks
@@ -700,37 +700,37 @@ settings: {
 ```
 
 ## Examples
-- [Simple](https://github.com/ice-services/moleculer-web/blob/master/examples/simple/index.js)
+- [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
     - simple gateway with default settings.
 
-- [SSL server](https://github.com/ice-services/moleculer-web/blob/master/examples/ssl/index.js)
+- [SSL server](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
     - open HTTPS server
     - whitelist handling
 
-- [WWW with assets](https://github.com/ice-services/moleculer-web/blob/master/examples/www/index.js)
+- [WWW with assets](https://github.com/moleculerjs/moleculer-web/blob/master/examples/www/index.js)
     - serve static files from the `assets` folder
     - whitelist
     - aliases
     - multiple body-parsers
 
-- [Authorization](https://github.com/ice-services/moleculer-web/blob/master/examples/authorization/index.js)
+- [Authorization](https://github.com/moleculerjs/moleculer-web/blob/master/examples/authorization/index.js)
     - simple authorization demo
     - set the authorized user to `Context.meta`
 
-- [REST](https://github.com/ice-services/moleculer-web/blob/master/examples/rest/index.js)
+- [REST](https://github.com/moleculerjs/moleculer-web/blob/master/examples/rest/index.js)
     - simple server with RESTful aliases
     - example `posts` service with CRUD actions
 
-- [Express](https://github.com/ice-services/moleculer-web/blob/master/examples/express/index.js)
+- [Express](https://github.com/moleculerjs/moleculer-web/blob/master/examples/express/index.js)
     - webserver with Express
     - use moleculer-web as a middleware
     
-- [Socket.io](https://github.com/ice-services/moleculer-web/blob/master/examples/socket.io/index.js)
+- [Socket.io](https://github.com/moleculerjs/moleculer-web/blob/master/examples/socket.io/index.js)
     - start socket.io websocket server
     - call action and send back the response via websocket
     - send Moleculer events to the browser via websocket
     
-- [Full](https://github.com/ice-services/moleculer-web/blob/master/examples/full/index.js)
+- [Full](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
     - SSL
     - static files
     - middlewares
@@ -743,13 +743,13 @@ settings: {
     - metrics, statistics & validation from Moleculer
     - custom error handlers
 
-- [Webpack](https://github.com/ice-services/moleculer-web/blob/master/examples/webpack)
+- [Webpack](https://github.com/moleculerjs/moleculer-web/blob/master/examples/webpack)
     - Webpack development environment for client-side developing
     - webpack config file
     - compression
     - static file serving
 
-- [Webpack-Vue](https://github.com/ice-services/moleculer-web/blob/master/examples/webpack-vue)
+- [Webpack-Vue](https://github.com/moleculerjs/moleculer-web/blob/master/examples/webpack-vue)
     - Webpack+Vue development environment for VueJS client developing
     - webpack config file
     - Hot-replacement

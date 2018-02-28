@@ -1,6 +1,6 @@
 title: Documentation
 ---
-Welcome to the Moleculer documentation. Navigate through the documentation to learn more. If you encounter any problems when using Moleculer, open an issue on [GitHub](https://github.com/ice-services/moleculer/issues) or write to us on [Gitter](https://gitter.im/ice-services/moleculer).
+Welcome to the Moleculer documentation. Navigate through the documentation to learn more. If you encounter any problems when using Moleculer, open an issue on [GitHub](https://github.com/moleculerjs/moleculer/issues) or write to us on [Gitter](https://gitter.im/moleculerjs/moleculer).
 
 ## What is Moleculer?
 
@@ -26,7 +26,7 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 - distributed timeout handling with the fallback response
 - health monitoring, metrics & statistics
 - supports versioned services
-- official [API gateway module](https://github.com/ice-services/moleculer-web) and many other modules...
+- official [API gateway module](https://github.com/moleculerjs/moleculer-web) and many other modules...
 
 {% note info Requirements %}
 Moleculer is written in ES2015. The minimum version of Node.js is **v6.x.x**.
