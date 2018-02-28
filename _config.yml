@@ -43,38 +43,38 @@ algolia:
 twitter: MoleculerJS
 github: moleculerjs/moleculer
 
-# alias:
-#   docs/benchmark.html: 0.12/docs/benchmark.html
-#   docs/broker.html: 0.12/docs/broker.html
-#   docs/cachers.html: 0.12/docs/cachers.html
-#   docs/circuit-breaker.html: 0.12/docs/circuit-breaker.html
-#   docs/context.html: 0.12/docs/context.html
-#   docs/contributing.html: 0.12/docs/contributing.html
-#   docs/docker.html: 0.12/docs/docker.html
-#   docs/errors.html: 0.12/docs/errors.html
-#   docs/examples.html: 0.12/docs/examples.html
-#   docs/faq.html: 0.12/docs/faq.html
-#   docs/index.html: 0.12/docs/index.html
-#   docs/logger.html: 0.12/docs/logger.html
-#   docs/metrics.html: 0.12/docs/metrics.html
-#   docs/modules.html: 0.12/docs/modules.html
-#   docs/moleculer-cli.html: 0.12/docs/moleculer-cli.html
-#   docs/moleculer-repl.html: 0.12/docs/moleculer-repl.html
-#   docs/moleculer-web.html: 0.12/docs/moleculer-web.html
-#   docs/nodes.html: 0.12/docs/nodes.html
-#   docs/runner.html: 0.12/docs/runner.html
-#   docs/serializers.html: 0.12/docs/serializers.html
-#   docs/serverless.html: 0.12/docs/serverless.html
-#   docs/service-registry.html: 0.12/docs/service-registry.html
-#   docs/service.html: 0.12/docs/service.html
-#   docs/statistics.html: 0.12/docs/statistics.html
-#   docs/support.html: 0.12/docs/support.html
-#   docs/transporters.html: 0.12/docs/transporters.html
-#   docs/usage.html: 0.12/docs/usage.html
-#   docs/validation.html: 0.12/docs/validation.html
+alias:
+  docs/benchmark.html: 0.12/docs/benchmark.html
+  docs/broker.html: 0.12/docs/broker.html
+  docs/cachers.html: 0.12/docs/cachers.html
+  docs/circuit-breaker.html: 0.12/docs/circuit-breaker.html
+  docs/context.html: 0.12/docs/context.html
+  docs/contributing.html: 0.12/docs/contributing.html
+  docs/docker.html: 0.12/docs/docker.html
+  docs/errors.html: 0.12/docs/errors.html
+  docs/examples.html: 0.12/docs/examples.html
+  docs/faq.html: 0.12/docs/faq.html
+  docs/index.html: 0.12/docs/index.html
+  docs/logger.html: 0.12/docs/logger.html
+  docs/metrics.html: 0.12/docs/metrics.html
+  docs/modules.html: 0.12/docs/modules.html
+  docs/moleculer-cli.html: 0.12/docs/moleculer-cli.html
+  docs/moleculer-repl.html: 0.12/docs/moleculer-repl.html
+  docs/moleculer-web.html: 0.12/docs/moleculer-web.html
+  docs/nodes.html: 0.12/docs/nodes.html
+  docs/runner.html: 0.12/docs/runner.html
+  docs/serializers.html: 0.12/docs/serializers.html
+  docs/serverless.html: 0.12/docs/serverless.html
+  docs/service-registry.html: 0.12/docs/service-registry.html
+  docs/service.html: 0.12/docs/service.html
+  docs/statistics.html: 0.12/docs/statistics.html
+  docs/support.html: 0.12/docs/support.html
+  docs/transporters.html: 0.12/docs/transporters.html
+  docs/usage.html: 0.12/docs/usage.html
+  docs/validation.html: 0.12/docs/validation.html
   
-#   api/context.html: 0.12/api/context.html
-#   api/index.html: 0.12/api/index.html
-#   api/protocol.html: 0.12/api/protocol.html
-#   api/service-broker.html: 0.12/api/service-broker.html
-#   api/service.html: 0.12/api/service.html
+  api/context.html: 0.12/api/context.html
+  api/index.html: 0.12/api/index.html
+  api/protocol.html: 0.12/api/protocol.html
+  api/service-broker.html: 0.12/api/service-broker.html
+  api/service.html: 0.12/api/service.html
