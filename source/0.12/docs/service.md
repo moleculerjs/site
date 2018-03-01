@@ -395,6 +395,8 @@ broker.start();
 
 In the service file you can also create the Service instance. In this case, you have to export a function which returns the instance of [Service](#service).
 ```js
+const { Service } = require("moleculer");
+
 // Export a function, the `loadService` will call it with the ServiceBroker instance.
 module.exports = function(broker) {
     return new Service(broker, {
