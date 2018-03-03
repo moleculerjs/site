@@ -1,6 +1,6 @@
 title: Documentation
 ---
-Welcome to the Moleculer documentation. Navigate through the documentation to learn more. If you encounter any problems when using Moleculer, open an issue on [GitHub](https://github.com/moleculerjs/moleculer/issues) or write to us on [Gitter](https://gitter.im/ice-services/moleculer).
+Welcome to the Moleculer documentation. Navigate through the documentation to learn more. If you encounter any problems when using Moleculer, open an issue on [GitHub](https://github.com/moleculerjs/moleculer/issues) or write to us on [Gitter](https://gitter.im/moleculerjs/moleculer).
 
 ## What is Moleculer?
 
