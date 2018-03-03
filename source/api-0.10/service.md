@@ -45,6 +45,7 @@ Parse Service schema & register as local service
 
 
 
+<<<<<<< HEAD:source/0.12/api/service.md
 
 ## Static Members
 
@@ -69,10 +70,13 @@ Creates an instance of Service by schema.
 
 
 
+=======
+>>>>>>> master:source/api-0.10/service.md
 
 
 
 
+<<<<<<< HEAD:source/0.12/api/service.md
 ### waitForServices
 
 
@@ -97,6 +101,8 @@ Wait for other services
 
 
 
+=======
+>>>>>>> master:source/api-0.10/service.md
 ### applyMixins
 
 

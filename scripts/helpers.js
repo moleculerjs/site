@@ -9,169 +9,155 @@ var lunr = require('lunr');
 var localizedPath = ['docs', 'api'];
 
 function startsWith(str, start){
+<<<<<<< HEAD
 	return str && str.substring(0, start.length) === start;
+=======
+  return str.substring(0, start.length) === start;
+>>>>>>> master
 }
 
-// Generate bottom navigation links (Prev, Next)
 hexo.extend.helper.register('page_nav', function(){
-	var p = this.page.canonical_path.split('/');
-	var type = p[1];
-	var ver = p[0];
-	var sidebar = this.site.data[ver + '/sidebar'][type];
-	var path = pathFn.basename(this.path);
-	var list = {};
-	var prefix = 'sidebar.' + type + '.';
+  var type = this.page.canonical_path.split('/')[0];
+  var sidebar = this.site.data.sidebar[type];
+  var path = pathFn.basename(this.path);
+  var list = {};
+  var prefix = 'sidebar.' + type + '.';
 
-	for (var i in sidebar){
-		for (var j in sidebar[i]){
-			list[sidebar[i][j]] = j;
-		}
-	}
+  for (var i in sidebar){
+    for (var j in sidebar[i]){
+      list[sidebar[i][j]] = j;
+    }
+  }
 
-	var keys = Object.keys(list);
-	var index = keys.indexOf(path);
-	var result = '';
+  var keys = Object.keys(list);
+  var index = keys.indexOf(path);
+  var result = '';
 
-	if (index > 0){
-		result += '<a href="' + keys[index - 1] + '" class="article-footer-prev" title="' + this.__(prefix + list[keys[index - 1]]) + '">' +
-			'<i class="fa fa-chevron-left"></i><span>' + this.__('page.prev') + '</span></a>';
-	}
+  if (index > 0){
+    result += '<a href="' + keys[index - 1] + '" class="article-footer-prev" title="' + this.__(prefix + list[keys[index - 1]]) + '">' +
+      '<i class="fa fa-chevron-left"></i><span>' + this.__('page.prev') + '</span></a>';
+  }
 
-	if (index < keys.length - 1){
-		result += '<a href="' + keys[index + 1] + '" class="article-footer-next" title="' + this.__(prefix + list[keys[index + 1]]) + '">' +
-			'<span>' + this.__('page.next') + '</span><i class="fa fa-chevron-right"></i></a>';
-	}
+  if (index < keys.length - 1){
+    result += '<a href="' + keys[index + 1] + '" class="article-footer-next" title="' + this.__(prefix + list[keys[index + 1]]) + '">' +
+      '<span>' + this.__('page.next') + '</span><i class="fa fa-chevron-right"></i></a>';
+  }
 
-	return result;
+  return result;
 });
 
-// Generate left sidebar
 hexo.extend.helper.register('doc_sidebar', function(className){
-	var p = this.page.canonical_path.split('/');
-	var type = p[1];
-	var ver = p[0];
-	var sidebar = this.site.data[ver + '/sidebar'][type];
-	var path = pathFn.basename(this.path);
-	var result = '';
-	var self = this;
-	var prefix = 'sidebar.' + type + '.';
+  var type = this.page.canonical_path.split('/')[0];
+  var sidebar = this.site.data.sidebar[type];
+  var path = pathFn.basename(this.path);
+  var result = '';
+  var self = this;
+  var prefix = 'sidebar.' + type + '.';
 
-	// Show version selector
-	result += '<div class="version-selector"><select onchange="changeVersion(this)">';
-	_.each(this.site.data.versions[type], function(title, version) {
-		result += '<option value="' + version + '/' + type + '"' + (version == ver ? "selected": "")+ '>' + self.__(title) + '</option>';
-	});
-	result += '</select></div>';
+  _.each(sidebar, function(menu, title){
+    result += '<strong class="' + className + '-title">' + self.__(prefix + title) + '</strong>';
 
-	_.each(sidebar, function(menu, title){
-		result += '<strong class="' + className + '-title">' + self.__(prefix + title) + '</strong>';
+    _.each(menu, function(link, text){
+      var itemClass = className + '-link';
+      if (link === path) itemClass += ' current';
 
-		_.each(menu, function(link, text){
-			var itemClass = className + '-link';
-			if (link === path) itemClass += ' current';
+      result += '<a href="' + link + '" class="' + itemClass + '">' + self.__(prefix + text) + '</a>';
+    })
+  });
 
-			result += '<a href="' + link + '" class="' + itemClass + '">' + self.__(prefix + text) + '</a>';
-		})
-	});
-
-	return result;
+  return result;
 });
 
-// Generate header menu items
 hexo.extend.helper.register('header_menu', function(className){
-	var menu = this.site.data.menu;
-	var result = '';
-	var self = this;
-	var lang = this.page.lang;
-	var isEnglish = lang === 'en';
+  var menu = this.site.data.menu;
+  var result = '';
+  var self = this;
+  var lang = this.page.lang;
+  var isEnglish = lang === 'en';
 
-	_.each(menu, function(path, title){
-		if (!isEnglish && ~localizedPath.indexOf(title)) path = lang + path;
+  _.each(menu, function(path, title){
+    if (!isEnglish && ~localizedPath.indexOf(title)) path = lang + path;
 
-		result += '<a href="' + self.url_for(path) + '" class="' + className + '-link">' + self.__('menu.' + title) + '</a>';
-	});
+    result += '<a href="' + self.url_for(path) + '" class="' + className + '-link">' + self.__('menu.' + title) + '</a>';
+  });
 
-	return result;
+  return result;
 });
 
-// ???
 hexo.extend.helper.register('canonical_url', function(lang){
-	var path = this.page.canonical_path;
-	if (lang && lang !== 'en') path = lang + '/' + path;
+  var path = this.page.canonical_path;
+  if (lang && lang !== 'en') path = lang + '/' + path;
 
-	return this.config.url + '/' + path;
+  return this.config.url + '/' + path;
 });
 
-/// ???
 hexo.extend.helper.register('url_for_lang', function(path){
-	var lang = this.page.lang;
-	var url = this.url_for(path);
+  var lang = this.page.lang;
+  var url = this.url_for(path);
 
-	if (lang !== 'en' && url[0] === '/') url = '/' + lang + url;
+  if (lang !== 'en' && url[0] === '/') url = '/' + lang + url;
 
-	return url;
+  return url;
 });
 
-// Link for page edit
 hexo.extend.helper.register('raw_link', function(path){
+<<<<<<< HEAD
 	return 'https://github.com/moleculerjs/site/edit/master/source/' + path;
+=======
+  return 'https://github.com/ice-services/site/edit/master/source/' + path;
+>>>>>>> master
 });
 
-// Anchor for heading tags
 hexo.extend.helper.register('page_anchor', function(str){
-	var $ = cheerio.load(str, {decodeEntities: false});
-	var headings = $('h1, h2, h3, h4, h5, h6');
+  var $ = cheerio.load(str, {decodeEntities: false});
+  var headings = $('h1, h2, h3, h4, h5, h6');
 
-	if (!headings.length) return str;
+  if (!headings.length) return str;
 
-	headings.each(function(){
-		var id = $(this).attr('id');
+  headings.each(function(){
+    var id = $(this).attr('id');
 
-		$(this)
-			.addClass('article-heading')
-			.append('<a class="article-anchor" href="#' + id + '" aria-hidden="true"></a>');
-	});
+    $(this)
+      .addClass('article-heading')
+      .append('<a class="article-anchor" href="#' + id + '" aria-hidden="true"></a>');
+  });
 
-	return $.html();
+  return $.html();
 });
 
-// Not used
 hexo.extend.helper.register('lunr_index', function(data){
-	var index = lunr(function(){
-		this.field('name', {boost: 10});
-		this.field('tags', {boost: 50});
-		this.field('description');
-		this.ref('id');
-	});
+  var index = lunr(function(){
+    this.field('name', {boost: 10});
+    this.field('tags', {boost: 50});
+    this.field('description');
+    this.ref('id');
+  });
 
-	_.sortBy(data, 'name').forEach(function(item, i){
-		index.add(_.assign({id: i}, item));
-	});
+  _.sortBy(data, 'name').forEach(function(item, i){
+    index.add(_.assign({id: i}, item));
+  });
 
-	return JSON.stringify(index.toJSON());
+  return JSON.stringify(index.toJSON());
 });
 
-// ???
 hexo.extend.helper.register('canonical_path_for_nav', function(){
-	var p = this.page.canonical_path.split("/");
+  var path = this.page.canonical_path;
 
-	if (startsWith(p[1], 'docs/') || startsWith(p[1], 'api/')){
-		return p[0] + "/" + p[1];
-	} else {
-		return '';
-	}
+  if (startsWith(path, 'docs/') || startsWith(path, 'api/')){
+    return path;
+  } else {
+    return '';
+  }
 });
 
-// Not used
 hexo.extend.helper.register('lang_name', function(lang){
-	var data = this.site.data.languages[lang];
-	return data.name || data;
+  var data = this.site.data.languages[lang];
+  return data.name || data;
 });
 
-// Not used
 hexo.extend.helper.register('disqus_lang', function(){
-	var lang = this.page.lang;
-	var data = this.site.data.languages[lang];
+  var lang = this.page.lang;
+  var data = this.site.data.languages[lang];
 
-	return data.disqus_lang || lang;
+  return data.disqus_lang || lang;
 });

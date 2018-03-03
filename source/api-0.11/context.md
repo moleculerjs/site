@@ -135,7 +135,7 @@ Set params of context
 
 `call(actionName: String, params, opts): Promise`
 
-Call an other action. It creates a sub-context.
+Call an other action. It will be create a sub-context.
 
 
 #### Parameters
@@ -171,18 +171,23 @@ ctx.call("posts.get", { id: 12 }, { timeout: 1000 });
 
 
 
-`emit(eventName: string, data, groups, payload: any)`
+`emit(eventName: String, data: any)`
 
-Emit an event (grouped & balanced global event)
+Call a global event (with broker.emit).
 
 
 #### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
+<<<<<<< HEAD:source/0.12/api/context.md
 | `eventName` | string | - | - |
 | `groups` |  | - | - |
 | `payload` | any | - | - |
+=======
+| `eventName` | String | - |  |
+| `data` | any | - |  |
+>>>>>>> master:source/api-0.11/context.md
 
 
 
@@ -203,6 +208,7 @@ ctx.emit("user.created", { entity: user, creator: ctx.meta.user });
 
 
 
+<<<<<<< HEAD:source/0.12/api/context.md
 ### broadcast
 
 
@@ -239,4 +245,6 @@ ctx.broadcast("user.created", { entity: user, creator: ctx.meta.user });
 
 
 
+=======
+>>>>>>> master:source/api-0.11/context.md
 

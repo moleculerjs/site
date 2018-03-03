@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 title: Moleculer - Fast & powerful microservices framework for NodeJS
 subtitle: "Fast & powerful microservices framework for NodeJS."
 description: "Moleculer is a fast & powerful microservices framework powered by NodeJS."
 author: MoleculerJS
+=======
+title: Moleculer
+subtitle: "Fast & powerful microservices framework for Node.js."
+description: "Moleculer is a fast & powerful microservices framework powered by Node.js."
+author: Icebob
+>>>>>>> master
 language: en
 timezone: UTC
 url: https://moleculer.services

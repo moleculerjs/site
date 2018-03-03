@@ -32,8 +32,18 @@ $ node examples/client-server/client
 ### Middlewares
 This example demonstrates how the middleware system works.
 
+**Prepare the environment**
 ```bash
+<<<<<<< HEAD:source/0.12/docs/examples.md
 $ npm run demo middlewares
+=======
+$ docker-compose -f ./examples/docker-compose.yaml up
+```
+
+**Start transporters**
+```bash
+$ npm run demo transporter
+>>>>>>> master:source/docs/examples.md
 ```
 
 [Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
@@ -41,6 +51,15 @@ $ npm run demo middlewares
 ### Runner
 This example shows how you can start a broker and load services with [Moleculer Runner](moleculer-runner.html).
 
+<<<<<<< HEAD:source/0.12/docs/examples.md
+=======
+**Prepare the environment**
+```bash
+$ docker-compose -f ./examples/docker-compose.yaml up
+```
+
+**Start a server**
+>>>>>>> master:source/docs/examples.md
 ```bash
 $ node ./bin/moleculer-runner.js -c examples/runner/moleculer.config.js -r examples/user.service.js
 ```
@@ -50,6 +69,10 @@ It starts a broker with options from `moleculer.config.js`, loads the user servi
 
 ### Load tester
 With this example, you can start a load test. The server & client prints how many requests executed in a second.
+**Prepare the environment**
+```bash
+$ docker-compose -f ./examples/docker-compose.yaml up
+```
 
 **Start server**
 ```bash
