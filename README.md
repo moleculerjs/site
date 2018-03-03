@@ -5,7 +5,7 @@ This is the official website of Moleculer project. This site is built with [hexo
 # Development
 
 ```bash
-$ git clone git@github.com:ice-services/site.git
+$ git clone git@github.com:moleculerjs/site.git
 $ cd site
 $ npm install
 $ npm run dev
@@ -32,6 +32,6 @@ If you want to help us to translate Moleculer website & documentation to your la
 Thank you in advance!
 
 # Contact
-Copyright (c) 2016-2017 Ice-Services
+Copyright (c) 2016-2018 Moleculer JS
 
-[![@icebob](https://img.shields.io/badge/github-ice--services-green.svg)](https://github.com/ice-services) [![@icebob](https://img.shields.io/badge/twitter-MoleculerJS-blue.svg)](https://twitter.com/MoleculerJS)
+[![@icebob](https://img.shields.io/badge/github-moleculerjs-green.svg)](https://github.com/moleculerjs) [![@icebob](https://img.shields.io/badge/twitter-MoleculerJS-blue.svg)](https://twitter.com/MoleculerJS)

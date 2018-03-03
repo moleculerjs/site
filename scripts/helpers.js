@@ -9,7 +9,11 @@ var lunr = require('lunr');
 var localizedPath = ['docs', 'api'];
 
 function startsWith(str, start){
+<<<<<<< HEAD
+	return str && str.substring(0, start.length) === start;
+=======
   return str.substring(0, start.length) === start;
+>>>>>>> master
 }
 
 hexo.extend.helper.register('page_nav', function(){
@@ -97,7 +101,11 @@ hexo.extend.helper.register('url_for_lang', function(path){
 });
 
 hexo.extend.helper.register('raw_link', function(path){
+<<<<<<< HEAD
+	return 'https://github.com/moleculerjs/site/edit/master/source/' + path;
+=======
   return 'https://github.com/ice-services/site/edit/master/source/' + path;
+>>>>>>> master
 });
 
 hexo.extend.helper.register('page_anchor', function(str){

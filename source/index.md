@@ -4,6 +4,11 @@ description: Moleculer is a fast & powerful microservices framework powered by N
 subtitle: Fast & powerful microservices framework for Node.js.
 comments: false
 ---
+<<<<<<< HEAD
+<div style="text-align: center">
+    <img src="images/main-example.png" style="width: 100%;height: auto;max-width: 800px;" />
+</div>
+=======
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -28,3 +33,4 @@ broker.start();
 broker.call("math.add", { a: 5, b: 3 })
     .then(res => console.log("5 + 3 =", res));
 ```
+>>>>>>> master
