@@ -270,4 +270,5 @@ broker.repl();
 
 ```bash
 mol $ hello -u John
+Hello JOHN
 ```
