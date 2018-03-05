@@ -15,7 +15,7 @@ $ npm run demo simple
 
 ### Server & client nodes
 In this example, you can start any servers & clients. The servers serve the `math.add` action and clients call it in a loop. You can start multiple instances from both.
-*They uses TCP transporter, but you can change it with `TRANSPORTER` env variable.*
+*They use TCP transporter, but you can change it with `TRANSPORTER` env variable.*
 
 **Start a server**
 ```bash
@@ -66,7 +66,7 @@ $ node examples/loadtest/clients
 ## Project examples
 
 ### Realworld backend server
-This is a [RealWorld.io](https://realworld.io/) example application with Moleculer.
+This is a [RealWorld.io](https://realworld.io/) example backend server with Moleculer microservices framework.
 
 **Key features**
 - 7 microservices
@@ -76,7 +76,7 @@ This is a [RealWorld.io](https://realworld.io/) example application with Molecul
 - Memory caching
 - Docker files
 
-**Repo: https://github.com/gothinkster/moleculer-node-realworld-example-app**
+**Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
 
 ### Blog
 This is a simple blog example.
@@ -90,4 +90,4 @@ This is a simple blog example.
 - [Traefik](https://traefik.io/) reverse proxy (in micro arch)
 - static client side
 
-**Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog/README.md**
+**Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog#readme**
