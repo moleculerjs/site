@@ -50,20 +50,20 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```
 2. Create a new project (named `first-demo`)
     ```bash
-    $ moleculer init project-simple first-demo
+    $ moleculer init project moleculer-demo
     ```
     > Press Y to all questions
     
 3. Open project folder
     ```bash
-    $ cd first-demo
+    $ cd moleculer-demo
     ```
     
 4. Start project
     ```bash
     $ npm run dev
     ```
-5. Open the [http://localhost:3000/greeter/hello](http://localhost:3000/greeter/hello) link in your browser. It calls the `hello` action of `greeter` service via [API gateway](https://github.com/moleculerjs/moleculer-web) and returns the result.
+5. Open the [http://localhost:3000/](http://localhost:3000/) link in your browser. It shows a start page which contains two links to call the `greeter` service via [API gateway](https://github.com/moleculerjs/moleculer-web).
 
 {% note info Congratulations! %}
 You have just created your first Moleculer-based microservices project! The next step is to check our [examples](examples.html) or [demo projects](https://github.com/moleculerjs/moleculer-examples).
