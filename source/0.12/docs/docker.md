@@ -6,6 +6,8 @@ title: Docker
 ```docker
 FROM node:8-alpine
 
+ENV NODE_ENV=production
+
 RUN mkdir /app
 WORKDIR /app
 
@@ -23,74 +25,42 @@ CMD ["npm", "start"]
 version: "3.0"
 
 services:
-  # API Gateway
-  www:
-    image: moleculer-app
-    env_file: env
+
+  api:
+    build:
+      context: .
+    image: moleculer-demo
+    env_file: docker-compose.env
     environment:
-      NODEID: "node-www"
-      SERVICES: www
-      PORT: 4000
+      SERVICES: api
+      PORT: 3000
     links:
       - nats
-      - redis
     depends_on:
       - nats
-      - redis
     labels:
       - "traefik.enable=true"   
-      - "traefik.backend=www"
-      - "traefik.port=4000"
+      - "traefik.backend=api"
+      - "traefik.port=3000"
       - "traefik.frontend.entryPoints=http"
       - "traefik.frontend.rule=PathPrefix:/"
 
-  # Posts service
-  posts:
-    image: moleculer-app
-    env_file: env
+  greeter:
+    build:
+      context: .
+    image: moleculer-demo
+    env_file: docker-compose.env
     environment:
-      NODEID: "node-posts"
-      SERVICES: posts
+      SERVICES: greeter
     links:
       - nats
-      - redis
-      - mongo
     depends_on:
       - nats
-      - redis
-      - mongo
 
-  # Users service
-  users:
-    image: moleculer-app
-    env_file: env
-    environment:
-      NODEID: "node-users"
-      SERVICES: users
-    links:
-      - nats
-      - redis
-      - mongo
-    depends_on:
-      - nats
-      - redis
-      - mongo
 
-  # NATS server
   nats:
     image: nats
 
-  # Redis server
-  redis:
-    image: redis:alpine
-
-  # MongoDB server
-  mongo:
-    image: mongo
-    volumes:
-      - ../../db:/data/db
-
-  # Traefik server
   traefik:
     image: traefik
     command: --web --docker --docker.domain=docker.localhost --logLevel=INFO --docker.exposedbydefault=false
@@ -100,6 +70,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /dev/null:/traefik.toml
+
 ```
 
 **Start containers**
@@ -107,4 +78,4 @@ services:
 $ docker-compose up -d
 ```
 
-You can access your app on `http://<docker-host>/`. Traefik dashboard UI on `http://<docker-host>:8080/`
+You can access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
