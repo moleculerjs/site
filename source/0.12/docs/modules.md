@@ -23,6 +23,7 @@ title: Modules
 |-------------|-------------|---------|
 | [moleculer-bee-queue](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-bee-queue#readme) | Task queue mixin for Bee-Queue. | [![NPM version](https://img.shields.io/npm/v/moleculer-bee-queue.svg)](https://www.npmjs.com/package/moleculer-bee-queue)
 | [moleculer-bull](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-bull#readme) | Task queue service with Bull. | [![NPM version](https://img.shields.io/npm/v/moleculer-bull.svg)](https://www.npmjs.com/package/moleculer-bull)
+| [moleculer-cron](https://github.com/davidroman0O/moleculer-cron#readme) | Cron tasks. | [![NPM version](https://img.shields.io/npm/v/moleculer-cron.svg)](https://www.npmjs.com/package/moleculer-cron)
 
 ### Tools
 | Module name | Description | Version |
