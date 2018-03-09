@@ -16,12 +16,13 @@
 {% endif %}
 <!-- Algolia -->
 {% if config.algolia[page.lang] %}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script type="text/javascript"> docsearch({
 apiKey: '7d5514b7c3e161a428f04f33ba1bdab4',
 indexName: 'moleculer',
 inputSelector: '#search-input',
-debug: true // Set debug to true if you want to inspect the dropdown
+algoliaOptions: { 'facetFilters': ["version:{{ get_version() }}"] },
+debug: false // Set debug to true if you want to inspect the dropdown
 });
 </script>
 {% endif %}

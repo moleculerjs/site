@@ -45,6 +45,14 @@ hexo.extend.helper.register('page_nav', function(){
 	return result;
 });
 
+hexo.extend.helper.register('get_version', function(){
+	var p = this.page.canonical_path.split('/');
+	if (p.length > 1)
+		return p[0];
+	
+	return this.site.data.versions.latest;
+});
+
 // Generate left sidebar
 hexo.extend.helper.register('doc_sidebar', function(className){
 	var p = this.page.canonical_path.split('/');
