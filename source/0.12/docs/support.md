@@ -23,3 +23,14 @@ Thank you in advance!
 
 [paypal]: https://paypal.me/meregnorbert/50usd
 [patreon]: https://www.patreon.com/bePatron?u=6245171
+
+
+## Patreon backers
+
+### Copper backers
+
+<div class="support-backers">
+	<a href="http://www.ingsw.com/" class="company-logo" target="_blank">
+		<img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious" />
+	</a>
+</div>
