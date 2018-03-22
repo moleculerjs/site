@@ -18,6 +18,9 @@
 		<a href="http://altcoinminingpools.com" class="company-logo" target="_blank">
 			<img src="http://altcoinminingpools.com/assets/img/altcoinminingpools.png" alt="Altcoin mining pools" />
 		</a>
+		<a href="https://zebbra.ch/" class="company-logo" target="_blank">
+			<img src="https://user-images.githubusercontent.com/902525/37777279-6ce23b44-2de7-11e8-9667-b16a7a6c5be9.png" alt="zebbra" />
+		</a>
 	</div>
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
 </section>
