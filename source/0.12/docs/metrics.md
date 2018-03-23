@@ -178,7 +178,7 @@ The payload looks like the following:
 
 ## Circuit-breaker events
 
-### `metrics.circuit-breaker.open`
+### `metrics.circuit-breaker.opened`
 The broker sends this event when the circuit breaker module changed its state to `open`.
 
 **Payload**
@@ -190,7 +190,7 @@ The broker sends this event when the circuit breaker module changed its state to
 | `failures` | `Number` | Count of failures |
 
 
-### `metrics.circuit-breaker.half-open`
+### `metrics.circuit-breaker.half-opened`
 The broker sends this event when the circuit breaker module changed its state to `half-open`.
 
 **Payload**
@@ -200,7 +200,7 @@ The broker sends this event when the circuit breaker module changed its state to
 | `nodeID` | `String` | Node ID |
 | `action` | `String` | Action name |
 
-### `metrics.circuit-breaker.close`
+### `metrics.circuit-breaker.closed`
 The broker sends this event when the circuit breaker module changed its state to `closed`.
 
 **Payload**
