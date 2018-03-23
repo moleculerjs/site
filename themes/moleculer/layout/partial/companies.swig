@@ -22,5 +22,10 @@
 			<img src="https://user-images.githubusercontent.com/902525/37777279-6ce23b44-2de7-11e8-9667-b16a7a6c5be9.png" alt="zebbra" />
 		</a>
 	</div>
+	<div class="company-list">
+		<a href="https://uiza.io" class="company-logo" target="_blank">
+			<img src="https://user-images.githubusercontent.com/37431811/37808054-23436c08-2e7b-11e8-9bed-49f82ca45379.png" alt="Uiza" />
+		</a>
+	</div>
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
 </section>
