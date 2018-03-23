@@ -625,7 +625,7 @@ The broker sends this event if some node loads or destroys services after `broke
 | ---- | ---- | ----------- |
 | `localService ` | `Boolean` | True if a local service changed. |
 
-### `$circuit-breaker.open`
+### `$circuit-breaker.opened`
 The broker sends this event when the circuit breaker module change its state to `open`.
 
 **Payload**
@@ -637,7 +637,7 @@ The broker sends this event when the circuit breaker module change its state to 
 | `failures` | `Number` | Count of failures |
 
 
-### `$circuit-breaker.half-open`
+### `$circuit-breaker.half-opened`
 The broker sends this event when the circuit breaker module change its state to `half-open`.
 
 **Payload**
@@ -647,7 +647,7 @@ The broker sends this event when the circuit breaker module change its state to 
 | `nodeID` | `String` | Node ID |
 | `action` | `String` | Action name |
 
-### `$circuit-breaker.close`
+### `$circuit-breaker.closed`
 The broker sends this event when the circuit breaker module change its state to `closed`.
 
 **Payload**
