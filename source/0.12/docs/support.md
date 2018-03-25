@@ -27,6 +27,15 @@ Thank you in advance!
 
 ## Patreon backers
 
+### Silver backers
+
+<div class="support-backers">
+	<a href="https://github.com/zllovesuki" class="user-logo" target="_blank">
+		<img src="https://avatars1.githubusercontent.com/u/298453?s=100&v=4" alt="Rachel Chen" />
+		<label>Rachel Chen</label>
+	</a>
+</div>
+
 ### Copper backers
 
 <div class="support-backers">
