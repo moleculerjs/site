@@ -55,13 +55,13 @@ All available broker options:
     requestTimeout: 0,
     requestRetry: 0,
     maxCallLevel: 100,
-    heartbeatInterval: 5,
-    heartbeatTimeout: 15,
+    heartbeatInterval: 10,
+    heartbeatTimeout: 30,
 
     disableBalancer: false,
 
     registry: {
-        strategy: Moleculer.Strategies.RoundRobinStrategy,
+        strategy: Moleculer.Strategies.LatencyStrategy,
         preferLocal: true
     },
 
@@ -115,8 +115,8 @@ All available broker options:
 | `requestTimeout` | `Number` | `0` | Number of milliseconds to wait before returning a `RequestTimeout` error when it takes too long to return a value. Disable: 0 |
 | `requestRetry` | `Number` | `0` | Count of retries. If the request is timed out, broker will try to call again. |
 | `maxCallLevel` | `Number` | `0` | Limit of call level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. *(Infinite loop protection)* |
-| `heartbeatInterval` | `Number` | `5` | Number of seconds to send heartbeat packet to other nodes. |
-| `heartbeatTimeout` | `Number` | `15` | Number of seconds to wait before setting node to unavailable status. |
+| `heartbeatInterval` | `Number` | `10` | Number of seconds to send heartbeat packet to other nodes. |
+| `heartbeatTimeout` | `Number` | `30` | Number of seconds to wait before setting node to unavailable status. |
 | `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Only if the transporter support it._ |
 | `registry` | `Object` | | Settings of [Service Registry](service-registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](circuit-breaker.html) |
