@@ -73,3 +73,35 @@ let broker = new ServiceBroker({
     }
 });
 ```
+
+## Latency-based strategy
+This strategy selects a node which has the lowest latency. Due to the node list can be very long, it gets samples and selects the node with the lowest latency from only samples instead of the whole node list.
+
+**Usage**
+```js
+let broker = new ServiceBroker({
+    registry: {
+        strategy: "Latency"
+    }
+});
+```
+
+**Strategy options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | --------| ----------- |
+| `sampleCount` | `Number` | `3` | the number of samples. |
+| `lowLatency` | `Number` | `10` | the low latency (ms). The node which has lower latency than this value is selected immediately. |
+
+**Usage with custom options**
+```js
+let broker = new ServiceBroker({
+    registry: {
+        strategy: "Latency",
+        strategyOptions: {
+            sampleCount: 3,
+            lowLatency: 10
+        }
+    }
+});
+```
