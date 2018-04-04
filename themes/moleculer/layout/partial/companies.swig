@@ -26,8 +26,8 @@
 		<a href="https://uiza.io" class="company-logo" target="_blank">
 			<img src="https://user-images.githubusercontent.com/37431811/37808054-23436c08-2e7b-11e8-9bed-49f82ca45379.png" alt="Uiza" />
 		</a>
-		<a href="https://mixanalog.com/" class="company-logo" target="_blank">
-			<img src="https://user-images.githubusercontent.com/15308543/37921637-ac764142-312a-11e8-96f5-02998697a0fd.png" alt="Distopik" />
+		<a href="https://www.mixanalog.com/?utm_medium=partner&utm_source=moleculer&utm_campaign=moleculer_footer_logo&utm_content=logo" class="company-logo" target="_blank">
+			<img src="https://files.gitter.im/baadc0de/ugWV/m_logo_cutout_with_text.svg" alt="Distopik" />
 		</a>
 	</div>
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
