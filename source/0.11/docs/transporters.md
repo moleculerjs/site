@@ -74,6 +74,7 @@ let broker = new ServiceBroker({
                 pass: "1234"
             }
         }
+    }
 });
 
 // Shorthand with TLS
@@ -92,6 +93,7 @@ let broker = new ServiceBroker({
                 }
             }
         }
+    }
 });
 ```
 
@@ -164,6 +166,7 @@ let broker = new ServiceBroker({
                 db: 0
             }
         }
+    }
 });
 ```
 
@@ -235,6 +238,7 @@ let broker = new ServiceBroker({
                 port: 1883,
             }
         }
+    }
 });
 ```
 
@@ -305,6 +309,7 @@ let broker = new ServiceBroker({
                 port: 5672,
             }
         }
+    }
 });
 ```
 
