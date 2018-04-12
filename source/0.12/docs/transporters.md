@@ -156,6 +156,7 @@ const broker = new ServiceBroker({
             user: "admin",
             pass: "1234"
         }
+    }
 });
 
 // Connect with TLS
@@ -171,6 +172,7 @@ const broker = new ServiceBroker({
                 ca: [ fs.readFileSync('./ca.pem') ]
             }
         }
+    }
 });
 ```
 
@@ -209,6 +211,7 @@ const broker = new ServiceBroker({
             host: "redis-server",
             db: 0
         }
+    }
 });
 ```
 
@@ -247,6 +250,7 @@ const broker = new ServiceBroker({
             host: "mqtt-server",
             port: 1883,
         }
+    }
 });
 ```
 
@@ -288,6 +292,7 @@ const broker = new ServiceBroker({
             eventTimeToLive: 5000,
             prefetch: 1
         }
+    }
 });
 ```
 
@@ -380,6 +385,7 @@ const broker = new ServiceBroker({
             url: "stan://127.0.0.1:4222",
             clusterID: "my-cluster"
         }
+    }
 });
 ```
 
