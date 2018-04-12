@@ -42,4 +42,8 @@ Thank you in advance!
 	<a href="http://www.ingsw.com/" class="company-logo" target="_blank">
 		<img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious" />
 	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/400/10631269" alt="Andreas Leinen" />
+		<label>Andreas Leinen</label>
+	</a>
 </div>
