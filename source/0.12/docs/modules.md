@@ -44,5 +44,6 @@ title: Modules
 | [moleculer-sc](https://github.com/tiaod/moleculer-sc#readme) | [tiaod](https://github.com/tiaod) | API Gateway service for Moleculer framework using SocketCluster. | [![npm](https://img.shields.io/npm/v/moleculer-sc.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-sc)
 | [moleculer-json-schema-validator](https://github.com/zhaoyao91/moleculer-json-schema-validator#readme) | [zhaoyao91](https://github.com/zhaoyao91) | JSON Schema Validator with ajv. | [![npm](https://img.shields.io/npm/v/moleculer-json-schema-validator.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-json-schema-validator)
 | [moleculer-flydrive](https://github.com/molobala/moleculer-flydrive#readme) | [molobala](https://github.com/molobala) | Fluent storage manager service with Node Flydrive. | [![npm](https://img.shields.io/npm/v/moleculer-flydrive.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-flydrive)
+| [moleculer-elastic-apm](https://github.com/intech/moleculer-elastic-apm) | [Ivan Zhuravlev](https://github.com/intech) | Metrics to Elastic APM Agent. | [![npm](https://img.shields.io/npm/v/moleculer-elastic-apm.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-elastic-apm)
 
 > Do you have a custom module for Moleculer? [Tell us!](https://github.com/moleculerjs/moleculer/issues)
