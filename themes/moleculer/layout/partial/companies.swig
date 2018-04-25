@@ -29,6 +29,9 @@
 		<a href="https://www.mixanalog.com/?utm_medium=partner&utm_source=moleculer&utm_campaign=moleculer_footer_logo&utm_content=logo" class="company-logo" target="_blank">
 			<img src="https://files.gitter.im/baadc0de/ugWV/m_logo_cutout_with_text.svg" alt="Distopik" />
 		</a>
+		<a href="http://amretail.ru" class="company-logo" target="_blank">
+			<img src="https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png" alt="AMRetail" />
+		</a>		
 	</div>
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
 </section>
