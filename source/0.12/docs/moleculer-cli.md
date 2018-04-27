@@ -74,6 +74,7 @@ $ moleculer start
   --metrics, -m  Enable metrics                       [boolean] [default: false]
   --hot, -h      Enable hot-reload                    [boolean] [default: false]
   --cb           Enable circuit breaker               [boolean] [default: false]
+  --commands     Custom REPL command file mask          [string] [default: null]
 ```
 
 ### Start a broker and connect to a transporter
@@ -103,4 +104,5 @@ $ moleculer connect amqp://localhost:5672
   --hot, -h      Enable hot-reload                    [boolean] [default: false]
   --cb           Enable circuit breaker               [boolean] [default: false]
   --serializer   Serializer                             [string] [default: null]
+  --commands     Custom REPL command file mask          [string] [default: null]
 ```
