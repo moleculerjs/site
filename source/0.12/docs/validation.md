@@ -61,7 +61,7 @@ You can create your custom validator. You should implement `compile` and `valida
 ```js
 // --- JOI VALIDATOR CLASS ---
 
-const BaseValidator = require("moleculer").Validators.Base;
+const BaseValidator = require("moleculer").Validator;
 const { ValidationError } = require("moleculer").Errors;
 
 class JoiValidator extends BaseValidator {
