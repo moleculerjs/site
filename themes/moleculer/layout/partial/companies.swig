@@ -33,5 +33,10 @@
 			<img src="https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png" alt="AMRetail" />
 		</a>		
 	</div>
+	<div class="company-list">
+		<a href="https://dazta.com" class="company-logo" target="_blank">
+			<img src="https://dazta.com/dazta.svg" alt="DAZTA" />
+		</a>
+	</div>	
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
 </section>
