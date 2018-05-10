@@ -57,6 +57,9 @@ All available broker options:
     maxCallLevel: 100,
     heartbeatInterval: 5,
     heartbeatTimeout: 15,
+    
+    trackContext: false,
+    gracefulStopTimeout: 2000,
 
     disableBalancer: false,
 
@@ -117,6 +120,8 @@ All available broker options:
 | `maxCallLevel` | `Number` | `0` | Limit of call level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. *(Infinite loop protection)* |
 | `heartbeatInterval` | `Number` | `5` | Number of seconds to send heartbeat packet to other nodes. |
 | `heartbeatTimeout` | `Number` | `15` | Number of seconds to wait before setting node to unavailable status. |
+| `trackContext` | `Boolean` | `false` | All services wait for all running contexts before shutdowning. |
+| `gracefulStopTimeout` | `Number` | `2000` | Max time to wait running contexts before shutdowning. |
 | `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Only if the transporter support it._ |
 | `registry` | `Object` | | Settings of [Service Registry](service-registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](circuit-breaker.html) |
