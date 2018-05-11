@@ -37,6 +37,9 @@
 		<a href="https://dazta.com" class="company-logo" target="_blank">
 			<img src="https://dazta.com/dazta.svg" alt="DAZTA" />
 		</a>
+		<a href="http://www.smarttonesmedia.com/" class="company-logo" target="_blank">
+			<img src="https://user-images.githubusercontent.com/12611390/39895710-379afa6c-5479-11e8-8c93-08ff306315a0.png" alt="SmartTones Media" />
+		</a>
 	</div>	
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
 </section>
