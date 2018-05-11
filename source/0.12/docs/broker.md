@@ -452,6 +452,7 @@ It has some options which you can declare within `params`.
 | `onlyLocal` | `Boolean` | `false` | List only local services. |
 | `skipInternal` | `Boolean` | `false` | Skip the internal services (`$node`). |
 | `withActions` | `Boolean` | `false` | List with actions. |
+| `onlyAvailable` | `Boolean` | `false`| List only nodes that are available. |
 
 ### List of local actions
 It lists all registered actions (local & remote).
