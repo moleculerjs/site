@@ -452,6 +452,7 @@ It has some options which you can declare within `params`.
 | `onlyLocal` | `Boolean` | `false` | List only local services. |
 | `skipInternal` | `Boolean` | `false` | Skip the internal services (`$node`). |
 | `withActions` | `Boolean` | `false` | List with actions. |
+| `onlyAvailable` | `Boolean` | `false`| List only services that are available. |
 
 ### List of local actions
 It lists all registered actions (local & remote).
@@ -467,6 +468,7 @@ It has some options which you can declare within `params`.
 | `onlyLocal` | `Boolean` | `false` | List only local actions. |
 | `skipInternal` | `Boolean` | `false` | Skip the internal actions (`$node`). |
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_. |
+| `onlyAvailable` | `Boolean` | `false`| List only actions that are available. |
 
 ### List of local events
 It lists all event subscriptions.
@@ -482,6 +484,7 @@ It has some options which you can declare within `params`.
 | `onlyLocal` | `Boolean` | `false` | List only local subscriptions. |
 | `skipInternal` | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_. |
+| `onlyAvailable` | `Boolean` | `false`| List only subscriptions that are available. |
 
 ### Health of node
 It returns the health info of local node (including process & OS information).
