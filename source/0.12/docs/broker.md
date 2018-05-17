@@ -125,7 +125,7 @@ All available broker options:
 | `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Only if the transporter support it._ |
 | `registry` | `Object` | | Settings of [Service Registry](service-registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](circuit-breaker.html) |
-| `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](#cachers.html) |
+| `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](cachers.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](serializers.html) |
 | `validation` | `Boolean` | `true` | Enable [parameters validation](validation.html). |
 | `validator` | `Validator` | `null` | Custom Validator class for validation. |
