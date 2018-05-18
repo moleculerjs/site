@@ -40,6 +40,9 @@
 		<a href="http://www.smarttonesmedia.com/" class="company-logo" target="_blank">
 			<img src="https://user-images.githubusercontent.com/12611390/39895710-379afa6c-5479-11e8-8c93-08ff306315a0.png" alt="SmartTones Media" />
 		</a>
+		<a href="https://www.helpster.asia/id/business-en/" class="company-logo" target="_blank">
+			<img src="https://camo.githubusercontent.com/e560e01a2ddf8dcd7ea38cf5d08f984a6cf5bdcd/68747470733a2f2f7777772e68656c70737465722e617369612f69642f77702d636f6e74656e742f75706c6f6164732f323031362f30392f68656c70737465725f776562736974655f6c6f676f312e706e67" alt="Helpster" />
+		</a>		
 	</div>	
 	<div class="company-missing">If you don't see here your company, <a href="https://github.com/moleculerjs/moleculer/issues/101" target="_blank">tell us.</a></div>
 </section>
