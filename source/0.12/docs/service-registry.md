@@ -3,7 +3,7 @@ title: Service Registry
 ## Built-in Registry
 The Moleculer has a built-in service registry module. It stores all information about services, event listeners and nodes. When you call a service or emit an event, broker asks the registry to look up a node which executes the given service.
 
->You can access the stored data via [internal service](http://localhost:4000/0.12/docs/broker.html#Internal-services).
+>You can access the stored data via [internal service](http://moleculer.services/0.12/docs/broker#Internal-services).
 
 If a service has multiple running instances, Registry uses strategies to select a node from all available nodes. There are some built-in strategies, or you can create your custom strategies too.
 
