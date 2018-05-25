@@ -9,6 +9,7 @@ title: Modules
 | [moleculer-fake](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-fake#readme) | Fake data generator by Fakerator. | [![NPM version](https://img.shields.io/npm/v/moleculer-fake.svg)](https://www.npmjs.com/package/moleculer-fake)
 | [moleculer-mail](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-mail#readme) | Send emails from any services. | [![NPM version](https://img.shields.io/npm/v/moleculer-mail.svg)](https://www.npmjs.com/package/moleculer-mail)
 | [moleculer-twilio](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-twilio#readme) | Send SMS Message with Twilio. | [![NPM version](https://img.shields.io/npm/v/moleculer-twilio.svg)](https://www.npmjs.com/package/moleculer-twilio)
+| [moleculer-slack](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-slack#readme) | Send Messages to Slack. | [![NPM version](https://img.shields.io/npm/v/moleculer-slack.svg)](https://www.npmjs.com/package/moleculer-slack)
 
 ### Databases & stores
 | Module name | Description | Version |
