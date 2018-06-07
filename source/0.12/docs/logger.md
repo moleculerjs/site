@@ -64,6 +64,32 @@ WARN dev-pc: Warn message
 ERROR dev-pc: Error message
 ```
 
+### Custom object & array printing formatter
+You can set a custom formatter function to print object & arrays. The default function prints the objects & arrays to a single line in order to be easy to process with an external log tool. But when you are developing, it would be useful to print objects to a human-readable multi-line format. For this purpose, overwrite the `logObjectPrinter` function in the broker options.
+
+**Output with default function**
+```
+[2017-08-18T12:37:25.720Z] INFO  dev-pc/BROKER: { name: 'node', lts: 'Carbon', sourceUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0.tar.gz', headersUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0-headers.tar.gz' }
+```
+
+**Switch to multi-line printing & increment depth
+```js
+const util = require("util");
+
+const broker = new ServiceBroker({ 
+    logger: console, 
+    logObjectPrinter: o => util.inspect(o, { depth: 4, breakLength: 100 })
+});
+broker.logger.warn(process.release);
+```
+**Output:**
+```
+[2017-08-18T12:37:25.720Z] INFO  dev-pc/BROKER: { name: 'node',
+  lts: 'Carbon',
+  sourceUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0.tar.gz',
+  headersUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0-headers.tar.gz' }
+```
+
 ## External loggers
 You can use external loggers with Moleculer. In this case you can set a creator function to `logger`. The ServiceBroker will call it when a new module inherits a new logger instance.
 
