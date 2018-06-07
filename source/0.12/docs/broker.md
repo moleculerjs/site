@@ -50,6 +50,7 @@ All available broker options:
     logger: true,
     logLevel: "info",
     logFormatter: "default",
+    logObjectPrinter: null,
 
     transporter: "nats://localhost:4222",
     requestTimeout: 0,
@@ -114,6 +115,7 @@ All available broker options:
 | `logger` | `Boolean` or `Object` or `Function` | `null` | Logger class. During development you can set to `console` or `true`. In production you can use an external logger e.g. [winston](https://github.com/winstonjs/winston) or [pino](https://github.com/pinojs/pino). [Read more](logger.html). |
 | `logLevel` | `String` | `info` | Log level for built-in console logger (trace, debug, info, warn, error, fatal). |
 | `logFormatter` | `String` or `Function` | `"default"` | Log formatting for built-in console logger. Values: `default`, `simple`. It can be also Function. |
+| `logObjectPrinter` | `Function` | `null` | Custom object & array printer for built-in console logger. |
 | `transporter` | `String` or `Object` or `Transporter` | `null` | Transporter settings. Required if you have 2 or more nodes. [Read more](transporters.html).  |
 | `requestTimeout` | `Number` | `0` | Number of milliseconds to wait before returning a `RequestTimeout` error when it takes too long to return a value. Disable: 0 |
 | `requestRetry` | `Number` | `0` | Count of retries. If the request is timed out, broker will try to call again. |
