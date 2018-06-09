@@ -46,5 +46,6 @@ title: Modules
 | [moleculer-flydrive](https://github.com/molobala/moleculer-flydrive#readme) | [molobala](https://github.com/molobala) | Fluent storage manager service with Node Flydrive. | [![npm](https://img.shields.io/npm/v/moleculer-flydrive.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-flydrive)
 | [moleculer-elastic-apm](https://github.com/intech/moleculer-elastic-apm) | [Ivan Zhuravlev](https://github.com/intech) | Metrics to Elastic APM Agent. | [![npm](https://img.shields.io/npm/v/moleculer-elastic-apm.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-elastic-apm)
 | [hapi-moleculer](https://github.com/felipegcampos/hapi-moleculer) | [felipegcampos](https://github.com/felipegcampos) | Hapi plugin for the Moleculer Microservices Framework. | [![npm](https://img.shields.io/npm/v/hapi-moleculer.svg?maxAge=3600)](https://www.npmjs.com/package/hapi-moleculer)
+| [imicros-flow](https://github.com/al66/imicros-flow) | [al66](https://github.com/al66) | Moleculer service for loose coupled event handling. | [![npm](https://img.shields.io/npm/v/imicros-flow.svg?maxAge=3600)](https://www.npmjs.com/package/imicros-flow)
 
 > Do you have a custom module for Moleculer? [Tell us!](https://github.com/moleculerjs/moleculer/issues)
