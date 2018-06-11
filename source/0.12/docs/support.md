@@ -5,7 +5,7 @@ title: Support Moleculer development
 Moleculer is an open source MIT licensed project. It is free to use for your personal and commercial projects. However, developing it takes up all my free time to make it better and better [on a daily basis](https://github.com/icebob). If you like Moleculer framework, please support my efforts.
 
 **Once you decide to support me, please:**
-* set up a recurring monthly donation [on Patreon](https://www.patreon.com/moleculer) and you will get exciting news about what works on (things that I share with supporters only) or
+* set up a recurring monthly donation [on Patreon](https://www.patreon.com/moleculer) or [on Open Collective][opencollective] and you will get exciting news about what works on (things that I share with supporters only) or
 * make a one-time donation via [PayPal][paypal].
 
 **Other ways to support me:**
@@ -20,9 +20,11 @@ Thank you in advance!
 
 <a href="https://www.patreon.com/bePatron?u=6245171" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
 
+[![Become a sponsor](https://opencollective.com/moleculer/tiers/copper-backer.svg?avatarHeight=70&width=600)][opencollective]
 
 [paypal]: https://paypal.me/meregnorbert/50usd
 [patreon]: https://www.patreon.com/bePatron?u=6245171
+[opencollective]: https://opencollective.com/moleculer
 
 
 ## Patreon backers
