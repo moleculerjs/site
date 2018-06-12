@@ -26,6 +26,14 @@ title: Modules
 | [moleculer-bull](https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-bull#readme) | Task queue service with Bull. | [![NPM version](https://img.shields.io/npm/v/moleculer-bull.svg)](https://www.npmjs.com/package/moleculer-bull)
 | [moleculer-cron](https://github.com/davidroman0O/moleculer-cron#readme) | Cron tasks. | [![NPM version](https://img.shields.io/npm/v/moleculer-cron.svg)](https://www.npmjs.com/package/moleculer-cron)
 
+### Metrics & Tracing
+| Module name | Description | Version |
+|-------------|-------------|---------|
+| [moleculer-console-tracer](https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-console-tracer#readme) | Simple tracer service to print metric traces to the console. | [![npm](https://img.shields.io/npm/v/moleculer-console-tracer.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-console-tracer)
+| [moleculer-jaeger](https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-jaeger#readme) | Moleculer metrics module for Jaeger. | [![npm](https://img.shields.io/npm/v/moleculer-jaeger.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-jaeger)
+| [moleculer-prometheus](https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-prometheus#readme) | Moleculer metrics module for Prometheus. | [![npm](https://img.shields.io/npm/v/moleculer-prometheus.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-prometheus)
+| [moleculer-zipkin](https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-zipkin#readme) | Moleculer metrics module for Zipkin. | [![npm](https://img.shields.io/npm/v/moleculer-zipkin.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-zipkin)
+
 ### Tools
 | Module name | Description | Version |
 |-------------|-------------|---------|
