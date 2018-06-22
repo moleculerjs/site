@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "hexo": {
-    "version": "3.5.0"
+    "version": "3.7.1"
   },
   "scripts": {
     "api": "node api-docs-generator.js",
@@ -29,7 +29,7 @@
     "lunr": "^0.6.0",
     "marked": "0.4.0",
     "mkdirp": "0.5.1",
-    "moleculer": "github:moleculerjs/moleculer",
+    "moleculer": "github:moleculerjs/moleculer#next",
     "pug": "2.0.3",
     "semver": "5.5.0"
   }

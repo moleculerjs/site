@@ -71,9 +71,12 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 	});
 	result += '</select></div>';
 
+	// Build sidebar
 	_.each(sidebar, function(menu, title){
+		// Create group caption
 		result += '<strong class="' + className + '-title">' + self.__(prefix + title) + '</strong>';
 
+		// Create menu items
 		_.each(menu, function(link, text){
 			var itemClass = className + '-link';
 			if (link === path) itemClass += ' current';
@@ -122,7 +125,7 @@ hexo.extend.helper.register('url_for_lang', function(path){
 
 // Link for page edit
 hexo.extend.helper.register('raw_link', function(path){
-	return 'https://github.com/moleculerjs/site/edit/master/source/' + path;
+	return this.config.github_edit_link + path;
 });
 
 // Anchor for heading tags
