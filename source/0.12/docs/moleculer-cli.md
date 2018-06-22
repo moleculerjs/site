@@ -16,19 +16,11 @@ $ npm i -g moleculer-cli
 With this command, you can scaffold a new Moleculer project.
 
 ``` bash
-$ moleculer init module my-module
+$ moleculer init project my-project
 ```
-The above command downloads the template from [moleculerjs/moleculer-template-module](https://github.com/moleculerjs/moleculer-template-module), prompts some information and generates a new module to the `./my-module` folder.
+The above command downloads the template from [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), prompts some information and generates a new module to the `./my-project` folder.
 
 #### [Official templates](https://github.com/topics/moleculer-template)
-
-* [**module**](https://github.com/moleculerjs/moleculer-template-module) - Generate a new Moleculer module project (e.g.: `moleculer-xyz`). *Use it if you want to create a module for Moleculer framework*
-	* empty service skeleton
-	* examples skeleton
-	* readme skeleton
-	* tests & coverage with [Jest](http://facebook.github.io/jest/)
-	* lint with [ESLint](http://eslint.org/)
-
 
 * [**project**](https://github.com/moleculerjs/moleculer-template-project) - Generate a common Moleculer-based project. *Use it if you want to start a new project which is based on Moleculer framework*
 	* sample service (`greeter`)
@@ -44,6 +36,14 @@ The above command downloads the template from [moleculerjs/moleculer-template-mo
 	* tests & coverage with [Jest](http://facebook.github.io/jest/)
 	* lint with [ESLint](http://eslint.org/)
 	* Minimal Docker file
+
+
+* [**module**](https://github.com/moleculerjs/moleculer-template-module) - Generate a new Moleculer module project (e.g.: `moleculer-xyz`). *Use it if you want to create a module for Moleculer framework*
+	* empty service skeleton
+	* examples skeleton
+	* readme skeleton
+	* tests & coverage with [Jest](http://facebook.github.io/jest/)
+	* lint with [ESLint](http://eslint.org/)
 
 #### Custom templates
 
@@ -69,6 +69,7 @@ $ moleculer start
 
 **Options**
 ```
+  --config, -c   Load configuration from a file           [string] [default: ""]
   --ns           Namespace                                [string] [default: ""]
   --id           NodeID                                 [string] [default: null]
   --metrics, -m  Enable metrics                       [boolean] [default: false]
@@ -94,10 +95,14 @@ $ moleculer connect mqtt://localhost
 
 # Connect to AMQP
 $ moleculer connect amqp://localhost:5672
+
+# Load all options from config file
+$ moleculer connect --config ./moleculer.config.js
 ```
 
 **Options**
 ```
+  --config, -c   Load configuration from a file           [string] [default: ""]
   --ns           Namespace                                [string] [default: ""]
   --id           NodeID                                 [string] [default: null]
   --metrics, -m  Enable metrics                       [boolean] [default: false]
