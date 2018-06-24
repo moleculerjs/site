@@ -1,3 +1,4 @@
+layout: support
 title: Support Moleculer development
 ---
 [![Patreon](/images/patreon.svg)][patreon] [![PayPal](/images/paypal_donate.svg)][paypal]

@@ -1,6 +1,7 @@
 menu:
   docs: Documentation
-  api: API
+  modules: Modules
+  support: Support
   search: Search
 
 index:
@@ -40,6 +41,7 @@ sidebar:
     runner: Moleculer Runner
 
     modules: Modules
+    tools: Tools
     moleculer_web: API Gateway
     moleculer_repl: REPL console
     moleculer_cli: CLI Tool
@@ -52,9 +54,20 @@ sidebar:
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing
-  api:
-    components: Components
+
+    api: API
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context
     api_protocol: Protocol
+
+modules:
+  gateway: Gateways
+  general: General
+  databases: Databases & stores
+  tasks: Tasks, queues & jobs
+  metrics: Metrics & Tracing
+  validators: Validators
+  tools: Tools
+  others: Others
+

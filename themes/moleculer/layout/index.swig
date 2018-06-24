@@ -22,28 +22,28 @@
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-bolt"></i></div>
             <h3 class="intro-feature-title">Blazing fast</h3>
-            <p class="intro-feature-desc">High-performance microservices framework. Check our <a href="/0.12/docs/benchmark.html">benchmark results</a>!</p>
+            <p class="intro-feature-desc">High-performance microservices framework. Check the <a href="/0.12/docs/benchmark.html">benchmark results</a>!</p>
           </div>
         </li>
         <li class="intro-feature-wrap">
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-diamond"></i></div>
             <h3 class="intro-feature-title">Extensible</h3>
-            <p class="intro-feature-desc">All built-in modules (caching, serializer, transporter) are pluggable. You can use your custom solutions.</p>
+            <p class="intro-feature-desc">All built-in modules (caching, serializer, transporter) are pluggable. Create your custom solutions.</p>
           </div>
         </li>
         <li class="intro-feature-wrap">
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-code"></i></div>
             <h3 class="intro-feature-title">Open source</h3>
-            <p class="intro-feature-desc">Moleculer is 100% open source and free of charge. All source code is available under the MIT License on GitHub.</p>
+            <p class="intro-feature-desc">Moleculer is a 100% open source and free of charge project. All source code is available under the MIT License on GitHub.</p>
           </div>
         </li>
         <li class="intro-feature-wrap">
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-heartbeat"></i></div>
             <h3 class="intro-feature-title">Fault tolerance</h3>
-            <p class="intro-feature-desc">Moleculer is a fault tolerance framework. It has built-in load balancer & circuit breaker.</p>
+            <p class="intro-feature-desc">Moleculer is a fault tolerant framework. It has built-in load balancer, circuit breaker, retries, timeout and bulkhead features.</p>
           </div>
         </li>
       </ul>

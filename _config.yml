@@ -69,11 +69,13 @@ alias:
   docs/service-registry.html: 0.12/docs/service-registry.html
   docs/service.html: 0.12/docs/service.html
   docs/statistics.html: 0.12/docs/statistics.html
-  docs/support.html: 0.12/docs/support.html
+  docs/support.html: support.html
   docs/transporters.html: 0.12/docs/transporters.html
   docs/usage.html: 0.12/docs/usage.html
   docs/validation.html: 0.12/docs/validation.html
-  
+
+  0.12/docs/support.html: support.html
+
   api/context.html: 0.12/api/context.html
   api/index.html: 0.12/api/index.html
   api/protocol.html: 0.12/api/protocol.html
