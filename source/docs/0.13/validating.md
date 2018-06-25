@@ -1,4 +1,4 @@
-title: Validation
+title: Validating
 ---
 Moleculer has a built-in validator module. It uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
 

@@ -9,6 +9,7 @@ docs:
     services: services.html
     lifecycle: lifecycle.html
     events: events.html
+    middlewares: middlewares.html
     caching: caching.html
     networking: networking.html
     registry:  registry.html

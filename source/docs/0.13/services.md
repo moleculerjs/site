@@ -1,4 +1,4 @@
-title: Service
+title: Services
 ---
 The Service represents a microservice in the Moleculer. You can define actions and subscribe to events. To create a service you need to define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 

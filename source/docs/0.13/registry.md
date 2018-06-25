@@ -1,4 +1,4 @@
-title: Service Registry
+title: Registry & Discovery
 ---
 ## Built-in Registry
 The Moleculer has a built-in service registry module. It stores all information about services, event listeners and nodes. When you call a service or emit an event, broker asks the registry to look up a node which executes the given service.

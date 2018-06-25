@@ -1,4 +1,4 @@
-title: Nodes
+title: Clustering
 ---
 Moleculer framework supports several software architectures.
 

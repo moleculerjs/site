@@ -1,4 +1,4 @@
-title: Cachers
+title: Caching
 ---
 Moleculer has a built-in caching solution. To enable it:
 1. Set the `cacher` [broker option](broker.html#Constructor-options).

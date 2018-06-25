@@ -32,6 +32,7 @@ sidebar:
     services: Services
     lifecycle: Lifecycles
     events: Events
+    middlewares: Middlewares
     caching: Caching
     networking: Networking
     registry: Discovery & Registry
