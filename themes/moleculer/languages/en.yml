@@ -24,20 +24,23 @@ sidebar:
     examples: Examples   
     support: Support 
 
+    introduction: Introduction
     core: Core
-    broker: Service Broker
+    features: Features
+    broker: Broker
     service: Service
-    context: Context
-    logger: Logger
+    services: Services
+    lifecycle: Lifecycles
+    events: Events
+    caching: Caching
+    networking: Networking
+    registry: Discovery & Registry
+    balancing: Load balancing
+    fault_tolerance: Fault tolerance
+    metrics: Metrics & Tracing
+    logging: Logging
+    validating: Validating
     errors: Errors
-    validation: Validation
-    circuit-breaker: Circuit Breaker
-    service-registry: Service Registry
-    cachers: Cachers
-    transporters: Transporters
-    serializers: Serializers
-    metrics: Metrics
-    statistics: Statistics
     runner: Moleculer Runner
 
     modules: Modules
@@ -46,8 +49,11 @@ sidebar:
     moleculer_repl: REPL console
     moleculer_cli: CLI Tool
     other_modules: Other modules
+    all_modules: All modules
 
     miscellaneous: Miscellaneous
+    clustering: Clustering
+    deploying: Deploying
     nodes: Nodes
     docker: Docker
     serverless: Serverless

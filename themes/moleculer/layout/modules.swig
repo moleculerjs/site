@@ -39,23 +39,20 @@
 					</tbody>
 				</table>
 			{% endfor %}
-			<!-- {{ page_anchor(page.content) }} -->
-			<blockquote>
-				<p>Do you have a custom module for Moleculer? <a href="https://github.com/moleculerjs/moleculer/issues" target="_blank" rel="noopener">Tell us!</a></p>
-			</blockquote>
+			{{ page_anchor(page.content) }}
 			</div>
 			<footer class="article-footer">
 			<time class="article-footer-updated" datetime="{{ date_xml(page.updated) }}" itemprop="dateModified">{{ __('page.last_updated', date(page.updated)) }}</time>
 			</footer>
 		</div>
 		</div>
-		<aside id="article-toc" role="navigation">
-		<div id="article-toc-inner">
-			<strong class="sidebar-title">{{ __('page.contents') }}</strong>
-			{{ toc(page.content, {list_number: false, max_depth: 3}) }}
-			<a href="#" id="article-toc-top">{{ __('page.back_to_top') }}</a>
-		</div>
-		</aside>
+		<!--aside id="article-toc" role="navigation">
+			<div id="article-toc-inner">
+				<strong class="sidebar-title">{{ __('page.contents') }}</strong>
+				{{ toc(page.content, {list_number: false, max_depth: 3}) }}
+				<a href="#" id="article-toc-top">{{ __('page.back_to_top') }}</a>
+			</div>
+		</aside -->
 	</div>
 	</article>
 	{{ partial('partial/sidebar') }}

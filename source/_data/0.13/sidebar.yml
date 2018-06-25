@@ -1,35 +1,32 @@
 docs:
-  getting_started:
+  introduction:
     overview: index.html
     usage: usage.html
     examples: examples.html
 
-  core:
+  features:
     broker: broker.html
-    service: service.html
-    transporters: transporters.html
-    context: context.html
-    logger: logger.html
-    errors: errors.html
-    validation: validation.html
-    circuit-breaker: circuit-breaker.html
-    service-registry: service-registry.html
-    cachers: cachers.html
-    serializers: serializers.html
+    services: services.html
+    lifecycle: lifecycle.html
+    events: events.html
+    caching: caching.html
+    networking: networking.html
+    registry:  registry.html
+    balancing: balancing.html
+    fault_tolerance: fault-tolerance.html
     metrics: metrics.html
-    statistics: statistics.html
+    logging: logging.html
+    validating: validating.html
+    errors: errors.html
     runner: runner.html
     moleculer_web: moleculer-web.html
-
-  tools:
     moleculer_repl: moleculer-repl.html
     moleculer_cli: moleculer-cli.html
-    other_modules: /modules.html
+    all_modules: /modules.html
 
   miscellaneous:
-    nodes: nodes.html
-    docker: docker.html
-    serverless: serverless.html
+    clustering: clustering.html
+    deploying: deploying.html
     benchmark: benchmark.html
     faq: faq.html
     contributing: contributing.html
