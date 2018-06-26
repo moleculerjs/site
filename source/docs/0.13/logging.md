@@ -1,17 +1,16 @@
 title: Logging
 ---
-In Moleculer project every main module has a custom logger instance. They inherit it from the broker logger instance which you can set in the [broker options](broker.html#Constructor-options).
-
-It supports also external loggers like [Pino](http://getpino.io/), [Bunyan](https://github.com/trentm/node-bunyan), [Winston](https://github.com/winstonjs/winston), ...etc.
+In Moleculer framework all core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](broker.html#Broker-options).
 
 ## Built-in logger
-The Moleculer has a built-in console logger. You can enable it with `logger: console` or `logger: true` options.
+The Moleculer has a built-in console logger. It is the default logger.
 
 **Built-in console logger:**
 ```js
 let { ServiceBroker } = require("moleculer");
 let broker = new ServiceBroker({
-    logger: console,
+    nodeID: "node-100",
+    // logger: console,
     logLevel: "info"
 });
 
@@ -24,13 +23,16 @@ broker.createService({
     }
 });
 
-broker.call("posts.get").then(() => broker.logger.info("Log message via Broker logger"));
+broker.start()
+    .then(() => broker.call("posts.get"))
+    .then(() => broker.logger.info("Log message via Broker logger"));
 ```
+
 **Console messages:**
 ```
-[2017-08-18T12:37:25.714Z] INFO  dev-pc/POSTS: Log message via Service logger
-[2017-08-18T12:37:25.718Z] INFO  dev-pc/BROKER: Log message via Broker logger
-[2017-08-18T12:37:25.720Z] INFO  dev-pc/BROKER: Broker stopped.
+[2018-06-26T11:38:06.728Z] INFO  node-100/POSTS: Log message via Service logger
+[2018-06-26T11:38:06.728Z] INFO  node-100/BROKER: Log message via Broker logger
+[2018-06-26T11:38:06.730Z] INFO  node-100/BROKER: ServiceBroker is stopped. Good bye.
 ```
 
 ### Custom log levels
@@ -45,8 +47,37 @@ let broker = new ServiceBroker({
 
 > Available log levels: `fatal`, `error`, `warn`, `info`, `debug`, `trace`
 
-### Custom log formats
-You can set a custom log formatter function for the built-in logger.
+#### Fine-tuned log levels
+The log level can be set for every Moleculer module. Wildcard usage is allowed.
+```js
+const broker = new ServiceBroker({
+    logger: console,
+    logLevel: {
+        "MY.**": false,         // Disable log
+        "TRANS": "warn",        // Only 'warn ' and 'error' log entries
+        "*.GREETER": "debug",   // All log entries
+        "**": "info",          // All other modules use this level
+    }
+});
+```
+
+>This settings are evaluated from top to bottom, so the `**` level need to be the last item.
+
+>Internal modules: `BROKER`, `TRANS`, `TX` as transporter, `CACHER`, `REGISTRY`.
+
+>For services, the name comes from the service name. E.g. POSTS. If version is defined it is used as prefix. E.g. V2.POSTS
+
+### Log formats
+There are some built-in log formatter.
+
+| Name | Output |
+|----------|-----------|
+| `default` | `[2018-06-26T13:36:05.761Z] INFO  node-100/BROKER: Message` |
+| `simple`  | `INFO  - Message` |
+| `short`   | `[13:36:30.968Z] INFO  BROKER: Message` |
+
+#### Custom log formatter
+You can set a custom log formatter function for the built-in console logger.
 
 ```js
 const broker = new ServiceBroker({ 
@@ -72,7 +103,7 @@ You can set a custom formatter function to print object & arrays. The default fu
 [2017-08-18T12:37:25.720Z] INFO  dev-pc/BROKER: { name: 'node', lts: 'Carbon', sourceUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0.tar.gz', headersUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0-headers.tar.gz' }
 ```
 
-**Switch to multi-line printing & increment depth
+**Switch to multi-line printing & increment depth**
 ```js
 const util = require("util");
 
@@ -113,15 +144,16 @@ const broker = new ServiceBroker({
 ### **[Winston](https://github.com/winstonjs/winston)**
 ```js
 const broker = new ServiceBroker({ 
-    logger: bindings => new winston.Logger({
-        transports: [
-            new (winston.transports.Console)({
-                timestamp: true,
-                colorize: true,
-                prettyPrint: true
-            })
-        ]
-    })
+    logger: bindings => extend(winston.createLogger({
+			format: winston.format.combine(
+				winston.format.label({ label: bindings }),
+				winston.format.timestamp(),
+				winston.format.json(),
+			),
+			transports: [
+				new winston.transports.Console()
+			]
+		}))
 });
 ```
 

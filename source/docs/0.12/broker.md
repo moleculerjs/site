@@ -557,7 +557,7 @@ Example health info:
 
 
 ### Statistics
-It returns the request statistics if the `statistics` is enabled in [broker options](broker.html#Constructor-options).
+It returns the request statistics if the `statistics` is enabled in [broker options](broker.html#Broker-options).
 ```js
 broker.call("$node.stats").then(res => console.log(res));
 ```

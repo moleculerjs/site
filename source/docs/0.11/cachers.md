@@ -1,7 +1,7 @@
 title: Cachers
 ---
 Moleculer has a built-in caching solution. To enable it:
-1. Set the `cacher` [broker option](broker.html#Constructor-options).
+1. Set the `cacher` [broker option](broker.html#Broker-options).
 2. Set the `cache: true` in [action definition](service.html#Actions).
 
 ```js
