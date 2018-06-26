@@ -47,3 +47,8 @@ return (handler, action) => {
 };
 ```
 > The `handler` always returns a `Promise`. It means that you can access to responses and manipulate them.
+
+
+<div align="center">
+![Broker lifecycle diagram](assets/middlewares.svg)
+</div>
