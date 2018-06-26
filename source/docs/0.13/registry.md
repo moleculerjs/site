@@ -1,11 +1,11 @@
 title: Registry & Discovery
 ---
 ## Built-in Registry
-The Moleculer has a built-in service registry module. It stores all information about services, event listeners and nodes. When you call a service or emit an event, broker asks the registry to look up a node which executes the given service.
+The Moleculer has a built-in service registry module. It stores all information about services, event listeners and nodes. When you call a service or emit an event, broker asks the registry to look up a node which executes the request.
 
->You can access the stored data via [internal service](broker#Internal-services).
+>You can access the registry data via [internal service](broker#Internal-services).
 
-If a service has multiple running instances, Registry uses strategies to select a node from all available nodes. There are some built-in strategies, or you can create your custom strategies too.
+If a service has multiple running instances, Registry uses strategies to select a node from all available nodes. 
 
 ## Built-in strategies
 
@@ -19,7 +19,7 @@ let broker = new ServiceBroker({
 });
 ```
 
-## RoundRobin strategy
+### RoundRobin strategy
 This strategy selects a node based on RoundRobin algorithm.
 
 **Usage**
@@ -31,7 +31,7 @@ let broker = new ServiceBroker({
 });
 ```
 
-## Random strategy
+### Random strategy
 This strategy selects a node randomly.
 
 **Usage**
@@ -42,7 +42,7 @@ let broker = new ServiceBroker({
     }
 });
 ```
-## CPU usage-based strategy
+### CPU usage-based strategy
 This strategy selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
 
 **Usage**
@@ -74,7 +74,7 @@ let broker = new ServiceBroker({
 });
 ```
 
-## Latency-based strategy
+### Latency-based strategy
 This strategy selects a node which has the lowest latency, measured by periodic `PING`. Notice that the strategy only ping one of nodes from a single host. Due to the node list can be very long, it gets samples and selects the host with the lowest latency from only samples instead of the whole node list.
 
 **Usage**
@@ -106,6 +106,32 @@ let broker = new ServiceBroker({
             collectCount: 10,
             pingInterval: 15
         }
+    }
+});
+```
+
+### Custom strategy
+You can also create your custom strategy. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
+
+#### Create custom strategy
+```js
+const BaseStrategy = require("moleculer").strategies.Base;
+
+class Mystrategy extends BaseStrategy {
+    select(list) { 
+        return list[0];
+     }
+}
+```
+
+#### Use custom strategy
+```js
+const { ServiceBroker } = require("moleculer");
+const MyStrategy = require("./my-strategy");
+
+const broker = new ServiceBroker({
+    registry: {
+        strategy: Mystrategy
     }
 });
 ```

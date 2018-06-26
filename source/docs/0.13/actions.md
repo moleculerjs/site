@@ -133,3 +133,146 @@ broker.createService({
     }
 });
 ```
+
+## Action hooks
+You can define action hooks to wrap certain actions which comes from mixins.
+There are `before`, `after` and `error` hooks. You can assign it to a specified action or all actions (`*`) in service.
+The hook can be a `Function` or a `String`. In the latter case, it must be a local service method name, what you would like to call.
+
+**Before hooks**
+
+```js
+const DbService = require("moleculer-db");
+
+module.exports = {
+    name: "posts",
+    mixins: [DbService]
+    hooks: {
+        before: {
+            // Define a global hook for all actions
+            // The hook will call the `resolveLoggedUser` method.
+            "*": "resolveLoggedUser",
+
+            // Define multiple hooks
+            remove: [
+                function isAuthenticated(ctx) {
+                    if (!ctx.user)
+                        throw new Error("Forbidden");
+                },
+                function isOwner(ctx) {
+                    if (!this.checkOwner(ctx.params.id, ctx.user.id))
+                        throw new Error("Only owner can remove it.");
+                }
+            ]
+        }
+    },
+
+    methods: {
+        async resolveLoggedUser(ctx) {
+            if (ctx.meta.user)
+                ctx.user = await ctx.call("users.get", { id: ctx.meta.user.id });
+        }
+    }
+}
+```
+
+**After & Error hooks**
+
+```js
+const DbService = require("moleculer-db");
+
+module.exports = {
+    name: "users",
+    mixins: [DbService]
+    hooks: {
+        after: {
+            // Define a global hook for all actions to remove sensitive data
+            "*": function(ctx, res) {
+                // Remove password
+                delete res.password;
+
+                // Please note, must return result (either the original or a new)
+                return res;
+            },
+            get: [
+                // Add a new virtual field to the entity
+                async function (ctx, res) {
+                    res.friends = await ctx.call("friends.count", { query: { follower: res._id }});
+
+                    return res;
+                },
+                // Populate the `referrer` field
+                async function (ctx, res) {
+                    if (res.referrer)
+                        res.referrer = await ctx.call("users.get", { id: res._id });
+
+                    return res;
+                }
+            ]
+        },
+        error: {
+            // Global error handler
+            "*": function(ctx, err) {
+                this.logger.error(`Error occurred when '${ctx.action.name}' action was called`, err);
+
+                // Throw further the error
+                throw err;
+            }
+        }
+    }
+};
+```
+
+The recommended use case is that you create mixins which fill up the service with methods and in `hooks` you just sets method names what you want to be called.
+
+**Mixin**
+```js
+module.exports = {
+    methods: {
+        checkIsAuthenticated(ctx) {
+            if (!ctx.meta.user)
+                throw new Error("Unauthenticated");
+        },
+        checkUserRole(ctx) {
+            if (ctx.action.role && ctx.meta.user.role != ctx.action.role)
+                throw new Error("Forbidden");
+        },
+        checkOwner(ctx) {
+            // Check the owner of entity
+        }
+    }
+}
+```
+
+**Use mixin methods in hooks**
+```js
+const MyAuthMixin = require("./my.mixin");
+
+module.exports = {
+    name: "posts",
+    mixins: [MyAuthMixin]
+    hooks: {
+        before: {
+            "*": ["checkIsAuthenticated"],
+            create: ["checkUserRole"],
+            update: ["checkUserRole", "checkOwner"],
+            remove: ["checkUserRole", "checkOwner"]
+        }
+    },
+
+    actions: {
+        find: {
+            // No required role
+            handler(ctx) {}
+        },
+        create: {
+            role: "admin",
+            handler(ctx) {}
+        },
+        update: {
+            role: "user",
+            handler(ctx) {}
+        }
+    }
+};
+```

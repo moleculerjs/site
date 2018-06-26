@@ -1,10 +1,18 @@
 title: Networking
 ---
+To communicate other nodes (ServiceBrokers), you need to configure a transporter. The most transporters connect to a central message broker server which is liable for message transferring among nodes. These message brokers mainly support publish/subscribe messaging pattern.
+
+**TODO: diagram**
+
+## Transporters
 Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If a service runs on multiple instances on different nodes, the requests will be load-balanced among live nodes.
 
-## Built-in transporters
+The whole communication logic is outside of transporter class. It means that you can easily switch between transporters without changing any lines of our code.
 
-### TCP transporter ![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
+There are several built-in transporters in Moleculer framework.
+
+### TCP transporter
+![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
 This is a no-dependency, zero-configuration TCP transporter. It uses [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) to disseminate node statuses, service list and heartbeats. It contains an integrated UDP discovery feature to detect new and disconnected nodes on the network.
 If the UDP is prohibited on your network, you can use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
 
@@ -118,7 +126,8 @@ const broker = new ServiceBroker({
 Please note, you don't need to list all remote nodes. It's enough at least one node which is online. For example, you can create a "serviceless" gossiper node, which does nothing, just shares other remote nodes addresses by gossip messages. So all nodes need to know only the gossiper node address to be able to communicate with all other nodes.
 {% endnote %}
 
-### NATS Transporter ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
+### NATS Transporter 
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [NATS](http://nats.io/).
 > NATS Server is a simple, high performance open source messaging system for cloud-native applications, IoT messaging, and microservices architectures.
 
@@ -176,7 +185,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Redis Transporter ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
+### Redis Transporter 
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [Redis](http://redis.io/).
 
 ```js
@@ -215,7 +225,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-### MQTT Transporter ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
+### MQTT Transporter 
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [MQTT](http://mqtt.org/) protocol *(e.g.: [Mosquitto](https://mosquitto.org/))*.
 
 ```js
@@ -254,7 +265,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-### AMQP Transporter ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
+### AMQP Transporter 
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [AMQP](https://www.amqp.org/) protocol *(e.g.: [RabbitMQ](https://www.rabbitmq.com/))*.
 
 ```js
@@ -296,7 +308,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Kafka Transporter ![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
+### Kafka Transporter
+![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
 Built-in transporter for [Kafka](https://kafka.apache.org/). It is a very simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 >Please note, it is an **experimental** transporter. **Do not use it in production yet!**
@@ -347,7 +360,8 @@ const broker = new ServiceBroker({
 
 });
 ```
-### NATS Streaming (STAN) Transporter ![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
+### NATS Streaming (STAN) Transporter
+![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
 Built-in transporter for [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/). It is a very simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 >Please note, it is an **experimental** transporter. **Do not use it in production yet!**
@@ -392,19 +406,31 @@ const broker = new ServiceBroker({
 ### Custom transporter
 You can also create your custom transporter module. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `publish` methods.
 
+#### Create custom transporter
+```js
+const BaseTransporter = require("moleculer").Transporters.Base;
+
+class MyTransporter extends BaseTransporter {
+    connect() { /*...*/ }
+    disconnect() { /*...*/ }
+    subscribe() { /*...*/ }
+    publish() { /*...*/ }
+}
+```
+
 #### Use custom transporter
 
 ```js
 const { ServiceBroker } = require("moleculer");
-const MyAwesomeTransporter = require("./my-transporter");
+const MyTransporter = require("./my-transporter");
 
 const broker = new ServiceBroker({
-    transporter: new MyAwesomeTransporter()
+    transporter: new MyTransporter()
 });
 ```
 
 ## Disabled balancer
-Some transporter server has built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, use the `disableBalancer` broker option.
+Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
 
 **Example**
 ```js
@@ -415,5 +441,100 @@ const broker = new ServiceBroker({
 ```
 
 {% note info Please note %}
-If you disable the built-in Moleculer balancer, all requests & events will be transferred via transporter (including local requests). E.g. you have a local math service and you call `math.add` locally, the request is transferred via transporter.
+If you disable the built-in Moleculer balancer, all requests & events will be transferred via transporter (including local requests). E.g. you have a local math service and you call `math.add` locally, the request will be sent via transporter.
 {% endnote %}
+
+## Serialization
+Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
+
+**Example**
+```js
+const { ServiceBroker } = require("moleculer");
+
+const broker = new ServiceBroker({
+    nodeID: "server-1",
+    transporter: "NATS",
+    serializer: "ProtoBuf"
+});
+```
+
+### JSON serializer
+This is the built-in default serializer. It serializes the packets to JSON string and deserializes the received data to packet.
+
+```js
+const broker = new ServiceBroker({
+    // serializer: "JSON" // don't need to set, because it is the default
+});
+```
+
+### Avro serializer
+Built-in [Avro](https://github.com/mtth/avsc) serializer.
+
+```js
+const broker = new ServiceBroker({
+    serializer: "Avro"
+});
+```
+{% note info Dependencies %}
+To use this serializer install the `avsc` module with `npm install avsc --save` command.
+{% endnote %}
+
+### MsgPack serializer
+Built-in [MsgPack](https://github.com/mcollina/msgpack5) serializer.
+
+```js
+const broker = new ServiceBroker({
+    serializer: "MsgPack"
+});
+```
+{% note info Dependencies %}
+To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
+{% endnote %}
+
+### ProtoBuf serializer
+Built-in [Protocol Buffer](https://developers.google.com/protocol-buffers/) serializer.
+
+```js
+const broker = new ServiceBroker({
+    serializer: "ProtoBuf"
+});
+```
+{% note info Dependencies %}
+To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
+{% endnote %}
+
+### Thrift serializer
+Built-in [Thrift](http://thrift.apache.org/) serializer.
+
+```js
+const broker = new ServiceBroker({
+    serializer: "Thrift"
+});
+```
+{% note info Dependencies %}
+To use this serializer install the `thrift` module with `npm install thrift --save` command.
+{% endnote %}
+
+### Custom serializer
+You can also create your custom serializer module. We recommend to copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
+
+#### Create custom serializer
+```js
+const BaseSerializer = require("moleculer").Serializers.Base;
+
+class MySerializer extends BaseSerializer {
+    serialize(obj, type) { /*...*/ }
+    deserialize(buf, type) { /*...*/ }
+}
+```
+
+#### Use custom serializer
+
+```js
+const { ServiceBroker } = require("moleculer");
+const MySerializer = require("./my-serializer");
+
+const broker = new ServiceBroker({
+    serializer: new MySerializer()
+});
+```

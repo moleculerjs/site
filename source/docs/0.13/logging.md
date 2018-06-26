@@ -143,6 +143,7 @@ const broker = new ServiceBroker({
 
 ### **[Winston](https://github.com/winstonjs/winston)**
 ```js
+const winston = require("winston");
 const broker = new ServiceBroker({ 
     logger: bindings => extend(winston.createLogger({
 			format: winston.format.combine(
@@ -156,27 +157,9 @@ const broker = new ServiceBroker({
 		}))
 });
 ```
-
-### **[Winston context](https://github.com/citrix-research/node-winston-context)**
-```js
-const WinstonContext = require("winston-context");
-const winston = require("winston");
-const broker = createBroker({ 
-    logger: bindings => new WinstonContext(winston, "", bindings)
-});
-```
-
 > Some external loggers have not `trace` & `fatal` log methods (e.g.: winston). In this case you have to extend your logger.
 
-```js
-const WinstonContext = require("winston-context");
-const winston = require("winston");
-const { extend } = require("moleculer").Logger;
-const broker = createBroker({ 
-    logger: bindings => extend(new WinstonContext(winston, "", bindings))
-});
-```
-
+### Bindings
 The `bindings` object contains the following properties:
 - `ns` - namespace
 - `nodeID` - nodeID
