@@ -1,23 +1,24 @@
 docs:
   introduction:
-    overview: index.html
+    what_is_it: index.html
     usage: usage.html
     examples: examples.html
 
-  features:
+  overview:
     broker: broker.html
     services: services.html
-    lifecycle: lifecycle.html
+    actions: actions.html
     events: events.html
+    lifecycle: lifecycle.html
+    logging: logging.html
     middlewares: middlewares.html
-    caching: caching.html
     networking: networking.html
     registry:  registry.html
     balancing: balancing.html
     fault_tolerance: fault-tolerance.html
-    metrics: metrics.html
-    logging: logging.html
+    caching: caching.html
     validating: validating.html
+    metrics: metrics.html
     errors: errors.html
     runner: runner.html
     moleculer_web: moleculer-web.html

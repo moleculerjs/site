@@ -18,6 +18,7 @@ page:
 sidebar:
   docs:
     getting_started: Getting Started
+    what_is_it: What is Moleculer?
     overview: Overview
     install: Install
     usage: Usage
@@ -31,6 +32,7 @@ sidebar:
     service: Service
     services: Services
     lifecycle: Lifecycles
+    actions: Actions
     events: Events
     middlewares: Middlewares
     caching: Caching

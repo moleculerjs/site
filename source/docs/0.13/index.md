@@ -8,7 +8,7 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 
 ## Features
 
-- Promise-based solution
+- Promise-based solution (async/await compatible)
 - request-reply concept
 - support streams
 - support event-driven architecture with balancing
@@ -27,10 +27,6 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 - parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
 - built-in health monitoring & metrics
 - official [API gateway module](https://github.com/moleculerjs/moleculer-web) and many other modules...
-
-{% note info Requirements %}
-Moleculer is written in ES2015. The minimum version of Node.js is **v6.x.x**.
-{% endnote %}
 
 ## How fast?
 

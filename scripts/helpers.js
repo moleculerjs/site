@@ -82,7 +82,7 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 			var itemClass = className + '-link';
 
 			var fullLink = link[0] == "/" ? link : ["", p[0], p[1], link].join("/");
-			if (fullLink === self.path) itemClass += ' current';
+			if (fullLink === "/" + self.path) itemClass += ' current';
 
 			result += '<a href="' + fullLink + '" class="' + itemClass + '">' + self.__(prefix + text) + '</a>';
 		})

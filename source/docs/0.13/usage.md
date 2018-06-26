@@ -3,14 +3,10 @@ title: Usage
 
 # Install Moleculer
 
-You can install Moleculer with npm
+You can install Moleculer with npm or yarn
 
-``` bash
-$ npm install moleculer --save
-```
-or with yarn
-```
-$ yarn add moleculer
+```bash
+$ npm i moleculer --save
 ```
 
 # Create your first microservice
@@ -46,7 +42,7 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
 
 1. Install `moleculer-cli` globally
     ```bash
-    $ npm install moleculer-cli -g
+    $ npm i moleculer-cli -g
     ```
 2. Create a new project (named `first-demo`)
     ```bash

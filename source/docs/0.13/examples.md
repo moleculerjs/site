@@ -1,6 +1,35 @@
 title: Examples
 ---
 
+## Project examples
+
+### Realworld backend server
+This is a [RealWorld.io](https://realworld.io/) example backend server with Moleculer microservices framework.
+
+**Key features**
+- 7 microservices
+- NeDB or MongoDB database without Mongoose
+- User login & signup
+- User authentication with JWT
+- Memory caching
+- Docker files
+
+**Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
+
+### Blog
+This is a simple blog example.
+
+**Key features**
+- Docker files
+- ExpressJS www server with Pug
+- MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
+- NATS transporter
+- Redis cacher
+- [Traefik](https://traefik.io/) reverse proxy (in micro arch)
+- static frontend
+
+**Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog#readme**
+
 ## Short examples
 The main Moleculer repository contains [some examples](https://github.com/moleculerjs/moleculer/blob/master/examples/).
 
@@ -63,31 +92,3 @@ $ node examples/loadtest/clients
 
 [Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
 
-## Project examples
-
-### Realworld backend server
-This is a [RealWorld.io](https://realworld.io/) example backend server with Moleculer microservices framework.
-
-**Key features**
-- 7 microservices
-- NeDB or MongoDB database without Mongoose
-- User login & signup
-- User authentication with JWT
-- Memory caching
-- Docker files
-
-**Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
-
-### Blog
-This is a simple blog example.
-
-**Key features**
-- Docker files
-- ExpressJS www server with Pug
-- MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
-- NATS transporter
-- Redis cacher
-- [Traefik](https://traefik.io/) reverse proxy (in micro arch)
-- static client side
-
-**Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog#readme**
