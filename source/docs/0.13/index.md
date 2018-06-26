@@ -1,9 +1,5 @@
-title: Documentation
+title: What is Moleculer?
 ---
-Welcome to the Moleculer documentation. Navigate through the documentation to learn more. If you encounter any problems when using Moleculer, open an issue on [GitHub](https://github.com/moleculerjs/moleculer/issues) or write to us on [Gitter](https://gitter.im/moleculerjs/moleculer).
-
-## What is Moleculer?
-
 Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
 
 ## Features

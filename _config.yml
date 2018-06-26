@@ -45,39 +45,40 @@ twitter: MoleculerJS
 github: moleculerjs/moleculer
 
 alias:
-  docs/benchmark.html: 0.12/docs/benchmark.html
-  docs/broker.html: 0.12/docs/broker.html
-  docs/cachers.html: 0.12/docs/cachers.html
-  docs/circuit-breaker.html: 0.12/docs/circuit-breaker.html
-  docs/context.html: 0.12/docs/context.html
-  docs/contributing.html: 0.12/docs/contributing.html
-  docs/docker.html: 0.12/docs/docker.html
-  docs/errors.html: 0.12/docs/errors.html
-  docs/examples.html: 0.12/docs/examples.html
-  docs/faq.html: 0.12/docs/faq.html
-  docs/index.html: 0.12/docs/index.html
-  docs/logger.html: 0.12/docs/logger.html
-  docs/metrics.html: 0.12/docs/metrics.html
-  docs/modules.html: 0.12/docs/modules.html
-  docs/moleculer-cli.html: 0.12/docs/moleculer-cli.html
-  docs/moleculer-repl.html: 0.12/docs/moleculer-repl.html
-  docs/moleculer-web.html: 0.12/docs/moleculer-web.html
-  docs/nodes.html: 0.12/docs/nodes.html
-  docs/runner.html: 0.12/docs/runner.html
-  docs/serializers.html: 0.12/docs/serializers.html
-  docs/serverless.html: 0.12/docs/serverless.html
-  docs/service-registry.html: 0.12/docs/service-registry.html
-  docs/service.html: 0.12/docs/service.html
-  docs/statistics.html: 0.12/docs/statistics.html
+  docs/benchmark.html: docs/0.12/benchmark.html
+  docs/broker.html: docs/0.12/broker.html
+  docs/cachers.html: docs/0.12/cachers.html
+  docs/circuit-breaker.html: docs/0.12/circuit-breaker.html
+  docs/context.html: docs/0.12/context.html
+  docs/contributing.html: docs/0.12/contributing.html
+  docs/docker.html: docs/0.12/docker.html
+  docs/errors.html: docs/0.12/errors.html
+  docs/examples.html: docs/0.12/examples.html
+  docs/faq.html: docs/0.12/faq.html
+  docs/logger.html: docs/0.12/logger.html
+  docs/metrics.html: docs/0.12/metrics.html
+  docs/modules.html: docs/0.12/modules.html
+  docs/moleculer-cli.html: docs/0.12/moleculer-cli.html
+  docs/moleculer-repl.html: docs/0.12/moleculer-repl.html
+  docs/moleculer-web.html: docs/0.12/moleculer-web.html
+  docs/nodes.html: docs/0.12/nodes.html
+  docs/runner.html: docs/0.12/runner.html
+  docs/serializers.html: docs/0.12/serializers.html
+  docs/serverless.html: docs/0.12/serverless.html
+  docs/service-registry.html: docs/0.12/service-registry.html
+  docs/service.html: docs/0.12/service.html
+  docs/statistics.html: docs/0.12/statistics.html
   docs/support.html: support.html
-  docs/transporters.html: 0.12/docs/transporters.html
-  docs/usage.html: 0.12/docs/usage.html
-  docs/validation.html: 0.12/docs/validation.html
+  docs/transporters.html: docs/0.12/transporters.html
+  docs/usage.html: docs/0.12/usage.html
+  docs/validation.html: docs/0.12/validation.html
 
   0.12/docs/support.html: support.html
 
-  api/context.html: 0.12/api/context.html
-  api/index.html: 0.12/api/index.html
-  api/protocol.html: 0.12/api/protocol.html
-  api/service-broker.html: 0.12/api/service-broker.html
-  api/service.html: 0.12/api/service.html
+  api/context.html: api/0.12/context.html
+  api/protocol.html: api/0.12/protocol.html
+  api/service-broker.html: api/0.12/service-broker.html
+  api/service.html: api/0.12/service.html
+
+  docs/index.html: docs/0.13/index.html
+  api/index.html: docs/0.13/index.html
