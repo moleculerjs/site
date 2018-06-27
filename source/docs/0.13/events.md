@@ -1,10 +1,15 @@
 title: Events
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html). You can send events to local and remote services. The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
+Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html). You can send events to local and remote services. 
+
+# Balanced events
+The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
 
 > **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances from `users` service and 2 instances from `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
 
-**TODO: diagram**
+<div align="center">
+![Balanced events diagram](assets/balanced-events.gif)
+</div>
 
 The group name comes from the service name, but you can overwrite it in event definition in services.
 
@@ -38,8 +43,14 @@ With third parameter, you can specify which groups/services receive the event:
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-## Broadcast event
-With `broker.broadcast` method you can send events to all local and remote services. _It is not balanced, all service instances receive it._
+# Broadcast event
+The broadcast event is sent to all available local & remote services. It is not balanced, all service instances receive it.
+
+<div align="center">
+![Broadcast events diagram](assets/broadcast-events.gif)
+</div>
+
+With `broker.broadcast` method you can send broadcast events.
 ```js
 broker.broadcast("config.changed", config);
 ```

@@ -9,7 +9,6 @@ If you have multiple instances of services, the broker will load balancing the r
 ![Action balancing diagram](assets/action-balancing.gif)
 </div>
 
-
 ## Call services
 To call a service, use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
 
