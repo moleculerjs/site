@@ -5,6 +5,11 @@ The actions are the callable/public methods of the service. The action calling r
 
 If you have multiple instances of services, the broker will load balancing the request among instances. [Read more about balancing](balancing.html).
 
+<div align="center">
+![Action balancing diagram](assets/action-balancing.gif)
+</div>
+
+
 ## Call services
 To call a service, use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
 
@@ -32,32 +37,42 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 
 
 ### Usages
+**Call without params**
 ```js
-// Call without params
 broker.call("user.list")
     .then(res => console.log("User list: ", res));
+```
 
-// Call with params
+**Call with params**
+```js
 broker.call("user.get", { id: 3 })
     .then(res => console.log("User: ", res));
+```
 
-// Call with async/await
+**Call with async/await**
+```js
 const res = await broker.call("user.get", { id: 3 });
 console.log("User: ", res);
+```
 
-// Call with options
+**Call with options**
+```js
 broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
     retries: 3,
     fallbackResponse: defaultRecommendation
 }).then(res => console.log("Result: ", res));
+```
 
-// Call with error handling
+**Call with error handling**
+```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
     .catch(err => console.error("Unable to update Post!", err));    
+```
 
-// Direct call: get health info from the "node-21" node
+**Direct call: get health info from the "node-21" node**
+```js
 broker.call("$node.health", {}, { nodeID: "node-21" })
     .then(res => console.log("Result: ", res));    
 ```

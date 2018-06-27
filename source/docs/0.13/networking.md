@@ -2,7 +2,9 @@ title: Networking
 ---
 To communicate other nodes (ServiceBrokers), you need to configure a transporter. The most transporters connect to a central message broker server which is liable for message transferring among nodes. These message brokers mainly support publish/subscribe messaging pattern.
 
-**TODO: diagram**
+<div align="center">
+![Networking diagram](assets/networking.svg)
+</div>
 
 ## Transporters
 Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If a service runs on multiple instances on different nodes, the requests will be load-balanced among live nodes.

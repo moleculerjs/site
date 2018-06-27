@@ -8,7 +8,7 @@ This section describes what happens when the broker is starting & stopping.
 The broker starts transporter connecting but it doesn't publish the local service list to remote nodes. When it's done, it starts all services (calls service `started` handler). Once all services start successfully, broker publishes the local service list to remote nodes. Hence remote nodes send requests only after all local service are started properly.
 
 <div align="center">
-![Broker lifecycle diagram](assets/lifecycle/broker-start.svg)
+![Broker starting lifecycle diagram](assets/lifecycle/broker-start.svg)
 </div>
 
 {% note warn Avoid deadlocks %}
@@ -19,7 +19,7 @@ You can make dead-locks when two services wait for each other. E.g.: `users` ser
 When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they can route the requests to other instances instead of services under stopping. Next, the broker starts stopping all local services. After that, the transporter disconnects.
 
 <div align="center">
-![Broker lifecycle diagram](assets/lifecycle/broker-start.svg)
+![Broker stopping lifecycle diagram](assets/lifecycle/broker-start.svg)
 </div>
 
 ## Service lifecycle

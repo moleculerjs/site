@@ -299,5 +299,5 @@ const { Bulkhead, Retry } = require("moleculer").Middlewares;
 
 
 <div align="center">
-![Broker lifecycle diagram](assets/middlewares.svg)
+![Middlewares diagram](assets/middlewares.svg)
 </div>
