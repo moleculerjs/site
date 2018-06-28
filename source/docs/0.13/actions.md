@@ -374,22 +374,43 @@ module.exports = {
 ```
 
 ## Contexts
-TODO
+When you call an action, the broker creates a `Context` instance which contains all request information and passes it to the action handler as a single argument.
 
-## Context tracking
-TODO
+**Available properties & methods of `Context`:**
 
+| Name | Type |  Description |
+| ------- | ----- | ------- |
+| `ctx.id` | `String` | Context ID |
+| `ctx.broker` | `ServiceBroker` | Instance of the broker. |
+| `ctx.action` | `Object` | Instance of action definition. |
+| `ctx.nodeID` | `String` | The caller or target Node ID. |
+| `ctx.requestID` | `String` | Request ID. If you make nested-calls, it will be the same ID. |
+| `ctx.parentID` | `String` | Parent context ID (in nested-calls). |
+| `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
+| `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
+| `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
+| `ctx.call()` | `Function` | You can make nested-calls. Same arguments like in `broker.call` |
+| `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |
+| `ctx.broadcast` | `Function` | Broadcast an event, same as `broker.broadcast` |
+
+### Context tracking
+If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. 
+You can also define a timeout value with `shutdownTimeout` broker option. The default values is `5` seconds.
+
+**Enable context tracking & change the timeout value.
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-1",
     tracking: {
         enabled: true,
-        shutdownTimeout: 5000
+        shutdownTimeout: 10 * 1000
     }
 });
 ```
 
-**Disable tracking in calling option at calling**
+> This timeout can be overwrite in service settings with $gracefulStopTimeout property.
+
+**Disable tracking in calling option**
 
 ```js
 broker.call("posts.find", {}, { tracking: false });
