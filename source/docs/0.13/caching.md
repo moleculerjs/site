@@ -1,5 +1,7 @@
 title: Caching
 ---
+**TODO: check & update key generation**
+
 Moleculer has a built-in caching solution. To enable it:
 1. Set the `cacher` [broker option](broker.html#Broker-options).
 2. Set the `cache: true` in [action definition](service.html#Actions).
@@ -207,7 +209,7 @@ When you create a new model in your service, sometimes you have to clear the old
 }
 ```
 
-## Clear cache among multiple service instances
+### Clear cache among multiple service instances
 The best practice to clear cache entries among multiple service instances is that use broadcast events.
 
 **Example**
@@ -240,7 +242,7 @@ module.exports = {
 }
 ```
 
-## Clear cache among different services
+### Clear cache among different services
 Common way is that your service depends on other ones. E.g. `posts` service stores information from `users` service in cached entries.
 
 **Example cache entry in `posts` service**
@@ -304,56 +306,88 @@ With this solution if the `users` service emits a `cache.clean.users` event, the
 ### Memory cacher
 `MemoryCacher` is a built-in memory cache module. It stores entries in the heap memory.
 
+**Enable memory cacher**
 ```js
 const broker = new ServiceBroker({
     cacher: "Memory"
 });
-
-// Or
+```
+Or
+```js
 const broker = new ServiceBroker({
     cacher: true
 });
+```
 
-// With options
+**Enable with options**
+```js
 const broker = new ServiceBroker({
     cacher: {
         type: "Memory",
         options: {
             ttl: 30 // Set Time-to-live to 30sec. Disabled: 0 or null
+            clone: true // Deep-clone the returned value
         }
     }
 });
+```
 
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `ttl` | `Number` | `null` | Time-to-live in seconds. |
+| `clone` | `Boolean` or `Function` | `false` | Clone the cached data when return it. |
+| `keygen` | `Function` | `null` | Custom cache key generator function. |
+| `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
+
+#### Cloning
+The cacher uses the lodash `_.cloneDeep()` method for cloning. If you know better cloning method, you can change it.
+
+**Custom clone function with JSON parse & stringify**
+```js
+const broker = new ServiceBroker({ 
+    cacher: {
+        type: "Memory",
+        options: {
+            clone: data => JSON.parse(JSON.stringify(data))
+        }
+    }
+});
 ```
 
 ### Redis cacher
 `RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. It uses [`ioredis`](https://github.com/luin/ioredis) library.
 
+**Enable Redis cacher**
 ```js
 const broker = new ServiceBroker({
     cacher: "Redis"
 });
+```
 
-// With connection string
+**With connection string**
+```js
 const broker = new ServiceBroker({
     cacher: "redis://redis-server:6379"
 });
+```
 
-// With options
+**With options**
+```js
 const broker = new ServiceBroker({
     cacher: {
         type: "Redis",
         options: {
             // Prefix for keys
             prefix: "MOL",            
-            // set Time-to-live to 30sec. Disabled: 0 or null
+            // set Time-to-live to 30sec.
             ttl: 30, 
-            // Turns Redis client monitoring on/off. If enabled, every client
-            // operation will be logged (on debug level)            
+            // Turns Redis client monitoring on.
             monitor: false 
-            // Redis settings, pass it to the `new Redis()` constructor
+            // Redis settings
             redis: {
-                host: "redis",
+                host: "redis-server",
                 port: 6379,
                 password: "1234",
                 db: 0
@@ -363,6 +397,18 @@ const broker = new ServiceBroker({
 });
 ```
 
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `prefix` | `String` | `null` | Prefix for generated keys. |
+| `ttl` | `Number` | `null` | Time-to-live in seconds. Disabled: 0 or null |
+| `monitor` | `Boolean` | `false` | Enable Redis client [monitoring feature](https://github.com/luin/ioredis#monitor). If enabled, every client operation will be logged (on debug level) |
+| `redis` | `Object` | `null` | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis). |
+| `keygen` | `Function` | `null` | Custom cache key generator function. |
+| `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
+
+
 {% note info Dependencies %}
 To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
 {% endnote %}
@@ -370,13 +416,25 @@ To be able to use this cacher, install the `ioredis` module with the `npm instal
 ### Custom cacher
 You can also create your custom cache module. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
 
+#### Create custom cacher
+```js
+const BaseCacher = require("moleculer").Cachers.Base;
+
+class MyCacher extends BaseCacher {
+    get(key) { /*...*/ }
+    set(key, data, ttl) { /*...*/ }
+    del(key) { /*...*/ }
+    clean(match = "**") { /*...*/ }
+}
+```
+
 #### Use custom cacher
 
 ```js
 const { ServiceBroker } = require("moleculer");
-const MyAwesomeCacher = require("./my-cacher");
+const MyCacher = require("./my-cacher");
 
 const broker = new ServiceBroker({
-    cacher: new MyAwesomeCacher()
+    cacher: new MyCacher()
 });
 ```

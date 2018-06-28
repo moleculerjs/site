@@ -26,9 +26,9 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
-| `timeout` | `Number` | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, broker uses the `requestTimeout` value of broker options. |
-| `retries` | `Number` | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, broker uses the `retryPolicy.retries` value of broker options. |
-| `fallbackResponse` | `Any` | `null` | Returns it, if the request has failed. [More info](#Request-timeout-amp-fallback-response) |
+| `timeout` | `Number` | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, broker uses the `requestTimeout` value of broker options. [Read more](fault-tolerance.html#Timeout) |
+| `retries` | `Number` | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, broker uses the `retryPolicy.retries` value of broker options. [Read more](fault-tolerance.html#Retry) |
+| `fallbackResponse` | `Any` | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback) |
 | `nodeID` | `String` | `null` | Target nodeID. If set, it will make a direct call to the given node. |
 | `meta` | `Object` | `null` | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls as well. |
 | `parentCtx` | `Context` | `null` | Parent `Context` instance.  |
@@ -76,33 +76,6 @@ broker.call("$node.health", {}, { nodeID: "node-21" })
     .then(res => console.log("Result: ", res));    
 ```
 
-### Request timeout & fallback response
-If the `timeout` option is defined and the request is timed out, broker will throw a `RequestTimeoutError` error.
-But if you set `fallbackResponse` in options, broker won't throw error. Instead, it will return this given value. The `fallbackResponse` can be an `Object`, `Array`...etc.
-
-The `fallbackResponse` can also be a `Function`, which returns a `Promise`. In this case, the broker passes the current `Context` & `Error` objects to this function as arguments.
-
-```js
-broker.call("user.recommendation", { limit: 5 }, {
-    timeout: 500,
-    fallbackResponse(ctx, err) {
-        // Return a common response from cache
-        return broker.cacher.get("user.commonRecommendation");
-    }
-}).then(res => console.log("Result: ", res));
-```
-
-### Distributed timeouts
-Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of nested calls, the timeout value is decremented with the elapsed time. If the timeout value is less or equal than 0, the next nested calls are skipped (`RequestSkippedError`) because the first call has already been rejected a `RequestTimeoutError` error.
-
-### Retries
-If the `retries` is defined in calling options and the request returns a `MoleculerRetryableError` error, broker will recall the action with the same parameters as long as `retries` is greater than `0`.
-```js
-broker.call("user.list", { limit: 5 }, { timeout: 500, retries: 3 })
-    .then(res => console.log("Result: ", res));
-```
-[Read more about Retries fault tolerance feature.](fault-tolerance.html)
-
 ### Metadata
 With `meta` you can send meta informations to services. Access it via `ctx.meta` in action handlers. Please note at nested calls the meta is merged.
 ```js
@@ -147,6 +120,115 @@ broker.createService({
     }
 });
 ```
+
+## Streaming
+Moleculer supports Node.js streams as request `params` and as response. You can use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
+
+### Examples
+
+**Send a file to a service as a stream**
+```js
+const stream = fs.createReadStream(fileName);
+
+broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
+```
+
+Please note, the `params` should be a stream, you cannot add any more variables to the `params`. Use the `meta` property to transfer additional data.
+
+**Receiving a stream in a service**
+```js
+module.exports = {
+    name: "storage",
+    actions: {
+        save(ctx) {
+            const s = fs.createWriteStream(`/tmp/${ctx.meta.filename}`);
+            ctx.params.pipe(s);
+        }
+    }
+};
+```
+
+**Return a stream as response in a service**
+```js
+module.exports = {
+    name: "storage",
+    actions: {
+        get: {
+            params: {
+                filename: "string"
+            },
+            handler(ctx) {
+                return fs.createReadStream(`/tmp/${ctx.params.filename}`);
+            }
+        }
+    }
+};
+```
+
+**Process received stream on the caller side**
+```js
+const filename = "avatar-123.jpg";
+broker.call("storage.get", { filename })
+    .then(stream => {
+        const s = fs.createWriteStream(`./${filename}`);
+        stream.pipe(s);
+        s.on("close", () => broker.logger.info("File has been received"));
+    })
+```
+
+**AES encode/decode example service**
+```js
+const crypto = require("crypto");
+const password = "moleculer";
+
+module.exports = {
+    name: "aes",
+    actions: {
+        encrypt(ctx) {
+            const encrypt = crypto.createCipher("aes-256-ctr", password);
+            return ctx.params.pipe(encrypt);
+        },
+
+        decrypt(ctx) {
+            const decrypt = crypto.createDecipher("aes-256-ctr", password);
+            return ctx.params.pipe(decrypt);
+        }
+    }
+};
+```
+
+## Action visibility
+The action has a `visibility` property to control the visibility & callability of service actions.
+
+**Available values:**
+- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
+- `public`: public action, can be called locally & remotely but not published via API GW
+- `protected`: can be called only locally (from local services)
+- `private`: can be called only internally (via `this.actions.xy()` inside service)
+
+**Change visibility**
+```js
+module.exports = {
+    name: "posts",
+    actions: {
+        // It's published by default
+        find(ctx) {},
+        clean: {
+            // Callable only via `this.actions.clean`
+            visibility: "private",
+            handler(ctx) {}
+        }
+    },
+    methods: {
+        cleanEntities() {
+            // Call the action directly
+            return this.actions.clean();
+        }
+    }
+}
+```
+
+> The default values is `null` (means `published`) due to backward compatibility.
 
 ## Action hooks
 You can define action hooks to wrap certain actions which comes from mixins.
@@ -289,4 +371,26 @@ module.exports = {
         }
     }
 };
+```
+
+## Contexts
+TODO
+
+## Context tracking
+TODO
+
+```js
+const broker = new ServiceBroker({
+    nodeID: "node-1",
+    tracking: {
+        enabled: true,
+        shutdownTimeout: 5000
+    }
+});
+```
+
+**Disable tracking in calling option at calling**
+
+```js
+broker.call("posts.find", {}, { tracking: false });
 ```

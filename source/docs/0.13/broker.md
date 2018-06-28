@@ -167,3 +167,7 @@ List of all available broker options:
 {% note info Moleculer runner %}
 You don't need to create manually ServiceBroker in your project. You can use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
 {% endnote %}
+
+
+## Ping
+TODO
