@@ -408,7 +408,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-> This timeout can be overwrite in service settings with $gracefulStopTimeout property.
+> The shutdown timeout can be overwritten by `$shutdownTimeout` property in service settings.
 
 **Disable tracking in calling option**
 

@@ -171,3 +171,9 @@ You don't need to create manually ServiceBroker in your project. You can use the
 
 ## Ping
 TODO
+
+## Methods
+TODO
+
+## Properties
+TODO

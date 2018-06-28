@@ -40,72 +40,72 @@ const MyCustomMiddleware = {
 
     // Wrap local event handlers
     localEvent(next, event) {
-		return function(payload, sender, eventName) {
-			// Change payload or something
-			return next(payload, sender, eventName);
-		};
+        return function(payload, sender, eventName) {
+            // Change payload or something
+            return next(payload, sender, eventName);
+        };
     },
 
     // Wrap broker.createService method
     createService(next) {
-		return function(schema, schemaMods) {
-			console.log("The 'createService' is called.");
-			return next(schema, schemaMods);
-		};
+        return function(schema, schemaMods) {
+            console.log("The 'createService' is called.");
+            return next(schema, schemaMods);
+        };
     },
 
     // Wrap broker.destroyService method
     destroyService(next) {
-		return function(service) {
-			console.log("The 'destroyService' is called.");
-			return next(service);
-		};
+        return function(service) {
+            console.log("The 'destroyService' is called.");
+            return next(service);
+        };
     },
 
     // Wrap broker.call method
     call(next) {
-		return function(actionName, params, opts) {
-			console.log("The 'call' is called.", eventName);
-			return next(actionName, params, opts).then(res => {
-				console.log("Response:", res);
-				return res;
-			});
-		};
+        return function(actionName, params, opts) {
+            console.log("The 'call' is called.", eventName);
+            return next(actionName, params, opts).then(res => {
+                console.log("Response:", res);
+                return res;
+            });
+        };
     },
 
     // Wrap broker.mcall method
     mcall(next) {
-		return function() {
-			console.log("The 'call' is called.", eventName);
-			return next(...arguments).then(res => {
-				console.log("Response:", res);
-				return res;
-			});
-		};
+        return function() {
+            console.log("The 'call' is called.", eventName);
+            return next(...arguments).then(res => {
+                console.log("Response:", res);
+                return res;
+            });
+        };
     },
 
     // Wrap broker.emit method
     emit(next) {
-		return function(eventName, payload, groups) {
-			console.log("The 'emit' is called.", eventName);
-			return next(eventName, payload, groups);
-		};
+        return function(eventName, payload, groups) {
+            console.log("The 'emit' is called.", eventName);
+            return next(eventName, payload, groups);
+        };
     },
 
     // Wrap broker.broadcast method
     broadcast(next) {
-		return function(eventName, payload, groups) {
-			console.log("The 'broadcast' is called.", eventName);
-			return next(eventName, payload, groups);
-		};
+        return function(eventName, payload, groups) {
+            console.log("The 'broadcast' is called.", eventName);
+            return next(eventName, payload, groups);
+        };
     },
 
     // Wrap broker.broadcastLocal method
     broadcastLocal(next) {
-		return function(eventName, payload, groups) {
-			console.log("The 'broadcastLocal' is called.", eventName);
-			return next(eventName, payload, groups);
-		};
+        return function(eventName, payload, groups) {
+            console.log("The 'broadcastLocal' is called.", eventName);
+            return next(eventName, payload, groups);
+        };
     },
 
     // After a new local service created (sync)
@@ -278,19 +278,17 @@ Many integrated features have been exposed to internal middlewares. These middle
 
 | Class name | Type | Description |
 | ---------- | ---- | ----------- |
-| `ActionHook` | Optional | Action hooks handler |
-| - | Optional | Parameter validation |
-| `Bulkhead` | Optional | Bulkhead feature |
-| - | Optional | Cacher middleware |
-| `ContextTracker` | Optional | Context tracker feature |
-| `CircuitBreaker` | Optional | Circuit Breaker feature |
-| `Timeout` | Always | Timeout feature |
-| `Retry` | Always | Retry feature|
-| `Fallback` | Always | Fallback feature |
-| `ErrorHandler` | Always | Error handling |
-| `Metrics` | Optional | Metrics feature |
-
-**TODO: links to features**
+| `ActionHook` | Optional | Action hooks handler. [Read more](actions.html#Action-hooks) |
+| Validator | Optional | Parameter validation. [Read more](validating.html) |
+| `Bulkhead` | Optional | Bulkhead feature. [Read more](fault-tolerance.html#Bulkhead) |
+| Cacher | Optional | Cacher middleware. [Read more](caching.html) |
+| `ContextTracker` | Optional | Context tracker feature. [Read more](actions.html#Context-tracking) |
+| `CircuitBreaker` | Optional | Circuit Breaker feature. [Read more](fault-tolerance.html#Circuit-Breaker) |
+| `Timeout` | Always | Timeout feature. [Read more](fault-tolerance.html#Timeout) |
+| `Retry` | Always | Retry feature. [Read more](fault-tolerance.html#Retry) |
+| `Fallback` | Always | Fallback feature. [Read more](fault-tolerance.html#Fallback) |
+| `ErrorHandler` | Always | Error handling. |
+| `Metrics` | Optional | Metrics feature. [Read more](metrics.html) |
 
 **Access to internal middlewares**
 ```js

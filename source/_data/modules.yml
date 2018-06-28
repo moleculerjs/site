@@ -15,6 +15,10 @@ gateway:
     link: https://github.com/felipegcampos/hapi-moleculer
     desc: Hapi plugin for the Moleculer Microservices Framework.
     author: felipegcampos
+  moleculer-io:
+    link: https://github.com/tiaod/moleculer-io
+    desc: API GateWay service for Moleculer using Socket.io.
+    author: tiaod
 
 general:
   moleculer-fake:
