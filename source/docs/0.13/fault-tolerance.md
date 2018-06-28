@@ -201,7 +201,7 @@ const result = await broker.call("users.recommendation", { userID: 5 }, {
 ```
 
 ### Fallback in action definition
-You can define fallback response in receiver-side, in action definition.
+You can also define fallback response in receiver-side, in action definition.
 > Please note, this fallback response will be used only if the error is created inside action handler. If the request is called from a remote node and the request is timed out on the caller-side, this fallback response won't be used. In this case, use the `fallbackResponse` in calling option.
 
 **Fallback as a function**
