@@ -1,0 +1,65 @@
+group1:
+    -
+        name: Concierge Auctions
+        link: https://www.conciergeauctions.com/
+        logo: https://s3.amazonaws.com/media.conciergeauctions.com/logo.jpg
+    -
+        name: ingenious
+        link: http://www.ingsw.com/
+        logo: https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png
+    -
+        name: THB
+        link: https://www.thb.co.in/
+        logo: https://thehealthybillion.com/images/thb/landingpage/logobig.png
+group2:
+    -
+        name: Zaoblako
+        link: https://zaoblako.ru/
+        logo: https://zaoblako.ru/images/zaoblako_l.png
+    -
+        name: Altcoin mining pools
+        link: http://altcoinminingpools.com
+        logo: http://altcoinminingpools.com/assets/img/altcoinminingpools.png
+    -
+        name: zebbra
+        link: https://zebbra.ch/
+        logo: https://user-images.githubusercontent.com/902525/37777279-6ce23b44-2de7-11e8-9667-b16a7a6c5be9.png
+group3:
+    -
+        name: Uiza
+        link: https://uiza.io
+        logo: https://user-images.githubusercontent.com/37431811/37808054-23436c08-2e7b-11e8-9bed-49f82ca45379.png
+    -
+        name: Distopik
+        link: https://www.mixanalog.com/?utm_medium=partner&utm_source=moleculer&utm_campaign=moleculer_footer_logo&utm_content=logo
+        logo: https://files.gitter.im/baadc0de/ugWV/m_logo_cutout_with_text.svg
+    -
+        name: AMRetail
+        link: http://amretail.ru
+        logo: https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png
+group4:
+    -
+        name: DAZTA
+        link: https://dazta.com
+        logo: https://dazta.com/dazta.svg
+    -
+        name: SmartTones Media
+        link: http://www.smarttonesmedia.com/
+        logo: https://user-images.githubusercontent.com/12611390/39895710-379afa6c-5479-11e8-8c93-08ff306315a0.png
+    -
+        name: Helpster
+        link: https://www.helpster.asia/id/business-en/
+        logo: https://camo.githubusercontent.com/e560e01a2ddf8dcd7ea38cf5d08f984a6cf5bdcd/68747470733a2f2f7777772e68656c70737465722e617369612f69642f77702d636f6e74656e742f75706c6f6164732f323031362f30392f68656c70737465725f776562736974655f6c6f676f312e706e67
+group5:
+    -
+        name: Textalk
+        link: https://www.textalk.com/
+        logo: https://user-images.githubusercontent.com/862631/40703729-69dda23c-63e6-11e8-88b6-fb7bfeed0727.png
+    -
+        name:
+        link:
+        logo:
+    -
+        name:
+        link:
+        logo:
