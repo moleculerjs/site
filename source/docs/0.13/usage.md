@@ -15,7 +15,7 @@ This example shows how you can create a small `math` service to add two numbers.
 ```js
 const { ServiceBroker } = require("moleculer");
 
-let broker = new ServiceBroker({ logger: console });
+const broker = new ServiceBroker();
 
 broker.createService({
     name: "math",

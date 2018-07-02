@@ -424,7 +424,7 @@ module.exports = {
 **Load it with broker:**
 ```js
 // Create broker
-let broker = new ServiceBroker();
+const broker = new ServiceBroker();
 
 // Load service
 broker.loadService("./math.service");
@@ -500,8 +500,7 @@ Moleculer has a built-in hot-reloading function. During development, it can be v
 **Enable in broker options**
 
 ```js
-let broker = new ServiceBroker({
-    logger: console,
+const broker = new ServiceBroker({
     hotReload: true
 });
 
@@ -660,13 +659,10 @@ Please note, you need to use Typescript or Babel to compile decorators.
 
 **Example service**
 ```js
-const moleculer = require('moleculer');
+const { ServiceBroker } = require('moleculer');
 const { Service, Action, Event, Method } = require('moleculer-decorators');
 const web = require('moleculer-web');
-const broker = new moleculer.ServiceBroker({
-    logger: console,
-    logLevel: "debug",
-});
+const broker = new ServiceBroker();
 
 @Service({
     mixins: [web],

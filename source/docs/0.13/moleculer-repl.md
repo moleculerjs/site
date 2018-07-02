@@ -12,7 +12,7 @@ npm i moleculer-repl
 
 **Switch broker to REPL mode**
 ```js
-let broker = new ServiceBroker({ logger: console });
+const broker = new ServiceBroker();
 
 // Switch to REPL mode
 broker.repl();
@@ -242,7 +242,7 @@ mol $ load "./services"
 You can define your custom REPL commands in broker options to extend Moleculer REPL commands.
 
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     logger: true,
     replCommands: [
         {

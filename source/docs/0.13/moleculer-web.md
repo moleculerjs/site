@@ -30,10 +30,10 @@ This example uses API Gateway service with default settings.
 You can access all services (including internal `$node.`) via `http://localhost:3000/`
 
 ```js
-let { ServiceBroker } = require("moleculer");
-let ApiService = require("moleculer-web");
+const { ServiceBroker } = require("moleculer");
+const ApiService = require("moleculer-web");
 
-let broker = new ServiceBroker({ logger: console });
+const broker = new ServiceBroker();
 
 // Load API Gateway
 broker.createService(ApiService);

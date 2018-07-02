@@ -7,10 +7,10 @@ The Moleculer has a built-in console logger. It is the default logger.
 
 **Built-in console logger:**
 ```js
-let { ServiceBroker } = require("moleculer");
-let broker = new ServiceBroker({
+const { ServiceBroker } = require("moleculer");
+const broker = new ServiceBroker({
     nodeID: "node-100",
-    // logger: console,
+    // logger: true,
     logLevel: "info"
 });
 
@@ -39,7 +39,7 @@ broker.start()
 You can change the log level with `logLevel` option in broker options. _You can use it with built-in console logger only._
 
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     logger: true, // the `true` is same as `console`
     logLevel: "warn" // only logs the 'warn' & 'error' entries to the console
 });
@@ -51,7 +51,6 @@ let broker = new ServiceBroker({
 The log level can be set for every Moleculer module. Wildcard usage is allowed.
 ```js
 const broker = new ServiceBroker({
-    logger: console,
     logLevel: {
         "MY.**": false,         // Disable log
         "TRANS": "warn",        // Only 'warn ' and 'error' log entries
@@ -81,7 +80,6 @@ You can set a custom log formatter function for the built-in console logger.
 
 ```js
 const broker = new ServiceBroker({ 
-    logger: console, 
     logFormatter(level, args, bindings) {
         return level.toUpperCase() + " " + bindings.nodeID + ": " + args.join(" ");
     }
@@ -107,8 +105,7 @@ You can set a custom formatter function to print object & arrays. The default fu
 ```js
 const util = require("util");
 
-const broker = new ServiceBroker({ 
-    logger: console, 
+const broker = new ServiceBroker({  
     logObjectPrinter: o => util.inspect(o, { depth: 4, breakLength: 100 })
 });
 broker.logger.warn(process.release);

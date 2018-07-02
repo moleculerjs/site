@@ -8,7 +8,7 @@ To configure strategy, set `strategy` broker options under `registry` property. 
 
 **Configure balancing strategy**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "Random"
     }
@@ -20,7 +20,7 @@ This strategy selects a node based on [round-robin](https://en.wikipedia.org/wik
 
 **Usage**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "RoundRobin"
     }
@@ -32,7 +32,7 @@ This strategy selects a node randomly.
 
 **Usage**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "Random"
     }
@@ -43,7 +43,7 @@ This strategy selects a node which has the lowest CPU usage. Due to the node lis
 
 **Usage**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "CpuUsage"
     }
@@ -59,7 +59,7 @@ let broker = new ServiceBroker({
 
 **Usage with custom options**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "CpuUsage",
         strategyOptions: {
@@ -75,7 +75,7 @@ This strategy selects a node which has the lowest latency, measured by periodic 
 
 **Usage**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "Latency"
     }
@@ -93,7 +93,7 @@ let broker = new ServiceBroker({
 
 **Usage with custom options**
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     registry: {
         strategy: "Latency",
         strategyOptions: {

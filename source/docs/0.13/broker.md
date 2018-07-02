@@ -18,7 +18,6 @@ const broker = new ServiceBroker();
 ```js
 const { ServiceBroker } = require("moleculer");
 const broker = new ServiceBroker({
-    logger: console,
     logLevel: "info"
 });
 ```
@@ -29,7 +28,6 @@ const { ServiceBroker } = require("moleculer");
 const broker = new ServiceBroker({
     nodeID: "node-1",
     transporter: "nats://localhost:4222",
-    logger: console,
     logLevel: "debug",
     requestTimeout: 5 * 1000,
     requestRetry: 3

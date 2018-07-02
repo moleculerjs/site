@@ -9,7 +9,6 @@ const { ServiceBroker } = require("moleculer");
 
 // Create broker
 const broker = new ServiceBroker({
-    logger: console,
     cacher: "Memory"
 });
 
@@ -51,7 +50,7 @@ broker.start()
 ```
 As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
 
-> [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example)
+> [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
 ## Cache keys
 The cacher generates key from service name, action name and the params of context.
@@ -130,7 +129,6 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 **Generate a limited-length key**
 ```js
 const broker = new ServiceBroker({
-    logger: console,
     cacher: {
         type: "Memory",
         options: {
