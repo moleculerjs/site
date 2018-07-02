@@ -1,7 +1,7 @@
-title: Balancing
+title: Load balancing
 ---
 
-Moleculer has several built-in balancing strategies. If services have multiple running instances, Registry uses strategies to select a node from all available nodes. There are some built-in strategies, or you can create your custom strategies too.
+Moleculer has several built-in load balancing strategies. If services have multiple running instances, Registry uses strategies to select a node from all available nodes. There are some built-in strategies, or you can create your custom strategies too.
 
 ## Built-in strategies
 To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or an `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
@@ -15,7 +15,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-## RoundRobin strategy
+### RoundRobin strategy
 This strategy selects a node based on [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS) algorithm.
 
 **Usage**
@@ -27,7 +27,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Random strategy
+### Random strategy
 This strategy selects a node randomly.
 
 **Usage**
@@ -38,7 +38,7 @@ const broker = new ServiceBroker({
     }
 });
 ```
-## CPU usage-based strategy
+### CPU usage-based strategy
 This strategy selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
 
 **Usage**
@@ -70,7 +70,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Latency-based strategy
+### Latency-based strategy
 This strategy selects a node which has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one of nodes from a single host. Due to the node list can be very long, it gets samples and selects the host with the lowest latency from only samples instead of the whole node list.
 
 **Usage**
@@ -102,6 +102,33 @@ const broker = new ServiceBroker({
             collectCount: 10,
             pingInterval: 15
         }
+    }
+});
+```
+
+## Custom strategy
+You can also create your custom strategy module. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
+
+### Create custom strategy
+```js
+const BaseStrategy = require("moleculer").Strategies.Base;
+
+class MyStrategy extends BaseStrategy {
+    select(list) { /*...*/ }
+}
+
+module.exports = MyStrategy;
+```
+
+### Use custom strategy
+
+```js
+const { ServiceBroker } = require("moleculer");
+const MyStrategy = require("./my-strategy");
+
+const broker = new ServiceBroker({
+    registry: {
+        strategy: new MyStrategy()
     }
 });
 ```
