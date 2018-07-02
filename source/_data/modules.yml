@@ -1,127 +1,155 @@
 gateway:
-  moleculer-web:
+  -
+    name: moleculer-web
     link: https://github.com/moleculerjs/moleculer-web#readme
     desc: Official API Gateway service.
     author: icebob
-  moleculer-graphql:
+  -
+    name: moleculer-graphql
     link: https://github.com/ConciergeAuctions/moleculer-graphql#readme
     desc: GraphQL Schema stitching over a microservice network for co-located type definitions.
     author: brad-decker
-  moleculer-sc:
+  -
+    name: moleculer-sc
     link: https://github.com/tiaod/moleculer-sc#readme
     desc: API Gateway service for Moleculer framework using SocketCluster.
     author: tiaod
-  hapi-moleculer:
+  -
+    name: hapi-moleculer
     link: https://github.com/felipegcampos/hapi-moleculer
     desc: Hapi plugin for the Moleculer Microservices Framework.
     author: felipegcampos
-  moleculer-io:
+  -
+    name: moleculer-io
     link: https://github.com/tiaod/moleculer-io
     desc: API GateWay service for Moleculer using Socket.io.
     author: tiaod
 
 general:
-  moleculer-fake:
+  -
+    name: moleculer-fake
     link: https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-fake#readme
     desc: Fake data generator by Fakerator.
     author: icebob
-  moleculer-mail:
+  -
+    name: moleculer-mail
     link: https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-mail#readme
     desc: Send emails from any services.
     author: icebob
-  moleculer-twilio:
+  -
+    name: moleculer-twilio
     link: https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-twilio#readme
     desc: Send SMS Message with Twilio.
     author: icebob
-  moleculer-slack:
+  -
+    name: moleculer-slack
     link: https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-slack#readme
     desc: Send Messages to Slack.
     author: ardee925
-  moleculer-flydrive:
+  -
+    name: moleculer-flydrive
     link: https://github.com/molobala/moleculer-flydrive#readme
     desc: Fluent storage manager service with Node Flydrive.
     author: molobala
 
 databases:
-  moleculer-db:
+  -
+    name: moleculer-db
     link: https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db#readme
     desc: Moleculer service to store entities in database.
     author: icebob
-  moleculer-db-adapter-mongo:
+  -
+    name: moleculer-db-adapter-mongo
     link: https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo#readme
     desc: MongoDB native adapter for Moleculer DB service.
     author: icebob
-  moleculer-db-adapter-mongoose:
+  -
+    name: moleculer-db-adapter-mongoose
     link: https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose#readme
     desc: Mongoose adapter for Moleculer DB service.
     author: icebob
-  moleculer-db-adapter-sequelize:
+  -
+    name: moleculer-db-adapter-sequelize
     link: https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-sequelize#readme
     desc: SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service.
     author: icebob
-  moleculer-adapter-feathers:
+  -
+    name: moleculer-adapter-feathers
     link: https://github.com/zygos/moleculer-adapter-feathers#readme
     desc: Moleculer service mixin wrapping Feathers.js services.
     author: zygos
 
 tasks:
-  moleculer-bee-queue:
+  -
+    name: moleculer-bee-queue
     link: https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-bee-queue#readme
     desc:	Task queue mixin for Bee-Queue.
     author: icebob
-  moleculer-bull:
+  -
+    name: moleculer-bull
     link: https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-bull#readme
     desc: Task queue service with Bull.
     author: icebob
-  moleculer-cron:
+  -
+    name: moleculer-cron
     link: https://github.com/davidroman0O/moleculer-cron#readme
     desc: Cron tasks.
     author: davidroman0O
 
 metrics:
-  moleculer-console-tracer:
+  -
+    name: moleculer-console-tracer
     link: https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-console-tracer#readme
     desc: Simple tracer service to print metric traces to the console.
     author: icebob
-  moleculer-jaeger:
+  -
+    name: moleculer-jaeger
     link: https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-jaeger#readme
     desc: Moleculer metrics module for Jaeger.
     author: icebob
-  moleculer-prometheus:
+  -
+    name: moleculer-prometheus
     link: https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-prometheus#readme
     desc: Moleculer metrics module for Prometheus.
     author: icebob
-  moleculer-zipkin:
+  -
+    name: moleculer-zipkin
     link: https://github.com/moleculerjs/moleculer-metrics/blob/master/packages/moleculer-zipkin#readme
     desc: Moleculer metrics module for Zipkin.
     author: icebob
-  moleculer-elastic-apm:
+  -
+    name: moleculer-elastic-apm
     link: https://github.com/intech/moleculer-elastic-apm
     desc: Metrics to Elastic APM Agent.
     author: intech
 
 validators:
-  moleculer-json-schema-validator:
+  -
+    name: moleculer-json-schema-validator
     link: https://github.com/zhaoyao91/moleculer-json-schema-validator#readme
     desc: JSON Schema Validator with ajv.
     author: zhaoyao91
 
 tools:
-  moleculer-repl:
+  -
+    name: moleculer-repl
     link: https://github.com/moleculerjs/moleculer-repl#readme
     desc: REPL module for Moleculer framework.
     author: icebob
-  moleculer-cli:
+  -
+    name: moleculer-cli
     link: https://github.com/moleculerjs/moleculer-cli#readme
     desc: Command line tool for Moleculer framework.
     author: icebob
-  moleculer-decorators:
+  -
+    name: moleculer-decorators
     link: https://github.com/ColonelBundy/moleculer-decorators#readme
     desc:	Decorators for Moleculer framework.
     author: ColonelBundy
 
 others:
-  imicros-flow:
+  -
+    name: imicros-flow
     link: https://github.com/al66/imicros-flow
     desc: Moleculer service for loose coupled event handling.
     author: al66

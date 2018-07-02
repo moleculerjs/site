@@ -8,8 +8,8 @@
 				<h1 class="article-title" itemprop="name">{{ page.title }}</h1>
 			</header>
 			<div class="article-content" itemprop="articleBody">
-			{% for category in Object.keys(site.data.modules) %}
-				<h3 class="article-heading">{{ __('modules.' + category) }}</h3>
+			{% for category in site.data.modules %}
+				<h3 class="article-heading">{{ __('modules.' + loop.key) }}</h3>
 				<table>
 					<thead>
 						<th>Name</th>
@@ -17,21 +17,21 @@
 						<th>Author</th>
 						<th>Version</th>
 					</thead>
-					<tbody>					
-						{% for name in Object.keys(site.data.modules[category]) %}
+					<tbody>
+						{% for module in category %}
 							<tr>
 								<td>
-									<a href="{{ site.data.modules[category][name].link }}" target="_blank">{{ name }}</a>
+									<a href="{{ module.link }}" target="_blank">{{ module.name }}</a>
 								</td>
-								<td>{{ site.data.modules[category][name].desc }}</td>
+								<td>{{ module.desc }}</td>
 								<td>
-									<a href="https://github.com/{{ site.data.modules[category][name].author }}" target="_blank" rel="noopener">
-										{{ site.data.modules[category][name].author }}
+									<a href="https://github.com/{{ module.author }}" target="_blank" rel="noopener">
+										{{ module.author }}
 									</a>
 								</td>
 								<td>
-									<a href="https://www.npmjs.com/package/{{name}}" target="_blank" rel="noopener">
-										<img src="https://img.shields.io/npm/v/{{name}}.svg?maxAge=3600" alt="npm" />
+									<a href="https://www.npmjs.com/package/{{module.name}}" target="_blank" rel="noopener">
+										<img src="https://img.shields.io/npm/v/{{module.name}}.svg?maxAge=3600" alt="npm" />
 									</a>
 								</td>
 							</tr>
