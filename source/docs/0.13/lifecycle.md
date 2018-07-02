@@ -19,7 +19,7 @@ You can make dead-locks when two services wait for each other. E.g.: `users` ser
 When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they can route the requests to other instances instead of services under stopping. Next, the broker starts stopping all local services. After that, the transporter disconnects.
 
 <div align="center">
-![Broker stopping lifecycle diagram](assets/lifecycle/broker-start.svg)
+![Broker stopping lifecycle diagram](assets/lifecycle/broker-stop.svg)
 </div>
 
 ## Service lifecycle
