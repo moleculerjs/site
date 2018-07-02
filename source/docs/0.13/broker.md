@@ -234,8 +234,37 @@ broker.ping().then(res => broker.logger.info(res));
 }
 ```
 
-## Methods
-TODO
-
 ## Properties
-TODO
+
+| Name | Type |  Description |
+| ------- | ----- | ------- |
+| `broker.nodeID` | `String` | Node ID. |
+| `broker.Promise` | `Promise` | Bluebird Promise class. |
+| `broker.namespace` | `String` | Namespace. |
+| `broker.logger` | `Logger` | Logger class of ServiceBroker. |
+| `broker.cacher` | `String` | Request ID. If you make nested-calls, it will be the same ID. |
+| `broker.serializer` | `String` | Parent context ID (in nested-calls). |
+| `broker.validator` | `Any` | Request params. *Second argument from `broker.call`.* |
+| `broker.options` | `Object` | Broker options. |
+
+## Methods
+
+| Name | Response |  Description |
+| ------- | ----- | ------- |
+| `broker.start()` | `Promise` | Start broker. |
+| `broker.stop()` | `Promise` | Stop broker. |
+| `broker.repl()` | - | Start REPL mode. |
+| `broker.getLogger(module, props)` | `Logger` | Get a child logger. |
+| `broker.fatal(message, err, needExit)` | - | Throw an error and exit the process. |
+| `broker.loadServices(folder, fileMask)` | `Number` | Load services from a folder. |
+| `broker.loadService(filePath)` | `Service` | Load a service from file. |
+| `broker.createService(schema, schemaMods)` | `Service` | Create a service from schema. |
+| `broker.destroyService(service)` | `Promise` | Destroy a loaded local service. |
+| `broker.getLocalService(name, version)` | `Service` | Get a local service instance by name & version. |
+| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise` | Wait for services. |
+| `broker.call(actionName, params, opts)` | `Promise` | Call a service. |
+| `broker.mcall(def)` | `Promise` | Multiple service calling. |
+| `broker.emit(eventName, payload, groups)` | - | Emit a balanced event. |
+| `broker.broadcast(eventName, payload, groups)` | - | Broadcast an event. |
+| `broker.broadcastLocal(eventName, payload, groups)` | - | Broadcast an event to local services. |
+| `broker.ping(nodeID, timeout)` | `Promise` | Ping remote nodes. |
