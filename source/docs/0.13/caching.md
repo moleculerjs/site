@@ -1,7 +1,7 @@
 title: Caching
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](broker.html#Broker-options) and set the `cache: true` in [action definition](service.html#Actions) what you want to cache.
+Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](broker.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
 
 **Cached action example**
 ```js
@@ -60,8 +60,9 @@ The syntax of key is:
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
 So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+
+**Example hashed cache key for "posts.find" action**
 ```
-// Example hashed cache key for "posts.find" action
 posts.find:limit|5|offset|20
 ```
 
