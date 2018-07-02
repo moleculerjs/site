@@ -170,7 +170,69 @@ You don't need to create manually ServiceBroker in your project. You can use the
 
 
 ## Ping
-TODO
+To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping informations (latency, time difference). You can define a timeout value.
+
+### Ping a node with 1 second timeout
+```js
+broker.ping("node-123", 1000).then(res => broker.logger.info(res));
+```
+
+**Output**
+```js
+{ 
+    nodeID: 'node-123', 
+    elapsedTime: 16, 
+    timeDiff: -3 
+}
+```
+> The `timeDiff` value is the difference of the system clock between these two nodes.
+
+### Ping multiple nodes
+```js
+broker.ping(["node-100", "node-102"]).then(res => broker.logger.info(res));
+```
+
+**Output**
+```js
+{ 
+    "node-100": { 
+        nodeID: 'node-100', 
+        elapsedTime: 10, 
+        timeDiff: -2 
+    },
+    "node-102": { 
+        nodeID: 'node-102', 
+        elapsedTime: 250, 
+        timeDiff: 850 
+    } 
+}
+```
+
+### Ping all available nodes
+```js
+broker.ping().then(res => broker.logger.info(res));
+```
+
+**Output**
+```js
+{ 
+    "node-100": { 
+        nodeID: 'node-100', 
+        elapsedTime: 10, 
+        timeDiff: -2 
+    } ,
+    "node-101": { 
+        nodeID: 'node-101', 
+        elapsedTime: 18, 
+        timeDiff: 32 
+    }, 
+    "node-102": { 
+        nodeID: 'node-102', 
+        elapsedTime: 250, 
+        timeDiff: 850 
+    } 
+}
+```
 
 ## Methods
 TODO
