@@ -1,6 +1,6 @@
 title: Moleculer Runner
 ---
-_Added in: v0.8.0_
+**TODO: update**
 
 There is a project runner helper script in the Moleculer project. With it you don't need to create a ServiceBroker instance with options, but a `moleculer.config.js` or `moleculer.config.json` file in the root of repo, fill it with your options, then call the `moleculer-runner` NPM script.
 Another solution is to put it into the environment variables instead of putting options to file.
@@ -66,8 +66,7 @@ module.exports = {
         enabled: true
     },
 
-    metrics: true,
-    statistics: true
+    metrics: true
 };
 ```
 
@@ -88,7 +87,6 @@ REQUESTTIMEOUT=5000
 CIRCUITBREAKER_ENABLED=true
 
 METRICS=true
-STATISTICS=true
 ```
 
 ## Services loading logic
@@ -139,3 +137,7 @@ $ moleculer-runner --env
 # Load the specified .my-env file
 $ moleculer-runner --envfile .my-env
 ```
+
+{% note info Dependencies %}
+To use this feature install the `dotenv` module with `npm install dotenv --save` command.
+{% endnote %}

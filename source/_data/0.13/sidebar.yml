@@ -21,6 +21,7 @@ docs:
     metrics: metrics.html
     errors: errors.html
     runner: runner.html
+  modules:
     moleculer_web: moleculer-web.html
     moleculer_repl: moleculer-repl.html
     moleculer_cli: moleculer-cli.html

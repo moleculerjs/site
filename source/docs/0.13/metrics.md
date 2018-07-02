@@ -1,5 +1,7 @@
 title: Metrics
 ---
+
+**TODO: update**
 Moleculer has a built-in metrics feature. You can enable it within the [broker options](broker.html#Broker-options) with `metrics: true` option.
 If it is enabled, the broker emits metrics events at every requests. You can subsribe to these events in your services and transfer them to your Tracer system (ZipKin, OpenTracing...etc).
 
@@ -175,37 +177,3 @@ The payload looks like the following:
     }
 }
 ```
-
-## Circuit-breaker events
-
-### `metrics.circuit-breaker.opened`
-The broker sends this event when the circuit breaker module changed its state to `open`.
-
-**Payload**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `nodeID` | `String` | Node ID |
-| `action` | `String` | Action name |
-| `failures` | `Number` | Count of failures |
-
-
-### `metrics.circuit-breaker.half-opened`
-The broker sends this event when the circuit breaker module changed its state to `half-open`.
-
-**Payload**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `nodeID` | `String` | Node ID |
-| `action` | `String` | Action name |
-
-### `metrics.circuit-breaker.closed`
-The broker sends this event when the circuit breaker module changed its state to `closed`.
-
-**Payload**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `nodeID` | `String` | Node ID |
-| `action` | `String` | Action name |
