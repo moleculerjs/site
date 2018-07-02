@@ -49,10 +49,11 @@ mol $ nodes
 
 **Options**
 ```
-    -d, --details      detailed list
-    -a, --all          list all (offline) nodes
-    --raw              print service registry to JSON
-    --save [filename]  save service registry to a JSON file
+    -a, --all             list all (offline) nodes
+    -d, --details         detailed list
+    -f, --filter <match>  filter nodes (e.g.: 'node-*')
+    --raw                 print service registry to JSON
+    --save [filename]     save service registry to a JSON file
 ```
 
 **Output**
@@ -68,10 +69,11 @@ mol $ services
 
 **Options**
 ```
-    -l, --local         only local services
-    -i, --skipinternal  skip internal services
-    -d, --details       print endpoints
-    -a, --all           list all (offline) services
+    -a, --all             list all (offline) services
+    -d, --details         print endpoints
+    -f, --filter <match>  filter services (e.g.: 'user*')
+    -i, --skipinternal    skip internal services
+    -l, --local           only local services
 ```
 
 **Output**
@@ -87,10 +89,11 @@ mol $ actions
 
 **Options**
 ```
-    -l, --local         only local actions
-    -i, --skipinternal  skip internal actions
-    -d, --details       print endpoints
-    -a, --all           list all (offline) actions
+    -a, --all             list all (offline) actions
+    -d, --details         print endpoints
+    -f, --filter <match>  filter actions (e.g.: 'users.*')
+    -i, --skipinternal    skip internal actions
+    -l, --local           only local actions
 ```
 
 **Output**
@@ -106,10 +109,11 @@ mol $ events
 
 **Options**
 ```
-    -l, --local         only local actions
-    -i, --skipinternal  skip internal actions
-    -d, --details       print endpoints
-    -a, --all           list all (offline) actions
+    -a, --all             list all (offline) event listeners
+    -d, --details         print endpoints
+    -f, --filter <match>  filter event listeners (e.g.: 'user.*')
+    -i, --skipinternal    skip internal event listeners
+    -l, --local           only local event listeners
 ```
 
 **Output**
@@ -126,7 +130,6 @@ mol $ info
 
 **Output**
 ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
-
 
 ### List environment variables
 ```bash

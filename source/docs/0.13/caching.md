@@ -1,24 +1,25 @@
 title: Caching
 ---
-**TODO: check & update key generation**
 
-Moleculer has a built-in caching solution. To enable it:
-1. Set the `cacher` [broker option](broker.html#Broker-options).
-2. Set the `cache: true` in [action definition](service.html#Actions).
+Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](broker.html#Broker-options) and set the `cache: true` in [action definition](service.html#Actions) what you want to cache.
 
+**Cached action example**
 ```js
-let { ServiceBroker } = require("moleculer");
+const { ServiceBroker } = require("moleculer");
 
-let broker = new ServiceBroker({
+// Create broker
+const broker = new ServiceBroker({
     logger: console,
     cacher: "Memory"
 });
 
+// Create a service
 broker.createService({
     name: "users",
     actions: {
         list: {
-            cache: true, // Enable caching to this action
+            // Enable caching to this action
+            cache: true, 
             handler(ctx) {
                 this.logger.info("Handler called!");
                 return [
@@ -48,21 +49,25 @@ broker.start()
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
+As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+
 > [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example)
 
 ## Cache keys
-The cacher creates keys by service name, action name, and the hash of params of context.
+The cacher generates key from service name, action name and the params of context.
 The syntax of key is:
 ```
-    <serviceName>.<actionName>:<parameters or hash of parameters>
+<serviceName>.<actionName>:<parameters or hash of parameters>
 ```
 So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
 ```
 // Example hashed cache key for "posts.find" action
-posts.find:0d6bcb785d1ae84c8c20203401460341b84eb8b968cffcf919a9904bb1fbc29a
+posts.find:limit|5|offset|20
 ```
 
-However, the hash generation is an expensive operation. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property.
+However, the params can contain properties which is not relevant for the cache key. On the other hand, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property.
+
+**Strict the list of `params` & `meta` properties for key generation**
 ```js
 {
     name: "posts",
@@ -80,11 +85,11 @@ However, the hash generation is an expensive operation. Therefore it is recommen
 }
 
 // If params is { limit: 10, offset: 30 } and meta is { user: { id: 123 } }, the cache key will be:
-//   posts.list:10-30-123
+//   posts.list:10|30|123
 ```
 
 {% note info Performance %}
-This solution is pretty fast, so we recommend to use it in production instead of hashing. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
 ### Cache meta keys
@@ -108,11 +113,40 @@ broker.createService({
 });
 ```
 
+### Limiting cache key length
+Occasionally, the key can be very long, which can cause performance issues. To avoid it, you can maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than this configured limitvalue, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+
+> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> 
+> To disable this feature, set it to `0` or `null`.
+
+**Generate a full key from the whole params without limit**
+```js
+cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
+// Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
+```
+
+**Generate a limited-length key**
+```js
+const broker = new ServiceBroker({
+    logger: console,
+    cacher: {
+        type: "Memory",
+        options: {
+            maxParamsLength: 60
+        }
+    }
+});
+
+cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
+// Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
+```
+
 ## TTL
 You can override the cacher default TTL setting in action definition.
 
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     cacher: {
         type: "memory",
         options: {
@@ -130,7 +164,7 @@ broker.createService({
                 ttl: 5
             },
             handler(ctx) {
-
+                // ...
             }
         }
     }
@@ -138,10 +172,10 @@ broker.createService({
 ```
 
 ## Custom key-generator
-You can change the built-in cacher keygen function to your own one.
+To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
 
 ```js
-let broker = new ServiceBroker({
+const broker = new ServiceBroker({
     cacher: {
         type: "memory",
         options: {
@@ -172,7 +206,7 @@ const obj = await broker.cacher.get("mykey.a")
 broker.cacher.del("mykey.a");
 
 // Clean all 'mykey' entries
-broker.cacher.clean("mykey.*");
+broker.cacher.clean("mykey.**");
 
 // Clean all entries
 broker.cacher.clean();
@@ -188,18 +222,18 @@ When you create a new model in your service, sometimes you have to clear the old
     actions: {
         create(ctx) {
             // Create new user entity
-            let user = new User(ctx.params);
+            const user = new User(ctx.params);
 
             // Clear all cache entries
             this.broker.cacher.clean();
 
             // Clear all cache entries which keys start with `users.`
-            this.broker.cacher.clean("users.*");
+            this.broker.cacher.clean("users.**");
 
             // Clear multiple cache entries
-            this.broker.cacher.clean([ "users.*", "posts.*" ]);
+            this.broker.cacher.clean([ "users.**", "posts.**" ]);
 
-            // Delete only one entry
+            // Delete an entry
             this.broker.cacher.del("users.list");
 
             // Delete multiple entries
@@ -219,15 +253,18 @@ module.exports = {
     actions: {
         create(ctx) {
             // Create new user entity
-            let user = new User(ctx.params);
+            const user = new User(ctx.params);
 
             // Clear cache
             this.cleanCache();
+
+            return user;
         }
     },
 
     methods: {
         cleanCache() {
+            // Broadcast the event, so all service instances receive it (including this instance). 
             this.broker.broadcast("cache.clean.users");
         }
     }
@@ -235,7 +272,7 @@ module.exports = {
     events: {
         "cache.clean.users"() {
             if (this.broker.cacher) {
-                this.broker.cacher.clean("users.*");
+                this.broker.cacher.clean("users.**");
             }
         }
     }
@@ -243,7 +280,7 @@ module.exports = {
 ```
 
 ### Clear cache among different services
-Common way is that your service depends on other ones. E.g. `posts` service stores information from `users` service in cached entries.
+Common way is that your service depends on other ones. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
 
 **Example cache entry in `posts` service**
 ```js
@@ -259,9 +296,9 @@ Common way is that your service depends on other ones. E.g. `posts` service stor
     createdAt: 1519729167666
 }
 ```
-So the `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
 
-To make it better, create a `CacheCleaner` mixin and define in constructor the dependent services.
+To make it easier, create a `CacheCleaner` mixin and define in constructor the dependent services.
 
 **cache.cleaner.mixin.js**
 ```js
@@ -290,7 +327,8 @@ const CacheCleaner = require("./cache.cleaner.mixin");
 module.exports = {
     name: "posts",
     mixins: [CacheCleaner([
-        "users"
+        "users",
+        "posts"
     ])],
 
     actions: {
@@ -358,6 +396,7 @@ const broker = new ServiceBroker({
 
 ### Redis cacher
 `RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. It uses [`ioredis`](https://github.com/luin/ioredis) library.
+Use it, if you have multiple instances of services because if one instance stores some data in the cache, other instances will find it.
 
 **Enable Redis cacher**
 ```js
@@ -413,10 +452,10 @@ const broker = new ServiceBroker({
 To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
 {% endnote %}
 
-### Custom cacher
+## Custom cacher
 You can also create your custom cache module. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
 
-#### Create custom cacher
+### Create custom cacher
 ```js
 const BaseCacher = require("moleculer").Cachers.Base;
 
@@ -428,7 +467,7 @@ class MyCacher extends BaseCacher {
 }
 ```
 
-#### Use custom cacher
+### Use custom cacher
 
 ```js
 const { ServiceBroker } = require("moleculer");

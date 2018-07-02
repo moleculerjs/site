@@ -96,7 +96,6 @@ mol $ events
 ```
 
 **Output**
-!TODO!
 
 ### Show common information
 ```bash

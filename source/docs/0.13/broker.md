@@ -74,7 +74,7 @@ List of all available broker options:
 | `ServiceFactory` | `ServiceClass` | `null` | Custom Service class. If not `null`, broker will use it when creating services. |
 | `ContextFactory` | `ContextClass` | `null` | Custom Context class. If not `null`, broker will use it when creating contexts. |
 
-### Full options oject
+### Full options object
 ```js
 {
     namespace: "dev",

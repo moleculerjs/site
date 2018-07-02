@@ -391,7 +391,7 @@ When you call an action, the broker creates a `Context` instance which contains 
 | `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
 | `ctx.call()` | `Function` | You can make nested-calls. Same arguments like in `broker.call` |
 | `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |
-| `ctx.broadcast` | `Function` | Broadcast an event, same as `broker.broadcast` |
+| `ctx.broadcast()` | `Function` | Broadcast an event, same as `broker.broadcast` |
 
 ### Context tracking
 If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. 
