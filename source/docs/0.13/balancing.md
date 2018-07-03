@@ -1,6 +1,5 @@
 title: Load balancing
 ---
-**TODO: update**
 
 Moleculer has several built-in load balancing strategies. If services have multiple running instances, ServiceRegistry uses these strategies to select a node from all available nodes.
 

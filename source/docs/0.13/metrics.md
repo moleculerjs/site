@@ -1,9 +1,8 @@
 title: Metrics
 ---
 
-**TODO: update**
 Moleculer has a built-in metrics feature. You can enable it within the [broker options](broker.html#Broker-options) with `metrics: true` option.
-If it is enabled, the broker emits metrics events at every requests. You can subsribe to these events in your services and transfer them to your Tracer system (ZipKin, OpenTracing...etc).
+If it is enabled, the broker emits metrics events at every requests. You can subscribe to these events in your services and transfer them to your Tracer system (ZipKin, OpenTracing...etc).
 
 ## Context params & meta
 You can customize that the broker puts some `ctx.meta` and `ctx.params` fields to the metrics events.
@@ -105,7 +104,7 @@ The payload looks like the following:
     // Context ID
     id: '4563b09f-04cf-4891-bc2c-f26f80c3f91e',
     // Request ID
-    requestID: null,
+    requestID: '6858979d-3298-4a7b-813a-ffb417da822b',
     // Level of call
     level: 1,
     // Start time
@@ -115,19 +114,23 @@ The payload looks like the following:
     // Called action
     action: {
         name: 'users.get'
-    }
+    },
+    // Called service
+    service: {
+        name: "users"
+    },
     // Params
     params: {
         id: 5
-    }
+    },
     // Meta
-    meta: {}
+    meta: {},
     // Node ID
     nodeID: "node-1",
     // Caller nodeID if it's requested from a remote node
     callerNodeID: "node-2",
     // Parent context ID if it is a sub-call
-    parentID: '123456'
+    parentID: null
 }
 ```
 
@@ -139,7 +142,7 @@ The payload looks like the following:
     // Context ID
     id: '4563b09f-04cf-4891-bc2c-f26f80c3f91e',
     // Request ID
-    requestID: null,
+    requestID: '6858979d-3298-4a7b-813a-ffb417da822b',
     // Level of call
     level: 1,
     // Start time
@@ -155,21 +158,23 @@ The payload looks like the following:
     // Called action
     action: {
         name: 'users.get'
-    }
+    },
+    // Called service
+    service: {
+        name: "users"
+    },
     // Params
     params: {
         id: 5
-    }
+    },
     // Meta
-    meta: {}
-   
+    meta: {},   
     // Node ID
     nodeID: "node-1",
     // Caller nodeID if it's a remote call
     callerNodeID: "node-2",
     // Parent context ID if it is a sub-call
-    parentID: '123456'
-
+    parentID: null,
     // Error if the call returned with error
     error: {
         name: "ValidationError",

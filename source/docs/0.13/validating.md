@@ -3,7 +3,9 @@ title: Validating
 Moleculer has a built-in validator module. It uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
 
 ## Built-in validator
+It's enabled by default, so you should just define `params` property in action definition which contains validation schema for the incoming `ctx.params`.
 
+**Example**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -15,7 +17,7 @@ broker.createService({
     name: "say",
     actions: {
         hello: {
-            // Parameters definitions to validator
+            // Validator schema for params
             params: {
                 name: { type: "string", min: 2 }
             },
@@ -57,10 +59,8 @@ You can find more information about validation schema in the [documentation of t
 ## Custom validator
 You can create your custom validator. You should implement `compile` and `validate` methods of `BaseValidator`.
 
-**[Example for Joi](https://gist.github.com/icebob/07024c0ac22589a5496473c2a8a91146)**
+### Create a [Joi](https://github.com/hapijs/joi) validator
 ```js
-// --- JOI VALIDATOR CLASS ---
-
 const BaseValidator = require("moleculer").Validator;
 const { ValidationError } = require("moleculer").Errors;
 
@@ -83,10 +83,14 @@ class JoiValidator extends BaseValidator {
     }
 }
 
-// --- BROKER ---
+module.exports = JoiValidator;
+```
 
+**Use custom Joi validator**
+```js
 const { ServiceBroker } = require("moleculer");
 const Joi = require("joi");
+const JoiValidator = require("./joi.validator");
 
 const broker = new ServiceBroker({
     logger: true,
