@@ -22,14 +22,14 @@
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-bolt"></i></div>
             <h3 class="intro-feature-title">Blazing fast</h3>
-            <p class="intro-feature-desc">High-performance microservices framework. Check the <a href="/0.12/docs/benchmark.html">benchmark results</a>!</p>
+            <p class="intro-feature-desc">High-performance microservices framework. Check the <a href="/docs/0.13/benchmark.html">benchmark results</a>!</p>
           </div>
         </li>
         <li class="intro-feature-wrap">
           <div class="intro-feature">
             <div class="intro-feature-icon"><i class="fa fa-diamond"></i></div>
             <h3 class="intro-feature-title">Extensible</h3>
-            <p class="intro-feature-desc">All built-in modules (caching, serializer, transporter) are pluggable. Create your custom solutions.</p>
+            <p class="intro-feature-desc">All built-in modules (caching, serializer, transporter) are pluggable. Create your own solutions or <a href="/modules.html">find all modules</a>.</p>
           </div>
         </li>
         <li class="intro-feature-wrap">
