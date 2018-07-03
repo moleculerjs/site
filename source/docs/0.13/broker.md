@@ -62,7 +62,7 @@ List of all available broker options:
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means to measure every request. |
 | `internalServices` | `Boolean` | `true` | Register [internal services](services.html#Internal-services). |
-| `internalServices` | `Boolean` | `true` | Register [internal middlewares](middlewares.html#Internal-middlewares). |
+| `internalMiddlewares` | `Boolean` | `true` | Register [internal middlewares](middlewares.html#Internal-middlewares). |
 | `hotReload` | `Boolean` | `false` | Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-reloading-services). |
 | `middlewares` | `Array<Function>` | `null` | Register middlewares. _Useful when you use Moleculer Runner._ |
 | `replCommands` | `Array<Object>` | `null` | Register custom REPL commands. |
