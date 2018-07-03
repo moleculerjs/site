@@ -2,10 +2,10 @@ title: Load balancing
 ---
 **TODO: update**
 
-Moleculer has several built-in load balancing strategies. If services have multiple running instances, Registry uses strategies to select a node from all available nodes. There are some built-in strategies, or you can create your custom strategies too.
+Moleculer has several built-in load balancing strategies. If services have multiple running instances, ServiceRegistry uses these strategies to select a node from all available nodes.
 
 ## Built-in strategies
-To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or an `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
+To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
 
 **Configure balancing strategy**
 ```js
@@ -108,7 +108,7 @@ const broker = new ServiceBroker({
 ```
 
 ## Custom strategy
-You can also create your custom strategy module. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
+You can also create your custom strategy. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
 
 ### Create custom strategy
 ```js
@@ -129,7 +129,7 @@ const MyStrategy = require("./my-strategy");
 
 const broker = new ServiceBroker({
     registry: {
-        strategy: new MyStrategy()
+        strategy: MyStrategy
     }
 });
 ```
