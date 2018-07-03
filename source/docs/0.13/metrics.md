@@ -182,3 +182,7 @@ The payload looks like the following:
     }
 }
 ```
+
+{% note info Find more metrics & tracing modules %}
+[Check the modules page and find more metrics & tracing modules.](/modules.html#metrics)
+{% endnote %}

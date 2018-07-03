@@ -127,3 +127,7 @@ broker.start()
     .then(() => broker.call("greeter.hello", { name: "John" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data));
 ```
+
+{% note info Find more validators %}
+[Check the modules page and find more validators.](/modules.html#validators)
+{% endnote %}

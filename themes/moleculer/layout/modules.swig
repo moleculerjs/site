@@ -9,7 +9,10 @@
 			</header>
 			<div class="article-content" itemprop="articleBody">
 			{% for category in site.data.modules %}
-				<h3 class="article-heading">{{ __('modules.' + loop.key) }}</h3>
+				<h3 id="{{ loop.key }}" class="article-heading">
+                    {{ __('modules.' + loop.key) }}
+                    <a class="article-anchor" href="#{{ loop.key }}" aria-hidden="true"></a>
+                </h3>
 				<table>
 					<thead>
 						<th>Name</th>

@@ -54,3 +54,9 @@ Thank you in advance!
 		<label>Jaikanth S</label>
 	</a>
 </div>
+
+## Contributors
+This project exists thanks to all the people who contribute. [[How to contribute](https://github.com/moleculerjs/moleculer/blob/master/CONTRIBUTING.md)]
+<div align="center">
+<a href="https://github.com/moleculerjs/moleculer/graphs/contributors" target="_blank"><img src="https://opencollective.com/moleculer/contributors.svg?width=890&button=false" /></a>
+</div>
