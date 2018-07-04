@@ -55,7 +55,7 @@ const broker = new ServiceBroker({
         "MY.**": false,         // Disable log
         "TRANS": "warn",        // Only 'warn ' and 'error' log entries
         "*.GREETER": "debug",   // All log entries
-        "**": "info",          // All other modules use this level
+        "**": "info",           // All other modules use this level
     }
 });
 ```
@@ -143,15 +143,15 @@ const broker = new ServiceBroker({
 const winston = require("winston");
 const broker = new ServiceBroker({ 
     logger: bindings => extend(winston.createLogger({
-			format: winston.format.combine(
-				winston.format.label({ label: bindings }),
-				winston.format.timestamp(),
-				winston.format.json(),
-			),
-			transports: [
-				new winston.transports.Console()
-			]
-		}))
+        format: winston.format.combine(
+            winston.format.label({ label: bindings }),
+            winston.format.timestamp(),
+            winston.format.json(),
+        ),
+        transports: [
+            new winston.transports.Console()
+        ]
+    }))
 });
 ```
 > Some external loggers have not `trace` & `fatal` log methods (e.g.: winston). In this case you have to extend your logger.

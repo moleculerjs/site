@@ -14,4 +14,6 @@
 <img src="https://snyk.io/test/github/moleculerjs/moleculer/badge.svg" />
 
 <!-- NPM downloads -->
-<img src="https://img.shields.io/npm/dm/moleculer.svg" />
+<a href="http://www.npmtrends.com/moleculer" target="_blank">
+    <img src="https://img.shields.io/npm/dm/moleculer.svg" />
+</a>

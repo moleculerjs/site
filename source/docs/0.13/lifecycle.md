@@ -25,7 +25,7 @@ When you call `broker.stop` or stop the process, at first broker publishes an em
 ## Service lifecycle
 This section describes what happens when a service is starting & stopping and how you should use the lifecycle event handler.
 
-## `created` event handler
+### `created` event handler
 It is triggered when the service instance is created (e.g.: at `broker.createService` or `broker.loadService`).
 Use it to create other module instances (e.g. http server, database modules) and store them in `this`. 
 
@@ -43,7 +43,7 @@ module.exports = {
 
 > This is a sync event handler. You **cannot** return a `Promise` and you **cannot** use `async/await`.
 
-## `started` event handler
+### `started` event handler
 It is triggered when the `broker.start` is called and the broker starts all local services. Use it to connect to database, listen servers...etc.
 
 ```js
@@ -61,7 +61,7 @@ module.exports = {
 
 > This is an async event handler. You can return a `Promise` or you can use `async/await`.
 
-## `stopped` event handler
+### `stopped` event handler
 It is triggered when the `broker.stop` is called and the broker starts stopping all local services. Use it to close database connections, close sockets...etc.
 
 ```js
