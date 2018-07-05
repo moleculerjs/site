@@ -22,8 +22,8 @@ sidebar:
     overview: Overview
     install: Install
     usage: Usage
-    examples: Examples   
-    support: Support 
+    examples: Examples
+    support: Support
 
     introduction: Introduction
     core: Core
@@ -63,6 +63,17 @@ sidebar:
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing
+
+    # Old 01.12 menu
+    transporters: Transporters
+    context: Context
+    logger: Logger
+    circuit-breaker: Circuit Breaker
+    service-registry: Service Registry
+    cachers: Cachers
+    serializers: Serializers
+    statistics: Statistics
+    validation: Validation
 
     api: API
     api_servicebroker: ServiceBroker
