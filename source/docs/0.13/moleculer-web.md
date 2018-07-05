@@ -1,7 +1,7 @@
 title: API Gateway
 ---
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
-The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services.
+The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
 
 ## Features
 * support HTTP & HTTPS
@@ -16,7 +16,6 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 * before & after call hooks
 * Buffer & Stream handling
 * middleware mode (use as a middleware with Express)
-* support authorization
 
 ## Install
 ```bash
@@ -51,7 +50,7 @@ broker.start();
 
 ## Whitelist
 If you don't want to publish all actions, you can filter them with whitelist option.
-You can use [match strings](https://github.com/micromatch/nanomatch) or regexp in list.
+Use [match strings](https://github.com/micromatch/nanomatch) or regexp in list.
 
 ```js
 broker.createService({
@@ -161,14 +160,16 @@ broker.createService({
 ```
 
 {% note info %}
-You have some internal pointer in `req` & `res` to some important instances:
-* `req.$service` & `res.$service` is pointed to the service instance.
-* `req.$route` & `res.$route` is pointed to the route definition.
+There are some internal pointer in `req` & `res` objects:
+* `req.$service` & `res.$service` are pointed to this service instance.
+* `req.$route` & `res.$route` are pointed to the resolved route definition.
 * `req.$params` is pointed to the resolved parameters (from query string & post body)
-* `req.$alias` is pointed to the alias definition.
-* `req.$endpoint` is pointed to the resolved action endpoint. It contains action and nodeID.
+* `req.$alias` is pointed to the resolved alias definition.
+* `req.$action` is pointed to the resolved action.
+* `req.$endpoint` is pointed to the resolved action endpoint.
+* `req.$next` is pointed to the `next()` handler if the request comes from ExpressJS.
 
-E.g., if you would like to access the broker, use `req.$service.broker` path.
+E.g.: To access the broker, use `req.$service.broker`.
 {% endnote %}
 
 ### Mapping policy
@@ -193,6 +194,64 @@ broker.createService({
 });
 ```
 You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
+
+## Parameters
+API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
+
+### Disable merging
+To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
+
+**Example**
+```js
+broker.createService({
+    mixins: [ApiService],
+    settings: {
+        routes: [{
+            path: "/",
+            mergeParams: false
+        }]
+    }
+});
+```
+
+**Un-merged `req.$params`:**
+```js
+{
+    // Querystring params
+    query: {
+        category: "general",
+    }
+
+    // Request body content
+    body: {
+        title: "Hello",
+        content: "...",
+        createdAt: 1530796920203
+    },
+
+    // Request params
+    params: {
+        id: 5
+    }
+}
+```
+
+### Query string parameters
+
+**Array parameters**
+URL: `GET /api/opt-test?a=1&a=2`
+```js
+a: ["1", "2"]
+```
+
+**Nested objects & arrays**
+URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
+```js
+foo: { 
+    bar: ["a", "b"], 
+    baz: "c" 
+}
+```
 
 ## Middlewares
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`.
@@ -236,6 +295,37 @@ broker.createService({
 });
 ```
 
+### Error-handler middleware
+There is support to use error-handler middlewares in the API Gateway. So if you pass an `Error` to the `next(err)` function, it will call error handler middlewares which have signature as `(err, req, res, next)`.
+
+```js
+broker.createService({
+    mixins: [ApiService],
+    settings: {
+        // Global middlewares. Applied to all routes.
+        use: [
+            cookieParser(),
+            helmet()
+        ],
+
+        routes: [
+            {
+                path: "/",
+
+                // Route-level middlewares.
+                use: [
+                    compression(),
+                    
+                    passport.initialize(),
+                    passport.session(),
+
+                    function(err, req, res, next) {
+                        this.logger.error("Error is occured in middlewares!");
+                        this.sendError(req, res, err);
+                    }
+                ],
+```
+
 ## Serve static files
 It serves assets with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
@@ -256,7 +346,7 @@ broker.createService({
 ```
 
 ## Calling options
-The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retryCount` or `fallbackResponse` options for routes. [Read more about calling options](broker.html#Call-services)
+The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retries` or `fallbackResponse` options for routes. [Read more about calling options](actions.html#Call-services)
 
 ```js
 broker.createService({
@@ -267,7 +357,7 @@ broker.createService({
 
             callOptions: {
                 timeout: 500,
-                retryCount: 0,
+                retries: 3,
                 fallbackResponse(ctx, err) { ... }
             }
 
@@ -308,10 +398,48 @@ broker.createService({
 });
 ```
 
+## Response type & status code
+When the response is received from an action handler, the API gateway detects the type of response and set the `Content-Type` in the `res` headers. The status code is `200` by default. Of course you can overwrite these values, moreover, you can define custom response headers too.
+
+To define response headers & status code use `ctx.meta` fields:
+
+**Available meta fields:**
+* `ctx.meta.$statusCode` - set `res.statusCode`.
+* `ctx.meta.$statusMessage` - set `res.statusMessage`.
+* `ctx.meta.$responseType` - set `Content-Type` in header.
+* `ctx.meta.$responseHeaders` - set all keys in header.
+* `ctx.meta.$location` - set `Location` key in header for redirects.
+
+**Example**
+```js
+module.exports = {
+    name: "export",
+    actions: {
+        // Download response as a file in the browser
+        downloadCSV(ctx) {
+            ctx.meta.$responseType = "text/csv";
+            ctx.meta.$responseHeaders = {
+                "Content-Disposition": `attachment; filename="data-${ctx.params.id}.csv"`
+            };
+            
+            return csvFileStream;
+        }
+
+        // Redirect the request
+        redirectSample(ctx) {
+            ctx.meta.$statusCode = 302;
+            ctx.meta.$location = "/login";
+
+            return;
+        }
+    }
+}
+```
+
 ## Authorization
-You can implement authorization. For this you have to do 2 things.
+You can implement authorization. Do 2 things to enable it.
 1. Set `authorization: true` in your routes
-2. Define the `authorize` method of service.
+2. Define the `authorize` method in service.
 
 **Example authorization**
 ```js
@@ -386,6 +514,9 @@ broker.createService({
     }
 });
 ```
+
+> In previous versions of Moleculer Web, you couldn't manipulate the `data` in `onAfterCall`. Now you can, but you must always return the new or original `data`.
+
 
 ## Error handlers
 You can add route-level & global-level custom error handlers. 
@@ -602,6 +733,9 @@ settings: {
 
             // Call the `this.authorize` method before call the action
             authorization: true,
+
+            // Merge parameters from querystring, request params & body 
+            mergeParams: true,
             
             // Route-level middlewares
             uses: [
@@ -660,6 +794,7 @@ settings: {
             // Calling options
             callOptions: {
                 timeout: 3000,
+                retries: 3,
                 fallbackResponse: "Static fallback response"
             },
 
@@ -690,6 +825,7 @@ settings: {
         // Options to `server-static` module
         options: {}
     },
+
     // Global error handler
     onError(req, res, err) {
         res.setHeader("Content-Type", "text/plain");
