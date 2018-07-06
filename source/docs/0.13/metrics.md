@@ -28,7 +28,7 @@ module.exports = {
 }
 ```
 
-If the value is `true`, it adds all fields. If `Array`, it adds only the specified fields. If `Function`, it calls with `params` or `meta`and you need to return an `Object`.
+If the value is `true`, it adds all fields. If `Array`, it adds only the specified fields. If `Function`, it calls with `params` or `meta`and you must return an `Object`.
 
 ### Examples
 

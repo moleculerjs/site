@@ -1,6 +1,6 @@
 title: Services
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you need to define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
 ## Schema
 The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
@@ -654,7 +654,7 @@ module.exports = GreeterService;
 Thanks for [@ColonelBundy](https://github.com/ColonelBundy), you can use ES7/TS decorators as well: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
 
 {% note info Need a compiler %}
-Please note, you need to use Typescript or Babel to compile decorators.
+Please note, you must use Typescript or Babel to compile decorators.
 {% endnote %}
 
 **Example service**

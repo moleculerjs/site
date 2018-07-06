@@ -133,7 +133,7 @@ When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
 | `meta` | `object` | ✔ | `ctx.meta` object. (*) |
 | `timeout` | `double` | ✔ | Request timeout (distributed) in milliseconds. |
 | `level` | `int32` | ✔ | Level of request. |
-| `metrics` | `boolean` | ✔ | Need to send metrics events. |
+| `metrics` | `boolean` | ✔ | Must send metrics events. |
 | `parentID` | `string` |  | Parent context ID. |
 | `requestID` | `string` |  | Request ID from `ctx.requestID`. |
 

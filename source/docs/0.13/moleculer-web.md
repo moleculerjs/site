@@ -139,7 +139,7 @@ broker.createService({
 });
 ```
 {% note warn %}
-To use this shorthand alias you need to create a service which has `list`, `get`, `create`, `update` and `remove` actions.
+To use this shorthand alias, create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
 You can make use of custom functions within the declaration of aliases.

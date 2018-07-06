@@ -60,7 +60,7 @@ const broker = new ServiceBroker({
 });
 ```
 
->This settings are evaluated from top to bottom, so the `**` level need to be the last item.
+>This settings are evaluated from top to bottom, so the `**` level must be the last item.
 
 >Internal modules: `BROKER`, `TRANS`, `TX` as transporter, `CACHER`, `REGISTRY`.
 

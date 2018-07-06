@@ -161,7 +161,7 @@ const MyCustomMiddleware = {
 ```
 
 ## Wrapping handlers
-Some hooks are wrappers. It means you need to wrap the original handler and return a new Function.
+Some hooks are wrappers. It means you must wrap the original handler and return a new Function.
 Wrap hooks where the first parameter is `next`.
 
 **Wrap local action handler**
