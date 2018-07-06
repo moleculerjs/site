@@ -53,11 +53,11 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 ```
 
 {% note info Documentation %}
-You can find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
+Find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
 
 ## Custom validator
-You can create your custom validator. You should implement `compile` and `validate` methods of `BaseValidator`.
+Custom validator can be created. You should implement `compile` and `validate` methods of `BaseValidator`.
 
 ### Create a [Joi](https://github.com/hapijs/joi) validator
 ```js

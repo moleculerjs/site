@@ -1,7 +1,7 @@
 title: Metrics
 ---
 
-Moleculer has a built-in metrics feature. You can enable it within the [broker options](broker.html#Broker-options) with `metrics: true` option.
+Moleculer has a built-in metrics feature. It can be enabled within the [broker options](broker.html#Broker-options) with `metrics: true` option.
 If it is enabled, the broker emits metrics events at every requests. You can subscribe to these events in your services and transfer them to your Tracer system (ZipKin, OpenTracing...etc).
 
 ## Context params & meta

@@ -223,7 +223,7 @@ mol $ bench --time 30 math.add
 
 
 #### Parameters
-Please note, you can pass parameters only with JSON string.
+Please note, parameters can be passed only as JSON string.
 ```bash
 mol $ bench math.add '{ "a": 50, "b": 32 }'
 ```
@@ -239,7 +239,7 @@ mol $ load "./services"
 ```
 
 ### Custom commands
-You can define your custom REPL commands in broker options to extend Moleculer REPL commands.
+Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.
 
 ```js
 const broker = new ServiceBroker({

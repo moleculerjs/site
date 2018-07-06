@@ -1,6 +1,6 @@
 title: Errors
 ---
-Moleculer has some built-in `Error`. You can use it when you raise an error in services.
+Moleculer has some built-in `Error` to raise an error in services.
 
 ## Base error classes
 
@@ -131,7 +131,7 @@ Retryable: **false**
 Type: `INVALID_PACKET_DATA`
 
 ## Create custom errors
-The following example shows how you can create a custom `Error` class which is inherited from `MoleculerError`.
+The following example shows how to create a custom `Error` class which is inherited from `MoleculerError`.
 
 ```js
 const { MoleculerError } = require("moleculer").Errors;

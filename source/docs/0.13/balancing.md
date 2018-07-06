@@ -107,7 +107,7 @@ const broker = new ServiceBroker({
 ```
 
 ## Custom strategy
-You can also create your custom strategy. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
+Custom strategy can be created. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
 
 ### Create custom strategy
 ```js

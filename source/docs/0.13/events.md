@@ -1,6 +1,6 @@
 title: Events
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html). You can send events to local and remote services. 
+Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services. 
 
 # Balanced events
 The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
@@ -11,7 +11,7 @@ The event listeners are arranged to logical groups. It means that only one liste
 ![Balanced events diagram](assets/balanced-events.gif)
 </div>
 
-The group name comes from the service name, but you can overwrite it in event definition in services.
+The group name comes from the service name, but it can be overwritten in event definition in services.
 
 **Example**
 ```js
@@ -30,14 +30,15 @@ module.exports = {
 ```
 
 ## Emit balanced events
-You can send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _If you want to send multiple values, you should wrap them in an object._
+Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. 
+_To send multiple values, wrap them into an `Object`._
 
 ```js
 // The `user` will be serialized to transportation.
 broker.emit("user.created", user);
 ```
 
-With third parameter, you can specify which groups/services receive the event:
+Specify which groups/services receive the event:
 ```js
 // Only the `mail` & `payments` services receives it
 broker.emit("user.created", user, ["mail", "payments"]);
@@ -50,12 +51,12 @@ The broadcast event is sent to all available local & remote services. It is not 
 ![Broadcast events diagram](assets/broadcast-events.gif)
 </div>
 
-With `broker.broadcast` method you can send broadcast events.
+Send broadcast events with `broker.broadcast` method.
 ```js
 broker.broadcast("config.changed", config);
 ```
 
-With third parameter, you can specify which groups/services receive the event:
+Specify which groups/services receive the event:
 ```js
 // Send to all "mail" service instances
 broker.broadcast("user.created", { user }, "mail");
@@ -65,13 +66,13 @@ broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
 ## Local broadcast event
-With `broker.broadcastLocal`, you can send broadcast events to only all local services.
+Send broadcast events to only all local services with `broker.broadcastLocal` method.
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
 
 ### Subscribe to events
-You can subscribe to events in ['events' property of services](services.html#events). Wildcards (`?`, `*`, `**`) are available in event names.
+Subscribe to events in ['events' property of services](services.html#events). Use of Wildcards (`?`, `*`, `**`) are available in event names.
 
 ```js
 module.exports = {

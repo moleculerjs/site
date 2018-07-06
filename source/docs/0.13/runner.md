@@ -89,7 +89,7 @@ METRICS=true
 ```
 
 ## Services loading logic
-The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `**/*.service.js` from specified one(s) (including sub-folders too). You can load services & service folder with `SERVICES` and `SERVICEDIR` environment variables.
+The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `**/*.service.js` from specified one(s) (including sub-folders too). Services & service folder can be loaded with `SERVICES` and `SERVICEDIR` environment variables.
 
 **Loading steps:**
 1. If `SERVICEDIR` env found, but no `SERVICES` env, it loads all services from the `SERVICEDIR` directory.
@@ -97,7 +97,7 @@ The runner loads service files or folders defined in CLI arguments. If you defin
 3. If no `SERVICEDIR`, but `SERVICES` env found, it loads the specified services from the current directory.
 4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. It glob pattern found, it applies and load the found files.
 
->Please note: you can use shorthand names for `SERVICES` env var.
+>Please note: shorthand names can also be used in `SERVICES` env var.
 
 **Example**
 ```
@@ -112,7 +112,7 @@ SERVICEDIR=my-services
 It loads all `*.service.js` files from the `my-services` folder (including sub-folders too).
 
 ### Glob patterns
-If you want to be more specific, you can use glob patterns as well. It could be useful if you want to load all services, but skip some other ones.
+If you want to be more specific, use glob patterns. It is useful when loading all services except certain ones.
 
 ```bash
 $ moleculer-runner services !services/others/**/*.service.js services/others/mandatory/main.service.js
@@ -123,11 +123,11 @@ $ moleculer-runner services !services/others/**/*.service.js services/others/man
 - `!services/others/**/*.service.js` - skip all services in the `services/others` folder and sub-folders.
 - `services/others/mandatory/main.service.js` - load the exact service.
 
-> The glob patterns work in the `SERVICES` enviroment variables as well.
+> The glob patterns work in the `SERVICES` enviroment variables, as well.
 
 ## Built-in clustering
 
-Moleculer Runner has a built-in clustering function. With it, you can start multiple instances from your broker.
+Moleculer Runner has a built-in clustering function to start multiple instances from your broker.
 
 Example to start all services from the `services` folder in 4 instances.
 ```bash

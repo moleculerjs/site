@@ -3,14 +3,14 @@ title: Usage
 
 # Install Moleculer
 
-You can install Moleculer with npm or yarn
+Moleculer can be installed with npm or yarn
 
 ```bash
 $ npm i moleculer --save
 ```
 
 # Create your first microservice
-This example shows how you can create a small `math` service to add two numbers.
+This example shows how to create a small `math` service to add two numbers.
 
 ```js
 const { ServiceBroker } = require("moleculer");

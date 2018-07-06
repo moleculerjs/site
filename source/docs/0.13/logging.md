@@ -36,7 +36,7 @@ broker.start()
 ```
 
 ### Custom log levels
-You can change the log level with `logLevel` option in broker options. _You can use it with built-in console logger only._
+Log level can be changed with `logLevel` option in broker options. _Use it with built-in console logger only._
 
 ```js
 const broker = new ServiceBroker({
@@ -76,7 +76,7 @@ There are some built-in log formatter.
 | `short`   | `[13:36:30.968Z] INFO  BROKER: Message` |
 
 #### Custom log formatter
-You can set a custom log formatter function for the built-in console logger.
+Custom log formatter function can be set for the built-in console logger.
 
 ```js
 const broker = new ServiceBroker({ 
@@ -94,7 +94,7 @@ ERROR dev-pc: Error message
 ```
 
 ### Custom object & array printing formatter
-You can set a custom formatter function to print object & arrays. The default function prints the objects & arrays to a single line in order to be easy to process with an external log tool. But when you are developing, it would be useful to print objects to a human-readable multi-line format. For this purpose, overwrite the `logObjectPrinter` function in the broker options.
+Set a custom formatter function to print object & arrays. The default function prints the objects & arrays to a single line in order to be easy to process with an external log tool. But when you are developing, it would be useful to print objects to a human-readable multi-line format. For this purpose, overwrite the `logObjectPrinter` function in the broker options.
 
 **Output with default function**
 ```
@@ -119,7 +119,7 @@ broker.logger.warn(process.release);
 ```
 
 ## External loggers
-You can use external loggers with Moleculer. In this case you can set a creator function to `logger`. The ServiceBroker will call it when a new module inherits a new logger instance.
+External loggers can be used with Moleculer. In this case, set a creator function to `logger`. The ServiceBroker will call it when a new module inherits a new logger instance.
 
 ### **[Pino](http://getpino.io/)**
 ```js

@@ -114,7 +114,7 @@ broker.createService({
 ```
 
 ### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, you can maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than this configured limitvalue, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than this configured limitvalue, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
 
 > The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
 > 
@@ -142,7 +142,7 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 ```
 
 ## TTL
-You can override the cacher default TTL setting in action definition.
+Default TTL setting can be overriden in action definition.
 
 ```js
 const broker = new ServiceBroker({
@@ -192,7 +192,7 @@ const broker = new ServiceBroker({
 ```
 
 ## Manual caching
-You can also use the cacher module manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
 
 ```js
 // Save to cache
@@ -295,7 +295,7 @@ Common way is that your service depends on other ones. E.g. `posts` service stor
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
 
 To make it easier, create a `CacheCleaner` mixin and define in constructor the dependent services.
 
@@ -379,7 +379,7 @@ const broker = new ServiceBroker({
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
 
 #### Cloning
-The cacher uses the lodash `_.cloneDeep()` method for cloning. If you know better cloning method, you can change it.
+The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
 
 **Custom clone function with JSON parse & stringify**
 ```js
@@ -452,7 +452,7 @@ To be able to use this cacher, install the `ioredis` module with the `npm instal
 {% endnote %}
 
 ## Custom cacher
-You can also create your custom cache module. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
 
 ### Create custom cacher
 ```js

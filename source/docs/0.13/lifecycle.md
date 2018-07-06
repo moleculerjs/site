@@ -12,7 +12,7 @@ The broker starts transporter connecting but it doesn't publish the local servic
 </div>
 
 {% note warn Avoid deadlocks %}
-You can make dead-locks when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method out of `started` handler instead.
+Dead-locks can be made when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method out of `started` handler instead.
 {% endnote %}
 
 ### Stopping logic
@@ -59,7 +59,7 @@ module.exports = {
 };
 ```
 
-> This is an async event handler. You can return a `Promise` or you can use `async/await`.
+> This is an async event handler. A `Promise` can be returned or use `async/await`.
 
 ### `stopped` event handler
 It is triggered when the `broker.stop` is called and the broker starts stopping all local services. Use it to close database connections, close sockets...etc.
@@ -77,4 +77,4 @@ module.exports = {
 };
 ```
 
-> This is an async event handler. You can return a `Promise` or you can use `async/await`.
+> This is an async event handler. A `Promise` can be returned or use `async/await`.

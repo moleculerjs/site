@@ -53,7 +53,7 @@ Follow this workflow if you would like to modify the core modules.
 
 7. Create a pull request and describe the change.
 
-8. If you've changed APIs, update the [documentation](https://github.com/moleculerjs/site) as well.
+8. If you've changed APIs, update the [documentation](https://github.com/moleculerjs/site), as well.
 
 ## Contribution to create a new Moleculer module
 

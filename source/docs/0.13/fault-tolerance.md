@@ -40,7 +40,7 @@ const broker = new ServiceBroker({
 
 > If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#Internal-events).
 
-You can override these global options in action definition, as well.
+These global options can be overridden in action definition, as well.
 ```js
 // users.service.js
 module.export = {
@@ -117,8 +117,8 @@ module.export = {
 ```
 
 ## Timeout
-You can set timeout for service calling. It can be set globally in broker options, or in calling options.
-If the timeout is defined and the request is timed out, broker will throw a `RequestTimeoutError` error.
+Timeout can be set for service calling. It can be set globally in broker options, or in calling options.
+If timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
 
 **Enable it in the broker options**
 ```js
@@ -136,7 +136,7 @@ broker.call("posts.find", {}, { timeout: 3000 });
 Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of nested calls, the timeout value is decremented with the elapsed time. If the timeout value is less or equal than 0, the next nested calls will be skipped (`RequestSkippedError`) because the first call has already been rejected with a `RequestTimeoutError` error.
 
 ## Bulkhead
-Bulkhead feature is implemented in Moleculer framework. You can use it to control the concurrent request handling of actions.
+Bulkhead feature is implemented in Moleculer framework to control the concurrent request handling of actions.
 
 **Enable it in the broker options**
 ```js
@@ -159,7 +159,7 @@ const broker = new ServiceBroker({
 
 The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit or it is 0, broker will throw `QueueIsFull` exception for every addition requests.
 
-You can override these global options in action definition as well.
+These global options can be overridden in action definition, as well.
 
 **Overwrite the retry policy values in action definitions** 
 ```js
@@ -187,7 +187,7 @@ module.export = {
 
 ## Fallback
 Fallback feature is useful, when you don't want to give back errors to the users. Instead, call an other action or return some common content.
-In Moleculer you can set fallback response in calling options or in action definition. It should be a `Function` which returns a `Promise` with any content. The broker passes the current `Context` & `Error` objects to this function as arguments.
+Fallback response can be set in calling options or in action definition. It should be a `Function` which returns a `Promise` with any content. The broker passes the current `Context` & `Error` objects to this function as arguments.
 
 **Fallback response setting in calling options**
 ```js
@@ -201,8 +201,8 @@ const result = await broker.call("users.recommendation", { userID: 5 }, {
 ```
 
 ### Fallback in action definition
-You can also define fallback response in receiver-side, in action definition.
-> Please note, this fallback response will be used only if the error is created inside action handler. If the request is called from a remote node and the request is timed out on the caller-side, this fallback response won't be used. In this case, use the `fallbackResponse` in calling option.
+Fallback response can be also defined in receiver-side, in action definition.
+> Please note, this fallback response will only be used if the error occurs within action handler. If the request is called from a remote node and the request is timed out on the remote node, the fallback response is not be used. In this case, use the `fallbackResponse` in calling option.
 
 **Fallback as a function**
 ```js

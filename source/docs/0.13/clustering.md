@@ -8,7 +8,7 @@ In this version, all services are running on the same node like a monolith. Ther
 ![Monolith architecture](/images/monolith-architecture.png)
 
 ## Microservices architecture
-This is the well-known microservices architecture when all services are running on individual nodes and communicates via transporter. In this case, the network latency is not negligible. But you can scale your services to be resilient and fault-tolerant.
+This is the well-known microservices architecture when all services are running on individual nodes and communicates via transporter. In this case, the network latency is not negligible. But your services can be scaled to be resilient and fault-tolerant.
 
 ![Microservices architecture](/images/microservices-architecture.png)
 
@@ -19,7 +19,7 @@ For example, if the `posts` service calls the `users` service multiple times, we
 ![Mixed architecture](/images/mixed-architecture.png)
 
 {% note info Tip %}
-The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. You can turn off this logic in [broker options](broker.html#Broker-options) with `preferLocal: false` under the `registry` key.
+The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. This logic can be turned off in [broker options](broker.html#Broker-options) with `preferLocal: false` property under the `registry` key.
 {% endnote %}
 
 ## How choose

@@ -1,7 +1,7 @@
 title: Middlewares
 ---
 
-Moleculer supports middlewares. The middleware is an `Object` with hooks & wrapper functions. You can add wrap the action handlers, event handlers, broker methods and hook lifecycle events.
+Moleculer supports middlewares. The middleware is an `Object` with hooks & wrapper functions. Wrap action handlers, event handlers, broker methods and hook lifecycle events.
 
 **All available methods:**
 ```js
@@ -161,7 +161,8 @@ const MyCustomMiddleware = {
 ```
 
 ## Wrapping handlers
-Some methods should be wrapper functions. It means, you need to wrap the original handler and return with a new `Function`.
+Some hooks are wrappers. It means you need to wrap the original handler and return a new Function.
+Wrap hooks where the first parameter is `next`.
 
 **Wrap local action handler**
 ```js
@@ -213,7 +214,7 @@ const MyValidator = {
 The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, we check whether the action has a `params` props. If yes, we'll return a wrapped handler which calls the validator module before calling the original `handler`.
 If the `params` property is not defined, we will return the original `handler` (skipped wrapping).
 
->If you don't call the original `next` in the middleware it will break the request. You can use it in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `next`.
+>If you don't call the original `next` in the middleware it will break the request. It can be used in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `next`.
 
 **Example cacher middleware**
 ```js
@@ -239,7 +240,7 @@ const MyCacher = {
     }
 };
 ```
-> The `next` always returns a `Promise`. It means that you can access to responses and manipulate them, as well.
+> The `next` always returns a `Promise`. So you can access to responses and manipulate them, as well.
 
 ### Decorate core modules (extend functionality)
 With other hooks are help you to add new features to `ServiceBroker` & `Service`.
@@ -272,7 +273,7 @@ const res = await broker.allCall("$node.health");
 
 
 ## Internal middlewares
-Many integrated features have been exposed to internal middlewares. These middlewares are loaded by default when broker is created. You can turn off it with the `internalMiddlewares: false` broker option. In this case you have to add what you need in the `middlewares: []` broker option.  
+Many integrated features have been exposed to internal middlewares. These middlewares are loaded by default when broker is created. It can be turned off with the `internalMiddlewares: false` in broker option. In this case you must add what you need in the `middlewares: []` broker option.  
 
 **Internal middlewares**
 

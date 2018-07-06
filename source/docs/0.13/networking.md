@@ -9,14 +9,14 @@ To communicate other nodes (ServiceBrokers), you need to configure a transporter
 ## Transporters
 Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If a service runs on multiple instances on different nodes, the requests will be load-balanced among live nodes.
 
-The whole communication logic is outside of transporter class. It means that you can easily switch between transporters without changing any lines of our code.
+The whole communication logic is outside of transporter class. It means switching between transporters without changing any lines of our code is easy.
 
 There are several built-in transporters in Moleculer framework.
 
 ### TCP transporter
 ![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
 This is a no-dependency, zero-configuration TCP transporter. It uses [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) to disseminate node statuses, service list and heartbeats. It contains an integrated UDP discovery feature to detect new and disconnected nodes on the network.
-If the UDP is prohibited on your network, you can use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
+If the UDP is prohibited on your network, use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
 
 >Please note, it is an **experimental** transporter. **Do not use it in production yet!**
 
@@ -125,7 +125,7 @@ const broker = new ServiceBroker({
 ```
 
 {% note info Serviceless node %}
-Please note, you don't need to list all remote nodes. It's enough at least one node which is online. For example, you can create a "serviceless" gossiper node, which does nothing, just shares other remote nodes addresses by gossip messages. So all nodes need to know only the gossiper node address to be able to communicate with all other nodes.
+Please note, you don't need to list all remote nodes. It's enough at least one node which is online. For example, create a "serviceless" gossiper node, which does nothing, just shares other remote nodes addresses by gossip messages. So all nodes need to know only the gossiper node address to be able to communicate with all other nodes.
 {% endnote %}
 
 ### NATS Transporter 
@@ -284,7 +284,7 @@ To use this transporter install the `amqplib` module with `npm install amqplib -
 {% endnote %}
 
 #### Transporter options
-You can pass options to `amqp.connect()` method.
+Options can be passed to `amqp.connect()` method.
 
 ```js
 // Connect to 'amqp://guest:guest@localhost:5672'
@@ -406,7 +406,7 @@ const broker = new ServiceBroker({
 ```
 
 ### Custom transporter
-You can also create your custom transporter module. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `publish` methods.
+Custom transporter module can be created. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `publish` methods.
 
 #### Create custom transporter
 ```js
@@ -518,7 +518,7 @@ To use this serializer install the `thrift` module with `npm install thrift --sa
 {% endnote %}
 
 ### Custom serializer
-You can also create your custom serializer module. We recommend to copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
+Custom serializer module can be created. We recommend to copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
 
 #### Create custom serializer
 ```js

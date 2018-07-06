@@ -30,7 +30,7 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 | `retries` | `Number` | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, broker uses the `retryPolicy.retries` value of broker options. [Read more](fault-tolerance.html#Retry) |
 | `fallbackResponse` | `Any` | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback) |
 | `nodeID` | `String` | `null` | Target nodeID. If set, it will make a direct call to the given node. |
-| `meta` | `Object` | `null` | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls as well. |
+| `meta` | `Object` | `null` | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well. |
 | `parentCtx` | `Context` | `null` | Parent `Context` instance.  |
 | `requestID` | `String` | `null` | Request ID or correlation ID. _It appears in the metrics events._ |
 
@@ -77,7 +77,7 @@ broker.call("$node.health", {}, { nodeID: "node-21" })
 ```
 
 ### Metadata
-With `meta` you can send meta informations to services. Access it via `ctx.meta` in action handlers. Please note at nested calls the meta is merged.
+Send meta informations to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note at nested calls the meta is merged.
 ```js
 broker.createService({
     name: "test",
@@ -99,7 +99,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-The `meta` is sent back to the caller service. You can use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+The `meta` is sent back to the caller service. Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
 
 ```js
 broker.createService({
@@ -122,7 +122,7 @@ broker.createService({
 ```
 
 ## Streaming
-Moleculer supports Node.js streams as request `params` and as response. You can use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
+Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
 
 ### Examples
 
@@ -231,9 +231,9 @@ module.exports = {
 > The default values is `null` (means `published`) due to backward compatibility.
 
 ## Action hooks
-You can define action hooks to wrap certain actions which comes from mixins.
-There are `before`, `after` and `error` hooks. You can assign it to a specified action or all actions (`*`) in service.
-The hook can be a `Function` or a `String`. In the latter case, it must be a local service method name, what you would like to call.
+Define action hooks to wrap certain actions coming from mixins.
+There are `before`, `after` and `error` hooks. Assign it to a specified action or all actions (`*`) in service.
+The hook can be a `Function` or a `String`. The latter must be a local service method name.
 
 **Before hooks**
 
@@ -319,7 +319,7 @@ module.exports = {
 };
 ```
 
-The recommended use case is that you create mixins which fill up the service with methods and in `hooks` you just sets method names what you want to be called.
+The recommended use case is to create mixins filling up the service with methods and in `hooks` set method names.
 
 **Mixin**
 ```js
@@ -389,13 +389,13 @@ When you call an action, the broker creates a `Context` instance which contains 
 | `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
 | `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
 | `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
-| `ctx.call()` | `Function` | You can make nested-calls. Same arguments like in `broker.call` |
+| `ctx.call()` | `Function` | Make nested-calls. Same arguments like in `broker.call` |
 | `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |
 | `ctx.broadcast()` | `Function` | Broadcast an event, same as `broker.broadcast` |
 
 ### Context tracking
 If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. 
-You can also define a timeout value with `shutdownTimeout` broker option. The default values is `5` seconds.
+A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
 
 **Enable context tracking & change the timeout value.
 ```js

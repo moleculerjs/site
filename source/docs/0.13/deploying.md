@@ -78,4 +78,4 @@ services:
 $ docker-compose up -d
 ```
 
-You can access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
+Access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`

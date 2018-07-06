@@ -39,9 +39,9 @@ List of all available broker options:
 
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
-| `namespace` | `String` | `""` | Namespace of nodes. With it you can segment your nodes on the same network. |
+| `namespace` | `String` | `""` | Namespace of nodes to segment your nodes on the same network. |
 | `nodeID` | `String` | hostname + PID | Unique node identifier. Must be unique in a namespace. |
-| `logger` | `Boolean` or `Object` or `Function` | `console` | Logger class. By default, it prints message to the `console`. You can use an external logger e.g. [winston](https://github.com/winstonjs/winston) or [pino](https://github.com/pinojs/pino). [Read more](logging.html). |
+| `logger` | `Boolean` or `Object` or `Function` | `console` | Logger class. By default, it prints message to the `console`. External logger can be used, e.g. [winston](https://github.com/winstonjs/winston) or [pino](https://github.com/pinojs/pino). [Read more](logging.html). |
 | `logLevel` | `String` | `info` | Log level for built-in console logger (trace, debug, info, warn, error, fatal). |
 | `logFormatter` | `String` or `Function` | `"default"` | Log formatter for built-in console logger. Values: `default`, `simple`, `short`. It can be also a `Function`. |
 | `logObjectPrinter` | `Function` | `null` | Custom object & array printer for built-in console logger. |
@@ -52,7 +52,7 @@ List of all available broker options:
 | `heartbeatInterval` | `Number` | `5` | Number of seconds to send heartbeat packet to other nodes. |
 | `heartbeatTimeout` | `Number` | `15` | Number of seconds to wait before setting node to unavailable status. |
 | `tracking` | `Object` | | Tracking requests and waiting for running requests before shutdowning. [Read more](fault-tolerance.html) |
-| `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Transporter must support it as well._ |
+| `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Transporter must support it, as well._ |
 | `registry` | `Object` | | Settings of [Service Registry](registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](fault-tolerance.html) |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
@@ -163,12 +163,12 @@ List of all available broker options:
 ```
 
 {% note info Moleculer runner %}
-You don't need to create manually ServiceBroker in your project. You can use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
+You don't need to create manually ServiceBroker in your project. Use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
 {% endnote %}
 
 
 ## Ping
-To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping informations (latency, time difference). You can define a timeout value.
+To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping informations (latency, time difference). A timeout value can be defined.
 
 ### Ping a node with 1 second timeout
 ```js
