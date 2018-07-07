@@ -42,6 +42,7 @@ algolia:
 
 twitter: MoleculerJS
 github: moleculerjs/moleculer
+stackoverflow: questions/tagged/moleculer
 
 alias:
   docs/benchmark.html: 0.12/docs/benchmark.html
