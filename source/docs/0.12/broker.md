@@ -104,7 +104,11 @@ All available broker options:
     stopped(broker) {
     },
 
-    replCommand: []
+    replCommand: [],
+    
+    transit: {
+        maxQueueSize: 50 * 1000
+    }
 }
 ```
 
@@ -142,6 +146,7 @@ All available broker options:
 | `started` | `Function` | `null` | Fired when the broker started. _Useful when you use Moleculer Runner._ |
 | `stopped` | `Function` | `null` | Fired when the broker stopped. _Useful when you use Moleculer Runner._ |
 | `created` | `Function` | `null` | Fired when the broker created. _Useful when you use Moleculer Runner._ |
+| `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` `error |
 
 {% note info Moleculer runner %}
 You don't need to create manually ServiceBroker in your project. You can use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).

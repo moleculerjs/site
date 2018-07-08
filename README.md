@@ -17,20 +17,6 @@ $ npm run dev
 $ npm run build
 ```
 
-# Want to help with the translation?
-
-If you want to help us to translate Moleculer website & documentation to your language, just fork the repo, create a "work-in-progress" issue to inform others that you're doing the translation, and just go on.
-
-**Which files do I need to translate?**
-1. Copy the `en.yml` in `/themes/moleculer/languages` and rename to the language name (all lower case. E.g.: `fr.yml`)
-2. Add a new language folder in `source` folder. (All lower case. E.g.: `/source/fr`)
-3. Copy the files from `/source/api` & `/source/docs` to the new language folder (`/source/fr/api`, `/source/fr/docs`)
-4. Add the new language to `/source/_data/languages.yml`
-5. Start the translating :)
-6. If you are ready, open a PR.
-
-Thank you in advance!
-
 # Contact
 Copyright (c) 2016-2018 Moleculer JS
 

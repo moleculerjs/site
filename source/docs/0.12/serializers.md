@@ -63,7 +63,7 @@ To use this serializer install the `protobufjs` module with `npm install protobu
 ### Custom serializer
 You can also create your custom serializer module. We recommend to copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
 
-#### Use custom cacher
+#### Use custom serializer
 
 ```js
 const { ServiceBroker } = require("moleculer");
