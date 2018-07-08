@@ -8,6 +8,7 @@
       <a href="https://gitter.im/{{ config.github }}" class="footer-link" target="_blank"><i class="fa fa-comments-o"></i></a>
       <a href="https://twitter.com/{{ config.twitter }}" class="footer-link" target="_blank"><i class="fa fa-twitter"></i></a>
       <a href="https://github.com/{{ config.github }}" class="footer-link" target="_blank"><i class="fa fa-github-alt"></i></a>
+      <a href="https://stackoverflow.com/{{ config.stackoverflow }}" class="footer-link" target="_blank"><i class="fa fa-stack-overflow"></i></a>
     </div>
   </div>
 </footer>
