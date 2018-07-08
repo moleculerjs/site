@@ -50,7 +50,7 @@ Service broker class
 
 
 
-`new ServiceBroker(options: any)`
+`new ServiceBroker(options: Object)`
 
 Creates an instance of ServiceBroker.
 
@@ -59,7 +59,28 @@ Creates an instance of ServiceBroker.
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `options` | any | - | - |
+| `options` | Object | - | - |
+
+
+
+
+
+
+
+
+### registerMiddlewares
+
+
+
+`registerMiddlewares(userMiddlewares)`
+
+Register middlewares (user & internal)
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
 
 
 
@@ -132,7 +153,7 @@ broker.start().then(() => broker.repl());
 
 
 
-`getLogger(module: String, service: String, version): Logger`
+`getLogger(module: String, props): Logger`
 
 Get a custom logger for sub-modules (service, transporter, cacher, context...etc)
 
@@ -142,8 +163,7 @@ Get a custom logger for sub-modules (service, transporter, cacher, context...etc
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `module` | String | - | Name of module |
-| `service` | String | - | Service name |
-| `version` |  | - | Service version |
+| `props` |  | - | Module properties (service name, version, ...etc |
 
 
 
@@ -227,7 +247,7 @@ Load a service from file
 
 `watchService(service: Service)`
 
-Watch a service file and hot reload if it changed.
+Watch a service file and hot reload if it's changed.
 
 
 #### Parameters
@@ -278,8 +298,30 @@ Create a new service by schema
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `schema` | any | - | Schema of service |
+| `schema` | any | - | Schema of service or a Service class |
 | `schemaMods` |  | - | Modified schema |
+
+
+
+
+
+
+
+
+### addLocalService
+
+
+
+`addLocalService(service: Service)`
+
+Add a local service instance
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `service` | Service | - | - |
 
 
 
@@ -292,16 +334,15 @@ Create a new service by schema
 
 
 
-`registerLocalService(service: Service, registryItem: Object)`
+`registerLocalService(registryItem: Object)`
 
-Add & register a local service instance
+Register a local service to Service Registry
 
 
 #### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `service` | Service | - | - |
 | `registryItem` | Object | - | - |
 
 
@@ -355,28 +396,6 @@ is registered or unregistered.
 
 
 
-### wrapAction
-
-
-
-`wrapAction(action: any)`
-
-Wrap action handler for middlewares
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `action` | any | - | - |
-
-
-
-
-
-
-
-
 ### registerInternalServices
 
 
@@ -407,6 +426,7 @@ Get a local service by name
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `name` | String | - | - |
+| `version` |  | - | - |
 
 
 
@@ -440,7 +460,7 @@ Wait for other services
 
 
 ### use
-
+![Deprecated](https://img.shields.io/badge/status-deprecated-orange.svg)
 
 
 `use(mws: Function)`
@@ -465,7 +485,7 @@ Add a middleware to the broker
 
 
 
-`findNextActionEndpoint(actionName: String, opts: Object): undefined`
+`findNextActionEndpoint(actionName: String, opts): undefined`
 
 Find the next available endpoint for action
 
@@ -475,7 +495,7 @@ Find the next available endpoint for action
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `actionName` | String | - | - |
-| `opts` | Object | - | - |
+| `opts` |  | - | - |
 
 
 
@@ -534,7 +554,6 @@ Multiple action calls.
 
 
 
-```js
 Call `mcall` with an array:
 ```js
 broker.mcall([
@@ -545,13 +564,11 @@ broker.mcall([
 	let users = results[1];
 })
 ```
-```
 
 
 
 
 
-```js
 Call `mcall` with an Object:
 ```js
 broker.mcall({
@@ -562,23 +579,6 @@ broker.mcall({
 	let users = results.users;
 })
 ```
-```
-
-
-
-
-
-### shouldMetric
-
-
-
-`shouldMetric()`
-
-Check should metric the current call
-
-
-
-
 
 
 
@@ -614,7 +614,7 @@ Emit an event (grouped & balanced global event)
 
 `broadcast(eventName: string, payload: any, groups)`
 
-Emit an event for all local & remote services
+Broadcast an event for all local & remote services
 
 
 #### Parameters
@@ -638,7 +638,7 @@ Emit an event for all local & remote services
 
 `broadcastLocal(eventName: string, payload: any, groups, nodeID)`
 
-Emit an event for all local services
+Broadcast an event for all local services
 
 
 #### Parameters
@@ -657,11 +657,11 @@ Emit an event for all local services
 
 
 
-### sendPing
+### ping
 
 
 
-`sendPing(nodeID)`
+`ping(nodeID, timeout): Promise`
 
 Send ping to a node (or all nodes if nodeID is null)
 
@@ -671,6 +671,7 @@ Send ping to a node (or all nodes if nodeID is null)
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `nodeID` |  | - | - |
+| `timeout` |  | - | - |
 
 
 
@@ -739,7 +740,8 @@ Get event groups by event name
 
 `emitLocalServices(event: String, payload: any, groups: any, sender: String, broadcast: boolean)`
 
-Emit event to local nodes
+Emit event to local nodes. It is called from transit when a remote event received
+or from 
 
 
 #### Parameters
@@ -751,6 +753,22 @@ Emit event to local nodes
 | `groups` | any | - | - |
 | `sender` | String | - | - |
 | `broadcast` | boolean | - | - |
+
+
+
+
+
+
+
+
+### getCpuUsage
+
+
+
+`getCpuUsage(): undefined`
+
+Get node overall CPU usage
+
 
 
 

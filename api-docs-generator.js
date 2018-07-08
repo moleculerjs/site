@@ -11,9 +11,9 @@ const Promise = require("bluebird");
 
 /**
  * Check this section is a `Function`
- * 
- * @param {any} section 
- * @returns 
+ *
+ * @param {any} section
+ * @returns
  */
 function isFunction(section) {
 	return (
@@ -26,10 +26,10 @@ function isFunction(section) {
 
 /**
  * Format parameters for signature
- * 
- * @param {any} section 
- * @param {any} short 
- * @returns 
+ *
+ * @param {any} section
+ * @param {any} short
+ * @returns
  */
 function formatParameters(section, short) {
 	if (section.params) {
@@ -41,10 +41,10 @@ function formatParameters(section, short) {
 
 /**
  * Format a parameter for signature
- * 
- * @param {any} param 
- * @param {any} short 
- * @returns 
+ *
+ * @param {any} param
+ * @param {any} short
+ * @returns
  */
 function formatParameter(param, short) {
 	if (short) {
@@ -58,7 +58,7 @@ function formatParameter(param, short) {
 	}
 	if (param.type && param.type.name)
 		return param.name + ": " + param.type.name.replace(/\n/g, "");
-	
+
 	return param.name;
 }
 
@@ -75,7 +75,7 @@ const sourceFiles = [
 ]
 
 // Target folder
-const targetFolder = path.join(".", "source", apiVersion, "api");
+const targetFolder = path.join(".", "source", "docs", apiVersion, "api");
 console.log("Target folder:", targetFolder);
 mkdir(targetFolder);
 
@@ -142,7 +142,7 @@ Promise.each(sourceFiles, sourceFile => {
 		members
 	}, sharedImports));
 
-		
+
 
 
 
@@ -157,13 +157,13 @@ Promise.each(sourceFiles, sourceFile => {
 
 		console.log(`Done '${sourceFile.path}'!`);
 	}).catch(err => console.error(err))
-	
+
 }).then(() => {
 	const fName = path.join(__dirname, ".", "node_modules", "moleculer", "docs", "PROTOCOL.md");
 	if (fs.existsSync(fName)) {
 		console.log(`Copy PROTOCOL.md...`);
 		let content = fs.readFileSync(fName, "utf8");
-		fs.writeFileSync(path.join(targetFolder, "protocol.md"), content, "utf8");	
+		fs.writeFileSync(path.join(targetFolder, "protocol.md"), content, "utf8");
 	} else {
 		console.log("PROTOCOL.md is missing!");
 	}
@@ -187,7 +187,7 @@ Context class methods and properties.
 Communication protocol of Moleculer.
 
 `, "utf8");
-	
+
 }).then(() => {
 	console.log("All files done!");
 	process.exit(0);

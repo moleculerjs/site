@@ -8,7 +8,7 @@ title: Context
 
 
 
-`new Context(broker, action)`
+`new Context(broker, endpoint)`
 
 Context class for action calls
 
@@ -41,7 +41,7 @@ Context class for action calls
 
 
 
-`new Context(broker: ServiceBroker, action: Action)`
+`new Context(broker: ServiceBroker, endpoint: Endpoint)`
 
 Creates an instance of Context.
 
@@ -51,30 +51,10 @@ Creates an instance of Context.
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `broker` | ServiceBroker | - | Broker instance |
-| `action` | Action | - | Action definition |
+| `endpoint` | Endpoint | - | Endpoint (action & nodeID) |
 
 
 
-
-
-
-#### Examples
-
-
-
-
-
-```js
-let ctx = new Context(broker, action);
-```
-
-
-
-
-
-```js
-let ctx2 = new Context(broker, action);
-```
 
 
 
@@ -84,9 +64,9 @@ let ctx2 = new Context(broker, action);
 
 
 
-`create(broker: ServiceBroker, action: Object, nodeID, params, opts: Object): Context`
+`create(broker: ServiceBroker, endpoint: Endpoint, params, opts: Object): Context`
 
-Create a new Context instance.
+Create a new Context instance
 
 
 #### Parameters
@@ -94,10 +74,46 @@ Create a new Context instance.
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `broker` | ServiceBroker | - | - |
-| `action` | Object | - | - |
-| `nodeID` |  | - | - |
+| `endpoint` | Endpoint | - | - |
 | `params` |  | - | - |
 | `opts` | Object | - | - |
+
+
+
+
+
+
+
+
+### id
+
+
+
+`id`
+
+Context ID getter
+
+
+
+
+
+
+
+
+
+### id
+
+
+
+`id`
+
+Context ID setter
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
 
 
 

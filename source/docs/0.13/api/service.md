@@ -10,7 +10,7 @@ title: Service
 
 `new Service(broker, schema)`
 
-Main Service class
+Service class
 
 
 
@@ -111,6 +111,29 @@ Apply
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `schema` | Schema | - | - |
+
+
+
+
+
+
+
+
+### mergeSchemas
+
+
+
+`mergeSchemas(mixinSchema: Object, svcSchema: Object): Object`
+
+Merge two Service schema
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `mixinSchema` | Object | - | Mixin schema |
+| `svcSchema` | Object | - | Service schema |
 
 
 

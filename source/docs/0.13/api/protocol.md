@@ -1,4 +1,4 @@
-title: Protocol v3
+title: Protocol v3 (rev. 2)
 ---
 
 This documentation describes the communication protocol between Moleculer nodes. 
@@ -35,28 +35,28 @@ After the client is connected to the message broker (NATS, Redis, MQTT), it subs
 
 ## Discovering
 After subscriptions, the client broadcasts a `DISCOVER` packet. In response to this, all connected nodes send back `INFO` packet to the sender node. From these responses, the client builds its own service registry. At last, the client broadcasts own INFO packet to all other nodes.
-![](../assets/protocol/moleculer_protocol_discover.png)
+![](http://moleculer.services/images/protocol-v2/moleculer_protocol_discover.png)
 
 ## Heartbeat
 The client has to broadcast `HEARTBEAT` packets periodically. The period value comes from broker options (`heartbeatInterval`). The default value is 5 secs. 
 If the client does not receive `HEARTBEAT` for `heartbeatTimeout` seconds from a node, marks it broken and doesn't route requests to this node.
-![](../assets/protocol/moleculer_protocol_heartbeat.png)
+![](http://moleculer.services/images/protocol-v2/moleculer_protocol_heartbeat.png)
 
 ## Request-reply
 When you call the `broker.call` method, the broker sends a `REQUEST` packet to the targetted node. It processes the request and sends back a `RESPONSE` packet to the requester node.
-![](../assets/protocol/moleculer_protocol_request.png)
+![](http://moleculer.services/images/protocol-v2/moleculer_protocol_request.png)
 
 ## Event
 When you call the `broker.emit` method, the broker sends an `EVENT` packet to the subscriber nodes. The broker groups & balances the subscribers, so only one instance per service receives the event. If you call the `broker.broadcast` method, the broker sends an `ĘVENT` packet to all subscriber nodes. It doesn't group & balance the subscribers.
-![](../assets/protocol/moleculer_protocol_event.png)
+![](http://moleculer.services/images/protocol-v2/moleculer_protocol_event.png)
 
 ## Ping-pong
-When you call the `broker.transit.sendPing` method, the broker sends a `PING` packet to the targetted node. If node is not defined, it sends to all nodes. If the client receives the `PING` packet, sends back a `PONG` response packet. If it receives, broker broadcasts a local `$node.pong` event to the local services.
-![](../assets/protocol/moleculer_protocol_pong.png)
+When you call the `broker.ping` method, the broker sends a `PING` packet to the targetted node. If node is not defined, it sends to all nodes. If the client receives the `PING` packet, sends back a `PONG` response packet. If it receives, broker broadcasts a local `$node.pong` event to the local services.
+![](http://moleculer.services/images/protocol-v2/moleculer_protocol_pong.png)
 
 ## Disconnect
 When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
-![](../assets/protocol/moleculer_protocol_disconnect.png)
+![](http://moleculer.services/images/protocol-v2/moleculer_protocol_disconnect.png)
 
 ## Packets
 
@@ -133,9 +133,10 @@ When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
 | `meta` | `object` | ✔ | `ctx.meta` object. (*) |
 | `timeout` | `double` | ✔ | Request timeout (distributed) in milliseconds. |
 | `level` | `int32` | ✔ | Level of request. |
-| `metrics` | `boolean` | ✔ | Must send metrics events. |
+| `metrics` | `boolean` | ✔ | Need to send metrics events. |
 | `parentID` | `string` |  | Parent context ID. |
 | `requestID` | `string` |  | Request ID from `ctx.requestID`. |
+| `stream` | `boolean` | ✔ | Stream request. |
 
 > (*) In case of `ProtoBuf`, `Avro` or any other schema-based serializer, the field value is encoded to JSON string.
 
@@ -156,6 +157,7 @@ When a node is stopping, it broadcasts a `DISCONNECT` packet to all nodes.
 | `data` | `object` |  | Response data if success. (*) |
 | `error` | `object` |  | Error object if not success. (*) |
 | `meta` | `object` | ✔ | `ctx.meta` object. (*) |
+| `stream` | `boolean` | ✔ | Stream request. |
 
 > (*) In case of `ProtoBuf`, `Avro` or any other schema-based serializer, the field value is encoded to JSON string.
 
