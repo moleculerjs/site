@@ -1,6 +1,7 @@
 menu:
   docs: Documentation
-  api: API
+  modules: Modules
+  support: Support
   search: Search
 
 index:
@@ -17,44 +18,76 @@ page:
 sidebar:
   docs:
     getting_started: Getting Started
+    what_is_it: What is Moleculer?
     overview: Overview
     install: Install
     usage: Usage
-    examples: Examples   
-    support: Support 
+    examples: Examples
+    support: Support
 
+    introduction: Introduction
     core: Core
-    broker: Service Broker
+    features: Features
+    broker: Broker
     service: Service
-    context: Context
-    logger: Logger
+    services: Services
+    lifecycle: Lifecycles
+    actions: Actions
+    events: Events
+    middlewares: Middlewares
+    caching: Caching
+    networking: Networking
+    registry: Discovery & Registry
+    balancing: Load balancing
+    fault_tolerance: Fault tolerance
+    metrics: Metrics & Tracing
+    logging: Logging
+    validating: Validating
     errors: Errors
-    validation: Validation
-    circuit-breaker: Circuit Breaker
-    service-registry: Service Registry
-    cachers: Cachers
-    transporters: Transporters
-    serializers: Serializers
-    metrics: Metrics
-    statistics: Statistics
     runner: Moleculer Runner
 
     modules: Modules
+    tools: Tools
     moleculer_web: API Gateway
     moleculer_repl: REPL console
     moleculer_cli: CLI Tool
     other_modules: Other modules
+    all_modules: All modules
 
     miscellaneous: Miscellaneous
+    clustering: Clustering
+    deploying: Deploying
     nodes: Nodes
     docker: Docker
     serverless: Serverless
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing
-  api:
-    components: Components
+
+    # Old 01.12 menu
+    transporters: Transporters
+    context: Context
+    logger: Logger
+    circuit-breaker: Circuit Breaker
+    service-registry: Service Registry
+    cachers: Cachers
+    serializers: Serializers
+    statistics: Statistics
+    validation: Validation
+
+    api: API
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context
     api_protocol: Protocol
+
+modules:
+  gateway: Gateways
+  general: General
+  databases: Databases & stores
+  tasks: Tasks, queues & jobs
+  metrics: Metrics & Tracing
+  validators: Validators
+  tools: Tools
+  others: Others
+

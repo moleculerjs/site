@@ -3,7 +3,6 @@ docs:
     overview: index.html
     usage: usage.html
     examples: examples.html
-    support: support.html
 
   core:
     broker: broker.html
@@ -35,9 +34,8 @@ docs:
     faq: faq.html
     contributing: contributing.html
 
-api:
-  components:
-    api_servicebroker: service-broker.html
-    api_service: service.html
-    api_context: context.html
-    api_protocol: protocol.html
+  api:
+    api_servicebroker: api/service-broker.html
+    api_service: api/service.html
+    api_context: api/context.html
+    api_protocol: api/protocol.html
