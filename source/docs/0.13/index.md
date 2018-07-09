@@ -24,6 +24,11 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 - built-in health monitoring & metrics
 - official [API gateway module](https://github.com/moleculerjs/moleculer-web) and many other modules...
 
+
+## Versioning
+
+Until Moleculer reaches a `1.0` release, breaking changes will be released with a new minor version. For example `0.13.1`, and `0.13.4` will be backward compatible, but `0.14.0` will have breaking changes.
+
 ## How fast?
 
 We spent a lot of hours to improve the performance of Moleculer and create the fastest microservices framework for Node.js.
