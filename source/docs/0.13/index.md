@@ -33,8 +33,8 @@ Until Moleculer reaches a `1.0` release, breaking changes will be released with 
 
 We spent a lot of hours to improve the performance of Moleculer and create the fastest microservices framework for Node.js.
 
-[![Result chart](https://cloud.highcharts.com/images/utideti/6/600.png)](http://cloud.highcharts.com/show/utideti)
-[![Result chart](https://cloud.highcharts.com/images/abyfite/1/600.png)](http://cloud.highcharts.com/show/abyfite)
+[![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti)
+[![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 Check the results on your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
 
