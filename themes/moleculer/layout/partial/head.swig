@@ -35,7 +35,7 @@
   <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Roboto Mono|Lato:300,400,700" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-  <!-- RSS 
+  <!-- RSS
   {{ feed_tag('atom.xml') }}
   -->
   <!-- Open Graph -->
@@ -45,6 +45,8 @@
   }) }}
   <!-- Google Analytics -->
   {{ partial('google_analytics') }}
-  <!-- Github Button -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <!-- Particles -->
+  {{ js('js/buttons') }}
+
 </head>
