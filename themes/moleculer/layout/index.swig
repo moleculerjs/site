@@ -47,7 +47,11 @@
           </div>
         </li>
       </ul>
-      {{ page.content }}
+      <div style="text-align: center">
+        <a href="/docs">
+            <img src="images/main-example.png" style="width: 100%;height: auto;max-width: 800px;" />
+        </a>
+      </div>
       <div id="intro-get-started-wrap">
         <a href="{{ page.site.data.menu.docs }}" id="intro-get-started-link">{{ __('index.get_started') }}</a>
       </div>
