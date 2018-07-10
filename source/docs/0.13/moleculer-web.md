@@ -50,7 +50,7 @@ broker.start();
 
 ## Whitelist
 If you don't want to publish all actions, you can filter them with whitelist option.
-Use [match strings](https://github.com/micromatch/nanomatch) or regexp in list.
+Use match strings or regexp in list. _To enable all actions, use `"**"` item._
 
 ```js
 broker.createService({
