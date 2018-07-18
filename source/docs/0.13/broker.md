@@ -47,14 +47,16 @@ List of all available broker options:
 | `logObjectPrinter` | `Function` | `null` | Custom object & array printer for built-in console logger. |
 | `transporter` | `String` or `Object` or `Transporter` | `null` | Transporter settings. [Read more](networking.html).  |
 | `requestTimeout` | `Number` | `0` | Number of milliseconds to wait before reject a request with a `RequestTimeout` error. Disabled: `0` |
-| `retryPolicy` | `Object` | | Retry policy settings. [Read more](fault-tolerance.html) |
+| `retryPolicy` | `Object` | | Retry policy settings. [Read more](fault-tolerance.html#Retry) |
 | `maxCallLevel` | `Number` | `0` | Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ |
 | `heartbeatInterval` | `Number` | `5` | Number of seconds to send heartbeat packet to other nodes. |
 | `heartbeatTimeout` | `Number` | `15` | Number of seconds to wait before setting node to unavailable status. |
 | `tracking` | `Object` | | Tracking requests and waiting for running requests before shutdowning. [Read more](fault-tolerance.html) |
 | `disableBalancer` | `Boolean` | `false` | Disable built-in request & emit balancer. _Transporter must support it, as well._ |
 | `registry` | `Object` | | Settings of [Service Registry](registry.html) |
-| `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](fault-tolerance.html) |
+| `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker) |
+| `bulkhead` | `Object` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
+| `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
 | `validation` | `Boolean` | `true` | Enable [parameters validation](validating.html). |
