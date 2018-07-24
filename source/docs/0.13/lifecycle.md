@@ -12,7 +12,7 @@ The broker starts transporter connecting but it doesn't publish the local servic
 </div>
 
 {% note warn Avoid deadlocks %}
-Dead-locks can be made when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method out of `started` handler instead.
+Dead-locks can be made when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method in `started` handler instead.
 {% endnote %}
 
 ### Stopping logic
