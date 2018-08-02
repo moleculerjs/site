@@ -61,6 +61,18 @@ Instead of a GitHub repo, use a template from local filesystem:
 $ moleculer init ./path/to-custom-template my-project
 ```
 
+#### Template aliases
+
+To simplify usage of custom templates (local and remote), it is possible to register an alias and use that afterwards instead of the whole repository url.
+```bash
+$ moleculer alias-template myAlias somegithubuser/reponame
+$ moleculer alias-template otherAlias ./path/to/some-local/custom/template
+
+
+$ moleculer init myAlias my-project
+```
+All registered template aliases are stored in the file `~/.moleculer-templates.json` and can also be edited manually.
+
 ### Start a broker locally
 This command starts a new `ServiceBroker` locally and switches to REPL mode.
 ```bash
