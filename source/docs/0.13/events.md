@@ -79,17 +79,17 @@ module.exports = {
     events: {
         // Subscribe to `user.created` event
         "user.created"(user) {
-            console.log("User created:", user));
+            console.log("User created:", user);
         },
 
         // Subscribe to all `user` events
         "user.*"(user) {
-            console.log("User event:", user));
+            console.log("User event:", user);
         }
 
         // Subscribe to all internal events
         "$**"(payload, sender, event) {
-            console.log(`Event '${event}' received from ${sender} node:`, payload));
+            console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
     }
 }

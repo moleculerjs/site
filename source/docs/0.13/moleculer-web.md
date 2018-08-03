@@ -86,7 +86,7 @@ broker.createService({
         routes: [{
             aliases: {
                 // Call `auth.login` action with `GET /login` or `POST /login`
-                "login": "auth.login"
+                "login": "auth.login",
 
                 // Restrict the request method
                 "POST users": "users.create",
