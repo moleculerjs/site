@@ -51,6 +51,11 @@ general:
     link: https://github.com/molobala/moleculer-flydrive#readme
     desc: Fluent storage manager service with Node Flydrive.
     author: molobala
+  -
+    name: moleculer-markdown
+    link: https://github.com/alsofronie/moleculer-markdown#readme
+    desc: A Markdown service transformer for Moleculer.
+    author: alsofronie
 
 databases:
   -
