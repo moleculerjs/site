@@ -488,6 +488,43 @@ broker.createService({
 You can find a more detailed role-based JWT authorization example in [full example](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js#L239).
 {% endnote %}
 
+## Authentication
+To enable the support for authentication, you need to do something similar to what is describe in the Authorization paragraph. Also in this case you have to:
+1. Set `authentication: true` in your routes
+2. Define your custom `authenticate` method in your service
+
+**Example authentication**
+```js
+broker.createService({
+    mixins: ApiGatewayService,
+
+    settings: {
+        routes: [{
+            // Enable authentication
+            authentication: true
+        }]
+    },
+
+    methods: {
+        authenticate(ctx, route, req, res) {
+            let accessToken = req.query["access_token"];
+            if (accessToken) {
+                if (accessToken === "12345") {
+                    // valid credentials
+                    return Promise.resolve({ id: 1, username: "john.doe", name: "John Doe" });
+                } else {
+                    // invalid credentials
+                    return Promise.reject();
+                }
+            } else {
+                // anonymous user
+                return Promise.resolve(null);
+            }
+        }
+    }
+});
+```
+
 ## Route hooks
 The `route` has before & after call hooks. You can use it to set `ctx.meta`, access `req.headers` or modify the response `data`.
 
