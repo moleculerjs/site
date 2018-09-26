@@ -59,7 +59,7 @@ module.export = {
 ```
 
 ## Retry
-There is az exponential backoff retry solution. It can recall failed requests.
+There is an exponential backoff retry solution. It can recall failed requests.
 
 **Enable it in the broker options**
 ```js
