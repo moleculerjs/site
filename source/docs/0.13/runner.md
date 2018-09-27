@@ -48,6 +48,8 @@ The runner does the following steps to load & merge configurations:
 3. Once a config file has been loaded, it merges options with the default options of the ServiceBroker.
 4. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
 
+> To overwrite broker's deeply nested default options, which are not present in `moleculer.config.js`, via environment variables, use the `MOLECULER_` prefix in `.env` file. For example, to set the [cacher prefix](caching.html#Built-in-cachers) to `MOL` you should declare as `MOLECULER_CACHER_OPTIONS_PREFIX=MOL`.
+
 ### Configuration file
 The structure of the configuration file is the same as that of the [broker options](broker.html#Broker-options). Every property has the same name.
 
@@ -70,7 +72,7 @@ module.exports = {
 ```
 
 ### Environment variables
-The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`
+The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.
 
 **Example environment variables**
 ```bash
