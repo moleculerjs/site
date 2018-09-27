@@ -262,6 +262,8 @@ const broker = new ServiceBroker({
         options: {
             host: "mqtt-server",
             port: 1883,
+            qos: 0,
+            topicSeparator: "."
         }
     }
 });
@@ -304,7 +306,12 @@ const broker = new ServiceBroker({
         options: {
             url: "amqp://user:pass@rabbitmq-server:5672",
             eventTimeToLive: 5000,
-            prefetch: 1
+            prefetch: 1,
+            socketOptions: {
+                servername: process.env.RABBIT_SERVER_NAME
+            }
+            // If true, queues will be autodeleted once service is stopped, i.e., queue listener is removed
+            autoDeleteQueues: true
         }
     }
 });
@@ -491,6 +498,18 @@ const broker = new ServiceBroker({
 ```
 {% note info Dependencies %}
 To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
+{% endnote %}
+
+### Notepack serializer
+Built-in [Notepack](https://github.com/darrachequesne/notepack) serializer.
+
+```js
+const broker = new ServiceBroker({
+    serializer: "Notepack"
+});
+```
+{% note info Dependencies %}
+To use this serializer install the `notepack` module with `npm install notepack.io --save` command.
 {% endnote %}
 
 ### ProtoBuf serializer

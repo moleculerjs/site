@@ -59,6 +59,7 @@ List of all available broker options:
 | `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
+| `skipProcessEventRegistration` | `Boolean` | `false` | Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case you have to register them manually. |
 | `validation` | `Boolean` | `true` | Enable [parameters validation](validating.html). |
 | `validator` | `Validator` | `null` | Custom Validator class for validation. |
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
@@ -134,6 +135,8 @@ List of all available broker options:
 
     cacher: "memory",
     serializer: null,
+
+    skipProcessEventRegistration: false
 
     validation: true,
     validator: null,

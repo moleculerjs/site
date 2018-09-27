@@ -83,7 +83,7 @@ const broker = new ServiceBroker({
 | `retries` | `Number` | `5` | Count of retries. |
 | `delay` | `Number` | `100` | First delay in milliseconds. |
 | `maxDelay` | `Number` | `2000` | Maximum delay in milliseconds. |
-| `factor` | `Number` | `2` | Backoff factor for delay. `2` means exponencial backoff. |
+| `factor` | `Number` | `2` | Backoff factor for delay. `2` means exponential backoff. |
 | `check` | `Function` | `err && !!err.retryable` | A function to check failed requests. |
 
 **Overwrite the retries value in calling option** 
