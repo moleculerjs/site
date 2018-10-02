@@ -25,6 +25,7 @@ docs:
     moleculer_web: moleculer-web.html
     moleculer_repl: moleculer-repl.html
     moleculer_cli: moleculer-cli.html
+    moleculer_db: moleculer-db.html
     all_modules: /modules.html
 
   miscellaneous:
