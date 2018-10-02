@@ -1,6 +1,6 @@
 title: Database Adapters
 ---
-Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to store your data in database.
+Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to persist your data in a database.
 
 {% note info Database per service%}
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html).
@@ -103,7 +103,7 @@ All DB adapters share a common set of settings:
 
 DB adapters also implement CRUD operations. These actions are public methods and can be called by other services.
 
-### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### [`find`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L75) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 Find entities by query.
 
@@ -123,7 +123,7 @@ Find entities by query.
 **Type:** `Array.<Object>` - List of found entities.
 
 
-### `count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### [`count`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L110) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 Get count of entities by query.
 
@@ -138,7 +138,7 @@ Get count of entities by query.
 **Type:** `Number` - Count of found entities.
 
 
-### `list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### [`list`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L149) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 List entities by filters and pagination results.
 
@@ -157,7 +157,7 @@ List entities by filters and pagination results.
 #### Results
 **Type:** `Object` - List of found entities and count.
 
-#### `create` 
+### [`create`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L207)
 
 Create a new entity.
 
@@ -170,7 +170,7 @@ Create a new entity.
 #### Results
 **Type:** `Object` - Saved entity.
 
-### `insert` 
+### [`insert`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L229)
 
 Create many new entities.
 
@@ -183,7 +183,7 @@ Create many new entities.
 #### Results
 **Type:** `Object`, `Array.<Object>` - Saved entity(ies).
 
-### `get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### [`get`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L268) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 Get entity by ID.
 
@@ -199,7 +199,7 @@ Get entity by ID.
 **Type:** `Object`, `Array.<Object>` - Found entity(ies).
 
 
-### `update` 
+### [`update`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L322)
 
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
@@ -214,7 +214,7 @@ Update an entity by ID.
 **Type:** `Object` - Updated entity.
 
 
-### `remove` 
+### [`remove`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L357)
 
 Remove an entity by ID.
 
@@ -230,7 +230,7 @@ Remove an entity by ID.
 
 DB adapters also has a set of helper methods
 
-### `getById` 
+### [`getById`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L469)
 
 Get entity(ies) by ID(s).
 
@@ -244,7 +244,7 @@ Get entity(ies) by ID(s).
 **Type:** `Object`, `Array.<Object>` - Found entity(ies).
 
 
-### `clearCache` 
+### [`clearCache`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L507)
 
 Clear cached entities
 
@@ -284,8 +284,8 @@ Decode ID of entity.
 **Type:** `any`
 
 ## Populating
-The service allows you to easily populate fields from other services. 
-E.g.: if you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request.
+The service allows you to easily populate fields from other services. For exapmle: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
+
 
 **Example of populate schema**
 ```js
