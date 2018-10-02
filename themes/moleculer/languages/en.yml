@@ -51,6 +51,7 @@ sidebar:
     moleculer_web: API Gateway
     moleculer_repl: REPL console
     moleculer_cli: CLI Tool
+    moleculer_db: DB Adapters
     other_modules: Other modules
     all_modules: All modules
 
