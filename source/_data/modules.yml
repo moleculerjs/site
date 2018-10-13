@@ -158,3 +158,8 @@ others:
     link: https://github.com/al66/imicros-flow
     desc: Moleculer service for loose coupled event handling.
     author: al66
+  -
+    name: moleculer-vault
+    link: https://github.com/designtesbrot/moleculer-vault
+    desc: A Moleculer Service for HashiCorp's Vault.
+    author: designtesbrot
