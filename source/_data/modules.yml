@@ -163,3 +163,8 @@ others:
     link: https://github.com/designtesbrot/moleculer-vault
     desc: A Moleculer Service for HashiCorp's Vault.
     author: designtesbrot
+  -
+    name: moleculer-antivirus
+    link: https://github.com/designtesbrot/moleculer-antivirus
+    desc: A Moleculer Service for Antivirus Scanning. (ClamAV)
+    author: designtesbrot
