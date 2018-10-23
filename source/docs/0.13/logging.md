@@ -141,6 +141,7 @@ const broker = new ServiceBroker({
 ### **[Winston](https://github.com/winstonjs/winston)**
 ```js
 const winston = require("winston");
+const { extend } = require("moleculer").Logger;
 const broker = new ServiceBroker({ 
     logger: bindings => extend(winston.createLogger({
         format: winston.format.combine(
