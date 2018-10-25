@@ -99,6 +99,10 @@ All DB adapters share a common set of settings:
 | `maxLimit` | `Number` | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit) |
 | `entityValidator` | `Object`, `function` | `null` | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions. |
 
+{% note warn%}
+`idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
+{% endnote %}
+
 ## Actions
 
 DB adapters also implement CRUD operations. These actions are public methods and can be called by other services.
