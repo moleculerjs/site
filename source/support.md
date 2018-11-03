@@ -30,6 +30,15 @@ Thank you in advance!
 
 ## Patreon backers
 
+### Platinum sponsors
+
+<div class="support-backers">
+	<a href="https://github.com/sibblegp" class="user-logo" target="_blank">
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/8281295/f4b3bbc2e5704fd38dd8903494e96e0b/1?token-time=2145916800&token-hash=wD2b9WtGDfhDq7H59jpGJPQeVOczOPoUKsttrROW1uI%3D" alt="George Sibble" />
+		<label>George Sibble</label>
+	</a>
+</div>
+
 ### Silver backers
 
 <div class="support-backers">
@@ -52,6 +61,10 @@ Thank you in advance!
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/400/11099088" alt="Jaikanth S" />
 		<label>Jaikanth S</label>
+	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/2521846" alt="David Roman" />
+		<label>David Roman</label>
 	</a>
 </div>
 
