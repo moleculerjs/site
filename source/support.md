@@ -29,7 +29,7 @@ Thank you in advance!
 
 
 ## Patreon backers
-
+<!--
 ### Platinum sponsors
 
 <div class="support-backers">
@@ -38,7 +38,7 @@ Thank you in advance!
 		<label>George Sibble</label>
 	</a>
 </div>
-
+-->
 ### Silver backers
 
 <div class="support-backers">
