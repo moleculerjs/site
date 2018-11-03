@@ -86,7 +86,7 @@ There are some internal settings which are used by core modules. These setting n
 | `$shutdownTimeout` | `Number` | `0` | Timeout for waiting for active requests at shutdown. |
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. It is to extend an other service in your service. When a service uses mixins, all properties in the mixin will be "mixed" into the current service.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. It is to extend another service to your service. When a service uses mixins, all properties in the mixin will be "mixed" into the current service.
 
 **Example how to extend `moleculer-web` service**
 
