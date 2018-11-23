@@ -66,6 +66,10 @@ Thank you in advance!
 		<img src="https://c8.patreon.com/2/200/2521846" alt="David Roman" />
 		<label>David Roman</label>
 	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/15189499" alt="Nick Reese" />
+		<label>Nick Reese</label>
+	</a>
 </div>
 
 ## Contributors
