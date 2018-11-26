@@ -58,7 +58,7 @@ general:
     author: alsofronie
   -
     name: moleculer-state-machine
-    linkL: https://github.com/fugufish/moleculer-state-machine#readme
+    link: https://github.com/fugufish/moleculer-state-machine#readme
     desc: A Finite-state machine mixin for Moleculer services
     author: fugufish
 
