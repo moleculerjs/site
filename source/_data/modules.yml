@@ -88,6 +88,16 @@ databases:
     link: https://github.com/zygos/moleculer-adapter-feathers#readme
     desc: Moleculer service mixin wrapping Feathers.js services.
     author: zygos
+  -
+    name: moleculer-db-adapter-typeorm
+    link: https://github.com/dkuida/moleculer-db-adapter-typeorm#readme
+    desc: A TypeORM-based service to persist your data
+    author: dkuida
+  -
+    name: moleculer-db-adapter-dynamodb
+    link: https://github.com/katsanva/moleculer-db-adapter-dynamodb#readme
+    desc: DynamoDB adapter for Moleculer DB service with dynamodb.
+    author: katsanva
 
 tasks:
   -
