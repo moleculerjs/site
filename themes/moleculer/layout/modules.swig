@@ -7,6 +7,7 @@
 			<header class="article-header">
 				<h1 class="article-title" itemprop="name">{{ page.title }}</h1>
 			</header>
+            <a href="https://github.com/moleculerjs/awesome-moleculer">Check our Awesome Moleculer repo!</a>
 			<div class="article-content" itemprop="articleBody">
 			{% for category in site.data.modules %}
 				<h3 id="{{ loop.key }}" class="article-heading">
