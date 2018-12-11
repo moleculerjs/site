@@ -141,6 +141,41 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 // Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
+## Conditional caching
+
+Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data.
+To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+
+**Example of turning off the caching for the `greeter.hello` action**
+```js
+broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
+```
+
+As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+
+**Example of a custom conditional caching function**
+```js
+// greeter.service.js
+module.exports = {
+    name: "greeter",
+    actions: {
+        hello: {
+            cache: {
+                enabled: ctx => ctx.params.noCache !== true, //`noCache` passed as a parameter
+                keys: ["name"]
+            },
+            handler(ctx) {
+                this.logger.debug(chalk.yellow("Execute handler"));
+                return `Hello ${ctx.params.name}`;
+            }
+        }
+    }
+};
+
+// Use custom `enabled` function to turn off caching for this request
+broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
+```
+
 ## TTL
 Default TTL setting can be overriden in action definition.
 
@@ -449,6 +484,37 @@ const broker = new ServiceBroker({
 
 {% note info Dependencies %}
 To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
+{% endnote %}
+
+### LRU memory cacher
+`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. It deletes the least-recently-used items.
+
+**Enable LRU cacher**
+```js
+const broker = new ServiceBroker({
+    cacher: "MemoryLRU"
+});
+```
+
+**With options**
+```js
+let broker = new ServiceBroker({
+    logLevel: "debug",
+    cacher: {
+        type: "MemoryLRU",
+        options: {
+            // Maximum items
+            max: 100,
+            // Time-to-Live
+            ttl: 3
+        }
+    }
+});
+```
+
+
+{% note info Dependencies %}
+To be able to use this cacher, install the `lru-cache` module with the `npm install lru-cache --save` command.
 {% endnote %}
 
 ## Custom cacher
