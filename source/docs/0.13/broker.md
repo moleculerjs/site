@@ -57,6 +57,8 @@ List of all available broker options:
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker) |
 | `bulkhead` | `Object` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
 | `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
+| `transit.disableReconnect` | `Boolean` | `false` | Disables the reconnection logic while starting a broker|
+| `transit.packetLogFilter` | `Array` | `empty` | Filters out the packets in debug logs |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
 | `skipProcessEventRegistration` | `Boolean` | `false` | Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case you have to register them manually. |
@@ -130,7 +132,9 @@ List of all available broker options:
     },
 
     transit: {
-        maxQueueSize: 50 * 1000
+        maxQueueSize: 50 * 1000,
+        disableReconnect: false,
+        packetLogFilter: []
     },     
 
     cacher: "memory",
