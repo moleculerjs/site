@@ -31,6 +31,7 @@ broker.repl();
     call [options] <actionName> [jsonParams]            Call an action
     dcall [options] <nodeID> <actionName> [jsonParams]  Direct call an action
     clear [pattern]                                     Clear cache entries
+    cls                                                 Clear console    
     emit <eventName>                                    Emit an event
     env                                                 List of environment variables
     events [options]                                    List of event listeners
@@ -39,7 +40,6 @@ broker.repl();
     loadFolder <serviceFolder> [fileMask]               Load all services from folder
     nodes [options]                                     List of nodes
     services [options]                                  List of services
-    hello [options] <name>                              Call the greeter.hello service with name
 ```
 
 ### List nodes
@@ -144,6 +144,14 @@ mol $ call "test.hello"
 **Output**
 ![image](assets/repl/call1.png)
 
+**Options**
+```
+    --help               output usage information
+    --load [filename]    Load params from file
+    --stream [filename]  Send a file as stream
+    --save [filename]    Save response to file
+```
+
 #### Call an action with parameters
 ```bash
 mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
@@ -166,6 +174,12 @@ It tries to load the `<current_dir>/math.add.params.json` file to params.
 mol $ call "math.add" --load my-params.json
 ```
 It tries to load the `my-params.jon` file to params.
+
+#### Call with file stream
+```bash
+mol $ call "math.add" --stream my-picture.jpg
+```
+It loads the `my-picture.png` file and send to the `math.add` action as a `Stream`.
 
 #### Call and save response to file
 ```bash
