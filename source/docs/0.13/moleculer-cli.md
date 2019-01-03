@@ -93,7 +93,7 @@ The `completeMessage` property takes a multiline string that will be displayed a
 
 ##### `template`
 
-The `template` directory contains files which will be transformed using [Handlebars]() and then copied to the destination directory. Handlebars is given the `metadata` object from Metalsmith to be the source for string replacement.
+The `template` directory contains files which will be transformed using [Handlebars](https://handlebarsjs.com/) and then copied to the destination directory. Handlebars is given the `metadata` object from Metalsmith to be the source for string replacement.
 
 Handlebars can also transform file names.
 
