@@ -75,9 +75,11 @@ All registered template aliases are stored in the file `~/.moleculer-templates.j
 
 #### Creating Custom Templates
 
-Moleculer templates consist of a intialization definition file and a template directory.
+Moleculer templates consist of a `meta.js` file and a `template` directory.
 
 ##### `meta.js`
+
+The `meta.js` file exports a function that returns an object defining the Moleculer CLI init interface. The function takes a parameter `values` that gives access to external values passed in from the CLI. The object has several keys which are explained below.
 
 The `questions` property is an array of objects defining the questions asked in the init process. These objects are [Inquirer.js objects](https://github.com/SBoudrias/Inquirer.js#objects). Data collected here is stored in the Metalsmith `metadata` object.
 
@@ -89,7 +91,7 @@ The `filters` object takes a set of keys matching a path and a value matching th
 
 The `completeMessage` property takes a multiline string that will be displayed after the initialization is completed.
 
-##### `template` directory
+##### `template`
 
 The `template` directory contains files which will be transformed using [Handlebars]() and then copied to the destination directory. Handlebars is given the `metadata` object from Metalsmith to be the source for string replacement.
 
