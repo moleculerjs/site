@@ -73,6 +73,30 @@ $ moleculer init myAlias my-project
 ```
 All registered template aliases are stored in the file `~/.moleculer-templates.json` and can also be edited manually.
 
+#### Creating Custom Templates
+
+Moleculer templates consist of a `meta.js` file and a `template` directory.
+
+##### `meta.js`
+
+The `meta.js` file exports a function that returns an object defining the Moleculer CLI init interface. The function takes a parameter `values` that gives access to external values passed in from the CLI. The object has several keys which are explained below.
+
+The `questions` property is an array of objects defining the questions asked in the init process. These objects are [Inquirer.js objects](https://github.com/SBoudrias/Inquirer.js#objects). Data collected here is stored in the Metalsmith `metadata` object.
+
+The `metalsmith` property allows custom code to be executed at different points in the transformation process. The `before` function executes before the transformation is run, the `after` function executes after the transformation is run, and the `complete` function executes after the transformation is run and the files are copied to the destination directory.
+
+The `metalsmith` functions take an argument `metalsmith` which gives a reference to the [Metalsmith](https://github.com/segmentio/metalsmith#metalsmith) object. A common use is to get the Metalsmith metadata by calling `metalsmith.metadata()` and then adding or mutating properties on the metadata object so it will be available for the rest of the transformation.
+
+The `filters` object takes a set of keys matching a path and a value matching the name of a question variable. If the question variable's value is `false`, the specified path will be ignored during the transformation and those files will not be added to the project being intialized.
+
+The `completeMessage` property takes a multiline string that will be displayed after the initialization is completed.
+
+##### `template`
+
+The `template` directory contains files which will be transformed using [Handlebars](https://handlebarsjs.com/) and then copied to the destination directory. Handlebars is given the `metadata` object from Metalsmith to be the source for string replacement.
+
+Handlebars can also transform file names.
+
 ### Start a broker locally
 This command starts a new `ServiceBroker` locally and switches to REPL mode.
 ```bash
