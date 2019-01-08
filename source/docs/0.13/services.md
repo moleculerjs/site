@@ -336,7 +336,7 @@ broker.waitForServices(["posts", "users"]).then(() => {
 **Set timeout & interval**
 ```js
 broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
-    // Called after `accounts` service is available in 10 seconds
+    // Called if `accounts` service becomes available in 10 seconds
 }).catch(err => {
     // Called if service is not available in 10 seconds
 });
