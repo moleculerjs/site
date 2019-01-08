@@ -3,6 +3,12 @@ title: FAQ
 
 # Core & Common
 
+## How can I start services with Moleculer Runner in debug mode?
+Use the following command:
+```bash
+$ node --inspect=0.0.0.0:9229 node_modules/moleculer/bin/moleculer-runner services
+```
+
 # API Gateway (moleculer-web)
 
 ## Why am I getting `413 - request entity too large` error message when sending a big POST body
