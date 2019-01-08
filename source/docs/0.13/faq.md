@@ -24,3 +24,7 @@ module.exports = {
     }
 }
 ```
+
+{% note info Recommendation %}
+Use [streaming feature](https://moleculer.services/docs/0.13/actions.html#Streaming) when you want to send big data to a service or receive from a service.
+{% endnote %}
