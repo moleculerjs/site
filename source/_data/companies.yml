@@ -76,3 +76,8 @@ group6:
         name: YourSoft.run
         link: https://www.yoursoft.run/
         logo: https://user-images.githubusercontent.com/1301995/51427608-264f0e80-1bfa-11e9-8a74-04c356e4257d.png
+group7:
+    -
+        name: Instarem
+        link: https://www.instarem.com/
+        logo: https://cdn.instarem.com/images/logo.png?v=0.9
