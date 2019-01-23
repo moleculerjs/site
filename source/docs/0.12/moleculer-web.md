@@ -162,6 +162,7 @@ broker.createService({
 
 {% note info %}
 You have some internal pointer in `req` & `res` to some important instances:
+* `req.$ctx` are pointed to request context.
 * `req.$service` & `res.$service` is pointed to the service instance.
 * `req.$route` & `res.$route` is pointed to the route definition.
 * `req.$params` is pointed to the resolved parameters (from query string & post body)
