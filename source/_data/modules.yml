@@ -98,6 +98,11 @@ databases:
     link: https://github.com/katsanva/moleculer-db-adapter-dynamodb#readme
     desc: DynamoDB adapter for Moleculer DB service with dynamodb.
     author: katsanva
+  -
+    name: moleculer-db-adapter-rethinkdb
+    link: https://github.com/cantecim/moleculer-db-adapter-rethinkdb#readme
+    desc: RethinkDB adapter for Moleculer DB service.
+    author: cantecim
 
 tasks:
   -
