@@ -246,6 +246,18 @@ broker.cacher.clean("mykey.**");
 broker.cacher.clean();
 ```
 
+Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+
+```js
+// create an ioredis pipeline
+const pipeline = broker.cacher.client.pipeline();
+// set values in cache
+pipeline.set('mykey.a', 'myvalue.a');
+pipeline.set('mykey.b', 'myvalue.b');
+// execute pipeline
+pipeline.exec();
+```
+
 ## Clear cache
 When you create a new model in your service, sometimes you have to clear the old cached model entries.
 
