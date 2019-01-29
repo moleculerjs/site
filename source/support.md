@@ -7,7 +7,7 @@ Moleculer is an open source MIT licensed project. It is free to use for your per
 
 **Once you decide to support me, please:**
 * set up a recurring monthly donation [on Patreon](https://www.patreon.com/moleculer) or [on Open Collective][opencollective] and you will get exciting news about what works on (things that I share with supporters only) or
-* make a one-time donation via [PayPal][paypal].
+* make a one-time donation via [PayPal][paypal] or [Wispay][wispay].
 
 **Other ways to support me:**
 * make additional modules & services to Moleculer. I have a [wishlist](https://github.com/moleculerjs/moleculer/issues/100).
@@ -21,25 +21,19 @@ Thank you in advance!
 
 <a href="https://www.patreon.com/bePatron?u=6245171" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
 
+<a href="https://www.wispay.io/t/qKe" target="_blank"><img src="https://assets.wispay.io/wgt2_d_b.png" style="height: 60px;"></a>
+
 [![Become a sponsor](https://opencollective.com/moleculer/tiers/copper-backer.svg?avatarHeight=70&width=600)][opencollective]
 
 [paypal]: https://paypal.me/meregnorbert/50usd
 [patreon]: https://www.patreon.com/bePatron?u=6245171
 [opencollective]: https://opencollective.com/moleculer
+[wispay]: https://www.wispay.io/t/qKe
 
 
 ## Patreon backers
-<!--
-### Platinum sponsors
 
-<div class="support-backers">
-	<a href="https://github.com/sibblegp" class="user-logo" target="_blank">
-		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/8281295/f4b3bbc2e5704fd38dd8903494e96e0b/1?token-time=2145916800&token-hash=wD2b9WtGDfhDq7H59jpGJPQeVOczOPoUKsttrROW1uI%3D" alt="George Sibble" />
-		<label>George Sibble</label>
-	</a>
-</div>
--->
-### Silver backers
+### Bronze backers
 
 <div class="support-backers">
 	<a href="https://github.com/zllovesuki" class="user-logo" target="_blank">
@@ -68,6 +62,10 @@ Thank you in advance!
 	</a>
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/15189499" alt="Nick Reese" />
+		<label>Nick Reese</label>
+	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Nick Reese</label>
 	</a>
 </div>
