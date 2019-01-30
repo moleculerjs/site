@@ -81,3 +81,7 @@ group7:
         name: Instarem
         link: https://www.instarem.com/
         logo: https://cdn.instarem.com/images/logo.png?v=0.9
+    -
+        name: Wispay
+        link: https://www.wispay.io/
+        logo: https://assets.wispay.io/logo_text_blue.png
