@@ -31,7 +31,16 @@ Thank you in advance!
 [wispay]: https://www.wispay.io/t/qKe
 
 
-## Patreon backers
+## Patreon backers & sponsors
+
+### Gold sponsor
+
+<div class="support-backers">
+	<a href="https://www.patreon.com/user/creators?u=14532931" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/14532931" alt="Dwayne Remekie" />
+		<label>Dwayne Remekie</label>
+	</a>
+</div>
 
 ### Bronze backers
 
