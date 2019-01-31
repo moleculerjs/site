@@ -75,7 +75,7 @@ Thank you in advance!
 	</a>
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
-		<label>Nick Reese</label>
+		<label>Tejas Bhatt</label>
 	</a>
 </div>
 
