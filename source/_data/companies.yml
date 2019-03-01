@@ -85,3 +85,7 @@ group7:
         name: Wispay
         link: https://www.wispay.io/
         logo: https://assets.wispay.io/logo_text_blue.png
+    -
+        name: Kriblet
+        link: https://kriblet.com/
+        logo: https://kriblet.com/img/logo-kriblet.png
