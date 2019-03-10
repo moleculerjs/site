@@ -59,8 +59,13 @@ general:
   -
     name: moleculer-state-machine
     link: https://github.com/fugufish/moleculer-state-machine#readme
-    desc: A Finite-state machine mixin for Moleculer services
+    desc: A Finite-state machine mixin for Moleculer services.
     author: fugufish
+  -
+    name: moleculer-typetalk
+    link: https://github.com/is2ei/moleculer-typetalk#readme
+    desc: Send Messages to Typetalk.
+    author: is2ei
 
 databases:
   -
