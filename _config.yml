@@ -46,7 +46,7 @@ github: moleculerjs/moleculer
 stackoverflow: questions/tagged/moleculer
 
 alias:
-  docs/benchmark.html: docs/0.12/benchmark.html
+  docs/benchmark.html: docs/0.13/benchmark.html
   docs/broker.html: docs/0.12/broker.html
   docs/cachers.html: docs/0.12/cachers.html
   docs/circuit-breaker.html: docs/0.12/circuit-breaker.html
@@ -54,24 +54,24 @@ alias:
   docs/contributing.html: docs/0.12/contributing.html
   docs/docker.html: docs/0.12/docker.html
   docs/errors.html: docs/0.12/errors.html
-  docs/examples.html: docs/0.12/examples.html
-  docs/faq.html: docs/0.12/faq.html
+  docs/examples.html: docs/0.13/examples.html
+  docs/faq.html: docs/0.13/faq.html
   docs/logger.html: docs/0.12/logger.html
   docs/metrics.html: docs/0.12/metrics.html
-  docs/modules.html: docs/0.12/modules.html
-  docs/moleculer-cli.html: docs/0.12/moleculer-cli.html
-  docs/moleculer-repl.html: docs/0.12/moleculer-repl.html
-  docs/moleculer-web.html: docs/0.12/moleculer-web.html
+  docs/modules.html: docs/0.13/modules.html
+  docs/moleculer-cli.html: docs/0.13/moleculer-cli.html
+  docs/moleculer-repl.html: docs/0.13/moleculer-repl.html
+  docs/moleculer-web.html: docs/0.13/moleculer-web.html
   docs/nodes.html: docs/0.12/nodes.html
   docs/runner.html: docs/0.12/runner.html
   docs/serializers.html: docs/0.12/serializers.html
   docs/serverless.html: docs/0.12/serverless.html
   docs/service-registry.html: docs/0.12/service-registry.html
-  docs/service.html: docs/0.12/service.html
+  docs/service.html: docs/0.13/service.html
   docs/statistics.html: docs/0.12/statistics.html
   docs/support.html: support.html
   docs/transporters.html: docs/0.12/transporters.html
-  docs/usage.html: docs/0.12/usage.html
+  docs/usage.html: docs/0.13/usage.html
   docs/validation.html: docs/0.12/validation.html
 
   0.12/docs/support.html: support.html
