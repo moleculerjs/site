@@ -238,6 +238,7 @@ broker.createService({
 ```
 
 ### Query string parameters
+More information: https://github.com/ljharb/qs
 
 **Array parameters**
 URL: `GET /api/opt-test?a=1&a=2`
