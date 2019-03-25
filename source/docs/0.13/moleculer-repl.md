@@ -30,6 +30,7 @@ broker.repl();
     broadcastLocal <eventName>                          Broadcast an event locally
     call [options] <actionName> [jsonParams]            Call an action
     dcall [options] <nodeID> <actionName> [jsonParams]  Direct call an action
+    destroy <serviceName> [version]                     Destroy a locally running service
     clear [pattern]                                     Clear cache entries
     cls                                                 Clear console    
     emit <eventName>                                    Emit an event
