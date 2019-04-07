@@ -44,7 +44,7 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```bash
     $ npm i moleculer-cli -g
     ```
-2. Create a new project (named `first-demo`)
+2. Create a new project (named `moleculer-demo`)
     ```bash
     $ moleculer init project moleculer-demo
     ```
