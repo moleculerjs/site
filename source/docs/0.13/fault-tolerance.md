@@ -123,7 +123,7 @@ If timeout is defined and request is timed out, broker will throw a `RequestTime
 **Enable it in the broker options**
 ```js
 const broker = new ServiceBroker({
-    requestTimeout: 5 * 1000 // in seconds
+    requestTimeout: 5 * 1000 // in milliseconds
 });
 ```
 
