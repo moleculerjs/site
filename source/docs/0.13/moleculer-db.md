@@ -49,7 +49,10 @@ broker.createService({
     mixins: [DbService],
 
     settings: {
-        fields: ["_id", "username", "name"]
+        fields: ["_id", "username", "name"],
+        entityValidator: {
+			username: "string"
+		}
     },
 
     afterConnected() {
