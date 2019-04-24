@@ -371,6 +371,10 @@ broker.createService({
 ## Multiple routes 
 You can create multiple routes with different prefix, whitelist, alias, calling options & authorization.
 
+{% note info %}
+When using multiple routes you should explicitly set the body parser(s) for each route.
+{% endnote %}
+
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -386,6 +390,10 @@ broker.createService({
                     "$node.*",
                     "users.*",
                 ]
+
+                bodyParsers: {
+                    json: true
+                }
             },
             {
                 path: "/",
@@ -394,6 +402,10 @@ broker.createService({
                     "posts.*",
                     "math.*",
                 ]
+
+                bodyParsers: {
+                    json: true
+                }
             }
         ]
     }
