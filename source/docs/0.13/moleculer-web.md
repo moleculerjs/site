@@ -372,7 +372,7 @@ broker.createService({
 You can create multiple routes with different prefix, whitelist, alias, calling options & authorization.
 
 {% note info %}
-When using multiple routes you should explicitly set the body parser(s) for each path.
+When using multiple routes you should explicitly set the body parser(s) for each route.
 {% endnote %}
 
 ```js
