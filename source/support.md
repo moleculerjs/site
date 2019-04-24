@@ -30,15 +30,16 @@ Thank you in advance!
 
 
 ## Patreon backers & sponsors
-
+<!--
 ### Gold sponsors
 
 <div class="support-backers">
-	<!--a href="https://www.patreon.com/user/creators?u=14532931" class="user-logo" target="_blank">
+	<a href="https://www.patreon.com/user/creators?u=14532931" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/14532931" alt="Dwayne Remekie" />
 		<label>Dwayne Remekie</label>
-	</a -->
+	</a>
 </div>
+-->
 
 ### Bronze backers
 
@@ -81,7 +82,7 @@ Thank you in advance!
 
 ### Gold sponsors
 
-[![Become a sponsor](https://opencollective.com/moleculer/tiers/gold-backer.svg?avatarHeight=70&width=600)][opencollective]
+[![Become a sponsor](https://opencollective.com/moleculer/tiers/gold-sponsors.svg?avatarHeight=70&width=600)][opencollective]
 
 
 ## Contributors
