@@ -23,8 +23,6 @@ Thank you in advance!
 
 <a href="https://www.wispay.io/t/qKe" target="_blank"><img src="https://assets.wispay.io/wgt2_d_b.png" style="height: 60px;"></a>
 
-[![Become a sponsor](https://opencollective.com/moleculer/tiers/copper-backer.svg?avatarHeight=70&width=600)][opencollective]
-
 [paypal]: https://paypal.me/meregnorbert/50usd
 [patreon]: https://www.patreon.com/bePatron?u=6245171
 [opencollective]: https://opencollective.com/moleculer
@@ -33,13 +31,13 @@ Thank you in advance!
 
 ## Patreon backers & sponsors
 
-### Gold sponsor
+### Gold sponsors
 
 <div class="support-backers">
-	<a href="https://www.patreon.com/user/creators?u=14532931" class="user-logo" target="_blank">
+	<!--a href="https://www.patreon.com/user/creators?u=14532931" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/14532931" alt="Dwayne Remekie" />
 		<label>Dwayne Remekie</label>
-	</a>
+	</a -->
 </div>
 
 ### Bronze backers
@@ -61,23 +59,30 @@ Thank you in advance!
 		<img src="https://c8.patreon.com/2/400/10631269" alt="Andreas Leinen" />
 		<label>Andreas Leinen</label>
 	</a>
-	<a href="#" class="user-logo" target="_blank">
+	<!--a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/400/11099088" alt="Jaikanth S" />
 		<label>Jaikanth S</label>
-	</a>
+	</a-->
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/2521846" alt="David Roman" />
 		<label>David Roman</label>
 	</a>
-	<a href="#" class="user-logo" target="_blank">
+	<!-- a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/15189499" alt="Nick Reese" />
 		<label>Nick Reese</label>
-	</a>
+	</a-->
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Tejas Bhatt</label>
 	</a>
 </div>
+
+## Open Collective backers & sponsors
+
+### Gold sponsors
+
+[![Become a sponsor](https://opencollective.com/moleculer/tiers/gold-backer.svg?avatarHeight=70&width=600)][opencollective]
+
 
 ## Contributors
 This project exists thanks to all the people who contribute. [[How to contribute](https://github.com/moleculerjs/moleculer/blob/master/CONTRIBUTING.md)]
