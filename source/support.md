@@ -82,8 +82,7 @@ Thank you in advance!
 
 ### Gold sponsors
 
-[![Become a sponsor](https://opencollective.com/moleculer/tiers/gold-sponsors.svg?avatarHeight=70&width=600)][opencollective]
-
+[![Become a sponsor](https://opencollective.com/moleculer/tiers/gold-sponsor.svg?avatarHeight=70&width=600)][opencollective]
 
 ## Contributors
 This project exists thanks to all the people who contribute. [[How to contribute](https://github.com/moleculerjs/moleculer/blob/master/CONTRIBUTING.md)]
