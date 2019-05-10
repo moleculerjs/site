@@ -48,6 +48,10 @@ Thank you in advance!
 		<img src="https://avatars1.githubusercontent.com/u/298453?s=100&v=4" alt="Rachel Chen" />
 		<label>Rachel Chen</label>
 	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D" alt="Ivan Petrovic" />
+		<label>Ivan Petrovic</label>
+	</a>    
 </div>
 
 ### Copper backers
@@ -75,10 +79,6 @@ Thank you in advance!
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Tejas Bhatt</label>
-	</a>
-	<a href="#" class="user-logo" target="_blank">
-		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D" alt="Ivan Petrovic" />
-		<label>Ivan Petrovic</label>
 	</a>
 </div>
 
