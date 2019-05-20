@@ -102,3 +102,8 @@ group8:
         name: Koodoo
         link: https://koodoo.io
         logo: https://user-images.githubusercontent.com/794241/57930167-2cee4980-78ad-11e9-9c92-fa0a14a8058e.png
+group9:
+    -
+        name: Power CMS
+        link: https://power-cms.com/
+        logo: https://user-images.githubusercontent.com/2998592/57999577-24c52280-7ad6-11e9-829b-2c34aa6b8e50.png
