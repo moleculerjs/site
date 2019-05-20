@@ -16,10 +16,10 @@
                 </h3>
 				<table>
 					<thead>
-						<th>Name</th>
-						<th>Description</th>
-						<th>Author</th>
-						<th>Version</th>
+						<th class = "name">Name</th>
+						<th class = "desc">Description</th>
+						<th class = "auth">Author</th>
+						<th class = "ver">Version</th>
 					</thead>
 					<tbody>
 						{% for module in category %}
@@ -35,7 +35,7 @@
 								</td>
 								<td>
 									<a href="https://www.npmjs.com/package/{{module.name}}" target="_blank" rel="noopener">
-										<img src="https://img.shields.io/npm/v/{{module.name}}.svg?maxAge=3600" alt="npm" />
+										<img style="display:{{module.display }} ;" src="https://img.shields.io/npm/v/{{module.name}}.svg?maxAge=3600" alt="npm" />
 									</a>
 								</td>
 							</tr>
