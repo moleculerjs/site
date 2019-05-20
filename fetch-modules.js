@@ -7,6 +7,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 const URL = `https://raw.githubusercontent.com/AndreMaz/awesome-moleculer/master/out/site_modules.yml`;
 
+// Path to modules
 const DIR_TO_WRITE = `source/_data/modules.yml`;
 
 async function fetchModules() {
