@@ -1,0 +1,22 @@
+# Don't build if build request was triggered by Travis
+# if: sender != traviscibot OR sender != Travis
+if: commit_message != 'Deploy moleculerjs/awesome-moleculer to github.com/moleculerjs/awesome-moleculer.git:master'
+
+language: node_js
+cache:
+  directories:
+  - node_modules
+
+before_script:
+  - npm install
+  - gem install awesome_bot
+script:
+    - npm run build # fetch the latest module file
+deploy:
+  provider: pages
+  target_branch: master # Push to master
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
