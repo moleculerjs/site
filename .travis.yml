@@ -1,4 +1,4 @@
-# Don't build if build request was triggered by Travis
+# ONLY trigger a build if requested by Travis of awesome repo
 if: commit_message = 'Trigger from Awesome Repo'
 
 language: node_js
@@ -10,7 +10,7 @@ cache:
 before_script:
   - npm install
 script:
-  - npm run modules # fetch the latest module file
+  - npm run modules # fetch the latest modules.yml file from awesome repo
 deploy:
   provider: pages
   target_branch: master # Push to master
