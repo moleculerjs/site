@@ -88,7 +88,8 @@ modules:
   databases: Databases & stores
   tasks: Tasks, queues & jobs
   metrics: Metrics & Tracing
-  validators: Validators
+  validation: Validation
+  security: Security
   tools: Tools
   others: Others
 
