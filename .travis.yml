@@ -1,6 +1,5 @@
 # Don't build if build request was triggered by Travis
-# if: sender != traviscibot OR sender != Travis
-if: commit_message != 'Deploy AndreMaz/site to github.com/AndreMaz/site.git:master'
+if: commit_message != 'Deploy moleculerjs/site to github.com/moleculerjs/site.git:master'
 
 language: node_js
 node_js: "12"
