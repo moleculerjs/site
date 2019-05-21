@@ -1,5 +1,5 @@
 # Don't build if build request was triggered by Travis
-if: commit_message != 'Deploy moleculerjs/site to github.com/moleculerjs/site.git:master'
+if: commit_message = 'Trigger from Awesome Repo'
 
 language: node_js
 node_js: "12"
