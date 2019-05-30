@@ -243,7 +243,7 @@ const MyCacher = {
 > The `next` always returns a `Promise`. So you can access to responses and manipulate them, as well.
 
 ### Decorate core modules (extend functionality)
-With other hooks are help you to add new features to `ServiceBroker` & `Service`.
+Middleware functions can be used to add new features to `ServiceBroker` & `Service`.
 
 **Decorate broker with a new `allCall` method**
 ```js
@@ -273,16 +273,16 @@ const res = await broker.allCall("$node.health");
 
 
 ## Internal middlewares
-Many integrated features have been exposed to internal middlewares. These middlewares are loaded by default when broker is created. It can be turned off with the `internalMiddlewares: false` in broker option. In this case you must add what you need in the `middlewares: []` broker option.  
+Many integrated features have been exposed by internal middlewares. These middlewares are loaded by default when broker is created. However, they can be turned off by setting the `internalMiddlewares: false` in broker option. In this case you must explicitly specify the required middlewares in the `middlewares: []` broker option.  
 
 **Internal middlewares**
 
 | Class name | Type | Description |
 | ---------- | ---- | ----------- |
 | `ActionHook` | Optional | Action hooks handler. [Read more](actions.html#Action-hooks) |
-| Validator | Optional | Parameter validation. [Read more](validating.html) |
+| `Validator` | Optional | Parameter validation. [Read more](validating.html) |
 | `Bulkhead` | Optional | Bulkhead feature. [Read more](fault-tolerance.html#Bulkhead) |
-| Cacher | Optional | Cacher middleware. [Read more](caching.html) |
+| `Cacher` | Optional | Cacher middleware. [Read more](caching.html) |
 | `ContextTracker` | Optional | Context tracker feature. [Read more](actions.html#Context-tracking) |
 | `CircuitBreaker` | Optional | Circuit Breaker feature. [Read more](fault-tolerance.html#Circuit-Breaker) |
 | `Timeout` | Always | Timeout feature. [Read more](fault-tolerance.html#Timeout) |
@@ -290,13 +290,144 @@ Many integrated features have been exposed to internal middlewares. These middle
 | `Fallback` | Always | Fallback feature. [Read more](fault-tolerance.html#Fallback) |
 | `ErrorHandler` | Always | Error handling. |
 | `Metrics` | Optional | Metrics feature. [Read more](metrics.html) |
+| `Transmit.Encryption` | Optional | Transmission encryption middleware. [Read more](#Encryption) |
+| `Transmit.Compression` | Optional | Transmission compression middleware. [Read more](#Compression) |
+| `Debugging.TransitLogger` | Optional | Transit Logger. [Read more](#Compression)  |
+| `Debugging.ActionLogger` | Optional | Action logger. [Read more](#ActionLogger) |
 
 **Access to internal middlewares**
 ```js
 const { Bulkhead, Retry } = require("moleculer").Middlewares;
 ```
 
+### Transmission Middleware
+#### Encryption
+AES encryption middleware to protect the all communications that use the transporter module.
+This middleware uses built-in Node [`crypto`](https://nodejs.org/api/crypto.html) lib.
+```javascript
+const { Middlewares } = require("moleculer");
 
+// Create broker
+const broker = new ServiceBroker({
+  middlewares: [
+    Middlewares.Transmit.Encryption("secret-password", "aes-256-cbc", initVector) // "aes-256-cbc" is the default
+  ]
+});
+```
+#### Compression
+Use compression middleware to reduce the size of all messages that use the transporter module.
+This middleware uses built-in Node [`zlib`](https://nodejs.org/api/zlib.html) lib.
+```javascript
+const { Middlewares } = require("moleculer");
+
+// Create broker
+const broker = new ServiceBroker({
+  middlewares: [
+    Middlewares.Transmit.Compression("deflate") // or "deflateRaw" or "gzip"
+  ]
+});
+```
+
+### Debug Middleware
+#### Transit Logger
+Transit logger middleware allows to easily see and log the messages that are exchanged between services.
+
+```javascript
+const { Middlewares } = require("moleculer");
+
+// Create broker
+const broker = new ServiceBroker({
+  middlewares: [
+    Middlewares.Debugging.TransitLogger({
+      logPacketData: false,
+      folder: null,
+      colors: {
+        send: "magenta",
+        receive: "blue"
+      },
+      packetFilter: ["HEARTBEAT"]
+    })
+  ]
+});
+```
+
+**Complete option list**
+
+| Class name | Type | Default | Description |
+| ---------- | ---------- | ---- | ----------- |
+| `logger` | `Boolean` or `Object` or `Function`| `null` |TODO |
+| `logLevel` | `String`| `info` | TODO |
+| `logPacketData` |`Boolean`| `false` |TODO |
+| `folder` |`Object`| `null` | TODO|
+| `extension` |`String`| `.json`, |TODO |
+| `color.receive` |`String`| `grey` | TODO|
+| `color.send` |`String`| `grey` | TODO |
+| `packetFilter` |`Array<String>`| `HEARTBEAT` |TODO|
+
+#### Action Logger
+```javascript
+const { Middlewares } = require("moleculer");
+
+// Create broker
+const broker = new ServiceBroker({
+  middlewares: [
+    Middlewares.Debugging.ActionLogger({
+      logParams: true,
+      logResponse: true,
+      folder: null,
+      colors: {
+        send: "magenta",
+        receive: "blue"
+      },
+      whitelist: ["**"]
+    })
+  ]
+});
+
+```
+
+**Complete option list**
+
+| Class name | Type | Default | Description |
+| ---------- | ---------- | ---- | ----------- |
+| `logger` |`Object`| `null` | TODO |
+| `logLevel` | `String`| `info` |  TODO |
+| `logParams` |`Boolean`| `false` | TODO |
+| `logMeta` |`Boolean`| `false` | TODO |
+| `folder` |`Object`| `null` | ToDO |
+| `extension` |`String`| `.json`, | TODO |
+| `color.request` |`String`| `yellow` | TODO |
+| `color.response` |`String`| `cyan` |  TODO |
+| `colors.error` |`String`| `red` |  TODO |
+| `whitelist` |`Array<String>`| `**` | TODO |
+
+### Extending
+Moleculer's internal middleware object can be easily extended with custom functions. This allows to load custom middleware by name.
+
+{% note info %}
+Please note that middleware must be `Object`. If `Function` it will be called with broker. Previous backward compatibility is dropped.
+{% endnote %}
+**Load middleware by name**
+```javascript
+    const { Middlewares } = require("moleculer");
+
+    // Extend with custom middlewares
+    Middlewares.MyCustom = {
+        created(broker) {
+            broker.logger.info("My custom middleware is created!");
+        }
+    };
+
+
+    const broker1 = new ServiceBroker({
+        logger: true,
+        middlewares: [
+            // Load by middleware name
+            "MyCustom"
+        ]
+    });  
+```
+## Global view
 <div align="center">
 ![Middlewares diagram](assets/middlewares.svg)
 </div>

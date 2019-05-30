@@ -62,8 +62,7 @@ List of all available broker options:
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
 | `skipProcessEventRegistration` | `Boolean` | `false` | Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case you have to register them manually. |
-| `validation` | `Boolean` | `true` | Enable [parameters validation](validating.html). |
-| `validator` | `Validator` | `null` | Custom Validator class for validation. |
+| `validator` | `Validator` | `null` | Custom Validator class for [parameters validation](validating.html). |
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means to measure every request. |
 | `internalServices` | `Boolean` | `true` | Register [internal services](services.html#Internal-services). |
@@ -177,7 +176,7 @@ You don't need to create manually ServiceBroker in your project. Use the [Molecu
 
 
 ## Ping
-To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping informations (latency, time difference). A timeout value can be defined.
+To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping information (latency, time difference). A timeout value can be defined.
 
 ### Ping a node with 1 second timeout
 ```js

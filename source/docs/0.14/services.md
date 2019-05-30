@@ -520,7 +520,7 @@ Hot reloading function is working only with Moleculer Runner or if you load your
 {% endnote %}
 
 {% note info %}
-Hot reloading watches only the `service.js` file. If you are using additional JS files in your services and they are changed, broker won't detect it. In this case it is better to use [nodemon](https://github.com/remy/nodemon) to restart all services and broker.
+How reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the service or the services that depend on it and will restart them.
 {% endnote %}
 
 ## Local variables
@@ -723,7 +723,7 @@ broker.start();
 ```
 
 ## Internal services
-The `ServiceBroker` contains some internal services to check the node health or get some registry informations. You can disable to load them with the `internalServices: false` broker option.
+The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
 
 ### List of nodes
 It lists all known nodes (including local node).
@@ -850,4 +850,24 @@ Example health info:
         "utc": "Fri, 17 Feb 2018 13:42:38 GMT"
     }
 }
+```
+### Extending
+Internal service can be easily extended with custom functionalities. Additional functionalities must be declared in broker´s options:
+
+```javascript
+// moleculer.config.js
+module.exports = {
+    nodeID: "node-1",
+    logger: true,
+    internalServices: {
+        $node: {
+            actions: {
+                // Call as `$node.hello`
+                hello(ctx) {
+                    return `Hello Moleculer!`;
+                }
+            }
+        }
+    }
+};
 ```

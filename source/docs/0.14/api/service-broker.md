@@ -258,33 +258,6 @@ Watch a service file and hot reload if it's changed.
 
 
 
-
-
-
-
-
-### hotReloadService
-
-
-
-`hotReloadService(service: Service): Service`
-
-Hot reload a service
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `service` | Service | - | - |
-
-
-
-
-
-
-
-
 ### createService
 
 
@@ -454,33 +427,6 @@ Wait for other services
 
 
 
-
-
-
-
-
-### use
-![Deprecated](https://img.shields.io/badge/status-deprecated-orange.svg)
-
-
-`use(mws: Function)`
-
-Add a middleware to the broker
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `mws` | Function | - | - |
-
-
-
-
-
-
-
-
 ### findNextActionEndpoint
 
 
@@ -496,12 +442,6 @@ Find the next available endpoint for action
 | -------- | ---- | ------- | ----------- |
 | `actionName` | String | - | - |
 | `opts` |  | - | - |
-
-
-
-
-
-
 
 
 ### call
