@@ -84,6 +84,10 @@ Thank you in advance!
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Tejas Bhatt</label>
 	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/20690350" alt="Frederik Granna" />
+		<label>Frederik Granna</label>
+	</a>    
 </div>
 
 ## Open Collective backers & sponsors
