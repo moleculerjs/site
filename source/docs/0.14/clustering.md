@@ -23,5 +23,4 @@ The ServiceBroker first tries to call the local instances of service (if exists)
 {% endnote %}
 
 ## How choose
-Don't you choose between monolith and microservices? Would you choose monolith because easy to develop? Would you choose microservice because reliable and easy to scale?
-Choose both. With Moleculer it is available. When you develop your services, load all services in one node. Easy to debug and test. When your are ready, separate services to multiple nodes. No need to change service codes. Just select a transporter and load one service per node. Your app is running in microservices architecture.
+Do you choose between monolith and microservices when developing your application? Do you choose monolith approach because its easy to develop? Do you prefer microservices architecture because it is reliable and highly scalable? With Moleculer you don't have to choose. You can have the best of both approaches. During the development of your application load all services is single node. This way you can quickly debug and test of your application logic. When ready, simply distribute your services across multiple nodes. Don't worry, you don't have to change a single line of code in your services. Just select a transporter, load one service per node and you're done. Your application is running in microservices architecture.

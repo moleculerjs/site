@@ -54,8 +54,8 @@ const broker = new ServiceBroker({
 
 | Name | Type | Default | Description |
 | ---- | ---- | --------| ----------- |
-| `sampleCount` | `Number` | `3` | the number of samples. _To turn of sampling, set to `0`._ |
-| `lowCpuUsage` | `Number` | `10` | the low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
+| `sampleCount` | `Number` | `3` | The number of samples. _To turn of sampling, set to `0`._ |
+| `lowCpuUsage` | `Number` | `10` | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
 
 **Usage with custom options**
 ```js
@@ -86,10 +86,10 @@ const broker = new ServiceBroker({
 
 | Name | Type | Default | Description |
 | ---- | ---- | --------| ----------- |
-| `sampleCount` | `Number` | `5` | the number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
-| `lowLatency` | `Number` | `10` | the low latency (ms). The node which has lower latency than this value is selected immediately. |
-| `collectCount` | `Number` | `5` | the number of measured latency per host to keep in order to calculate the average latency. |
-| `pingInterval` | `Number` | `10` | ping interval (s). If you have a lot of host/nodes, it's recommended to *increase* the value. |
+| `sampleCount` | `Number` | `5` | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
+| `lowLatency` | `Number` | `10` | The low latency (ms). The node which has lower latency than this value is selected immediately. |
+| `collectCount` | `Number` | `5` | The number of measured latency per host to keep in order to calculate the average latency. |
+| `pingInterval` | `Number` | `10` | Ping interval (s). If you have a lot of host/nodes, it's recommended to *increase* the value. |
 
 **Usage with custom options**
 ```js

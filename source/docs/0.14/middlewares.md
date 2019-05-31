@@ -1,7 +1,7 @@
 title: Middlewares
 ---
 
-Moleculer supports middlewares. The middleware is an `Object` with hooks & wrapper functions. Wrap action handlers, event handlers, broker methods and hook lifecycle events.
+Moleculer supports middlewares. The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
 
 **All available methods:**
 ```js
@@ -211,8 +211,7 @@ const MyValidator = {
 };
 ```
 
-The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, we check whether the action has a `params` props. If yes, we'll return a wrapped handler which calls the validator module before calling the original `handler`.
-If the `params` property is not defined, we will return the original `handler` (skipped wrapping).
+The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, the middleware checks whether the action has a `params` property. If yes, it will return a wrapped handler which calls the validator module before calling the original `handler`. If the `params` property is not defined, it simply returns the original `handler` (skipped wrapping).
 
 >If you don't call the original `next` in the middleware it will break the request. It can be used in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `next`.
 
@@ -273,7 +272,7 @@ const res = await broker.allCall("$node.health");
 
 
 ## Internal middlewares
-Many integrated features have been exposed by internal middlewares. These middlewares are loaded by default when broker is created. However, they can be turned off by setting the `internalMiddlewares: false` in broker option. In this case you must explicitly specify the required middlewares in the `middlewares: []` broker option.  
+Many integrated features have been exposed as internal middlewares. These middlewares are loaded by default when broker is created. However, they can be turned off by setting the `internalMiddlewares: false` in broker option. In this case you must explicitly specify the required middlewares in the `middlewares: []` broker option.  
 
 **Internal middlewares**
 
@@ -292,8 +291,8 @@ Many integrated features have been exposed by internal middlewares. These middle
 | `Metrics` | Optional | Metrics feature. [Read more](metrics.html) |
 | `Transmit.Encryption` | Optional | Transmission encryption middleware. [Read more](#Encryption) |
 | `Transmit.Compression` | Optional | Transmission compression middleware. [Read more](#Compression) |
-| `Debugging.TransitLogger` | Optional | Transit Logger. [Read more](#Compression)  |
-| `Debugging.ActionLogger` | Optional | Action logger. [Read more](#ActionLogger) |
+| `Debugging.TransitLogger` | Optional | Transit Logger. [Read more](#Transit-Logger)  |
+| `Debugging.ActionLogger` | Optional | Action logger. [Read more](#Action-Logger) |
 
 **Access to internal middlewares**
 ```js
@@ -302,7 +301,7 @@ const { Bulkhead, Retry } = require("moleculer").Middlewares;
 
 ### Transmission Middleware
 #### Encryption
-AES encryption middleware to protect the all communications that use the transporter module.
+AES encryption middleware protects all inter services communications that use the transporter module.
 This middleware uses built-in Node [`crypto`](https://nodejs.org/api/crypto.html) lib.
 ```javascript
 const { Middlewares } = require("moleculer");
@@ -315,7 +314,7 @@ const broker = new ServiceBroker({
 });
 ```
 #### Compression
-Use compression middleware to reduce the size of all messages that use the transporter module.
+Compression middleware reduces the size of messages that go through the transporter module.
 This middleware uses built-in Node [`zlib`](https://nodejs.org/api/zlib.html) lib.
 ```javascript
 const { Middlewares } = require("moleculer");
@@ -330,7 +329,7 @@ const broker = new ServiceBroker({
 
 ### Debug Middleware
 #### Transit Logger
-Transit logger middleware allows to easily see and log the messages that are exchanged between services.
+Transit logger middleware allows to easily track the messages that are exchanged between services.
 
 ```javascript
 const { Middlewares } = require("moleculer");
@@ -365,6 +364,8 @@ const broker = new ServiceBroker({
 | `packetFilter` |`Array<String>`| `HEARTBEAT` |TODO|
 
 #### Action Logger
+Action Logger middleware tracks "how" service actions were executed.
+
 ```javascript
 const { Middlewares } = require("moleculer");
 
