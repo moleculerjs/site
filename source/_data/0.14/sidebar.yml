@@ -2,6 +2,7 @@ docs:
   introduction:
     what_is_it: index.html
     usage: usage.html
+    fundamental: fundamental.html
     examples: examples.html
 
   overview:

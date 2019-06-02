@@ -520,7 +520,7 @@ Hot reloading function is working only with Moleculer Runner or if you load your
 {% endnote %}
 
 {% note info %}
-How reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the service or the services that depend on it and will restart them.
+Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
 {% endnote %}
 
 ## Local variables
