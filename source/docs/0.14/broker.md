@@ -63,7 +63,7 @@ List of all available broker options:
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
 | `skipProcessEventRegistration` | `Boolean` | `false` | Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case you have to register them manually. |
-| `validator` | `Boolean` or `Validator` | `null` | Custom Validator class for [parameters validation](validating.html). |
+| `validator` | `Boolean` or `Validator` | `true` | Enable default or create custom [parameters validation](validating.html). |
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means to measure every request. |
 | `metadata ` | `Object` | `null` | Store custom values |

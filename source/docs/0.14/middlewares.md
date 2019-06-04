@@ -134,6 +134,50 @@ const MyCustomMiddleware = {
         console.log("Service stopped", service.name);
     },
 
+    // Called before registering a local service instance
+    registerLocalService(next) {
+        return (service) => {
+            console.log("Registering local services");
+            return next(service);
+        };
+    },
+
+    // Called during local service creation (after mixins are applied, i.e, service schema is merged completely)
+    serviceCreating(service, schema) {
+        // Modify schema
+        schema.myProp = "John";
+    },
+
+    // Called before sending a communication packet
+    transitPublish(next) {
+        return (packet) => {
+            return next(packet);
+        };
+    },
+
+    // Called before transit receives & parses an incoming message
+    transitMessageHandler(next) {
+        return (cmd, packet) => {
+            return next(cmd, packet);
+        };
+    },
+
+    // Called after serialization but before the transporter sends a communication packet
+    transporterSend(next) {
+        return (topic, data, meta) => {
+            // Do something with data
+            return next(topic, data, meta);
+        };
+    },
+
+    // Called after transporter received a communication packet but before serialization
+    transporterReceive(next) {
+        return (cmd, data, s) => {
+            // Do something with data
+            return next(cmd, data, s);
+        };
+    },
+
     // After broker is created (async)
     created(broker) {
         console.log("Broker created");
@@ -355,14 +399,14 @@ const broker = new ServiceBroker({
 
 | Class name | Type | Default | Description |
 | ---------- | ---------- | ---- | ----------- |
-| `logger` | `Boolean` or `Object` or `Function`| `null` |TODO |
-| `logLevel` | `String`| `info` | TODO |
-| `logPacketData` |`Boolean`| `false` |TODO |
-| `folder` |`Object`| `null` | TODO|
-| `extension` |`String`| `.json`, |TODO |
-| `color.receive` |`String`| `grey` | TODO|
-| `color.send` |`String`| `grey` | TODO |
-| `packetFilter` |`Array<String>`| `HEARTBEAT` |TODO|
+| `logger` | `Object` or `Function`| `null` | Logger class. [Read more](logging.html). |
+| `logLevel` | `String`| `info` | Log level for built-in console logger. [Read more](logging.html). |
+| `logPacketData` |`Boolean`| `false` | Logs packet parameters |
+| `folder` |`Object`| `null` | Path do folder where logs will be written |
+| `extension` |`String`| `.json`, | File extension of log file |
+| `color.receive` |`String`| `grey` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `color.send` |`String`| `grey` |  Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `packetFilter` |`Array<String>`| `HEARTBEAT` | Type of [packets](protocol.html#Packets) to log |
 
 #### Action Logger
 Action Logger middleware tracks "how" service actions were executed.
@@ -392,16 +436,16 @@ const broker = new ServiceBroker({
 
 | Class name | Type | Default | Description |
 | ---------- | ---------- | ---- | ----------- |
-| `logger` |`Object`| `null` | TODO |
-| `logLevel` | `String`| `info` |  TODO |
-| `logParams` |`Boolean`| `false` | TODO |
-| `logMeta` |`Boolean`| `false` | TODO |
-| `folder` |`Object`| `null` | ToDO |
-| `extension` |`String`| `.json`, | TODO |
-| `color.request` |`String`| `yellow` | TODO |
-| `color.response` |`String`| `cyan` |  TODO |
-| `colors.error` |`String`| `red` |  TODO |
-| `whitelist` |`Array<String>`| `**` | TODO |
+| `logger` | `Object` or `Function` | `null` | Logger class. [Read more](logging.html). |
+| `logLevel` | `String`| `info` | Log level for built-in console logger. [Read more](logging.html). |
+| `logParams` |`Boolean`| `false` | Logs request parameters |
+| `logMeta` |`Boolean`| `false` | Logs meta parameters |
+| `folder` |`String`| `null` | Path do folder where logs will be written |
+| `extension` |`String`| `.json`, | File extension of log file |
+| `color.request` |`String`| `yellow` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `color.response` |`String`| `cyan` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `colors.error` |`String`| `red` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `whitelist` |`Array<String>`| `**` | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
 
 ### Loading & Extending
 If you want to use the built-in middlewares use their names in `middlewares[]` option. Also, the middleware object can be easily extended with custom functions. 
