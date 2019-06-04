@@ -56,7 +56,7 @@ List of all available broker options:
 | `registry` | `Object` | | Settings of [Service Registry](registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker) |
 | `bulkhead` | `Object` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
-| `errorHandler` | `Function` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
+| `errorHandler` | `Function` | | [Global error handling](#Global-error-handler) function. |
 | `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
 | `transit.disableReconnect` | `Boolean` | `false` | Disables the reconnection logic while starting a broker|
 | `transit.packetLogFilter` | `Array` | `empty` | Filters out the packets in debug logs |
