@@ -3,6 +3,7 @@ title: Middlewares
 
 Moleculer supports middlewares. The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
 
+## Complete List
 **All available methods:**
 ```js
 const MyCustomMiddleware = {
@@ -301,7 +302,7 @@ const { Bulkhead, Retry } = require("moleculer").Middlewares;
 
 ### Transmission Middleware
 #### Encryption
-AES encryption middleware protects all inter services communications that use the transporter module.
+AES encryption middleware protects all inter-services communications that use the transporter module.
 This middleware uses built-in Node [`crypto`](https://nodejs.org/api/crypto.html) lib.
 ```javascript
 const { Middlewares } = require("moleculer");
@@ -314,7 +315,7 @@ const broker = new ServiceBroker({
 });
 ```
 #### Compression
-Compression middleware reduces the size of messages that go through the transporter module.
+Compression middleware reduces the size of the messages that go through the transporter module.
 This middleware uses built-in Node [`zlib`](https://nodejs.org/api/zlib.html) lib.
 ```javascript
 const { Middlewares } = require("moleculer");
@@ -402,17 +403,14 @@ const broker = new ServiceBroker({
 | `colors.error` |`String`| `red` |  TODO |
 | `whitelist` |`Array<String>`| `**` | TODO |
 
-### Extending
-Moleculer's internal middleware object can be easily extended with custom functions. This allows to load custom middleware by name.
+### Loading & Extending
+If you want to use the built-in middlewares use their names in `middlewares[]` option. Also, the middleware object can be easily extended with custom functions. 
 
-{% note info %}
-Please note that middleware must be `Object`. If `Function` it will be called with broker. Previous backward compatibility is dropped.
-{% endnote %}
 **Load middleware by name**
 ```javascript
     const { Middlewares } = require("moleculer");
 
-    // Extend with custom middlewares
+    // Extend with custom middleware
     Middlewares.MyCustom = {
         created(broker) {
             broker.logger.info("My custom middleware is created!");
@@ -420,14 +418,15 @@ Please note that middleware must be `Object`. If `Function` it will be called wi
     };
 
 
-    const broker1 = new ServiceBroker({
+    const broker = new ServiceBroker({
         logger: true,
         middlewares: [
-            // Load by middleware name
+            // Load middleware by name
             "MyCustom"
         ]
     });  
 ```
+
 ## Global view
 <div align="center">
 ![Middlewares diagram](assets/middlewares.svg)

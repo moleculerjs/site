@@ -10,7 +10,7 @@ It's enabled by default, so you should just define `params` property in action d
 const { ServiceBroker } = require("moleculer");
 
 const broker = new ServiceBroker({
-    validation: true // Default is true
+    validator: true // Default is true
 });
 
 broker.createService({
@@ -94,7 +94,7 @@ const JoiValidator = require("./joi.validator");
 
 const broker = new ServiceBroker({
     logger: true,
-    validation: true,
+    // Use custom validator
     validator: new JoiValidator()
 });
 

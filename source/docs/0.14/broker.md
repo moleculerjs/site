@@ -40,7 +40,7 @@ List of all available broker options:
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
 | `namespace` | `String` | `""` | Namespace of nodes to segment your nodes on the same network. |
-| `nodeID` | `String` | hostname + PID | Unique node identifier. Must be unique in a namespace. |
+| `nodeID` | `String` | hostname + PID | Unique node identifier. Must be unique in a namespace. If not the broker will throw a fatal error and stop the process.|
 | `logger` | `Boolean` or `Object` or `Function` | `console` | Logger class. By default, it prints message to the `console`. External logger can be used, e.g. [winston](https://github.com/winstonjs/winston) or [pino](https://github.com/pinojs/pino). [Read more](logging.html). |
 | `logLevel` | `String` | `info` | Log level for built-in console logger (trace, debug, info, warn, error, fatal). |
 | `logFormatter` | `String` or `Function` | `"default"` | Log formatter for built-in console logger. Values: `default`, `simple`, `short`. It can be also a `Function`. |
@@ -56,16 +56,19 @@ List of all available broker options:
 | `registry` | `Object` | | Settings of [Service Registry](registry.html) |
 | `circuitBreaker` | `Object` | | Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker) |
 | `bulkhead` | `Object` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
+| `errorHandler` | `Function` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
 | `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
 | `transit.disableReconnect` | `Boolean` | `false` | Disables the reconnection logic while starting a broker|
 | `transit.packetLogFilter` | `Array` | `empty` | Filters out the packets in debug logs |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
 | `skipProcessEventRegistration` | `Boolean` | `false` | Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case you have to register them manually. |
-| `validator` | `Validator` | `null` | Custom Validator class for [parameters validation](validating.html). |
+| `validator` | `Boolean` or `Validator` | `null` | Custom Validator class for [parameters validation](validating.html). |
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means to measure every request. |
+| `metadata ` | `Object` | `null` | Store custom values |
 | `internalServices` | `Boolean` | `true` | Register [internal services](services.html#Internal-services). |
+| `internalServices.$node` | `Object` | `null` | Extend internal services with [custom actions](services.html#Extending).|
 | `internalMiddlewares` | `Boolean` | `true` | Register [internal middlewares](middlewares.html#Internal-middlewares). |
 | `hotReload` | `Boolean` | `false` | Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-reloading-services). |
 | `middlewares` | `Array<Function>` | `null` | Register middlewares. _Useful when you use Moleculer Runner._ |
@@ -134,14 +137,17 @@ List of all available broker options:
         maxQueueSize: 50 * 1000,
         disableReconnect: false,
         packetLogFilter: []
-    },     
+    },
+    
+    metadata: {
+        region: "eu-west1"
+    },
 
     cacher: "memory",
     serializer: null,
 
     skipProcessEventRegistration: false
 
-    validation: true,
     validator: null,
 
     metrics: true,
@@ -174,6 +180,26 @@ List of all available broker options:
 You don't need to create manually ServiceBroker in your project. Use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
 {% endnote %}
 
+
+### Metadata option
+You can use `metadata` property to store custom values. It can be useful for a custom [middleware](middlewares.html#Loading-amp-Extending) or [strategy](balancing.html#Custom-strategy).
+
+```js
+const broker = new ServiceBroker({
+    nodeID: "broker-2",
+    transporter: "NATS",
+    metadata: {
+        region: "eu-west1"
+    }
+});
+```
+{% note info %}
+The `metadata` property can be obtained by running `$node.list` action.
+{% endnote %}
+
+{% note info %}
+The `metadata` property is transferred to other nodes.
+{% endnote %}
 
 ## Ping
 To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping information (latency, time difference). A timeout value can be defined.
@@ -274,3 +300,30 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.broadcast(eventName, payload, groups)` | - | Broadcast an event. |
 | `broker.broadcastLocal(eventName, payload, groups)` | - | Broadcast an event to local services. |
 | `broker.ping(nodeID, timeout)` | `Promise` | Ping remote nodes. |
+
+## Global error handler
+The global error handler is generic way to handle exceptions. It catches the unhandled errors of action & event handlers.
+
+**Catch, handle & log the error**
+```js
+const broker = new ServiceBroker({
+    errorHandler(err, info) {
+
+        this.logger.warn("Error handled:", err);
+    }
+});
+```
+
+**Catch & throw further the error**
+```js
+const broker = new ServiceBroker({
+    errorHandler(err, info) {
+        this.logger.warn("Error handled:", err);
+        throw err; // Throw further
+    }
+});
+```
+
+{% note info %}
+The `info` object contains the broker and the service instances, the current context and the action or the event definition.
+{% endnote %}
