@@ -142,7 +142,7 @@ If shard key is in context's `meta` it must be declared with a `#` at the beginn
 | ---- | ---- | --------| ----------- |
 | `shardKey` | `String` | `null` |  Shard key |
 | `vnodes` | `Number` | `10` | Number of virtual nodes |
-| `ringSize` | `Number` | `2^32` | Size of the hashing ring |
+| `ringSize` | `Number` | `2^32` | Size of the ring |
 | `cacheSize` | `Number` | `1000` | Size of the cache |
 
 

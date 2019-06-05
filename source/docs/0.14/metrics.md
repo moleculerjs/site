@@ -454,6 +454,8 @@ const broker = new ServiceBroker({
             {
                 type: "Jaeger",
                 options: {
+                    /** @type {String?} HTTP Reporter endpoint. If set, HTTP Reporter will be used. */
+			        endpoint: null,
                     /** @type {String} UDP Sender host option. */
                     host: "127.0.0.1",
                     /** @type {Number?} UDP Sender port option. */

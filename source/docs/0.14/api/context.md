@@ -24,7 +24,7 @@ Context class for action calls
 | `action` | Action | - | Action definition |
 | `nodeID` |  | - | Node ID |
 | `parentID` | String | - | Parent Context ID |
-| `metrics` | Boolean | - | Need send metrics events |
+| `tracing` | Boolean | - | Need send metrics events |
 | `level` |  | - | Level of context |
 
 
