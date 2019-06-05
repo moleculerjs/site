@@ -52,10 +52,6 @@ Thank you in advance!
 		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D" alt="Ivan Petrovic" />
 		<label>Ivan Petrovic</label>
 	</a>  
-	<a href="#" class="user-logo" target="_blank">
-		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/16886297/9e5df1ea1a984509bde7fad34040ffd6/1.jpeg?token-time=2145916800&token-hash=5gyc9bb4GtVtFbgFZJd33_NukMXj2XBZa5ee14Nu4Y8%3D" alt="Leandro Hoffmann" />
-		<label>Leandro Hoffmann</label>
-	</a>      
 </div>
 
 ### Copper backers
@@ -84,6 +80,10 @@ Thank you in advance!
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Tejas Bhatt</label>
 	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/16886297/9e5df1ea1a984509bde7fad34040ffd6/1.jpeg?token-time=2145916800&token-hash=5gyc9bb4GtVtFbgFZJd33_NukMXj2XBZa5ee14Nu4Y8%3D" alt="Leandro Hoffmann" />
+		<label>Leandro Hoffmann</label>
+	</a>      
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/20690350" alt="Frederik Granna" />
 		<label>Frederik Granna</label>
