@@ -12,4 +12,4 @@ Moleculer has a built-in service registry module. It stores all information abou
 
 > Read more about [load-balancing & strategies](balancing.html).
 
-> Registry data is available via [internal service](services.html#Internal-services).
+> Registry data is available via [internal service](services.html#Internal-Services).

@@ -1,7 +1,10 @@
 title: Deploying
 ---
 
-## Dockerfile to run Moleculer services
+## Docker
+
+### Dockerfile 
+This is a basic Dockerfile to run Moleculer services
 
 ```docker
 FROM node:8-alpine
@@ -20,7 +23,15 @@ COPY . .
 CMD ["npm", "start"]
 ```
 
-## Docker Compose file to run Moleculer services with NATS & Traefik (load balancing the API Gateway)
+### Docker Compose
+
+This configuration creates 4 containers:
+
+- Moleculer API Gateway Service
+- Moleculer Greeter Service
+- NATS server
+- Traefik for load balancing the API Gateway
+
 ```yaml
 version: "3.0"
 
@@ -72,6 +83,7 @@ services:
       - /dev/null:/traefik.toml
 
 ```
+### Deploying
 
 **Start containers**
 ```bash

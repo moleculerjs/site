@@ -75,7 +75,7 @@ The `settings` property is a store, where you can store every settings/options t
 ```
 > The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
 
-## Internal settings
+## Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
 | Name | Type | Default | Description |
@@ -269,7 +269,32 @@ module.exports = {
 
 > In methods the `this` is always pointed to the Service instance.
 
-## Lifecycle events
+## Current Context Storage
+ServiceBroker has a continuous local storage in order to store the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`. 
+
+> Context storage is built with Node's [`async_hooks`](https://nodejs.org/api/async_hooks.html) lib.
+
+```js
+// greeter.service.js
+module.exports = {
+	name: "greeter",
+	actions: {
+		hello(ctx) {
+			return this.Promise.resolve()
+				.then(() => this.doSomething());
+
+		}
+	},
+	methods: {
+		doSomething() {
+            const ctx = this.currentContext;
+            return ctx.call("other.service");
+		}
+	}
+});
+```
+
+## Lifecycle Events
 There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
 
 ```js
@@ -369,7 +394,7 @@ module.exports = {
 ```
 > The `metadata` is also obtainable on remote nodes. It is transferred during service discovering.
 
-## Properties of Service instances
+## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
 | Name | Type |  Description |
@@ -385,7 +410,7 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.actions` | `Object` | Actions of service. _Service can call own actions directly_ |
 | `this.waitForServices` | `Function` | Link to ['broker.waitForServices' method](broker.html#Wait-for-services) |
 
-## Create a service
+## Service Creation
 There are several ways to create and load a service.
 
 ### broker.createService()
@@ -493,7 +518,7 @@ broker.loadServices("./svc", "user*.service.js");
 ### Load with Moleculer Runner (recommended)
 We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
 
-## Hot reloading services
+## Hot Reloading Services
 Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html).
 [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
@@ -523,7 +548,7 @@ Hot reloading function is working only with Moleculer Runner or if you load your
 Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
 {% endnote %}
 
-## Local variables
+## Local Variables
 If you would like to use local properties/variables in your service, declare them in the `created` event handler.
 
 **Example for local variables**
@@ -564,8 +589,8 @@ module.exports = {
 It is important to be aware that you can't use variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.  
 {% endnote %}
 
-## ES6 classes
-If you like better ES6 classes than Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
+## ES6 Classes
+If you prefer ES6 classes to Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
 
 ### Native ES6 classes with schema parsing
 
@@ -722,7 +747,7 @@ broker.createService(MyService);
 broker.start();
 ```
 
-## Internal services
+## Internal Services
 The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
 
 ### List of nodes

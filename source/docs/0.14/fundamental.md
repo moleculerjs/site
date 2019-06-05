@@ -42,9 +42,9 @@ Now, assuming that our services are up and running, the online store can serve u
 ![Broker logical diagram](assets/overview.svg)
 </div>
 
-All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#The-Code) of our online store.
+All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
 
-### The Code 
+### Implementation
 Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/documentation/tutorials/gnatsd-install/). Run it with the default settings. You should get the following message:
 
 ```

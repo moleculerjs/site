@@ -67,10 +67,10 @@ List of all available broker options:
 | `metrics` | `Boolean` | `false` | Enable [metrics](metrics.html) function. |
 | `metricsRate` | `Number` | `1` | Rate of metrics calls. `1` means to measure every request. |
 | `metadata ` | `Object` | `null` | Store custom values |
-| `internalServices` | `Boolean` | `true` | Register [internal services](services.html#Internal-services). |
+| `internalServices` | `Boolean` | `true` | Register [internal services](services.html#Internal-Services). |
 | `internalServices.$node` | `Object` | `null` | Extend internal services with [custom actions](services.html#Extending).|
 | `internalMiddlewares` | `Boolean` | `true` | Register [internal middlewares](middlewares.html#Internal-middlewares). |
-| `hotReload` | `Boolean` | `false` | Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-reloading-services). |
+| `hotReload` | `Boolean` | `false` | Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-Reloading-Services). |
 | `middlewares` | `Array<Function>` | `null` | Register middlewares. _Useful when you use Moleculer Runner._ |
 | `replCommands` | `Array<Object>` | `null` | Register custom REPL commands. |
 | `created` | `Function` | `null` | Fired when the broker created. _Useful when you use Moleculer Runner._ |

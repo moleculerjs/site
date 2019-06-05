@@ -106,6 +106,62 @@ const broker = new ServiceBroker({
 });
 ```
 
+### Sharding strategy
+Shard invocation strategy is based on [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing) algorithm. It uses a key value from context `params` or `meta` to route the request a specific node. It means that requests with same key value will be routed to the same node.
+
+**Example of a shard key `name` in context `params`**
+```js
+const broker = new ServiceBroker({
+    registry: {
+        strategy: "Shard",
+        strategyOptions: {
+            shardKey: "name"
+        }
+    }
+});
+```
+
+**Example of a shard key `user.id` in context `meta`**
+```js
+const broker = new ServiceBroker({
+    registry: {
+        strategy: "Shard",
+        strategyOptions: {
+            shardKey: "#user.id"
+        }
+    }
+});
+```
+{% note info %}
+If shard key is in context's `meta` it must be declared with a `#` at the beginning. The actual `#` is ignored.
+{% endnote %}
+
+**Strategy options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | --------| ----------- |
+| `shardKey` | `String` | `null` |  Shard key |
+| `vnodes` | `Number` | `10` | Number of virtual nodes |
+| `ringSize` | `Number` | `2^32` | Size of the hashing ring |
+| `cacheSize` | `Number` | `1000` | Size of the cache |
+
+
+**All available options of Shard strategy**
+```js
+const broker = new ServiceBroker({
+    registry: {
+        strategy: "Shard",
+        strategyOptions: {
+            shardKey: "#user.id",
+            vnodes: 10,
+            ringSize: 1000,
+            cacheSize: 1000
+        }
+    }
+});
+```
+
+
 ## Custom strategy
 Custom strategy can be created. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
 
