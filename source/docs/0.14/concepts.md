@@ -1,4 +1,4 @@
-title: Fundamental Concepts
+title: Core Concepts
 ---
 
 This guide covers the core concepts of any Moleculer application.

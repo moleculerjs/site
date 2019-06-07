@@ -23,7 +23,7 @@ sidebar:
     install: Install
     usage: Usage
     examples: Examples
-    fundamental: Fundamental Concepts
+    concepts: Core Concepts
     support: Support
 
     introduction: Introduction
@@ -41,7 +41,8 @@ sidebar:
     registry: Discovery & Registry
     balancing: Load balancing
     fault_tolerance: Fault tolerance
-    metrics: Metrics & Tracing
+    metrics: Metrics
+    tracing: Tracing
     logging: Logging
     validating: Validating
     errors: Errors

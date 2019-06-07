@@ -2,7 +2,7 @@ docs:
   introduction:
     what_is_it: index.html
     usage: usage.html
-    fundamental: fundamental.html
+    concepts: concepts.html
     examples: examples.html
 
   overview:
@@ -20,6 +20,7 @@ docs:
     caching: caching.html
     validating: validating.html
     metrics: metrics.html
+    tracing: tracing.html
     errors: errors.html
     runner: runner.html
   modules:
