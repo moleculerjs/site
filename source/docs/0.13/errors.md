@@ -39,7 +39,7 @@ Error for retryable errors. It uses in `broker.call`. The broker retries request
 ```js
 const { MoleculerRetryableError } = require("moleculer").Errors;
 
-throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOMETHING", { a: 5, nodeID: "node-666" }));
+throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOMETHING", { a: 5, nodeID: "node-666" });
 ```
 
 ### `MoleculerServerError`
