@@ -1,7 +1,7 @@
 title: Metrics
 ---
 
-Starting from `v0.14` Moleculer has a built-in metrics feature that collect a lot of internal Moleculer & process metric values. If enabled, the broker will emit metric events at every request. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
+Starting from `v0.14` Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. If enabled, the broker will emit metric events at every request. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 {% note warn %}
 If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy`. [More info](tracing.html#Event-legacy).
@@ -53,11 +53,31 @@ const broker = new ServiceBroker({
 });
 ```
 
-<!-- 
 ### CSV
->Not implemented yet.
--->
+Comma-Separated Values (CSV) reporter.
 
+```js
+const broker = new ServiceBroker({
+    metrics: {
+        enabled: true,
+        reporter: [
+            {
+                type: "CSV",
+                options: {
+                    folder: "./reports/metrics",
+                    delimiter: ",",
+                    rowDelimiter: "\n",
+                    mode: MODE_METRIC, // MODE_METRIC, MODE_LABEL
+                    types: null,
+                    interval: 5 * 1000,
+                    filenameFormatter: null,
+                    rowFormatter: null,
+                }
+            }
+        ]
+    }
+});
+```
 
 ### Datadog
 Datadog reporter sends metrics to the [Datadog server](https://www.datadoghq.com/).
@@ -108,7 +128,9 @@ const broker = new ServiceBroker({
                     defaultLabels: registry => ({
                         namespace: registry.broker.namespace,
                         nodeID: registry.broker.nodeID
-                    })
+                    }),
+                    includes: ["moleculer.**"],
+                    excludes: ["moleculer.transit.**"]
                 }
             }
         ]
@@ -120,6 +142,30 @@ const broker = new ServiceBroker({
 ### UDP
 >Not implemented yet.
 -->
+
+### StatsD
+[StatsD](https://github.com/statsd/statsd) reporter publishes metrics in StatD format.
+
+```js
+const broker = new ServiceBroker({
+    metrics: {
+        enabled: true,
+        reporter: [
+            {
+                type: "StatsD",
+                options: {
+                    protocol: "udp",
+                    host: "localhost",
+                    port: 8125,
+                    maxPayloadSize: 1300,
+                    prefix: null,
+                    interval: 5 * 1000
+                }
+            }
+        ]
+    }
+});
+```
 
 ## Supported Metric Types
 ### Counter
@@ -182,7 +228,6 @@ An info is a single string or number value like process arguments, hostname or v
 - `os.user.username` (info)
 - `os.user.homedir` (info)
 - `os.network.address` (info)
-- `os.network.family` (info)
 - `os.network.mac` (info)
 - `os.datetime.unix` (gauge)
 - `os.datetime.iso` (info)

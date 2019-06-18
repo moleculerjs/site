@@ -1,8 +1,8 @@
-title: Metrics
+title: Tracing
 ---
 ## Tracing Exporters
 
-The tracing feature support several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). Set `tracing: true` in broker's options to enable tracing
+The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). Set `tracing: true` in broker's options to enable tracing
 
 **Enable tracing**
 ```js
@@ -257,7 +257,7 @@ const broker = new ServiceBroker({
                 type: "Zipkin",
                 options: {
                     /** @type {String} Base URL for Zipkin server. */
-                    baseURL: process.env.ZIPKIN_URL || "http://localhost:9411",
+                    baseURL: "http://localhost:9411",
 
                     /** @type {Number} Batch send time interval. */
                     interval: 5,
@@ -307,10 +307,32 @@ module.exports = {
 };
 ```
 
-### Add context values to span tags
-In action definition you can define which context params or meta values you want to add to the span tags.
+### Adding Context Values
+You can customize what context `params` or `meta` values are added to span tags.
 
- **Example**
+**Default**
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        get: {
+            tracing: {
+                // Add all params without meta
+                tags: {
+                    params: true,
+                    meta: false,
+            },
+            async handler(ctx) {
+                // ...
+            }
+        }
+    }
+});
+```
+
+
+ **Custom params example**
 ```js
 // posts.service.js
 module.exports = {
@@ -320,7 +342,9 @@ module.exports = {
             tracing: {
                 // Add `ctx.params.id` and `ctx.meta.loggedIn.username` values
                 // to tracing span tags.
-                tags: ["id", "#loggedIn.username"],
+                tags: {
+                    params: ["id"],
+                    meta: ["loggedIn.username"],
             },
             async handler(ctx) {
                 // ...
@@ -328,7 +352,6 @@ module.exports = {
         }
     }
 });
-
 ```
 
 **Example with custom function**

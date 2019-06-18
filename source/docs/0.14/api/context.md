@@ -23,6 +23,7 @@ Context class for action calls
 | `broker` | ServiceBroker | - | Broker instance |
 | `action` | Action | - | Action definition |
 | `nodeID` |  | - | Node ID |
+| `caller` | String | - | Action name of the caller. E.g.: `v3.myService.myAction` |
 | `parentID` | String | - | Parent Context ID |
 | `tracing` | Boolean | - | Need send metrics events |
 | `level` |  | - | Level of context |
@@ -93,21 +94,6 @@ Create a new Context instance
 
 Context ID getter
 
-
-
-
-
-
-
-
-
-### id
-
-
-
-`id`
-
-Context ID setter
 
 
 #### Parameters
