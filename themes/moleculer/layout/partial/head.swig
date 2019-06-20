@@ -49,4 +49,28 @@
   <!-- Particles -->
   {{ js('js/buttons') }}
 
+<!-- Schema.ORG DATA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Moleculer",
+      "description": "Progressive microservices framework powered by Node.js",
+      "url": "https://moleculer.services/",
+      "sameAs": "https://github.com/moleculerjs",
+      "releaseNotes": "https://github.com/moleculerjs/moleculer/blob/master/CHANGELOG.md",
+      "softwareRequirements": "Node.js",
+      "image": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",
+      "thumbnailUrl": "https://raw.githubusercontent.com/moleculerjs/site/master/source/icon/ms-icon-310x310.png",
+      "license": "https://github.com/moleculerjs/moleculer/blob/master/LICENSE",
+      "operatingSystem": "Windows, Linux, OSX",
+      "keywords": "Node.JS, nodejs, microservices, microservice, microservices framework, distributed systems, moleculer, moleculerjs, moleculer.js",
+      "applicationCategory": "DeveloperApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD"
+        }
+    }
+  </script>
 </head>
