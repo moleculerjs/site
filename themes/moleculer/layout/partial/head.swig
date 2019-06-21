@@ -50,13 +50,31 @@
   {{ js('js/buttons') }}
 
 <!-- Schema.ORG DATA -->
-    <script type="application/ld+json">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Moleculer",
+    "description": "Molecular team is responsible for creation of a progressive microservices framework called MoleculerJS.",
+    "url": "https://moleculer.services",
+    "logo": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "contactType": "technical support",
+      "email": "hello@moleculer.services",
+      "url": "https://moleculer.services"
+    }]
+  }
+  </script>
+
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Moleculer",
+      "name": "MoleculerJS",
+      "author": "Moleculer",
       "description": "Progressive microservices framework powered by Node.js",
-      "url": "https://moleculer.services/",
+      "url": "https://moleculer.services",
       "sameAs": "https://github.com/moleculerjs",
       "releaseNotes": "https://github.com/moleculerjs/moleculer/blob/master/CHANGELOG.md",
       "softwareRequirements": "Node.js",
