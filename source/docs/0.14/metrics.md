@@ -44,17 +44,18 @@ const broker = new ServiceBroker({
                 type: "Console",
                 options: {
                     interval: 5 * 1000,
-                    logger: null
+                    logger: null,
+                    colors: true,
+                    onlyChanges: true
                 }
             }
         ]
-    },
-    logLevel: "debug"
+    }
 });
 ```
 
 ### CSV
-Comma-Separated Values (CSV) reporter.
+Comma-Separated Values (CSV) reporter saves changes to a CSV file.
 
 ```js
 const broker = new ServiceBroker({
@@ -72,6 +73,28 @@ const broker = new ServiceBroker({
                     interval: 5 * 1000,
                     filenameFormatter: null,
                     rowFormatter: null,
+                }
+            }
+        ]
+    }
+});
+```
+### Event
+Event reporter sends Moleculer events with metric values.
+
+ ```js
+const broker = new ServiceBroker({
+    metrics: {
+        enabled: true,
+        reporter: [
+            {
+                type: "Event",
+                options: {
+                    eventName: "$metrics.snapshot",
+                    broadcast: false,
+                    groups: null,
+                    onlyChanges: false,
+                    interval: 5 * 1000,
                 }
             }
         ]
@@ -144,7 +167,7 @@ const broker = new ServiceBroker({
 -->
 
 ### StatsD
-[StatsD](https://github.com/statsd/statsd) reporter publishes metrics in StatD format.
+The StatsD reporter sends metric values to [StatsD](https://github.com/statsd/statsd) server via UDP.
 
 ```js
 const broker = new ServiceBroker({
@@ -247,8 +270,6 @@ An info is a single string or number value like process arguments, hostname or v
 
 
 ### Moleculer metrics
-- `moleculer.metrics.common.collect.total` (counter)
-- `moleculer.metrics.common.collect.time` (gauge)
 - `moleculer.node.type` (info)
 - `moleculer.node.versions.moleculer` (info)
 - `moleculer.node.versions.protocol` (info)
