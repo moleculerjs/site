@@ -50,12 +50,12 @@
   {{ js('js/buttons') }}
 
 <!-- Schema.ORG DATA -->
-  <script type="application/ld+json">
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Moleculer",
-    "description": "Molecular team is responsible for creation of a progressive microservices framework called MoleculerJS.",
+    "description": "Moleculer team is responsible for creation of a progressive microservices framework called MoleculerJS.",
     "url": "https://moleculer.services",
     "logo": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",
     "contactPoint": [{
@@ -63,7 +63,14 @@
       "contactType": "technical support",
       "email": "hello@moleculer.services",
       "url": "https://moleculer.services"
-    }]
+    }],
+    "sameAs": [
+      "https://twitter.com/MoleculerJS",
+      "https://github.com/moleculerjs",
+      "https://gitter.im/moleculerjs/moleculer",
+      "https://discord.gg/TSEcDRP",
+      "https://stackoverflow.com/questions/tagged/moleculer"
+    ]
   }
   </script>
 
