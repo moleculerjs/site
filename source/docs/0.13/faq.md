@@ -9,6 +9,11 @@ Use the following command:
 $ node --inspect=0.0.0.0:9229 node_modules/moleculer/bin/moleculer-runner services
 ```
 
+## How to add V8 flags for Moleculer Runner?
+```bash
+$ node --max-old-space-size=8192 node_modules/moleculer/bin/moleculer-runner services
+```
+
 # API Gateway (moleculer-web)
 
 ## Why am I getting `413 - request entity too large` error message when sending a big POST body?
