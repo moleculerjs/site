@@ -38,14 +38,14 @@ _To send multiple values, wrap them into an `Object`._
 broker.emit("user.created", user);
 ```
 
-Specify which groups/services receive the event:
+Specify which groups/services shall receive the event:
 ```js
 // Only the `mail` & `payments` services receives it
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
 # Broadcast event
-The broadcast event is sent to all available local & remote services. It is not balanced, all service instances receive it.
+The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
 
 <div align="center">
 ![Broadcast events diagram](assets/broadcast-events.gif)
@@ -56,7 +56,7 @@ Send broadcast events with `broker.broadcast` method.
 broker.broadcast("config.changed", config);
 ```
 
-Specify which groups/services receive the event:
+Specify which groups/services shall receive the event:
 ```js
 // Send to all "mail" service instances
 broker.broadcast("user.created", { user }, "mail");
@@ -66,13 +66,13 @@ broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
 ## Local broadcast event
-Send broadcast events to only all local services with `broker.broadcastLocal` method.
+Send broadcast events only to all local services with `broker.broadcastLocal` method.
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
 
 ### Subscribe to events
-Subscribe to events in ['events' property of services](services.html#events). Use of Wildcards (`?`, `*`, `**`) are available in event names.
+Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
 
 ```js
 module.exports = {
