@@ -25,12 +25,37 @@ Moleculer have several built-in reporters. All of them have the following option
 
 | Name | Type | Default | Description |
 | ---- | ---- | --------| ----------- |
-| `includes` | `String | Array<String>` | `null` | TODO |
-| `excludes` | `String | Array<String>` | `null` |  TODO |
-| `metricNamePrefix` | `String` | `null` | TODO |
-| `metricNameSuffix` | `String` | `null` | TODO |
-| `metricNameFormatter` | `Function` | `null` | TODO |
-| `labelNameFormatter` | `Function` | `null` | TODO |
+| `includes` | `String or Array<String>` | `null` | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `excludes` | `String or Array<String>` | `null` |  List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `metricNamePrefix` | `String` | `null` | Prefix to be added to metric names |
+| `metricNameSuffix` | `String` | `null` | Sufix to be added to metric names |
+| `metricNameFormatter` | `Function` | `null` | Metric name formatter |
+| `labelNameFormatter` | `Function` | `null` | Label name formatter |
+
+
+**Example of metrics options**
+```js
+const broker = new ServiceBroker({
+    metrics: {
+        enabled: true,
+        reporter: [
+            {
+                type: "Console",
+                options: {
+                    includes: ["moleculer.**.total"],
+                    excludes: ["moleculer.broker.**","moleculer.request.**"],
+                    
+                    metricNamePrefix: "mol:", // Original "moleculer.node.type". With prefix: "mol:moleculer.node.type" 
+                    metricNameSuffix: ".value", // Original "moleculer.node.type". With prefix: "moleculer.node.type.value"
+                
+                    metricNameFormatter: name => name.toUpperCase().replace(/[.:]/g, "_"),
+                    labelNameFormatter: name => name.toUpperCase().replace(/[.:]/g, "_")
+                }
+            }
+        ]
+    }
+});
+```
 
 ### Console
 This is a debugging reporter which periodically prints the metrics to the console.
