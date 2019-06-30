@@ -5,7 +5,7 @@ Broker has a built-in event bus to support [Event-driven architecture](http://mi
 # Balanced events
 The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
 
-> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances from `users` service and 2 instances from `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
+> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
 
 <div align="center">
 ![Balanced events diagram](assets/balanced-events.gif)
@@ -21,8 +21,11 @@ module.exports = {
         "order.created": {
             // Register handler to the "other" group instead of "payment" group.
             group: "other",
-            handler(payload) {
-                // ...
+            handler(ctx) {
+                console.log("Payload:", ctx.params);
+                console.log("Sender:", ctx.nodeID);
+                console.log("Metadata:", ctx.meta);
+                console.log("The called event name:", ctx.eventName);
             }
         }
     }
@@ -71,34 +74,63 @@ Send broadcast events only to all local services with `broker.broadcastLocal` me
 broker.broadcastLocal("config.changed", config);
 ```
 
-### Subscribe to events
+# Subscribe to events
+
+The new v0.14 version supports Context-based event handlers. It is very useful when you are using event-driven architecture and you would like to trace the events. The Event Context is same as Action Context, except for a few new properties related to the event.
+
+{% note info Legacy event handlers %}
+
+You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature of event handlers. It is capable to detect different signatures of event handlers: 
+- If it finds that the signature is `"user.created(ctx) { ... }`, it will call it with Event Context. 
+- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
+
+{% endnote %}
+
+**Use Context-based event handler & emit a nested event**
+```js
+module.exports = {
+    name: "accounts",
+    events: {
+        "user.created"(ctx) {
+            console.log("Payload:", ctx.params);
+            console.log("Sender:", ctx.nodeID);
+            console.log("Metadata:", ctx.meta);
+            console.log("The called event name:", ctx.eventName);
+
+            ctx.emit("accounts.created", { user: ctx.params.user });
+        }
+    }
+};
+```
+
+
 Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
 
 ```js
 module.exports = {
     events: {
         // Subscribe to `user.created` event
-        "user.created"(user) {
+        "user.created"(ctx) {
             console.log("User created:", user);
         },
 
         // Subscribe to all `user` events
-        "user.*"(user) {
+        "user.*"(ctx) {
             console.log("User event:", user);
         }
 
         // Subscribe to all internal events
-        "$**"(payload, sender, event) {
+        "$**"(payload, sender, event, ctx) {
             console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
     }
 }
 ```
 
-## Internal events
+# Internal events
 The broker broadcasts some internal events. These events always starts with `$` prefix.
 
-### `$services.changed`
+## `$services.changed`
 The broker sends this event if the local node or a remote node loads or destroys services.
 
 **Payload**
@@ -107,7 +139,7 @@ The broker sends this event if the local node or a remote node loads or destroys
 | ---- | ---- | ----------- |
 | `localService ` | `Boolean` | True if a local service changed. |
 
-### `$circuit-breaker.opened`
+## `$circuit-breaker.opened`
 The broker sends this event when the circuit breaker module change its state to `open`.
 
 **Payload**
@@ -119,7 +151,7 @@ The broker sends this event when the circuit breaker module change its state to 
 | `failures` | `Number` | Count of failures |
 
 
-### `$circuit-breaker.half-opened`
+## `$circuit-breaker.half-opened`
 The broker sends this event when the circuit breaker module change its state to `half-open`.
 
 **Payload**
@@ -129,7 +161,7 @@ The broker sends this event when the circuit breaker module change its state to 
 | `nodeID` | `String` | Node ID |
 | `action` | `String` | Action name |
 
-### `$circuit-breaker.closed`
+## `$circuit-breaker.closed`
 The broker sends this event when the circuit breaker module change its state to `closed`.
 
 **Payload**
@@ -139,7 +171,7 @@ The broker sends this event when the circuit breaker module change its state to 
 | `nodeID` | `String` | Node ID |
 | `action` | `String` | Action name |
 
-### `$node.connected`
+## `$node.connected`
 The broker sends this event when a node connected or reconnected.
 
 **Payload**
@@ -149,7 +181,7 @@ The broker sends this event when a node connected or reconnected.
 | `node` | `Node` | Node info object |
 | `reconnected` | `Boolean` | Is reconnected? |
 
-### `$node.updated`
+## `$node.updated`
 The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
 
 **Payload**
@@ -158,7 +190,7 @@ The broker sends this event when it has received an INFO message from a node, (i
 | ---- | ---- | ----------- |
 | `node` | `Node` | Node info object |
 
-### `$node.disconnected`
+## `$node.disconnected`
 The broker sends this event when a node disconnected (gracefully or unexpectedly).
 
 **Payload**
@@ -168,15 +200,15 @@ The broker sends this event when a node disconnected (gracefully or unexpectedly
 | `node` | `Node` | Node info object |
 | `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
 
-### `$broker.started`
+## `$broker.started`
 The broker sends this event once `broker.start()` is called and all local services are started.
 
-### `$broker.stopped`
+## `$broker.stopped`
 The broker sends this event once `broker.stop()` is called and all local services are stopped.
 
-### `$transporter.connected`
+## `$transporter.connected`
 The transporter sends this event once the transporter is connected.
 
-### `$transporter.disconnected`
+## `$transporter.disconnected`
 The transporter sends this event once the transporter is disconnected.
 

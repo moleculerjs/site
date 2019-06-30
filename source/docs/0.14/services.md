@@ -877,7 +877,7 @@ Example health info:
 }
 ```
 ### Extending
-Internal service can be easily extended with custom functionalities. To do it you must define the mixin schema in broker´s `internalServices` option. 
+Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option. 
 
 ```javascript
 // moleculer.config.js
