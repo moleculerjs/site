@@ -111,3 +111,8 @@ group9:
         name: HunterCo
         link: https://www.hunterco.com.br/
         logo: https://camo.githubusercontent.com/7c6508593d3e56d502445adbb79a65cdf2e73d4a/68747470733a2f2f7765622d7374617469632e68756e746572636f2e636f6d2e62722f68756e746572636f2f6c6f676f732f48756e746572436f2b2d2b4c6f676f2b456d61696c2e706e67
+group10:
+    -
+        name: StretchShop
+        link: https://stretchshop.app/
+        logo: https://user-images.githubusercontent.com/1776976/60401547-81126c00-9b83-11e9-9d76-826fcf1cdaa0.png
