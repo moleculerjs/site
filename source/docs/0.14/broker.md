@@ -59,6 +59,7 @@ List of all available broker options:
 | `errorHandler` | `Function` | | [Global error handling](#Global-error-handler) function. |
 | `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
 | `transit.disableReconnect` | `Boolean` | `false` | Disables the reconnection logic while starting a broker|
+| `transit.disableVersionCheck` | `Boolean` | `false` | Disable protocol version checking logic in Transit |
 | `transit.packetLogFilter` | `Array` | `empty` | Filters out the packets in debug logs |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
@@ -78,6 +79,7 @@ List of all available broker options:
 | `stopped` | `Function` | `null` | Fired when the broker stopped. _Useful when you use Moleculer Runner._ |
 | `ServiceFactory` | `ServiceClass` | `null` | Custom Service class. If not `null`, broker will use it when creating services. |
 | `ContextFactory` | `ContextClass` | `null` | Custom Context class. If not `null`, broker will use it when creating contexts. |
+| `uidGenerator` | `Function` | `null` | Custom UUID generator to overwrite the default one. |
 
 ### Full options object
 ```js
@@ -136,6 +138,7 @@ List of all available broker options:
     transit: {
         maxQueueSize: 50 * 1000,
         disableReconnect: false,
+        disableVersionCheck: false,
         packetLogFilter: []
     },
     
@@ -300,6 +303,8 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.broadcast(eventName, payload, groups)` | - | Broadcast an event. |
 | `broker.broadcastLocal(eventName, payload, groups)` | - | Broadcast an event to local services. |
 | `broker.ping(nodeID, timeout)` | `Promise` | Ping remote nodes. |
+| `broker.hasEventListener("eventName")` | `Boolean` | Checks if broker is listening to an event. |
+| `broker.getEventListeners("eventName")` | `Array<Object>` | Returns all registered event listeners for an event name. |
 
 ## Global error handler
 The global error handler is generic way to handle exceptions. It catches the unhandled errors of action & event handlers.

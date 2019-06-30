@@ -58,6 +58,7 @@ List of all available broker options:
 | `bulkhead` | `Object` | | Settings of [bulkhead](fault-tolerance.html#Bulkhead) |
 | `transit.maxQueueSize` | `Number` | `50000` | A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. |
 | `transit.disableReconnect` | `Boolean` | `false` | Disables the reconnection logic while starting a broker|
+| `transit.disableVersionCheck` | `Boolean` | `false` | Disable protocol version checking logic in Transit |
 | `transit.packetLogFilter` | `Array` | `empty` | Filters out the packets in debug logs |
 | `cacher` | `String` or `Object` or `Cacher` | `null` | Cacher settings. [Read more](caching.html) |
 | `serializer` | `String` or `Serializer` | `JSONSerializer` | Instance of serializer. [Read more](networking.html) |
@@ -134,6 +135,7 @@ List of all available broker options:
     transit: {
         maxQueueSize: 50 * 1000,
         disableReconnect: false,
+        disableVersionCheck: false,
         packetLogFilter: []
     },     
 
@@ -268,7 +270,7 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.createService(schema, schemaMods)` | `Service` | Create a service from schema. |
 | `broker.destroyService(service)` | `Promise` | Destroy a loaded local service. |
 | `broker.getLocalService(name, version)` | `Service` | Get a local service instance by name & version. |
-| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise` | Wait for services. |
+| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise` | Wait for services (e.g.: `v2.posts`). |
 | `broker.call(actionName, params, opts)` | `Promise` | Call a service. |
 | `broker.mcall(def)` | `Promise` | Multiple service calling. |
 | `broker.emit(eventName, payload, groups)` | - | Emit a balanced event. |

@@ -474,7 +474,7 @@ module.exports = {
 };
 ```
 
-## Contexts
+## Context
 When you call an action, the broker creates a `Context` instance which contains all request information and passes it to the action handler as a single argument.
 
 **Available properties & methods of `Context`:**
@@ -485,6 +485,7 @@ When you call an action, the broker creates a `Context` instance which contains 
 | `ctx.broker` | `ServiceBroker` | Instance of the broker. |
 | `ctx.action` | `Object` | Instance of action definition. |
 | `ctx.nodeID` | `String` | The caller or target Node ID. |
+| `ctx.caller` | `String` | Action name of the caller. E.g.: `v3.myService.myAction` |
 | `ctx.requestID` | `String` | Request ID. If you make nested-calls, it will be the same ID. |
 | `ctx.parentID` | `String` | Parent context ID (in nested-calls). |
 | `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |

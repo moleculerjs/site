@@ -25,12 +25,12 @@ Moleculer have several built-in reporters. All of them have the following option
 
 | Name | Type | Default | Description |
 | ---- | ---- | --------| ----------- |
-| `includes` | `TODO` | `null` | TODO |
-| `excludes` | `TODO` | `null` |  TODO |
-| `metricNamePrefix` | `TODO` | `null` | TODO |
-| `metricNameSuffix` | `TODO` | `null` | TODO |
-| `metricNameFormatter` | `TODO` | `null` | TODO |
-| `labelNameFormatter` | `TODO` | `null` | TODO |
+| `includes` | `String | Array<String>` | `null` | TODO |
+| `excludes` | `String | Array<String>` | `null` |  TODO |
+| `metricNamePrefix` | `String` | `null` | TODO |
+| `metricNameSuffix` | `String` | `null` | TODO |
+| `metricNameFormatter` | `Function` | `null` | TODO |
+| `labelNameFormatter` | `Function` | `null` | TODO |
 
 ### Console
 This is a debugging reporter which periodically prints the metrics to the console.

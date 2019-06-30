@@ -84,6 +84,31 @@ There are some internal settings which are used by core modules. These setting n
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names. |
 | `$dependencyTimeout` | `Number` | `0` | Timeout for dependency waiting. |
 | `$shutdownTimeout` | `Number` | `0` | Timeout for waiting for active requests at shutdown. |
+| `$secureSettings` | `Array` | `[]` | List of secure settings. |
+
+### Secure service settings
+To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
+
+*** Example ***
+```js
+// mail.service.js
+module.exports = {
+    name: "mailer",
+    settings: {
+        $secureSettings: ["transport.auth.user", "transport.auth.pass"],
+
+        from: "sender@moleculer.services",
+        transport: {
+            service: 'gmail',
+            auth: {
+                user: 'gmail.user@gmail.com',
+                pass: 'yourpass'
+            }
+        }
+    }        
+    // ...
+};
+```
 
 ## Mixins
 Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. It is to extend another service to your service. When a service uses mixins, all properties in the mixin will be "mixed" into the current service.

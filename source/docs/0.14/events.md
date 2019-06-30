@@ -76,17 +76,17 @@ broker.broadcastLocal("config.changed", config);
 
 # Subscribe to events
 
-The new v0.14 version supports Context-based event handlers. It is very useful when you are using event-driven architecture and you would like to trace the events. The Event Context is same as Action Context, except for a few new properties related to the event.
+The new `v0.14` version supports Context-based event handlers. It is very useful when you are using event-driven architecture and you would like to trace your events. If you are familiar with [Action Context](actions.html#Context) you feel at home. The Event Context is very similar to as Action Context, except for a few new properties related to the event. [Check the complete list of properties](events.html#Context)
 
 {% note info Legacy event handlers %}
 
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature of event handlers. It is capable to detect different signatures of event handlers: 
-- If it finds that the signature is `"user.created(ctx) { ... }`, it will call it with Event Context. 
+You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers: 
+- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context. 
 - If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
 
 {% endnote %}
 
-**Use Context-based event handler & emit a nested event**
+**Context-based event handler & emit a nested event**
 ```js
 module.exports = {
     name: "accounts",
@@ -119,12 +119,56 @@ module.exports = {
             console.log("User event:", user);
         }
 
-        // Subscribe to all internal events
+        // Legacy event handler signature with context
         "$**"(payload, sender, event, ctx) {
             console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
     }
 }
+```
+# Context
+When you emit an event, the broker creates a `Context` instance which contains all request information and passes it to the event handler as a single argument.
+
+**Available properties & methods of `Context`:**
+
+| Name | Type |  Description |
+| ------- | ----- | ------- |
+| `ctx.id` | `String` | Context ID |
+| `ctx.broker` | `ServiceBroker` | Instance of the broker. |
+| `ctx.event` | `Object` | Instance of event definition. |
+| `ctx.nodeID` | `String` | The caller or target Node ID. |
+| `ctx.caller` | `String` | Action name of the caller. E.g.: `v3.myService.myAction` |
+| `ctx.eventName` | `String` | Name of the event. |
+| `ctx.eventType` | `String` | Type of the event (e.g. `emit` or `broadcast`). |
+| `ctx.eventGroups` | `Array<String>` | Group of the events that should receive the event. |
+| `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
+| `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
+| `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
+| `ctx.call()` | `Function` | Make nested-calls. Same arguments like in `broker.call` |
+| `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |
+| `ctx.broadcast()` | `Function` | Broadcast an event, same as `broker.broadcast` |
+
+## Context tracking
+If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. 
+A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
+
+**Enable context tracking & change the timeout value.
+```js
+const broker = new ServiceBroker({
+    nodeID: "node-1",
+    tracking: {
+        enabled: true,
+        shutdownTimeout: 10 * 1000
+    }
+});
+```
+
+> The shutdown timeout can be overwritten by `$shutdownTimeout` property in service settings.
+
+**Disable tracking in calling option**
+
+```js
+broker.emit("posts.find", {}, { tracking: false });
 ```
 
 # Internal events

@@ -383,6 +383,94 @@ module.exports = {
 };
 ```
 
+
+## Cache locking
+Moleculer also supports cache locking feature. For detailed info [check the PR](https://github.com/moleculerjs/moleculer/pull/490)
+
+**Enable Lock**
+```js
+const broker = new ServiceBroker({
+    cacher: {
+        ttl: 60,
+        lock: true, // Set to true to enable cache locks. Default is disabled.
+    }
+});
+```
+
+**Enable with TTL**
+```js
+const broker = new ServiceBroker({
+    cacher: {
+        ttl: 60,
+        lock: {
+            ttl: 15, // The maximum amount of time you want the resource locked in seconds
+            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+        }
+    }
+});
+```
+
+**Disable Lock**
+```js
+const broker = new ServiceBroker({
+    cacher: {
+        ttl: 60,
+        lock: {
+            enable: false, // Set to false to disable.
+            ttl: 15, // The maximum amount of time you want the resource locked in seconds
+            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+        }
+    }
+});
+```
+**Example for Redis cacher with `redlock` library**
+```js
+const broker = new ServiceBroker({
+  cacher: {
+    type: "Redis",
+    options: {
+      // Prefix for keys
+      prefix: "MOL",
+      // set Time-to-live to 30sec.
+      ttl: 30,
+      // Turns Redis client monitoring on.
+      monitor: false,
+      // Redis settings
+      redis: {
+        host: "redis-server",
+        port: 6379,
+        password: "1234",
+        db: 0
+      },
+      lock: {
+        ttl: 15, //the maximum amount of time you want the resource locked in seconds
+        staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+      },
+      // Redlock settings
+      redlock: {
+        // Redis clients. Support node-redis or ioredis. By default will use the local client.
+        clients: [client1, client2, client3],
+        // the expected clock drift; for more details
+        // see http://redis.io/topics/distlock
+        driftFactor: 0.01, // time in ms
+
+        // the max number of times Redlock will attempt
+        // to lock a resource before erroring
+        retryCount: 10,
+
+        // the time in ms between attempts
+        retryDelay: 200, // time in ms
+
+        // the max time in ms randomly added to retries
+        // to improve performance under high contention
+        // see https://www.awsarchitectureblog.com/2015/03/backoff.html
+        retryJitter: 200 // time in ms
+      }
+    }
+  }
+});
+```
+
 With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear the own cache entries.
 
 ## Built-in cachers
