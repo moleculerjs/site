@@ -290,6 +290,146 @@ Decode ID of entity.
 #### Results
 **Type:** `any`
 
+### `_find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+
+Find entities by query.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `populate` | `Array.<String>` | - | Populated fields. |
+| `fields` | `Array.<String>` | - | Fields filter. |
+| `limit` | `Number` | **required** | Max count of rows. |
+| `offset` | `Number` | **required** | Count of skipped rows. |
+| `sort` | `String` | **required** | Sorted fields. |
+| `search` | `String` | **required** | Search text. |
+| `searchFields` | `String` | **required** | Fields for searching. |
+| `query` | `Object` | **required** | Query object. Passes to adapter. |
+
+#### Results
+**Type:** `Array.<Object>`
+
+List of found entities.
+
+
+### `_count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+
+Get count of entities by query.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `search` | `String` | **required** | Search text. |
+| `searchFields` | `String` | **required** | Fields list for searching. |
+| `query` | `Object` | **required** | Query object. Passes to adapter. |
+
+#### Results
+**Type:** `Number`
+
+Count of found entities.
+
+
+### `_list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+
+List entities by filters and pagination results.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `populate` | `Array.<String>` | - | Populated fields. |
+| `fields` | `Array.<String>` | - | Fields filter. |
+| `page` | `Number` | **required** | Page number. |
+| `pageSize` | `Number` | **required** | Size of a page. |
+| `sort` | `String` | **required** | Sorted fields. |
+| `search` | `String` | **required** | Search text. |
+| `searchFields` | `String` | **required** | Fields for searching. |
+| `query` | `Object` | **required** | Query object. Passes to adapter. |
+
+#### Results
+**Type:** `Object`
+
+List of found entities and count.
+
+
+### `_create` 
+
+Create a new entity.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `params` | `Object` | - | Entity to save. |
+
+#### Results
+**Type:** `Object`
+
+Saved entity.
+
+
+### `_insert` 
+
+Create many new entities.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `entity` | `Object` | - | Entity to save. |
+| `entities` | `Array.<Object>` | - | Entities to save. |
+
+#### Results
+**Type:** `Object`, `Array.<Object>`
+
+Saved entity(ies).
+
+
+### `_get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+
+Get entity by ID.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `id` | `any`, `Array.<any>` | **required** | ID(s) of entity. |
+| `populate` | `Array.<String>` | - | Field list for populate. |
+| `fields` | `Array.<String>` | - | Fields filter. |
+| `mapping` | `Boolean` | - | Convert the returned `Array` to `Object` where the key is the value of `id`. |
+
+#### Results
+**Type:** `Object`, `Array.<Object>`
+
+Found entity(ies).
+
+
+### `_update` 
+
+Update an entity by ID.
+> After update, clear the cache & call lifecycle events.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `params` | `Object` | - | Entity to update. |
+
+#### Results
+**Type:** `Object`
+
+Updated entity.
+
+
+### `_remove` 
+
+Remove an entity by ID.
+
+#### Parameters
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `id` | `any` | **required** | ID of entity. |
+
+#### Results
+**Type:** `Number`
+
+Count of removed entities.
+
 ## Populating
 The service allows you to easily populate fields from other services. For exapmle: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
 
