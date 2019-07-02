@@ -110,7 +110,7 @@ All DB adapters share a common set of settings:
 
 DB adapters also implement CRUD operations. These actions are public methods and can be called by other services.
 
-### [`find`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L75) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 Find entities by query.
 
@@ -130,7 +130,7 @@ Find entities by query.
 **Type:** `Array.<Object>` - List of found entities.
 
 
-### [`count`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L110) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### `count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 Get count of entities by query.
 
@@ -145,7 +145,7 @@ Get count of entities by query.
 **Type:** `Number` - Count of found entities.
 
 
-### [`list`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L149) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### `list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 List entities by filters and pagination results.
 
@@ -164,7 +164,7 @@ List entities by filters and pagination results.
 #### Results
 **Type:** `Object` - List of found entities and count.
 
-### [`create`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L207)
+### `create`
 
 Create a new entity.
 
@@ -177,7 +177,7 @@ Create a new entity.
 #### Results
 **Type:** `Object` - Saved entity.
 
-### [`insert`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L229)
+### `insert`
 
 Create many new entities.
 
@@ -190,7 +190,7 @@ Create many new entities.
 #### Results
 **Type:** `Object`, `Array.<Object>` - Saved entity(ies).
 
-### [`get`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L268) ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
+### `get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
 Get entity by ID.
 
@@ -206,7 +206,7 @@ Get entity by ID.
 **Type:** `Object`, `Array.<Object>` - Found entity(ies).
 
 
-### [`update`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L322)
+### `update`
 
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
@@ -221,7 +221,7 @@ Update an entity by ID.
 **Type:** `Object` - Updated entity.
 
 
-### [`remove`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L357)
+### `remove`
 
 Remove an entity by ID.
 
@@ -237,7 +237,7 @@ Remove an entity by ID.
 
 DB adapters also has a set of helper methods
 
-### [`getById`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L469)
+### `getById`
 
 Get entity(ies) by ID(s).
 
@@ -251,7 +251,7 @@ Get entity(ies) by ID(s).
 **Type:** `Object`, `Array.<Object>` - Found entity(ies).
 
 
-### [`clearCache`](https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L507)
+### `clearCache`
 
 Clear cached entities
 
