@@ -2,6 +2,7 @@ docs:
   introduction:
     what_is_it: index.html
     usage: usage.html
+    concepts: concepts.html
     examples: examples.html
 
   overview:
