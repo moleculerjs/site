@@ -50,7 +50,7 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```
     > Press `Y` to all questions
     
-    > Don't forget to install and start [NATS Server](https://nats-io.github.io/docs/nats_server/installation.html). Otherwise, you will get the following error:
+    > Don't forget to install and start [NATS Server](https://nats.io/download/nats-io/nats-server/). Otherwise, you will get the following error:
     > `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222`
 
 
