@@ -82,7 +82,10 @@
       "author": "Moleculer",
       "description": "Progressive microservices framework powered by Node.js",
       "url": "https://moleculer.services",
-      "sameAs": "https://github.com/moleculerjs",
+      "sameAs": [
+        "https://github.com/moleculerjs",
+        "https://www.npmjs.com/package/moleculer"
+      ],
       "releaseNotes": "https://github.com/moleculerjs/moleculer/blob/master/CHANGELOG.md",
       "softwareRequirements": "Node.js",
       "image": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",

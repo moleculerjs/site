@@ -17,6 +17,9 @@ Moleculer follows the *one database per service* pattern. To learn more about th
 * encode/decode IDs
 * entity lifecycle events for notifications
 
+# Interactive Playground
+<iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14" title="sandbox-moleculer-db" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
 ## Base Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
 
 Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/nedb). Use it to quickly set up and test you prototype.
