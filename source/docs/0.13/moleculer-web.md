@@ -17,13 +17,14 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 * Buffer & Stream handling
 * middleware mode (use as a middleware with Express)
 
+{% note info Try it in your browser! %}
+[![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
+{% endnote %}
+
 ## Install
 ```bash
 npm i moleculer-web
 ```
-
-# Interactive Playground
-<iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14" title="moleculer-api-routing" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Usage
 
