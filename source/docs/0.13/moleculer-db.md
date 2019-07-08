@@ -112,7 +112,7 @@ All DB adapters share a common set of settings:
 
 ## Actions
 
-DB adapters also implement CRUD operations. These actions are public methods and can be called by other services.
+DB adapters also implement CRUD operations. These [actions](actions.html) are public methods and can be called by other services.
 
 ### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg) 
 
@@ -239,7 +239,7 @@ Remove an entity by ID.
 
 ## Methods
 
-DB adapters also has a set of helper methods
+DB adapters also has a set of helper [methods](services.html#Methods).
 
 ### `getById`
 
@@ -433,6 +433,68 @@ Remove an entity by ID.
 **Type:** `Number`
 
 Count of removed entities.
+
+## Data Manipulation
+
+You can easily use [Action hooks](actions.html#Action-hooks) to modify (e.g. add timestamps, hash user's passwords or remove sensitive info) before or after saving the data in DB. 
+
+**Example of hooks adding a timestamp and removing sensitive data**
+```js
+"use strict";
+const { ServiceBroker } = require("moleculer");
+const DbService = require("moleculer-db");
+
+const broker = new ServiceBroker();
+
+broker.createService({
+  name: "db-with-hooks",
+
+  // Load DB actions
+  mixins: [DbService],
+
+  // Add Hooks to DB actions
+  hooks: {
+    before: {
+      create: [
+        function addTimestamp(ctx) {
+          // Add timestamp
+          ctx.params.createdAt = new Date();
+          return ctx;
+        }
+      ]
+    },
+    after: {
+      get: [
+        // Arrow function as a Hook
+        (ctx, res) => {
+          // Remove sensitive data
+          delete res.mail;
+          delete res.phoneNumber;
+
+          return res;
+        }
+      ]
+    }
+  }
+});
+
+const user = {
+  name: "John Doe",
+  mail: "john.doe@example.com",
+  phoneNumber: 123456789
+};
+
+broker.start()
+  // Insert user into DB
+  // Call "create" action. Before hook will be triggered
+  .then(() => broker.call("db-with-hooks.create", user))
+  // Get user from DB
+  // Call "get" action. After hook will be triggered
+  .then(entry => broker.call("db-with-hooks.get", { id: entry._id }))
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+
+```
 
 ## Populating
 The service allows you to easily populate fields from other services. For exapmle: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
