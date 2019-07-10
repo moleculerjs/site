@@ -146,7 +146,7 @@ broker.createService({
 To use this shorthand alias, create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
-You can make use of custom functions within the declaration of aliases.
+You can make use of custom functions within the declaration of aliases. In this case, the handler's signature is `function (req, res) {...}`.
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -156,6 +156,9 @@ broker.createService({
             aliases: {
                 "POST upload"(req, res) {
                     this.parseUploadedFile(req, res);
+                },
+                "GET custom"(req, res) {
+                    res.send('hello from custom handler')
                 }
             }
         }]
