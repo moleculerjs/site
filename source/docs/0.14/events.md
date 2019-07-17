@@ -76,7 +76,7 @@ broker.broadcastLocal("config.changed", config);
 
 # Subscribe to events
 
-The new `v0.14` version supports Context-based event handlers. It is very useful when you are using event-driven architecture and you would like to trace your events. If you are familiar with [Action Context](actions.html#Context) you feel at home. The Event Context is very similar to as Action Context, except for a few new properties related to the event. [Check the complete list of properties](events.html#Context)
+The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](actions.html#Context) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](events.html#Context)
 
 {% note info Legacy event handlers %}
 
