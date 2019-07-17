@@ -45,7 +45,7 @@ Now, assuming that our services are up and running, the online store can serve u
 All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
 
 ### Implementation
-Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/documentation/tutorials/gnatsd-install/). Run it with the default settings. You should get the following message:
+Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/download/nats-io/nats-server/). Run it with the default settings. You should get the following message:
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4

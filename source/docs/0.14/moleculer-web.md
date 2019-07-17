@@ -142,7 +142,8 @@ broker.createService({
 To use this shorthand alias, create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
-You can make use of custom functions within the declaration of aliases.
+You can make use of custom functions within the declaration of aliases. In this case, the handler's signature is `function (req, res) {...}`.
+
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -152,6 +153,9 @@ broker.createService({
             aliases: {
                 "POST upload"(req, res) {
                     this.parseUploadedFile(req, res);
+                },
+                "GET custom"(req, res) {
+                    res.send('hello from custom handler')
                 }
             }
         }]
@@ -195,6 +199,179 @@ broker.createService({
 });
 ```
 You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
+
+### File upload aliases
+API Gateway has implemented file uploads. You can upload files as a multipart form data (thanks to [busboy](https://github.com/mscdex/busboy) library) or as a raw request body. In both cases, the file is transferred to an action as a `Stream`. In multipart form data mode you can upload multiple files, as well.
+
+{% note warn %}
+Please note, you have to disable other body parsers in order to accept files.
+{% endnote %}
+
+**Example**
+```js
+const ApiGateway = require("moleculer-web");
+
+module.exports = {
+    mixins: [ApiGateway],
+    settings: {
+        path: "/upload",
+
+        routes: [
+            {
+                path: "",
+
+                // You should disable body parsers
+                bodyParsers: {
+                    json: false,
+                    urlencoded: false
+                },
+
+                aliases: {
+                    // File upload from HTML multipart form
+                    "POST /": "multipart:file.save",
+                    
+                    // File upload from AJAX or cURL
+                    "PUT /": "stream:file.save",
+
+                    // File upload from HTML form and overwrite busboy config
+                    "POST /multi": {
+                        type: "multipart",
+                        // Action level busboy config
+                        busboyConfig: {
+                            limits: { files: 3 }
+                        },
+                        action: "file.save"
+                    }
+                },
+
+                // Route level busboy config.
+                // More info: https://github.com/mscdex/busboy#busboy-methods
+                busboyConfig: {
+                    limits: { files: 1 }
+                    // Can be defined limit event handlers
+                    // `onPartsLimit`, `onFilesLimit` or `onFieldsLimit`
+                },
+
+                mappingPolicy: "restrict"
+            }
+        ]
+    }
+});
+```
+### Auto-alias
+The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
+
+{% note info %}
+Gateway will regenerate the routes every time a service joins or leaves the network.
+{% endnote %}
+
+Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
+
+**Example**
+```js
+// api.service.js
+module.exports = {
+    mixins: [ApiGateway],
+
+    settings: {
+        routes: [
+            {
+                path: "/api",
+
+                whitelist: [
+                    "posts.*",
+                    "test.*"
+                ],
+
+                aliases: {
+                    "GET /hi": "test.hello"
+                },
+
+                autoAliases: true
+            }
+        ]
+    }
+};
+```
+
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    version: 2,
+
+    settings: {
+        // Base path
+        rest: "posts/"
+    },
+
+    actions: {
+        list: {
+            // Expose as "/api/v2/posts/"
+            rest: "GET /",
+            handler(ctx) {}
+        },
+
+        get: {
+            // Expose as "/api/v2/posts/:id"
+            rest: "GET /:id",
+            handler(ctx) {}
+        },
+
+        create: {
+            rest: "POST /",
+            handler(ctx) {}
+        },
+
+        update: {
+            rest: "PUT /:id",
+            handler(ctx) {}
+        },
+
+        remove: {
+            rest: "DELETE /:id",
+            handler(ctx) {}
+        }
+    }
+};
+```
+
+**The generated aliases**
+
+```bash
+    GET     /api/hi             => test.hello
+    GET     /api/v2/posts       => v2.posts.list
+    GET     /api/v2/posts/:id   => v2.posts.get
+    POST    /api/v2/posts       => v2.posts.create
+    PUT     /api/v2/posts/:id   => v2.posts.update
+    DELETE  /api/v2/posts/:id   => v2.posts.remove
+```
+
+**Example to define full path alias**
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    version: 2,
+
+    settings: {
+        // Base path
+        rest: "posts/"
+    },
+
+    actions: {
+        tags: {
+            // Expose as "/tags" instead of "/api/v2/posts/tags"
+            rest: {
+                method: "GET",
+                fullPath: "/tags"
+            },
+            handler(ctx) {}
+        }
+    }
+};
+```
+
 
 ## Parameters
 API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
@@ -256,7 +433,7 @@ foo: {
 ```
 
 ## Middlewares
-It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`.
+It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
 **Example**
 ```js
@@ -707,6 +884,83 @@ class CustomStore {
 }
 ```
 
+## ETag
+
+The `etag` option value can be `false`, `true`, `weak`, `strong`, or a custom `Function`. For full details check the [code](https://github.com/moleculerjs/moleculer-web/pull/92).
+
+```js
+const ApiGateway = require("moleculer-web");
+
+module.exports = {
+    mixins: [ApiGateway],
+    settings: {
+        // Service-level option
+        etag: false,
+        routes: [
+            {
+                path: "/",
+                // Route-level option.
+                etag: true
+            }
+        ]
+    }
+}
+```
+
+**Custom `etag` Function**
+```js
+module.exports = {
+    mixins: [ApiGateway],
+    settings: {
+        // Service-level option
+        etag: (body) => generateHash(body)
+    }
+}
+```
+
+Please note, it doesn't work with stream responses. In this case, you should generate the `etag` by yourself.
+
+**Custom `etag` for streaming**
+```js
+module.exports = {
+    name: "export",
+    actions: {
+        // Download response as a file in the browser
+        downloadCSV(ctx) {
+            ctx.meta.$responseType = "text/csv";
+            ctx.meta.$responseHeaders = {
+                "Content-Disposition": `attachment; filename="data-${ctx.params.id}.csv"`,
+                "ETag": '<your etag here>'
+            };
+            return csvFileStream;
+        }
+    }
+}
+```
+
+## HTTP2 Server
+API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings.
+**Example**
+```js
+const ApiGateway = require("moleculer-web");
+
+module.exports = {
+    mixins: [ApiGateway],
+    settings: {
+        port: 8443,
+
+        // HTTPS server with certificate
+        https: {
+            key: fs.readFileSync("key.pem"),
+            cert: fs.readFileSync("cert.pem")
+        },
+
+        // Use HTTP2 server
+        http2: true
+    }
+});
+```
+
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
@@ -716,7 +970,7 @@ const svc = broker.createService({
     mixins: [ApiService],
 
     settings: {
-        middleware: true
+        server: false // Default is "true"
     }
 });
 
@@ -752,9 +1006,10 @@ settings: {
         cert: fs.readFileSync("ssl/cert.pem")
     },
 
-    // Middleware mode (for ExpressJS)
-    middleware: false,
-
+    // Used server instance. If null, it will create a new HTTP(s)(2) server
+	// If false, it will start without server in middleware mode
+	server: true,
+    		
     // Exposed global path prefix
     path: "/api",
     
@@ -768,7 +1023,16 @@ settings: {
     logRequestParams: "info",
     
     // Logging response data with 'debug' level
-    logResponseData: "debug"
+    logResponseData: "debug",
+
+    // Use HTTP2 server (experimental)
+    http2: false,
+
+    // Override HTTP server default timeout
+	httpServerTimeout: null,
+
+    // Optimize route & alias paths (deeper first).
+    optimizeOrder: true,
 
     // Routes
     routes: [
