@@ -158,7 +158,7 @@ broker.createService({
                     this.parseUploadedFile(req, res);
                 },
                 "GET custom"(req, res) {
-                    res.send('hello from custom handler')
+                    res.end('hello from custom handler')
                 }
             }
         }]
