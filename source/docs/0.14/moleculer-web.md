@@ -144,6 +144,10 @@ To use this shorthand alias, create a service which has `list`, `get`, `create`,
 
 You can make use of custom functions within the declaration of aliases. In this case, the handler's signature is `function (req, res) {...}`.
 
+{% note info %}
+Please note that Moleculer uses native Node.js [HTTP server](https://nodejs.org/api/http.html)
+{% endnote %}
+
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -155,7 +159,7 @@ broker.createService({
                     this.parseUploadedFile(req, res);
                 },
                 "GET custom"(req, res) {
-                    res.send('hello from custom handler')
+                    res.end('hello from custom handler')
                 }
             }
         }]

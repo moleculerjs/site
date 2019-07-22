@@ -835,6 +835,21 @@ It has some options which you can declare within `params`.
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_. |
 | `onlyAvailable` | `Boolean` | `false`| List only available subscriptions. |
 
+### List of metrics
+It lists all metrics.
+```js
+broker.call("$node.metrics").then(res => console.log(res));
+```
+It has some options which you can declare within `params`.
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `types` | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
+| `includes` | `String` or `Array` | `null` | List of metrics to be included in response. |
+| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response. |
+
 ### Health of node
 It returns the health info of local node (including process & OS information).
 ```js
