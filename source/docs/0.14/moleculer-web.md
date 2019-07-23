@@ -17,6 +17,10 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 * Buffer & Stream handling
 * middleware mode (use as a middleware with Express)
 
+{% note info Try it in your browser! %}
+[![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
+{% endnote %}
+
 ## Install
 ```bash
 npm i moleculer-web
@@ -1153,6 +1157,14 @@ settings: {
     }    
 }
 ```
+## Service Methods
+### `addRoute`
+This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = true)`) add/replace a route. For example, you can call it from your mixins to define new routes (e.g. swagger route, graphql route, etc.). 
+
+> Please note that if a route already exists this method will replace previous route configuration with a new one.
+
+### `removeRoute`
+Service method removes the route by path (`this.removeRoute("/admin")`).
 
 ## Examples
 - [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
