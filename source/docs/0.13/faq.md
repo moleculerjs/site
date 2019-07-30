@@ -67,4 +67,4 @@ At the moment, [Moleculer DB](moleculer-db.html) only supports [one model per se
 
 
 ## `moleculer-db` violates Domain-Driven Design (DDD)?
-`moleculer-db` is a simple service (and optional) mixin to handle one DB entity/table. By no means it obliges or forces you to change your mindset or your way of implementing/modeling things. If the features provided by the `moleculer-db` don't fit your needs then you should write your own service with custom actions.
+`moleculer-db` is a simple (and optional) service mixin to handle one DB entity/table. By no means it obliges or forces you to change your mindset or your way of implementing/modeling things. If the features provided by the `moleculer-db` don't fit your needs then you should write your own service with custom actions.
