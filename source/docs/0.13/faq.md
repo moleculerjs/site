@@ -62,7 +62,7 @@ module.exports = {
 ```
 
 # DB Adapters (moleculer-db)
-## How can I manage multiple entity/tables per service?
+## How can I manage multiple entities/tables per service?
 At the moment, [Moleculer DB](moleculer-db.html) only supports [one model per service](https://microservices.io/patterns/data/database-per-service.html). This design works well if you are using a NoSQL database, especially Document database, because you can easily nest all child entities. However, for SQL databases things get tricky because you can have multiple and complex relations between the entities/tables. Due to this, its difficult (with the current workforce) to create a solution that will work for everyone. Therefore, for scenarios with multiple entities and relationships you will have to write your own adapter.
 
 
