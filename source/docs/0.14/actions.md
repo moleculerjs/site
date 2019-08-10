@@ -121,6 +121,31 @@ broker.createService({
 });
 ```
 
+When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
+
+**Internal calls**
+```js
+broker.createService({
+  name: "mod",
+  actions: {
+    hello(ctx) {
+      console.log(ctx.meta);
+      // Prints: { user: 'John' }
+      ctx.meta.age = 123
+      return this.actions.subHello(ctx.params, { parentCtx: ctx });
+    },
+
+    subHello(ctx) {
+      console.log("meta from subHello:", ctx.meta);
+      // Prints: { user: 'John', age: 123 }
+      return "hi!";
+    }
+  }
+});
+
+broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
+```
+
 ## Streaming
 Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
 
