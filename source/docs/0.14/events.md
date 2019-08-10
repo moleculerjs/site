@@ -111,12 +111,12 @@ module.exports = {
     events: {
         // Subscribe to `user.created` event
         "user.created"(ctx) {
-            console.log("User created:", user);
+            console.log("User created:", ctx.params);
         },
 
         // Subscribe to all `user` events
         "user.*"(ctx) {
-            console.log("User event:", user);
+            console.log("User event:", ctx.params);
         }
 
         // Legacy event handler signature with context
@@ -143,6 +143,7 @@ When you emit an event, the broker creates a `Context` instance which contains a
 | `ctx.eventGroups` | `Array<String>` | Group of the events that should receive the event. |
 | `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
 | `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
+| `ctx.locals` | `Any` | Local data. *It will be also transferred to nested-calls.* |
 | `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
 | `ctx.call()` | `Function` | Make nested-calls. Same arguments like in `broker.call` |
 | `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |

@@ -158,8 +158,8 @@ __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both
 
 ## Actions
 The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`.
-The action could be a ˙`Function` (shorthand for handler) or an object with some properties and `handler`.
-The actions should be placed under the `actions` key in the schema.
+The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`.
+The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
 module.exports = {
@@ -219,7 +219,7 @@ module.exports = {
 
 
 ## Events
-You can subscribe to events under the `events` key.
+You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
 
 ```js
 module.exports = {
@@ -227,21 +227,22 @@ module.exports = {
 
     events: {
         // Subscribe to "user.created" event
-        "user.created"(payload) {
-            this.logger.info("User created:", payload);
+        "user.created"(ctx) {
+            this.logger.info("User created:", ctx.params);
             // Do something
         },
 
-        // Subscribe to all "user.*" event
-        "user.*"(payload, sender, eventName) {
-            // Do something with payload. The `eventName` contains
-            // the original event name. E.g. `user.modified`.
-            // The `sender` is the nodeID of sender.
+        // Subscribe to all "user.*" events
+        "user.*"(ctx) {
+            console.log("Payload:", ctx.params);
+            console.log("Sender:", ctx.nodeID);
+            console.log("Metadata:", ctx.meta);
+            console.log("The called event name:", ctx.eventName);
         }
 
         // Subscribe to a local event
-        "$node.connected"({ node }) {
-            this.logger.info(`Node '${node.id}' is connected!`);
+        "$node.connected"(ctx) {
+            this.logger.info(`Node '${ctx.params.id}' is connected!`);
         }
     }
 };
@@ -295,7 +296,7 @@ module.exports = {
 > In methods the `this` is always pointed to the Service instance.
 
 ## Current Context Storage
-ServiceBroker has a continuous local storage in order to store the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`. 
+ServiceBroker has a continuous local storage that stores the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`. 
 
 > Context storage is built with Node's [`async_hooks`](https://nodejs.org/api/async_hooks.html) lib.
 
@@ -834,6 +835,21 @@ It has some options which you can declare within `params`.
 | `skipInternal` | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_. |
 | `onlyAvailable` | `Boolean` | `false`| List only available subscriptions. |
+
+### List of metrics
+It lists all metrics.
+```js
+broker.call("$node.metrics").then(res => console.log(res));
+```
+It has some options which you can declare within `params`.
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `types` | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
+| `includes` | `String` or `Array` | `null` | List of metrics to be included in response. |
+| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response. |
 
 ### Health of node
 It returns the health info of local node (including process & OS information).

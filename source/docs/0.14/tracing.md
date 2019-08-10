@@ -345,6 +345,7 @@ module.exports = {
                 tags: {
                     params: ["id"],
                     meta: ["loggedIn.username"],
+                    response: ["id", "title"] // add data to tags from the action response.
             },
             async handler(ctx) {
                 // ...
@@ -355,6 +356,8 @@ module.exports = {
 ```
 
 **Example with custom function**
+Please note, the tags function will be called two times in case of success execution. First with `ctx`, and second times with `ctx` & `response` as the response of action call.
+
 ```js
 // posts.service.js
 module.exports = {
@@ -362,15 +365,37 @@ module.exports = {
     actions: {
         get: {
             tracing: {
-                tags: ctx => {
+                tags(ctx, response) {
                     return {
                         params: ctx.params,
                         meta: ctx.meta,
                         custom: {
                             a: 5
-                        }
+                        },
+                        response
                     };
                 }
+            },
+            async handler(ctx) {
+                // ...
+            }
+        }
+    }
+});
+```
+
+**Example of Event tracing**
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    events: {
+        "user.created": {
+            tracing: {
+                // Add all params without meta
+                tags: {
+                    params: true,
+                    meta: false,
             },
             async handler(ctx) {
                 // ...

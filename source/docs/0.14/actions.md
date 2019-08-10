@@ -498,6 +498,35 @@ module.exports = {
     }
 };
 ```
+### Local Storage
+The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+
+**Setting `ctx.locals` in before hook**
+```js
+module.exports = {
+    name: "user",
+
+    hooks: {
+        before: {
+            async get(ctx) {
+                const entity = await this.findEntity(ctx.params.id);
+                ctx.locals.entity = entity;
+            }
+        }
+    },
+
+    actions: {
+        get: {
+            params: {
+                id: "number"
+            },
+            handler(ctx) {
+                this.logger.info("Entity", ctx.locals.entity);
+            }
+        }
+    }
+}
+```
 
 ## Context
 When you call an action, the broker creates a `Context` instance which contains all request information and passes it to the action handler as a single argument.
@@ -515,6 +544,7 @@ When you call an action, the broker creates a `Context` instance which contains 
 | `ctx.parentID` | `String` | Parent context ID (in nested-calls). |
 | `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
 | `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
+| `ctx.locals` | `Any` | Local data. *It will be also transferred to nested-calls.* |
 | `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
 | `ctx.call()` | `Function` | Make nested-calls. Same arguments like in `broker.call` |
 | `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |

@@ -29,8 +29,7 @@ const broker = new ServiceBroker({
     nodeID: "node-1",
     transporter: "nats://localhost:4222",
     logLevel: "debug",
-    requestTimeout: 5 * 1000,
-    requestRetry: 3
+    requestTimeout: 5 * 1000
 });
 ```
 
@@ -313,7 +312,7 @@ The global error handler is generic way to handle exceptions. It catches the unh
 ```js
 const broker = new ServiceBroker({
     errorHandler(err, info) {
-
+        // Handle the error
         this.logger.warn("Error handled:", err);
     }
 });
@@ -323,7 +322,7 @@ const broker = new ServiceBroker({
 ```js
 const broker = new ServiceBroker({
     errorHandler(err, info) {
-        this.logger.warn("Error handled:", err);
+        this.logger.warn("Log the error:", err);
         throw err; // Throw further
     }
 });
