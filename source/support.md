@@ -48,6 +48,10 @@ Thank you in advance!
 		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D" alt="Ivan Petrovic" />
 		<label>Ivan Petrovic</label>
 	</a>  
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/22945866/21a0785376524874bbc9e06eb723a8aa/1.jpeg?token-time=2145916800&token-hash=BBvW23x3d-R7KGw_zxMKfOTRRfNcqprn4SqMHwtyGec%3D" alt="Иван Журавлёв" />
+		<label>Иван Журавлёв</label>
+	</a>  
 </div>
 
 ### Copper backers
