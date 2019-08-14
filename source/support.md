@@ -49,8 +49,9 @@ Thank you in advance!
 		<label>Ivan Petrovic</label>
 	</a>  
 	<a href="#" class="user-logo" target="_blank">
-		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/22945866/21a0785376524874bbc9e06eb723a8aa/1.jpeg?token-time=2145916800&token-hash=BBvW23x3d-R7KGw_zxMKfOTRRfNcqprn4SqMHwtyGec%3D" alt="Иван Журавлёв" />
-		<label>Иван Журавлёв</label>
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/22945866/21a0785376524874bbc9e06eb723a8aa/1.jpeg?token-time=2145916800&token-hash=BBvW23x3d-R7KGw_zxMKfOTRRfNcqprn4SqMHwtyGec%3D" alt="
+Ivan Zhuravlev - Иван Журавлёв" />
+		<label>Ivan Zhuravlev</label>
 	</a>  
 </div>
 
