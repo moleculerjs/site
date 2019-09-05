@@ -61,12 +61,10 @@ Custom validator can be created. You should implement `compile` and `validate` m
 
 ### Create a [Joi](https://github.com/hapijs/joi) validator
 ```js
-const BaseValidator = require("moleculer").Validator;
 const { ValidationError } = require("moleculer").Errors;
 
-class JoiValidator extends BaseValidator {
+class JoiValidator {
     constructor() {
-        super();
         this.validator = require("joi");
     }
 
@@ -75,12 +73,28 @@ class JoiValidator extends BaseValidator {
     }
 
     validate(params, schema) {
-        const res = this.validator.validate(params, schema);
-        if (res.error)
-            throw new ValidationError(res.error.message, null, res.error.details);
-
-        return true;
+        const { error, value } = joi.validate(params, schema);
+        if (error) throw new ValidationError("Parameters validation error!", null, error);
+        return value;
     }
+    
+    middleware() {
+        return (handler, action) => {
+            if (action.params && typeof action.params === "object") {
+                const check = this.compile(action.params)
+                return ctx => {
+                    const value = check(ctx.params)
+                    if (value) {
+                        if (typeof value === "object") ctx.params = value;
+                        return handler(ctx);
+                    } else {
+                        return Promise.reject(new ValidationError("Parameters validation error!", null, result));
+                    }
+                }
+            }
+            return handler;
+        }
+      }
 }
 
 module.exports = JoiValidator;
