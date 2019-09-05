@@ -1,12 +1,11 @@
 title: Metrics
 ---
 
-Starting from `v0.14` Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. If enabled, the broker will emit metric events at every request. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 {% note warn %}
-If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy`. [More info](tracing.html#Event-legacy).
+If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy` tracing exporter. [More info](tracing.html#Event-legacy).
 {% endnote %}
-
 
 **Enable metrics & define console reporter**
 ```js
@@ -154,10 +153,32 @@ const broker = new ServiceBroker({
 });
 ```
 
-<!-- 
+
 ### Event
->Not implemented yet.
--->
+Event reporter sends Moleculer events with metric values.
+
+```js
+const broker = new ServiceBroker({
+    metrics: {
+        enabled: true,
+        reporter: [
+            {
+                type: "Event",
+                options: {
+                    eventName: "$metrics.snapshot",
+
+                    broadcast: false,
+                    groups: null,
+
+                    onlyChanges: false,
+
+                    interval: 5 * 1000,
+                }
+            }
+        ]
+    }
+});
+```
 
 
 ### Prometheus
@@ -185,11 +206,6 @@ const broker = new ServiceBroker({
     }
 });
 ```
-
-<!-- 
-### UDP
->Not implemented yet.
--->
 
 ### StatsD
 The StatsD reporter sends metric values to [StatsD](https://github.com/statsd/statsd) server via UDP.
@@ -338,6 +354,7 @@ An info is a single string or number value like process arguments, hostname or v
 
 
 ## Customizing
+
 ### New metric registration
 
 You can easily create custom metrics. 
@@ -356,7 +373,7 @@ module.exports = {
 
     created() {
         // Register new custom metrics
-        this.broker.metrics.register({ type: "counter", name: "posts.get.total" });
+        this.broker.metrics.register({ type: "counter", name: "posts.get.total", description: "Number of requests of posts" });
     }
 };
 ```

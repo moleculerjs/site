@@ -2,7 +2,7 @@ title: Tracing
 ---
 ## Tracing Exporters
 
-The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). Set `tracing: true` in broker's options to enable tracing
+The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). Set `tracing: true` in broker's options to enable tracing.
 
 **Enable tracing**
 ```js
@@ -102,7 +102,7 @@ const broker = new ServiceBroker({
 ```
 
 ### Event (legacy)
-Legacy event exporter sends Moleculer events ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) at every request. These events are also used to generate metrics in [legacy (`<= v0.13`) metrics solutions](/modules.html#metrics).
+Legacy event exporter sends Moleculer legacy metric events ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) at every request. These events are also used to generate metrics in [legacy (`<= v0.13`) metrics solutions](/modules.html#metrics).
 
 ```js
 const broker = new ServiceBroker({
@@ -282,6 +282,7 @@ const broker = new ServiceBroker({
 ```
 
 ## Customizing
+
 ### Multiple Spans per Action
 ```js
 // posts.service.js
@@ -332,7 +333,7 @@ module.exports = {
 ```
 
 
- **Custom params example**
+**Custom params example**
 ```js
 // posts.service.js
 module.exports = {
