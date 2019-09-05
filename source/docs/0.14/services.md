@@ -75,7 +75,7 @@ The `settings` property is a store, where you can store every settings/options t
 ```
 > The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
 
-## Internal settings
+### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
 | Name | Type | Default | Description |
@@ -158,8 +158,8 @@ __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both
 
 ## Actions
 The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`.
-The action could be a ˙`Function` (shorthand for handler) or an object with some properties and `handler`.
-The actions should be placed under the `actions` key in the schema.
+The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`.
+The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
 module.exports = {
@@ -219,7 +219,7 @@ module.exports = {
 
 
 ## Events
-You can subscribe to events under the `events` key.
+You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
 
 ```js
 module.exports = {
@@ -227,21 +227,22 @@ module.exports = {
 
     events: {
         // Subscribe to "user.created" event
-        "user.created"(payload) {
-            this.logger.info("User created:", payload);
+        "user.created"(ctx) {
+            this.logger.info("User created:", ctx.params);
             // Do something
         },
 
-        // Subscribe to all "user.*" event
-        "user.*"(payload, sender, eventName) {
-            // Do something with payload. The `eventName` contains
-            // the original event name. E.g. `user.modified`.
-            // The `sender` is the nodeID of sender.
+        // Subscribe to all "user.*" events
+        "user.*"(ctx) {
+            console.log("Payload:", ctx.params);
+            console.log("Sender:", ctx.nodeID);
+            console.log("Metadata:", ctx.meta);
+            console.log("The called event name:", ctx.eventName);
         }
 
         // Subscribe to a local event
-        "$node.connected"({ node }) {
-            this.logger.info(`Node '${node.id}' is connected!`);
+        "$node.connected"(ctx) {
+            this.logger.info(`Node '${ctx.params.id}' is connected!`);
         }
     }
 };
@@ -294,7 +295,32 @@ module.exports = {
 
 > In methods the `this` is always pointed to the Service instance.
 
-## Lifecycle events
+## Current Context Storage
+ServiceBroker has a continuous local storage that stores the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`. 
+
+> Context storage is built with Node's [`async_hooks`](https://nodejs.org/api/async_hooks.html) lib.
+
+```js
+// greeter.service.js
+module.exports = {
+	name: "greeter",
+	actions: {
+		hello(ctx) {
+			return this.Promise.resolve()
+				.then(() => this.doSomething());
+
+		}
+	},
+	methods: {
+		doSomething() {
+            const ctx = this.currentContext;
+            return ctx.call("other.service");
+		}
+	}
+});
+```
+
+## Lifecycle Events
 There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
 
 ```js
@@ -394,7 +420,7 @@ module.exports = {
 ```
 > The `metadata` is also obtainable on remote nodes. It is transferred during service discovering.
 
-## Properties of Service instances
+## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
 | Name | Type |  Description |
@@ -410,7 +436,7 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.actions` | `Object` | Actions of service. _Service can call own actions directly_ |
 | `this.waitForServices` | `Function` | Link to ['broker.waitForServices' method](broker.html#Wait-for-services) |
 
-## Create a service
+## Service Creation
 There are several ways to create and load a service.
 
 ### broker.createService()
@@ -518,7 +544,7 @@ broker.loadServices("./svc", "user*.service.js");
 ### Load with Moleculer Runner (recommended)
 We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
 
-## Hot reloading services
+## Hot Reloading Services
 Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html).
 [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
@@ -545,10 +571,10 @@ Hot reloading function is working only with Moleculer Runner or if you load your
 {% endnote %}
 
 {% note info %}
-Hot reloading watches only the `service.js` file. If you are using additional JS files in your services and they are changed, broker won't detect it. In this case it is better to use [nodemon](https://github.com/remy/nodemon) to restart all services and broker.
+Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
 {% endnote %}
 
-## Local variables
+## Local Variables
 If you would like to use local properties/variables in your service, declare them in the `created` event handler.
 
 **Example for local variables**
@@ -589,8 +615,8 @@ module.exports = {
 It is important to be aware that you can't use variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.  
 {% endnote %}
 
-## ES6 classes
-If you like better ES6 classes than Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
+## ES6 Classes
+If you prefer ES6 classes to Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
 
 ### Native ES6 classes with schema parsing
 
@@ -747,8 +773,8 @@ broker.createService(MyService);
 broker.start();
 ```
 
-## Internal services
-The `ServiceBroker` contains some internal services to check the node health or get some registry informations. You can disable to load them with the `internalServices: false` broker option.
+## Internal Services
+The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
 
 ### List of nodes
 It lists all known nodes (including local node).
@@ -809,6 +835,21 @@ It has some options which you can declare within `params`.
 | `skipInternal` | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_. |
 | `onlyAvailable` | `Boolean` | `false`| List only available subscriptions. |
+
+### List of metrics
+It lists all metrics.
+```js
+broker.call("$node.metrics").then(res => console.log(res));
+```
+It has some options which you can declare within `params`.
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `types` | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
+| `includes` | `String` or `Array` | `null` | List of metrics to be included in response. |
+| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response. |
 
 ### Health of node
 It returns the health info of local node (including process & OS information).
@@ -875,4 +916,24 @@ Example health info:
         "utc": "Fri, 17 Feb 2018 13:42:38 GMT"
     }
 }
+```
+### Extending
+Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option. 
+
+```javascript
+// moleculer.config.js
+module.exports = {
+    nodeID: "node-1",
+    logger: true,
+    internalServices: {
+        $node: {
+            actions: {
+                // Call as `$node.hello`
+                hello(ctx) {
+                    return `Hello Moleculer!`;
+                }
+            }
+        }
+    }
+};
 ```
