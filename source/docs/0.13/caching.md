@@ -569,6 +569,47 @@ const broker = new ServiceBroker({
 });
 ```
 
+**With MessagePack serializer**
+```js
+const broker = new ServiceBroker({
+    nodeID: "node-123",
+    cacher: {
+        type: "Redis",
+        options: {
+            ttl: 30,
+
+            // Using MessagePack serializer to store data.
+            serializer: "MsgPack",
+
+            redis: {
+                host: "my-redis"
+            }
+        }
+    }
+});
+```
+
+**With Redis Cluster Client**
+```js
+const broker = new ServiceBroker({
+    cacher: {
+        type: "Redis",
+        options: {
+            ttl: 30, 
+
+            cluster: {
+                nodes: [
+                    { port: 6380, host: "127.0.0.1" },
+                    { port: 6381, host: "127.0.0.1" },
+                    { port: 6382, host: "127.0.0.1" }
+                ],
+                options: { /* More information: https://github.com/luin/ioredis#cluster */ }
+            }	
+        }
+    }
+});
+```
+
 **Options**
 
 | Name | Type | Default | Description |
@@ -579,6 +620,8 @@ const broker = new ServiceBroker({
 | `redis` | `Object` | `null` | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis). |
 | `keygen` | `Function` | `null` | Custom cache key generator function. |
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
+| `serializer` | `String` | `null` | Name of a built-in serializer. Default: `"JSON"` |
+| `cluster` | `Object` | `null` | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster) |
 
 
 {% note info Dependencies %}

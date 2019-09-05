@@ -33,7 +33,7 @@
   {{ css('css/moleculer') }}
   <!-- endbuild -->
   <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Roboto Mono|Lato:300,400,700" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
   <!-- RSS
   {{ feed_tag('atom.xml') }}
@@ -49,4 +49,56 @@
   <!-- Particles -->
   {{ js('js/buttons') }}
 
+<!-- Schema.ORG DATA -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Moleculer",
+    "description": "Moleculer team is responsible for creation of a progressive microservices framework called MoleculerJS.",
+    "url": "https://moleculer.services",
+    "logo": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "contactType": "technical support",
+      "email": "hello@moleculer.services",
+      "url": "https://moleculer.services"
+    }],
+    "sameAs": [
+      "https://twitter.com/MoleculerJS",
+      "https://github.com/moleculerjs",
+      "https://gitter.im/moleculerjs/moleculer",
+      "https://discord.gg/TSEcDRP",
+      "https://stackoverflow.com/questions/tagged/moleculer"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MoleculerJS",
+      "author": "Moleculer",
+      "description": "Progressive microservices framework powered by Node.js",
+      "url": "https://moleculer.services",
+      "sameAs": [
+        "https://github.com/moleculerjs",
+        "https://www.npmjs.com/package/moleculer"
+      ],
+      "releaseNotes": "https://github.com/moleculerjs/moleculer/blob/master/CHANGELOG.md",
+      "softwareRequirements": "Node.js",
+      "image": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",
+      "thumbnailUrl": "https://raw.githubusercontent.com/moleculerjs/site/master/source/icon/ms-icon-310x310.png",
+      "license": "https://github.com/moleculerjs/moleculer/blob/master/LICENSE",
+      "operatingSystem": "Windows, Linux, OSX",
+      "keywords": "Node.JS, nodejs, microservices, microservice, microservices framework, distributed systems, moleculer, moleculerjs, moleculer.js",
+      "applicationCategory": "DeveloperApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD"
+        }
+    }
+  </script>
 </head>

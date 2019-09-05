@@ -17,6 +17,10 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 * Buffer & Stream handling
 * middleware mode (use as a middleware with Express)
 
+{% note info Try it in your browser! %}
+[![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
+{% endnote %}
+
 ## Install
 ```bash
 npm i moleculer-web
@@ -142,7 +146,7 @@ broker.createService({
 To use this shorthand alias, create a service which has `list`, `get`, `create`, `update` and `remove` actions.
 {% endnote %}
 
-You can make use of custom functions within the declaration of aliases.
+You can make use of custom functions within the declaration of aliases. In this case, the handler's signature is `function (req, res) {...}`.
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -152,6 +156,9 @@ broker.createService({
             aliases: {
                 "POST upload"(req, res) {
                     this.parseUploadedFile(req, res);
+                },
+                "GET custom"(req, res) {
+                    res.end('hello from custom handler')
                 }
             }
         }]

@@ -18,7 +18,7 @@ const res = await broker.call(actionName, params, opts);
 ```
 The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](#Contexts). The service can access it via `ctx.params`. *It is optional.*
+The `params` is an object which is passed to the action as a part of the [Context](#Context). The service can access it via `ctx.params`. *It is optional.*
 
 The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
 

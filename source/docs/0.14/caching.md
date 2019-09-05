@@ -383,6 +383,7 @@ module.exports = {
 };
 ```
 
+With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear the own cache entries.
 
 ## Cache locking
 Moleculer also supports cache locking feature. For detailed info [check the PR](https://github.com/moleculerjs/moleculer/pull/490)
@@ -605,7 +606,7 @@ const broker = new ServiceBroker({
                     { port: 6382, host: "127.0.0.1" }
                 ],
                 options: { /* More information: https://github.com/luin/ioredis#cluster */ }
-            }	
+            }   
         }
     }
 });

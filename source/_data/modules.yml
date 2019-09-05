@@ -41,6 +41,13 @@ gateway:
     official: false
     author: davidroman0O
     display: unset
+  - name: hapi-moleculer
+    link: 'https://github.com/felipegcampos/hapi-moleculer'
+    desc: |
+      <a href="https://hapijs.com/">Hapi</a> plugin for the Moleculer.
+    official: false
+    author: felipegcampos
+    display: unset
 databases:
   - name: moleculer-db
     link: 'https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db#readme'
@@ -91,13 +98,6 @@ databases:
     official: false
     author: katsanva
     display: unset
-  - name: moleculer-storage-google-cloud
-    link: 'https://github.com/hongkongkiwi/node-moleculer-storage-google-cloud'
-    desc: |
-      A <a href="https://cloud.google.com/storage/">Google Cloud Storage</a> module
-    official: false
-    author: hongkongkiwi
-    display: none
   - name: moleculer-gundb
     link: 'https://github.com/smart-matrix/moleculer-gundb'
     desc: |
@@ -305,6 +305,41 @@ others:
     official: false
     author: Hugome
     display: unset
+  - name: moleculer-http-client
+    link: 'https://github.com/AndreMaz/moleculer-http-client'
+    desc: |
+      HTTP client mixin that allows Moleculer services to communicate with remote REST APIs
+    official: false
+    author: AndreMaz
+    display: unset
+  - name: moleculer-axios
+    link: 'https://github.com/adam-mccormick/moleculer-axios'
+    desc: |
+      Axios based HTTP client for Moleculer services
+    official: false
+    author: adam-mccormick
+    display: unset
+  - name: moleculer-browser
+    link: 'https://github.com/geut/moleculer-browser'
+    desc: |
+      Moleculer for the browser.
+    official: false
+    author: geut
+    display: none
+  - name: moleculer-stripe
+    link: 'https://github.com/YourSoftRun/moleculer-stripe'
+    desc: |
+      Service for <a href="https://stripe.com/">Stripe</a>
+    official: false
+    author: Hugome
+    display: unset
+  - name: node-red-contrib-moleculer
+    link: 'https://github.com/chameleonbr/node-red-contrib-moleculer#readme'
+    desc: |
+      Node Red client for Moleculer with events, emit, call, request and response support.
+    official: false
+    author: chameleonbr
+    display: unset
 tasks:
   - name: moleculer-bee-queue
     link: 'https://github.com/moleculerjs/moleculer-addons/tree/master/packages/moleculer-bee-queue#readme'
@@ -334,6 +369,13 @@ tasks:
     official: false
     author: davidroman0O
     display: unset
+  - name: moleculer-amqp-queue
+    link: 'https://github.com/lehno/moleculer-amqp-queue#readme'
+    desc: |
+      Task queue mixin for <a href="https://www.amqp.org/">AMQP</a>
+    official: false
+    author: lehno
+    display: unset
 validation:
   - name: fastest-validator
     link: 'https://moleculer.services/docs/0.13/validating.html#Built-in-validator'
@@ -355,6 +397,13 @@ validation:
       <a href="https://json-schema.org/">JSON Schema</a> validator
     official: false
     author: zhaoyao91
+    display: unset
+  - name: ts-transformer-json-schema
+    link: 'https://github.com/ipetrovic11/ts-transformer-json-schema'
+    desc: |
+      Use Typescript Intefraces as validator.
+    official: false
+    author: ipetrovic11
     display: unset
 tools:
   - name: moleculer-repl
@@ -384,4 +433,11 @@ tools:
       ES7/TS decorators for Service declaration.
     official: false
     author: rmccallum81
+    display: unset
+  - name: moldock
+    link: 'https://github.com/amroessam/moldock'
+    desc: |
+      A CLI tool to deconstruct moleculer projects into their own dependant projects, to be able to dockerize them individually.
+    official: false
+    author: amroessam
     display: unset

@@ -44,6 +44,7 @@ algolia:
 twitter: MoleculerJS
 github: moleculerjs/moleculer
 stackoverflow: questions/tagged/moleculer
+discord: TSEcDRP
 
 alias:
   docs/benchmark.html: docs/0.14/benchmark.html

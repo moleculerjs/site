@@ -6,7 +6,8 @@
     <nav id="main-nav">
       {{ header_menu('main-nav') }}
       <a href="https://github.com/{{ config.github }}" class="main-nav-link">Github</a>
-      <a href="https://gitter.im/moleculerjs/moleculer" class="main-nav-link">Chat</a>
+      <a href="https://gitter.im/moleculerjs/moleculer" class="main-nav-link">Gitter Chat</a>
+      <a href="https://discord.gg/TSEcDRP" class="main-nav-link">Discord Chat</a>
       <a href="https://medium.com/moleculer" class="main-nav-link">Blog</a>
       <a href="https://moleculer.threadless.com" class="main-nav-link">Store</a>
       <div id="search-input-wrap" class="on">

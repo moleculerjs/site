@@ -95,6 +95,6 @@ Follow this workflow if you would like to create a new module for Moleculer
 
 ## Reporting Issues
 
-When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/moleculerjs/moleculer) or on [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
+When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/moleculerjs/moleculer), [Discord](https://discord.gg/TSEcDRP) or on [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
 
 Thank you!

@@ -48,13 +48,17 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```bash
     $ moleculer init project moleculer-demo
     ```
-    > Press Y to all questions
+    > Press `Y` to all questions
     
+    > Don't forget to install and start [NATS Server](https://nats.io/download/nats-io/nats-server/). Otherwise, you will get the following error:
+    > `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222`
+
+
 3. Open project folder
     ```bash
     $ cd moleculer-demo
     ```
-    
+
 4. Start project
     ```bash
     $ npm run dev
@@ -62,7 +66,11 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
 5. Open the [http://localhost:3000/](http://localhost:3000/) link in your browser. It shows a start page which contains two links to call the `greeter` service via [API gateway](https://github.com/moleculerjs/moleculer-web).
 
 {% note info Congratulations! %}
-You have just created your first Moleculer-based microservices project! The next step is to check our [examples](examples.html) or [demo projects](https://github.com/moleculerjs/moleculer-examples).
+You have just created your first Moleculer-based microservices project! Next, check out Moleculer's [core concepts](concepts.html) page to get familiar with them and to see how they fit together. Otherwise, check our [examples](examples.html) or [demo projects](https://github.com/moleculerjs/moleculer-examples).
 {% endnote %}
 
 
+# Moleculer Demo Playground
+If you don't want to install [moleculer-demo](usage.html#Create-a-Moleculer-project) on your machine you can use interactive playground.
+
+<iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-project/tree/master/?fontsize=14" title="moleculer-project" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>

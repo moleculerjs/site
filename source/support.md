@@ -44,14 +44,15 @@ Thank you in advance!
 ### Bronze backers
 
 <div class="support-backers">
-	<a href="https://github.com/zllovesuki" class="user-logo" target="_blank">
-		<img src="https://avatars1.githubusercontent.com/u/298453?s=100&v=4" alt="Rachel Chen" />
-		<label>Rachel Chen</label>
-	</a>
 	<a href="#" class="user-logo" target="_blank">
 		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D" alt="Ivan Petrovic" />
 		<label>Ivan Petrovic</label>
-	</a>    
+	</a>  
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/22945866/21a0785376524874bbc9e06eb723a8aa/1.jpeg?token-time=2145916800&token-hash=BBvW23x3d-R7KGw_zxMKfOTRRfNcqprn4SqMHwtyGec%3D" alt="
+Ivan Zhuravlev - Иван Журавлёв" />
+		<label>Ivan Zhuravlev</label>
+	</a>  
 </div>
 
 ### Copper backers
@@ -80,6 +81,14 @@ Thank you in advance!
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Tejas Bhatt</label>
 	</a>
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/16886297/9e5df1ea1a984509bde7fad34040ffd6/1.jpeg?token-time=2145916800&token-hash=5gyc9bb4GtVtFbgFZJd33_NukMXj2XBZa5ee14Nu4Y8%3D" alt="Leandro Hoffmann" />
+		<label>Leandro Hoffmann</label>
+	</a>      
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/20690350" alt="Frederik Granna" />
+		<label>Frederik Granna</label>
+	</a>    
 </div>
 
 ## Open Collective backers & sponsors

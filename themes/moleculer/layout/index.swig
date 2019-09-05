@@ -27,7 +27,7 @@
         </li>
         <li class="intro-feature-wrap">
           <div class="intro-feature">
-            <div class="intro-feature-icon"><i class="fa fa-diamond"></i></div>
+            <div class="intro-feature-icon"><i class="fa fa-gem"></i></div>
             <h3 class="intro-feature-title">Extensible</h3>
             <p class="intro-feature-desc">All built-in modules (caching, serializer, transporter) are pluggable. Create your own solutions or <a href="/modules.html">find all modules</a>.</p>
           </div>
