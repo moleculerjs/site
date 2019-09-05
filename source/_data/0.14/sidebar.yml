@@ -41,4 +41,4 @@ docs:
     api_servicebroker: api/service-broker.html
     api_service: api/service.html
     api_context: api/context.html
-    api_protocol: api/protocol.html
+    api_protocol: https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md

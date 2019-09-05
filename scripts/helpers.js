@@ -49,7 +49,7 @@ hexo.extend.helper.register('get_version', function(){
 	var p = this.page.canonical_path.split('/');
 	if (p.length > 2)
 		return p[1];
-	
+
 	return this.site.data.versions.latest;
 });
 
@@ -80,11 +80,14 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 		// Create menu items
 		_.each(menu, function(link, text){
 			var itemClass = className + '-link';
-
+            var externalLink = link.startsWith("http");
 			var fullLink = link[0] == "/" ? link : ["", p[0], p[1], link].join("/");
+            if (externalLink) {
+                fullLink = link;
+            }
 			if (fullLink === "/" + self.path) itemClass += ' current';
 
-			result += '<a href="' + fullLink + '" class="' + itemClass + '">' + self.__(prefix + text) + '</a>';
+			result += '<a href="' + fullLink + '" class="' + itemClass + '"' + (externalLink ? ' target="_blank"' : '') + '>' + self.__(prefix + text) + '</a>';
 		})
 	});
 
