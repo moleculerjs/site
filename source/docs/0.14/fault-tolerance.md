@@ -149,7 +149,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Global Settings
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
@@ -159,7 +159,9 @@ const broker = new ServiceBroker({
 
 The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit or it is 0, broker will throw `QueueIsFull` exception for every addition requests.
 
-These global options can be overridden in action definition, as well.
+### Action Settings
+
+[Global settings](#Global-Settings) can be overridden in action definition.
 
 **Overwrite the retry policy values in action definitions** 
 ```js
@@ -183,6 +185,29 @@ module.export = {
         }
     }
 };
+```
+
+
+### Events Settings
+Event handlers also support [bulkhead](#Bulkhead) feature.
+
+**Example**
+```js
+// my.service.js
+module.exports = {
+    name: "my-service",
+    events: {
+        "user.created": {
+            bulkhead: {
+                enabled: true,
+                concurrency: 1
+            },
+            async handler(ctx) {
+                // Do something.
+            }
+        }
+    }
+}
 ```
 
 ## Fallback

@@ -146,6 +146,45 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
+### Timeout
+
+Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+
+**Example**
+ ```js
+// moleculer.config.js
+module.exports = {
+    nodeID: "node-1",
+    requestTimeout: 3000
+};
+ // greeter.service.js
+module.exports = {
+    name: "greeter",
+    actions: {
+        normal: {
+            handler(ctx) {
+                return "Normal";
+            }
+        },
+         slow: {
+            timeout: 5000, // 5 secs
+            handler(ctx) {
+                return "Slow";
+            }
+        }
+    },
+```
+**Calling examples**
+```js
+// It uses the global 3000 timeout
+await broker.call("greeter.normal");
+ // It uses the 5000 timeout from action definition
+await broker.call("greeter.slow");
+ // It uses 1000 timeout from calling option
+await broker.call("greeter.slow", null, { timeout: 1000 });
+```
+
+
 ## Streaming
 Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
 

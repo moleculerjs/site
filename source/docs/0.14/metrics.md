@@ -28,7 +28,7 @@ Moleculer have several built-in reporters. All of them have the following option
 | `includes` | `String or Array<String>` | `null` | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
 | `excludes` | `String or Array<String>` | `null` |  List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
 | `metricNamePrefix` | `String` | `null` | Prefix to be added to metric names |
-| `metricNameSuffix` | `String` | `null` | Sufix to be added to metric names |
+| `metricNameSuffix` | `String` | `null` | Suffix to be added to metric names |
 | `metricNameFormatter` | `Function` | `null` | Metric name formatter |
 | `labelNameFormatter` | `Function` | `null` | Label name formatter |
 
@@ -311,6 +311,9 @@ An info is a single string or number value like process arguments, hostname or v
 - `moleculer.registry.events.total` (gauge)
 - `moleculer.registry.event.endpoints.total` (gauge)
 - `moleculer.request.bulkhead.inflight` (gauge)
+- `moleculer.request.bulkhead.queue.size` (gauge)
+- `moleculer.event.bulkhead.inflight` (gauge)
+- `moleculer.event.bulkhead.queue.size` (gauge)
 - `moleculer.request.timeout.total` (counter)
 - `moleculer.request.retry.attempts.total` (counter)
 - `moleculer.request.fallback.total` (counter)

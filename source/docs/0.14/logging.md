@@ -1,171 +1,366 @@
 title: Logging
 ---
-In Moleculer framework all core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](broker.html#Broker-options).
+All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](broker.html#Broker-options).
 
-## Built-in logger
-The Moleculer has a built-in console logger. It is the default logger.
+{% note warn %}
+The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+{% endnote %}
 
-**Built-in console logger:**
+
+## Built-in Loggers
+### Console
+This logger prints all log messages to the `console`. It supports several built-in formatters or you can use your custom formatter, as well.
+
+**Shorthand configuration with default options**
 ```js
-const { ServiceBroker } = require("moleculer");
-const broker = new ServiceBroker({
-    nodeID: "node-100",
-    // logger: true,
-    logLevel: "info"
-});
+// moleculer.config.js
+module.exports = {
+    logger: "Console",
+};
 
-broker.createService({
-    name: "posts",
-    actions: {
-        get(ctx) {
-            this.logger.info("Log message via Service logger");
+// moleculer.config.js
+module.exports = {
+    // Enable console logger
+    logger: true,
+};
+```
+
+**Full configuration**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Console",
+        options: {
+            // Logging level
+            level: "info",
+            // Using colors on the output
+            colors: true,
+            // Print module names with different colors (like docker-compose for containers)
+            moduleColors: false,
+            // Set formatter. It can be "json", "short", "simple", "full" or a custom `Function`
+            formatter: null,
+            // Custom object printer. If not defined, it uses the `util.inspect` method.
+            objectPrinter: null,
+            // Auto-padding the module name in order to messages begin at the same column.
+            autoPadding: false
         }
     }
-});
-
-broker.start()
-    .then(() => broker.call("posts.get"))
-    .then(() => broker.logger.info("Log message via Broker logger"));
+};
 ```
 
-**Console messages:**
-```
-[2018-06-26T11:38:06.728Z] INFO  node-100/POSTS: Log message via Service logger
-[2018-06-26T11:38:06.728Z] INFO  node-100/BROKER: Log message via Broker logger
-[2018-06-26T11:38:06.730Z] INFO  node-100/BROKER: ServiceBroker is stopped. Good bye.
-```
+### File
+This logger saves all log messages to file(s). It supports JSON & formatted text files or you can use your custom formatter, as well.
 
-### Custom log levels
-Log level can be changed with `logLevel` option in broker options. _Use it with built-in console logger only._
-
+**Shorthand configuration with default options**
 ```js
-const broker = new ServiceBroker({
-    logger: true, // the `true` is same as `console`
-    logLevel: "warn" // only logs the 'warn' & 'error' entries to the console
-});
+// moleculer.config.js
+module.exports = {
+    logger: "File",
+};
 ```
+_It will save the log messages to the `logs` folder in the current directory with `moleculer-{date}.log` filename._
 
-> Available log levels: `fatal`, `error`, `warn`, `info`, `debug`, `trace`
-
-#### Fine-tuned log levels
-The log level can be set for every Moleculer module. Wildcard usage is allowed.
+**Full configuration**
 ```js
-const broker = new ServiceBroker({
-    logLevel: {
-        "MY.**": false,         // Disable log
-        "TRANS": "warn",        // Only 'warn ' and 'error' log entries
-        "*.GREETER": "debug",   // All log entries
-        "**": "info",           // All other modules use this level
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "File",
+        options: {
+            // Logging level
+            level: "info",
+            // Folder path to save files. You can use {nodeID} & {namespace} variables.
+            folder: "./logs",
+            // Filename template. You can use {date}, {nodeID} & {namespace} variables.
+            filename: "moleculer-{date}.log",
+            // Formatter. It can be "json" or a format string like "{timestamp} {level} {nodeID}/{mod}: {msg}"
+            formatter: "json",
+            // Custom object printer. If not defined, it uses the `util.inspect` method.
+            objectPrinter: null,
+            // End of line. Default values comes from the OS settings.
+            eol: "\n",
+            // File appending interval in milliseconds.
+            interval: 1 * 1000
+        }
     }
-});
+};
+```
+## External Loggers
+
+### Pino
+This logger uses the [Pino](https://github.com/pinojs/pino) logger.
+
+**Shorthand configuration with default options**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: "Pino",
+};
 ```
 
->This settings are evaluated from top to bottom, so the `**` level must be the last item.
-
->Internal modules: `BROKER`, `TRANS`, `TX` as transporter, `CACHER`, `REGISTRY`.
-
->For services, the name comes from the service name. E.g. POSTS. If version is defined it is used as prefix. E.g. V2.POSTS
-
-### Log formats
-There are some built-in log formatter.
-
-| Name | Output |
-|----------|-----------|
-| `default` | `[2018-06-26T13:36:05.761Z] INFO  node-100/BROKER: Message` |
-| `simple`  | `INFO  - Message` |
-| `short`   | `[13:36:30.968Z] INFO  BROKER: Message` |
-
-#### Custom log formatter
-Custom log formatter function can be set for the built-in console logger.
-
+**Full configuration**
 ```js
-const broker = new ServiceBroker({ 
-    logFormatter(level, args, bindings) {
-        return level.toUpperCase() + " " + bindings.nodeID + ": " + args.join(" ");
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Pino",
+        options: {
+            // Logging level
+            level: "info",
+
+            pino: {
+                // More info: http://getpino.io/#/docs/api?id=options-object
+                options: null,
+
+                // More info: http://getpino.io/#/docs/api?id=destination-sonicboom-writablestream-string
+                destination: "/logs/moleculer.log",
+            }
+        }
     }
-});
-broker.logger.warn("Warn message");
-broker.logger.error("Error message");
-```
-**Output:**
-```
-WARN dev-pc: Warn message
-ERROR dev-pc: Error message
+};
 ```
 
-### Custom object & array printing formatter
-Set a custom formatter function to print object & arrays. The default function prints the objects & arrays to a single line in order to be easy to process with an external log tool. But when you are developing, it would be useful to print objects to a human-readable multi-line format. For this purpose, overwrite the `logObjectPrinter` function in the broker options.
+> To use this logger please install the `pino` module with `npm install pino --save` command.
 
-**Output with default function**
-```
-[2017-08-18T12:37:25.720Z] INFO  dev-pc/BROKER: { name: 'node', lts: 'Carbon', sourceUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0.tar.gz', headersUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0-headers.tar.gz' }
-```
 
-**Switch to multi-line printing & increment depth**
+### Bunyan
+This logger uses the [Bunyan](https://github.com/trentm/node-bunyan) logger.
+
+**Shorthand configuration with default options**
 ```js
-const util = require("util");
-
-const broker = new ServiceBroker({  
-    logObjectPrinter: o => util.inspect(o, { depth: 4, breakLength: 100 })
-});
-broker.logger.warn(process.release);
-```
-**Output:**
-```
-[2017-08-18T12:37:25.720Z] INFO  dev-pc/BROKER: { name: 'node',
-  lts: 'Carbon',
-  sourceUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0.tar.gz',
-  headersUrl: 'https://nodejs.org/download/release/v8.10.0/node-v8.10.0-headers.tar.gz' }
+// moleculer.config.js
+module.exports = {
+    logger: "Bunyan",
+};
 ```
 
-## External loggers
-External loggers can be used with Moleculer. In this case, set a creator function to `logger`. The ServiceBroker will call it when a new module inherits a new logger instance.
-
-### **[Pino](http://getpino.io/)**
+**Full configuration**
 ```js
-const pino = require("pino")({ level: "info" });
-const broker = new ServiceBroker({ 
-    logger: bindings => pino.child(bindings)
-});
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Bunyan",
+        options: {
+            // Logging level
+            level: "info",
+
+            bunyan: {
+                // More settings: https://github.com/trentm/node-bunyan#constructor-api
+                name: "moleculer"
+            }
+        }
+    }
+};
 ```
 
-### **[Bunyan](https://github.com/trentm/node-bunyan)**
+> To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
+
+
+### Winston
+This logger uses the [Winston](https://github.com/winstonjs/winston) logger.
+
+**Shorthand configuration with default options**
 ```js
-const bunyan = require("bunyan");
-const logger = bunyan.createLogger({ name: "moleculer", level: "info" });
-const broker = new ServiceBroker({ 
-    logger: bindings => logger.child(bindings)
-});
+// moleculer.config.js
+module.exports = {
+    logger: "Winston",
+};
 ```
 
-### **[Winston](https://github.com/winstonjs/winston)**
+**Full configuration**
 ```js
+// moleculer.config.js
 const winston = require("winston");
-const { extend } = require("moleculer").Logger;
-const broker = new ServiceBroker({ 
-    logger: bindings => extend(winston.createLogger({
-        format: winston.format.combine(
-            winston.format.label({ label: bindings }),
-            winston.format.timestamp(),
-            winston.format.json(),
-        ),
-        transports: [
-            new winston.transports.Console()
-        ]
-    }))
-});
+
+module.exports = {
+    logger: {
+        type: "Winston",
+        options: {
+            // Logging level
+            level: "info",
+
+            winston: {
+                // More settings: https://github.com/winstonjs/winston#creating-your-own-logger
+                transports: [
+                    new winston.transports.Console(),
+                    new winston.transports.File({ filename: "/logs/moleculer.log" })
+                ]
+            }
+        }
+    }
+};
 ```
-> Some external loggers have not `trace` & `fatal` log methods (e.g.: winston). In this case you have to extend your logger.
 
-### Bindings
-The `bindings` object contains the following properties:
-- `ns` - namespace
-- `nodeID` - nodeID
-- `mod` - type of core module: `broker`, `cacher`, `transit`, `transporter`
-- `svc` - service name
-- `ver` - service version
+> To use this logger please install the `winston` module with `npm install winston --save` command.
 
-{% note info Please note %}
-**Avoid using these bindings property names when you log an `Object`.**
-For example: the `broker.logger.error({ mod: "peanut" })` overrides the original `mod` value!
-{% endnote %}
+### `debug`
+This logger uses the [debug](https://github.com/visionmedia/debug) logger.
+To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
+
+**Shorthand configuration with default options**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: "Debug",
+};
+```
+
+**Full configuration**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Debug",
+        options: {
+            // Logging level
+            level: "info",
+        }
+    }
+};
+```
+
+> To use this logger please install the `debug` module with `npm install debug --save` command.
+
+### Log4js
+This logger uses the [Log4js](https://github.com/log4js-node/log4js-node) logger.
+
+**Shorthand configuration with default options**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: "Log4js",
+};
+```
+
+**Full configuration**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Log4js",
+        options: {
+            // Logging level
+            level: "info",
+            
+            log4js: {
+                // More info: https://github.com/log4js-node/log4js-node#usage
+                appenders: {
+                    app: { type: "file", filename: "/logs/moleculer.log" }
+                },
+                categories: {
+                    default: { appenders: [ "app" ], level: "debug" }
+                }
+            }
+        }
+    }
+};
+```
+
+> To use this logger please install the `log4js` module with `npm install log4js --save` command.
+
+## Multiple Loggers
+This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.
+
+**Define multiple loggers with different logging levels**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: [
+        {
+            type: "Console",
+            options: {
+                level: "info",
+            }
+        },
+        {            
+            type: "File",
+            options: {
+                level: "info",
+                folder: "/logs/moleculer",
+                filename: "all-{date}.log",
+                formatter: "{timestamp} {level} {nodeID}/{mod}: {msg}"
+            }
+        },
+        {
+            type: "File",
+            options: {
+                level: "error",
+                folder: "/logs/moleculer",
+                filename: "errors-{date}.json",
+                formatter: "json"
+            }
+        }
+    ]   
+};
+```
+
+This example shows a configuration of `Console` logger, a `File` logger that saves all log messages in formatted text file and another `File` logger that only saves error messages in JSON format.
+
+### Filtering
+
+You can configure your loggers to only log data of certain services or modules.
+**Example**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: [
+        // Shorthand `Console` logger configuration
+        "Console",
+        {            
+            // This logger saves messages from all modules except "greeter" service.
+            type: "File",
+            options: {
+                level: {
+                    "GREETER": false,
+                    "**": "info"
+                },
+                filename: "moleculer-{date}.log"
+            }
+        },
+        {
+            // This logger saves messages from only "greeter" service.
+            type: "File",
+            options: {
+                level: {
+                    "GREETER": "debug",
+                    "**": false
+                },
+                filename: "greeter-{date}.log"
+            }
+        }
+    ],
+
+    logLevel: "info" // global log level. All loggers inherits it. 
+};
+```
+
+## Log Level Setting
+To configure logging levels, you can use the well-known `logLevel` broker option which can be a `String` or an `Object`. However, it is also possible to overwrite it in all logger `options` with the `level` property.
+
+**Complex logging level configuration**
+```js
+// moleculer.config.js
+module.exports = {
+    logger: [
+        // The console logger will use the `logLevel` global setting.
+        "Console",
+        {            
+            type: "File",
+            options: {
+                // Overwrite the global setting.
+                level: {
+                    "GREETER": false,
+                    "**": "warn"
+                }
+            }
+        }
+    ],
+    logLevel: {
+        "TRACING": "trace",
+        "TRANS*": "warn",
+        "GREETER": "debug",
+        "**": "info",
+    }
+};
+```
