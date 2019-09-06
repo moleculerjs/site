@@ -18,7 +18,6 @@ There are several built-in transporters in Moleculer framework.
 This is a no-dependency, zero-configuration TCP transporter. It uses [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) to disseminate node statuses, service list and heartbeats. It contains an integrated UDP discovery feature to detect new and disconnected nodes on the network.
 If the UDP is prohibited on your network, use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
 
->Please note, it is an **experimental** transporter. **Do not use it in production yet!**
 
 
 <!-- **This TCP transporter is the default transporter in Moleculer**.
@@ -321,7 +320,6 @@ const broker = new ServiceBroker({
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [Kafka](https://kafka.apache.org/). It is a very simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
->Please note, it is an **experimental** transporter. **Do not use it in production yet!**
 
 {% note info Dependencies %}
 To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
@@ -373,7 +371,6 @@ const broker = new ServiceBroker({
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/). It is a very simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
->Please note, it is an **experimental** transporter. **Do not use it in production yet!**
 
 ```js
 let { ServiceBroker } = require("moleculer");
