@@ -66,7 +66,7 @@ module.exports = {
 ```
 
 **Preview**
-![Console](assets/logging/console.png)
+![Console](assets/logging/console-full.png)
 
 
 ##### `short` formatter
