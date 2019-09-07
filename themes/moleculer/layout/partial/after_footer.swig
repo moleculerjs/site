@@ -29,9 +29,13 @@ debug: false // Set debug to true if you want to inspect the dropdown
 
 <!-- fastclick -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+<script src="https://unpkg.com/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  FastClick.attach(document.body)
+    FastClick.attach(document.body)
+    mediumZoom('.content img', {
+        background: "rgba(0,0,0,0.6)"
+    });
 }, false)
 </script>
 
