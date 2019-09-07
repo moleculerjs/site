@@ -8,7 +8,8 @@ The `v0.14` version contains breaking changes. This means that you can't use the
 
 
 ## Built-in Loggers
-### Console
+
+### Console (default)
 This logger prints all log messages to the `console`. It supports several built-in formatters or you can use your custom formatter, as well.
 
 **Shorthand configuration with default options**
@@ -48,6 +49,93 @@ module.exports = {
     }
 };
 ```
+
+#### Formatters
+
+##### `full` formatter (default)
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Console",
+        options: {
+            formatter: "full" // or `null`
+        }
+    }
+};
+```
+
+**Preview**
+![Console](assets/logging/console.png)
+
+
+##### `short` formatter
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Console",
+        options: {
+            formatter: "short"
+        }
+    }
+};
+```
+
+**Preview**
+![Console](assets/logging/console-short.png)
+
+
+##### `simple` formatter
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Console",
+        options: {
+            formatter: "simple"
+        }
+    }
+};
+```
+
+**Preview**
+![Console](assets/logging/console-simple.png)
+
+
+##### `json` formatter
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Console",
+        options: {
+            formatter: "json"
+        }
+    }
+};
+```
+
+**Preview**
+![Console](assets/logging/console-json.png)
+
+
+##### Custom formatter
+```js
+// moleculer.config.js
+module.exports = {
+    logger: {
+        type: "Console",
+        options: {
+            formatter: (level, args, bindings) => [`[${level.toUpperCase()}]`, ...args]
+        }
+    }
+};
+```
+
+**Preview**
+![Console](assets/logging/console-custom.png)
+
 
 ### File
 This logger saves all log messages to file(s). It supports JSON & formatted text files or you can use your custom formatter, as well.
@@ -123,6 +211,8 @@ module.exports = {
 
 > To use this logger please install the `pino` module with `npm install pino --save` command.
 
+**Preview**
+![Pino](assets/logging/pino.png)
 
 ### Bunyan
 This logger uses the [Bunyan](https://github.com/trentm/node-bunyan) logger.
@@ -156,6 +246,8 @@ module.exports = {
 
 > To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
 
+**Preview**
+![Bunyan](assets/logging/bunyan.png)
 
 ### Winston
 This logger uses the [Winston](https://github.com/winstonjs/winston) logger.
@@ -194,6 +286,9 @@ module.exports = {
 
 > To use this logger please install the `winston` module with `npm install winston --save` command.
 
+**Preview**
+![Winston](assets/logging/winston.png)
+
 ### `debug`
 This logger uses the [debug](https://github.com/visionmedia/debug) logger.
 To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
@@ -221,6 +316,9 @@ module.exports = {
 ```
 
 > To use this logger please install the `debug` module with `npm install debug --save` command.
+
+**Preview**
+![debug](assets/logging/debug.png)
 
 ### Log4js
 This logger uses the [Log4js](https://github.com/log4js-node/log4js-node) logger.
@@ -258,6 +356,9 @@ module.exports = {
 ```
 
 > To use this logger please install the `log4js` module with `npm install log4js --save` command.
+
+**Preview**
+![Log4js](assets/logging/log4js.png)
 
 ### Datadog 
 This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) server.
@@ -300,6 +401,9 @@ module.exports = {
     }
 };
 ```
+
+**Preview**
+![Datadog Log Explorer](assets/logging/datadog-log-explorer.png)
 
 ## Multiple Loggers
 This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.
