@@ -69,6 +69,9 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
 You have just created your first Moleculer-based microservices project! Next, check out Moleculer's [core concepts](concepts.html) page to get familiar with them and to see how they fit together. Otherwise, check our [examples](examples.html) or [demo projects](https://github.com/moleculerjs/moleculer-examples).
 {% endnote %}
 
+You can also check the video below that explains ins and outs of the project that you've just created.
+<iframe width="730" height="410" src="https://www.youtube.com/embed/t4YR6MWrugw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 # Moleculer Demo Playground
 If you don't want to install [moleculer-demo](usage.html#Create-a-Moleculer-project) on your machine you can use interactive playground.
