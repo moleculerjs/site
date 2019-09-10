@@ -33,7 +33,7 @@ debug: false // Set debug to true if you want to inspect the dropdown
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     FastClick.attach(document.body)
-    mediumZoom('#content img', {
+    mediumZoom("#content img[src$='#zoomable']", {
         background: "rgba(0,0,0,0.6)"
     });
 }, false)
