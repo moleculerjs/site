@@ -53,6 +53,10 @@ Thank you in advance!
 Ivan Zhuravlev - Иван Журавлёв" />
 		<label>Ivan Zhuravlev</label>
 	</a>  
+	<a href="#" class="user-logo" target="_blank">
+		<img src="https://c8.patreon.com/2/200/15329101" alt="Alex" />
+		<label>Alex</label>
+	</a>  
 </div>
 
 ### Copper backers
