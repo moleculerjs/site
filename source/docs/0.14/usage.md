@@ -3,7 +3,7 @@ title: Usage
 
 # Install Moleculer
 
-Moleculer can be installed with npm or yarn
+Moleculer can be installed with `npm` or `yarn`.
 
 ```bash
 $ npm i moleculer --save
