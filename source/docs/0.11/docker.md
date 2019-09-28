@@ -1,3 +1,0 @@
-title: Docker
----
-Coming soon
