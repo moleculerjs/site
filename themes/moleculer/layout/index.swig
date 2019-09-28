@@ -17,48 +17,22 @@
 <div id="content-wrap">
   <div class="wrapper">
     <div class="inner">
-      <ul id="intro-feature-list">
-        <li class="intro-feature-wrap">
-          <div class="intro-feature">
-            <div class="intro-feature-icon"><i class="fa fa-bolt"></i></div>
-            <h3 class="intro-feature-title">Blazing fast</h3>
-            <p class="intro-feature-desc">High-performance microservices framework. Check the <a href="/docs/0.13/benchmark.html">benchmark results</a>!</p>
-          </div>
-        </li>
-        <li class="intro-feature-wrap">
-          <div class="intro-feature">
-            <div class="intro-feature-icon"><i class="fa fa-gem"></i></div>
-            <h3 class="intro-feature-title">Extensible</h3>
-            <p class="intro-feature-desc">All built-in modules (caching, serializer, transporter) are pluggable. Create your own solutions or <a href="/modules.html">find all modules</a>.</p>
-          </div>
-        </li>
-        <li class="intro-feature-wrap">
-          <div class="intro-feature">
-            <div class="intro-feature-icon"><i class="fa fa-code"></i></div>
-            <h3 class="intro-feature-title">Open source</h3>
-            <p class="intro-feature-desc">Moleculer is a 100% open source and free of charge project. All source code is available under the MIT License on GitHub.</p>
-          </div>
-        </li>
-        <li class="intro-feature-wrap">
-          <div class="intro-feature">
-            <div class="intro-feature-icon"><i class="fa fa-heartbeat"></i></div>
-            <h3 class="intro-feature-title">Fault tolerance</h3>
-            <p class="intro-feature-desc">Moleculer is a fault tolerant framework. It has built-in load balancer, circuit breaker, retries, timeout and bulkhead features.</p>
-          </div>
-        </li>
-      </ul>
+
+      {{ page_anchor(page.content) }}
+
       <div style="text-align: center">
         <a href="/docs">
             <img src="images/main-example.png" style="width: 100%;height: auto;max-width: 800px;" />
         </a>
       </div>
+
       <div id="intro-get-started-wrap">
         <a href="{{ page.site.data.menu.docs }}" id="intro-get-started-link">{{ __('index.get_started') }}</a>
       </div>
     </div>
     {{ partial('partial/companies') }}
   </div>
-</div>
+</div-->
 
 <!-- Particles -->
 {{ js('js/particles') }}

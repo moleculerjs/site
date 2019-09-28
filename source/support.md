@@ -44,16 +44,16 @@ Thank you in advance!
 ### Bronze backers
 
 <div class="support-backers">
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D" alt="Ivan Petrovic" />
 		<label>Ivan Petrovic</label>
 	</a>  
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/22945866/21a0785376524874bbc9e06eb723a8aa/1.jpeg?token-time=2145916800&token-hash=BBvW23x3d-R7KGw_zxMKfOTRRfNcqprn4SqMHwtyGec%3D" alt="
 Ivan Zhuravlev - Иван Журавлёв" />
 		<label>Ivan Zhuravlev</label>
 	</a>  
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/15329101" alt="Alex" />
 		<label>Alex</label>
 	</a>  
@@ -65,31 +65,33 @@ Ivan Zhuravlev - Иван Журавлёв" />
 	<a href="http://www.ingsw.com/" class="company-logo" target="_blank">
 		<img src="https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png" alt="ingenious" />
 	</a>
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/400/10631269" alt="Andreas Leinen" />
 		<label>Andreas Leinen</label>
 	</a>
-	<!--a href="#" class="user-logo" target="_blank">
+	<!--a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/400/11099088" alt="Jaikanth S" />
 		<label>Jaikanth S</label>
 	</a-->
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/2521846" alt="David Roman" />
 		<label>David Roman</label>
 	</a>
-	<!-- a href="#" class="user-logo" target="_blank">
+	<!-- a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/15189499" alt="Nick Reese" />
 		<label>Nick Reese</label>
 	</a-->
-	<a href="#" class="user-logo" target="_blank">
+</div>
+<div class="support-backers">
+	<a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/16817468" alt="Tejas Bhatt" />
 		<label>Tejas Bhatt</label>
 	</a>
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/16886297/9e5df1ea1a984509bde7fad34040ffd6/1.jpeg?token-time=2145916800&token-hash=5gyc9bb4GtVtFbgFZJd33_NukMXj2XBZa5ee14Nu4Y8%3D" alt="Leandro Hoffmann" />
 		<label>Leandro Hoffmann</label>
 	</a>      
-	<a href="#" class="user-logo" target="_blank">
+	<a class="user-logo" target="_blank">
 		<img src="https://c8.patreon.com/2/200/20690350" alt="Frederik Granna" />
 		<label>Frederik Granna</label>
 	</a>    

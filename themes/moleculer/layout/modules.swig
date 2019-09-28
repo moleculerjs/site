@@ -7,7 +7,7 @@
 			<header class="article-header">
 				<h1 class="article-title" itemprop="name">{{ page.title }}</h1>
 			</header>
-            <a href="https://github.com/moleculerjs/awesome-moleculer">Check our Awesome Moleculer repo!</a>
+            <a href="https://github.com/moleculerjs/awesome-moleculer">{{ __('modules.checkout_awesome') }}</a>
 			<div class="article-content" itemprop="articleBody">
 			{% for category in site.data.modules %}
 				<h3 id="{{ loop.key }}" class="article-heading">
@@ -16,10 +16,10 @@
                 </h3>
 				<table>
 					<thead>
-						<th class = "name">Name</th>
-						<th class = "desc">Description</th>
-						<th class = "auth">Author</th>
-						<th class = "ver">Version</th>
+						<th class="name">{{ __('modules.name') }}</th>
+						<th class="desc">{{ __('modules.description') }}</th>
+						<th class="auth">{{ __('modules.author') }}</th>
+						<th class="ver">{{ __('modules.version') }}</th>
 					</thead>
 					<tbody>
 						{% for module in category %}
@@ -43,7 +43,11 @@
 					</tbody>
 				</table>
 			{% endfor %}
-			{{ page_anchor(page.content) }}
+
+            <blockquote>
+                <p>{{ __('modules.doyouhave') }} <a href="https://github.com/moleculerjs/awesome-moleculer/pulls" target="_blank" rel="noopener">{{ __('modules.tellus') }}</a></p>
+            </blockquote>
+			<!-- {{ page_anchor(page.content) }} -->
 			</div>
 			<footer class="article-footer">
 			<time class="article-footer-updated" datetime="{{ date_xml(page.updated) }}" itemprop="dateModified">{{ __('page.last_updated', date(page.updated)) }}</time>

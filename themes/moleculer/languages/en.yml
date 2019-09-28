@@ -6,6 +6,8 @@ menu:
 
 index:
   get_started: Get started
+  who_is_using: Who is using Moleculer?
+  tell_us: If you don't see here your company, tell us.
 
 page:
   contents: Contents
@@ -85,6 +87,15 @@ sidebar:
     api_protocol: Protocol
 
 modules:
+  name: Name
+  description: Description
+  author: Author
+  version: Version
+
+  checkout_awesome: Check our Awesome Moleculer repo!
+  doyouhave: Do you have a custom module for Moleculer?
+  tellus: Tell us!
+
   gateway: Gateways
   general: General
   databases: Databases & stores
@@ -94,4 +105,3 @@ modules:
   security: Security
   tools: Tools
   others: Others
-
