@@ -50,10 +50,10 @@ alias:
   docs/benchmark.html: docs/0.14/benchmark.html
   docs/broker.html: docs/0.14/broker.html
   docs/cachers.html: docs/0.14/caching.html
-  docs/circuit-breaker.html: docs/0.12/circuit-breaker.html
-  docs/context.html: docs/0.12/context.html
+  docs/circuit-breaker.html: docs/0.14/fault-tolerance.html
+  docs/context.html: docs/0.14/api/context.html
   docs/contributing.html: docs/0.14/contributing.html
-  docs/docker.html: docs/0.12/docker.html
+  docs/docker.html: docs/0.14/deploying.html
   docs/errors.html: docs/0.14/errors.html
   docs/examples.html: docs/0.14/examples.html
   docs/faq.html: docs/0.14/faq.html
@@ -64,17 +64,16 @@ alias:
   docs/moleculer-db.html: docs/0.14/moleculer-db.html
   docs/moleculer-repl.html: docs/0.14/moleculer-repl.html
   docs/moleculer-web.html: docs/0.14/moleculer-web.html
-  docs/nodes.html: docs/0.12/nodes.html
+  docs/nodes.html: docs/0.14/clustering.html
   docs/runner.html: docs/0.14/runner.html
-  docs/serializers.html: docs/0.12/serializers.html
-  docs/serverless.html: docs/0.12/serverless.html
-  docs/service-registry.html: docs/0.12/service-registry.html
+  docs/serializers.html: docs/0.14/networking.html
+  docs/service-registry.html: docs/0.14/registry.html
   docs/service.html: docs/0.14/services.html
   docs/statistics.html: docs/0.12/statistics.html
   docs/support.html: support.html
-  docs/transporters.html: docs/0.12/transporters.html
+  docs/transporters.html: docs/0.14/networking.html
   docs/usage.html: docs/0.14/usage.html
-  docs/validation.html: docs/0.12/validating.html
+  docs/validation.html: docs/0.14/validating.html
 
   0.12/docs/support.html: support.html
   0.12/docs/modules.html: modules.html
