@@ -10,7 +10,7 @@ menu:
   search: Keresés...
 
 index:
-  get_started: Kezd el
+  get_started: Próbáld ki
   who_is_using: Kik használják a Moleculer-t?
   tell_us: Ha nem látod itt a céged, mondd el nekünk!
 
