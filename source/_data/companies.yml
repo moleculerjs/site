@@ -1,4 +1,4 @@
-group1:
+companies:
     -
         name: Concierge Auctions
         link: https://www.conciergeauctions.com/
@@ -11,7 +11,6 @@ group1:
         name: THB
         link: https://www.thb.co.in/
         logo: https://thehealthybillion.com/images/thb/landingpage/logobig.png
-group2:
     -
         name: Zaoblako
         link: https://zaoblako.ru/
@@ -24,7 +23,6 @@ group2:
         name: zebbra
         link: https://zebbra.ch/
         logo: https://user-images.githubusercontent.com/902525/37777279-6ce23b44-2de7-11e8-9667-b16a7a6c5be9.png
-group3:
     -
         name: Uiza
         link: https://uiza.io
@@ -37,7 +35,6 @@ group3:
         name: AMRetail
         link: http://amretail.ru
         logo: https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png
-group4:
     -
         name: SmartTones Media
         link: http://www.smarttonesmedia.com/
@@ -46,7 +43,6 @@ group4:
         name: Helpster
         link: https://www.helpster.asia/id/business-en/
         logo: https://www.helpster.asia/static/helpster-logo-8a159bf1c613935d09efb63372286b39.png
-group5:
     -
         name: Textalk
         link: https://www.textalk.com/
@@ -59,7 +55,6 @@ group5:
         name: Jarvify
         link: https://jarvify.com/
         logo: https://user-images.githubusercontent.com/15986928/43243296-44e58cdc-90a6-11e8-93cb-70b97cc4bd19.png
-group6:
     -
         name: Sonda
         link: https://www.sonda.com/en/
@@ -72,7 +67,6 @@ group6:
         name: YourSoft.run
         link: https://www.yoursoft.run/
         logo: https://user-images.githubusercontent.com/1301995/51427608-264f0e80-1bfa-11e9-8a74-04c356e4257d.png
-group7:
     -
         name: Instarem
         link: https://www.instarem.com/
@@ -85,7 +79,6 @@ group7:
         name: Kriblet
         link: https://kriblet.com/
         logo: https://kriblet.com/img/logo-kriblet.png
-group8:
     -
         name: Ghost
         link: https://ghost.org/
@@ -98,7 +91,6 @@ group8:
         name: Koodoo
         link: https://koodoo.io
         logo: https://user-images.githubusercontent.com/794241/58009243-ea638180-7ae5-11e9-8210-54df52788f62.png
-group9:
     -
         name: Power CMS
         link: https://power-cms.com/
@@ -111,7 +103,6 @@ group9:
         name: HunterCo
         link: https://www.hunterco.com.br/
         logo: https://camo.githubusercontent.com/7c6508593d3e56d502445adbb79a65cdf2e73d4a/68747470733a2f2f7765622d7374617469632e68756e746572636f2e636f6d2e62722f68756e746572636f2f6c6f676f732f48756e746572436f2b2d2b4c6f676f2b456d61696c2e706e67
-group10:
     -
         name: StretchShop
         link: https://stretchshop.app/
@@ -124,7 +115,6 @@ group10:
         name: Shareworks
         link: https://www.shareworks.com/
         logo: https://camo.githubusercontent.com/aa3ece3d6570d6468274c64cf5e616277875a624/687474703a2f2f7365656b766563746f726c6f676f2e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031392f30352f7368617265776f726b732d62792d6d6f7267616e2d7374616e6c65792d766563746f722d6c6f676f2e706e67
-group11:
     -
         name: MultiRoad
         link: https://www.multiroad.online/
