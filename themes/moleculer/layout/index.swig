@@ -21,7 +21,7 @@
       {{ page_anchor(page.content) }}
 
       <div style="text-align: center">
-        <a href="/docs">
+        <a href="{{ page.site.data.menu.docs }}">
             <img src="images/main-example.png" style="width: 100%;height: auto;max-width: 800px;" />
         </a>
       </div>
@@ -32,7 +32,7 @@
     </div>
     {{ partial('partial/companies') }}
   </div>
-</div-->
+</div>
 
 <!-- Particles -->
 {{ js('js/particles') }}
