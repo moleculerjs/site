@@ -89,7 +89,7 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 		_.each(menu, function(link, text){
 			var itemClass = className + '-link';
             var externalLink = link.startsWith("http");
-			var fullLink = link[0] == "/" ? link : self.url_for_lang([...p.slice(0, -1), link].join("/"));
+			var fullLink = link[0] == "/" ? link : self.url_for_lang([...p.slice(0, 2), link].join("/"));
             if (externalLink) {
                 fullLink = link;
             }
