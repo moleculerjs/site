@@ -72,7 +72,7 @@ hexo.extend.helper.register('doc_sidebar', function(className){
         _.each(this.site.data.versions[type], function(title, version) {
             // TODO check that language has docs for this version. If not, use english
             let url = self.url_for_lang(type + '/' + version);
-            if (!fs.existsSync(pathFn.join(__dirname, "..", "source", url)))
+            if (!fs.existsSync(pathFn.join(hexo.source_dir, url)))
                 url = self.url_for_lang(type + '/' + version, "en");
 
             result += `<option value="${url}"${(version == ver ? "selected": "")+ '>' + self.__(title)}</option>`;
