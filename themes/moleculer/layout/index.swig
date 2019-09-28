@@ -22,7 +22,7 @@
 
       <div style="text-align: center">
         <a href="{{ page.site.data.menu.docs }}">
-            <img src="images/main-example.png" style="width: 100%;height: auto;max-width: 800px;" />
+            <img src="/images/main-example.png" style="width: 100%;height: auto;max-width: 800px;" />
         </a>
       </div>
 

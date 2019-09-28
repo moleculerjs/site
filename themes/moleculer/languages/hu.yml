@@ -1,0 +1,112 @@
+menu:
+  docs: Dokumentáció
+  modules: Modulok
+  support: Támogatás
+  github: Github
+  gitter: Gitter Chat
+  discord: Discord Chat
+  blog: Blog
+  store: Bolt
+  search: Keresés...
+
+index:
+  get_started: Kezd el
+  who_is_using: Kik használják a Moleculer-t?
+  tell_us: Ha nem látod itt a céged, mondd el nekünk!
+
+page:
+  contents: Tartalom
+  back_to_top: Vissza a tetejére
+  improve: Segíts a javításban
+  prev: Előző
+  next: Következő
+  last_updated: "Frissítve: %s"
+
+sidebar:
+  docs:
+    getting_started: Hogyan kezdj neki
+    what_is_it: Mi az a Moleculer?
+    overview: Áttekintés
+    install: Telepítés
+    usage: Használat
+    examples: Példák
+    concepts: Alap koncepció
+    support: Támogatás
+
+    introduction: Bemutatás
+    core: Mag
+    features: Funkciók
+    broker: Bróker
+    service: Szolgáltatás
+    services: Szolgáltatások
+    lifecycle: Életciklus
+    actions: Akciók
+    events: Események
+    middlewares: Middlewares
+    caching: Gyorsítótárazás
+    networking: Hálózat
+    registry: Nyilvántartás
+    balancing: Terhelés elosztás
+    fault_tolerance: Hibatűrés
+    metrics: Metrikák
+    tracing: Nyomkövetés
+    logging: Naplózás
+    validating: Validálás
+    errors: Hibák
+    runner: Moleculer Runner
+
+    modules: Modulok
+    tools: Eszközök
+    moleculer_web: API átjáró
+    moleculer_repl: REPL konzol
+    moleculer_cli: CLI eszköz
+    moleculer_db: DB Adapterek
+    other_modules: Egyéb modulok
+    all_modules: Minden modul
+
+    miscellaneous: Vegyes
+    clustering: Kluszterezés
+    deploying: Telepítés
+    nodes: Csomópontok
+    docker: Docker
+    serverless: Serverless
+    benchmark: Teljesítmény teszt
+    faq: GYÍK
+    contributing: Közreműködés
+
+    # Old 01.12 menu
+    transporters: Transporter-ek
+    context: Kontextus
+    logger: Naplózó
+    circuit-breaker: Circuit Breaker
+    service-registry: Szolgáltatás nyilvántartás
+    cachers: Gyorsítótárak
+    serializers: Serializer-ek
+    statistics: Statisztikai
+    validation: Validálás
+
+    api: API
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
+    api_protocol: Protocol
+
+modules:
+  name: Név
+  description: Leírás
+  author: Készítő
+  version: Verzió
+
+  checkout_awesome: Nézd meg az Awesome Moleculer repo-t!
+  doyouhave: Van saját Moleculer modulod?
+  tellus: Mondd el nekünk!
+
+  gateway: Átjárók
+  general: Általános
+  databases: Adatbázisok & tárak
+  tasks: Feladatok, queue-k & job-ok
+  metrics: Metrika & nyomkövetés
+  validation: Validálás
+  security: Biztonság
+  tools: Eszközöz
+  others: Egyebek

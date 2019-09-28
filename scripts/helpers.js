@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var pathFn = require('path');
 var _ = require('lodash');
 var url = require('url');
@@ -66,11 +67,18 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 	var prefix = 'sidebar.' + type + '.';
 
 	// Show version selector
-	result += '<div class="version-selector"><select onchange="changeVersion(this)">';
-	_.each(this.site.data.versions[type], function(title, version) {
-		result += '<option value="' + type + '/' + version + '"' + (version == ver ? "selected": "")+ '>' + self.__(title) + '</option>';
-	});
-	result += '</select></div>';
+    if (this.site.data.versions[type]) {
+        result += '<div class="version-selector"><select onchange="changeVersion(this)">';
+        _.each(this.site.data.versions[type], function(title, version) {
+            // TODO check that language has docs for this version. If not, use english
+            let url = self.url_for_lang(type + '/' + version);
+            if (!fs.existsSync(pathFn.join(__dirname, "..", "source", url)))
+                url = self.url_for_lang(type + '/' + version, "en");
+
+            result += `<option value="${url}"${(version == ver ? "selected": "")+ '>' + self.__(title)}</option>`;
+        });
+        result += '</select></div>';
+    }
 
 	// Build sidebar
 	_.each(sidebar, function(menu, title){
@@ -81,7 +89,7 @@ hexo.extend.helper.register('doc_sidebar', function(className){
 		_.each(menu, function(link, text){
 			var itemClass = className + '-link';
             var externalLink = link.startsWith("http");
-			var fullLink = link[0] == "/" ? link : ["", p[0], p[1], link].join("/");
+			var fullLink = link[0] == "/" ? link : self.url_for_lang([...p.slice(0, -1), link].join("/"));
             if (externalLink) {
                 fullLink = link;
             }
@@ -111,7 +119,7 @@ hexo.extend.helper.register('header_menu', function(className){
 	return result;
 });
 
-// ???
+// Generate an URL with language
 hexo.extend.helper.register('canonical_url', function(lang){
 	var path = this.page.canonical_path;
 	if (lang && lang !== 'en') path = lang + '/' + path;
@@ -119,9 +127,11 @@ hexo.extend.helper.register('canonical_url', function(lang){
 	return this.config.url + '/' + path;
 });
 
-/// ???
-hexo.extend.helper.register('url_for_lang', function(path){
-	var lang = this.page.lang;
+/// Generate a language-based URL
+hexo.extend.helper.register('url_for_lang', function(path, lang){
+    if (lang == null)
+	    lang = this.page.lang;
+
 	var url = this.url_for(path);
 
 	if (lang !== 'en' && url[0] === '/') url = '/' + lang + url;
@@ -179,7 +189,7 @@ hexo.extend.helper.register('canonical_path_for_nav', function(){
 	}
 });
 
-// Not used
+// Get name of language from lang-code
 hexo.extend.helper.register('lang_name', function(lang){
 	var data = this.site.data.languages[lang];
 	return data.name || data;
