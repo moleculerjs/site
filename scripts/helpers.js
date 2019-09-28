@@ -202,3 +202,8 @@ hexo.extend.helper.register('disqus_lang', function(){
 
 	return data.disqus_lang || lang;
 });
+
+// "5 % 3" helper
+hexo.extend.helper.register('div_remain', function(num, div){
+    return num % div;
+});
