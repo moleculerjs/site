@@ -3,7 +3,7 @@ title: Networking
 To communicate other nodes (ServiceBrokers), you need to configure a transporter. The most transporters connect to a central message broker server which is liable for message transferring among nodes. These message brokers mainly support publish/subscribe messaging pattern.
 
 <div align="center">
-![Networking diagram](assets/networking.svg)
+    <img src="assets/networking.svg" alt="Networking diagram" />
 </div>
 
 ## Transporters

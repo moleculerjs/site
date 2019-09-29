@@ -298,5 +298,5 @@ const { Bulkhead, Retry } = require("moleculer").Middlewares;
 
 
 <div align="center">
-![Middlewares diagram](assets/middlewares.svg)
+    <img src="assets/middlewares.svg" alt="Middlewares diagram" />
 </div>

@@ -4,7 +4,7 @@ The `ServiceBroker` is the main component of Moleculer. It handles services, cal
 You must create a `ServiceBroker` instance for every node.
 
 <div align="center">
-![Broker logical diagram](assets/service-broker.svg)
+    <img src="assets/service-broker.svg" alt="Broker logical diagram" />
 </div>
 
 ## Create broker

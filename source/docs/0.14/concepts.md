@@ -39,7 +39,7 @@ Now, assuming that our services are up and running, the online store can serve u
 
 **Flow of user's request**
 <div align="center">
-![Architecture Overview](assets/overview.svg)
+    <img src="assets/overview.svg" alt="Architecture Overview" />
 </div>
 
 All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
