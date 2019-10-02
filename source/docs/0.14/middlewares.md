@@ -446,6 +446,41 @@ const broker = new ServiceBroker({
 | `colors.error` |`String`| `red` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
 | `whitelist` |`Array<String>`| `**` | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
 
+### Event Execution Rate
+#### Throttle
+Throttling is a straightforward reduction of the trigger rate. It will cause the event listener to ignore some portion of the events while still firing the listeners at a constant (but reduced) rate. Same functionality as [lodash's `_.throttle`](https://lodash.com/docs/4.17.14#throttle). For more info about throttling check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
+
+```js
+//my.service.js
+module.exports = {
+    name: "my",
+    events: {
+        "config.changed": {
+            throttle: 3000,
+            // It won't be invoked again in 3 seconds.
+            handler(ctx) { /* ... */}
+        }
+    }
+};
+```
+
+#### Debounce
+Unlike throttling, debouncing is a technique of keeping the trigger rate at exactly 0 until a period of calm, and then triggering the listener exactly once. Same functionality as [lodash's `_.debounce`](https://lodash.com/docs/4.17.14#debounce). For more info about debouncing check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
+
+```js
+//my.service.js
+module.exports = {
+    name: "my",
+    events: {
+        "config.changed": {
+            debounce: 5000,
+            // Handler will be invoked when events are not received in 5 seconds.
+            handler(ctx) { /* ... */}
+        }
+    }
+};
+```
+
 ### Loading & Extending
 If you want to use the built-in middlewares use their names in `middlewares[]` option. Also, the middleware object can be easily extended with custom functions. 
 
