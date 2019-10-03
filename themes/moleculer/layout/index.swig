@@ -7,7 +7,7 @@
     </div>
 
     <div id="banner-start">
-      <span id="banner-start-command">npm install moleculer</span><a id="banner-start-link" href="docs/"><i class="fa fa-arrow-right"></i></a>
+      <span id="banner-start-command">npm install moleculer</span><a id="banner-start-link" href="{{ page.site.data.menu.docs }}"><i class="fa fa-arrow-right"></i></a>
     </div>
     <div id="banner-badges">{{ partial('partial/badges') }}</div>
     <div id="banner-share">{{ partial('partial/share') }}</div>

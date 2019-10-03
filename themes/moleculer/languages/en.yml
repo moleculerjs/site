@@ -35,7 +35,6 @@ sidebar:
 
     introduction: Introduction
     core: Core
-    features: Features
     configuration: Configuration
     broker: Broker
     service: Service
