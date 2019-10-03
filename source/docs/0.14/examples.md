@@ -21,7 +21,7 @@ This is a simple blog example.
 
 **Key features**
 - Docker files
-- ExpressJS www server with Pug
+- ExpressJS www server with Pug template engine
 - MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
 - NATS transporter
 - Redis cacher
@@ -32,6 +32,11 @@ This is a simple blog example.
 
 ## Short examples
 The main Moleculer repository contains [some examples](https://github.com/moleculerjs/moleculer/blob/master/examples/).
+{% note info %}
+To try them, at first, you should clone the Moleculer repo with the following command:
+
+`git clone https://github.com/moleculerjs/moleculer.git`
+{% endnote %}
 
 ### Simple
 This is a simple demo with a Math service which can `add`, `sub`, `mult` and `divide` two numbers.

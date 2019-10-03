@@ -1,6 +1,5 @@
 title: Usage
 ---
-
 # Install Moleculer
 
 Moleculer can be installed with `npm` or `yarn`.
@@ -10,13 +9,15 @@ $ npm i moleculer --save
 ```
 
 # Create your first microservice
-This example shows how to create a small `math` service to add two numbers.
+This basic example shows how to create a small `math` service to add two numbers and call it locally.
 
 ```js
 const { ServiceBroker } = require("moleculer");
 
+// Create a ServiceBroker
 const broker = new ServiceBroker();
 
+// Define a service
 broker.createService({
     name: "math",
     actions: {
@@ -26,9 +27,11 @@ broker.createService({
     }
 });
 
+// Start the broker
 broker.start()
-    // Call service
+    // Call the service
     .then(() => broker.call("math.add", { a: 5, b: 3 }))
+    // Print the response
     .then(res => console.log("5 + 3 =", res))
     .catch(err => console.error(`Error occured! ${err.message}`));
 ```
@@ -38,7 +41,7 @@ Open this example on [Runkit!](https://runkit.com/icebob/moleculer-usage)
 {% endnote %}
 
 # Create a Moleculer project
-Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based microservices project.
+In this example we use the official [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based microservices project with a sample service and an API Gateway to call it from the browser via REST API.
 
 1. Install `moleculer-cli` globally
     ```bash
@@ -48,11 +51,14 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```bash
     $ moleculer init project moleculer-demo
     ```
-    > Press `Y` to all questions
-    
-    > Don't forget to install and start [NATS Server](https://nats.io/download/nats-io/nats-server/). Otherwise, you will get the following error:
-    > `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222`
+    <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>    
 
+    > Press `ENTER` to all questions _(accept default answers)_    
+    
+    {% note warn Please note %}
+    Don't forget to install and start [NATS Server](https://nats.io/download/nats-io/nats-server/). Otherwise, you will get the following error:
+    `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222`
+    {% endnote %}
 
 3. Open project folder
     ```bash
@@ -63,6 +69,9 @@ Use the [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based
     ```bash
     $ npm run dev
     ```
+
+    <div align="center"><img src="assets/usage/usage-demo-2.gif" /></div>
+
 5. Open the [http://localhost:3000/](http://localhost:3000/) link in your browser. It shows a start page which contains two links to call the `greeter` service via [API gateway](https://github.com/moleculerjs/moleculer-web).
 
 {% note info Congratulations! %}

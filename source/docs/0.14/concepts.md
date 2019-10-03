@@ -10,7 +10,7 @@ A [service](services.html) is a simple JavaScript module containing some part of
 A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
 
 ### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other ([transporter](#Transporter) is not used).
+Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
 
 ### Remote Services
 Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
@@ -60,9 +60,9 @@ Next, create a new directory for our application, create a new `package.json` an
 {
   "name": "moleculer-store",
   "dependencies": {
-    "moleculer": "^0.13.9",
-    "moleculer-web": "^0.8.5",
-    "nats": "^1.2.10"
+    "moleculer": "^0.14.0",
+    "moleculer-web": "^0.9.0",
+    "nats": "^1.3.2"
   }
 }
 ```

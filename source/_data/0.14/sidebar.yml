@@ -7,6 +7,7 @@ docs:
 
   overview:
     broker: broker.html
+    configuration: configuration.html
     services: services.html
     actions: actions.html
     events: events.html

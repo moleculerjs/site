@@ -6,23 +6,25 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 
 - Promise-based solution (async/await compatible)
 - request-reply concept
-- support streams
+- all nodes are equal, no master/leader node
+- multiple services on a node/server
 - support event-driven architecture with balancing
 - built-in service registry & dynamic service discovery
-- load balanced requests & events (round-robin, random, cpu-usage, latency)
+- load balanced requests & events (round-robin, random, cpu-usage, latency, shard)
 - many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
-- supports middlewares
-- supports versioned services
+- plugin/middleware system
+- support versioned services
 - service mixins
-- built-in caching solution (memory, Redis)
-- pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka)
+- support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
+- built-in caching solution (memory, MemoryLRU, Redis)
+- pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
+- pluggable transporters (TCP, NATS, MQTT, Redis, AMQP, NATS Streaming, Kafka)
 - pluggable serializers (JSON, Avro, MsgPack, Protocol Buffers, Thrift)
 - pluggable validator
-- multiple services on a node/server
-- all nodes are equal, no master/leader node
+- built-in metrics with reporters (CSV, Prometheus, Datadog, StatsD, Events)
+- built-in tracing support with exporters (Zipkin, Jaeger, Datadog, Events)
 - parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
-- built-in health monitoring & metrics
-- official [API gateway module](https://github.com/moleculerjs/moleculer-web) and many other modules...
+- official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](https://github.com/moleculerjs/moleculer-db) and many other modules...
 
 ## How fast?
 
