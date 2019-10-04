@@ -24,7 +24,7 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 | `-c`, `--config <file>` | `String` | `null` | Load configuration file from a different path or a different filename. |
 | `-e`, `--env` | `Boolean` | `false` | Load envorinment variables from the '.env' file from the current folder. |
 | `-E`, `--envfile <file>` | `String` | `null` | Load envorinment variables from the specified file. |
-| `-i`, `--instances` | `Number` | `null` | Launch [number] node instances (with `cluster` module) |
+| `-i`, `--instances` | `Number` | `null` | Launch [number] node instances or `max` for all cpu cores (with `cluster` module) |
 
 
 **Example NPM scripts**
@@ -32,7 +32,7 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 {
     "scripts": {
         "dev": "moleculer-runner --repl --hot --config moleculer.dev.config.js services",
-        "start": "moleculer-runner --instances=4 services"
+        "start": "moleculer-runner --instances=max services"
     }
 }
 ```
