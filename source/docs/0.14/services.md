@@ -7,7 +7,8 @@ The schema has some main parts: `name`, `version`, `settings`, `actions`, `metho
 
 ### Simple service schema to define two actions
 ```js
-{
+// math.service.js
+module.exports = {
     name: "math",
     actions: {
         add(ctx) {
@@ -24,7 +25,8 @@ The schema has some main parts: `name`, `version`, `settings`, `actions`, `metho
 ## Base properties
 The Service has some base properties in the schema.
 ```js
-{
+// posts.v1.service.js
+module.exports = {
     name: "posts",
     version: 1
 }
@@ -35,7 +37,8 @@ The `name` is a mandatory property so it must be defined. It's the first part of
 
 The `version` is an optional property. Use it to run multiple version from the same service. It is a prefix in the action name. It can be a `Number` or a `String`.
 ```js
-{
+// posts.v2.service.js
+module.exports = {
     name: "posts",
     version: 2,
     actions: {
@@ -55,10 +58,11 @@ Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
 > To disable version prefixing set `$noVersionPrefix: true` in Service settings.
 
 ## Settings
-The `settings` property is a store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
+The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
 
 ```js
-{
+// mailer.service.js
+module.exports = {
     name: "mailer",
     settings: {
         transport: "mailgun"
@@ -89,7 +93,6 @@ There are some internal settings which are used by core modules. These setting n
 ### Secure service settings
 To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
 
-*** Example ***
 ```js
 // mail.service.js
 module.exports = {
@@ -116,6 +119,7 @@ Mixins are a flexible way to distribute reusable functionalities for Moleculer s
 **Example how to extend `moleculer-web` service**
 
 ```js
+// api.service.js
 const ApiGwService = require("moleculer-web");
 
 module.exports = {
@@ -140,16 +144,16 @@ The merge algorithm depends on the property type.
 | Property | Algorithm |
 |----------|-----------|
 | `name`, `version` | Merge & overwrite. |
-| `settings` | Extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
-| `metadata` | Extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
-| `actions` | Extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
-| `hooks` | Extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
+| `settings` | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
+| `metadata` | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
+| `actions` | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
+| `hooks` | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). |
 | `methods` | Merge & overwrite. |
 | `events` | Concatenate listeners. |
 | `created`, `started`, `stopped` | Concatenate listeners. |
 | `mixins` | Merge & overwrite. |
 | `dependencies` | Merge & overwrite. |
-| any other | Merge & overwrite. |
+| _any custom_ | Merge & overwrite. |
 
 {% note info Merge algorithm examples %}
 __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`.
@@ -162,6 +166,7 @@ The action could be a `Function` (shorthand for handler) or an object with some 
 The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
+// math.service.js
 module.exports = {
     name: "math",
     actions: {
@@ -193,8 +198,9 @@ const res = await broker.call("math.add", { a: 5, b: 7 });
 const res = await broker.call("math.mult", { a: 10, b: 31 });
 ```
 
-Inside actions, you can call other nested actions in other services with `ctx.call` method. It is an alias to `broker.call`, but it sets itself as parent context (due to tracing).
+Inside actions, you can call other nested actions in other services with `ctx.call` method. It is an alias to `broker.call`, but it sets itself as parent context (due to correct tracing chains).
 ```js
+// posts.service.js
 module.exports = {
     name: "posts",
     actions: {
@@ -215,13 +221,14 @@ module.exports = {
     }
 };
 ```
-> In handlers the `this` is always pointed to the Service instance.
+> In action handlers the `this` is always pointed to the Service instance.
 
 
 ## Events
 You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
 
 ```js
+// report.service.js
 module.exports = {
     name: "report",
 
@@ -247,12 +254,13 @@ module.exports = {
     }
 };
 ```
-> In handlers the `this` is always pointed to the Service instance.
+> In event handlers the `this` is always pointed to the Service instance.
 
 ### Grouping 
 The broker groups the event listeners by group name. By default, the group name is the service name. But you can overwrite it in the event definition.
 
 ```js
+// payment.service.js
 module.exports = {
     name: "payment",
     events: {
@@ -272,6 +280,7 @@ To create private methods in the service, put your functions under the `methods`
 
 **Usage**
 ```js
+// mailer.service.js
 module.exports = {
     name: "mailer",
     actions: {
@@ -291,32 +300,32 @@ module.exports = {
     }
 };
 ```
-> The method name can't be `name`, `version`, `settings`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
+> The method name can't be `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
 
 > In methods the `this` is always pointed to the Service instance.
 
 ## Current Context Storage
 ServiceBroker has a continuous local storage that stores the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`. 
 
-> Context storage is built with Node's [`async_hooks`](https://nodejs.org/api/async_hooks.html) lib.
+> Context storage is built with Node.js [`async_hooks`](https://nodejs.org/api/async_hooks.html) built-in module.
 
 ```js
 // greeter.service.js
 module.exports = {
-	name: "greeter",
-	actions: {
-		hello(ctx) {
-			return this.Promise.resolve()
-				.then(() => this.doSomething());
+    name: "greeter",
+    actions: {
+        hello(ctx) {
+            return this.Promise.resolve()
+                .then(() => this.doSomething());
 
-		}
-	},
-	methods: {
-		doSomething() {
+        }
+    },
+    methods: {
+        doSomething() {
             const ctx = this.currentContext;
             return ctx.call("other.service");
-		}
-	}
+        }
+    }
 });
 ```
 
@@ -324,6 +333,7 @@ module.exports = {
 There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
 
 ```js
+// www.service.js
 module.exports = {
     name: "www",
     actions: {...},
@@ -347,15 +357,15 @@ module.exports = {
 If your service depends on other services, use the `dependencies` property in the schema. The service waits for dependent services before calls the `started` lifecycle event handler. 
 
 ```js
+// posts.service.js
 module.exports = {
   name: "posts",
   settings: {
       $dependencyTimeout: 30000 // Default: 0 - no timeout
   },
   dependencies: [
-      "likes", // shorthand w/o version
-      { name: "users", version: 2 }, // with numeric version
-      { name: "comments", version: "staging" } // with string version
+      "likes",
+      "v2.users"
   ],
   async started() {
       this.logger.info("It will be called after all dependent services are available.");
@@ -364,7 +374,7 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `users` and `comments` services are available (either the local or remote nodes).
+The `started` service handler is called once the `likes`, `v2.users` services are available (either the local or remote nodes).
 
 ### Wait for services via ServiceBroker
 To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
@@ -379,8 +389,8 @@ To wait for services, you can also use the `waitForServices` method of `ServiceB
 
 **Example**
 ```js
-broker.waitForServices(["posts", "users"]).then(() => {
-    // Called after the `posts` & `users` services are available
+broker.waitForServices(["posts", "v2.users"]).then(() => {
+    // Called after the `posts` & `v2.users` services are available
 });
 ```
 
@@ -391,14 +401,6 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 }).catch(err => {
     // Called if service is not available in 10 seconds
 });
-```
-
-**Versioned services**
-```js
-await broker.waitForServices([
-    { name: "posts", version: 2 }, 
-    { name: "users" }
-]);
 ```
 
 ## Metadata
@@ -427,6 +429,7 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | ------- | ----- | ------- |
 | `this.name` | `String` | Name of service (from schema) |
 | `this.version` | `Number` or `String` | Version of service (from schema) |
+| `this.fullName` | `String` | Name of version prefix |
 | `this.settings` | `Object` | Settings of service (from schema) |
 | `this.metadata` | `Object` | Metadata of service (from schema) |
 | `this.schema` | `Object` | Schema definition of service |
@@ -434,7 +437,8 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.Promise` | `Promise` | Class of Promise (Bluebird) |
 | `this.logger` | `Logger` | Logger instance |
 | `this.actions` | `Object` | Actions of service. _Service can call own actions directly_ |
-| `this.waitForServices` | `Function` | Link to ['broker.waitForServices' method](broker.html#Wait-for-services) |
+| `this.waitForServices` | `Function` | Link to `broker.waitForServices` method |
+| `this.currentContext` | `Context` | Get or set the current Context object. |
 
 ## Service Creation
 There are several ways to create and load a service.
@@ -851,6 +855,12 @@ It has some options which you can declare within `params`.
 | `includes` | `String` or `Array` | `null` | List of metrics to be included in response. |
 | `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response. |
 
+### Get Broker options
+It returns the broker options.
+```js
+broker.call("$node.options").then(res => console.log(res));
+```
+
 ### Health of node
 It returns the health info of local node (including process & OS information).
 ```js
@@ -917,6 +927,10 @@ Example health info:
     }
 }
 ```
+{% note info %}
+Please note, internal service actions are not traced.
+{% endnote %}
+
 ### Extending
 Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option. 
 

@@ -19,7 +19,7 @@ For example, if the `posts` service calls the `users` service multiple times, we
 ![Mixed architecture](assets/architectures/mixed.svg)
 
 {% note info Tip %}
-The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. This logic can be turned off in [broker options](broker.html#Broker-options) with `preferLocal: false` property under the `registry` key.
+The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. This logic can be turned off in [broker options](configuration.html#Broker-options) with `preferLocal: false` property under the `registry` key.
 {% endnote %}
 
 ## How choose

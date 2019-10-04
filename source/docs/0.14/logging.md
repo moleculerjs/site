@@ -1,6 +1,6 @@
 title: Logging
 ---
-All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](broker.html#Broker-options).
+All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
 
 {% note warn %}
 The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).

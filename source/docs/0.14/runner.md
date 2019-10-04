@@ -51,7 +51,7 @@ The runner does the following steps to load & merge configurations:
 > To overwrite broker's deeply nested default options, which are not present in `moleculer.config.js`, via environment variables, use the `MOL_` prefix and double underscore `__` for nested properties in `.env` file. For example, to set the [cacher prefix](caching.html#Built-in-cachers) to `MOL` you should declare as `MOL_CACHER__OPTIONS__PREFIX=MOL`.
 
 ### Configuration file
-The structure of the configuration file is the same as that of the [broker options](broker.html#Broker-options). Every property has the same name.
+The structure of the configuration file is the same as that of the [broker options](configuration.html#Broker-options). Every property has the same name.
 
 **Example config file**
 ```js
