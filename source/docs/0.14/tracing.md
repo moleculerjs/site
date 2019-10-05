@@ -1,15 +1,105 @@
 title: Tracing
 ---
-## Tracing Exporters
-
-The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). Set `tracing: true` in broker's options to enable tracing.
+Moleculer has a built-in tracing module that collects tracing information inside a Moleculer application. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 **Enable tracing**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     tracing: true
-});
+};
 ```
+
+**Enable tracing with options**
+```js
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        exporter: "Console",
+        events: true,
+        stackTrace: true
+    }
+};
+```
+
+## Options
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `enabled` | `Boolean` | `false` | Enable tracing feature. |
+| `exporter` | `Object` or `Array<Object>` | `null` | Tracing exporter configuration. [More info](#Tracing-Exporters) |
+| `sampling` | `Object` | | Sampling settings. [More info](#Sampling) |
+| `actions` | `Boolean` | `true` | Tracing the service actions. |
+| `events` | `Boolean` | `false` | Tracing the service events. |
+| `errorFields` | `Array<String>` | `["name", "message", "code", "type", "data"]` | Error object fields which are added into span tags. |
+| `stackTrace` | `Boolean` | `false` | Add stack trace info into span tags in case of error. |
+| `defaultTags` | `Object` | `null` | Default tags. It will be added to all spans. |
+
+## Sampling
+The Moleculer Tracer supports some sampling method.
+
+### Constant sampling
+This sampling method uses a constant sampling rate value from `0` to `1`. The `1` means all spans will be sampled, the `0` means none of them.
+
+**Samples all spans**
+```js
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        sampling: {
+            rate: 1.0
+        }
+    }
+};
+```
+
+**Samples half of all spans**
+```js
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        sampling: {
+            rate: 0.5
+        }
+    }
+};
+```
+
+### Rate limiting sampling
+This sampling method uses a rate limiter. You can configure how many spans will be sampled in a second.
+
+**Samples 2 spans per second**
+```js
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        sampling: {
+            tracesPerSecond: 2
+        }
+    }
+};
+```
+
+**Samples 1 span per 10 seconds**
+```js
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        sampling: {
+            tracesPerSecond: 0.1
+        }
+    }
+};
+```
+
+## Tracing Exporters
+
+The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). 
 
 ### Console
 This is a debugging exporter which prints full local trace to the console.
@@ -19,47 +109,55 @@ Console exporter can't follow remote calls, only locals.
 {% endnote %}
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     tracing: {
         enabled: true,
-        exporter: [
-            {
-                type: "Console",
-                options: {
-                    logger: null,
-                    colors: true,
-                    width: 100,
-                    gaugeWidth: 40
-                }
+        exporter: {
+            type: "Console",
+            options: {
+                // Custom logger
+                logger: null,
+                // Using colors
+                colors: true,
+                // Width of row
+                width: 100,
+                // Gauge width in the row
+                gaugeWidth: 40
             }
-        ]
+        }
     }
-});
+};
 ```
 
 ### Datadog
-Datadog exporter sends tracing data to Datadog server via `dd-trace`. It is able to merge tracing spans of instrumented Node.js modules and Moleculer modules.
+Datadog exporter sends tracing data to [Datadog](https://www.datadoghq.com/) server via `dd-trace`. 
+<!-- It is able to merge tracing spans of instrumented Node.js modules and Moleculer modules. -->
 
 <!-- TODO screenshot -->
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     tracing: {
         enabled: true,
-        exporter: [
-            {
-                type: "Datadog",
-                options: {
-                    agentUrl: process.env.DD_AGENT_URL || "http://localhost:8126",
-                    env: process.env.DD_ENVIRONMENT || null,
-                    samplingPriority: "AUTO_KEEP",
-                    defaultTags: null,
-                    tracerOptions: null,
-                }
+        exporter: {
+            type: "Datadog",
+            options: {
+                // Datadog Agent URL
+                agentUrl: process.env.DD_AGENT_URL || "http://localhost:8126",
+                // Environment variable
+                env: process.env.DD_ENVIRONMENT || null,
+                // Sampling priority. More info: https://docs.datadoghq.com/tracing/guide/trace_sampling_and_storage/?tab=java#sampling-rules
+                samplingPriority: "AUTO_KEEP",
+                // Default tags. They will be added into all span tags.
+                defaultTags: null,
+                // Custom Datadog Tracer options. More info: https://datadog.github.io/dd-trace-js/#tracer-settings
+                tracerOptions: null,
             }
-        ]
+        }
     }
-});
+};
 ```
 {% note info %}
 To use this exporter, install the `dd-trace` module with `npm install dd-trace --save` command.
@@ -70,49 +168,46 @@ To use this exporter, install the `dd-trace` module with `npm install dd-trace -
 Event exporter sends Moleculer events (`$tracing.spans`) with tracing data.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     tracing: {
         enabled: true,
-        exporter: [
-            {
-                type: "Event",
-                options: {
-                    eventName: "$tracing.spans",
-
-                    sendStartSpan: false,
-                    sendFinishSpan: true,
-
-                    broadcast: false,
-
-                    groups: null,
-
-                    /** @type {Number} Batch send time interval. */
-                    interval: 5,
-
-                    spanConverter: null,
-
-                    /** @type {Object?} Default span tags */
-                    defaultTags: null
-
-                }
+        exporter: {
+            type: "Event",
+            options: {
+                // Name of event
+                eventName: "$tracing.spans",
+                // Send event when a span started
+                sendStartSpan: false,
+                // Send event when a span finished
+                sendFinishSpan: true,
+                // Broadcast or emit event
+                broadcast: false,
+                // Event groups
+                groups: null,
+                // Sending time interval in seconds
+                interval: 5,
+                // Custom span object converter before sending
+                spanConverter: null,
+                // Default tags. They will be added into all span tags.
+                defaultTags: null
             }
-        ]
+        }
     }
-});
+};
 ```
 
 ### Event (legacy)
 Legacy event exporter sends Moleculer legacy metric events ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) at every request. These events are also used to generate metrics in [legacy (`<= v0.13`) metrics solutions](/modules.html#metrics).
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     tracing: {
         enabled: true,
-        exporter: [
-            "EventLegacy"
-        ]
+        exporter: "EventLegacy"
     }
-});
+};
 ```
 
 #### Legacy Request Started Payload
@@ -206,39 +301,34 @@ The payload looks like the following:
 Jaeger exporter sends tracing spans information to a [Jaeger](https://www.jaegertracing.io) server.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     tracing: {
         enabled: true,
-        exporter: [
-            {
-                type: "Jaeger",
-                options: {
-                    /** @type {String?} HTTP Reporter endpoint. If set, HTTP Reporter will be used. */
-			        endpoint: null,
-                    /** @type {String} UDP Sender host option. */
-                    host: "127.0.0.1",
-                    /** @type {Number?} UDP Sender port option. */
-                    port: 6832,
-
-                    /** @type {Object?} Sampler configuration. */
-                    sampler: {
-                        /** @type {String?} Sampler type */
-                        type: "Const",
-
-                        /** @type: {Object?} Sampler specific options. */
-                        options: {}
-                    },
-
-                    /** @type {Object?} Additional options for `Jaeger.Tracer` */
-                    tracerOptions: {},
-
-                    /** @type {Object?} Default span tags */
-                    defaultTags: null
-                }
+        exporter: {
+            type: "Jaeger",
+            options: {
+                // HTTP Reporter endpoint. If set, HTTP Reporter will be used.
+                endpoint: null,
+                // UDP Sender host option.
+                host: "127.0.0.1",
+                // UDP Sender port option.
+                port: 6832,
+                // Jaeger Sampler configuration.
+                sampler: {
+                    // Sampler type. More info: https://www.jaegertracing.io/docs/1.14/sampling/#client-sampling-configuration
+                    type: "Const",
+                    // Sampler specific options.
+                    options: {}
+                },
+                // Additional options for `Jaeger.Tracer`
+                tracerOptions: {},
+                // Default tags. They will be added into all span tags.
+                defaultTags: null
             }
-        ]
+        }
     }
-});
+};
 ```
 {% note info %}
 To use this exporter, install the `jaeger-client` module with `npm install jaeger-client --save` command.
@@ -249,41 +339,62 @@ To use this exporter, install the `jaeger-client` module with `npm install jaege
 Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.apache.org/) server.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        exporter: {
+            type: "Zipkin",
+            options: {
+                // Base URL for Zipkin server.
+                baseURL: "http://localhost:9411",
+                // Sending time interval in seconds.
+                interval: 5,
+                // Additional payload options.
+                payloadOptions: {
+                    // Set `debug` property in payload.
+                    debug: false,
+                    // Set `shared` property in payload.
+                    shared: false
+                },
+                // Default tags. They will be added into all span tags.
+                defaultTags: null
+            }
+        }
+    }
+};
+```
+
+## Multiple exporters
+You can define multiple tracing exporters.
+
+```js
+// moleculer.config.js
+module.exports = {
     tracing: {
         enabled: true,
         exporter: [
+            "Console",
             {
                 type: "Zipkin",
                 options: {
-                    /** @type {String} Base URL for Zipkin server. */
                     baseURL: "http://localhost:9411",
-
-                    /** @type {Number} Batch send time interval. */
-                    interval: 5,
-
-                    /** @type {Object} Additional payload options. */
-                    payloadOptions: {
-
-                        /** @type {Boolean} Set `debug` property in v2 payload. */
-                        debug: false,
-
-                        /** @type {Boolean} Set `shared` property in v2 payload. */
-                        shared: false
-                    },
-
-                    /** @type {Object?} Default span tags */
-                    defaultTags: null
+                }
+            }
+            {
+                type: "Jaeger",
+                options: {
+                    host: "127.0.0.1",
                 }
             }
         ]
     }
-});
+};
 ```
 
-## Customizing
+## User-defined tracing spans
+To add new spans inside an action or event handler, just call the `ctx.startSpan` and `ctx.finishSpan` methods.
 
-### Multiple Spans per Action
 ```js
 // posts.service.js
 module.exports = {
@@ -308,10 +419,42 @@ module.exports = {
 };
 ```
 
-### Adding Context Values
+### Create span without context
+If `Context` is not available, you can create spans via `broker.tracer`.
+
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    started() {
+        // Create a span to measure the initialization
+        const span = this.broker.startSpan("initializing db", {
+            tags: {
+                dbHost: this.settings.dbHost
+            }
+        });
+
+        await this.db.connect(this.settings.dbHost);
+
+        // Create a sub-span to measure the creating tables.
+        const span2 = span.startSpan("create tables");
+
+        await this.createDatabaseTables();
+
+        // Finish the sub-span.
+        span2.finish();
+
+        // Finish the main span.
+        span.finish();
+    }
+};
+```
+
+## Adding Tags from Context
 You can customize what context `params` or `meta` values are added to span tags.
 
 **Default**
+The default behaviour is that add all properties from `ctx.params` only.
 ```js
 // posts.service.js
 module.exports = {
@@ -329,9 +472,8 @@ module.exports = {
             }
         }
     }
-});
+};
 ```
-
 
 **Custom params example**
 ```js
@@ -341,23 +483,24 @@ module.exports = {
     actions: {
         get: {
             tracing: {
-                // Add `ctx.params.id` and `ctx.meta.loggedIn.username` values
-                // to tracing span tags.
                 tags: {
+                    // Add `id` from `ctx.params`
                     params: ["id"],
+                    // Add `loggedIn.username` value from `ctx.meta`
                     meta: ["loggedIn.username"],
-                    response: ["id", "title"] // add data to tags from the action response.
+                    // add tags from the action response.
+                    response: ["id", "title"]
             },
             async handler(ctx) {
                 // ...
             }
         }
     }
-});
+};
 ```
 
 **Example with custom function**
-Please note, the tags function will be called two times in case of success execution. First with `ctx`, and second times with `ctx` & `response` as the response of action call.
+You can define a custom `Function` to fill the span tags from the `Context`.
 
 ```js
 // posts.service.js
@@ -382,26 +525,21 @@ module.exports = {
             }
         }
     }
-});
+};
 ```
 
+{% note info %}
+Please note, the function will be called two times in case of success execution. First with `ctx`, and second times with `ctx` & `response` as the response of action call.
+{% endnote %}
+
 **Example of Event tracing**
+You can tracing the events, as well. To enable it, set `events: true` in tracing broker options.
 ```js
-// posts.service.js
+// moleculer.config.js
 module.exports = {
-    name: "posts",
-    events: {
-        "user.created": {
-            tracing: {
-                // Add all params without meta
-                tags: {
-                    params: true,
-                    meta: false,
-            },
-            async handler(ctx) {
-                // ...
-            }
-        }
+    tracing: {
+        enabled: true,
+        events: true
     }
-});
+};
 ```

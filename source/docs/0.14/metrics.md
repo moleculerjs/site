@@ -9,23 +9,38 @@ If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `Event
 
 **Enable metrics & define console reporter**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             "Console"
         ]
     }
-});
+};
 ```
 
+## Options
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `enabled` | `Boolean` | `false` | Enable tracing feature. |
+| `reporter` | `Object` or `Array<Object>` | `null` | Metric reporter configuration. [More info](#Metrics-Reporters) |
+| `collectProcessMetrics` | `Boolean` | | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"` |
+| `collectInterval` | `Number` | `5000` | Collect time period in milliseconds. |
+| `defaultBuckets` | `Array<Number>` | | Default bucket values for histograms. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` |
+| `defaultQuantiles` | `Array<Number>` | | Default quantiles for histograms. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]` |
+| `defaultMaxAgeSeconds` | `Number` | `60` | Max age seconds for quantile calculation. |
+| `defaultAgeBuckets` | `Number` | `10` | Number of buckets for quantile calculation. |
+| `defaultAggregator` | `String` | `sum` | Value aggregator method. |
+
 ## Metrics Reporters
-Moleculer have several built-in reporters. All of them have the following options:
+Moleculer has several built-in reporters. All of them have the following options:
 
 | Name | Type | Default | Description |
 | ---- | ---- | --------| ----------- |
-| `includes` | `String or Array<String>` | `null` | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `excludes` | `String or Array<String>` | `null` |  List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `includes` | `String` or `Array<String>` | `null` | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `excludes` | `String` or `Array<String>` | `null` |  List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
 | `metricNamePrefix` | `String` | `null` | Prefix to be added to metric names |
 | `metricNameSuffix` | `String` | `null` | Suffix to be added to metric names |
 | `metricNameFormatter` | `Function` | `null` | Metric name formatter |
@@ -34,7 +49,8 @@ Moleculer have several built-in reporters. All of them have the following option
 
 **Example of metrics options**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
@@ -53,198 +69,204 @@ const broker = new ServiceBroker({
             }
         ]
     }
-});
+};
 ```
 
 ### Console
 This is a debugging reporter which periodically prints the metrics to the console.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             {
                 type: "Console",
                 options: {
+                    // Printing interval in milliseconds
                     interval: 5 * 1000,
+                    // Custom logger.
                     logger: null,
+                    // Using colors
                     colors: true,
+                    // Prints only changed metrics, not the full list.
                     onlyChanges: true
                 }
             }
         ]
     }
-});
+};
 ```
 
 ### CSV
 Comma-Separated Values (CSV) reporter saves changes to a CSV file.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             {
                 type: "CSV",
                 options: {
+                    // Folder of CSV files.
                     folder: "./reports/metrics",
+                    // CSV field delimiter
                     delimiter: ",",
+                    // CSV row delimiter
                     rowDelimiter: "\n",
-                    mode: MODE_METRIC, // MODE_METRIC, MODE_LABEL
+                    // Saving mode. 
+                    //   - "metric" - save metrics to individual files
+                    //   - "label" - save metrics by labels to individual files
+                    mode: "metric",
+                    // Saved metrics types.
                     types: null,
+                    // Saving interval in milliseconds
                     interval: 5 * 1000,
+                    // Custom filename formatter
                     filenameFormatter: null,
+                    // Custom CSV row formatter.
                     rowFormatter: null,
                 }
             }
         ]
     }
-});
+};
 ```
 ### Event
 Event reporter sends Moleculer events with metric values.
 
  ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             {
                 type: "Event",
                 options: {
+                    // Event name
                     eventName: "$metrics.snapshot",
+                    // Broadcast or emit
                     broadcast: false,
+                    // Event groups
                     groups: null,
+                    // Send only changed metrics
                     onlyChanges: false,
+                    // Sending interval in milliseconds
                     interval: 5 * 1000,
                 }
             }
         ]
     }
-});
+};
 ```
 
 ### Datadog
 Datadog reporter sends metrics to the [Datadog server](https://www.datadoghq.com/).
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             {
                 type: "Datadog",
                 options: {
+                    // Hostname
                     host: "my-host",
+                    // API version
                     apiVersion: "v1",
+                    // Server URL path
                     path: "/series",
+                    // Datadog API Key
                     apiKey: process.env.DATADOG_API_KEY,
+                    // Default labels which are appended to all metrics labels
                     defaultLabels: (registry) => ({
                         namespace: registry.broker.namespace,
                         nodeID: registry.broker.nodeID
                     }),
+                    // Sending interval in seconds
                     interval: 10
                 }
             }
         ]
     }
-});
+};
 ```
-
-
-### Event
-Event reporter sends Moleculer events with metric values.
-
-```js
-const broker = new ServiceBroker({
-    metrics: {
-        enabled: true,
-        reporter: [
-            {
-                type: "Event",
-                options: {
-                    eventName: "$metrics.snapshot",
-
-                    broadcast: false,
-                    groups: null,
-
-                    onlyChanges: false,
-
-                    interval: 5 * 1000,
-                }
-            }
-        ]
-    }
-});
-```
-
 
 ### Prometheus
 Prometheus reporter publishes metrics in Prometheus format. The [Prometheus](https://prometheus.io/) server can collect them. Default port is `3030`.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             {
                 type: "Prometheus",
                 options: {
+                    // HTTP port
                     port: 3030,
+                    // HTTP URL path
                     path: "/metrics",
+                    // Default labels which are appended to all metrics labels
                     defaultLabels: registry => ({
                         namespace: registry.broker.namespace,
                         nodeID: registry.broker.nodeID
-                    }),
-                    includes: ["moleculer.**"],
-                    excludes: ["moleculer.transit.**"]
+                    })
                 }
             }
         ]
     }
-});
+};
 ```
 
 ### StatsD
 The StatsD reporter sends metric values to [StatsD](https://github.com/statsd/statsd) server via UDP.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     metrics: {
         enabled: true,
         reporter: [
             {
                 type: "StatsD",
                 options: {
-                    protocol: "udp",
+                    // Server host
                     host: "localhost",
+                    // Server port
                     port: 8125,
-                    maxPayloadSize: 1300,
-                    prefix: null,
-                    interval: 5 * 1000
+                    // Maximum payload size.
+                    maxPayloadSize: 1300
                 }
             }
         ]
     }
-});
+};
 ```
 
 ## Supported Metric Types
+
 ### Counter
-A counter is a cumulative metric that represents a single monotonically increasing counter whose value can only increase or be reset to zero. For example, you can use a counter to represent the number of requests served, tasks completed, or errors.
+A counter is a cumulative metric that represents a single monotonically increasing counter whose value can only increase or be reset to zero. For example, you can use a counter to represent the number of requests served, tasks completed, or errors. It can also provide 1-minute rate.
 
 ### Gauge
-A gauge is a metric that represents a single numerical value that can arbitrarily go up and down. Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of concurrent requests.
+A gauge is a metric that represents a single numerical value that can arbitrarily go up and down. Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of concurrent requests. It can also provide 1-minute rate.
 
 ### Histogram
-A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values and calculates configurable quantiles over a sliding time window.
+A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values and calculates configurable quantiles over a sliding time window. It can also provide 1-minute rate.
 
 ### Info
 An info is a single string or number value like process arguments, hostname or version numbers.
 
 ## Built-in Internal Metrics
+
 ### Process metrics
 - `process.arguments` (info)
 - `process.pid` (info)
@@ -358,22 +380,107 @@ An info is a single string or number value like process arguments, hostname or v
 ### New metric registration
 
 You can easily create custom metrics. 
+
+**Create a counter**
 ```js
 // posts.service.js
 module.exports = {
     name: "posts",
 
     actions: {
+        // Get posts.
         get(ctx) {
-            // Update metrics
-            this.broker.metrics.increment("posts.get.total");
-            return posts;
+            // Increment metric
+            this.broker.metrics.increment("posts.get.total", 1);
+
+            return this.posts;
         }
     },
 
     created() {
-        // Register new custom metrics
-        this.broker.metrics.register({ type: "counter", name: "posts.get.total", description: "Number of requests of posts" });
+        // Register new counter metric
+        this.broker.metrics.register({ 
+            type: "counter", 
+            name: "posts.get.total", 
+            description: "Number of requests of posts", 
+            unit: "request",
+            rate: true // calculate 1-minute rate
+        });
+    }
+};
+```
+
+**Create a gauge with labels**
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+
+    actions: {
+        // Create a new post
+        create(ctx) {
+            // Update metrics
+            this.broker.metrics.increment("posts.total", 1, { userID: ctx.params.author });
+            return posts;
+        },
+
+        // Remove a new post
+        remove(ctx) {
+            // Update metrics
+            this.broker.metrics.decrement("posts.total", 1, { userID: ctx.params.author });
+            return posts;
+        },
+
+    },
+
+    created() {
+        // Register new gauge metric
+        this.broker.metrics.register({ 
+            type: "gauge", 
+            name: "posts.total", 
+            labelNames: ["userID"]
+            description: "Number of posts by user",
+            unit: "post"
+        });
+    }
+};
+```
+
+**Create a histogram with buckets & quantiles**
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+
+    actions: {
+        // Create a new post
+        create(ctx) {
+            // Measure the post creation time
+            const timeEnd = this.broker.metrics.timer("posts.creation.time");
+            const post = await this.adapter.create(ctx.params);
+            const duration = timeEnd();
+            
+            this.logger.debug("Post created. Elapsed time: ", duration, "ms");
+            return post;
+        }
+    },
+
+    created() {
+        // Register new histogram metric
+        this.broker.metrics.register({ 
+            type: "histogram", 
+            name: "posts.creation.time", 
+            description: "Post creation time",
+            unit: "millisecond",
+            linearBuckets: {
+                start: 0,
+                width: 100,
+                count: 10
+            },
+            quantiles: [0.5, 0.9, 0.95, 0.99],
+            maxAgeSeconds: 60,
+            ageBuckets: 10
+        });
     }
 };
 ```
