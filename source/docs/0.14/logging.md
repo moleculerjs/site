@@ -209,7 +209,9 @@ module.exports = {
 };
 ```
 
-> To use this logger please install the `pino` module with `npm install pino --save` command.
+{% note info %}
+To use this logger please install the `pino` module with `npm install pino --save` command.
+{% endnote %}
 
 **Preview**
 ![Pino](assets/logging/pino.png#zoomable)
@@ -244,7 +246,9 @@ module.exports = {
 };
 ```
 
-> To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
+{% note info %}
+To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
+{% endnote %}
 
 **Preview**
 ![Bunyan](assets/logging/bunyan.png#zoomable)
@@ -284,7 +288,9 @@ module.exports = {
 };
 ```
 
-> To use this logger please install the `winston` module with `npm install winston --save` command.
+{% note info %}
+To use this logger please install the `winston` module with `npm install winston --save` command.
+{% endnote %}
 
 **Preview**
 ![Winston](assets/logging/winston.png#zoomable)
@@ -315,7 +321,9 @@ module.exports = {
 };
 ```
 
-> To use this logger please install the `debug` module with `npm install debug --save` command.
+{% note info %}
+To use this logger please install the `debug` module with `npm install debug --save` command.
+{% endnote %}
 
 **Preview**
 ![debug](assets/logging/debug.png#zoomable)
@@ -355,7 +363,9 @@ module.exports = {
 };
 ```
 
-> To use this logger please install the `log4js` module with `npm install log4js --save` command.
+{% note info %}
+To use this logger please install the `log4js` module with `npm install log4js --save` command.
+{% endnote %}
 
 **Preview**
 ![Log4js](assets/logging/log4js.png#zoomable)
@@ -363,7 +373,9 @@ module.exports = {
 ### Datadog 
 This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) server.
 
-> Please note, this logger doesn't print any messages to the console, just collects & uploads. Use it beside another logger which also prints the messages.
+{% note info %}
+Please note, this logger doesn't print any messages to the console, just collects & uploads. Use it beside another logger which also prints the messages.
+{% endnote %}
 
 **Shorthand configuration with default options**
 ```js
@@ -382,7 +394,6 @@ module.exports = {
         options: {
             // Logging level
             level: "info",
-
             // Datadog server endpoint. https://docs.datadoghq.com/api/?lang=bash#send-logs-over-http
             url: "https://http-intake.logs.datadoghq.com/v1/input/",
             // Datadog API key

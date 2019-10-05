@@ -5,7 +5,7 @@ title: Lifecycle
 This section describes what happens when the broker is starting & stopping.
 
 ### Starting logic
-The broker starts transporter connecting but it doesn't publish the local service list to remote nodes. When it's done, it starts all services (calls service `started` handler). Once all services start successfully, broker publishes the local service list to remote nodes. Hence remote nodes send requests only after all local service are started properly.
+The broker starts transporter connecting. When it's done, it doesn't publish the local service list to remote nodes because it can't accept request yet. It starts all services (calls every service `started` handler). Once all services start successfully, broker publishes the local service list to remote nodes. Hence remote nodes send requests only after all local service are started properly.
 
 <div align="center">
     <img src="assets/lifecycle/broker-start.svg" alt="Broker starting lifecycle diagram" />
@@ -16,7 +16,7 @@ Dead-locks can be made when two services wait for each other. E.g.: `users` serv
 {% endnote %}
 
 ### Stopping logic
-When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they can route the requests to other instances instead of services under stopping. Next, the broker starts stopping all local services. After that, the transporter disconnects.
+When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services under stopping. Next, the broker starts stopping all local services. After that, the transporter disconnects and process exits.
 
 <div align="center">
     <img src="assets/lifecycle/broker-stop.svg" alt="Broker stopping lifecycle diagram" />
@@ -41,7 +41,9 @@ module.exports = {
 };
 ```
 
-> This is a sync event handler. You **cannot** return a `Promise` and you **cannot** use `async/await`.
+{% note info %}
+This is a sync event handler. You **cannot** return a `Promise` and you **cannot** use `async/await`.
+{% endnote %}
 
 ### `started` event handler
 It is triggered when the `broker.start` is called and the broker starts all local services. Use it to connect to database, listen servers...etc.
@@ -59,7 +61,9 @@ module.exports = {
 };
 ```
 
-> This is an async event handler. A `Promise` can be returned or use `async/await`.
+{% note info %}
+This is an async event handler. A `Promise` can be returned or use `async/await`.
+{% endnote %}
 
 ### `stopped` event handler
 It is triggered when the `broker.stop` is called and the broker starts stopping all local services. Use it to close database connections, close sockets...etc.
@@ -77,4 +81,6 @@ module.exports = {
 };
 ```
 
-> This is an async event handler. A `Promise` can be returned or use `async/await`.
+{% note info %}
+This is an async event handler. A `Promise` can be returned or use `async/await`.
+{% endnote %}

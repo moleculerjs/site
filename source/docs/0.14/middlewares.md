@@ -1,212 +1,27 @@
 title: Middlewares
 ---
 
-Moleculer supports middlewares. The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
+Moleculer supports middlewares. It's same as plugins in other frameworks. 
+The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
 
-## Complete List
-**All available methods:**
+**Example**
 ```js
-const MyCustomMiddleware = {
-    // Wrap local action handlers (legacy middleware handler)
+// awesome.middleware.js
+module.exports = {
+    name: "Awesome",
+
     localAction(next, action) {
         return function(ctx) {
-            // Change context properties or something
-            return next(ctx)
-                .then(res => {
-                    // Do something with the response
-                    return res;
-                })
-                .catch(err => {
-                    // Handle error or throw further
-                    throw err;
-                });
+            console.log(`My middleware is called before the `${ctx.action.name}` action executed.`);
+            return next(ctx);
         }
-    },
-
-    // Wrap remote action calling
-    remoteAction(next, action) {
-        return function(ctx) {
-            // Change context properties or something
-            return next(ctx)
-                .then(res => {
-                    // Do something with the response
-                    return res;
-                })
-                .catch(err => {
-                    // Handle error or throw further
-                    throw err;
-                });
-        }
-    },
-
-    // Wrap local event handlers
-    localEvent(next, event) {
-        return (ctx) => {
-			return next(ctx);
-		};
-    },
-
-    // Wrap broker.createService method
-    createService(next) {
-        return function(schema, schemaMods) {
-            console.log("The 'createService' is called.");
-            return next(schema, schemaMods);
-        };
-    },
-
-    // Wrap broker.destroyService method
-    destroyService(next) {
-        return function(service) {
-            console.log("The 'destroyService' is called.");
-            return next(service);
-        };
-    },
-
-    // Wrap broker.call method
-    call(next) {
-        return function(actionName, params, opts) {
-            console.log("The 'call' is called.", eventName);
-            return next(actionName, params, opts).then(res => {
-                console.log("Response:", res);
-                return res;
-            });
-        };
-    },
-
-    // Wrap broker.mcall method
-    mcall(next) {
-        return function() {
-            console.log("The 'call' is called.", eventName);
-            return next(...arguments).then(res => {
-                console.log("Response:", res);
-                return res;
-            });
-        };
-    },
-
-    // Wrap broker.emit method
-    emit(next) {
-        return function(eventName, payload, groups) {
-            console.log("The 'emit' is called.", eventName);
-            return next(eventName, payload, groups);
-        };
-    },
-
-    // Wrap broker.broadcast method
-    broadcast(next) {
-        return function(eventName, payload, groups) {
-            console.log("The 'broadcast' is called.", eventName);
-            return next(eventName, payload, groups);
-        };
-    },
-
-    // Wrap broker.broadcastLocal method
-    broadcastLocal(next) {
-        return function(eventName, payload, groups) {
-            console.log("The 'broadcastLocal' is called.", eventName);
-            return next(eventName, payload, groups);
-        };
-    },
-
-    // After a new local service created (sync)
-    serviceCreated(service) {
-        console.log("Service created", service.name);
-    },
-
-    // Before a local service started (async)
-    serviceStarting(service) {
-        console.log("Service is starting", service.name);
-    },
-
-    // After a local service started (async)
-    serviceStarted(service) {
-        console.log("Service started", service.name);
-    },
-
-    // Before a local service stopping (async)
-    serviceStopping(service) {
-        console.log("Service is stopping", service.name);
-    },
-
-    // After a local service stopped (async)
-    serviceStopped(service) {
-        console.log("Service stopped", service.name);
-    },
-
-    // Called before registering a local service instance
-    registerLocalService(next) {
-        return (service) => {
-            console.log("Registering local services");
-            return next(service);
-        };
-    },
-
-    // Called during local service creation (after mixins are applied, i.e, service schema is merged completely)
-    serviceCreating(service, schema) {
-        // Modify schema
-        schema.myProp = "John";
-    },
-
-    // Called before sending a communication packet
-    transitPublish(next) {
-        return (packet) => {
-            return next(packet);
-        };
-    },
-
-    // Called before transit receives & parses an incoming message
-    transitMessageHandler(next) {
-        return (cmd, packet) => {
-            return next(cmd, packet);
-        };
-    },
-
-    // Called after serialization but before the transporter sends a communication packet
-    transporterSend(next) {
-        return (topic, data, meta) => {
-            // Do something with data
-            return next(topic, data, meta);
-        };
-    },
-
-    // Called after transporter received a communication packet but before serialization
-    transporterReceive(next) {
-        return (cmd, data, s) => {
-            // Do something with data
-            return next(cmd, data, s);
-        };
-    },
-
-    // After broker is created (async)
-    created(broker) {
-        console.log("Broker created");
-    },
-
-    // Before broker starting (async)
-    starting(broker) {
-        console.log("Broker is starting");
-    },
-
-    // After broker started (async)
-    started(broker) {
-        console.log("Broker started");
-    },
-
-    // Before broker stopping (async)
-    stopping(broker) {
-        console.log("Broker is stopping");
-    },
-
-    // After broker stopped (async)
-    stopped(broker) {
-        console.log("Broker stopped");
     }
-}
+};
 ```
 
 ## Wrapping handlers
-Some hooks are wrappers. It means you must wrap the original handler and return a new Function.
-Wrap hooks where the first parameter is `next`.
+Some hooks are wrappers. It means that you can wrap the original handler and return a new Function.
+Wrap hooks are which the first parameter is `next`.
 
 **Wrap local action handler**
 ```js
@@ -233,7 +48,7 @@ const MyDoSomethingMiddleware = {
         }
 
         // If the feature is disabled we don't wrap it, return the original handler
-        // So it won't cut down the performance at calling where the feature is disabled.
+        // So it won't cut down the performance when the feature is disabled.
         return handler;
     }
 };
@@ -255,7 +70,7 @@ const MyValidator = {
 };
 ```
 
-The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, the middleware checks whether the action has a `params` property. If yes, it will return a wrapped handler which calls the validator module before calling the original `handler`. If the `params` property is not defined, it simply returns the original `handler` (skipped wrapping).
+The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, the middleware checks whether the action has a `params` property. If yes, it will return a wrapped handler which calls the validator module before calling the original `handler`. If the `params` property is not defined, it simply returns the original `handler` (skip wrapping).
 
 >If you don't call the original `next` in the middleware it will break the request. It can be used in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `next`.
 
@@ -263,34 +78,35 @@ The `next` is the original handler or the following wrapped handler. The middlew
 ```js
 const MyCacher = {
     localAction(next, action) {
-        return function cacherMiddleware(ctx) {
+        return async function cacherMiddleware(ctx) {
             const cacheKey = this.getCacheKey(action.name, ctx.params, action.cache.keys);
-            const content = this.get(cacheKey);
+            const content = await this.get(cacheKey);
             if (content != null) {
                 // Found in the cache! Don't call next, return with the cached content
                 ctx.cachedResult = true;
-                return Promise.resolve(content);
+                return content;
             }
 
             // Call the next
-            return next(ctx).then(result => {
-                // Afterwards save the response to the cache
-                this.set(cacheKey, result);
+            const result = await next(ctx);
 
-                return result;
-            });
+            // Save the response to the cache
+            this.set(cacheKey, result);
+            return result;
+
         }.bind(this);
     }
 };
 ```
-> The `next` always returns a `Promise`. So you can access to responses and manipulate them, as well.
+> The `next()` always returns a `Promise`. So you can access to responses and manipulate them, as well.
 
-### Decorate core modules (extend functionality)
-Middleware functions can be used to add new features to `ServiceBroker` & `Service`.
+## Decorate core modules (extend functionality)
+Middleware functions can be used to add new features to `ServiceBroker` or `Service` classes.
 
 **Decorate broker with a new `allCall` method**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     middlewares: [
         {
             // After broker is created
@@ -301,19 +117,465 @@ const broker = new ServiceBroker({
                         .map(node => node.id);
 
                     // Make direct call to the given Node ID
-                    return Promise.all(nodeIDs.map(nodeID => broker.call(action, params, Object.assign({ nodeID }, opts))));
+                    return Promise.all(
+                        nodeIDs.map(nodeID => broker.call(action, params, Object.assign({ nodeID }, opts)))
+                    );
                 }
             }
         }
     ]
-});
+};
+```
 
-await broker.start();
-
-// Call `$node.health` on every nodes & collect results
+Call the new method in order to call `$node.health` on every nodes:
+```js
 const res = await broker.allCall("$node.health");
 ```
 
+## Hooks
+
+### `localAction(next, action)`
+This hook wraps the local action handlers.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    localAction(next, action) {
+        return function(ctx) {
+            // Change context properties or something
+            return next(ctx)
+                .then(res => {
+                    // Do something with the response
+                    return res;
+                })
+                .catch(err => {
+                    // Handle error or throw further
+                    throw err;
+                });
+        }
+    }
+}
+```
+
+### `remoteAction(next, action)`
+This hook wraps the remote action handlers.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    remoteAction(next, action) {
+        return function(ctx) {
+            // Change context properties or something
+            return next(ctx)
+                .then(res => {
+                    // Do something with the response
+                    return res;
+                })
+                .catch(err => {
+                    // Handle error or throw further
+                    throw err;
+                });
+        }
+    }
+}
+```
+
+### `localEvent(next, event)`
+This hook wraps the local event handlers.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    localEvent(next, event) {
+        return (ctx) => {
+			return next(ctx);
+		};
+    }
+}
+```
+
+### `createService(next)`
+This hook wraps the `broker.createService` method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    createService(next) {
+        return function(schema, schemaMods) {
+            console.log("The 'createService' is called.");
+            return next(schema, schemaMods);
+        };
+    }
+}
+```
+
+### `destroyService(next)`
+This hook wraps the `broker.destroyService` method
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    destroyService(next) {
+        return function(service) {
+            console.log("The 'destroyService' is called.");
+            return next(service);
+        };
+    }
+}
+```
+
+### `call(next)`
+This hook wraps the `broker.call` method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    call(next) {
+        return function(actionName, params, opts) {
+            console.log("The 'call' is called.", eventName);
+            return next(actionName, params, opts).then(res => {
+                console.log("Response:", res);
+                return res;
+            });
+        };
+    }
+}
+```
+
+### `mcall(next)`
+This hook wraps the `broker.mcall` method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    mcall(next) {
+        return function() {
+            console.log("The 'call' is called.", eventName);
+            return next(...arguments).then(res => {
+                console.log("Response:", res);
+                return res;
+            });
+        };
+    }
+}
+```
+
+### `emit(next)`
+This hook wraps the `broker.emit` method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    emit(next) {
+        return function(eventName, payload, opts) {
+            console.log("The 'emit' is called.", eventName);
+            return next(eventName, payload, opts);
+        };
+    }
+}
+```
+
+### `broadcast(next)`
+This hook wraps the `broker.broadcast` method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    broadcast(next) {
+        return function(eventName, payload, opts) {
+            console.log("The 'broadcast' is called.", eventName);
+            return next(eventName, payload, opts);
+        };
+    }
+}
+```
+
+### `broadcastLocal(next)`
+This hook wraps the `broker.broadcastLocal` method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    broadcastLocal(next) {
+        return function(eventName, payload, opts) {
+            console.log("The 'broadcastLocal' is called.", eventName);
+            return next(eventName, payload, opts);
+        };
+    }
+}
+```
+
+### `serviceCreated(service)` _(sync)_
+This hook is called after local service creating.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    serviceCreated(service) {
+        console.log("Service created", service.fullName);
+    }
+}
+```
+
+### `serviceStarting(service)` _(async)_
+This hook is called before service starting.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    serviceStarting(service) {
+        console.log("Service is starting", service.fullName);
+    }
+}
+```
+
+### `serviceStarted(service)` _(async)_
+This hook is called after service starting.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    serviceStarted(service) {
+        console.log("Service started", service.fullName);
+    }
+}
+```
+
+### `serviceStopping(service)` _(async)_
+This hook is called before service stopping.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    serviceStopping(service) {
+        console.log("Service is stopping", service.fullName);
+    }
+}
+```
+
+### `serviceStopped(service)` _(async)_
+This hook is called after service stopping.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    serviceStopped(service) {
+        console.log("Service stopped", service.fullName);
+    }
+}
+```
+
+### `registerLocalService(next)`
+This hook wraps broker's local service registering method.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    registerLocalService(next) {
+        return (service) => {
+            console.log("Registering a local service", service.name);
+            return next(service);
+        };
+    }
+}
+```
+
+### `serviceCreating(service, schema)`
+This hook is called during local service creation (after mixins are applied, so service schema is merged completely).
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    serviceCreating(service, schema) {
+        // Modify schema
+        schema.myProp = "John";
+    }
+}
+```
+
+### `transitPublish(next)`
+This hook is called before sending a communication packet.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    transitPublish(next) {
+        return (packet) => {
+            return next(packet);
+        };
+    }
+}
+```
+
+### `transitMessageHandler(next)`
+This hook is called before transit receives & parses an incoming message.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    transitMessageHandler(next) {
+        return (cmd, packet) => {
+            return next(cmd, packet);
+        };
+    }
+}
+```
+
+### `transporterSend(next)`
+This hook is called after serialization but before the transporter sends a communication packet.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    transporterSend(next) {
+        return (topic, data, meta) => {
+            // Do something with data. Data is a `Buffer`
+            return next(topic, data, meta);
+        };
+    }
+}
+```
+
+### `transporterReceive(next)`
+This hook is called after transporter received a communication packet but before serialization.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    transporterReceive(next) {
+        return (cmd, data, s) => {
+            // Do something with data. Data is a `Buffer`
+            return next(cmd, data, s);
+        };
+    }
+}
+```
+
+### `newLogEntry(type, args, bindings)` _(sync)_
+This hook is called when a new log messages iscreated.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    newLogEntry(type, args, bindings) {
+        // Do something with the `args`.
+    }
+}
+```
+
+### `created(broker)` _(async)_
+This hook is called when broker created.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    created(broker) {
+        console.log("Broker created");
+    }
+}
+```
+
+### `starting(broker)` _(async)_
+This hook is called before broker starting.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    starting(broker) {
+        console.log("Broker is starting");
+    }
+}
+```
+
+### `started(broker)` _(async)_
+This hook is called after broker starting.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    started(broker) {
+        console.log("Broker started");
+    }
+}
+```
+
+### `stopping(broker)` _(async)_
+This hook is called before broker stopping.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    stopping(broker) {
+        console.log("Broker is stopping");
+    }
+}
+```
+
+### `stopped(broker)` _(async)_
+This hook is called after broker stopped.
+
+```js
+// my.middleware.js
+module.export = {
+    name: "MyMiddleware",
+
+    stopped(broker) {
+        console.log("Broker stopped");
+    }
+}
+```
 
 ## Internal middlewares
 Many integrated features have been exposed as internal middlewares. These middlewares are loaded by default when broker is created. However, they can be turned off by setting the `internalMiddlewares: false` in broker option. In this case you must explicitly specify the required middlewares in the `middlewares: []` broker option.  
@@ -333,6 +595,8 @@ Many integrated features have been exposed as internal middlewares. These middle
 | `Fallback` | Always | Fallback feature. [Read more](fault-tolerance.html#Fallback) |
 | `ErrorHandler` | Always | Error handling. |
 | `Metrics` | Optional | Metrics feature. [Read more](metrics.html) |
+| `Debounce` | Optional | Debounce feature. [Read more](#Debounce) |
+| `Throttle` | Optional | Throttle feature. [Read more](#Throttle) |
 | `Transmit.Encryption` | Optional | Transmission encryption middleware. [Read more](#Encryption) |
 | `Transmit.Compression` | Optional | Transmission compression middleware. [Read more](#Compression) |
 | `Debugging.TransitLogger` | Optional | Transit Logger. [Read more](#Transit-Logger)  |
@@ -344,42 +608,50 @@ const { Bulkhead, Retry } = require("moleculer").Middlewares;
 ```
 
 ### Transmission Middleware
+
 #### Encryption
 AES encryption middleware protects all inter-services communications that use the transporter module.
 This middleware uses built-in Node [`crypto`](https://nodejs.org/api/crypto.html) lib.
-```javascript
-const { Middlewares } = require("moleculer");
 
-// Create broker
-const broker = new ServiceBroker({
+```js
+// moleculer.config.js
+const crypto = require("crypto");
+const { Middlewares } = require("moleculer");
+const initVector = crypto.randomBytes(16);
+
+module.exports = {
   middlewares: [
     Middlewares.Transmit.Encryption("secret-password", "aes-256-cbc", initVector) // "aes-256-cbc" is the default
   ]
-});
+};
 ```
 #### Compression
 Compression middleware reduces the size of the messages that go through the transporter module.
 This middleware uses built-in Node [`zlib`](https://nodejs.org/api/zlib.html) lib.
-```javascript
+
+```js
+// moleculer.config.js
 const { Middlewares } = require("moleculer");
 
 // Create broker
-const broker = new ServiceBroker({
+module.exports = {
   middlewares: [
     Middlewares.Transmit.Compression("deflate") // or "deflateRaw" or "gzip"
   ]
-});
+};
 ```
 
-### Debug Middleware
+### Debug Middlewares
+
 #### Transit Logger
 Transit logger middleware allows to easily track the messages that are exchanged between services.
 
-```javascript
+```js
+// moleculer.config.js
 const { Middlewares } = require("moleculer");
 
 // Create broker
-const broker = new ServiceBroker({
+module.exports = {
   middlewares: [
     Middlewares.Debugging.TransitLogger({
       logPacketData: false,
@@ -391,7 +663,7 @@ const broker = new ServiceBroker({
       packetFilter: ["HEARTBEAT"]
     })
   ]
-});
+};
 ```
 
 **Complete option list**
@@ -401,20 +673,21 @@ const broker = new ServiceBroker({
 | `logger` | `Object` or `Function`| `null` | Logger class. [Read more](logging.html). |
 | `logLevel` | `String`| `info` | Log level for built-in console logger. [Read more](logging.html). |
 | `logPacketData` |`Boolean`| `false` | Logs packet parameters |
-| `folder` |`Object`| `null` | Path do folder where logs will be written |
-| `extension` |`String`| `.json`, | File extension of log file |
+| `folder` |`Object`| `null` | Folder where logs will be written |
+| `extension` |`String`| `.json` | File extension of log file |
 | `color.receive` |`String`| `grey` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
 | `color.send` |`String`| `grey` |  Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `packetFilter` |`Array<String>`| `HEARTBEAT` | Type of [packets](protocol.html#Packets) to log |
+| `packetFilter` |`Array<String>`| `HEARTBEAT` | Type of [packets](protocol.html#Packets) to skip |
 
 #### Action Logger
 Action Logger middleware tracks "how" service actions were executed.
 
-```javascript
+```js
+// moleculer.config.js
 const { Middlewares } = require("moleculer");
 
 // Create broker
-const broker = new ServiceBroker({
+module.exports = {
   middlewares: [
     Middlewares.Debugging.ActionLogger({
       logParams: true,
@@ -427,7 +700,7 @@ const broker = new ServiceBroker({
       whitelist: ["**"]
     })
   ]
-});
+};
 
 ```
 
@@ -440,13 +713,14 @@ const broker = new ServiceBroker({
 | `logParams` |`Boolean`| `false` | Logs request parameters |
 | `logMeta` |`Boolean`| `false` | Logs meta parameters |
 | `folder` |`String`| `null` | Path do folder where logs will be written |
-| `extension` |`String`| `.json`, | File extension of log file |
+| `extension` |`String`| `.json` | File extension of log file |
 | `color.request` |`String`| `yellow` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
 | `color.response` |`String`| `cyan` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
 | `colors.error` |`String`| `red` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `whitelist` |`Array<String>`| `**` | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
+| `whitelist` |`Array<String>`| `["**"]` | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
 
 ### Event Execution Rate
+
 #### Throttle
 Throttling is a straightforward reduction of the trigger rate. It will cause the event listener to ignore some portion of the events while still firing the listeners at a constant (but reduced) rate. Same functionality as [lodash's `_.throttle`](https://lodash.com/docs/4.17.14#throttle). For more info about throttling check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
 
@@ -481,28 +755,28 @@ module.exports = {
 };
 ```
 
-### Loading & Extending
-If you want to use the built-in middlewares use their names in `middlewares[]` option. Also, the middleware object can be easily extended with custom functions. 
+## Loading & Extending
+If you want to use the built-in middlewares use their names in `middlewares[]` broker option. Also, the `Middlewares` can be easily extended with custom functions. 
 
 **Load middleware by name**
-```javascript
-    const { Middlewares } = require("moleculer");
+```js
+// moleculer.config.js
+const { Middlewares } = require("moleculer");
 
-    // Extend with custom middleware
-    Middlewares.MyCustom = {
-        created(broker) {
-            broker.logger.info("My custom middleware is created!");
-        }
-    };
+// Extend with custom middleware
+Middlewares.MyCustom = {
+    created(broker) {
+        broker.logger.info("My custom middleware is created!");
+    }
+};
 
-
-    const broker = new ServiceBroker({
-        logger: true,
-        middlewares: [
-            // Load middleware by name
-            "MyCustom"
-        ]
-    });  
+module.exports = {
+    logger: true,
+    middlewares: [
+        // Load middleware by name
+        "MyCustom"
+    ]
+};  
 ```
 
 ## Global view
