@@ -18,7 +18,7 @@ const res = await broker.call(actionName, params, opts);
 ```
 The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](#Context). The service can access it via `ctx.params`. *It is optional.*
+The `params` is an object which is passed to the action as a part of the [Context](#Context). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
 
 The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
 
@@ -26,44 +26,36 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
-| `timeout` | `Number` | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, broker uses the `requestTimeout` value of broker options. [Read more](fault-tolerance.html#Timeout) |
-| `retries` | `Number` | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, broker uses the `retryPolicy.retries` value of broker options. [Read more](fault-tolerance.html#Retry) |
-| `fallbackResponse` | `Any` | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback) |
-| `nodeID` | `String` | `null` | Target nodeID. If set, it will make a direct call to the given node. |
-| `meta` | `Object` | `null` | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well. |
-| `parentCtx` | `Context` | `null` | Parent `Context` instance.  |
-| `requestID` | `String` | `null` | Request ID or correlation ID. _It appears in the metrics events._ |
+| `timeout` | `Number` | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
+| `retries` | `Number` | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry). |
+| `fallbackResponse` | `Any` | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback). |
+| `nodeID` | `String` | `null` | Target nodeID. If set, it will make a direct call to the specified node. |
+| `meta` | `Object` | `{}` | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well. |
+| `parentCtx` | `Context` | `null` | Parent `Context` instance. Use it to chain the calls.  |
+| `requestID` | `String` | `null` | Request ID or Correlation ID. Use it for tracing. |
 
 
 ### Usages
 **Call without params**
 ```js
-broker.call("user.list")
-    .then(res => console.log("User list: ", res));
+const res = await broker.call("user.list");
 ```
 
 **Call with params**
 ```js
-broker.call("user.get", { id: 3 })
-    .then(res => console.log("User: ", res));
-```
-
-**Call with async/await**
-```js
 const res = await broker.call("user.get", { id: 3 });
-console.log("User: ", res);
 ```
 
-**Call with options**
+**Call with calling options**
 ```js
-broker.call("user.recommendation", { limit: 5 }, {
+const res = await broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
     retries: 3,
     fallbackResponse: defaultRecommendation
-}).then(res => console.log("Result: ", res));
+});
 ```
 
-**Call with error handling**
+**Call with promise error handling**
 ```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
@@ -72,8 +64,7 @@ broker.call("posts.update", { id: 2, title: "Modified post title" })
 
 **Direct call: get health info from the "node-21" node**
 ```js
-broker.call("$node.health", {}, { nodeID: "node-21" })
-    .then(res => console.log("Result: ", res));    
+const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
 ### Metadata
@@ -157,6 +148,7 @@ module.exports = {
     nodeID: "node-1",
     requestTimeout: 3000
 };
+
  // greeter.service.js
 module.exports = {
     name: "greeter",
@@ -205,6 +197,7 @@ module.exports = {
     name: "storage",
     actions: {
         save(ctx) {
+            // Save the received stream to a file
             const s = fs.createWriteStream(`/tmp/${ctx.meta.filename}`);
             ctx.params.pipe(s);
         }
@@ -296,6 +289,34 @@ module.exports = {
 
 ## Action hooks
 Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+
+### Before hooks
+In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers.
+If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
+
+**Main usages:** 
+- parameter sanitization
+- parameter validation
+- entity finding
+- authorization
+
+### After hooks
+In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. 
+In the hook, it has to return the response.
+
+**Main usages:** 
+- property populating
+- remove sensitive data.
+- wrapping the response into an `Object`
+- convert the structure of the response
+
+### Error hooks
+The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
+
+**Main usages:** 
+- error handling
+- wrap the error into another one
+- fallback response
 
 ### Service level declaration
 Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
@@ -484,10 +505,10 @@ INFO  - After all hook
 ```
 
 ### Reusability
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and, later, import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
 
-**Mixin**
 ```js
+// authorize.mixin.js
 module.exports = {
     methods: {
         checkIsAuthenticated(ctx) {
@@ -505,9 +526,9 @@ module.exports = {
 }
 ```
 
-**Use mixin methods in hooks**
 ```js
-const MyAuthMixin = require("./my.mixin");
+// posts.service.js
+const MyAuthMixin = require("./authorize.mixin");
 
 module.exports = {
     name: "posts",
@@ -565,49 +586,4 @@ module.exports = {
         }
     }
 }
-```
-
-## Context
-When you call an action, the broker creates a `Context` instance which contains all request information and passes it to the action handler as a single argument.
-
-**Available properties & methods of `Context`:**
-
-| Name | Type |  Description |
-| ------- | ----- | ------- |
-| `ctx.id` | `String` | Context ID |
-| `ctx.broker` | `ServiceBroker` | Instance of the broker. |
-| `ctx.action` | `Object` | Instance of action definition. |
-| `ctx.nodeID` | `String` | The caller or target Node ID. |
-| `ctx.caller` | `String` | Action name of the caller. E.g.: `v3.myService.myAction` |
-| `ctx.requestID` | `String` | Request ID. If you make nested-calls, it will be the same ID. |
-| `ctx.parentID` | `String` | Parent context ID (in nested-calls). |
-| `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
-| `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
-| `ctx.locals` | `Any` | Local data. *It will be also transferred to nested-calls.* |
-| `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
-| `ctx.call()` | `Function` | Make nested-calls. Same arguments like in `broker.call` |
-| `ctx.emit()` | `Function` | Emit an event, same as `broker.emit` |
-| `ctx.broadcast()` | `Function` | Broadcast an event, same as `broker.broadcast` |
-
-### Context tracking
-If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. 
-A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
-
-**Enable context tracking & change the timeout value.
-```js
-const broker = new ServiceBroker({
-    nodeID: "node-1",
-    tracking: {
-        enabled: true,
-        shutdownTimeout: 10 * 1000
-    }
-});
-```
-
-> The shutdown timeout can be overwritten by `$shutdownTimeout` property in service settings.
-
-**Disable tracking in calling option**
-
-```js
-broker.call("posts.find", {}, { tracking: false });
 ```

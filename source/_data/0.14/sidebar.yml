@@ -11,6 +11,7 @@ docs:
     services: services.html
     actions: actions.html
     events: events.html
+    context: context.html
     lifecycle: lifecycle.html
     logging: logging.html
     middlewares: middlewares.html
