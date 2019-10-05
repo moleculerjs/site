@@ -66,6 +66,7 @@ posts.find:limit|5|offset|20
 ```
 
 However, the params can contain properties which is not relevant for the cache key. On the other hand, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property.
+To use meta keys in cache `keys` use the `#` prefix.
 
 **Strict the list of `params` & `meta` properties for key generation**
 ```js
@@ -84,34 +85,14 @@ However, the params can contain properties which is not relevant for the cache k
     }
 }
 
-// If params is { limit: 10, offset: 30 } and meta is { user: { id: 123 } }, the cache key will be:
+// If params is { limit: 10, offset: 30 } and meta is { user: { id: 123 } }, 
+// the cache key will be:
 //   posts.list:10|30|123
 ```
 
-{% note info Performance %}
+{% note info Performance tip %}
 This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
-
-### Cache meta keys
-To use meta keys in cache `keys` use the `#` prefix.
-
-```js
-broker.createService({
-    name: "posts",
-    actions: {
-        list: {
-            cache: {
-                // Cache key:  "limit" & "offset" from ctx.params, "user.id" from ctx.meta
-                keys: ["limit", "offset", "#user.id"],
-                ttl: 5
-            },
-            handler(ctx) {
-
-            }
-        }
-    }
-});
-```
 
 ### Limiting cache key length
 Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than this configured limitvalue, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
@@ -237,13 +218,13 @@ broker.cacher.set("mykey.a", { a: 5 });
 const obj = await broker.cacher.get("mykey.a")
 
 // Remove entry from cache
-broker.cacher.del("mykey.a");
+await broker.cacher.del("mykey.a");
 
 // Clean all 'mykey' entries
-broker.cacher.clean("mykey.**");
+await broker.cacher.clean("mykey.**");
 
 // Clean all entries
-broker.cacher.clean();
+await broker.cacher.clean();
 ```
 
 Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
@@ -259,7 +240,7 @@ pipeline.exec();
 ```
 
 ## Clear cache
-When you create a new model in your service, sometimes you have to clear the old cached model entries.
+When you create a new model in your service, you have to clear the old cached model entries.
 
 **Example to clean the cache inside actions**
 ```js
@@ -290,7 +271,7 @@ When you create a new model in your service, sometimes you have to clear the old
 ```
 
 ### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is that use broadcast events.
+The best practice to clear cache entries among multiple service instances is that use broadcast events. It is necessary only for non-centralized cachers like `Memory` or `MemoryLRU`.
 
 **Example**
 ```js
@@ -344,7 +325,7 @@ Common way is that your service depends on other ones. E.g. `posts` service stor
 ```
 The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
 
-To make it easier, create a `CacheCleaner` mixin and define in constructor the dependent services.
+To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
 
 **cache.cleaner.mixin.js**
 ```js
@@ -386,7 +367,7 @@ module.exports = {
 With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear the own cache entries.
 
 ## Cache locking
-Moleculer also supports cache locking feature. For detailed info [check the PR](https://github.com/moleculerjs/moleculer/pull/490)
+Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
 
 **Enable Lock**
 ```js
@@ -472,8 +453,6 @@ const broker = new ServiceBroker({
 });
 ```
 
-With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear the own cache entries.
-
 ## Built-in cachers
 
 ### Memory cacher
@@ -513,6 +492,7 @@ const broker = new ServiceBroker({
 | `clone` | `Boolean` or `Function` | `false` | Clone the cached data when return it. |
 | `keygen` | `Function` | `null` | Custom cache key generator function. |
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
+| `lock` | `Boolean` or `Object` | `null` | Enable lock feature. |
 
 #### Cloning
 The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
@@ -528,6 +508,48 @@ const broker = new ServiceBroker({
     }
 });
 ```
+
+### LRU memory cacher
+`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. It deletes the least-recently-used items.
+
+**Enable LRU cacher**
+```js
+const broker = new ServiceBroker({
+    cacher: "MemoryLRU"
+});
+```
+
+**With options**
+```js
+let broker = new ServiceBroker({
+    logLevel: "debug",
+    cacher: {
+        type: "MemoryLRU",
+        options: {
+            // Maximum items
+            max: 100,
+            // Time-to-Live
+            ttl: 3
+        }
+    }
+});
+```
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `ttl` | `Number` | `null` | Time-to-live in seconds. |
+| `max` | `Number` | `null` | Maximum items in the cache. |
+| `clone` | `Boolean` or `Function` | `false` | Clone the cached data when return it. |
+| `keygen` | `Function` | `null` | Custom cache key generator function. |
+| `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
+| `lock` | `Boolean` or `Object` | `null` | Enable lock feature. |
+
+
+{% note info Dependencies %}
+To be able to use this cacher, install the `lru-cache` module with the `npm install lru-cache --save` command.
+{% endnote %}
 
 ### Redis cacher
 `RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. It uses [`ioredis`](https://github.com/luin/ioredis) library.
@@ -572,6 +594,7 @@ const broker = new ServiceBroker({
 ```
 
 **With MessagePack serializer**
+You can define a serializer for Redis Cacher. It uses JSON serializer by default.
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-123",
@@ -622,44 +645,14 @@ const broker = new ServiceBroker({
 | `redis` | `Object` | `null` | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis). |
 | `keygen` | `Function` | `null` | Custom cache key generator function. |
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
-| `serializer` | `String` | `null` | Name of a built-in serializer. Default: `"JSON"` |
+| `serializer` | `String` | `"JSON"` | Name of a built-in serializer. |
 | `cluster` | `Object` | `null` | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster) |
-
+| `lock` | `Boolean|Object` | `null` | Enable lock feature. |
 
 {% note info Dependencies %}
 To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
 {% endnote %}
 
-### LRU memory cacher
-`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. It deletes the least-recently-used items.
-
-**Enable LRU cacher**
-```js
-const broker = new ServiceBroker({
-    cacher: "MemoryLRU"
-});
-```
-
-**With options**
-```js
-let broker = new ServiceBroker({
-    logLevel: "debug",
-    cacher: {
-        type: "MemoryLRU",
-        options: {
-            // Maximum items
-            max: 100,
-            // Time-to-Live
-            ttl: 3
-        }
-    }
-});
-```
-
-
-{% note info Dependencies %}
-To be able to use this cacher, install the `lru-cache` module with the `npm install lru-cache --save` command.
-{% endnote %}
 
 ## Custom cacher
 Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
@@ -669,10 +662,10 @@ Custom cache module can be created. We recommend to copy the source of [MemoryCa
 const BaseCacher = require("moleculer").Cachers.Base;
 
 class MyCacher extends BaseCacher {
-    get(key) { /*...*/ }
-    set(key, data, ttl) { /*...*/ }
-    del(key) { /*...*/ }
-    clean(match = "**") { /*...*/ }
+    async get(key) { /*...*/ }
+    async set(key, data, ttl) { /*...*/ }
+    async del(key) { /*...*/ }
+    async clean(match = "**") { /*...*/ }
 }
 ```
 

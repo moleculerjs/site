@@ -129,5 +129,5 @@ broker.start()
 ```
 
 {% note info Find more validators %}
-[Check the modules page and find more validators.](/modules.html#validators)
+[Check the modules page and find more validators.](/modules.html#validation)
 {% endnote %}

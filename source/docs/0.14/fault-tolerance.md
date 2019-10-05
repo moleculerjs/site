@@ -1,6 +1,8 @@
 title: Fault tolerance
 ---
 
+Moleculer has several built-in fault-tolerance features. They can be enabled or disabled in broker options.
+
 ## Circuit Breaker
 
 Moleculer has a built-in circuit-breaker solution. It is a threshold-based implementation. It uses a time window to check the failed request rate. Once the threshold value is reached, it trips the circuit breaker.
@@ -38,7 +40,7 @@ const broker = new ServiceBroker({
 | `halfOpenTime` | `Number` | `10000` | Number of milliseconds to switch from `open` to `half-open` state |
 | `check` | `Function` | `err && err.code >= 500` | A function to check failed requests. |
 
-> If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#Internal-events).
+> If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#circuit-breaker-opened).
 
 These global options can be overridden in action definition, as well.
 ```js
@@ -154,7 +156,7 @@ const broker = new ServiceBroker({
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `enabled` | `Boolean` | `false` | Enable feature. |
-| `concurreny` | `Number` | `3` | Maximum concurrent executions. |
+| `concurrency` | `Number` | `3` | Maximum concurrent executions. |
 | `maxQueueSize` | `Number` | `10` | Maximum size of queue |
 
 The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit or it is 0, broker will throw `QueueIsFull` exception for every addition requests.
@@ -171,14 +173,14 @@ module.export = {
     actions: {
         find: {
             bulkhead: {
+                // Disable bulkhead for this action
                 enabled: false
             },
             handler(ctx) {}
         },
         create: {
             bulkhead: {
-                // Increment the concurrency value
-                // for this action
+                // Increment the concurrency value for this action
                 concurrency: 10
             },
             handler(ctx) {}
@@ -236,7 +238,6 @@ module.exports = {
     actions: {
         add: {
             fallback: (ctx, err) => "Some cached result",
-            //fallback: "fakeResult",
             handler(ctx) {
                 // Do something
             }
