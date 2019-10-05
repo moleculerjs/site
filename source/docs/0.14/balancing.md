@@ -6,25 +6,17 @@ Moleculer has several built-in load balancing strategies. If services have multi
 ## Built-in strategies
 To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
 
-**Configure balancing strategy**
-```js
-const broker = new ServiceBroker({
-    registry: {
-        strategy: "Random"
-    }
-});
-```
-
 ### RoundRobin strategy
 This strategy selects a node based on [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS) algorithm.
 
 **Usage**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "RoundRobin"
     }
-});
+};
 ```
 
 ### Random strategy
@@ -32,22 +24,24 @@ This strategy selects a node randomly.
 
 **Usage**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "Random"
     }
-});
+};
 ```
 ### CPU usage-based strategy
 This strategy selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
 
 **Usage**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "CpuUsage"
     }
-});
+};
 ```
 
 **Strategy options**
@@ -59,7 +53,8 @@ const broker = new ServiceBroker({
 
 **Usage with custom options**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "CpuUsage",
         strategyOptions: {
@@ -67,19 +62,20 @@ const broker = new ServiceBroker({
             lowCpuUsage: 10
         }
     }
-});
+};
 ```
 
 ### Latency-based strategy
-This strategy selects a node which has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one of nodes from a single host. Due to the node list can be very long, it gets samples and selects the host with the lowest latency from only samples instead of the whole node list.
+This strategy selects a node which has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Due to the node list can be very long, it gets samples and selects the host with the lowest latency from only samples instead of the whole node list.
 
 **Usage**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "Latency"
     }
-});
+};
 ```
 
 **Strategy options**
@@ -89,11 +85,12 @@ const broker = new ServiceBroker({
 | `sampleCount` | `Number` | `5` | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
 | `lowLatency` | `Number` | `10` | The low latency (ms). The node which has lower latency than this value is selected immediately. |
 | `collectCount` | `Number` | `5` | The number of measured latency per host to keep in order to calculate the average latency. |
-| `pingInterval` | `Number` | `10` | Ping interval (s). If you have a lot of host/nodes, it's recommended to *increase* the value. |
+| `pingInterval` | `Number` | `10` | Ping interval in seconds. If you have a lot of host/nodes, it's recommended to *increase* the value. |
 
 **Usage with custom options**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "Latency",
         strategyOptions: {
@@ -103,34 +100,36 @@ const broker = new ServiceBroker({
             pingInterval: 15
         }
     }
-});
+};
 ```
 
 ### Sharding strategy
-Shard invocation strategy is based on [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing) algorithm. It uses a key value from context `params` or `meta` to route the request a specific node. It means that requests with same key value will be routed to the same node.
+Shard invocation strategy is based on [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing) algorithm. It uses a key value from context `params` or `meta` to route the request to nodes. It means that requests with same key value will be routed to the same node.
 
 **Example of a shard key `name` in context `params`**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "Shard",
         strategyOptions: {
             shardKey: "name"
         }
     }
-});
+};
 ```
 
 **Example of a shard key `user.id` in context `meta`**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "Shard",
         strategyOptions: {
             shardKey: "#user.id"
         }
     }
-});
+};
 ```
 {% note info %}
 If shard key is in context's `meta` it must be declared with a `#` at the beginning. The actual `#` is ignored.
@@ -148,7 +147,8 @@ If shard key is in context's `meta` it must be declared with a `#` at the beginn
 
 **All available options of Shard strategy**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: "Shard",
         strategyOptions: {
@@ -158,7 +158,7 @@ const broker = new ServiceBroker({
             cacheSize: 1000
         }
     }
-});
+};
 ```
 
 
@@ -170,7 +170,7 @@ Custom strategy can be created. We recommend to copy the source of [RandomStrate
 const BaseStrategy = require("moleculer").Strategies.Base;
 
 class MyStrategy extends BaseStrategy {
-    select(list) { /*...*/ }
+    select(list, ctx) { /*...*/ }
 }
 
 module.exports = MyStrategy;
@@ -182,9 +182,10 @@ module.exports = MyStrategy;
 const { ServiceBroker } = require("moleculer");
 const MyStrategy = require("./my-strategy");
 
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     registry: {
         strategy: MyStrategy
     }
-});
+};
 ```

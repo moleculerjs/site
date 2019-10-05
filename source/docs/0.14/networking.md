@@ -18,23 +18,18 @@ There are several built-in transporters in Moleculer framework.
 This is a no-dependency, zero-configuration TCP transporter. It uses [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) to disseminate node statuses, service list and heartbeats. It contains an integrated UDP discovery feature to detect new and disconnected nodes on the network.
 If the UDP is prohibited on your network, use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
 
-
-
-<!-- **This TCP transporter is the default transporter in Moleculer**.
-It means, you don't have to configure any transporter, just start the brokers/nodes, use same namespaces and the nodes will find each others.
->If you don't want to use transporter, set `transporter: null` in broker options.
--->
-
 **Use TCP transporter with default options**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     transporter: "TCP"
-});
+};
 ```
 
 **All TCP transporter options with default values**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     logger: true,
     transporter: {
         type: "TCP",
@@ -74,12 +69,13 @@ const broker = new ServiceBroker({
             maxPacketSize: 1 * 1024 * 1024            
         }
     }
-});
+};
 ```
 
 **TCP transporter with static endpoint list**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "node-1",
     logger: true,
     transporter: {
@@ -93,33 +89,35 @@ const broker = new ServiceBroker({
             ],
         }
     }
-});
+};
 ```
 _You don't need to set `port` because it find & parse the self TCP port from URL list._
 
 **TCP transporter with shorthand static endpoint list**
 It needs to start with `tcp://`.
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "node-1",
     transporter: "tcp://172.17.0.1:6000/node-1,172.17.0.2:6000/node-2,172.17.0.3:6000/node-3"
-});
+};
 ```
 
 **TCP transporter with static endpoint list file**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "node-1",
     transporter: "file://./nodes.json"
-});
+};
 ```
 
 ```js
 // nodes.json
 [
-	"127.0.0.1:6001/client-1",
-	"127.0.0.1:7001/server-1",
-	"127.0.0.1:7002/server-2"
+    "127.0.0.1:6001/client-1",
+    "127.0.0.1:7001/server-1",
+    "127.0.0.1:7002/server-2"
 ]
 ```
 
@@ -133,12 +131,11 @@ Built-in transporter for [NATS](http://nats.io/).
 > NATS Server is a simple, high performance open source messaging system for cloud-native applications, IoT messaging, and microservices architectures.
 
 ```js
-let { ServiceBroker } = require("moleculer");
-
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "server-1",
     transporter: "nats://nats.server:4222"
-});
+};
 ```
 
 {% note info Dependencies %}
@@ -146,19 +143,26 @@ To use this transporter install the `nats` module with `npm install nats --save`
 {% endnote %}
 
 #### Examples
+**Connect to 'nats://localhost:4222'**
 ```js
-// Connect to 'nats://localhost:4222'
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     transporter: "NATS"
-});
+};
+```
 
-// Connect to a remote NATS server
-const broker = new ServiceBroker({
+**Connect to a remote NATS server**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: "nats://nats-server:4222"
-});
+};
+```
 
-// Connect with options
-const broker = new ServiceBroker({
+**Connect with options**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "NATS",
         options: {
@@ -167,10 +171,13 @@ const broker = new ServiceBroker({
             pass: "1234"
         }
     }
-});
+};
+```
 
-// Connect with TLS
-const broker = new ServiceBroker({
+**Connect with TLS**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "NATS",
         options: {
@@ -183,7 +190,7 @@ const broker = new ServiceBroker({
             }
         }
     }
-});
+};
 ```
 
 ### Redis Transporter 
@@ -191,31 +198,45 @@ const broker = new ServiceBroker({
 Built-in transporter for [Redis](http://redis.io/).
 
 ```js
-let { ServiceBroker } = require("moleculer");
-
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "server-1",
     transporter: "redis://redis.server:6379"
-});
+};
 ```
 {% note info Dependencies %}
 To use this transporter install the `ioredis` module with `npm install ioredis --save` command.
 {% endnote %}
 
 #### Examples
+**Connect with default settings**
 ```js
-// Connect with default settings
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     transporter: "Redis"
-});
+};
+```
 
-// Connect with connection string
-const broker = new ServiceBroker({
+**Connect with connection string**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: "redis://localhost:6379"
-});
+};
+```
 
-// Connect with options
-const broker = new ServiceBroker({
+**Connect to a secure Redis server**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "rediss://localhost:6379"
+};
+```
+
+**Connect with options**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "Redis",
         options: {
@@ -223,7 +244,7 @@ const broker = new ServiceBroker({
             db: 0
         }
     }
-});
+};
 ```
 
 ### MQTT Transporter 
@@ -231,31 +252,45 @@ const broker = new ServiceBroker({
 Built-in transporter for [MQTT](http://mqtt.org/) protocol *(e.g.: [Mosquitto](https://mosquitto.org/))*.
 
 ```js
-let { ServiceBroker } = require("moleculer");
-
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "server-1",
     transporter: "mqtt://mqtt-server:1883"
-});
+};
 ```
 {% note info Dependencies %}
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
 #### Examples
+**Connect with default settings**
 ```js
-// Connect with default settings
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     transporter: "MQTT"
-});
+};
+```
 
-// Connect with connection string
-const broker = new ServiceBroker({
+**Connect with connection string**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: "mqtt://mqtt-server:1883"
-});
+};
+```
 
-// Connect with options
-const broker = new ServiceBroker({
+**Connect to secure MQTT server**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "mqtts://mqtt-server:1883"
+};
+```
+
+**Connect with options**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "MQTT",
         options: {
@@ -265,20 +300,19 @@ const broker = new ServiceBroker({
             topicSeparator: "."
         }
     }
-});
+};
 ```
 
-### AMQP Transporter 
+### AMQP (0.9) Transporter 
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
-Built-in transporter for [AMQP](https://www.amqp.org/) protocol *(e.g.: [RabbitMQ](https://www.rabbitmq.com/))*.
+Built-in transporter for [AMQP](https://www.amqp.org/) 0.9 protocol *(e.g.: [RabbitMQ](https://www.rabbitmq.com/))*.
 
 ```js
-let { ServiceBroker } = require("moleculer");
-
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "server-1",
     transporter: "amqp://rabbitmq-server:5672"
-});
+};
 ```
 {% note info Dependencies %}
 To use this transporter install the `amqplib` module with `npm install amqplib --save` command.
@@ -287,19 +321,34 @@ To use this transporter install the `amqplib` module with `npm install amqplib -
 #### Transporter options
 Options can be passed to `amqp.connect()` method.
 
+**Connect to 'amqp://guest:guest@localhost:5672'**
 ```js
-// Connect to 'amqp://guest:guest@localhost:5672'
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     transporter: "AMQP"
 });
+```
 
-// Connect to a remote server
-const broker = new ServiceBroker({
+**Connect to a remote server**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: "amqp://rabbitmq-server:5672"
 });
+```
 
-// Connect to a remote server with options & credentials
-const broker = new ServiceBroker({
+**Connect to a secure server**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "amqps://rabbitmq-server:5672"
+});
+```
+
+**Connect to a remote server with options & credentials**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "AMQP",
         options: {
@@ -313,13 +362,13 @@ const broker = new ServiceBroker({
             autoDeleteQueues: true
         }
     }
-});
+};
 ```
 
 ### Kafka Transporter
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
-Built-in transporter for [Kafka](https://kafka.apache.org/). It is a very simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
-
+Built-in transporter for [Kafka](https://kafka.apache.org/). 
+>It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 {% note info Dependencies %}
 To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
@@ -327,16 +376,16 @@ To use this transporter install the `kafka-node` module with `npm install kafka-
 
 **Connect to Zookeeper**
 ```js
-const broker = new ServiceBroker({
-    logger: true,
+// moleculer.config.js
+module.exports = {
     transporter: "kafka://192.168.51.29:2181"
-});
+};
 ```
 
 **Connect to Zookeeper with custom options**
 ```js
-const broker = new ServiceBroker({
-    logger: true,
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "kafka",
         options: {
@@ -364,21 +413,21 @@ const broker = new ServiceBroker({
             }               
         }
     }
-
-});
+};
 ```
+
 ### NATS Streaming (STAN) Transporter
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
-Built-in transporter for [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/). It is a very simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
+Built-in transporter for [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/). 
+>It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 
 ```js
-let { ServiceBroker } = require("moleculer");
-
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "server-1",
     transporter: "stan://nats-streaming-server:4222"
-});
+};
 ```
 
 {% note info Dependencies %}
@@ -386,19 +435,26 @@ To use this transporter install the `node-nats-streaming` module with `npm insta
 {% endnote %}
 
 #### Examples
+**Connect with default settings**
 ```js
-// Connect with default settings
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     transporter: "STAN"
-});
+};
+```
 
-// Connect with connection string
-const broker = new ServiceBroker({
+**Connect with connection string**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: "stan://nats-streaming-server:4222"
-});
+};
+```
 
-// Connect with options
-const broker = new ServiceBroker({
+**Connect with options**
+```js
+// moleculer.config.js
+module.exports = {
     transporter: {
         type: "STAN",
         options: {
@@ -406,11 +462,11 @@ const broker = new ServiceBroker({
             clusterID: "my-cluster"
         }
     }
-});
+};
 ```
 
 ### Custom transporter
-Custom transporter module can be created. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `publish` methods.
+Custom transporter module can be created. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `send` methods.
 
 #### Create custom transporter
 ```js
@@ -420,19 +476,19 @@ class MyTransporter extends BaseTransporter {
     connect() { /*...*/ }
     disconnect() { /*...*/ }
     subscribe() { /*...*/ }
-    publish() { /*...*/ }
+    send() { /*...*/ }
 }
 ```
 
 #### Use custom transporter
 
 ```js
-const { ServiceBroker } = require("moleculer");
+// moleculer.config.js
 const MyTransporter = require("./my-transporter");
 
-const broker = new ServiceBroker({
+module.exports = {
     transporter: new MyTransporter()
-});
+};
 ```
 
 ## Disabled balancer
@@ -440,10 +496,11 @@ Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, 
 
 **Example**
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     disableBalancer: true,
     transporter: "nats://some-server:4222"
-});
+};
 ```
 
 {% note info Please note %}
@@ -455,31 +512,32 @@ Transporter needs a serializer module which serializes & deserializes the transf
 
 **Example**
 ```js
-const { ServiceBroker } = require("moleculer");
-
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     nodeID: "server-1",
     transporter: "NATS",
     serializer: "ProtoBuf"
-});
+};
 ```
 
 ### JSON serializer
-This is the built-in default serializer. It serializes the packets to JSON string and deserializes the received data to packet.
+This is the default serializer. It serializes the packets to JSON string and deserializes the received data to packet.
 
 ```js
-const broker = new ServiceBroker({
-    // serializer: "JSON" // don't need to set, because it is the default
-});
+// moleculer.config.js
+module.exports = {
+    serializer: "JSON" // not necessary to set, because it is the default
+};
 ```
 
 ### Avro serializer
 Built-in [Avro](https://github.com/mtth/avsc) serializer.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     serializer: "Avro"
-});
+};
 ```
 {% note info Dependencies %}
 To use this serializer install the `avsc` module with `npm install avsc --save` command.
@@ -489,9 +547,10 @@ To use this serializer install the `avsc` module with `npm install avsc --save` 
 Built-in [MsgPack](https://github.com/mcollina/msgpack5) serializer.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     serializer: "MsgPack"
-});
+};
 ```
 {% note info Dependencies %}
 To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
@@ -501,9 +560,10 @@ To use this serializer install the `msgpack5` module with `npm install msgpack5 
 Built-in [Notepack](https://github.com/darrachequesne/notepack) serializer.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     serializer: "Notepack"
-});
+};
 ```
 {% note info Dependencies %}
 To use this serializer install the `notepack` module with `npm install notepack.io --save` command.
@@ -513,9 +573,10 @@ To use this serializer install the `notepack` module with `npm install notepack.
 Built-in [Protocol Buffer](https://developers.google.com/protocol-buffers/) serializer.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     serializer: "ProtoBuf"
-});
+};
 ```
 {% note info Dependencies %}
 To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
@@ -525,9 +586,10 @@ To use this serializer install the `protobufjs` module with `npm install protobu
 Built-in [Thrift](http://thrift.apache.org/) serializer.
 
 ```js
-const broker = new ServiceBroker({
+// moleculer.config.js
+module.exports = {
     serializer: "Thrift"
-});
+};
 ```
 {% note info Dependencies %}
 To use this serializer install the `thrift` module with `npm install thrift --save` command.
@@ -549,10 +611,10 @@ class MySerializer extends BaseSerializer {
 #### Use custom serializer
 
 ```js
-const { ServiceBroker } = require("moleculer");
+// moleculer.config.js
 const MySerializer = require("./my-serializer");
 
-const broker = new ServiceBroker({
+module.exports = {
     serializer: new MySerializer()
-});
+};
 ```
