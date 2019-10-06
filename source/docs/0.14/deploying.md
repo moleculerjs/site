@@ -33,7 +33,7 @@ This configuration creates 4 containers:
 - Traefik for load balancing the API Gateway
 
 ```yaml
-version: "3.0"
+version: "3.2"
 
 services:
 
@@ -45,8 +45,6 @@ services:
     environment:
       SERVICES: api
       PORT: 3000
-    links:
-      - nats
     depends_on:
       - nats
     labels:
@@ -55,6 +53,8 @@ services:
       - "traefik.port=3000"
       - "traefik.frontend.entryPoints=http"
       - "traefik.frontend.rule=PathPrefix:/"
+    networks:
+      - internal
 
   greeter:
     build:
@@ -63,17 +63,17 @@ services:
     env_file: docker-compose.env
     environment:
       SERVICES: greeter
-    links:
-      - nats
     depends_on:
       - nats
-
+    networks:
+      - internal
 
   nats:
     image: nats
-
+    networks:
+      - internal
   traefik:
-    image: traefik
+    image: traefik:1.7
     command: --web --docker --docker.domain=docker.localhost --logLevel=INFO --docker.exposedbydefault=false
     ports:
       - "3000:80"
@@ -81,7 +81,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /dev/null:/traefik.toml
+    networks:
+      - internal
+      - default
 
+networks:
+  internal:
 ```
 ### Deploying
 

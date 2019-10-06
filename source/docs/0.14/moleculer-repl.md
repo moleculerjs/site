@@ -257,8 +257,8 @@ mol $ load "./services"
 Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.
 
 ```js
-const broker = new ServiceBroker({
-    logger: true,
+// moleculer.config.js
+module.exports = {
     replCommands: [
         {
             command: "hello <name>",
@@ -281,9 +281,7 @@ const broker = new ServiceBroker({
             }
         }
     ]
-});
-
-broker.repl();
+};
 ```
 
 ```bash

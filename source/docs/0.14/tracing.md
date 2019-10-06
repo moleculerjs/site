@@ -104,6 +104,8 @@ The tracing module supports several exporters, custom tracing spans and integrat
 ### Console
 This is a debugging exporter which prints full local trace to the console.
 
+![Console Trace Graph](assets/tracing/console.png#zoomable)
+
 {% note warn %}
 Console exporter can't follow remote calls, only locals.
 {% endnote %}
@@ -134,7 +136,7 @@ module.exports = {
 Datadog exporter sends tracing data to [Datadog](https://www.datadoghq.com/) server via `dd-trace`. 
 <!-- It is able to merge tracing spans of instrumented Node.js modules and Moleculer modules. -->
 
-<!-- TODO screenshot -->
+![Datadog Trace Graph](assets/tracing/datadog-trace-graph.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -300,6 +302,8 @@ The payload looks like the following:
 ### Jaeger
 Jaeger exporter sends tracing spans information to a [Jaeger](https://www.jaegertracing.io) server.
 
+![Jaeger Trace Graph](assets/tracing/jaeger.png#zoomable)
+
 ```js
 // moleculer.config.js
 module.exports = {
@@ -337,6 +341,8 @@ To use this exporter, install the `jaeger-client` module with `npm install jaege
 
 ### Zipkin
 Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.apache.org/) server.
+
+![Zipkin Trace Graph](assets/tracing/zipkin.png#zoomable)
 
 ```js
 // moleculer.config.js

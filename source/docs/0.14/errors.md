@@ -137,8 +137,8 @@ The following example shows how to create a custom `Error` class which is inheri
 const { MoleculerError } = require("moleculer").Errors;
 
 class MyBusinessError extends MoleculerError {
-	constructor(msg, data) {
-		super(msg || `This is my business error.`, 500, "MY_BUSINESS_ERROR", data);
-	}
+    constructor(msg, data) {
+        super(msg || `This is my business error.`, 500, "MY_BUSINESS_ERROR", data);
+    }
 }
 ```

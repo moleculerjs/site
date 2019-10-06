@@ -6,7 +6,6 @@ You must create a `ServiceBroker` instance on every node.
 <div align="center">
     <img src="assets/service-broker.svg" alt="Broker logical diagram" />
 </div>
-<div><b>TODO: add tracing & metrics blocks</b></div>
 
 ## Create a ServiceBroker
 

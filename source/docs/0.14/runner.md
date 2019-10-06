@@ -1,11 +1,11 @@
 title: Moleculer Runner
 ---
 
-Moleculer Runner is a helper script that helps you running Moleculer projects. With it you don't need to create a ServiceBroker instance with options. Instead you can create a `moleculer.config.js` or `moleculer.config.json` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script and it will automatically load the configuration file, create the broker and load the services. Alternatively, you can declare your configuration as environment variables.
+Moleculer Runner is a helper script that helps you running Moleculer projects. With it you don't need to create a ServiceBroker instance with options. Instead you can create a `moleculer.config.js` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script and it will automatically load the configuration file, create the broker and load the services. Alternatively, you can declare your configuration as environment variables.
 
 
 {% note info Production-ready %}
-In production, we recommend putting options into the environment variables! Use the `moleculer.config.js` only during development or store only common options.
+Use the `moleculer.config.js` during development or store common options. In production, you can overwrite the values with the environment variables!
 {% endnote %}
 
 ## Syntax
@@ -55,6 +55,7 @@ The structure of the configuration file is the same as that of the [broker optio
 
 **Example config file**
 ```js
+// moleculer.config.js
 module.exports = {
     nodeID: "node-test",
     logger: true,
