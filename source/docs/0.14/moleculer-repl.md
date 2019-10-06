@@ -39,6 +39,7 @@ broker.repl();
     info                                                Information about broker
     load <servicePath>                                  Load a service from file
     loadFolder <serviceFolder> [fileMask]               Load all services from folder
+    metrics [options]                                   List metrics
     nodes [options]                                     List of nodes
     services [options]                                  List of services
 ```
@@ -252,6 +253,19 @@ mol $ load "./math.service.js"
 ```bash
 mol $ load "./services"
 ```
+
+### List metrics
+```bash
+mol $ metrics
+```
+
+**Options**
+```
+    -f, --filter <match>  filter metrics (e.g.: 'moleculer.**')
+```
+
+**Output**
+![image](assets/repl/metrics.png#zoomable)
 
 ### Custom commands
 Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.
