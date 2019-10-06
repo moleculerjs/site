@@ -27,7 +27,7 @@ module.exports = {
 | `enabled` | `Boolean` | `false` | Enable tracing feature. |
 | `reporter` | `Object` or `Array<Object>` | `null` | Metric reporter configuration. [More info](#Metrics-Reporters) |
 | `collectProcessMetrics` | `Boolean` | | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"` |
-| `collectInterval` | `Number` | `5000` | Collect time period in milliseconds. |
+| `collectInterval` | `Number` | `5` | Collect time period in seconds. |
 | `defaultBuckets` | `Array<Number>` | | Default bucket values for histograms. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` |
 | `defaultQuantiles` | `Array<Number>` | | Default quantiles for histograms. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]` |
 | `defaultMaxAgeSeconds` | `Number` | `60` | Max age seconds for quantile calculation. |
@@ -84,8 +84,8 @@ module.exports = {
             {
                 type: "Console",
                 options: {
-                    // Printing interval in milliseconds
-                    interval: 5 * 1000,
+                    // Printing interval in seconds
+                    interval: 5,
                     // Custom logger.
                     logger: null,
                     // Using colors
