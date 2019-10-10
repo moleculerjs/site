@@ -1,3 +1,4 @@
+---
 menu:
   docs: Документация
   modules: Модули
@@ -8,12 +9,10 @@ menu:
   blog: Блог
   store: Мерч
   search: Поиск...
-
 index:
   get_started: С чего начать
   who_is_using: Что такое Moleculer?
   tell_us: Не нашли вашу компанию? Сообщите нам!
-
 page:
   contents: Содержание
   back_to_top: Вверх
@@ -21,7 +20,6 @@ page:
   prev: Назад
   next: Далее
   last_updated: "Обновлено: %s"
-
 sidebar:
   docs:
     getting_started: Первые шаги
@@ -32,7 +30,6 @@ sidebar:
     examples: Примеры
     concepts: Архитектура
     support: Поддержка
-
     introduction: Введение
     core: Core
     configuration: Configuration
@@ -55,7 +52,6 @@ sidebar:
     validating: Validating
     errors: Errors
     runner: Moleculer Runner
-
     modules: Модули
     tools: Утилиты
     moleculer_web: API Gateway
@@ -64,7 +60,6 @@ sidebar:
     moleculer_db: DB Adapters
     other_modules: Другие модули
     all_modules: Все модули
-
     miscellaneous: Miscellaneous
     clustering: Clustering
     deploying: Deploying
@@ -74,8 +69,7 @@ sidebar:
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing
-
-    # Old 01.12 menu
+    #Old 01.12 menu
     transporters: Transporters
     logger: Logger
     circuit-breaker: Circuit Breaker
@@ -83,24 +77,20 @@ sidebar:
     cachers: Cachers
     serializers: Serializers
     statistics: Statistics
-    validation: Validation
-
+    validation: Валидация
     api: API
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context
     api_protocol: Protocol
-
 modules:
   name: Название
   description: Описание
   author: Автор
   version: Версия
-
   checkout_awesome: Посмотрите Awesome Moleculer репозиторий!
   doyouhave: У вас имеется свой модуль для Moleculer?
   tellus: Сообщите нам!
-
   gateway: Шлюз
   general: Основные
   databases: Базы данных и хранилища
