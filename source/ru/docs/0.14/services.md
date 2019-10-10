@@ -82,7 +82,7 @@ module.exports = {
 ### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
-| Name                   | Type      | Default | Description                                          |
+| Название               | Type      | Default | Описание                                             |
 | ---------------------- | --------- | ------- | ---------------------------------------------------- |
 | `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
@@ -275,7 +275,7 @@ module.exports = {
 ## Methods
 To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
 
-**Usage**
+**Первые шаги**
 ```js
 // mailer.service.js
 module.exports = {
@@ -378,7 +378,7 @@ To wait for services, you can also use the `waitForServices` method of `ServiceB
 
 **Parameters**
 
-| Parameter  | Type                | Default | Description                                                                                   |
+| Parameter  | Type                | Default | Описание                                                                                      |
 | ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
 | `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
 | `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
@@ -421,7 +421,7 @@ module.exports = {
 ## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
-| Name                   | Type                 | Description                                                 |
+| Название               | Type                 | Описание                                                    |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
 | `this.name`            | `String`             | Name of service (from schema)                               |
 | `this.version`         | `Number` or `String` | Version of service (from schema)                            |
@@ -783,7 +783,7 @@ broker.call("$node.list").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                |
+| Название        | Type      | Default | Описание                   |
 | --------------- | --------- | ------- | -------------------------- |
 | `withServices`  | `Boolean` | `false` | List with services.        |
 | `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
@@ -796,7 +796,7 @@ broker.call("$node.services").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                           |
+| Название        | Type      | Default | Описание                              |
 | --------------- | --------- | ------- | ------------------------------------- |
 | `onlyLocal`     | `Boolean` | `false` | List only local services.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
@@ -812,7 +812,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name            | Type      | Default | Description                          |
+| Название        | Type      | Default | Описание                             |
 | --------------- | --------- | ------- | ------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
@@ -828,7 +828,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name            | Type      | Default | Description                                |
+| Название        | Type      | Default | Описание                                   |
 | --------------- | --------- | ------- | ------------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
@@ -844,7 +844,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name       | Type                | Default | Description                                                                    |
+| Название   | Type                | Default | Описание                                                                       |
 | ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
 | `types`    | `String` or `Array` | `null`  | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
 | `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
