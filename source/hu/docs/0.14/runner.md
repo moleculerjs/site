@@ -16,7 +16,7 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 
 ## Options
 
-| Option                         | Type      | Default | Description                                                                       |
+| Option                         | Type      | Default | Leírás                                                                            |
 | ------------------------------ | --------- | ------- | --------------------------------------------------------------------------------- |
 | `-r`, `--repl`                 | `Boolean` | `false` | If true, it switches to [REPL](moleculer-repl.html) mode after broker started.    |
 | `-s`, `--silent`               | `Boolean` | `false` | Disable the broker logger. It prints nothing to the console.                      |
