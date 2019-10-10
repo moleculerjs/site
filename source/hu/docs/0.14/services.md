@@ -82,7 +82,7 @@ module.exports = {
 ### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
-| Name                   | Type      | Default | Description                                          |
+| Név                    | Type      | Default | Leírás                                               |
 | ---------------------- | --------- | ------- | ---------------------------------------------------- |
 | `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
@@ -146,10 +146,10 @@ The merge algorithm depends on the property type.
 | `name`, `version`               | Merge & overwrite.                                                                                                                                          |
 | `settings`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
 | `metadata`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `actions`                       | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
+| `akciók`                        | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
 | `hooks`                         | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
 | `methods`                       | Merge & overwrite.                                                                                                                                          |
-| `events`                        | Concatenate listeners.                                                                                                                                      |
+| `események`                     | Concatenate listeners.                                                                                                                                      |
 | `created`, `started`, `stopped` | Concatenate listeners.                                                                                                                                      |
 | `mixins`                        | Merge & overwrite.                                                                                                                                          |
 | `dependencies`                  | Merge & overwrite.                                                                                                                                          |
@@ -159,7 +159,7 @@ The merge algorithm depends on the property type.
 __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
 {% endnote %}
 
-## Actions
+## Akciók
 The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
@@ -221,7 +221,7 @@ module.exports = {
 > In action handlers the `this` is always pointed to the Service instance.
 
 
-## Events
+## Események
 You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
 
 ```js
@@ -275,7 +275,7 @@ module.exports = {
 ## Methods
 To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
 
-**Usage**
+**Használat**
 ```js
 // mailer.service.js
 module.exports = {
@@ -378,11 +378,11 @@ To wait for services, you can also use the `waitForServices` method of `ServiceB
 
 **Parameters**
 
-| Parameter  | Type                | Default | Description                                                                                   |
-| ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
+| Parameter        | Type                | Default | Leírás                                                                                        |
+| ---------------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `szolgáltatások` | `String` or `Array` | -       | Service list to waiting                                                                       |
+| `timeout`        | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
+| `interval`       | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
 
 **Example**
 ```js
@@ -421,7 +421,7 @@ module.exports = {
 ## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
-| Name                   | Type                 | Description                                                 |
+| Név                    | Type                 | Leírás                                                      |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
 | `this.name`            | `String`             | Name of service (from schema)                               |
 | `this.version`         | `Number` or `String` | Version of service (from schema)                            |
@@ -431,10 +431,10 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.schema`          | `Object`             | Schema definition of service                                |
 | `this.broker`          | `ServiceBroker`      | Instance of broker                                          |
 | `this.Promise`         | `Promise`            | Class of Promise (Bluebird)                                 |
-| `this.logger`          | `Logger`             | Logger instance                                             |
+| `this.logger`          | `Naplózó`            | Logger instance                                             |
 | `this.actions`         | `Object`             | Actions of service. _Service can call own actions directly_ |
 | `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
-| `this.currentContext`  | `Context`            | Get or set the current Context object.                      |
+| `this.currentContext`  | `Kontextus`          | Get or set the current Context object.                      |
 
 ## Service Creation
 There are several ways to create and load a service.
@@ -783,7 +783,7 @@ broker.call("$node.list").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                |
+| Név             | Type      | Default | Leírás                     |
 | --------------- | --------- | ------- | -------------------------- |
 | `withServices`  | `Boolean` | `false` | List with services.        |
 | `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
@@ -796,7 +796,7 @@ broker.call("$node.services").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                           |
+| Név             | Type      | Default | Leírás                                |
 | --------------- | --------- | ------- | ------------------------------------- |
 | `onlyLocal`     | `Boolean` | `false` | List only local services.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
@@ -812,7 +812,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name            | Type      | Default | Description                          |
+| Név             | Type      | Default | Leírás                               |
 | --------------- | --------- | ------- | ------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
@@ -828,7 +828,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name            | Type      | Default | Description                                |
+| Név             | Type      | Default | Leírás                                     |
 | --------------- | --------- | ------- | ------------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
@@ -844,7 +844,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name       | Type                | Default | Description                                                                    |
+| Név        | Type                | Default | Leírás                                                                         |
 | ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
 | `types`    | `String` or `Array` | `null`  | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
 | `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
