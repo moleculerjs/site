@@ -6,7 +6,7 @@ In order to communicate with other nodes (ServiceBrokers) you need to configure 
     <img src="assets/networking.svg" alt="Networking diagram" />
 </div>
 
-## Transporters
+## Transporter-ek
 Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If a service runs on multiple instances on different nodes, the requests will be load-balanced among live nodes.
 
 The whole communication logic is outside of transporter class. It means switching between transporters without changing any lines of our code is easy.
@@ -138,7 +138,7 @@ module.exports = {
 To use this transporter install the `nats` module with `npm install nats --save` command.
 {% endnote %}
 
-#### Examples
+#### Példák
 **Connect to 'nats://localhost:4222'**
 ```js
 // moleculer.config.js
@@ -203,7 +203,7 @@ module.exports = {
 To use this transporter install the `ioredis` module with `npm install ioredis --save` command.
 {% endnote %}
 
-#### Examples
+#### Példák
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -256,7 +256,7 @@ module.exports = {
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
-#### Examples
+#### Példák
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -425,7 +425,7 @@ module.exports = {
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
-#### Examples
+#### Példák
 **Connect with default settings**
 ```js
 // moleculer.config.js
