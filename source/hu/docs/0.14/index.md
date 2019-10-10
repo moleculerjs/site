@@ -1,4 +1,4 @@
-title: What is Moleculer?
+Mi az a Moleculer?
 ---
 Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/). Segít, hogy hatékony, megbízható és könnyen skálázható alkalmazásokat hozz létre. A Moleculer rengeteg funkciót tartalmaz, hogy mikroszolgáltatásokat készíts és menedzselj.
 
