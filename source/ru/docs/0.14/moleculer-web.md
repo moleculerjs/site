@@ -21,12 +21,12 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 [![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
 {% endnote %}
 
-## Install
+## Установка
 ```bash
 npm i moleculer-web
 ```
 
-## Usage
+## Первые шаги
 
 ### Run with default settings
 This example uses API Gateway service with default settings. You can access all services (including internal `$node.`) via `http://localhost:3000/`
@@ -783,7 +783,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Usage**
+**Первые шаги**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -823,7 +823,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Usage**
+**Первые шаги**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -967,7 +967,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Usage**
+**Первые шаги**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1161,7 +1161,7 @@ This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = tr
 ### `removeRoute`
 Service method removes the route by path (`this.removeRoute("/admin")`).
 
-## Examples
+## Примеры
 - [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
     - simple gateway with default settings.
 
