@@ -80,8 +80,8 @@ sidebar:
     validation: Validálás
     api: API
     api_servicebroker: ServiceBroker
-    api_service: Service
-    api_context: Context
+    api_service: Szolgáltatás
+    api_context: Kontextus
     api_protocol: Protocol
 modules:
   name: Név
