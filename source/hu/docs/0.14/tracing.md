@@ -25,13 +25,13 @@ module.exports = {
 
 ## Options
 
-| Name          | Type                              | Default                                       | Description                                                     |
+| Név           | Type                              | Default                                       | Leírás                                                          |
 | ------------- | --------------------------------- | --------------------------------------------- | --------------------------------------------------------------- |
 | `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                         |
 | `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters) |
 | `sampling`    | `Object`                          |                                               | Sampling settings. [More info](#Sampling)                       |
-| `actions`     | `Boolean`                         | `true`                                        | Tracing the service actions.                                    |
-| `events`      | `Boolean`                         | `false`                                       | Tracing the service events.                                     |
+| `akciók`      | `Boolean`                         | `true`                                        | Tracing the service actions.                                    |
+| `események`   | `Boolean`                         | `false`                                       | Tracing the service events.                                     |
 | `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Error object fields which are added into span tags.             |
 | `stackTrace`  | `Boolean`                         | `false`                                       | Add stack trace info into span tags in case of error.           |
 | `defaultTags` | `Object`                          | `null`                                        | Default tags. It will be added to all spans.                    |
