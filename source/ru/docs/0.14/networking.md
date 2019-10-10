@@ -138,7 +138,7 @@ module.exports = {
 To use this transporter install the `nats` module with `npm install nats --save` command.
 {% endnote %}
 
-#### Examples
+#### Примеры
 **Connect to 'nats://localhost:4222'**
 ```js
 // moleculer.config.js
@@ -203,7 +203,7 @@ module.exports = {
 To use this transporter install the `ioredis` module with `npm install ioredis --save` command.
 {% endnote %}
 
-#### Examples
+#### Примеры
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -256,7 +256,7 @@ module.exports = {
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
-#### Examples
+#### Примеры
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -425,7 +425,7 @@ module.exports = {
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
-#### Examples
+#### Примеры
 **Connect with default settings**
 ```js
 // moleculer.config.js
