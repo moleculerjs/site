@@ -4,7 +4,7 @@ title: Command Line Tool
 ## moleculer-cli [![npm](https://img.shields.io/npm/v/moleculer-cli.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-cli)
 This is a [command-line tool](https://github.com/moleculerjs/moleculer-cli) for Moleculer to help developing & testing.
 
-## Install
+## Установка
 
 ``` bash
 $ npm i -g moleculer-cli
