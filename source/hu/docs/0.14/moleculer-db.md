@@ -29,13 +29,13 @@ Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/
 Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
 {% endnote %}
 
-### Install
+### Telepítés
 
 ```bash
 $ npm install moleculer-db --save
 ```
 
-### Usage
+### Használat
 
 ```js
 "use strict";
@@ -96,7 +96,7 @@ broker.start()
 
 All DB adapters share a common set of settings:
 
-| Property          | Type                   | Default      | Description                                                                                                               |
+| Property          | Type                   | Default      | Leírás                                                                                                                    |
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
 | `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
@@ -110,7 +110,7 @@ All DB adapters share a common set of settings:
 `idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
 {% endnote %}
 
-## Actions
+## Akciók
 
 DB adapters also implement CRUD operations. These [actions](actions.html) are public methods and can be called by other services.
 
@@ -119,14 +119,14 @@ DB adapters also implement CRUD operations. These [actions](actions.html) are pu
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | Default      | Leírás                           |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
 | `limit`        | `Number`               | **required** | Max count of rows.               |
 | `offset`       | `Number`               | **required** | Count of skipped rows.           |
 | `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
+| `keresés`      | `String`               | **required** | Search text.                     |
 | `searchFields` | `String`               | **required** | Fields for searching.            |
 | `query`        | `Object`               | **required** | Query object. Passes to adapter. |
 
@@ -139,9 +139,9 @@ Find entities by query.
 Get count of entities by query.
 
 #### Parameters
-| Property       | Type     | Default      | Description                      |
+| Property       | Type     | Default      | Leírás                           |
 | -------------- | -------- | ------------ | -------------------------------- |
-| `search`       | `String` | **required** | Search text.                     |
+| `keresés`      | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
 | `query`        | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -154,14 +154,14 @@ Get count of entities by query.
 List entities by filters and pagination results.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | Default      | Leírás                           |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
 | `page`         | `Number`               | **required** | Page number.                     |
 | `pageSize`     | `Number`               | **required** | Size of a page.                  |
 | `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
+| `keresés`      | `String`               | **required** | Search text.                     |
 | `searchFields` | `String`               | **required** | Fields for searching.            |
 | `query`        | `Object`               | **required** | Query object. Passes to adapter. |
 
@@ -173,9 +173,9 @@ List entities by filters and pagination results.
 Create a new entity.
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Type | Default | Leírás |
+| -------- | ---- | ------- | ------ |
+| -        | -    | -       | -      |
 
 
 *No input parameters.*
@@ -188,7 +188,7 @@ Create a new entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Description       |
+| Property   | Type                   | Default | Leírás            |
 | ---------- | ---------------------- | ------- | ----------------- |
 | `entity`   | `Object`               | -       | Entity to save.   |
 | `entities` | `Array.<Object>` | -       | Entities to save. |
@@ -201,7 +201,7 @@ Create many new entities.
 Get entity by ID.
 
 ##### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+| Property   | Type                       | Default      | Leírás                                                                       |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -218,9 +218,9 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Type | Default | Leírás |
+| -------- | ---- | ------- | ------ |
+| -        | -    | -       | -      |
 
 
 *No input parameters.*
@@ -234,7 +234,7 @@ Update an entity by ID.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Description   |
+| Property | Type  | Default      | Leírás        |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -250,7 +250,7 @@ DB adapters also has a set of helper [methods](services.html#Methods).
 Get entity(ies) by ID(s).
 
 #### Parameters
-| Property   | Type                        | Default      | Description         |
+| Property   | Type                        | Default      | Leírás              |
 | ---------- | --------------------------- | ------------ | ------------------- |
 | `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
 | `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
@@ -264,9 +264,9 @@ Get entity(ies) by ID(s).
 Clear cached entities
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Type | Default | Leírás |
+| -------- | ---- | ------- | ------ |
+| -        | -    | -       | -      |
 
 
 *No input parameters.*
@@ -280,9 +280,9 @@ Clear cached entities
 Encode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Type  | Default      | Leírás |
+| -------- | ----- | ------------ | ------ |
+| `id`     | `any` | **required** | -      |
 
 #### Results
 **Type:** `any`
@@ -293,9 +293,9 @@ Encode ID of entity.
 Decode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Type  | Default      | Leírás |
+| -------- | ----- | ------------ | ------ |
+| `id`     | `any` | **required** | -      |
 
 #### Results
 **Type:** `any`
@@ -305,14 +305,14 @@ Decode ID of entity.
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | Default      | Leírás                           |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
 | `limit`        | `Number`               | **required** | Max count of rows.               |
 | `offset`       | `Number`               | **required** | Count of skipped rows.           |
 | `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
+| `keresés`      | `String`               | **required** | Search text.                     |
 | `searchFields` | `String`               | **required** | Fields for searching.            |
 | `query`        | `Object`               | **required** | Query object. Passes to adapter. |
 
@@ -327,9 +327,9 @@ List of found entities.
 Get count of entities by query.
 
 #### Parameters
-| Property       | Type     | Default      | Description                      |
+| Property       | Type     | Default      | Leírás                           |
 | -------------- | -------- | ------------ | -------------------------------- |
-| `search`       | `String` | **required** | Search text.                     |
+| `keresés`      | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
 | `query`        | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -344,14 +344,14 @@ Count of found entities.
 List entities by filters and pagination results.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | Default      | Leírás                           |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
 | `page`         | `Number`               | **required** | Page number.                     |
 | `pageSize`     | `Number`               | **required** | Size of a page.                  |
 | `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
+| `keresés`      | `String`               | **required** | Search text.                     |
 | `searchFields` | `String`               | **required** | Fields for searching.            |
 | `query`        | `Object`               | **required** | Query object. Passes to adapter. |
 
@@ -366,7 +366,7 @@ List of found entities and count.
 Create a new entity.
 
 #### Parameters
-| Property | Type     | Default | Description     |
+| Property | Type     | Default | Leírás          |
 | -------- | -------- | ------- | --------------- |
 | `params` | `Object` | -       | Entity to save. |
 
@@ -381,7 +381,7 @@ Saved entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Description       |
+| Property   | Type                   | Default | Leírás            |
 | ---------- | ---------------------- | ------- | ----------------- |
 | `entity`   | `Object`               | -       | Entity to save.   |
 | `entities` | `Array.<Object>` | -       | Entities to save. |
@@ -397,7 +397,7 @@ Saved entity(ies).
 Get entity by ID.
 
 #### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+| Property   | Type                       | Default      | Leírás                                                                       |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -416,7 +416,7 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type     | Default | Description       |
+| Property | Type     | Default | Leírás            |
 | -------- | -------- | ------- | ----------------- |
 | `params` | `Object` | -       | Entity to update. |
 
@@ -431,7 +431,7 @@ Updated entity.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Description   |
+| Property | Type  | Default      | Leírás        |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -608,7 +608,7 @@ module.exports = {
 
 This adapter is based on [MongoDB](http://mongodb.github.io/node-mongodb-native/).
 
-### Install
+### Telepítés
 
 ```bash
 $ npm install moleculer-db moleculer-db-adapter-mongo --save
@@ -617,7 +617,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongo --save
 To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
-### Usage
+### Használat
 
 ```js
 "use strict";
@@ -671,7 +671,7 @@ new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
 
 This adapter is based on [Mongoose](https://mongoosejs.com/docs/).
 
-### Install
+### Telepítés
 
 ```bash
 $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
@@ -681,7 +681,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
 To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
-### Usage
+### Használat
 
 ```js
 "use strict";
@@ -740,7 +740,7 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
 
 SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Sequelize](https://github.com/sequelize/sequelize).
 
-### Install
+### Telepítés
 
 ```bash
 $ npm install moleculer-db-adapter-sequelize --save
@@ -761,7 +761,7 @@ $ npm install pg pg-hstore --save
 $ npm install tedious --save
 ```
 
-### Usage
+### Használat
 
 ```js
 "use strict";
