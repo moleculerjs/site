@@ -1,1 +1,7 @@
-files: []
+files:
+  - source: /source/docs/0.14/*.md
+    translation: /source/%two_letters_code%/docs/0.14/%original_file_name%
+  - source: /source/index.pug
+    translation: /source/%two_letters_code%/index.pug
+  - source: /themes/moleculer/languages/en.yml
+    translation: /themes/moleculer/languages/%two_letters_code%.yml
