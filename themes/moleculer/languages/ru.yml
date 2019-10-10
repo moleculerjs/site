@@ -77,7 +77,7 @@ sidebar:
     cachers: Cachers
     serializers: Serializers
     statistics: Statistics
-    validation: Validation
+    validation: Валидация
     api: API
     api_servicebroker: ServiceBroker
     api_service: Service
