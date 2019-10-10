@@ -4,7 +4,7 @@ menu:
   modules: Modulok
   support: Támogatás
   github: Github
-  gitter: Gitter Chat
+  gitter: Gitter chat
   discord: Discord Chat
   blog: Blog
   store: Bolt
@@ -40,7 +40,7 @@ sidebar:
     actions: Akciók
     events: Események
     context: Kontextus
-    middlewares: Middlewares
+    middlewares: Middleware-ek
     caching: Gyorsítótárazás
     networking: Hálózat
     registry: Nyilvántartás
