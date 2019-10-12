@@ -1,3 +1,5 @@
+[![Crowdin](https://badges.crowdin.net/e/e908dbdd2d3a53a1dcce0fed5c5e68ab/localized.svg)](moleculer.crowdin.com/moleculer-documentation)
+
 # Moleculer official website
 
 This is the official website of Moleculer project. This site is built with [hexo](https://hexo.io/). Site content is written in Markdown format and located in `source`.
