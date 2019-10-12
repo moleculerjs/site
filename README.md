@@ -1,4 +1,4 @@
-[![Crowdin](https://badges.crowdin.net/e/e908dbdd2d3a53a1dcce0fed5c5e68ab/localized.svg)](moleculer.crowdin.com/moleculer-documentation)
+[![Crowdin](https://badges.crowdin.net/e/e908dbdd2d3a53a1dcce0fed5c5e68ab/localized.svg)](https://moleculer.crowdin.com/moleculer-documentation)
 
 # Moleculer official website
 
