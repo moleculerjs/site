@@ -32,7 +32,7 @@ sidebar:
     support: Поддержка
     introduction: Введение
     core: Core
-    configuration: Configuration
+    configuration: Конфигурация
     broker: Broker
     service: Service
     services: Services
@@ -82,7 +82,7 @@ sidebar:
     api_servicebroker: ServiceBroker
     api_service: Service
     api_context: Context
-    api_protocol: Protocol
+    api_protocol: Протокол
 modules:
   name: Название
   description: Описание
