@@ -112,7 +112,7 @@ All DB adapters share a common set of settings:
 
 ## Actions
 
-DB adapters also implement CRUD operations. These [actions](actions.html) are public methods and can be called by other services.
+DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
 
 ### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
 
@@ -733,6 +733,10 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
     keepAlive: true
 })
 ```
+
+### Connect to multiple DB
+
+If your services are running on separate nodes then you can use `model` in your service definition if you wish to connect to multiple databases. On the other hand, if your services are running on a single node and you wish to connect to multiple databases, you should define the `schema` that will make multiple connections for you.
 
 > More Mongoose examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
 
