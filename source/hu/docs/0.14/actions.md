@@ -3,14 +3,14 @@ title: Actions
 
 The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
 
-If you have multiple instances of services, the broker will load balancing the request among instances. [Read more about balancing](balancing.html).
+If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
 ## Call services
-To call a service, use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
+To call a service use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
 
 ### Syntax
 ```js
@@ -18,7 +18,7 @@ const res = await broker.call(actionName, params, opts);
 ```
 The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](#Context). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
+The `params` is an object which is passed to the action as a part of the [Context](context.html). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
 
 The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
 
@@ -68,7 +68,7 @@ const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
 ### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note at nested calls the meta is merged.
+Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
 ```js
 broker.createService({
     name: "test",
@@ -178,7 +178,7 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 
 
 ## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
+Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
 
 ### Examples
 
@@ -189,7 +189,7 @@ const stream = fs.createReadStream(fileName);
 broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
-Please note, the `params` should be a stream, you cannot add any more variables to the `params`. Use the `meta` property to transfer additional data.
+Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
 
 **Receiving a stream in a service**
 ```js
