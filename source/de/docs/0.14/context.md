@@ -1,7 +1,7 @@
 title: Context
 ---
 
-When you call an action or emit an event, the broker creates a `Context` instance which contains all request information and passes it to the action/event handler as a single argument.
+When you call an action or emit an event, the broker creates a `Context` instance that contains all request information and passes it to the action/event handler as a single argument.
 
 ## Properties of Context
 
