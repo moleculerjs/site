@@ -111,7 +111,7 @@ module.exports = {
 ```
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. It is to extend another service to your service. When a service uses mixins, all properties in the mixin will be "mixed" into the current service.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
 
 **Example how to extend `moleculer-web` service**
 
@@ -132,7 +132,7 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which inherits all from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
+The above example creates an `api` service which inherits all properties from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
 
 ### Merge algorithm
 The merge algorithm depends on the property type.

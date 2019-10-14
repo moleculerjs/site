@@ -1,7 +1,7 @@
 title: Load balancing
 ---
 
-Moleculer has several built-in load balancing strategies. If services have multiple running instances, ServiceRegistry uses these strategies to select a node from all available nodes.
+Moleculer has several built-in load balancing strategies. If a service is running on multiple node instances, ServiceRegistry uses these strategies to select a single node from the available ones.
 
 ## Built-in strategies
 To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
@@ -32,7 +32,7 @@ module.exports = {
 };
 ```
 ### CPU usage-based strategy
-This strategy selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
+This strategy selects a node that has the lowest CPU usage. Since the node list can be very long, it gets samples and selects the node with the lowest CPU usage only from a sample instead of the whole node list.
 
 **Usage**
 ```js
@@ -66,7 +66,7 @@ module.exports = {
 ```
 
 ### Latency-based strategy
-This strategy selects a node which has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Due to the node list can be very long, it gets samples and selects the host with the lowest latency from only samples instead of the whole node list.
+This strategy selects a node that has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Since the node list can be very long, it gets samples and selects the host with the lowest latency only from a sample instead of the whole node list.
 
 **Usage**
 ```js

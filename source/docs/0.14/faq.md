@@ -24,6 +24,9 @@ $ node --inspect=0.0.0.0:9229 node_modules/moleculer/bin/moleculer-runner servic
 $ node --max-old-space-size=8192 node_modules/moleculer/bin/moleculer-runner services
 ```
 
+## What happens if I emit an event and the node if offline?
+Moleculer events are fire and forget meaning the if the node is offline the event will be lost. If you want persistent events you should look for the transporters that offer this kind of capabilities.
+
 # API Gateway (moleculer-web)
 
 ## Why am I getting `413 - request entity too large` error message when sending a big POST body?

@@ -2,8 +2,9 @@ title: Registry & Discovery
 ---
 
 ## Dynamic service discovery
-Moleculer framework has a built-in service discovery feature and you don't need to use any external service discovery tool (like Zookeeper, Consul, etcd) because it is already integrated into the Moleculer protocol. 
-This solution is a dynamic discovery. It means that the nodes don't need to know all other nodes at start. When a brand new node starts, it will send information of all local services to all other nodes so that every node can build an own local service registry. When a node stops or crashes, the others will detect it and clean the affected services from the registry. So they route the requests to the live nodes to reduce failed requests due to non-available ones.
+Moleculer framework has a built-in service discovery feature meaning that you don't need to use any external service discovery tool (like Zookeeper, Consul, etcd) as it is already integrated into the [Moleculer protocol](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md). 
+Moleculer implement dynamic discovery meaning that the nodes don't need to know all other nodes at start. When a new node starts, it will send information to all local services and to all other nodes so that every node can build its own local service registry. In case of a node crash (or stop) other nodes will detect it and remove the affected services from their registry. This way the following requests will be routed to live nodes.
+
 
 <!-- **TODO: diagram, which shows node's local registry, when a new node coming & leaving.** -->
 
