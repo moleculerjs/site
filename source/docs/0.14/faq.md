@@ -28,7 +28,7 @@ $ node --max-old-space-size=8192 node_modules/moleculer/bin/moleculer-runner ser
 Moleculer events are fire and forget meaning the if the service is offline the event will be lost. If you want persistent events you should look for the transporters that offer this kind of capabilities.
 
 ## Why the broker exits without any error when I start my service?
-If there is no continuously running process (e.g., transporter connection, API gateway, DB connection) that keeps event loop running then the process will exit. It's normal behavior and not a bug. If you want to keep your service broker running then you should keep the event look "busy". Try to enable the transporter in `moleculer.config.js`.
+If there is no continuously running process (e.g., transporter connection, API gateway, DB connection) that keeps event loop running then the process will exit. It's normal behavior and not a bug. If you want to keep your service broker running then you should keep the event loop "busy". Try to enable the transporter in `moleculer.config.js`.
 
 # API Gateway (moleculer-web)
 
