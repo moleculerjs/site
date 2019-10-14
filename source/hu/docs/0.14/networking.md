@@ -7,9 +7,9 @@ In order to communicate with other nodes (ServiceBrokers) you need to configure 
 </div>
 
 ## Transporter-ek
-Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If a service runs on multiple instances on different nodes, the requests will be load-balanced among live nodes.
+Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If multiple instances of a service are running on different nodes then the requests will be load-balanced among them.
 
-The whole communication logic is outside of transporter class. It means switching between transporters without changing any lines of our code is easy.
+The whole communication logic is outside of transporter class. It means that you can switch between transporters without changing any line of code.
 
 There are several built-in transporters in Moleculer framework.
 
