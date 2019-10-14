@@ -1,16 +1,16 @@
 title: Actions
 ---
 
-The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+The actions are the callable/public methods of the service. Работа с actions по принципу удаленного вызова процедур (RPC). It has request parameters & returns response, like a HTTP request.
 
-If you have multiple instances of services, the broker will load balancing the request among instances. [Read more about balancing](balancing.html).
+If you have multiple instances of services, the broker will load balance the request among instances. [Подробнее о балансировке](balancing.html).
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
 ## Call services
-To call a service, use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
+To call a service use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. Функция возвращает `Promise`.
 
 ### Syntax
 ```js
@@ -18,21 +18,21 @@ const res = await broker.call(actionName, params, opts);
 ```
 The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](#Context). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
+The `params` is an object which is passed to the action as a part of the [Context](context.html). Служба может получить доступ через `ctx.params`. *Необязательное. If you don't define, it will be `{}`*.
 
-The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
+The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *Необязательное.*
 
 **Available calling options:**
 
-| Name               | Type      | Default | Description                                                                                                                                                                                                                                                                                           |
-| ------------------ | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null`  | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`  | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null`  | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                    |
-| `nodeID`           | `String`  | `null`  | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
-| `meta`             | `Object`  | `{}`    | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
-| `parentCtx`        | `Context` | `null`  | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
-| `requestID`        | `String`  | `null`  | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
+| Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                              |
+| ------------------ | --------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null`       | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null`       | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
+| `fallbackResponse` | `Any`     | `null`       | Возвращает, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                     |
+| `nodeID`           | `String`  | `null`       | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
+| `meta`             | `Object`  | `{}`         | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
+| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
+| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
 
 
 ### Usages
@@ -68,7 +68,7 @@ const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
 ### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note at nested calls the meta is merged.
+Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
 ```js
 broker.createService({
     name: "test",
@@ -178,7 +178,7 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 
 
 ## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
+Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
 
 ### Examples
 
@@ -189,7 +189,7 @@ const stream = fs.createReadStream(fileName);
 broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
-Please note, the `params` should be a stream, you cannot add any more variables to the `params`. Use the `meta` property to transfer additional data.
+Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
 
 **Receiving a stream in a service**
 ```js
