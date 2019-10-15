@@ -16,7 +16,7 @@ Action это публично вызываемый метод сервиса. �
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-`actionName` содержит точку в качестве разделителя. Первая часть является именем сервиса, а вторая часть название action метода. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
+`actionName` содержит точку в качестве разделителя. Первая часть является именем сервиса, а вторая часть название action метода. К примеру, у нас есть сервис `posts` и action метод `create`, в таком случае actionName = `posts.create`.
 
 The `params` is an object which is passed to the action as a part of the [Context](context.html). Служба может получить доступ через `ctx.params`. *Необязательное. If you don't define, it will be `{}`*.
 
@@ -24,15 +24,15 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 
 **Available calling options:**
 
-| Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                              |
-| ------------------ | --------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null`       | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`       | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null`       | Возвращает, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                     |
-| `nodeID`           | `String`  | `null`       | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
-| `meta`             | `Object`  | `{}`         | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
-| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
-| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
+| Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                                 |
+| ------------------ | --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null`       | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Читать далее](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null`       | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Читать далее](fault-tolerance.html#Retry).                                                            |
+| `fallbackResponse` | `Any`     | `null`       | Возвращает, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                        |
+| `nodeID`           | `String`  | `null`       | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                                 |
+| `meta`             | `Object`  | `{}`         | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                             |
+| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                    |
+| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                        |
 
 
 ### Примеры использования
@@ -46,7 +46,7 @@ const res = await broker.call("user.list");
 const res = await broker.call("user.get", { id: 3 });
 ```
 
-**Call with calling options**
+**Вызов с опциями**
 ```js
 const res = await broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
@@ -55,7 +55,7 @@ const res = await broker.call("user.recommendation", { limit: 5 }, {
 });
 ```
 
-**Call with promise error handling**
+**Вызов с обработкой ошибок в promise**
 ```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-The `meta` is sent back to the caller service. Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+`meta` отправляются обратно сервису, который осуществил вызов метода. Используйте это для возврата дополнительных данных отправителю. К примеру: оправка заголовков обратно в API gateway или запись данных авторизованного пользователя в метаданные.
 
 ```js
 broker.createService({
@@ -114,7 +114,7 @@ broker.createService({
 
 When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
 
-**Internal calls**
+**Внутренние вызовы**
 ```js
 broker.createService({
   name: "mod",
@@ -137,7 +137,7 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
-### Timeout
+### Таймаут
 
 Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
 
@@ -177,21 +177,21 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
 
 
-## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+## Потоки
+Moleculer поддерживает потоки Node.js в параметрах запроса `params` и в ответах. Используйте их для передачи файлов из gateway, кодирования/декодирования или сжатия/распаковки потоков.
 
 ### Примеры
 
-**Send a file to a service as a stream**
+**Отправка фала в виде потока в сервис**
 ```js
 const stream = fs.createReadStream(fileName);
 
 broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
-Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
+Имейте ввиду, что `params` должен быть потоком, и вы не сможете добавить дополнительные переменные в свойство `params`. Используйте свойство `meta` для передачи дополнительных данных.
 
-**Receiving a stream in a service**
+**Получение потока в сервисе**
 ```js
 module.exports = {
     name: "storage",
@@ -205,7 +205,7 @@ module.exports = {
 };
 ```
 
-**Return a stream as response in a service**
+**Возврат потока сервисом**
 ```js
 module.exports = {
     name: "storage",
@@ -222,7 +222,7 @@ module.exports = {
 };
 ```
 
-**Process received stream on the caller side**
+**Обработка полученного потока на стороне отправителя**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -263,22 +263,22 @@ The action has a `visibility` property to control the visibility & callability o
 - `protected`: can be called only locally (from local services)
 - `private`: can be called only internally (via `this.actions.xy()` inside service)
 
-**Change visibility**
+**Управление видимостью**
 ```js
 module.exports = {
     name: "posts",
     actions: {
-        // It's published by default
+        // публичное по умолчанию
         find(ctx) {},
         clean: {
-            // Callable only via `this.actions.clean`
+            // можно вызвать только через `this.actions.clean`
             visibility: "private",
             handler(ctx) {}
         }
     },
     methods: {
         cleanEntities() {
-            // Call the action directly
+            // прямой вызов action
             return this.actions.clean();
         }
     }
@@ -290,14 +290,14 @@ module.exports = {
 ## Action hooks
 Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
-### Before hooks
+### Хуки Before
 In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
 
-**Main usages:**
-- parameter sanitization
-- parameter validation
-- entity finding
-- authorization
+**Основное назначение:**
+- очистка параметров
+- валидация параметров
+- поиск сущности
+- авторизация
 
 ### After hooks
 In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
