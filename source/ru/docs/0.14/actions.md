@@ -1,22 +1,22 @@
 title: Actions
 ---
 
-The actions are the callable/public methods of the service. Работа с actions по принципу удаленного вызова процедур (RPC). It has request parameters & returns response, like a HTTP request.
+Action это публично вызываемый метод сервиса. Работа с actions по принципу удаленного вызова процедур (RPC). Action похож на обычный HTTP запрос, имеет параметры и возвращает результат.
 
-If you have multiple instances of services, the broker will load balance the request among instances. [Подробнее о балансировке](balancing.html).
+Если запущено несколько экземпляров сервиса, то брокер будет балансировать запросы между экземплярами. [Подробнее о балансировке](balancing.html).
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
-## Call services
-To call a service use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. Функция возвращает `Promise`.
+## Вызов сервисов
+Для вызова сервиса используется метод `broker.call`. Брокер ищет сервис (и узел) который предоставляет указанный action и вызывает его. Функция возвращает `Promise`.
 
-### Syntax
+### Синтаксис
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
+`actionName` содержит точку в качестве разделителя. Первая часть является именем сервиса, а вторая часть название action метода. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
 
 The `params` is an object which is passed to the action as a part of the [Context](context.html). Служба может получить доступ через `ctx.params`. *Необязательное. If you don't define, it will be `{}`*.
 
@@ -68,7 +68,7 @@ const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
 ### Метаданные
-Для передачи метаданных используется свойство `meta`. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
+Для передачи метаданных используется свойство `meta`. Получить доступ к ним можно внутри обработчика действия через `ctx.meta`. Вложенные вызовы объединяют `meta`.
 ```js
 broker.createService({
     name: "test",
@@ -180,7 +180,7 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ## Streaming
 Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
 
-### Examples
+### Примеры
 
 **Send a file to a service as a stream**
 ```js
@@ -233,7 +233,7 @@ broker.call("storage.get", { filename })
     })
 ```
 
-**AES encode/decode example service**
+**Пример сервиса шифрования AES**
 ```js
 const crypto = require("crypto");
 const password = "moleculer";
@@ -254,7 +254,7 @@ module.exports = {
 };
 ```
 
-## Action visibility
+## Видимость методов
 The action has a `visibility` property to control the visibility & callability of service actions.
 
 **Available values:**
@@ -502,7 +502,7 @@ INFO  -   After hook
 INFO  - After all hook
 ```
 
-### Reusability
+### Переиспользование
 The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
 
 ```js
@@ -556,7 +556,7 @@ module.exports = {
     }
 };
 ```
-### Local Storage
+### Локальное хранилище
 The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
 
 **Setting `ctx.locals` in before hook**
