@@ -557,9 +557,9 @@ module.exports = {
 };
 ```
 ### Локальное хранилище
-The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+Свойство `locals` у объекта `Context` является простым хранилищем, который может быть использован для сохранения некоторых дополнительных данных и передачи их в обработчик action метода. Свойство `locals` совместно с хуками удачно дополняют друг друга:
 
-**Setting `ctx.locals` in before hook**
+**Установка `ctx.locals` в before хуке**
 ```js
 module.exports = {
     name: "user",
