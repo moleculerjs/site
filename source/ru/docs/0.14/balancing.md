@@ -1,10 +1,10 @@
-title: Балансирование нагрузки
+title: Балансировка нагрузки
 ---
 
-Moleculer имеет несколько встроенных стратегий балансирования нагрузки. Если сервис запущен в нескольких экземплярах на разных узлах, ServiceRegistry использует эти стратегии для выбора одного из доступных узлов.
+Moleculer имеет несколько встроенных стратегий балансировки нагрузки. Если сервис запущен в нескольких экземплярах на разных узлах, ServiceRegistry использует эти стратегии для выбора одного из доступных узлов.
 
-## Встроенные стратегии
-Чтобы настроить стратегию, необходимо в файле конфигурации брокера указать свойство `strategy` в объекте `registry`. Это может быть либо именем (в случае встроенных стратегий) или `Strategy` классом, который унаследован от `BaseStrategy` (в случае пользовательских стратегий).
+## Доступные стратегии
+Чтобы настроить стратегию, необходимо в файле конфигурации брокера указать свойство `strategy` в объекте `registry`. Это может быть либо именем (в случае доступных стратегий) или `Strategy` классом, который унаследован от `BaseStrategy` (в случае пользовательских стратегий).
 
 ### Стратегия RoundRobin
 Эта стратегия выбирает узел на основе алгоритма [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS).
@@ -46,12 +46,12 @@ module.exports = {
 
 **Настройки**
 
-| Название      | Тип      | По умолчанию | Описание                                                                                                   |
-| ------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
-| `sampleCount` | `Number` | `3`          | The number of samples. _To turn of sampling, set to `0`._                                                  |
-| `lowCpuUsage` | `Number` | `10`         | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
+| Название      | Тип      | По умолчанию | Описание                                                                                               |
+| ------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| `sampleCount` | `Number` | `3`          | Количество измерений. _Чтобы выключить, установите `0`._                                               |
+| `lowCpuUsage` | `Number` | `10`         | Процент загруженности процессора (%). Минимальный порог при котором узел будет выбран незамедлительно. |
 
-**Usage with custom options**
+**Использование с пользовательскими настройками**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -65,8 +65,8 @@ module.exports = {
 };
 ```
 
-### Latency-based strategy
-This strategy selects a node that has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Since the node list can be very long, it gets samples and selects the host with the lowest latency only from a sample instead of the whole node list.
+### Стратегия по времени отклика
+Эта стратегия выбирает узел, который имеет самую низкую задержку, измеряемую периодическими командами ping. Notice that the strategy only ping one node / host. Поскольку список узлов может быть очень длинным, то брокер получает измерения и выбирает узел с наименьшей задержкой только из имеющихся данных, а не всего списка узлов.
 
 **Использование**
 ```js
@@ -80,12 +80,12 @@ module.exports = {
 
 **Настройки**
 
-| Название       | Тип      | По умолчанию | Описание                                                                                                                              |
-| -------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `sampleCount`  | `Number` | `5`          | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
-| `lowLatency`   | `Number` | `10`         | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
-| `collectCount` | `Number` | `5`          | The number of measured latency per host to keep in order to calculate the average latency.                                            |
-| `pingInterval` | `Number` | `10`         | Ping interval in seconds. If you have a lot of host/nodes, it's recommended to *increase* the value.                                  |
+| Название       | Тип      | По умолчанию | Описание                                                                                                                    |
+| -------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `sampleCount`  | `Number` | `5`          | Количество измерений. Если у вас много хостов/узлов, рекомендуется *увеличить* значение. _Чтобы выключить, установите `0`._ |
+| `lowLatency`   | `Number` | `10`         | Минимальная задержка (мс). Минимальный порог при котором узел будет выбран незамедлительно.                                 |
+| `collectCount` | `Number` | `5`          | Количество измерений задержки на каждый хост для расчета средней задержки.                                                  |
+| `pingInterval` | `Number` | `10`         | Интервал пинга в секундах. Если у вас много хостов/узлов, рекомендуется *увеличить* значение.                               |
 
 **Использование с пользовательскими настройками**
 ```js
