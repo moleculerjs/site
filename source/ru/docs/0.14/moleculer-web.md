@@ -3,8 +3,8 @@ title: API Gateway
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
 The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
 
-## Features
-* support HTTP & HTTPS
+## Преимущества
+* поддержка HTTP и HTTPS
 * serve static files
 * multiple routes
 * support Connect-like middlewares in global-level, route-level and alias-level.
