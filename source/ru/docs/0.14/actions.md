@@ -35,13 +35,13 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 | `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
 
 
-### Usages
-**Call without params**
+### Примеры использования
+**Вызов без параметров**
 ```js
 const res = await broker.call("user.list");
 ```
 
-**Call with params**
+**Вызов с параметрами**
 ```js
 const res = await broker.call("user.get", { id: 3 });
 ```
@@ -62,13 +62,13 @@ broker.call("posts.update", { id: 2, title: "Modified post title" })
     .catch(err => console.error("Unable to update Post!", err));    
 ```
 
-**Direct call: get health info from the "node-21" node**
+**Прямой вызов: получить информацию о здоровье от узла "node-21"**
 ```js
 const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
-### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
+### Метаданные
+Для передачи метаданных используется свойство `meta`. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
 ```js
 broker.createService({
     name: "test",
