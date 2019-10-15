@@ -1,8 +1,8 @@
-title: Validating
+title: Валидация
 ---
-Moleculer has a built-in validator module. It uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+Moleculer имеет встроенный модуль валидации. Используется библиотека [fastest-validator](https://github.com/icebob/fastest-validator).
 
-## Built-in validator
+## Встроенный валидатор
 It's enabled by default, so you should just define `params` property in action definition which contains validation schema for the incoming `ctx.params`.
 
 **Example**
