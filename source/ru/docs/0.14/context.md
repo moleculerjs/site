@@ -1,11 +1,11 @@
-title: Context
+Контекст
 ---
 
-When you call an action or emit an event, the broker creates a `Context` instance that contains all request information and passes it to the action/event handler as a single argument.
+Когда вы вызываете действие или создаете событие, брокер создает экземпляр `контекста`, который содержит всю информацию о запросе и передает его обработчику действия/события в качестве единого аргумента.
 
-## Properties of Context
+## Свойства контекста
 
-| Name              | Type                  | Description                                                      |
+| Имя               | Тип                   | Описание                                                         |
 | ----------------- | --------------------- | ---------------------------------------------------------------- |
 | `ctx.id`          | `String`              | Context ID                                                       |
 | `ctx.broker`      | `ServiceBroker`       | Instance of the broker.                                          |
