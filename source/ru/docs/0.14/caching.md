@@ -7,17 +7,17 @@ Moleculer has a built-in caching solution to cache responses of service actions.
 ```js
 const { ServiceBroker } = require("moleculer");
 
-// Create broker
+// Создание брокера
 const broker = new ServiceBroker({
     cacher: "Memory"
 });
 
-// Create a service
+// Создание сервиса
 broker.createService({
     name: "users",
     actions: {
         list: {
-            // Enable caching to this action
+            // Включение кеширования для этого действия
             cache: true, 
             handler(ctx) {
                 this.logger.info("Handler called!");
@@ -32,16 +32,16 @@ broker.createService({
 
 broker.start()
     .then(() => {
-        // Will be called the handler, because the cache is empty
+        // Будет вызван обработчик, поскольку кеш пуст
         return broker.call("users.list").then(res => broker.logger.info("Users count:", res.length));
     })
     .then(() => {
-        // Return from cache, handler won't be called
+        // Вернуть данные из кеша, без вызова обработчика
         return broker.call("users.list").then(res => broker.logger.info("Users count from cache:", res.length));
     });
 ```
 
-**Console messages:**
+**Сообщения консоли:**
 ```
 [2017-08-18T13:04:33.845Z] INFO  dev-pc/BROKER: Broker started.
 [2017-08-18T13:04:33.848Z] INFO  dev-pc/USERS: Handler called!
