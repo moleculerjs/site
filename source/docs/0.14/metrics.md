@@ -427,7 +427,7 @@ module.exports = {
         // Remove a new post
         remove(ctx) {
             // Update metrics
-            this.broker.metrics.increment("posts.total", { userID: ctx.params.author }, 1);
+            this.broker.metrics.decrement("posts.total", { userID: ctx.params.author }, 1);
             return posts;
         },
 
