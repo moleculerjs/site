@@ -420,14 +420,14 @@ module.exports = {
         // Create a new post
         create(ctx) {
             // Update metrics
-            this.broker.metrics.increment("posts.total", 1, { userID: ctx.params.author });
+            this.broker.metrics.increment("posts.total", { userID: ctx.params.author }, 1);
             return posts;
         },
 
         // Remove a new post
         remove(ctx) {
             // Update metrics
-            this.broker.metrics.decrement("posts.total", 1, { userID: ctx.params.author });
+            this.broker.metrics.decrement("posts.total", { userID: ctx.params.author }, 1);
             return posts;
         },
 
