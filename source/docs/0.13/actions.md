@@ -146,6 +146,30 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
+### Multiple calls
+
+Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+
+{% note warn %}
+Passing `meta` parameters to actions in only available in [v0.14](/docs/0.14/actions.html#Multiple-calls).
+{% endnote %}
+
+**`mcall` with Array< Object >**
+```js
+await broker.mcall([
+	{ action: "posts.find", params: { limit: 5, offset: 0 } },
+	{ action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
+]);
+```
+
+**`mcall` with Object**
+```js
+await broker.mcall({
+	posts: { action: "posts.find", params: { limit: 5, offset: 0 } },
+	users: { action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
+});
+```
+
 ## Streaming
 Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
 
