@@ -1,9 +1,9 @@
-title: Caching
+title: Кеширование
 ---
 
 Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
 
-**Cached action example**
+**Пример**
 ```js
 const { ServiceBroker } = require("moleculer");
 
