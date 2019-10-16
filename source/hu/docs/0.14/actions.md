@@ -175,12 +175,42 @@ await broker.call("greeter.slow");
  // It uses 1000 timeout from calling option
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
+### Multiple calls
 
+Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+
+**`mcall` with Array< Object >**
+```js
+await broker.mcall(
+    [
+        { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        { action: 'users.find', params: { name: 'John' } }
+    ],
+    {
+        // Common calling options for all calls.
+        meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
+    }
+);
+```
+
+**`mcall` with Object**
+```js
+await broker.mcall(
+    {
+        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        users: { action: 'users.find', params: { name: 'John' } }
+    }, 
+    {
+        // Common calling options for all calls.
+        meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
+    }
+);
+```
 
 ## Streaming
 Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
 
-### Examples
+### Példák
 
 **Send a file to a service as a stream**
 ```js
