@@ -175,7 +175,37 @@ await broker.call("greeter.slow");
  // It uses 1000 timeout from calling option
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
+### Multiple calls
 
+Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+
+**`mcall` with Array< Object >**
+```js
+await broker.mcall(
+    [
+        { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        { action: 'users.find', params: { name: 'John' } }
+    ],
+    {
+        // Common calling options for all calls.
+        meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
+    }
+);
+```
+
+**`mcall` with Object**
+```js
+await broker.mcall(
+    {
+        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        users: { action: 'users.find', params: { name: 'John' } }
+    }, 
+    {
+        // Common calling options for all calls.
+        meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
+    }
+);
+```
 
 ## Потоки
 Moleculer поддерживает потоки Node.js в параметрах запроса `params` и в ответах. Используйте их для передачи файлов из gateway, кодирования/декодирования или сжатия/распаковки потоков.
@@ -302,7 +332,7 @@ In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx
 ### After hooks
 In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
 
-**Main usages:**
+**Основное назначение:**
 - property populating
 - remove sensitive data.
 - wrapping the response into an `Object`
@@ -311,7 +341,7 @@ In after hooks, it receives the `ctx` and the `response`. It can manipulate or c
 ### Error hooks
 The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
 
-**Main usages:**
+**Основное назначение:**
 - error handling
 - wrap the error into another one
 - fallback response
@@ -323,7 +353,7 @@ Hooks can be assigned to a specific action (by indicating action `name`) or all 
 Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
 {% endnote %}
 
-**Before hooks**
+**Хуки Before**
 
 ```js
 const DbService = require("moleculer-db");
