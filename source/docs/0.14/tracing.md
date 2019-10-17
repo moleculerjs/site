@@ -434,7 +434,7 @@ module.exports = {
     name: "posts",
     started() {
         // Create a span to measure the initialization
-        const span = this.broker.startSpan("initializing db", {
+        const span = this.broker.tracer.startSpan("initializing db", {
             tags: {
                 dbHost: this.settings.dbHost
             }
