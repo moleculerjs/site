@@ -1,42 +1,42 @@
 Контекст
 ---
 
-Когда вы вызываете действие или создаете событие, брокер создает экземпляр `контекста`, который содержит всю информацию о запросе и передает его обработчику действия/события в качестве единого аргумента.
+Когда вы вызываете действие или создаете событие, брокер создает экземпляр `Контекста`, который содержит всю информацию о запросе и передает его обработчику действия/события в качестве единого аргумента.
 
-## Свойства контекста
+## Свойства Контекста
 
-| Имя               | Тип                   | Описание                                                         |
-| ----------------- | --------------------- | ---------------------------------------------------------------- |
-| `ctx.id`          | `String`              | Context ID                                                       |
-| `ctx.broker`      | `ServiceBroker`       | Объект брокера.                                                  |
-| `ctx.nodeID`      | `String`              | ID вызывающего или целевого узла.                                |
-| `ctx.action`      | `Object`              | Instance of action definition.                                   |
-| `ctx.event`       | `Object`              | Instance of event definition.                                    |
-| `ctx.eventName`   | `Object`              | The emitted event name.                                          |
-| `ctx.eventType`   | `String`              | Type of event ("emit" or "broadcast").                           |
-| `ctx.eventGroups` | `Array<String>` | Groups of event.                                                 |
-| `ctx.caller`      | `String`              | Service full name of the caller. E.g.: `v3.myService`            |
-| `ctx.requestID`   | `String`              | Request ID. If you make nested-calls, it will be the same ID.    |
-| `ctx.parentID`    | `String`              | Parent context ID (in nested-calls).                             |
-| `ctx.params`      | `Any`                 | Request params. *Second argument from `broker.call`.*            |
-| `ctx.meta`        | `Any`                 | Request metadata. *It will be also transferred to nested-calls.* |
-| `ctx.locals`      | `Any`                 | Local data.                                                      |
-| `ctx.level`       | `Number`              | Request level (in nested-calls). The first level is `1`.         |
-| `ctx.span`        | `Span`                | Current active span.                                             |
+| Имя               | Тип                   | Описание                                                                 |
+| ----------------- | --------------------- | ------------------------------------------------------------------------ |
+| `ctx.id`          | `String`              | Context ID                                                               |
+| `ctx.broker`      | `ServiceBroker`       | Объект брокера.                                                          |
+| `ctx.nodeID`      | `String`              | ID вызывающего или целевого узла.                                        |
+| `ctx.action`      | `Object`              | Экземпляр действия.                                                      |
+| `ctx.event`       | `Object`              | Экземпляр события.                                                       |
+| `ctx.eventName`   | `Object`              | Имя созданного события.                                                  |
+| `ctx.eventType`   | `String`              | Тип события ("emit" или "broadcast").                                    |
+| `ctx.eventGroups` | `Array<String>` | Группа событий.                                                          |
+| `ctx.caller`      | `String`              | Полное имя вызывающего сервиса. Пример: `v3.myService`                   |
+| `ctx.requestID`   | `String`              | ID запроса. Если вы совершаете вложенные вызовы, то ID будет одинаковый. |
+| `ctx.parentID`    | `String`              | ID родительского контекста (во вложенных вызовах).                       |
+| `ctx.params`      | `Any`                 | Параметры запроса. *Второй аргумент в `broker.call`.*                    |
+| `ctx.meta`        | `Any`                 | Мета-данные запроса. *Они также будут переданы на вложенные вызовы.*     |
+| `ctx.locals`      | `Any`                 | Локальные данные.                                                        |
+| `ctx.level`       | `Number`              | Уровень запроса (во вложенных вызовах). Первый уровень `1`.              |
+| `ctx.span`        | `Span`                | Current active span.                                                     |
 
-## Methods of Context
+## Методы Контекста
 
-| Название                    | Response  | Описание                                               |
-| --------------------------- | --------- | ------------------------------------------------------ |
-| `ctx.call()`                | `Promise` | Make nested-call. Same arguments like in `broker.call` |
-| `ctx.emit()`                | `void`    | Emit an event, same as `broker.emit`                   |
-| `ctx.broadcast()`           | `void`    | Broadcast an event, same as `broker.broadcast`         |
-| `ctx.startSpan(name, opts)` | `Span`    | Creates a new child span.                              |
-| `ctx.finishSpan(span)`      | `void`    | Finishes a span.                                       |
-| `ctx.toJSON()`              | `Object`  | Convert `Context` to a printable JSON.                 |
+| Название                    | Ответ     | Описание                                                                |
+| --------------------------- | --------- | ----------------------------------------------------------------------- |
+| `ctx.call()`                | `Promise` | Создание вложенного вызова. Те же аргументы, как в `broker.call`        |
+| `ctx.emit()`                | `void`    | Создать событие, аналогично `broker.emit`                               |
+| `ctx.broadcast()`           | `void`    | Создать событие, адресованное всем узлам, аналогично `broker.broadcast` |
+| `ctx.startSpan(name, opts)` | `Span`    | Creates a new child span.                                               |
+| `ctx.finishSpan(span)`      | `void`    | Finishes a span.                                                        |
+| `ctx.toJSON()`              | `Object`  | Преобразовать `Контекст` в JSON формат.                                 |
 
-## Context tracking
-If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
+## Отслеживание Контекста
+Если вы хотите, чтобы сервисы плавно отключались, включите функцию отслеживания контекста в опциях брокера. If you enable it, all services will wait for all running contexts before shutdown. A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
 
 **Enable context tracking & change the timeout value**
 ```js
