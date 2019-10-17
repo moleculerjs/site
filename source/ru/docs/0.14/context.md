@@ -8,8 +8,8 @@
 | Имя               | Тип                   | Описание                                                         |
 | ----------------- | --------------------- | ---------------------------------------------------------------- |
 | `ctx.id`          | `String`              | Context ID                                                       |
-| `ctx.broker`      | `ServiceBroker`       | Instance of the broker.                                          |
-| `ctx.nodeID`      | `String`              | The caller or target Node ID.                                    |
+| `ctx.broker`      | `ServiceBroker`       | Объект брокера.                                                  |
+| `ctx.nodeID`      | `String`              | ID вызывающего или целевого узла.                                |
 | `ctx.action`      | `Object`              | Instance of action definition.                                   |
 | `ctx.event`       | `Object`              | Instance of event definition.                                    |
 | `ctx.eventName`   | `Object`              | The emitted event name.                                          |
