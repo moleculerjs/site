@@ -5,7 +5,7 @@ title: Deploying
 The example below shows how to use [moleculer-runner](runner.html) and Docker to deploy Moleculer services across multiple containers. 
 
 {% note info %}
-Note that moleculer-runner is capable of reading environment variables that are heavily used in Docker deployments. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
+Note that moleculer-runner is capable of reading environment variables, which are heavily used in Docker deployments. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
 {% endnote %}
 
 > The Docker files shown here are from [moleculer-demo](usage.html#Create-a-Moleculer-project) project.

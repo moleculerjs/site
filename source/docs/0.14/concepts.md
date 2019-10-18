@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable to serve user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right? 
+With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right? 
 
 Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.

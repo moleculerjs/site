@@ -10,7 +10,7 @@ A [service](services.html) is a simple JavaScript module containing some part of
 A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
 
 ### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other ([transporter](#Transporter) is not used).
+Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
 
 ### Remote Services
 Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable to serve user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right? 
+With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right? 
 
 Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
