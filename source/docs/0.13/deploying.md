@@ -79,3 +79,8 @@ $ docker-compose up -d
 ```
 
 Access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
+
+## Kubernetes deployment
+Cummunity members [working on](https://github.com/moleculerjs/moleculer/issues/512) Kubernetes idel integration and finally we have a good [step by step tuotorial](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07) by @dkuida
+
+We have some code examples for Kubernetes with Moleculer, check [this](https://github.com/lehno/moleculer-k8s-examples) by @lehno and [this](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5) by @tobydeh
