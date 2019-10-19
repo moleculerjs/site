@@ -24,15 +24,15 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 
 **Available calling options:**
 
-| Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                                 |
-| ------------------ | --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null`       | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Читать далее](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`       | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Читать далее](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null`       | Возвращает, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                        |
-| `nodeID`           | `String`  | `null`       | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                                 |
-| `meta`             | `Object`  | `{}`         | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                             |
-| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                    |
-| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                        |
+| Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                                   |
+| ------------------ | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `таймаут`          | `Number`  | `null`       | Время ожидания запроса в миллисекундах. Если время истекло, и вы не определили `fallbackResponse`, брокер бросит ошибку `RequestTimeout`. Чтобы отключить установите `0`. Если не определено, будет использовано значение `requestTimeout` из опций брокера. [Читать далее](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null`       | Count of retry of request. If the request is timed out, broker will try to call again. Чтобы отключить установите `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Читать далее](fault-tolerance.html#Retry).                                                  |
+| `fallbackResponse` | `Any`     | `null`       | Возвращает, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                          |
+| `nodeID`           | `String`  | `null`       | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                                   |
+| `meta`             | `Object`  | `{}`         | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                               |
+| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                      |
+| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                          |
 
 
 ### Примеры использования
@@ -175,7 +175,7 @@ await broker.call("greeter.slow");
  // It uses 1000 timeout from calling option
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
-### Multiple calls
+### Массовый вызов
 
 Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
 
@@ -287,7 +287,7 @@ module.exports = {
 ## Видимость методов
 The action has a `visibility` property to control the visibility & callability of service actions.
 
-**Available values:**
+**Доступные значения:**
 - `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
 - `public`: public action, can be called locally & remotely but not published via API GW
 - `protected`: can be called only locally (from local services)
@@ -317,8 +317,8 @@ module.exports = {
 
 > The default values is `null` (means `published`) due to backward compatibility.
 
-## Action hooks
-Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+## Хуки действий
+Хуки действия являются подключаемыми и переиспользуемыми функциями middleware, которые могут быть зарегистрированы `перед`, `после` или при `ошибке` действий сервиса. Хук является `Функцией` или `Строкой`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
 ### Хуки Before
 In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
