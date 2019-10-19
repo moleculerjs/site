@@ -1,12 +1,12 @@
-title: Actions
+title: Действия
 ---
 
-Action это публично вызываемый метод сервиса. Работа с actions по принципу удаленного вызова процедур (RPC). Action похож на обычный HTTP запрос, имеет параметры и возвращает результат.
+Действия (Action) это публично вызываемый метод сервиса. Работа с actions по принципу удаленного вызова процедур (RPC). Action похож на обычный HTTP запрос, имеет параметры и возвращает результат.
 
 Если запущено несколько экземпляров сервиса, то брокер будет балансировать запросы между экземплярами. [Подробнее о балансировке](balancing.html).
 
 <div align="center">
-    <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
+    <img src="assets/action-balancing.gif" alt="Диаграмма балансировки действий" />
 </div>
 
 ## Вызов сервисов
@@ -339,18 +339,18 @@ module.exports = {
 - конвертирование структуры ответа
 
 ### Хуки ошибок
-The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
+Эти хуки вызываются в случае возникновения `Ошибок` во время выполнения действия. Этот хук получает `ctx` контекст и `err` ошибку. Он может обработать ошибку и вернуть другой ответ (резервный fallback) или бросить ошибку выше.
 
 **Основное назначение:**
-- error handling
-- wrap the error into another one
-- fallback response
+- обработка ошибок
+- обернуть ошибку в другую
+- резервный ответ
 
-### Service level declaration
-Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
+### Декларация на уровне сервиса
+Хуки могут быть назначены на определенное действие (указав действие `name`) или для всех действий (`*`) в сервисе.
 
 {% note warn%}
-Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+Обратите внимание, что порядок регистрации хука имеет значение, так как он определяет последовательность, в которой выполняются хуки. Для получения дополнительной информации смотрите [порядок выполнения хуков](#Execution-order).
 {% endnote %}
 
 **Хуки Before**
@@ -358,16 +358,16 @@ Please notice that hook registration order matter as it defines sequence by whic
 ```js
 const DbService = require("moleculer-db");
 
-module.exports = {
+module.export = {
     name: "posts",
     mixins: [DbService]
     hooks: {
         before: {
-            // Define a global hook for all actions
-            // The hook will call the `resolveLoggedUser` method.
+            // Глобальный хук для всех действий
+            // хук вызовет метод `resolveLoggedUser`.
             "*": "resolveLoggedUser",
 
-            // Define multiple hooks for action `remove`
+            // несколько хуков для действия `remove`
             remove: [
                 function isAuthenticated(ctx) {
                     if (!ctx.user)
@@ -390,7 +390,7 @@ module.exports = {
 }
 ```
 
-**After & Error hooks**
+**Хуки After и Error**
 
 ```js
 const DbService = require("moleculer-db");
@@ -400,22 +400,22 @@ module.exports = {
     mixins: [DbService]
     hooks: {
         after: {
-            // Define a global hook for all actions to remove sensitive data
+            // глобальный хук для удаления чувствительных данных
             "*": function(ctx, res) {
-                // Remove password
+                // удаление пароля
                 delete res.password;
 
-                // Please note, must return result (either the original or a new)
+                // важно вернуть результат (оригинальный или новый)
                 return res;
             },
             get: [
-                // Add a new virtual field to the entity
+                // добавление нового виртуального поля в сущность
                 async function (ctx, res) {
                     res.friends = await ctx.call("friends.count", { query: { follower: res._id }});
 
                     return res;
                 },
-                // Populate the `referrer` field
+                // заполнение поля `referrer`
                 async function (ctx, res) {
                     if (res.referrer)
                         res.referrer = await ctx.call("users.get", { id: res._id });
@@ -425,11 +425,11 @@ module.exports = {
             ]
         },
         error: {
-            // Global error handler
+            // глобальный обработчик ошибок
             "*": function(ctx, err) {
                 this.logger.error(`Error occurred when '${ctx.action.name}' action was called`, err);
 
-                // Throw further the error
+                // передача ошибки дальше
                 throw err;
             }
         }
@@ -437,14 +437,14 @@ module.exports = {
 };
 ```
 
-### Action level declaration
-Hooks can be also registered inside action declaration.
+### Декларация на уровне действия
+Хуки также могут быть зарегистрированы при объявлении действия.
 
 {% note warn%}
-Please note that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+Обратите внимание, что порядок регистрации хука имеет значение, так как он определяет последовательность, в которой выполняются хуки. Для получения дополнительной информации смотрите [порядок выполнения хуков](#Execution-order).
 {% endnote %}
 
-**Before & After hooks**
+**Хуки Before и After**
 
 ```js
 broker.createService({
@@ -469,14 +469,14 @@ broker.createService({
     }
 });
 ```
-### Execution order
-It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels.  Overall, the hooks have the following execution logic:
+### Порядок выполнения
+Важно помнить, что хуки имеют конкретный порядок исполнения. Это особенно важно помнить, когда несколько хуков зарегистрированы на разных уровнях ([service](#Service-level-declaration) и/или [action](#Action-level-declaration)).  В целом хуки имеют следующую логику выполнения:
 
-- `before` hooks: global (`*`) `->` service level `->` action level.
+- `before` хуки: глобальные (`*`) `->` уровень сервиса `->` уровень действия.
 
-- `after` hooks: action level `->` service level `->` global (`*`).
+- `after` хуки: уровень действия `->` уровень сервиса `->` глобальные (`*`).
 
-**Example of a global, service & action level hook execution chain**
+**Пример порядка выполнения хуков разного уровня**
 ```js
 broker.createService({
     name: "greeter",
@@ -521,7 +521,7 @@ broker.createService({
     }
 });
 ```
-**Output produced by global, service & action level hooks**
+**Результат**
 ```bash
 INFO  - Before all hook
 INFO  -   Before hook
@@ -533,7 +533,7 @@ INFO  - After all hook
 ```
 
 ### Переиспользование
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+Наиболее эффективным способом переиспользования хуков является их объявление в качестве методов сервиса в отдельном файле и импорт их с помощью механизма [примесей](services.html#Mixins). Таким образом, один хук может быть легко разделен между множеством действий.
 
 ```js
 // authorize.mixin.js
