@@ -1,7 +1,7 @@
 title: Действия
 ---
 
-Действия (Action) это публично вызываемый метод сервиса. Работа с actions по принципу удаленного вызова процедур (RPC). Action похож на обычный HTTP запрос, имеет параметры и возвращает результат.
+Действия (Action) это публично вызываемый метод сервиса. Работа с actions по принципу удаленного вызова процедур (RPC). Действие похоже на обычный HTTP запрос, принимает на вход параметры и возвращает результат.
 
 Если запущено несколько экземпляров сервиса, то брокер будет балансировать запросы между экземплярами. [Подробнее о балансировке](balancing.html).
 
@@ -10,29 +10,29 @@ title: Действия
 </div>
 
 ## Вызов сервисов
-Для вызова сервиса используется метод `broker.call`. Брокер ищет сервис (и узел) который предоставляет указанный action и вызывает его. Функция возвращает `Promise`.
+Для вызова сервиса используется метод `broker.call`. Брокер ищет сервис (и узел) который предоставляет требуемое действие и вызывает его. Функция возвращает `Promise`.
 
 ### Синтаксис
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-`actionName` содержит точку в качестве разделителя. Первая часть является именем сервиса, а вторая часть название action метода. К примеру, у нас есть сервис `posts` и action метод `create`, в таком случае actionName = `posts.create`.
+`actionName` содержит точку в качестве разделителя. Первая часть является именем сервиса, а вторая часть название действия. К примеру, у нас есть сервис `posts` и действие `create`, в таком случае actionName = `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](context.html). Служба может получить доступ через `ctx.params`. *Необязательное. If you don't define, it will be `{}`*.
+`params` это объект, который передается действию в качестве части [Context](context.html) контекста. Служба может получить доступ через `ctx.params`. *Необязательное. Значение по умолчанию `{}`*.
 
-The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *Необязательное.*
+`opts` является объектом для установки/переопределения некоторых опций запроса, например: `timeout` таймаут, `retryCount` количество повторов. *Необязательное.*
 
-**Available calling options:**
+**Доступные опции вызова:**
 
 | Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                                   |
 | ------------------ | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `таймаут`          | `Number`  | `null`       | Время ожидания запроса в миллисекундах. Если время истекло, и вы не определили `fallbackResponse`, брокер бросит ошибку `RequestTimeout`. Чтобы отключить установите `0`. Если не определено, будет использовано значение `requestTimeout` из опций брокера. [Читать далее](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`       | Count of retry of request. If the request is timed out, broker will try to call again. Чтобы отключить установите `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Читать далее](fault-tolerance.html#Retry).                                                  |
+| `timeout`          | `Number`  | `null`       | Время ожидания запроса в миллисекундах. Если время истекло, и вы не определили `fallbackResponse`, брокер бросит ошибку `RequestTimeout`. Чтобы отключить установите `0`. Если не определено, будет использовано значение `requestTimeout` из опций брокера. [Читать далее](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null`       | Количество повторных запросов. Если время истекло, брокер попытается повторить вызов ещё раз. Чтобы отключить установите `0`. Если не определено, будет использовано значение `retryPolicy.retries` из опций брокера. [Читать далее](fault-tolerance.html#Retry).                                          |
 | `fallbackResponse` | `Any`     | `null`       | Возвращает, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                          |
-| `nodeID`           | `String`  | `null`       | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                                   |
-| `meta`             | `Object`  | `{}`         | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                               |
-| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                      |
-| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                          |
+| `nodeID`           | `String`  | `null`       | Целевой nodeID. Если задан, то вызов будет отправлен указанному узлу.                                                                                                                                                                                                                                      |
+| `meta`             | `Object`  | `{}`         | Метаданные запроса. Доступны через `ctx.meta` в обработчике действия. Они будут переданы и объединены и во вложенные вызовы.                                                                                                                                                                               |
+| `parentCtx`        | `Context` | `null`       | Экземпляр родительского контекста `Context`. Используется для создание цепочки вызовов.                                                                                                                                                                                                                    |
+| `requestID`        | `String`  | `null`       | ID запроса или ID корреляции. Используется для трассировки вызовов.                                                                                                                                                                                                                                        |
 
 
 ### Примеры использования
@@ -55,7 +55,7 @@ const res = await broker.call("user.recommendation", { limit: 5 }, {
 });
 ```
 
-**Вызов с обработкой ошибок в promise**
+**Вызов с обработкой ошибок**
 ```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
@@ -112,7 +112,7 @@ broker.createService({
 });
 ```
 
-When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
+При выполнении внутренних вызовов действий (`this.actions.xy()`) необходимо установить `parentCtx` для передачи `meta` данных.
 
 **Внутренние вызовы**
 ```js
@@ -137,11 +137,11 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
-### Таймаут
+### Таймауты
 
-Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+Таймаут может быть установлен на уровне действия. Он переопределит глобальное значение брокера [опцию `requestTimeout`](fault-tolerance.html#Timeout), но не опцию `timeout` указанную для конкретного вызова действия.
 
-**Example**
+**Пример**
  ```js
 // moleculer.config.js
 module.exports = {
@@ -166,7 +166,7 @@ module.exports = {
         }
     },
 ```
-**Calling examples**
+**Пример вызова**
 ```js
 // It uses the global 3000 timeout
 await broker.call("greeter.normal");
