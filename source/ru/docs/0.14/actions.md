@@ -168,11 +168,11 @@ module.exports = {
 ```
 **Пример вызова**
 ```js
-// It uses the global 3000 timeout
+// тут используется глобальный таймаут (3000)
 await broker.call("greeter.normal");
- // It uses the 5000 timeout from action definition
+ // тут используется таймаут настроенный на действии (5000)
 await broker.call("greeter.slow");
- // It uses 1000 timeout from calling option
+ // тут используется непосредственно переданный таймаут (1000)
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
 ### Массовый вызов
