@@ -177,31 +177,31 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
 ### Массовый вызов
 
-Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+Также возможно выполнить несколько действий одновременно. Для этого используйте `broker.mcall` или `ctx.mcall`.
 
-**`mcall` with Array< Object >**
+**`mcall` с массивом < Объектов >**
 ```js
 await broker.mcall(
     [
-        { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        { action: 'posts.find', params: { author: 1 }, options: { /* Опции для этого действия. */} },
         { action: 'users.find', params: { name: 'John' } }
     ],
     {
-        // Common calling options for all calls.
+        // Общие опции вызова для всей группы действий.
         meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
     }
 );
 ```
 
-**`mcall` with Object**
+**`mcall` с объектом**
 ```js
 await broker.mcall(
     {
-        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Опции для этого действия. */} },
         users: { action: 'users.find', params: { name: 'John' } }
     }, 
     {
-        // Common calling options for all calls.
+        // Общие опции вызова для всей группы действий.
         meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
     }
 );
@@ -285,13 +285,13 @@ module.exports = {
 ```
 
 ## Видимость методов
-The action has a `visibility` property to control the visibility & callability of service actions.
+Действие имеет свойство `visibility` для контроля видимости и возможности его вызова другими сервисами.
 
 **Доступные значения:**
-- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
-- `public`: public action, can be called locally & remotely but not published via API GW
-- `protected`: can be called only locally (from local services)
-- `private`: can be called only internally (via `this.actions.xy()` inside service)
+- `published` или `null`: публичное действие. Оно может быть вызвано локально, удаленно и может быть опубликован через API шлюз
+- `public`: публичное действие, может быть вызвано локально или удаленно, но не опубликовано через API шлюз
+- `protected`: можно вызвать только локально (из локального сервиса)
+- `private`: можно вызвать только внутри сервиса (через `this.actions.xy()`)
 
 **Управление видимостью**
 ```js
@@ -315,13 +315,13 @@ module.exports = {
 }
 ```
 
-> The default values is `null` (means `published`) due to backward compatibility.
+> Значения по умолчанию `null` (означает `published`) для обратной совместимости.
 
 ## Хуки действий
-Хуки действия являются подключаемыми и переиспользуемыми функциями middleware, которые могут быть зарегистрированы `перед`, `после` или при `ошибке` действий сервиса. Хук является `Функцией` или `Строкой`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+Хуки действия являются подключаемыми и переиспользуемыми функциями middleware, которые могут быть зарегистрированы `перед`, `после` или при `ошибке` действий сервиса. Хук является `Функцией` или `Строкой`. В случае `Строки` её имя должно совпадать с именем [метода](services.html#Methods) сервиса.
 
 ### Хуки Before
-In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
+Этот хук получает `ctx`, он может манипулировать `ctx.params`, `ctx.meta`, или добавить пользовательские переменные в `ctx.locals` которые можно использовать в обработчиках действий. В случае проблемы, она может бросить `Ошибку`. _Пожалуйста, обратите внимание, что нет возможности остановить/пропустить дальнейшие выполнения хуков или обработчиков действий._
 
 **Основное назначение:**
 - очистка параметров
@@ -330,15 +330,15 @@ In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx
 - авторизация
 
 ### After hooks
-In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
+Этот хук получает `ctx` контекст и `response` ответ. Он может полностью изменить ответ. Хук должен вернуть ответ.
 
 **Основное назначение:**
-- property populating
-- remove sensitive data.
-- wrapping the response into an `Object`
-- convert the structure of the response
+- заполнение сущностей
+- удаление чувствительных данных.
+- оборачивание ответа в `Объект`
+- конвертирование структуры ответа
 
-### Error hooks
+### Хуки ошибок
 The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
 
 **Основное назначение:**
