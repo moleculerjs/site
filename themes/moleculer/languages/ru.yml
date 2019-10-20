@@ -31,57 +31,57 @@ sidebar:
     concepts: Архитектура
     support: Поддержка
     introduction: Введение
-    core: Core
+    core: Ядро
     configuration: Конфигурация
-    broker: Broker
-    service: Service
-    services: Services
-    lifecycle: Lifecycles
-    actions: Actions
-    events: Events
-    context: Context
+    broker: Брокер
+    service: Сервис
+    services: Сервисы
+    lifecycle: Жизненный цикл
+    actions: Действия
+    events: События
+    context: Контекст
     middlewares: Middlewares
-    caching: Caching
-    networking: Networking
+    caching: Кэширование
+    networking: Сеть
     registry: Discovery & Registry
-    balancing: Load balancing
+    balancing: Балансирование нагрузки
     fault_tolerance: Fault tolerance
-    metrics: Metrics
-    tracing: Tracing
-    logging: Logging
-    validating: Validating
-    errors: Errors
+    metrics: Метрики
+    tracing: Трассировка
+    logging: Логирование
+    validating: Валидация
+    errors: Ошибки
     runner: Moleculer Runner
     modules: Модули
     tools: Утилиты
-    moleculer_web: API Gateway
-    moleculer_repl: REPL console
-    moleculer_cli: CLI Tool
-    moleculer_db: DB Adapters
+    moleculer_web: Шлюз API
+    moleculer_repl: REPL консоль
+    moleculer_cli: CLI инструменты
+    moleculer_db: Адаптеры БД
     other_modules: Другие модули
     all_modules: Все модули
-    miscellaneous: Miscellaneous
-    clustering: Clustering
-    deploying: Deploying
-    nodes: Nodes
+    miscellaneous: Прочие
+    clustering: Кластеризация
+    deploying: Развертывание
+    nodes: Узлы
     docker: Docker
     serverless: Serverless
     benchmark: Benchmark
     faq: FAQ
     contributing: Contributing
     #Old 01.12 menu
-    transporters: Transporters
-    logger: Logger
+    transporters: Транспорт
+    logger: Логгер
     circuit-breaker: Circuit Breaker
     service-registry: Service Registry
-    cachers: Cachers
-    serializers: Serializers
-    statistics: Statistics
+    cachers: Кэш
+    serializers: Сериализаторы
+    statistics: Статистика
     validation: Валидация
     api: API
     api_servicebroker: ServiceBroker
-    api_service: Service
-    api_context: Context
+    api_service: Сервис
+    api_context: Контекст
     api_protocol: Протокол
 modules:
   name: Название
