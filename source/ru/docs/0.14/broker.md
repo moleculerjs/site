@@ -26,7 +26,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Create broker with transporter to communicate with remote nodes:**
+**Создание брокера с транспортом к удаленными узлами:**
 ```js
 const { ServiceBroker } = require("moleculer");
 const broker = new ServiceBroker({
@@ -38,8 +38,8 @@ const broker = new ServiceBroker({
 ```
 
 
-### Metadata option
-Use `metadata` property to store custom values. It can be useful for a custom [middleware](middlewares.html#Loading-amp-Extending) or [strategy](balancing.html#Custom-strategy).
+### Опции метаданных
+Используйте свойство `metadata` для передачи пользовательских данных. Это может быть полезно для пользовательских [middleware](middlewares.html#Loading-amp-Extending) или [strategy](balancing.html#Custom-strategy) стратегии.
 
 ```js
 const broker = new ServiceBroker({
@@ -51,22 +51,22 @@ const broker = new ServiceBroker({
 });
 ```
 {% note info %}
-The `metadata` property can be obtained by running `$node.list` action.
+Свойство `metadata` можно получить запустив действие `$node.list`.
 {% endnote %}
 
 {% note info %}
-The `metadata` property is transferred to other nodes.
+Свойство `metadata` передается другим узлам.
 {% endnote %}
 
-## Ping
-To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping information (latency, time difference). A timeout value can be defined.
+## Пинг
+Для пинга удаленных узлов используется метод `broker.ping`. Вы можете пинговать конкретный узел или все доступные узлы. Он возвращает `Promise` который содержит принятый ответ (задержка, разница времени). Можно задать значение таймаута.
 
-### Ping a node with 1 second timeout
+### Пинговать узел с таймаутом в 1 секунду
 ```js
 broker.ping("node-123", 1000).then(res => broker.logger.info(res));
 ```
 
-**Output**
+**Вернет**
 ```js
 { 
     nodeID: 'node-123', 
@@ -74,14 +74,14 @@ broker.ping("node-123", 1000).then(res => broker.logger.info(res));
     timeDiff: -3 
 }
 ```
-> The `timeDiff` value is the difference of the system clock between these two nodes.
+> Значение `timeDiff` является разницей системных часов между этими узлами.
 
-### Ping multiple nodes
+### Пинг нескольких узлов
 ```js
 broker.ping(["node-100", "node-102"]).then(res => broker.logger.info(res));
 ```
 
-**Output**
+**Вернет**
 ```js
 { 
     "node-100": { 
@@ -97,12 +97,12 @@ broker.ping(["node-100", "node-102"]).then(res => broker.logger.info(res));
 }
 ```
 
-### Ping all available nodes
+### Пинг всех доступных узлов
 ```js
 broker.ping().then(res => broker.logger.info(res));
 ```
 
-**Output**
+**Вернет**
 ```js
 { 
     "node-100": { 
@@ -123,33 +123,33 @@ broker.ping().then(res => broker.logger.info(res));
 }
 ```
 
-## Properties of ServiceBroker
+## Свойства ServiceBroker
 
-| Name                | Type                   | Description                    |
-| ------------------- | ---------------------- | ------------------------------ |
-| `broker.options`    | `Object`               | Broker options.                |
-| `broker.Promise`    | `Promise`              | Bluebird Promise class.        |
-| `broker.started`    | `Boolean`              | Broker state.                  |
-| `broker.namespace`  | `String`               | Namespace.                     |
-| `broker.nodeID`     | `String`               | Node ID.                       |
-| `broker.instanceID` | `String`               | Instance ID.                   |
-| `broker.metadata`   | `Object`               | Metadata from broker options.  |
-| `broker.logger`     | `Logger`               | Logger class of ServiceBroker. |
-| `broker.cacher`     | `Cacher`               | Cacher instance                |
-| `broker.serializer` | `Serializer`           | Serializer instance.           |
-| `broker.validator`  | `Any`                  | Parameter Validator instance.  |
-| `broker.services`   | `Array<Service>` | Local services.                |
-| `broker.metrics`    | `MetricRegistry`       | Built-in Metric Registry.      |
-| `broker.tracer`     | `Tracer`               | Built-in Tracer instance.      |
+| Имя                 | Тип                    | Описание                                 |
+| ------------------- | ---------------------- | ---------------------------------------- |
+| `broker.options`    | `Object`               | Опции брокера.                           |
+| `broker.Promise`    | `Promise`              | Класс Bluebird Promise.                  |
+| `broker.started`    | `Boolean`              | Состояние брокера.                       |
+| `broker.namespace`  | `String`               | Пространство имён.                       |
+| `broker.nodeID`     | `String`               | Идентификатор узла.                      |
+| `broker.instanceID` | `String`               | Идентификатор экземпляра.                |
+| `broker.metadata`   | `Object`               | Метаданные из опций брокера.             |
+| `broker.logger`     | `Logger`               | Класс логгера из ServiceBroker.          |
+| `broker.cacher`     | `Cacher`               | Экземпляр кеша                           |
+| `broker.serializer` | `Serializer`           | Экземпляр сериализатора.                 |
+| `broker.validator`  | `Any`                  | Экземпляр валидатора входных параметров. |
+| `broker.services`   | `Array<Service>` | Локальные сервисы.                       |
+| `broker.metrics`    | `MetricRegistry`       | Встроенный реестр метрик.                |
+| `broker.tracer`     | `Tracer`               | Встроенный экземпляр трекера.            |
 
-## Methods of ServiceBroker
+## Методы ServiceBroker
 
-| Name                                                      | Response              | Description                                                 |
+| Имя                                                       | Ответ                 | Описание                                                    |
 | --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
-| `broker.start()`                                          | `Promise`             | Start broker.                                               |
-| `broker.stop()`                                           | `Promise`             | Stop broker.                                                |
-| `broker.repl()`                                           | -                     | Start REPL mode.                                            |
-| `broker.errorHandler(err, info)`                          | -                     | Call the global error handler.                              |
+| `broker.start()`                                          | `Promise`             | Запустить брокер.                                           |
+| `broker.stop()`                                           | `Promise`             | Остановить брокер.                                          |
+| `broker.repl()`                                           | -                     | Запустить режим REPL.                                       |
+| `broker.errorHandler(err, info)`                          | -                     | Вызов глобального обработчика ошибок.                       |
 | `broker.getLogger(module, props)`                         | `Logger`              | Get a child logger.                                         |
 | `broker.fatal(message, err, needExit)`                    | -                     | Throw an error and exit the process.                        |
 | `broker.loadServices(folder, fileMask)`                   | `Number`              | Load services from a folder.                                |
@@ -157,8 +157,8 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.createService(schema, schemaMods)`                | `Service`             | Create a service from schema.                               |
 | `broker.destroyService(service)`                          | `Promise`             | Destroy a loaded local service.                             |
 | `broker.getLocalService(name)`                            | `Service`             | Get a local service instance by full name (e.g. `v2.posts`) |
-| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Wait for services.                                          |
-| `broker.call(actionName, params, opts)`                   | `Promise`             | Call a service.                                             |
+| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Дождаться сервиса.                                          |
+| `broker.call(actionName, params, opts)`                   | `Promise`             | Вызвать действие сервиса.                                   |
 | `broker.mcall(def)`                                       | `Promise`             | Multiple service calling.                                   |
 | `broker.emit(eventName, payload, opts)`                   | -                     | Emit a balanced event.                                      |
 | `broker.broadcast(eventName, payload, opts)`              | -                     | Broadcast an event.                                         |
