@@ -125,7 +125,7 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Свойства ServiceBroker
 
-| Имя                 | Тип                    | Описание                                 |
+| Название            | Тип                    | Описание                                 |
 | ------------------- | ---------------------- | ---------------------------------------- |
 | `broker.options`    | `Object`               | Опции брокера.                           |
 | `broker.Promise`    | `Promise`              | Класс Bluebird Promise.                  |
