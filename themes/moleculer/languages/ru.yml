@@ -43,7 +43,7 @@ sidebar:
     middlewares: Middlewares
     caching: Кэширование
     networking: Сеть
-    registry: Discovery & Registry
+    registry: Реестр и обнаружение
     balancing: Балансирование нагрузки
     fault_tolerance: Fault tolerance
     metrics: Метрики
@@ -73,7 +73,7 @@ sidebar:
     transporters: Транспорт
     logger: Логгер
     circuit-breaker: Circuit Breaker
-    service-registry: Service Registry
+    service-registry: Реестр сервисов
     cachers: Кэш
     serializers: Сериализаторы
     statistics: Статистика
