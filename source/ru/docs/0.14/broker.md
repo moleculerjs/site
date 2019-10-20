@@ -3,7 +3,7 @@ title: Брокер
 `ServiceBroker` является основным компонентом Moleculer. Он обрабатывает действия и события сервиса, а так же общается с удаленными узлами. Экземпляр `ServiceBroker` должен быть запущен на каждом узле.
 
 <div align="center">
-    <img src="assets/service-broker.svg" alt="Broker logical diagram" />
+    <img src="assets/service-broker.svg" alt="Диаграмма логики работы брокера" />
 </div>
 
 ## Создание ServiceBroker
@@ -144,57 +144,57 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Методы ServiceBroker
 
-| Имя                                                       | Ответ                 | Описание                                                    |
-| --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
-| `broker.start()`                                          | `Promise`             | Запустить брокер.                                           |
-| `broker.stop()`                                           | `Promise`             | Остановить брокер.                                          |
-| `broker.repl()`                                           | -                     | Запустить режим REPL.                                       |
-| `broker.errorHandler(err, info)`                          | -                     | Вызов глобального обработчика ошибок.                       |
-| `broker.getLogger(module, props)`                         | `Logger`              | Get a child logger.                                         |
-| `broker.fatal(message, err, needExit)`                    | -                     | Throw an error and exit the process.                        |
-| `broker.loadServices(folder, fileMask)`                   | `Number`              | Load services from a folder.                                |
-| `broker.loadService(filePath)`                            | `Service`             | Load a service from file.                                   |
-| `broker.createService(schema, schemaMods)`                | `Service`             | Create a service from schema.                               |
-| `broker.destroyService(service)`                          | `Promise`             | Destroy a loaded local service.                             |
-| `broker.getLocalService(name)`                            | `Service`             | Get a local service instance by full name (e.g. `v2.posts`) |
-| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Дождаться сервиса.                                          |
-| `broker.call(actionName, params, opts)`                   | `Promise`             | Вызвать действие сервиса.                                   |
-| `broker.mcall(def)`                                       | `Promise`             | Multiple service calling.                                   |
-| `broker.emit(eventName, payload, opts)`                   | -                     | Emit a balanced event.                                      |
-| `broker.broadcast(eventName, payload, opts)`              | -                     | Broadcast an event.                                         |
-| `broker.broadcastLocal(eventName, payload, opts)`         | -                     | Broadcast an event to local services only.                  |
-| `broker.ping(nodeID, timeout)`                            | `Promise`             | Ping remote nodes.                                          |
-| `broker.hasEventListener("eventName")`                    | `Boolean`             | Checks if broker is listening to an event.                  |
-| `broker.getEventListeners("eventName")`                   | `Array<Object>` | Returns all registered event listeners for an event name.   |
-| `broker.generateUid()`                                    | `String`              | Generate an UUID/token.                                     |
-| `broker.callMiddlewareHook(name, args, opts)`             | -                     | Call an async hook in the registered middlewares.           |
-| `broker.callMiddlewareHookSync(name, args, opts)`         | -                     | Call a sync hook in the registered middlewares.             |
-| `broker.isMetricsEnabled()`                               | `Boolean`             | Check the metrics feature is enabled.                       |
-| `broker.isTracingEnabled()`                               | `Boolean`             | Check the tracing feature is enabled.                       |
+| Имя                                                       | Ответ                 | Описание                                                                     |
+| --------------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| `broker.start()`                                          | `Promise`             | Запустить брокер.                                                            |
+| `broker.stop()`                                           | `Promise`             | Остановить брокер.                                                           |
+| `broker.repl()`                                           | -                     | Запустить режим REPL.                                                        |
+| `broker.errorHandler(err, info)`                          | -                     | Вызов глобального обработчика ошибок.                                        |
+| `broker.getLogger(module, props)`                         | `Logger`              | Получить дочерний логгер.                                                    |
+| `broker.fatal(message, err, needExit)`                    | -                     | Бросить ошибку и выйти из процесса.                                          |
+| `broker.loadServices(folder, fileMask)`                   | `Number`              | Загрузить сервисы из папки.                                                  |
+| `broker.loadService(filePath)`                            | `Service`             | Загрузить сервис из файла.                                                   |
+| `broker.createService(schema, schemaMods)`                | `Service`             | Создать сервис из схемы.                                                     |
+| `broker.destroyService(service)`                          | `Promise`             | Уничтожьте загруженный локальный сервис.                                     |
+| `broker.getLocalService(name)`                            | `Service`             | Получить экземпляр локального сервиса по полному имени (например `v2.posts`) |
+| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Дождаться сервиса.                                                           |
+| `broker.call(actionName, params, opts)`                   | `Promise`             | Вызвать действие сервиса.                                                    |
+| `broker.mcall(def)`                                       | `Promise`             | Вызов нескольких действий одновременно.                                      |
+| `broker.emit(eventName, payload, opts)`                   | -                     | Отправить событие через балансировщик.                                       |
+| `broker.broadcast(eventName, payload, opts)`              | -                     | Отправить широковещательное событие.                                         |
+| `broker.broadcastLocal(eventName, payload, opts)`         | -                     | Отправить широковещательное событие только локальным сервисам.               |
+| `broker.ping(nodeID, timeout)`                            | `Promise`             | Пинг удаленных узлов.                                                        |
+| `broker.hasEventListener("eventName")`                    | `Boolean`             | Проверить наличие слушателей события.                                        |
+| `broker.getEventListeners("eventName")`                   | `Array<Object>` | Получить всех зарегистрированных слушателей указанного события.              |
+| `broker.generateUid()`                                    | `String`              | Создать UUID токен.                                                          |
+| `broker.callMiddlewareHook(name, args, opts)`             | -                     | Вызвать асинхронный хук в зарегистрированных middlewares.                    |
+| `broker.callMiddlewareHookSync(name, args, opts)`         | -                     | Вызвать синхронный хук в зарегистрированных middlewares.                     |
+| `broker.isMetricsEnabled()`                               | `Boolean`             | Проверить, что функция сбора метрик включена.                                |
+| `broker.isTracingEnabled()`                               | `Boolean`             | Проверить, что функция трекинга включена.                                    |
 
-## Global error handler
-The global error handler is generic way to handle exceptions. It catches the unhandled errors of action & event handlers.
+## Глобальный обработчик ошибок
+Глобальный обработчик ошибок является основным способом обработки исключений. Он выявляет ошибки в обработчиках действий и событий.
 
-**Catch, handle & log the error**
+**Поймать, обработать и записать в лог**
 ```js
 const broker = new ServiceBroker({
     errorHandler(err, info) {
-        // Handle the error
+        // обработка ошибки
         this.logger.warn("Error handled:", err);
     }
 });
 ```
 
-**Catch & throw further the error**
+**Поймать и бросить исключение дальше**
 ```js
 const broker = new ServiceBroker({
     errorHandler(err, info) {
         this.logger.warn("Log the error:", err);
-        throw err; // Throw further
+        throw err; // передать дальше
     }
 });
 ```
 
 {% note info %}
-The `info` object contains the broker and the service instances, the current context and the action or the event definition.
+Объект `info` содержит экземпляры брокера и сервиса, текущий контекст context и определение действия или события.
 {% endnote %}
