@@ -125,26 +125,26 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Свойства ServiceBroker
 
-| Название            | Тип                    | Описание                                 |
-| ------------------- | ---------------------- | ---------------------------------------- |
-| `broker.options`    | `Object`               | Опции брокера.                           |
-| `broker.Promise`    | `Promise`              | Класс Bluebird Promise.                  |
-| `broker.started`    | `Boolean`              | Состояние брокера.                       |
-| `broker.namespace`  | `String`               | Пространство имён.                       |
-| `broker.nodeID`     | `String`               | Идентификатор узла.                      |
-| `broker.instanceID` | `String`               | Идентификатор экземпляра.                |
-| `broker.metadata`   | `Object`               | Метаданные из опций брокера.             |
-| `broker.logger`     | `Logger`               | Класс логгера из ServiceBroker.          |
-| `broker.cacher`     | `Cacher`               | Экземпляр кеша                           |
-| `broker.serializer` | `Serializer`           | Экземпляр сериализатора.                 |
-| `broker.validator`  | `Any`                  | Экземпляр валидатора входных параметров. |
-| `broker.services`   | `Array<Service>` | Локальные сервисы.                       |
-| `broker.metrics`    | `MetricRegistry`       | Встроенный реестр метрик.                |
-| `broker.tracer`     | `Tracer`               | Встроенный экземпляр трекера.            |
+| Название            | Тип                    | Описание                          |
+| ------------------- | ---------------------- | --------------------------------- |
+| `broker.options`    | `Object`               | Опции брокера.                    |
+| `broker.Promise`    | `Promise`              | Класс Bluebird Promise.           |
+| `broker.started`    | `Boolean`              | Состояние брокера.                |
+| `broker.namespace`  | `String`               | Пространство имён.                |
+| `broker.nodeID`     | `String`               | Идентификатор узла.               |
+| `broker.instanceID` | `String`               | Идентификатор экземпляра.         |
+| `broker.metadata`   | `Object`               | Метаданные из опций брокера.      |
+| `broker.logger`     | `Logger`               | Класс логгера из ServiceBroker.   |
+| `broker.cacher`     | `Cacher`               | Экземпляр кэша                    |
+| `broker.serializer` | `Serializer`           | Экземпляр сериализатора.          |
+| `broker.validator`  | `Any`                  | Экземпляр валидатора параметров.  |
+| `broker.services`   | `Array<Service>` | Локальные сервисы.                |
+| `broker.metrics`    | `MetricRegistry`       | Встроенный реестр метрик.         |
+| `broker.tracer`     | `Tracer`               | Встроенный экземпляр трассировки. |
 
 ## Методы ServiceBroker
 
-| Имя                                                       | Ответ                 | Описание                                                                     |
+| Название                                                  | Ответ                 | Описание                                                                     |
 | --------------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------- |
 | `broker.start()`                                          | `Promise`             | Запустить брокер.                                                            |
 | `broker.stop()`                                           | `Promise`             | Остановить брокер.                                                           |
@@ -158,7 +158,7 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.destroyService(service)`                          | `Promise`             | Уничтожьте загруженный локальный сервис.                                     |
 | `broker.getLocalService(name)`                            | `Service`             | Получить экземпляр локального сервиса по полному имени (например `v2.posts`) |
 | `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Дождаться сервиса.                                                           |
-| `broker.call(actionName, params, opts)`                   | `Promise`             | Вызвать действие сервиса.                                                    |
+| `broker.call(actionName, params, opts)`                   | `Promise`             | Вызвать действие из сервиса.                                                 |
 | `broker.mcall(def)`                                       | `Promise`             | Вызов нескольких действий одновременно.                                      |
 | `broker.emit(eventName, payload, opts)`                   | -                     | Отправить событие через балансировщик.                                       |
 | `broker.broadcast(eventName, payload, opts)`              | -                     | Отправить широковещательное событие.                                         |
@@ -170,7 +170,7 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.callMiddlewareHook(name, args, opts)`             | -                     | Вызвать асинхронный хук в зарегистрированных middlewares.                    |
 | `broker.callMiddlewareHookSync(name, args, opts)`         | -                     | Вызвать синхронный хук в зарегистрированных middlewares.                     |
 | `broker.isMetricsEnabled()`                               | `Boolean`             | Проверить, что функция сбора метрик включена.                                |
-| `broker.isTracingEnabled()`                               | `Boolean`             | Проверить, что функция трекинга включена.                                    |
+| `broker.isTracingEnabled()`                               | `Boolean`             | Проверить, что функция трассировки включена.                                 |
 
 ## Глобальный обработчик ошибок
 Глобальный обработчик ошибок является основным способом обработки исключений. Он выявляет ошибки в обработчиках действий и событий.
@@ -196,5 +196,5 @@ const broker = new ServiceBroker({
 ```
 
 {% note info %}
-Объект `info` содержит экземпляры брокера и сервиса, текущий контекст context и определение действия или события.
+Объект `info` содержит экземпляры брокера и сервиса, текущий context и определение действия или события.
 {% endnote %}
