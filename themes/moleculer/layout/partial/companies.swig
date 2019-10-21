@@ -1,5 +1,7 @@
 <section>
-	<h2 class="section-title">{{ __('index.who_is_using') }}</h2>
+	<h2 id="companies" class="section-title">{{ __('index.who_is_using') }}
+        <a href="#companies" class="headerlink" title=" Companies using Moleculer in production"></a>
+    </h2>
 
     {% for group in site.data.companies %}
     	<div class="company-list">
