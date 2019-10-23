@@ -1,11 +1,11 @@
-title: Benchmark
+title: Бенчмарк
 ---
-In development, we measure every critical part of the framework to ensure the best possible performance.
+В процессе разработки мы измеряем каждую критическую часть фреймворка для обеспечения максимально возможной производительности.
 
-## Request times
-We [tested](https://github.com/icebob/microservices-benchmark) Moleculer against some other frameworks and measured the request times.
+## Время запроса
+Мы [сравнили](https://github.com/icebob/microservices-benchmark) Moleculer с некоторых другими фреймворками и измерили время запроса.
 
-### Local request
+### Локальный запрос
 ```
 Suite: Call local actions
 √ Moleculer*           1,713,579 rps
@@ -18,7 +18,7 @@ Suite: Call local actions
 ```
 [![Result chart](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti)
 
-### Remote request
+### Удаленный запрос
 ```
 Suite: Call remote actions
 √ Moleculer*           10,445 rps
@@ -33,7 +33,7 @@ Suite: Call remote actions
 ```
 [![Result chart](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
-## Benchmark results
+## Результаты сравнения
 
 **Tester platform:**
 - **OS**: Windows_NT 6.1.7601 x64
