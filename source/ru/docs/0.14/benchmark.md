@@ -16,7 +16,7 @@ Suite: Call local actions
    Nanoservices*      -94.72%         (90,510 rps)   (avg: 11μs)
    Seneca*            -99.23%         (13,252 rps)   (avg: 75μs)
 ```
-[![Result chart](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti)
+[![Диаграмма результатов](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti)
 
 ### Удаленный запрос
 ```
@@ -31,18 +31,18 @@ Suite: Call remote actions
    Cote*                0%         (15,442 rps)   (avg: 64μs)
    Seneca*         -80.91%          (2,947 rps)   (avg: 339μs)
 ```
-[![Result chart](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Диаграмма результатов](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 ## Результаты сравнения
 
-**Tester platform:**
+**Тестовая платформа:**
 - **OS**: Windows_NT 6.1.7601 x64
 - **Node**: 8.11.0
 - **v8**: 6.2.414.50
 - **CPU**: Intel(R) Core(TM) i7-4770K CPU @ 3.50GHz × 8
 - **Memory**: 16 GB
 
-### Common test suite
+### Общие тесты
 ```
 Suite: Local call
 √ broker.call (normal)*             1,595,635 rps
@@ -85,7 +85,7 @@ Suite: Context tracking
 -----------------------------------------------------------------------
 ```
 
-### Calling test suite
+### Тесты вызовов
 ```
 Suite: Call methods
 √ broker.call (normal)*             1,660,419 rps
@@ -134,7 +134,7 @@ Suite: Call with metrics
 -----------------------------------------------------------------------
 ```
 
-### Cachers test suite
+### Тесты кеширования
 ```
 Suite: Set & get 1k data with cacher
 √ Memory*        2,233,922 rps
@@ -161,7 +161,7 @@ Suite: Test cloning on MemoryCacher
 -----------------------------------------------------------------------
 ```
 
-### Events test suite
+### Тесты событий
 ```
 Suite: Emit event
 √ Emit event without subscribers                                     7,093,574 rps
@@ -180,7 +180,7 @@ Suite: Emit event
 -----------------------------------------------------------------------
 ```
 
-### Middlewares test suite
+### Тесты Middlewares
 ```
 Suite: Middleware test
 √ Without internal & custom middlewares*        2,786,666 rps
@@ -195,7 +195,7 @@ Suite: Middleware test
 -----------------------------------------------------------------------
 ```
 
-### Transporters test suite
+### Тесты транспортов
 ```
 Suite: Transport with 10bytes
 √ Fake*            40,182 rps
@@ -212,7 +212,7 @@ Suite: Transport with 10bytes
 -----------------------------------------------------------------------
 ```
 
-### Serializers test suite
+### Тесты сериализаторов
 ```
 JSON length: 89
 Avro length: 38
