@@ -46,14 +46,14 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 1. Он загружает файл конфигурации, определенный в настройках CLI. Если он не существует, он бросает ошибку.
 2. Если не определено, он загружает файл `moleculer.config.js` из текущего каталога. Если он не существует, он загружает файл `moleculer.config.json`.
 3. После загрузки файла конфигурации, он объединяет параметры по умолчанию для ServiceBroker.
-4. Стартер просматривает параметры шаг за шагом и пытается перезаписать их из переменных среды. После `logLevel: "Предупреждение"` установлено в файле конфигурации, но `LOGLEVEL=отладка` переменная окружения определяется, исполняющий исполняет его, и это результат: `logLevel: "debug"`.
+4. Стартер просматривает параметры шаг за шагом и пытается перезаписать их из переменных среды. Если в файле конфигурации `logLevel: "warn"`, а переменная окружения `LOGLEVEL=debug`, то стартер перезапишет параметр, и в результате получится: `logLevel: "debug"`.
 
-> To overwrite broker's deeply nested default options, which are not present in `moleculer.config.js`, via environment variables, use the `MOL_` prefix and double underscore `__` for nested properties in `.env` file. For example, to set the [cacher prefix](caching.html#Built-in-cachers) to `MOL` you should declare as `MOL_CACHER__OPTIONS__PREFIX=MOL`.
+> Чтобы перезаписать глубоко вложенные параметры брокера по умолчанию, которые отсутствуют в `moleculer.config.js`, используются переменные среды, с префиксом `MOL_` и двойным подчеркиванием `__` для вложенных свойств в файле `.env`. Например, для установки префикса [cacher prefix](caching.html#Built-in-cachers) в `MOL` необходимо объявить `MOL_CACHER__OPTIONS__PREFIX=MOL`.
 
-### Configuration file
-The structure of the configuration file is the same as that of the [broker options](configuration.html#Broker-options). Every property has the same name.
+### Файл конфигурации
+Структура конфигурационного файла совпадает с структурой [параметров брокера](configuration.html#Broker-options). Каждое свойство имеет такое же имя.
 
-**Example config file**
+**Пример файла конфигурации**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -72,26 +72,26 @@ module.exports = {
 };
 ```
 
-### Environment variables
-The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.
+### Переменные окружения
+Стартер преобразует имена свойств в верхний регистр. Имена вложенных параметров объединяются символом `_`.
 
-**Example environment variables**
+**Пример переменных окружения**
 ```bash
 NODEID=node-test
 LOGGER=true
 LOGLEVEL=debug
 
-# Shorthand transporter
+# короткое объявление транспорта
 TRANSPORTER=nats://localhost:4222
 REQUESTTIMEOUT=5000
 
-# Nested property
+# вложенное свойство
 CIRCUITBREAKER_ENABLED=true
 
 METRICS=true
 ```
 
-## Services loading logic
+## Логика загрузки служб
 The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `**/*.service.js` from specified one(s) (including sub-folders too). Services & service folder can be loaded with `SERVICES` and `SERVICEDIR` environment variables.
 
 **Loading steps:**
@@ -101,12 +101,12 @@ The runner loads service files or folders defined in CLI arguments. If you defin
 4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. It glob pattern found, it applies and load the found files.
 > Please note: shorthand names can also be used in `SERVICES` env var.
 
-**Example**
+**Пример**
 ```
 SERVICEDIR=services
 SERVICES=math,post,user
 ```
-It loads the `math.service.js`, `post.service.js` and `user.service.js` files from the `services` folder.
+Загрузит `math.service.js`, `post.service.js` и `user.service.js` файлы из папки `services`.
 
 ```
 SERVICEDIR=my-services
@@ -140,22 +140,22 @@ $ moleculer-runner --instances 4 services
 The `nodeID` will be suffixed with the worker ID. E.g. if you define `my-node` nodeID in options, and starts 4 instances, the instance nodeIDs will be `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
 {% endnote %}
 
-## .env files
+## .env файлы
 
-Moleculer runner can load `.env` file at starting. There are two new cli options to load env file:
+Стартер может загрузить `.env` файл при запуске. Есть две новых CLI опции для загрузки env файла:
 
 * `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
 * `-E, --envfile <filename>` - Load envorinment variables from the specified file.
 
-**Example**
+**Примеры**
 ```sh
-# Load the default .env file from current directory
+# загрузит .env файл из текущей директории
 $ moleculer-runner --env
 
-# Load the specified .my-env file
+# загрузит указанный .my-env файл
 $ moleculer-runner --envfile .my-env
 ```
 
-{% note info Dependencies %}
-To use this feature install the `dotenv` module with `npm install dotenv --save` command.
+{% note info Зависимости %}
+Чтобы использовать эту функцию, установите модуль `dotenv` командой `npm install dotenv --save`.
 {% endnote %}
