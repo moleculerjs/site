@@ -31,12 +31,12 @@ title: Контекст
 | `ctx.call()`                | `Promise` | Создание вложенного вызова. Те же аргументы, как в `broker.call`        |
 | `ctx.emit()`                | `void`    | Создать событие, аналогично `broker.emit`                               |
 | `ctx.broadcast()`           | `void`    | Создать событие, адресованное всем узлам, аналогично `broker.broadcast` |
-| `ctx.startSpan(name, opts)` | `Span`    | Creates a new child span.                                               |
-| `ctx.finishSpan(span)`      | `void`    | Finishes a span.                                                        |
+| `ctx.startSpan(name, opts)` | `Span`    | Создать интервал-потомок.                                               |
+| `ctx.finishSpan(span)`      | `void`    | Завершить интервал.                                                     |
 | `ctx.toJSON()`              | `Object`  | Преобразовать `Контекст` в JSON формат.                                 |
 
 ## Отслеживание Контекста
-Если вы хотите, чтобы сервисы плавно отключались, включите функцию отслеживания контекста в опциях брокера. If you enable it, all services will wait for all running contexts before shutdown. A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
+Если вы хотите, чтобы сервисы плавно отключались, включите функцию отслеживания контекста в опциях брокера. Тогда сервисы будут ожидать завершения процессов в активных контекстах, перед тем как отключаться. Таймаут задается через опцию брокера `shutdownTimeout`. Значение по-умолчанию `5` секунд.
 
 **Enable context tracking & change the timeout value**
 ```js
