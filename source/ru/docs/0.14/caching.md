@@ -1,7 +1,7 @@
 title: Кеширование
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer имеет встроенное решение для кэширования, чтобы кэшировать ответы от экшенов в сервисах. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
 
 **Пример**
 ```js
@@ -50,9 +50,9 @@ broker.start()
 ```
 As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
 
-> [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
+> [Попробуйте это на Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Cache keys
+## Кэш ключи
 The cacher generates key from service name, action name and the params of context. The syntax of key is:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
