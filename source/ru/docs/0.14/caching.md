@@ -53,7 +53,7 @@ As you can see, the `Handler called` message appears only once because the respo
 > [Попробуйте это на Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
 ## Кэш ключи
-The cacher generates key from service name, action name and the params of context. The syntax of key is:
+Кэшер генерирует ключ из имени сервиса, имени экшена и параметров контекста. Синтаксис ключа:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
@@ -183,7 +183,7 @@ broker.createService({
 });
 ```
 
-## Custom key-generator
+## Пользовательский генератор ключей
 To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
 
 ```js
@@ -236,7 +236,7 @@ pipeline.set('mykey.b', 'myvalue.b');
 pipeline.exec();
 ```
 
-## Clear cache
+## Очистить кэш
 When you create a new model in your service, you have to clear the old cached model entries.
 
 **Example to clean the cache inside actions**
@@ -270,7 +270,7 @@ When you create a new model in your service, you have to clear the old cached mo
 ### Clear cache among multiple service instances
 The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
 
-**Example**
+**Пример**
 ```js
 module.exports = {
     name: "users",
@@ -304,7 +304,7 @@ module.exports = {
 ```
 
 ### Clear cache among different services
-Service dependency is a common situation. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+Зависимость от услуг - обычная ситуация. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
 
 **Example cache entry in `posts` service**
 ```js
