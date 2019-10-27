@@ -5,18 +5,18 @@ title: Жизненный цикл
 Этот раздел описывает, что происходит, когда брокер запускается и останавливается.
 
 ### Логика запуска
-When starting, the broker tries to establish a connection with the transporter. When it's done, it doesn't publish the local service list to remote nodes because it can't accept request yet. It starts all services (calls every [service `started` handler](lifecycle.html#started-event-handler)). Once all services started successfully, broker publishes the local service list to remote nodes. Hence, remote nodes only send requests after all local services are properly initialized and started.
+При запуске брокер пытается установить связь с транспортом. Когда это сделано, он не публикует список локальных сервисов удаленным узлам, потому что он еще не может принять запрос. Она запускает все сервисы (вызовы каждый [service `started` handler](lifecycle.html#started-event-handler)). После успешного запуска всех сервисов брокер публикует список локальных сервисов удаленным узлам. Поэтому удаленные узлы отправляют запросы только после того, как все локальные службы будут правильно инициализированы и запущены.
 
 <div align="center">
     <img src="assets/lifecycle/broker-start.svg" alt="Диаграмма жизненного цикла запуска брокера" />
 </div>
 
 {% note warn Avoid deadlocks %}
-Deadlocks can occur when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method in `started` handler instead.
+Взаимоблокировки могут возникнуть, когда две службы ждут друг друга. Например: сервис `users` зависит от `dependencies: ["posts"]` и сервис `posts` имеет зависимость `dependencies: ["users"]`. Чтобы избежать этого, удалите соответствующую службу из зависимостей `dependencies` и используйте вместо этого метод `this.waitForServices` в обработчике `started`.
 {% endnote %}
 
 ### Логика остановки
-When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services that are stopping. Next, the broker starts [stopping](#stopped-event-handler) all local services. After that, the transporter disconnects and process exits.
+Когда вы вызываете `broker.stop` или останавливаете процесс, во первых брокер публикует пустой список сервисов на удаленные узлы, так что они будут направлять запросы в другие экземпляры сервиса вместо останавливаемого. Далее брокер начинает [остановку](#stopped-event-handler) всех локальных сервисов. После этого транспорт отключается и завершается процесс.
 
 <div align="center">
     <img src="assets/lifecycle/broker-stop.svg" alt="Диаграмма жизненного цикла останова брокера" />
@@ -26,7 +26,7 @@ When you call `broker.stop` or stop the process, at first broker publishes an em
 Этот раздел описывает, что происходит, когда сервис запускается и останавливается, и как вам следует использовать обработчики событий жизненного цикла.
 
 ### Обработчик `created`
-This handler is triggered when the service instance is created (e.g.: at `broker.createService` or `broker.loadService`). You can use it to create other module instances (e.g. http server, database modules) and store them in `this`.
+Этот обработчик запускается, когда создается экземпляр сервиса (например: во время `broker.createService` или `broker.loadService`). Вы можете использовать его для создания экземпляров других модулей (например, http сервера, модулей БД) и хранения их в `this`.
 
 ```js
 const http = require("http");
