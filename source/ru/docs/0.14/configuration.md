@@ -17,11 +17,11 @@ title: Конфигурация
 * **`heartbeatInterval`**: `Number` - Период отправки пакета сердечного ритма, в секундах. _По умолчанию: `5`_
 * **`heartbeatTimeout`**: `Number` - Число секунд ожидания перед установкой статуса недоступности удаленного узла в реестре. _По умолчанию: `15`_
 * **`tracking`**: `Object` - Отслеживание запросов и ожидание выполнения запросов перед выключением. _(Вежливое выключение)_ [Читать далее](fault-tolerance.html).
-* **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
-* **`registry`**: `Object` - Settings of [Service Registry](registry.html).
-* **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
-* **`bulkhead`**: `Object` - Settings of [bulkhead](fault-tolerance.html#Bulkhead).
-* **`transit.maxQueueSize`**: `Number` - A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
+* **`disableBalancer`**: Boolean - Отключить встроенный балансировщик действий и событий. _Транспорт должен поддерживать его._ [Читать далее](networking.html#Disabled-balancer). _По умолчанию: `false`_
+* **`registry`**: `Object` - Настройки [Реестра сервиса](registry.html).
+* **`circuitBreaker`**: `Object` - Настройки [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
+* **`bulkhead`**: `Object` - Настройки [bulkhead](fault-tolerance.html#Bulkhead).
+* **`transit.maxQueueSize`**: `Number` - Защита от чрезмерного потребления памяти, когда слишком много исходящих запросов. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
 * **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _Default: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _Default: `false`_
 * **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_
