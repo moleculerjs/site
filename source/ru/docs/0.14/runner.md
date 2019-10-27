@@ -1,33 +1,33 @@
-title: Moleculer Runner
+title: Стартер Moleculer Runner
 ---
 
-Moleculer Runner is a helper script that helps you running Moleculer projects. With it you don't need to create a ServiceBroker instance with options. Instead you can create a `moleculer.config.js` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script and it will automatically load the configuration file, create the broker and load the services. Alternatively, you can declare your configuration as environment variables.
+Moleculer Runner - это вспомогательный скрипт, который помогает вам запускать проекты Moleculer. С ним не нужно создавать экземпляр ServiceBroker с опциями. Вместо этого вы можете создать файл `moleculer.config.js` в корне репозитория с опциями брокера. Затем просто запустите `moleculer-runner` в сценарии NPM и он автоматически загрузит конфигурационный файл, создаст брокера и загрузит сервисы. В качестве альтернативы, вы можете объявить задать конфигурацию с помощью переменных среды.
 
 
 {% note info Production-ready %}
-Use the `moleculer.config.js` during development or store common options. In production, you can overwrite the values with the environment variables!
+Используйте `moleculer.config.js` во время разработки или для хранения общих параметров. В продакшене вы можете переписать значения с помощью переменных среды!
 {% endnote %}
 
-## Syntax
+## Синтаксис
 ```
 $ moleculer-runner [options] [service files or directories or glob masks]
 ```
-> Note: It runs in this format in NPM scripts only. To call it directly from your console, use the `./node_modules/.bin/moleculer-runner --repl` or `node ./node_modules/moleculer/bin/moleculer-runner.js --repl` format.
+> Примечание: Он работает только из NPM скриптов. Для прямого вызова непосредственно из консоли, используйте `./node_modules/.bin/moleculer-runner --repl` или `node ./node_modules/moleculer/bin/moleculer-runner.js --repl`.
 
-## Options
+## Параметры
 
-| Option                         | Type      | Default | Описание                                                                          |
-| ------------------------------ | --------- | ------- | --------------------------------------------------------------------------------- |
-| `-r`, `--repl`                 | `Boolean` | `false` | If true, it switches to [REPL](moleculer-repl.html) mode after broker started.    |
-| `-s`, `--silent`               | `Boolean` | `false` | Disable the broker logger. It prints nothing to the console.                      |
-| `-H`, `--hot`                  | `Boolean` | `false` | Hot reload services when they change.                                             |
-| `-c`, `--config <file>`  | `String`  | `null`  | Load configuration file from a different path or a different filename.            |
-| `-e`, `--env`                  | `Boolean` | `false` | Load envorinment variables from the '.env' file from the current folder.          |
-| `-E`, `--envfile <file>` | `String`  | `null`  | Load envorinment variables from the specified file.                               |
-| `-i`, `--instances`            | `Number`  | `null`  | Launch [number] node instances or `max` for all cpu cores (with `cluster` module) |
+| Параметр                       | Тип       | По умолчанию | Описание                                                                               |
+| ------------------------------ | --------- | ------------ | -------------------------------------------------------------------------------------- |
+| `-r`, `--repl`                 | `Boolean` | `false`      | Если true, то после запуска брокер переключается в режим [REPL](moleculer-repl.html).  |
+| `-s`, `--silent`               | `Boolean` | `false`      | Отключить журнал брокера. Ничего не выводить в консоль.                                |
+| `-H`, `--hot`                  | `Boolean` | `false`      | Горячая перезагрузка при изменении исходных файлов.                                    |
+| `-c`, `--config <file>`  | `String`  | `null`       | Загрузить файл конфигурации из другого пути или другого имени файла.                   |
+| `-e`, `--env`                  | `Boolean` | `false`      | Загрузить переменные окружения из файла '.env' из текущей папки.                       |
+| `-E`, `--envfile <file>` | `String`  | `null`       | Загрузить переменные окружения из указанного файла.                                    |
+| `-i`, `--instances`            | `Number`  | `null`       | Запустить [number] экземпляров узлов или `max` для всех ядер cpu (с модулем `cluster`) |
 
 
-**Example NPM scripts**
+**Примеры сценариев NPM**
 ```js
 {
     "scripts": {
@@ -36,24 +36,24 @@ $ moleculer-runner [options] [service files or directories or glob masks]
     }
 }
 ```
-The `dev` script loads development configurations from the `moleculer.dev.config.js` file, start all services from the `services` folder, enable hot-reloading and switches to REPL mode. Run it with the `npm run dev` command.
+Скрипт `dev` загружает конфигурацию из файла `moleculer.dev.config.js` и запускает все службы из папки `services`, включает горячую перезагрузку и переключается в режим REPL. Запустите команду `npm run dev`.
 
-The `start` script is to load the default `moleculer.config.js` file if it exists, otherwise only loads options from environment variables. Starts 4 instances of broker, then they start all services from the `services` folder. Run it with `npm start` command.
+Скрипт `start` загружает конфигурационный файл `moleculer.config.js` если он существует, иначе загружает параметры только из переменных среды. Запускает 4 экземпляра брокера, затем они запускают все службы из папки `services`. Запустите команду `npm start`.
 
-## Configuration loading logic
-The runner does the following steps to load & merge configurations:
+## Логика загрузки конфигурации
+Стартер делает следующие шаги для загрузки и слияния параметров конфигурации:
 
-1. It loads config file defined in CLI options. If it does not exist, it throws an error.
-2. If not defined, it loads the `moleculer.config.js` file from the current directory. If it does not exist, it loads the `moleculer.config.json` file.
-3. Once a config file has been loaded, it merges options with the default options of the ServiceBroker.
-4. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
+1. Он загружает файл конфигурации, определенный в настройках CLI. Если он не существует, он бросает ошибку.
+2. Если не определено, он загружает файл `moleculer.config.js` из текущего каталога. Если он не существует, он загружает файл `moleculer.config.json`.
+3. После загрузки файла конфигурации, он объединяет параметры по умолчанию для ServiceBroker.
+4. Стартер просматривает параметры шаг за шагом и пытается перезаписать их из переменных среды. Если в файле конфигурации `logLevel: "warn"`, а переменная окружения `LOGLEVEL=debug`, то стартер перезапишет параметр, и в результате получится: `logLevel: "debug"`.
 
-> To overwrite broker's deeply nested default options, which are not present in `moleculer.config.js`, via environment variables, use the `MOL_` prefix and double underscore `__` for nested properties in `.env` file. For example, to set the [cacher prefix](caching.html#Built-in-cachers) to `MOL` you should declare as `MOL_CACHER__OPTIONS__PREFIX=MOL`.
+> Чтобы перезаписать глубоко вложенные параметры брокера по умолчанию, которые отсутствуют в `moleculer.config.js`, используются переменные среды, с префиксом `MOL_` и двойным подчеркиванием `__` для вложенных свойств в файле `.env`. Например, для установки префикса [cacher prefix](caching.html#Built-in-cachers) в `MOL` необходимо объявить `MOL_CACHER__OPTIONS__PREFIX=MOL`.
 
-### Configuration file
-The structure of the configuration file is the same as that of the [broker options](configuration.html#Broker-options). Every property has the same name.
+### Файл конфигурации
+Структура конфигурационного файла совпадает с структурой [параметров брокера](configuration.html#Broker-options). Каждое свойство имеет такое же имя.
 
-**Example config file**
+**Пример файла конфигурации**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -72,26 +72,26 @@ module.exports = {
 };
 ```
 
-### Environment variables
-The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.
+### Переменные окружения
+Стартер преобразует имена свойств в верхний регистр. Имена вложенных параметров объединяются символом `_`.
 
-**Example environment variables**
+**Пример переменных окружения**
 ```bash
 NODEID=node-test
 LOGGER=true
 LOGLEVEL=debug
 
-# Shorthand transporter
+# короткое объявление транспорта
 TRANSPORTER=nats://localhost:4222
 REQUESTTIMEOUT=5000
 
-# Nested property
+# вложенное свойство
 CIRCUITBREAKER_ENABLED=true
 
 METRICS=true
 ```
 
-## Services loading logic
+## Логика загрузки служб
 The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `**/*.service.js` from specified one(s) (including sub-folders too). Services & service folder can be loaded with `SERVICES` and `SERVICEDIR` environment variables.
 
 **Loading steps:**
@@ -101,12 +101,12 @@ The runner loads service files or folders defined in CLI arguments. If you defin
 4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. It glob pattern found, it applies and load the found files.
 > Please note: shorthand names can also be used in `SERVICES` env var.
 
-**Example**
+**Пример**
 ```
 SERVICEDIR=services
 SERVICES=math,post,user
 ```
-It loads the `math.service.js`, `post.service.js` and `user.service.js` files from the `services` folder.
+Загрузит `math.service.js`, `post.service.js` и `user.service.js` файлы из папки `services`.
 
 ```
 SERVICEDIR=my-services
@@ -140,22 +140,22 @@ $ moleculer-runner --instances 4 services
 The `nodeID` will be suffixed with the worker ID. E.g. if you define `my-node` nodeID in options, and starts 4 instances, the instance nodeIDs will be `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
 {% endnote %}
 
-## .env files
+## .env файлы
 
-Moleculer runner can load `.env` file at starting. There are two new cli options to load env file:
+Стартер может загрузить `.env` файл при запуске. Есть две новых CLI опции для загрузки env файла:
 
 * `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
 * `-E, --envfile <filename>` - Load envorinment variables from the specified file.
 
-**Example**
+**Примеры**
 ```sh
-# Load the default .env file from current directory
+# загрузит .env файл из текущей директории
 $ moleculer-runner --env
 
-# Load the specified .my-env file
+# загрузит указанный .my-env файл
 $ moleculer-runner --envfile .my-env
 ```
 
-{% note info Dependencies %}
-To use this feature install the `dotenv` module with `npm install dotenv --save` command.
+{% note info Зависимости %}
+Чтобы использовать эту функцию, установите модуль `dotenv` командой `npm install dotenv --save`.
 {% endnote %}

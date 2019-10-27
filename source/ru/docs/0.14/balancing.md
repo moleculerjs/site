@@ -1,15 +1,15 @@
-title: Load balancing
+title: Балансировка нагрузки
 ---
 
-Moleculer has several built-in load balancing strategies. If services have multiple running instances, ServiceRegistry uses these strategies to select a node from all available nodes.
+Moleculer имеет несколько встроенных стратегий балансировки нагрузки. Если сервис запущен в нескольких экземплярах на разных узлах, ServiceRegistry использует эти стратегии для выбора одного из доступных узлов.
 
-## Built-in strategies
-To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
+## Доступные стратегии
+Чтобы настроить стратегию, необходимо в файле конфигурации брокера указать свойство `strategy` в объекте `registry`. Это может быть либо именем (в случае доступных стратегий) или `Strategy` классом, который унаследован от `BaseStrategy` (в случае пользовательских стратегий).
 
-### RoundRobin strategy
-This strategy selects a node based on [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS) algorithm.
+### Стратегия RoundRobin
+Эта стратегия выбирает узел на основе алгоритма [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS).
 
-**Usage**
+**Использование**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -19,10 +19,10 @@ module.exports = {
 };
 ```
 
-### Random strategy
-This strategy selects a node randomly.
+### Случайная стратегия
+Эта стратегия случайно выбирает узел.
 
-**Usage**
+**Использование**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -31,10 +31,10 @@ module.exports = {
     }
 };
 ```
-### CPU usage-based strategy
-This strategy selects a node which has the lowest CPU usage. Due to the node list can be very long, it gets samples and selects the node with the lowest CPU usage from only samples instead of the whole node list.
+### Стратегия по нагрузке CPU
+Эта стратегия выбирает узел с менее загруженным процессором. Поскольку список узлов может быть очень длинным, то брокер получает измерения и выбирает узел с наименьшей загруженностью процессора только из имеющихся данных, а не всего списка узлов.
 
-**Usage**
+**Использование**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -44,14 +44,14 @@ module.exports = {
 };
 ```
 
-**Strategy options**
+**Настройки**
 
-| Name          | Type     | Default | Description                                                                                                |
-| ------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `sampleCount` | `Number` | `3`     | The number of samples. _To turn of sampling, set to `0`._                                                  |
-| `lowCpuUsage` | `Number` | `10`    | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
+| Название      | Тип      | По умолчанию | Описание                                                                                               |
+| ------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| `sampleCount` | `Number` | `3`          | Количество измерений. _Чтобы выключить, установите `0`._                                               |
+| `lowCpuUsage` | `Number` | `10`         | Процент загруженности процессора (%). Минимальный порог при котором узел будет выбран незамедлительно. |
 
-**Usage with custom options**
+**Использование с пользовательскими настройками**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -65,10 +65,10 @@ module.exports = {
 };
 ```
 
-### Latency-based strategy
-This strategy selects a node which has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Due to the node list can be very long, it gets samples and selects the host with the lowest latency from only samples instead of the whole node list.
+### Стратегия по времени отклика
+Эта стратегия выбирает узел, который имеет самую низкую задержку, измеряемую периодическими командами ping. Обратите внимание, что данная стратегия позволяет опрашивать только один узел / хост. Поскольку список узлов может быть очень длинным, то брокер получает измерения и выбирает узел с наименьшей задержкой только из имеющихся данных, а не всего списка узлов.
 
-**Usage**
+**Использование**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -78,16 +78,16 @@ module.exports = {
 };
 ```
 
-**Strategy options**
+**Настройки**
 
-| Name           | Type     | Default | Description                                                                                                                           |
-| -------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `sampleCount`  | `Number` | `5`     | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
-| `lowLatency`   | `Number` | `10`    | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
-| `collectCount` | `Number` | `5`     | The number of measured latency per host to keep in order to calculate the average latency.                                            |
-| `pingInterval` | `Number` | `10`    | Ping interval in seconds. If you have a lot of host/nodes, it's recommended to *increase* the value.                                  |
+| Название       | Тип      | По умолчанию | Описание                                                                                                                    |
+| -------------- | -------- | ------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `sampleCount`  | `Number` | `5`          | Количество измерений. Если у вас много хостов/узлов, рекомендуется *увеличить* значение. _Чтобы выключить, установите `0`._ |
+| `lowLatency`   | `Number` | `10`         | Минимальная задержка (мс). Минимальный порог при котором узел будет выбран незамедлительно.                                 |
+| `collectCount` | `Number` | `5`          | Количество измерений задержки на каждый хост для расчета средней задержки.                                                  |
+| `pingInterval` | `Number` | `10`         | Интервал пинга в секундах. Если у вас много хостов/узлов, рекомендуется *увеличить* значение.                               |
 
-**Usage with custom options**
+**Использование с пользовательскими настройками**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -103,10 +103,10 @@ module.exports = {
 };
 ```
 
-### Sharding strategy
-Shard invocation strategy is based on [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing) algorithm. It uses a key value from context `params` or `meta` to route the request to nodes. It means that requests with same key value will be routed to the same node.
+### Стратегия шардирования
+Стратегия поиска шарда основана на алгоритме [согласованного хеширования](https://www.toptal.com/big-data/consistent-hashing). Он использует значение ключа из контекста `params` или `meta` для распределения запросов между узлами. Это означает, что запросы с одним значением ключа будут отправлены на один и тот же узел.
 
-**Example of a shard key `name` in context `params`**
+**Пример ключа шардирования `name` в контексте `params`**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -119,7 +119,7 @@ module.exports = {
 };
 ```
 
-**Example of a shard key `user.id` in context `meta`**
+**Пример ключа шардирования `user.id` в контексте `meta`**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -132,20 +132,20 @@ module.exports = {
 };
 ```
 {% note info %}
-If shard key is in context's `meta` it must be declared with a `#` at the beginning. The actual `#` is ignored.
+Если ключ шардирования находится в контексте `meta`, то он должен начинаться с символа `#`. Символ `#` игнорируется.
 {% endnote %}
 
-**Strategy options**
+**Настройки шардирования**
 
-| Name        | Type     | Default | Description             |
-| ----------- | -------- | ------- | ----------------------- |
-| `shardKey`  | `String` | `null`  | Shard key               |
-| `vnodes`    | `Number` | `10`    | Number of virtual nodes |
-| `ringSize`  | `Number` | `2^32`  | Size of the ring        |
-| `cacheSize` | `Number` | `1000`  | Size of the cache       |
+| Название    | Тип      | По умолчанию | Описание                     |
+| ----------- | -------- | ------------ | ---------------------------- |
+| `shardKey`  | `String` | `null`       | Ключ шардирования            |
+| `vnodes`    | `Number` | `10`         | Количество виртуальных узлов |
+| `ringSize`  | `Number` | `2^32`       | Размер кольца                |
+| `cacheSize` | `Number` | `1000`       | Размер кэша                  |
 
 
-**All available options of Shard strategy**
+**Все доступные настройки стратегии шардирования**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -162,10 +162,10 @@ module.exports = {
 ```
 
 
-## Custom strategy
-Custom strategy can be created. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
+## Своя стратегия
+Можно создать свою стратегию. Мы рекомендуем использовать исходный код [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) и использовать метод `select`.
 
-### Create custom strategy
+### Создание собственной стратегии
 ```js
 const BaseStrategy = require("moleculer").Strategies.Base;
 
@@ -176,7 +176,7 @@ class MyStrategy extends BaseStrategy {
 module.exports = MyStrategy;
 ```
 
-### Use custom strategy
+### Использование собственной стратегии
 
 ```js
 const { ServiceBroker } = require("moleculer");

@@ -13,7 +13,7 @@ The Circuit Breaker can prevent an application from repeatedly trying to execute
 Read more about circuit breaker on [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html) or on [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
 {% endnote %}
 
-If you enable it, all service calls will be protected by this built-in circuit breaker.
+If you enable it, all service calls will be protected by the circuit breaker.
 
 **Enable it in the broker options**
 ```js
@@ -119,7 +119,7 @@ module.export = {
 ```
 
 ## Timeout
-Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
+Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
 
 **Enable it in the broker options**
 ```js

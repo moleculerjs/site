@@ -1,52 +1,52 @@
-title: Actions
+title: Действия
 ---
 
-The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+Действия (Action) это публично вызываемый метод сервиса. Работа с действиями построена по принципу удаленного вызова процедур (RPC). Действие похоже на обычный HTTP запрос, принимает на вход параметры и возвращает результат.
 
-If you have multiple instances of services, the broker will load balancing the request among instances. [Read more about balancing](balancing.html).
+Если запущено несколько экземпляров сервиса, то брокер будет балансировать запросы между экземплярами. [Подробнее о балансировке](balancing.html).
 
 <div align="center">
-    <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
+    <img src="assets/action-balancing.gif" alt="Диаграмма балансировки действий" />
 </div>
 
-## Call services
-To call a service, use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
+## Вызов сервисов
+Для вызова сервиса используется метод `broker.call`. Брокер ищет сервис (и узел) который предоставляет требуемое действие и вызывает его. Функция возвращает `Promise`.
 
-### Syntax
+### Синтаксис
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
+`actionName` содержит точку в качестве разделителя. Первая часть является именем сервиса, а вторая часть название действия. К примеру, у нас есть сервис `posts` и действие `create`, в таком случае actionName = `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](#Context). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
+`params` это объект, который передается действию в качестве части [Context](context.html) контекста. Сервис может получить доступ к нему через `ctx.params`. *Необязательное. Значение по умолчанию `{}`*.
 
-The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
+`opts` является объектом для установки/переопределения некоторых опций запроса, например: `timeout` таймаут, `retryCount` количество повторов. *Необязательное.*
 
-**Available calling options:**
+**Доступные опции вызова:**
 
-| Name               | Type      | Default | Description                                                                                                                                                                                                                                                                                           |
-| ------------------ | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null`  | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`  | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null`  | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                    |
-| `nodeID`           | `String`  | `null`  | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
-| `meta`             | `Object`  | `{}`    | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
-| `parentCtx`        | `Context` | `null`  | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
-| `requestID`        | `String`  | `null`  | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
+| Название           | Тип       | По умолчанию | Описание                                                                                                                                                                                                                                                                                                   |
+| ------------------ | --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null`       | Время ожидания запроса в миллисекундах. Если время истекло, и вы не определили `fallbackResponse`, брокер бросит ошибку `RequestTimeout`. Чтобы отключить установите `0`. Если не определено, будет использовано значение `requestTimeout` из опций брокера. [Читать далее](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null`       | Количество повторных запросов. Если время истекло, брокер попытается повторить вызов ещё раз. Чтобы отключить установите `0`. Если не определено, будет использовано значение `retryPolicy.retries` из опций брокера. [Читать далее](fault-tolerance.html#Retry).                                          |
+| `fallbackResponse` | `Any`     | `null`       | Возвращает его, если запрос не удался. [Читать далее](fault-tolerance.html#Fallback).                                                                                                                                                                                                                      |
+| `nodeID`           | `String`  | `null`       | Целевой nodeID. Если задан, то вызов будет отправлен указанному узлу.                                                                                                                                                                                                                                      |
+| `meta`             | `Object`  | `{}`         | Метаданные запроса. Доступны через `ctx.meta` в обработчике действия. Они будут переданы и объединены со всеми вложенными вызовами.                                                                                                                                                                        |
+| `parentCtx`        | `Context` | `null`       | Экземпляр родительского контекста `Context`. Используется для создание цепочки вызовов.                                                                                                                                                                                                                    |
+| `requestID`        | `String`  | `null`       | ID запроса или ID корреляции. Используется для трассировки вызовов.                                                                                                                                                                                                                                        |
 
 
-### Usages
-**Call without params**
+### Примеры использования
+**Вызов без параметров**
 ```js
 const res = await broker.call("user.list");
 ```
 
-**Call with params**
+**Вызов с параметрами**
 ```js
 const res = await broker.call("user.get", { id: 3 });
 ```
 
-**Call with calling options**
+**Вызов с опциями**
 ```js
 const res = await broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
@@ -55,20 +55,20 @@ const res = await broker.call("user.recommendation", { limit: 5 }, {
 });
 ```
 
-**Call with promise error handling**
+**Вызов с обработкой ошибок**
 ```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
     .catch(err => console.error("Unable to update Post!", err));    
 ```
 
-**Direct call: get health info from the "node-21" node**
+**Прямой вызов: получить информацию о здоровье от узла "node-21"**
 ```js
 const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
-### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note at nested calls the meta is merged.
+### Метаданные
+Для передачи метаданных используется свойство `meta`. Получить доступ к ним можно внутри обработчика действия через `ctx.meta`. Вложенные вызовы объединяют `meta`.
 ```js
 broker.createService({
     name: "test",
@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-The `meta` is sent back to the caller service. Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+`meta` отправляются обратно сервису, который осуществил вызов метода. Используйте это для возврата дополнительных данных отправителю. К примеру: оправка заголовков обратно в API gateway или запись данных авторизованного пользователя в метаданные.
 
 ```js
 broker.createService({
@@ -112,9 +112,9 @@ broker.createService({
 });
 ```
 
-When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
+При выполнении внутренних вызовов действий (`this.actions.xy()`) необходимо установить `parentCtx` для передачи `meta` данных.
 
-**Internal calls**
+**Внутренние вызовы**
 ```js
 broker.createService({
   name: "mod",
@@ -137,11 +137,11 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
-### Timeout
+### Таймауты
 
-Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+Таймаут может быть установлен на уровне действия. Он переопределит глобальное значение брокера [опцию `requestTimeout`](fault-tolerance.html#Timeout), но не опцию `timeout` указанную для конкретного вызова действия.
 
-**Example**
+**Пример**
  ```js
 // moleculer.config.js
 module.exports = {
@@ -166,32 +166,62 @@ module.exports = {
         }
     },
 ```
-**Calling examples**
+**Пример вызова**
 ```js
-// It uses the global 3000 timeout
+// тут используется глобальный таймаут (3000)
 await broker.call("greeter.normal");
- // It uses the 5000 timeout from action definition
+ // тут используется таймаут настроенный на действии (5000)
 await broker.call("greeter.slow");
- // It uses 1000 timeout from calling option
+ // тут используется непосредственно переданный таймаут (1000)
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
+### Массовый вызов
 
+Также возможно выполнить несколько действий одновременно. Для этого используйте `broker.mcall` или `ctx.mcall`.
 
-## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer uploaded file from a gateway or encode/decode or compress/decompress streams.
+**`mcall` с массивом < Объектов >**
+```js
+await broker.mcall(
+    [
+        { action: 'posts.find', params: { author: 1 }, options: { /* Опции для этого действия. */} },
+        { action: 'users.find', params: { name: 'John' } }
+    ],
+    {
+        // Общие опции вызова для всей группы действий.
+        meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
+    }
+);
+```
 
-### Examples
+**`mcall` с объектом**
+```js
+await broker.mcall(
+    {
+        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Опции для этого действия. */} },
+        users: { action: 'users.find', params: { name: 'John' } }
+    }, 
+    {
+        // Общие опции вызова для всей группы действий.
+        meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
+    }
+);
+```
 
-**Send a file to a service as a stream**
+## Потоки
+Moleculer поддерживает потоки Node.js в параметрах запроса `params` и в ответах. Используйте их для передачи файлов из gateway, кодирования/декодирования или сжатия/распаковки потоков.
+
+### Примеры
+
+**Отправка фала в виде потока в сервис**
 ```js
 const stream = fs.createReadStream(fileName);
 
 broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
-Please note, the `params` should be a stream, you cannot add any more variables to the `params`. Use the `meta` property to transfer additional data.
+Имейте ввиду, что `params` должен быть потоком, и вы не сможете добавить дополнительные переменные в свойство `params`. Используйте свойство `meta` для передачи дополнительных данных.
 
-**Receiving a stream in a service**
+**Получение потока в сервисе**
 ```js
 module.exports = {
     name: "storage",
@@ -205,7 +235,7 @@ module.exports = {
 };
 ```
 
-**Return a stream as response in a service**
+**Возврат потока сервисом**
 ```js
 module.exports = {
     name: "storage",
@@ -222,7 +252,7 @@ module.exports = {
 };
 ```
 
-**Process received stream on the caller side**
+**Обработка полученного потока на стороне отправителя**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -233,7 +263,7 @@ broker.call("storage.get", { filename })
     })
 ```
 
-**AES encode/decode example service**
+**Пример сервиса шифрования AES**
 ```js
 const crypto = require("crypto");
 const password = "moleculer";
@@ -254,90 +284,90 @@ module.exports = {
 };
 ```
 
-## Action visibility
-The action has a `visibility` property to control the visibility & callability of service actions.
+## Видимость методов
+Действие имеет свойство `visibility` для контроля видимости и возможности его вызова другими сервисами.
 
-**Available values:**
-- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
-- `public`: public action, can be called locally & remotely but not published via API GW
-- `protected`: can be called only locally (from local services)
-- `private`: can be called only internally (via `this.actions.xy()` inside service)
+**Доступные значения:**
+- `published` или `null`: публичное действие. Оно может быть вызвано локально, удаленно и может быть опубликован через API шлюз
+- `public`: публичное действие, может быть вызвано локально или удаленно, но не опубликовано через API шлюз
+- `protected`: можно вызвать только локально (из локального сервиса)
+- `private`: можно вызвать только внутри сервиса (через `this.actions.xy()`)
 
-**Change visibility**
+**Управление видимостью**
 ```js
 module.exports = {
     name: "posts",
     actions: {
-        // It's published by default
+        // публичное по умолчанию
         find(ctx) {},
         clean: {
-            // Callable only via `this.actions.clean`
+            // можно вызвать только через `this.actions.clean`
             visibility: "private",
             handler(ctx) {}
         }
     },
     methods: {
         cleanEntities() {
-            // Call the action directly
+            // прямой вызов action
             return this.actions.clean();
         }
     }
 }
 ```
 
-> The default values is `null` (means `published`) due to backward compatibility.
+> Значения по умолчанию `null` (означает `published`) для обратной совместимости.
 
-## Action hooks
-Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+## Хуки действий
+Хуки действия являются подключаемыми и переиспользуемыми функциями middleware, которые могут быть зарегистрированы `перед`, `после` или при `ошибке` действий сервиса. Хук является `Функцией` или `Строкой`. В случае `Строки` её имя должно совпадать с именем [метода](services.html#Methods) сервиса.
 
-### Before hooks
-In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
+### Хуки Before
+Этот хук получает `ctx`, он может манипулировать `ctx.params`, `ctx.meta`, или добавить пользовательские переменные в `ctx.locals` которые можно использовать в обработчиках действий. В случае проблемы, она может бросить `Ошибку`. _Пожалуйста, обратите внимание, что нет возможности остановить/пропустить дальнейшие выполнения хуков или обработчиков действий._
 
-**Main usages:**
-- parameter sanitization
-- parameter validation
-- entity finding
-- authorization
+**Основное назначение:**
+- очистка параметров
+- валидация параметров
+- поиск сущности
+- авторизация
 
 ### After hooks
-In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
+Этот хук получает `ctx` контекст и `response` ответ. Он может полностью изменить ответ. Хук должен вернуть ответ.
 
-**Main usages:**
-- property populating
-- remove sensitive data.
-- wrapping the response into an `Object`
-- convert the structure of the response
+**Основное назначение:**
+- заполнение сущностей
+- удаление чувствительных данных.
+- оборачивание ответа в `Объект`
+- конвертирование структуры ответа
 
-### Error hooks
-The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
+### Хуки ошибок
+Эти хуки вызываются в случае возникновения `Ошибок` во время выполнения действия. Этот хук получает `ctx` контекст и `err` ошибку. Он может обработать ошибку и вернуть другой ответ (резервный fallback) или бросить ошибку выше.
 
-**Main usages:**
-- error handling
-- wrap the error into another one
-- fallback response
+**Основное назначение:**
+- обработка ошибок
+- обернуть ошибку в другую
+- резервный ответ
 
-### Service level declaration
-Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
+### Декларация на уровне сервиса
+Хуки могут быть назначены на определенное действие (указав действие `name`) или для всех действий (`*`) в сервисе.
 
 {% note warn%}
-Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+Обратите внимание, что порядок регистрации хука имеет значение, так как он определяет последовательность, в которой выполняются хуки. Для получения дополнительной информации смотрите [порядок выполнения хуков](#Execution-order).
 {% endnote %}
 
-**Before hooks**
+**Хуки Before**
 
 ```js
 const DbService = require("moleculer-db");
 
-module.exports = {
+module.export = {
     name: "posts",
     mixins: [DbService]
     hooks: {
         before: {
-            // Define a global hook for all actions
-            // The hook will call the `resolveLoggedUser` method.
+            // Глобальный хук для всех действий
+            // хук вызовет метод `resolveLoggedUser`.
             "*": "resolveLoggedUser",
 
-            // Define multiple hooks for action `remove`
+            // несколько хуков для действия `remove`
             remove: [
                 function isAuthenticated(ctx) {
                     if (!ctx.user)
@@ -360,7 +390,7 @@ module.exports = {
 }
 ```
 
-**After & Error hooks**
+**Хуки After и Error**
 
 ```js
 const DbService = require("moleculer-db");
@@ -370,22 +400,22 @@ module.exports = {
     mixins: [DbService]
     hooks: {
         after: {
-            // Define a global hook for all actions to remove sensitive data
+            // глобальный хук для удаления чувствительных данных
             "*": function(ctx, res) {
-                // Remove password
+                // удаление пароля
                 delete res.password;
 
-                // Please note, must return result (either the original or a new)
+                // важно вернуть результат (оригинальный или новый)
                 return res;
             },
             get: [
-                // Add a new virtual field to the entity
+                // добавление нового виртуального поля в сущность
                 async function (ctx, res) {
                     res.friends = await ctx.call("friends.count", { query: { follower: res._id }});
 
                     return res;
                 },
-                // Populate the `referrer` field
+                // заполнение поля `referrer`
                 async function (ctx, res) {
                     if (res.referrer)
                         res.referrer = await ctx.call("users.get", { id: res._id });
@@ -395,11 +425,11 @@ module.exports = {
             ]
         },
         error: {
-            // Global error handler
+            // глобальный обработчик ошибок
             "*": function(ctx, err) {
                 this.logger.error(`Error occurred when '${ctx.action.name}' action was called`, err);
 
-                // Throw further the error
+                // передача ошибки дальше
                 throw err;
             }
         }
@@ -407,14 +437,14 @@ module.exports = {
 };
 ```
 
-### Action level declaration
-Hooks can be also registered inside action declaration.
+### Декларация на уровне действия
+Хуки также могут быть зарегистрированы при объявлении действия.
 
 {% note warn%}
-Please note that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+Обратите внимание, что порядок регистрации хука имеет значение, так как он определяет последовательность, в которой выполняются хуки. Для получения дополнительной информации смотрите [порядок выполнения хуков](#Execution-order).
 {% endnote %}
 
-**Before & After hooks**
+**Хуки Before и After**
 
 ```js
 broker.createService({
@@ -439,14 +469,14 @@ broker.createService({
     }
 });
 ```
-### Execution order
-It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels.  Overall, the hooks have the following execution logic:
+### Порядок выполнения
+Важно помнить, что хуки имеют конкретный порядок исполнения. Это особенно важно помнить, когда несколько хуков зарегистрированы на разных уровнях ([service](#Service-level-declaration) и/или [action](#Action-level-declaration)).  В целом хуки имеют следующую логику выполнения:
 
-- `before` hooks: global (`*`) `->` service level `->` action level.
+- `before` хуки: глобальные (`*`) `->` уровень сервиса `->` уровень действия.
 
-- `after` hooks: action level `->` service level `->` global (`*`).
+- `after` хуки: уровень действия `->` уровень сервиса `->` глобальные (`*`).
 
-**Example of a global, service & action level hook execution chain**
+**Пример порядка выполнения хуков разного уровня**
 ```js
 broker.createService({
     name: "greeter",
@@ -491,7 +521,7 @@ broker.createService({
     }
 });
 ```
-**Output produced by global, service & action level hooks**
+**Результат**
 ```bash
 INFO  - Before all hook
 INFO  -   Before hook
@@ -502,8 +532,8 @@ INFO  -   After hook
 INFO  - After all hook
 ```
 
-### Reusability
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+### Переиспользование
+Наиболее эффективным способом переиспользования хуков является их объявление в качестве методов сервиса в отдельном файле и импорт их с помощью механизма [примесей](services.html#Mixins). Таким образом, один хук может быть легко разделен между множеством действий.
 
 ```js
 // authorize.mixin.js
@@ -556,10 +586,10 @@ module.exports = {
     }
 };
 ```
-### Local Storage
-The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+### Локальное хранилище
+Свойство `locals` у объекта `Context` является простым хранилищем, который может быть использован для сохранения некоторых дополнительных данных и передачи их в обработчик action метода. Свойство `locals` совместно с хуками удачно дополняют друг друга:
 
-**Setting `ctx.locals` in before hook**
+**Установка `ctx.locals` в before хуке**
 ```js
 module.exports = {
     name: "user",

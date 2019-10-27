@@ -1,23 +1,23 @@
-title: Caching
+title: Кеширование
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer имеет встроенное решение для кэширования, чтобы кэшировать ответы от экшенов в сервисах. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
 
-**Cached action example**
+**Пример**
 ```js
 const { ServiceBroker } = require("moleculer");
 
-// Create broker
+// Создание брокера
 const broker = new ServiceBroker({
     cacher: "Memory"
 });
 
-// Create a service
+// Создание сервиса
 broker.createService({
     name: "users",
     actions: {
         list: {
-            // Enable caching to this action
+            // Включение кеширования для этого действия
             cache: true, 
             handler(ctx) {
                 this.logger.info("Handler called!");
@@ -32,16 +32,16 @@ broker.createService({
 
 broker.start()
     .then(() => {
-        // Will be called the handler, because the cache is empty
+        // Будет вызван обработчик, поскольку кеш пуст
         return broker.call("users.list").then(res => broker.logger.info("Users count:", res.length));
     })
     .then(() => {
-        // Return from cache, handler won't be called
+        // Вернуть данные из кеша, без вызова обработчика
         return broker.call("users.list").then(res => broker.logger.info("Users count from cache:", res.length));
     });
 ```
 
-**Console messages:**
+**Сообщения консоли:**
 ```
 [2017-08-18T13:04:33.845Z] INFO  dev-pc/BROKER: Broker started.
 [2017-08-18T13:04:33.848Z] INFO  dev-pc/USERS: Handler called!
@@ -50,10 +50,10 @@ broker.start()
 ```
 As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
 
-> [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
+> [Попробуйте это на Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Cache keys
-The cacher generates key from service name, action name and the params of context. The syntax of key is:
+## Кэш ключи
+Кэшер генерирует ключ из имени сервиса, имени экшена и параметров контекста. Синтаксис ключа:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
@@ -64,7 +64,7 @@ So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, t
 posts.find:limit|5|offset|20
 ```
 
-However, the params can contain properties which is not relevant for the cache key. On the other hand, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
 
 **Strict the list of `params` & `meta` properties for key generation**
 ```js
@@ -93,7 +93,7 @@ This solution is pretty fast, so we recommend to use it in production. ![](https
 {% endnote %}
 
 ### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than this configured limitvalue, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
 
 > The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
 > 
@@ -183,7 +183,7 @@ broker.createService({
 });
 ```
 
-## Custom key-generator
+## Пользовательский генератор ключей
 To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
 
 ```js
@@ -236,7 +236,7 @@ pipeline.set('mykey.b', 'myvalue.b');
 pipeline.exec();
 ```
 
-## Clear cache
+## Очистить кэш
 When you create a new model in your service, you have to clear the old cached model entries.
 
 **Example to clean the cache inside actions**
@@ -268,9 +268,9 @@ When you create a new model in your service, you have to clear the old cached mo
 ```
 
 ### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is that use broadcast events. It is necessary only for non-centralized cachers like `Memory` or `MemoryLRU`.
+The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
 
-**Example**
+**Пример**
 ```js
 module.exports = {
     name: "users",
@@ -304,7 +304,7 @@ module.exports = {
 ```
 
 ### Clear cache among different services
-Common way is that your service depends on other ones. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+Зависимость от услуг - обычная ситуация. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
 
 **Example cache entry in `posts` service**
 ```js
@@ -361,7 +361,7 @@ module.exports = {
 };
 ```
 
-With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear the own cache entries.
+With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear its own cache entries.
 
 ## Cache locking
 Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
@@ -461,7 +461,7 @@ const broker = new ServiceBroker({
     cacher: "Memory"
 });
 ```
-Or
+Или
 ```js
 const broker = new ServiceBroker({
     cacher: true
@@ -589,7 +589,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With MessagePack serializer** You can define a serializer for Redis Cacher. It uses JSON serializer by default.
+**With MessagePack serializer** You can define a serializer for Redis Cacher. By default, it uses the JSON serializer.
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-123",

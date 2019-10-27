@@ -1,18 +1,18 @@
-title: Logging
+title: Логирование
 ---
 All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
 
 {% note warn %}
-The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+Версия `v0.14` содержит изменения, не совместимый с предыдущими версиями. Это означает, что вы не можете использовать старый способ настройки логирования. Это не относится к встроенному логгеру в консоль. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
 {% endnote %}
 
 
-## Built-in Loggers
+## Встроенные логгеры
 
-### Console (default)
-This logger prints all log messages to the `console`. It supports several built-in formatters or you can use your custom formatter, as well.
+### Консоль (по умолчанию)
+Этот логгер выводит все сообщения в консоль `console`. Он поддерживает несколько встроенных форматов а так же пользовательский формат.
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умлчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -21,12 +21,12 @@ module.exports = {
 
 // moleculer.config.js
 module.exports = {
-    // Enable console logger
+    // включить логирование
     logger: true,
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
 // moleculer.config.js
 module.exports = {

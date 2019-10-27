@@ -1,11 +1,11 @@
-title: Services
+title: Сервисы
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+Сущность `Сервис` представляет микросервис в фреймворке Moleculer. У сервисов описываются действия (actions) и возможно подписаться на события. Для создания сервиса необходимо описать его схему. Схема сервиса похожа на [компонент из VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
-## Schema
-The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+## Схема сервиса
+У схемы есть некоторые свойства: `name`, `version`, `settings`, `actions`, `methods`, `events`.
 
-### Simple service schema to define two actions
+### Простой пример схемы сервиса с двумя действиями
 ```js
 // math.service.js
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
 }
 ```
 
-## Base properties
-The Service has some base properties in the schema.
+## Базовые свойства
+В схеме у каждого сервиса должны быть указаны базовые свойства.
 ```js
 // posts.v1.service.js
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
     version: 1
 }
 ```
-The `name` is a mandatory property so it must be defined. It's the first part of action name when you call it.
+`name` является обязательным свойством и оно должно быть установлено. It's the first part of action name when you call it.
 
 > To disable service name prefixing set `$noServiceNamePrefix: true` in Service settings.
 
@@ -114,7 +114,7 @@ module.exports = {
 ```
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. It is to extend another service to your service. When a service uses mixins, all properties in the mixin will be "mixed" into the current service.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
 
 **Example how to extend `moleculer-web` service**
 
@@ -136,7 +136,7 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which inherits all from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
+The above example creates an `api` service which inherits all properties from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
 
 ### Merge algorithm
 The merge algorithm depends on the property type.
@@ -812,7 +812,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Название        | Type      | Default | Описание                             |
+| Название        | Тип       | Default | Описание                             |
 | --------------- | --------- | ------- | ------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
@@ -828,7 +828,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Название        | Type      | Default | Описание                                   |
+| Название        | Тип       | Default | Описание                                   |
 | --------------- | --------- | ------- | ------------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |

@@ -112,7 +112,7 @@ All DB adapters share a common set of settings:
 
 ## Actions
 
-DB adapters also implement CRUD operations. These [actions](actions.html) are public methods and can be called by other services.
+DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
 
 ### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
 
@@ -173,9 +173,9 @@ List entities by filters and pagination results.
 Create a new entity.
 
 #### Parameters
-| Property | Type | Default | Описание |
-| -------- | ---- | ------- | -------- |
-| -        | -    | -       | -        |
+| Property | Тип | Default | Описание |
+| -------- | --- | ------- | -------- |
+| -        | -   | -       | -        |
 
 
 *No input parameters.*
@@ -188,7 +188,7 @@ Create a new entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Описание          |
+| Property   | Тип                    | Default | Описание          |
 | ---------- | ---------------------- | ------- | ----------------- |
 | `entity`   | `Object`               | -       | Entity to save.   |
 | `entities` | `Array.<Object>` | -       | Entities to save. |
@@ -201,7 +201,7 @@ Create many new entities.
 Get entity by ID.
 
 ##### Parameters
-| Property   | Type                       | Default      | Описание                                                                     |
+| Property   | Тип                        | Default      | Описание                                                                     |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -218,9 +218,9 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type | Default | Описание |
-| -------- | ---- | ------- | -------- |
-| -        | -    | -       | -        |
+| Property | Тип | Default | Описание |
+| -------- | --- | ------- | -------- |
+| -        | -   | -       | -        |
 
 
 *No input parameters.*
@@ -234,7 +234,7 @@ Update an entity by ID.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Описание      |
+| Property | Тип   | Default      | Описание      |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -250,7 +250,7 @@ DB adapters also has a set of helper [methods](services.html#Methods).
 Get entity(ies) by ID(s).
 
 #### Parameters
-| Property   | Type                        | Default      | Описание            |
+| Property   | Тип                         | Default      | Описание            |
 | ---------- | --------------------------- | ------------ | ------------------- |
 | `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
 | `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
@@ -264,9 +264,9 @@ Get entity(ies) by ID(s).
 Clear cached entities
 
 #### Parameters
-| Property | Type | Default | Описание |
-| -------- | ---- | ------- | -------- |
-| -        | -    | -       | -        |
+| Property | Тип | Default | Описание |
+| -------- | --- | ------- | -------- |
+| -        | -   | -       | -        |
 
 
 *No input parameters.*
@@ -280,7 +280,7 @@ Clear cached entities
 Encode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Описание |
+| Property | Тип   | Default      | Описание |
 | -------- | ----- | ------------ | -------- |
 | `id`     | `any` | **required** | -        |
 
@@ -293,7 +293,7 @@ Encode ID of entity.
 Decode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Описание |
+| Property | Тип   | Default      | Описание |
 | -------- | ----- | ------------ | -------- |
 | `id`     | `any` | **required** | -        |
 
@@ -305,7 +305,7 @@ Decode ID of entity.
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Описание                         |
+| Property       | Тип                    | Default      | Описание                         |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -733,6 +733,10 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
     keepAlive: true
 })
 ```
+
+### Connect to multiple DB
+
+If your services are running on separate nodes then you can use `model` in your service definition if you wish to connect to multiple databases. On the other hand, if your services are running on a single node and you wish to connect to multiple databases, you should define the `schema` that will make multiple connections for you.
 
 > More Mongoose examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
 

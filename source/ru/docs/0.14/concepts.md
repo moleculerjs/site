@@ -1,18 +1,18 @@
-title: Core Concepts
+title: Основные концепции
 ---
 
-This guide covers the core concepts of any Moleculer application.
+Это руководство охватывает основные концепции любого Moleculer приложения.
 
-## Service
+## Сервис
 A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
 
-## Node
+## Узел
 A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
 
-### Local Services
+### Локальный сервис
 Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
 
-### Remote Services
+### Удалённый сервис
 Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
 
 ## Service Broker
@@ -27,7 +27,7 @@ Services distributed across multiple nodes are considered remote. In this case, 
 ## Overall View
 There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
 
-### Architecture
+### Архитектура
 
 From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
 
@@ -39,12 +39,12 @@ Now, assuming that our services are up and running, the online store can serve u
 
 **Flow of user's request**
 <div align="center">
-    <img src="assets/overview.svg" alt="Architecture Overview" />
+    <img src="assets/overview.svg" alt="Описание архитектуры" />
 </div>
 
 All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
 
-### Implementation
+### Реализация
 Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/download/nats-io/nats-server/). Run it with the default settings. You should get the following message:
 
 ```
@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable to serve user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
+With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
 
 Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
