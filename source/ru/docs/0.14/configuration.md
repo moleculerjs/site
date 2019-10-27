@@ -1,6 +1,6 @@
-title: Configuration
+title: Конфигурация
 ---
-## Broker options
+## Опции брокера
 These options can be used in `ServiceBroker` constructor or in `moleculer.config.js` file.
 
 **List of all available broker options:**
