@@ -1,20 +1,20 @@
 title: Конфигурация
 ---
 ## Опции брокера
-These options can be used in `ServiceBroker` constructor or in `moleculer.config.js` file.
+Эти опции могут использоваться в конструкторе `ServiceBroker` или в файле `moleculer.config.js`.
 
-**List of all available broker options:**
+**Список всех доступных опций брокера:**
 
-* **`namespace`**: `String` - Namespace of nodes to segment your nodes on the same network (e.g.: "development", "staging", "production"). _Default: `""`_
-* **`nodeID`**: `String` - Unique node identifier. Must be unique in a namespace. If not the broker will throw a fatal error and stop the process. _Default: hostname + PID_
-* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - Logger class. By default, it prints message to the `console`. [Read more](logging.html). _Default: `"Console"`
-* **`logLevel`**: `String | Object` - Log level for loggers (trace, debug, info, warn, error, fatal). [Read more](logging.html). _Default: `info`_
-* **`transporter`**: `String | Object | Transporter` - Transporter configuration. [Read more](networking.html).  _Default: `null`_
-* **`requestTimeout`**: `Number` - Number of milliseconds to wait before reject a request with a `RequestTimeout` error. Disabled: `0` _Default: `0`_
-* **`retryPolicy`**: `Object` - Retry policy configuration. [Read more](fault-tolerance.html#Retry).
-* **`contextParamsCloning`**: `Boolean` - Cloning the `params` of context if enabled. _High performance impact. Use it with caution!_ _Default: `false`_
-* **`maxCallLevel`**: `Number` - Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ _Default: `0`_
-* **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `5`_
+* **`namespace`**: `String` - Пространство имён узла для сегментации узлов в одной сети (например: "development", "staging", "production"). _По умолчанию: `""`_
+* **`nodeID`**: `String` - Уникальный идентификатор узла. Должно быть уникальным в пространстве имен. Иначе брокер бросит фатальную ошибку и остановит процесс. _По умолчанию: имя хоста + PID_
+* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - класс Logger. По умолчанию выводит сообщения в `консоль`. [Читать далее](logging.html). _По умолчанию: `"Console"`
+* **`logLevel`**: `String | Object` - Уровень ведения журнала (trace, debug, info, warn, error, fatal). [Читать далее](logging.html). _По умолчанию: `info`_
+* **`transporter`**: `String | Object | Transporter` - Конфигурация транспорта. [Читать далее](networking.html).  _По умолчанию: `null`_
+* **`requestTimeout`**: `Number` - Количество миллисекунд, чтобы подождать, прежде чем отклонить запрос с ошибкой `RequestTimeout`. Отключить: `0` _По умолчанию: `0`_
+* **`retryPolicy`**: `Object` - Конфигурации политики повторных запросов. [Читать далее](fault-tolerance.html#Retry).
+* **`contextParamsCloning`**: `Boolean` - Включить клонирование параметров `params` контекста. _Оказывает сильное влияние на производительность. Используйте его с осторожностью!_ _По умолчанию: `false`_
+* **`maxCallLevel`**: `Number` - Ограничение уровня вложенных действий. Если он достигнет предела, брокер бросит ошибку `MaxCallLevelError`. _(Защита от бесконечного цикла)_ _По умолчанию: `0`_
+* **`heartbeatInterval`**: `Number` - Период отправки пакета сердечного ритма, в секундах. _По умолчанию: `5`_
 * **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
 * **`tracking`**: `Object` - Tracking requests and waiting for running requests before shutdowning. _(Graceful shutdown)_ [Read more](fault-tolerance.html).
 * **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
