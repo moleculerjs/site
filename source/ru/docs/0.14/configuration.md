@@ -15,8 +15,8 @@ title: Конфигурация
 * **`contextParamsCloning`**: `Boolean` - Включить клонирование параметров `params` контекста. _Оказывает сильное влияние на производительность. Используйте его с осторожностью!_ _По умолчанию: `false`_
 * **`maxCallLevel`**: `Number` - Ограничение уровня вложенных действий. Если он достигнет предела, брокер бросит ошибку `MaxCallLevelError`. _(Защита от бесконечного цикла)_ _По умолчанию: `0`_
 * **`heartbeatInterval`**: `Number` - Период отправки пакета сердечного ритма, в секундах. _По умолчанию: `5`_
-* **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
-* **`tracking`**: `Object` - Tracking requests and waiting for running requests before shutdowning. _(Graceful shutdown)_ [Read more](fault-tolerance.html).
+* **`heartbeatTimeout`**: `Number` - Число секунд ожидания перед установкой статуса недоступности удаленного узла в реестре. _По умолчанию: `15`_
+* **`tracking`**: `Object` - Отслеживание запросов и ожидание выполнения запросов перед выключением. _(Вежливое выключение)_ [Читать далее](fault-tolerance.html).
 * **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
 * **`registry`**: `Object` - Settings of [Service Registry](registry.html).
 * **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
