@@ -44,8 +44,8 @@ sidebar:
     caching: Кэширование
     networking: Сеть
     registry: Реестр и обнаружение
-    balancing: Балансирование нагрузки
-    fault_tolerance: Fault tolerance
+    balancing: Балансировка нагрузки
+    fault_tolerance: Отказоустойчивость
     metrics: Метрики
     tracing: Трассировка
     logging: Логирование
