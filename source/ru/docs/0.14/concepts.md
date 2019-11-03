@@ -4,19 +4,19 @@ title: Основные концепции
 Это руководство охватывает основные концепции любого Moleculer приложения.
 
 ## Сервис
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+[Сервис](services.html) является простым JavaScript-модулем, содержащим часть сложного приложения. Он изолирован и самодостаточен, это означает, что даже если он отключится или упадёт, остальные сервисы не будут задеты.
 
 ## Узел
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+Узел - это просто процесс в ОС, работающий в локальной или внешней сети. Один экземпляр узла может хостить один или несколько сервисов.
 
 ### Локальный сервис
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+Два (или более) сервиса, работающих на одном узле, считаются локальными сервисами. Они делят аппаратные ресурсы и используют локальную шину для связи друг с другом, без сетевых задержек ([транспорт](#Transporter) не используется).
 
 ### Удалённый сервис
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+Сервисы, распределённые по нескольким узлам, считаются удалёнными. В этом случае общение между ними осуществляется с помощью [транспорта](#Transporter).
 
-## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+## Сервис брокер
+[Сервис брокер](broker.html) является сердцем Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
 
 ## Transporter
 [Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
