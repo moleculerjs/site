@@ -16,24 +16,24 @@ title: Основные концепции
 Сервисы, распределённые по нескольким узлам, считаются удалёнными. В этом случае общение между ними осуществляется с помощью [транспорта](#Transporter).
 
 ## Сервис брокер
-[Сервис брокер](broker.html) является сердцем Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+[Сервис брокер](broker.html) является сердцем Moleculer. Он отвечает за управление и связью между службами (локальными и удалёнными). Каждый узел должен иметь экземпляр Сервис брокера.
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## Транспорт
+[Транспорт](networking.html) это коммуникационная шина, которая обеспечивает обмен сообщениями. Она передает события, запросы и ответы.
 
-## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+## Шлюз
+[API шлюз](moleculer-web.html) предоставляет услуги Moleculer конечным пользователям. Шлюз является обычным Moleculer сервисом, в котором запущен (HTTP, WebSockets и др.) сервер. Он обрабатывает входящие запросы, превращает их в вызовы сервисов, а затем возвращает соответствующие ответы.
 
-## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+## Общий вид
+Нет ничего лучше, чем пример, чтобы увидеть, как все эти понятия сочетаются друг с другом. Так давайте рассмотрим гипотетический интернет-магазин, который только выводит список товаров. На самом деле он не продает ничего онлайн.
 
 ### Архитектура
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+С точки зрения архитектуры, интернет-магазин можно представить из 2 независимых сервисов: сервиса `товаров` и сервиса `шлюза`. Первый отвечает за хранение и управление товарами, а второй просто получает запросы от пользователя и передает их сервису `товаров`.
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+Теперь давайте рассмотрим, как этот гипотетический магазин можно создать с Moleculer.
 
-To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
+Чтобы убедиться, что наша система устойчиво к сбоям, мы запустим `товары` и `шлюз` на отдельных [узлах](#Node) (`node-1` и `node-2`). Если вы помните, то запуск сервисов на отдельных узлах означает, что необходим модуль [транспорта](#Transporter) для связи между ними. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
 
 Now, assuming that our services are up and running, the online store can serve user's requests. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
 
