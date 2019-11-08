@@ -72,6 +72,21 @@ module.exports = {
 };
 ```
 
+
+### Asynchronous Configuration file
+
+Moleculer Runner also supports asynchronous configuration files. In this case `moleculer.config.js` must export a `Function` that returns a `Promise` (or you can use `async/await`).
+
+```js
+// moleculer.config.js
+const fetch = require("node-fetch");
+
+module.exports = async function() {
+	const res = await fetch("https://pastebin.com/raw/SLZRqfHX");
+	return await res.json();
+};
+```
+
 ### Environment variables
 The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.
 
