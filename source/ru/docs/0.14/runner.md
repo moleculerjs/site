@@ -72,6 +72,21 @@ module.exports = {
 };
 ```
 
+
+### Asynchronous Configuration file
+
+Moleculer Runner also supports asynchronous configuration files. In this case `moleculer.config.js` must export a `Function` that returns a `Promise` (or you can use `async/await`).
+
+```js
+// moleculer.config.js
+const fetch = require("node-fetch");
+
+module.exports = async function() {
+    const res = await fetch("https://pastebin.com/raw/SLZRqfHX");
+    return await res.json();
+};
+```
+
 ### Переменные окружения
 Стартер преобразует имена свойств в верхний регистр. Имена вложенных параметров объединяются символом `_`.
 
@@ -147,7 +162,7 @@ The `nodeID` will be suffixed with the worker ID. E.g. if you define `my-node` n
 * `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
 * `-E, --envfile <filename>` - Load envorinment variables from the specified file.
 
-**Примеры**
+**Пример**
 ```sh
 # загрузит .env файл из текущей директории
 $ moleculer-runner --env
