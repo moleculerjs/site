@@ -727,6 +727,9 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
     keepAlive: true
 })
 ```
+### Connect to multiple DBs
+
+If your services are running on separate nodes and you wish to connect to multiple databases then you can use `model` in your service definition. On the other hand, if your services are running on a single node and you wish to connect to multiple databases, you should define the `schema` that will make multiple connections for you.
 
 > More Mongoose examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
 
