@@ -69,7 +69,7 @@ hexo.extend.helper.register("isOlderVersion", function() {
     return (idx > latestIdx);
 });
 
-hexo.extend.helper.register("isCurrentVersion", function() {
+/*hexo.extend.helper.register("isCurrentVersion", function() {
 	var p = this.page.canonical_path.split('/');
 	if (p.length < 2) return false;
 	var type = p[0];
@@ -82,7 +82,7 @@ hexo.extend.helper.register("isCurrentVersion", function() {
 	const latestIdx = versions.findIndex(v => v == this.site.data.versions.latest);
 	
     return (idx === latestIdx);
-});
+});*/
 
 hexo.extend.helper.register("isNewerVersion", function() {
 	var p = this.page.canonical_path.split('/');
