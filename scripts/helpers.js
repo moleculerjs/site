@@ -69,6 +69,21 @@ hexo.extend.helper.register("isOlderVersion", function() {
     return (idx > latestIdx);
 });
 
+hexo.extend.helper.register("isCurrentVersion", function() {
+	var p = this.page.canonical_path.split('/');
+	if (p.length < 2) return false;
+	var type = p[0];
+	var ver = p[1];
+
+    const versions = Object.keys(this.site.data.versions[type]);
+    if (versions.length == 0) return false;
+
+    const idx = versions.findIndex(v => v == ver);
+	const latestIdx = versions.findIndex(v => v == this.site.data.versions.latest);
+	
+    return (idx === latestIdx);
+});
+
 hexo.extend.helper.register("isNewerVersion", function() {
 	var p = this.page.canonical_path.split('/');
 	if (p.length < 2) return false;
