@@ -160,6 +160,38 @@ module.exports = {
     }
 };
 ```
+## Overwrite global options
+You can overwrite globally defined load balancing strategy in action/event definitions.
+
+**Using 'Shard' strategy for 'hello' action instead of global 'RoundRobin'**
+```js
+// moleculer.config.js
+module.exports = {
+    registry: {
+        strategy: "RoundRobin"
+    }
+});
+
+// greeter.service.js
+module.exports = {
+    name: "greeter",
+    actions: {
+        hello: {
+            params: {
+                name: "string"
+            },
+            strategy: "Shard",
+            strategyOptions: {
+                shardKey: "name"
+            }            
+            handler(ctx) {
+                return `Hello ${ctx.params.name}`;
+            }
+        }
+    }
+};
+```
+
 
 
 ## Своя стратегия
