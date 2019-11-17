@@ -1,7 +1,7 @@
 title: Кеширование
 ---
 
-Moleculer имеет встроенное решение для кэширования, чтобы кэшировать ответы от экшенов в сервисах. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer имеет встроенное решение для кэширования результатов вызова методов сервисов. Чтобы включить его, укажите тип кэша `cacher` в [параметрах брокера](configuration.html#Broker-options) и включите кэш `cache: true` в [определении метода](services.html#Actions) результаты выполнения которого необходимо кэшировать.
 
 **Пример**
 ```js
@@ -48,18 +48,18 @@ broker.start()
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
-As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+Как видите, сообщение `Handler called` появляется только один раз, потому что ответ второго запроса был возвращён из кэша.
 
-> [Попробуйте это на Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
+> [Попробуйте это в Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Кэш ключи
-Кэшер генерирует ключ из имени сервиса, имени экшена и параметров контекста. Синтаксис ключа:
+## Ключи кэширования
+Ключ кэширования генерируется из имени сервиса, имени метода и параметров контекста. Синтаксис ключа:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+Если вызвать метод `posts.list` с параметрами `{ limit: 5, offset: 20 }`, алгоритм кэширования вычислит хэш от параметров. Таким образом, при следующем вызове с такими же параметрами, результат будет найдет кэше по ключу.
 
-**Example hashed cache key for "posts.find" action**
+**Пример хэш-ключа кэша для действия "posts.find"**
 ```
 posts.find:limit|5|offset|20
 ```
@@ -105,7 +105,7 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 // Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
 ```
 
-**Generate a limited-length key**
+**Генерирование ключа ограниченной длины**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -116,8 +116,8 @@ const broker = new ServiceBroker({
     }
 });
 
-cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
-// Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
+cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. Таким образом, этот ключ также будет слишком длинным" });
+// Ключ: 'posts.find:id|2|title|New pL4ozU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
 ## Conditional caching
@@ -649,10 +649,10 @@ To be able to use this cacher, install the `ioredis` module with the `npm instal
 {% endnote %}
 
 
-## Custom cacher
-Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+## Собственный алгоритм кэширования
+Можно создать собственный модуль кэширования. Рекомендуется использовать в качестве образца модуль [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) или [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) и реализовать методы `get`, `set`, `del` и `clean`.
 
-### Create custom cacher
+### Создание собственного алгоритма кэширования
 ```js
 const BaseCacher = require("moleculer").Cachers.Base;
 
@@ -664,7 +664,7 @@ class MyCacher extends BaseCacher {
 }
 ```
 
-### Use custom cacher
+### Использование собственного алгоритма кэширования
 
 ```js
 const { ServiceBroker } = require("moleculer");
