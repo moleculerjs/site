@@ -161,9 +161,9 @@ module.exports = {
 };
 ```
 ## Переопределение глобальных параметров
-You can overwrite globally defined load balancing strategy in action/event definitions.
+Вы можете переопределить глобально заданную стратегию балансировки внутри методов действий или событий.
 
-**Using 'Shard' strategy for 'hello' action instead of global 'RoundRobin'**
+**Использование стратегии 'Shard' для действия 'hello' вместо глобального 'RoundRobin'**
 ```js
 // moleculer.config.js
 module.exports = {
