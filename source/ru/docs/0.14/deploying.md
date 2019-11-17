@@ -1,11 +1,11 @@
-title: Deploying
+title: Развертывание
 ---
 
-## Docker deployment
-The example below shows how to use [moleculer-runner](runner.html) and Docker to deploy Moleculer services across multiple containers.
+## Развёртывание с помощью Docker
+Приведенный ниже пример показывает, как использовать [moleculer-runner](runner.html) и Docker для развертывания служб Moleculer в нескольких контейнерах.
 
 {% note info %}
-Note that moleculer-runner is capable of reading environment variables, which are heavily used in Docker deployments. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
+Заметим, что moleculer-runner способен считывать переменные среды, которые широко используются при развертывании Docker. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
 {% endnote %}
 
 > The Docker files shown here are from [moleculer-demo](usage.html#Create-a-Moleculer-project) project.
