@@ -5,13 +5,13 @@ title: Развертывание
 Приведенный ниже пример показывает, как использовать [moleculer-runner](runner.html) и Docker для развертывания служб Moleculer в нескольких контейнерах.
 
 {% note info %}
-Заметим, что moleculer-runner способен считывать переменные среды, которые широко используются при развертывании Docker. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
+Заметим, что moleculer-runner способен считывать переменные среды, которые широко используются при развертывании Docker. [Подробная информация о логике загрузки конфигурации](runner.html#Configuration-loading-logic).
 {% endnote %}
 
-> The Docker files shown here are from [moleculer-demo](usage.html#Create-a-Moleculer-project) project.
+> Docker файл из проекта [moleculer-demo](usage.html#Create-a-Moleculer-project).
 
 ### Dockerfile
-Dockerfile to run Moleculer services
+Dockerfile для запуска сервисов Moleculer
 
 ```docker
 FROM node:8-alpine
@@ -27,7 +27,7 @@ RUN npm install --production
 
 COPY . .
 
-CMD ["npm", "start"]  # Execute moleculer-runner
+CMD ["npm", "start"]  # Запускает moleculer-runner
 ```
 
 ### Docker Compose
@@ -38,12 +38,12 @@ Set the necessary environment variables. **docker-compose.env**
 NAMESPACE=
 LOGGER=true
 LOGLEVEL=info
-SERVICEDIR=services           # Inform runner about the location of service files
+SERVICEDIR=services           # указывает расположение файлов сервисов
 
-TRANSPORTER=nats://nats:4222  # Set transporter in all containers
+TRANSPORTER=nats://nats:4222  # установить транспорт для всех контейнеров
 ```
 
-Configure the containers. **docker-compose.yml**
+Настройка контейнеров. **docker-compose.yml**
 ```yaml
 version: "3.2"
 
@@ -56,8 +56,8 @@ services:
     container_name: moleculer-demo-api
     env_file: docker-compose.env
     environment:
-      SERVICES: api # Runner will start only the 'api' service in this container
-      PORT: 3000    # Port of API gateway
+      SERVICES: api # запустить только сервис 'api' в этом контейнере
+      PORT: 3000    # порт для API шлюза
     depends_on:
       - nats
     labels:
@@ -76,7 +76,7 @@ services:
     container_name: moleculer-demo-greeter
     env_file: docker-compose.env
     environment:
-      SERVICES: greeter # Runner will start only the 'greeter' service in this container
+      SERVICES: greeter # запустить только сервис 'greeter' в этом контейнере
     labels:
       - "traefik.enable=false"
     depends_on:
@@ -117,12 +117,12 @@ networks:
 
 ```
 
-**Start containers**
+**Запуск контейнеров**
 ```bash
 $ docker-compose up -d
 ```
 
-Access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
+Получите доступ к приложению по адресу `http://<docker-host>:3000/`. Панель управления Traefik `http://<docker-host>:3001/`
 
-## Kubernetes deployment
-Moleculer community members are [working on](https://github.com/moleculerjs/moleculer/issues/512) Kubernetes integration. You can check [dkuida](https://github.com/dkuida)'s [step by step tutorial](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07), [lehno](https://github.com/lehno)'s [code samples](https://github.com/lehno/moleculer-k8s-examples) and [tobydeh](https://github.com/tobydeh)'s [deployment guide](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5).
+## Развертывание в Kubernetes
+Члены сообщества Moleculer [работают](https://github.com/moleculerjs/moleculer/issues/512) над интеграцией Kubernetes. Вы можете проверить [пошаговую инструкцию](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07) от [dkuida](https://github.com/dkuida), [примеры кода](https://github.com/lehno/moleculer-k8s-examples) от [lehno](https://github.com/lehno) и [инструкцию по развертыванию](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5) от [tobydeh](https://github.com/tobydeh).
