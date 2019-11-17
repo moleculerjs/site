@@ -160,7 +160,7 @@ module.exports = {
     }
 };
 ```
-## Overwrite global options
+## Переопределение глобальных параметров
 You can overwrite globally defined load balancing strategy in action/event definitions.
 
 **Using 'Shard' strategy for 'hello' action instead of global 'RoundRobin'**
