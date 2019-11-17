@@ -31,9 +31,9 @@ CMD ["npm", "start"]  # Запускает moleculer-runner
 ```
 
 ### Docker Compose
-Docker compose files to run Moleculer services with NATS & Traefik (load balancing the API Gateway)
+Запуск сервисов с использованием NATS и Traefik (балансировка нагрузки на API шлюз)
 
-Set the necessary environment variables. **docker-compose.env**
+Установка необходимых переменных среды. **docker-compose.env**
 ```bash
 NAMESPACE=
 LOGGER=true
