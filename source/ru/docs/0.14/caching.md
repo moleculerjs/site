@@ -396,25 +396,25 @@ const broker = new ServiceBroker({
         ttl: 60,
         lock: {
             enable: false, // установить в false для отключения.
-            ttl: 15, // The maximum amount of time you want the resource locked in seconds
-            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+            ttl: 15, // максимальное время блокировки в секундах
+            staleTime: 10, // если TTL меньше этого числа, то кэш устарел
         }
     }
 });
 ```
-**Example for Redis cacher with `redlock` library**
+**Пример кэша Redis с использованием библиотеки `redlock`**
 ```js
 const broker = new ServiceBroker({
   cacher: {
     type: "Redis",
     options: {
-      // Prefix for keys
+      // префикс ключей
       prefix: "MOL",
-      // set Time-to-live to 30sec.
+      // установить время жизни 30 сек
       ttl: 30,
-      // Turns Redis client monitoring on.
+      // включить мониторинг Redis.
       monitor: false,
-      // Redis settings
+      // настройки Redis
       redis: {
         host: "redis-server",
         port: 6379,
@@ -422,40 +422,40 @@ const broker = new ServiceBroker({
         db: 0
       },
       lock: {
-        ttl: 15, //the maximum amount of time you want the resource locked in seconds
-        staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+        ttl: 15, // максимальное время блокировки в секундах
+        staleTime: 10, // если TTL меньше этого числа, то кэш устарел
       },
-      // Redlock settings
+      // настройки Redlock
       redlock: {
-        // Redis clients. Support node-redis or ioredis. By default will use the local client.
+        // клиенты Redis. Поддерживаются Node-redis или ioredis. По умолчанию будет использован локальный клиент.
         clients: [client1, client2, client3],
-        // the expected clock drift; for more details
-        // see http://redis.io/topics/distlock
-        driftFactor: 0.01, // time in ms
+        // ожидаемое отклонение времени; подробнее
+        // см. http://redis.io/topics/distlock
+        driftFactor: 0.01, // время в мс
 
-        // the max number of times Redlock will attempt
-        // to lock a resource before erroring
+        // максимальное количество попыток Redlock
+        // получить блокировку перед вызовом ошибки
         retryCount: 10,
 
-        // the time in ms between attempts
-        retryDelay: 200, // time in ms
+        // задержка между попытками
+        retryDelay: 200, // время в мс
 
-        // the max time in ms randomly added to retries
-        // to improve performance under high contention
-        // see https://www.awsarchitectureblog.com/2015/03/backoff.html
-        retryJitter: 200 // time in ms
+        // максимальное время, случайно добавляемое перед попыткой
+        // для улучшения производительности при большом разбросе
+        // см. https://www.awsarchitectureblog.com/2015/03/backoff.html
+        retryJitter: 200 // время в мс
       }
     }
   }
 });
 ```
 
-## Built-in cachers
+## Встроенные типы кэша
 
 ### Memory cacher
-`MemoryCacher` is a built-in memory cache module. It stores entries in the heap memory.
+`MemoryCacher` это встроенный модуль кэширования. Он сохраняет записи в памяти кучи.
 
-**Enable memory cacher**
+**Включение**
 ```js
 const broker = new ServiceBroker({
     cacher: "Memory"
@@ -468,33 +468,33 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Enable with options**
+**Включить с параметрами**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         type: "Memory",
         options: {
-            ttl: 30 // Set Time-to-live to 30sec. Disabled: 0 or null
-            clone: true // Deep-clone the returned value
+            ttl: 30 // установить время жизни 30 сек. Отключить: 0 или null
+            clone: true // глубокое клонирование возвращаемого значения
         }
     }
 });
 ```
 
-**Options**
+**Параметры**
 
-| Name              | Type                    | Default | Description                                 |
-| ----------------- | ----------------------- | ------- | ------------------------------------------- |
-| `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| Имя               | Тип                      | По умолчанию | Описание                                               |
+| ----------------- | ------------------------ | ------------ | ------------------------------------------------------ |
+| `ttl`             | `Number`                 | `null`       | Время жизни в секундах.                                |
+| `clone`           | `Boolean` или `Function` | `false`      | Клонировать кэшированные данные при возврате.          |
+| `keygen`          | `Function`               | `null`       | Функция формирования ключей кэша.                      |
+| `maxParamsLength` | `Number`                 | `null`       | Максимальная длина параметров в сформированных ключах. |
+| `lock`            | `Boolean` или `Object`   | `null`       | Включить функцию блокировки.                           |
 
-#### Cloning
-The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
+#### Клонирование
+Кэшер использует метод клонирования `_.cloneDeep` из библиотеки lodash. Чтобы его изменить, передайте `Function` в свойство `clone` вместо `Boolean`.
 
-**Custom clone function with JSON parse & stringify**
+**Пользовательская функция клонирования через JSON сериализацию**
 ```js
 const broker = new ServiceBroker({ 
     cacher: {
