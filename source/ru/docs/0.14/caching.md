@@ -64,7 +64,7 @@ broker.start()
 posts.find:limit|5|offset|20
 ```
 
-The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+Объект params может содержать свойства, которые не имеют отношения к ключу кэша. Также, это может вызвать проблемы с производительностью, если ключ слишком длинный. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
 
 **Strict the list of `params` & `meta` properties for key generation**
 ```js
