@@ -64,16 +64,16 @@ broker.start()
 posts.find:limit|5|offset|20
 ```
 
-Объект params может содержать свойства, которые не имеют отношения к ключу кэша. Также, это может вызвать проблемы с производительностью, если ключ слишком длинный. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+Объект params может содержать свойства, которые не имеют отношения к ключу кэша. Также, это может вызвать проблемы с производительностью, если ключ слишком длинный. Поэтому рекомендуется задать объект `cache` со списком основных имён параметров в свойстве `keys`. Для указания ключей кэша из объекта мета в свойстве `keys` используйте префикс `#`.
 
-**Strict the list of `params` & `meta` properties for key generation**
+**Для генерации ключа кэша используются свойства только объектов `params` и `meta`**
 ```js
 {
     name: "posts",
     actions: {
         list: {
             cache: {
-                //  generate cache key from "limit", "offset" params and "user.id" meta
+                // формирует ключ кеширования из параметров "limit", "offset" и мета "user.id"
                 keys: ["limit", "offset","#user.id"]
             },
             handler(ctx) {
@@ -83,29 +83,29 @@ posts.find:limit|5|offset|20
     }
 }
 
-// If params is { limit: 10, offset: 30 } and meta is { user: { id: 123 } }, 
-// the cache key will be:
+// если параметры равны { limit: 10, offset: 30 } и мета равна { user: { id: 123 } }, 
+// ключ кэширования будет:
 //   posts.list:10|30|123
 ```
 
 {% note info Performance tip %}
-This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+Это решение работает довольно быстро, поэтому мы рекомендуем использовать его на продакшене. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
-### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+### Ограничение длины ключа кэша
+Иногда ключ может быть очень длинным, что может вызвать проблемы с производительностью. Чтобы избежать этого, можно задать параметр кеширования `maxParamsLength`. Когда длина ключа превысит указанное значение, алгоритм вычисляет хэш (SHA256) от полного ключа и добавляет его в конец ключа.
 
-> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> Минимум для `maxParamsLength` составляет `44` (SHA 256 хэш в Base64).
 > 
-> To disable this feature, set it to `0` or `null`.
+> Для отключения этой функции установите значение `0` или `null`.
 
-**Generate a full key from the whole params without limit**
+**Формирование полного ключ из всех параметров без ограничения**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
 // Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
 ```
 
-**Генерирование ключа ограниченной длины**
+**Формирование ключа ограниченной длины**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -117,21 +117,21 @@ const broker = new ServiceBroker({
 });
 
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. Таким образом, этот ключ также будет слишком длинным" });
-// Ключ: 'posts.find:id|2|title|New pL4ozU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
+// ключ: 'posts.find:id|2|title|New pL4ozU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
-## Conditional caching
+## Условное кэширование
 
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+Условное кэширование позволяет обойти кэш и выполнить действие для получения "свежих" данных. Чтобы обойти кэш необходимо присвоить `ctx.meta.$cache` `false` перед вызовом действия.
 
-**Example of turning off the caching for the `greeter.hello` action**
+**Пример отключения кэширования для действия `greeter.hello`**
 ```js
 broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 ```
 
-As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+В качестве альтернативы, можно использовать пользовательскую функцию, чтобы активировать обход кэша. Пользовательская функция принимает в качестве аргумента контекст (`ctx`), поэтому она имеет доступ к любым параметрам или мета-данным. Это позволяет передать флаг обхода внутри запроса.
 
-**Example of a custom conditional caching function**
+**Пример пользовательской функции условного кэширования**
 ```js
 // greeter.service.js
 module.exports = {
@@ -139,7 +139,7 @@ module.exports = {
     actions: {
         hello: {
             cache: {
-                enabled: ctx => ctx.params.noCache !== true, //`noCache` passed as a parameter
+                enabled: ctx => ctx.params.noCache !== true, //`noCache` передан в качестве параметра
                 keys: ["name"]
             },
             handler(ctx) {
@@ -150,19 +150,19 @@ module.exports = {
     }
 };
 
-// Use custom `enabled` function to turn off caching for this request
+// использование пользовательской функции `выключающей` кэширование этого запроса
 broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
 ```
 
-## TTL
-Default TTL setting can be overriden in action definition.
+## TTL время жизни
+Настройки TTL по умолчанию могут быть переопределены в определении действия.
 
 ```js
 const broker = new ServiceBroker({
     cacher: {
         type: "memory",
         options: {
-            ttl: 30 // 30 seconds
+            ttl: 30 // 30 секунд
         }
     }
 });
@@ -172,7 +172,7 @@ broker.createService({
     actions: {
         list: {
             cache: {
-                // These cache entries will be expired after 5 seconds instead of 30.
+                // этот кэш устареет спустя 5 секунд вместо 30.
                 ttl: 5
             },
             handler(ctx) {
@@ -183,8 +183,8 @@ broker.createService({
 });
 ```
 
-## Пользовательский генератор ключей
-To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
+## Пользовательский формирователь ключа
+Чтобы переопределить встроенный формирователь ключей кэширования, установите собственную функцию `keygen` в параметрах кэширования.
 
 ```js
 const broker = new ServiceBroker({
@@ -192,11 +192,11 @@ const broker = new ServiceBroker({
         type: "memory",
         options: {
             keygen(name, params, meta, keys) {
-                // Generate a cache key
-                // name - action name
+                // формирует ключ кеширования
+                // name - имя действия
                 // params - ctx.params
                 // meta - ctx.meta
-                // keys - cache keys defined in action
+                // keys - ключи, заданные в описании действия
                 return "";
             }
         }
@@ -204,8 +204,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Manual caching
-The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+## Ручное кэширование
+Модуль кэширования может использоваться вручную. Just call the `get`, `set`, `del` methods of `broker.cacher`.
 
 ```js
 // Save to cache
