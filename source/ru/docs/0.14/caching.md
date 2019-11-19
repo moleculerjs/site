@@ -205,70 +205,70 @@ const broker = new ServiceBroker({
 ```
 
 ## Ручное кэширование
-Модуль кэширования может использоваться вручную. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+Модуль кэширования может использоваться вручную. Просто вызовите методы `get`, `set`, `del` в `broker.cacher`.
 
 ```js
-// Save to cache
+// сохранить в кэш
 broker.cacher.set("mykey.a", { a: 5 });
 
-// Get from cache (async)
+// получить из кэша (async)
 const obj = await broker.cacher.get("mykey.a")
 
-// Remove entry from cache
+// удалить запись из кэша
 await broker.cacher.del("mykey.a");
 
-// Clean all 'mykey' entries
+// очистить все записи 'mykey'
 await broker.cacher.clean("mykey.**");
 
-// Clean all entries
+// очистить все записи
 await broker.cacher.clean();
 ```
 
-Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+Кроме того, при использовании встроенного Redis кэша можно использовать любой метод API [ioredis](https://github.com/luin/ioredis) в `broker.cacher.client`:
 
 ```js
-// create an ioredis pipeline
+// создать конвейер ioredis
 const pipeline = broker.cacher.client.pipeline();
-// set values in cache
+// записать кэш
 pipeline.set('mykey.a', 'myvalue.a');
 pipeline.set('mykey.b', 'myvalue.b');
-// execute pipeline
+// выполнить конвейер
 pipeline.exec();
 ```
 
-## Очистить кэш
-When you create a new model in your service, you have to clear the old cached model entries.
+## Очистка кэша
+Когда вы создаете новую модель в своём сервисе, вам необходимо очистить старые записи в кэше.
 
-**Example to clean the cache inside actions**
+**Пример очистки кэша внутри действий**
 ```js
 {
     name: "users",
     actions: {
         create(ctx) {
-            // Create new user entity
+            // создание новой записи user
             const user = new User(ctx.params);
 
-            // Clear all cache entries
+            // очистка всего кеша
             this.broker.cacher.clean();
 
-            // Clear all cache entries which keys start with `users.`
+            // очистка всех записей у которых ключ начинается с `users.`
             this.broker.cacher.clean("users.**");
 
-            // Clear multiple cache entries
+            // очистка множества записей
             this.broker.cacher.clean([ "users.**", "posts.**" ]);
 
-            // Delete an entry
+            // удаление конкретной записи
             this.broker.cacher.del("users.list");
 
-            // Delete multiple entries
+            // удаление нескольких записей
             this.broker.cacher.del([ "users.model:5", "users.model:8" ]);
         }
     }
 }
 ```
 
-### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+### Очистка кэша для нескольких экземпляров сервиса
+Наилучшая практика очистки кэша среди нескольких экземпляров сервиса заключается в использовании широковещательных событий. Обратите внимание, что это требуется только для децентрализованных кэшей, таких как `Memory` или `MemoryLRU`.
 
 **Пример**
 ```js
@@ -276,10 +276,10 @@ module.exports = {
     name: "users",
     actions: {
         create(ctx) {
-            // Create new user entity
+            // создание новой записи
             const user = new User(ctx.params);
 
-            // Clear cache
+            // очистка кеша
             this.cleanCache();
 
             return user;
@@ -288,7 +288,7 @@ module.exports = {
 
     methods: {
         cleanCache() {
-            // Broadcast the event, so all service instances receive it (including this instance). 
+            // отправка широковещательного события, так что все экземпляры сервиса получат его (включая этот экземпляр). 
             this.broker.broadcast("cache.clean.users");
         }
     }
@@ -303,10 +303,10 @@ module.exports = {
 }
 ```
 
-### Clear cache among different services
-Зависимость от услуг - обычная ситуация. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+### Очистка кэша между различными сервисами
+Зависимость сервисов - обычная ситуация. Например сервис `posts` хранит информацию из сервиса `users` в кэшированных записях (в случае заполнения).
 
-**Example cache entry in `posts` service**
+**Пример записи кэша в сервисе `posts`**
 ```js
 {
     _id: 1,
@@ -320,9 +320,9 @@ module.exports = {
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+Поле `author` получено из сервиса `users`. Если сервис `users` очищает записи кэша, то служба `posts` также должна очистить собственные записи кэша. Поэтому вы должны также подписаться на событие `cache.clear.users` в сервисе `posts`.
 
-To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
+Чтобы упростить это, создайте примесь `CacheCleaner` и определите схему зависимости сервисов.
 
 **cache.cleaner.mixin.js**
 ```js
@@ -361,41 +361,41 @@ module.exports = {
 };
 ```
 
-With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear its own cache entries.
+При этом, если сервис `users` вызывает событие `cache.clean.users`, то сервис `posts` также очистит свои собственные записи кэша.
 
-## Cache locking
-Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
+## Блокировка кэша
+Moleculer также поддерживает функцию блокировки кэша. Для получения подробной информации [ознакомьтесь с PR](https://github.com/moleculerjs/moleculer/pull/490).
 
-**Enable Lock**
+**Включение блокировки**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         ttl: 60,
-        lock: true, // Set to true to enable cache locks. Default is disabled.
+        lock: true, // передать true для включения блокировки кэша. По умолчанию отключено.
     }
 });
 ```
 
-**Enable with TTL**
+**Включение с TTL**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         ttl: 60,
         lock: {
-            ttl: 15, // The maximum amount of time you want the resource locked in seconds
-            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+            ttl: 15, // максимальное время блокировки в секундах
+            staleTime: 10, // если TTL меньше этого числа, то кэш устарел
         }
     }
 });
 ```
 
-**Disable Lock**
+**Отключение блокировки**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         ttl: 60,
         lock: {
-            enable: false, // Set to false to disable.
+            enable: false, // установить в false для отключения.
             ttl: 15, // The maximum amount of time you want the resource locked in seconds
             staleTime: 10, // If the TTL is less than this number, means that the resources are staled
         }
