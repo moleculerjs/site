@@ -3,7 +3,7 @@
 {% endif %}
 
 {% if isCurrentVersion() %}
-<div class="alert version">New release is coming soon! If you want to try out the latest features then run <code>npm i -s moleculer@next</code>. The docs for the latest version are available <a href="{{ page.site.data.menu.docs }}">here.</a>
+<div class="alert version">New release is coming soon! If you want to try out the latest features, simply run <code>npm i -s moleculer@next</code>. The docs for the latest version are available <a href="{{ generateURLForBeta() }}">here.</a>
 </div>
 {% endif %}
 
