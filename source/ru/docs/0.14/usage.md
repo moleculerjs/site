@@ -1,23 +1,23 @@
-title: Usage
+title: Использование
 ---
-# Install Moleculer
+# Установка Moleculer
 
-Moleculer can be installed with `npm` or `yarn`.
+Moleculer может быть установлен с помощью `npm` или `yarn`.
 
 ```bash
 $ npm i moleculer --save
 ```
 
-# Create your first microservice
-This basic example shows how to create a small `math` service to add two numbers and call it locally.
+# Создайте свой первый микросервис
+Этот простой пример показывает, как создать маленький сервис `math` для сложения двух чисел и локального вызова.
 
 ```js
 const { ServiceBroker } = require("moleculer");
 
-// Create a ServiceBroker
+// создание брокера
 const broker = new ServiceBroker();
 
-// Define a service
+// определение сервиса
 broker.createService({
     name: "math",
     actions: {
@@ -27,20 +27,20 @@ broker.createService({
     }
 });
 
-// Start the broker
+// запуск брокера
 broker.start()
-    // Call the service
+    // вызов сервиса
     .then(() => broker.call("math.add", { a: 5, b: 3 }))
-    // Print the response
+    // вывод ответа
     .then(res => console.log("5 + 3 =", res))
     .catch(err => console.error(`Error occured! ${err.message}`));
 ```
 
 {% note info Try it in your browser! %}
-Open this example on [Runkit!](https://runkit.com/icebob/moleculer-usage)
+Откройте этот пример на [Runkit!](https://runkit.com/icebob/moleculer-usage)
 {% endnote %}
 
-# Create a Moleculer project
+# Создание проекта Moleculer
 In this example we use the official [Moleculer CLI tool](moleculer-cli.html) to create a new Moleculer-based microservices project with a sample service and an API Gateway to call it from the browser via REST API.
 
 1. Install `moleculer-cli` globally
