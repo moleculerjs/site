@@ -1,4 +1,4 @@
-title: Основные концепции
+title: Основные принципы
 ---
 
 Это руководство охватывает основные концепции любого Moleculer приложения.
@@ -73,25 +73,25 @@ Finally, we need to configure the brokers and create our services. So let's crea
 const { ServiceBroker } = require("moleculer");
 const HTTPServer = require("moleculer-web");
 
-// Create the broker for node-1
-// Define nodeID and set the communication bus
+// создание брокера для первого узла
+// определение nodeID и транспорта
 const brokerNode1 = new ServiceBroker({
   nodeID: "node-1",
   transporter: "NATS"
 });
 
-// Create the "gateway" service
+// создать сервис "шлюз"
 brokerNode1.createService({
-  // Define service name
+  // имя сервиса
   name: "gateway",
-  // Load the HTTP server
+  // загрузить HTTP сервер
   mixins: [HTTPServer],
 
   settings: {
     routes: [
       {
         aliases: {
-          // When the "GET /products" request is made the "listProducts" action of "products" service is executed
+          // при получении запроса "GET /products" будет выполнено действие "listProducts" из сервиса "products"
           "GET /products": "products.listProducts"
         }
       }
@@ -99,20 +99,20 @@ brokerNode1.createService({
   }
 });
 
-// Create the broker for node-2
-// Define nodeID and set the communication bus
+// создание брокера для второго узла
+// определение nodeID и транспорта
 const brokerNode2 = new ServiceBroker({
   nodeID: "node-2",
   transporter: "NATS"
 });
 
-// Create the "products" service
+// создание сервиса "products"
 brokerNode2.createService({
-  // Define service name
+  // имя сервиса
   name: "products",
 
   actions: {
-    // Define service action that returns the available products
+    // определение действия, которое вернёт список доступных товаров
     listProducts(ctx) {
       return [
         { name: "Apples", price: 5 },
@@ -123,10 +123,10 @@ brokerNode2.createService({
   }
 });
 
-// Start both brokers
+// запуск обоих брокеров
 Promise.all([brokerNode1.start(), brokerNode2.start()]);
 ```
-Now run `node index.js` in your terminal and open the link [`http://localhost:3000/products`](http://localhost:3000/products). You should get the following response:
+Теперь запустите `node index.js` в терминале и откройте ссылку [`http://localhost:3000/products`](http://localhost:3000/products). Вы должны получить следующий ответ:
 ```json
 [
     { "name": "Apples", "price": 5 },
@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
+Всего за пару десятков строк кода мы создали два изолированных сервиса, способных обслуживать запросы пользователей и выводить список товаров. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
 
 Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
