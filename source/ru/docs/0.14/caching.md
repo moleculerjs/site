@@ -534,14 +534,14 @@ let broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
-| ----------------- | ----------------------- | ------- | ------------------------------------------- |
-| `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `max`             | `Number`                | `null`  | Maximum items in the cache.                 |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| Имя               | Тип                      | По умолчанию | Description                                 |
+| ----------------- | ------------------------ | ------------ | ------------------------------------------- |
+| `ttl`             | `Number`                 | `null`       | Time-to-live in seconds.                    |
+| `max`             | `Number`                 | `null`       | Maximum items in the cache.                 |
+| `clone`           | `Boolean` или `Function` | `false`      | Clone the cached data when return it.       |
+| `keygen`          | `Function`               | `null`       | Custom cache key generator function.        |
+| `maxParamsLength` | `Number`                 | `null`       | Maximum length of params in generated keys. |
+| `lock`            | `Boolean` or `Object`    | `null`       | Enable lock feature.                        |
 
 
 {% note info Dependencies %}
