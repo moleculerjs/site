@@ -128,7 +128,7 @@ SERVICEDIR=my-services
 ```
 It loads all `*.service.js` files from the `my-services` folder (including sub-folders too).
 
-### Glob patterns
+### Glob шаблоны
 If you want to be more specific, use glob patterns. It is useful when loading all services except certain ones.
 
 ```bash
@@ -152,7 +152,7 @@ $ moleculer-runner --instances 4 services
 ```
 
 {% note info Clustered Node ID %}
-К `nodeID` будут добавлены идентификаторы воркеров в виде суффикса. E.g. if you define `my-node` nodeID in options, and starts 4 instances, the instance nodeIDs will be `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
+К `nodeID` будут добавлены идентификаторы воркеров в виде суффикса. Например, если nodeID задан как `my-node`, и запущено 4 экземпляра, то экземпляры будут иметь следующие идентификаторы: `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
 {% endnote %}
 
 ## .env файлы
