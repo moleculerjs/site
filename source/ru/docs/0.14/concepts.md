@@ -33,19 +33,19 @@ title: Основные принципы
 
 Теперь давайте рассмотрим, как этот гипотетический магазин можно создать с Moleculer.
 
-Чтобы убедиться, что наша система устойчиво к сбоям, мы запустим `товары` и `шлюз` на отдельных [узлах](#Node) (`node-1` и `node-2`). Если вы помните, то запуск сервисов на отдельных узлах означает, что необходим модуль [транспорта](#Transporter) для связи между ними. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. В целом внутренняя архитектура нашего магазина представлена на рисунке ниже.
+Чтобы убедиться, что наша система устойчиво к сбоям, мы запустим `товары` и `шлюз` на отдельных [узлах](#Node) (`node-1` и `node-2`). Если вы помните, то запуск сервисов на отдельных узлах означает, что необходим модуль [транспорта](#Transporter) для связи между ними. Большинство транспортов, поддерживаемых Moleculer, полагаются на брокера сообщений для межсетевой связи, поэтому нам нужен один из них. В целом внутренняя архитектура нашего магазина представлена на рисунке ниже.
 
 Теперь, при условии, что наши сервисы запущены, интернет-магазин может обрабатывать запросы пользователей. Так давайте посмотрим, что происходит на самом деле при попытке вывести список всех доступных товаров. Сначала запрос (`GET /products`) получит HTTP-сервер, работающий на узле `node-1`. Входящий запрос передается с HTTP-сервера на сервис [шлюза](#Gateway), который выполняет всю обработку и сопоставление. В этом случае запрос пользователя преобразуется в действие `listProducts` сервиса `products`.  Далее запрос попадёт в [брокер](#Service-Broker), который проверит, является ли сервис `products` [локальным](#Local-Services) или [удалённым](#Remote-Services). В данном случае служба `products` удаленная, поэтому брокер должен использовать модуль [транспорта](#Transporter) для доставки запроса. Транспорт получит запрос и отправит его в шину сообщений. Поскольку оба узла (`node-1` и `node-2`) подключены к одной и той же шине связи (брокеру сообщений), запрос будет успешно доставлен к узлу `node-2`. При приеме брокер узла `node-2` разберёт входящий запрос и переправит его в сервис `products`. Наконец, сервис `products` выполнит действие `listProducts` и вернёт список всех доступных товаров. Ответ будет отправлен конечному пользователю.
 
-**Flow of user's request**
+**Обработка запросов пользователей**
 <div align="center">
     <img src="assets/overview.svg" alt="Описание архитектуры" />
 </div>
 
-All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
+Все детали, которые мы только что увидели, могут показаться пугающими и сложными, но вам не нужно бояться. Moleculer делает все тяжелые приёмы за Вас! Вам (разработчику) нужно сосредоточиться только на логике приложения. Посмотрите на [реализацию](#Implementation) нашего интернет-магазина.
 
 ### Реализация
-Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/download/nats-io/nats-server/). Run it with the default settings. You should get the following message:
+Теперь, когда мы определили архитектуру нашего магазина, давайте его сделаем. Мы будем использовать NATS, систему обмена сообщениями с открытым исходным кодом, в качестве шины для коммуникаций. Так что перейдите по ссылке и получите последнюю версию [NATS сервера](https://nats.io/download/nats-io/nats-server/). Запустите с настройками по умолчанию. Вы должны получить следующее сообщение:
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4
@@ -53,7 +53,7 @@ Now that we've defined the architecture of our shop, let's implement it. We're g
 [18141] 2016/10/31 13:13:40.732967 [INF] Server is ready
 ```
 
-Next, create a new directory for our application, create a new `package.json` and install the dependencies. We´re going to use `moleculer` to create our services, `moleculer-web` as the HTTP gateway and `nats` for communication. In the end your `package.json` should look like this:
+Далее, создайте новый каталог для нашего приложения, создайте новый `package.json` и установите зависимости. Мы собираемся использовать `moleculer` для создания наших сервисов, `moleculer-web` для HTTP шлюза и `nats` для коммуникации между ними. В конце концов, ваш `package.json` должен выглядеть так:
 
 ```json
 // package.json
@@ -67,7 +67,7 @@ Next, create a new directory for our application, create a new `package.json` an
 }
 ```
 
-Finally, we need to configure the brokers and create our services. So let's create a new file (`index.js`) and do it:
+Наконец, нам нужно настроить брокеров и создать наши сервисы. Давайте создадим новый файл (`index.js`) и сделаем это:
 ```javascript
 // index.js
 const { ServiceBroker } = require("moleculer");
@@ -135,6 +135,6 @@ Promise.all([brokerNode1.start(), brokerNode2.start()]);
 ]
 ```
 
-Всего за пару десятков строк кода мы создали два изолированных сервиса, способных обслуживать запросы пользователей и выводить список товаров. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
+Всего за пару десятков строк кода мы создали два изолированных сервиса, способных обслуживать запросы пользователей и выводить список товаров. Кроме того, наши сервисы легко масштабируются и отказоустойчивы. Впечатляюще, правда?
 
-Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
+Загляните в раздел [Документация](broker.html) для получения более подробной информации или посмотрите страницу [Примеры](examples.html) для более комплексных примеров.
