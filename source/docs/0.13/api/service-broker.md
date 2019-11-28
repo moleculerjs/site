@@ -558,7 +558,7 @@ Call `mcall` with an array:
 ```js
 broker.mcall([
 	{ action: "posts.find", params: { limit: 5, offset: 0 } },
-	{ action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
+	{ action: "users.find", params: { limit: 5, sort: "username" }, options: { timeout: 500 } }
 ]).then(results => {
 	let posts = results[0];
 	let users = results[1];
@@ -573,7 +573,7 @@ Call `mcall` with an Object:
 ```js
 broker.mcall({
 	posts: { action: "posts.find", params: { limit: 5, offset: 0 } },
-	users: { action: "users.find", params: { limit: 5, sort: "username" }, opts: { timeout: 500 } }
+	users: { action: "users.find", params: { limit: 5, sort: "username" }, options: { timeout: 500 } }
 }).then(results => {
 	let posts = results.posts;
 	let users = results.users;
