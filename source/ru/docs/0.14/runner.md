@@ -72,6 +72,21 @@ module.exports = {
 };
 ```
 
+
+### Asynchronous Configuration file
+
+Moleculer Runner also supports asynchronous configuration files. In this case `moleculer.config.js` must export a `Function` that returns a `Promise` (or you can use `async/await`).
+
+```js
+// moleculer.config.js
+const fetch = require("node-fetch");
+
+module.exports = async function() {
+    const res = await fetch("https://pastebin.com/raw/SLZRqfHX");
+    return await res.json();
+};
+```
+
 ### Переменные окружения
 Стартер преобразует имена свойств в верхний регистр. Имена вложенных параметров объединяются символом `_`.
 
@@ -113,7 +128,7 @@ SERVICEDIR=my-services
 ```
 It loads all `*.service.js` files from the `my-services` folder (including sub-folders too).
 
-### Glob patterns
+### Glob шаблоны
 If you want to be more specific, use glob patterns. It is useful when loading all services except certain ones.
 
 ```bash
@@ -127,27 +142,27 @@ $ moleculer-runner services !services/others/**/*.service.js services/others/man
 
 > The glob patterns work in the `SERVICES` enviroment variables, as well.
 
-## Built-in clustering
+## Встроенная кластеризация
 
-Moleculer Runner has a built-in clustering function to start multiple instances from your broker.
+Moleculer Runner имеет встроенную функцию кластеризации для запуска нескольких экземпляров вашего брокера.
 
-Example to start all services from the `services` folder in 4 instances.
+Пример запуска всех служб из папки `services` в 4 экземплярах.
 ```bash
 $ moleculer-runner --instances 4 services
 ```
 
 {% note info Clustered Node ID %}
-The `nodeID` will be suffixed with the worker ID. E.g. if you define `my-node` nodeID in options, and starts 4 instances, the instance nodeIDs will be `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
+К `nodeID` будут добавлены идентификаторы воркеров в виде суффикса. Например, если nodeID задан как `my-node`, и запущено 4 экземпляра, то экземпляры будут иметь следующие идентификаторы: `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
 {% endnote %}
 
 ## .env файлы
 
 Стартер может загрузить `.env` файл при запуске. Есть две новых CLI опции для загрузки env файла:
 
-* `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
-* `-E, --envfile <filename>` - Load envorinment variables from the specified file.
+* `-e, --env` - Загрузить переменные окружения из файла '.env' из текущей папки.
+* `-E, --envfile <filename>` - Загрузить переменные окружения из указанного файла.
 
-**Примеры**
+**Пример**
 ```sh
 # загрузит .env файл из текущей директории
 $ moleculer-runner --env

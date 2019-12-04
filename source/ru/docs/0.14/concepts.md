@@ -1,51 +1,51 @@
-title: Основные концепции
+title: Основные принципы
 ---
 
 Это руководство охватывает основные концепции любого Moleculer приложения.
 
 ## Сервис
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+[Сервис](services.html) является простым JavaScript-модулем, содержащим часть сложного приложения. Он изолирован и самодостаточен, это означает, что даже если он отключится или упадёт, остальные сервисы не будут задеты.
 
 ## Узел
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+Узел - это просто процесс в ОС, работающий в локальной или внешней сети. Один экземпляр узла может хостить один или несколько сервисов.
 
 ### Локальный сервис
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+Два (или более) сервиса, работающих на одном узле, считаются локальными сервисами. Они делят аппаратные ресурсы и используют локальную шину для связи друг с другом, без сетевых задержек ([транспорт](#Transporter) не используется).
 
 ### Удалённый сервис
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+Сервисы, распределённые по нескольким узлам, считаются удалёнными. В этом случае общение между ними осуществляется с помощью [транспорта](#Transporter).
 
-## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+## Сервис брокер
+[Сервис брокер](broker.html) является сердцем Moleculer. Он отвечает за управление и связью между службами (локальными и удалёнными). Каждый узел должен иметь экземпляр Сервис брокера.
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## Транспорт
+[Транспорт](networking.html) это коммуникационная шина, которая обеспечивает обмен сообщениями. Она передает события, запросы и ответы.
 
-## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+## Шлюз
+[API шлюз](moleculer-web.html) предоставляет услуги Moleculer конечным пользователям. Шлюз является обычным Moleculer сервисом, в котором запущен (HTTP, WebSockets и др.) сервер. Он обрабатывает входящие запросы, превращает их в вызовы сервисов, а затем возвращает соответствующие ответы.
 
-## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+## Общий вид
+Нет ничего лучше, чем пример, чтобы увидеть, как все эти понятия сочетаются друг с другом. Так давайте рассмотрим гипотетический интернет-магазин, который только выводит список товаров. На самом деле он не продает ничего онлайн.
 
 ### Архитектура
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+С точки зрения архитектуры, интернет-магазин можно представить из 2 независимых сервисов: сервиса `товаров` и сервиса `шлюза`. Первый отвечает за хранение и управление товарами, а второй просто получает запросы от пользователя и передает их сервису `товаров`.
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+Теперь давайте рассмотрим, как этот гипотетический магазин можно создать с Moleculer.
 
-To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
+Чтобы убедиться, что наша система устойчиво к сбоям, мы запустим `товары` и `шлюз` на отдельных [узлах](#Node) (`node-1` и `node-2`). Если вы помните, то запуск сервисов на отдельных узлах означает, что необходим модуль [транспорта](#Transporter) для связи между ними. Большинство транспортов, поддерживаемых Moleculer, полагаются на брокера сообщений для межсетевой связи, поэтому нам нужен один из них. В целом внутренняя архитектура нашего магазина представлена на рисунке ниже.
 
-Now, assuming that our services are up and running, the online store can serve user's requests. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
+Теперь, при условии, что наши сервисы запущены, интернет-магазин может обрабатывать запросы пользователей. Так давайте посмотрим, что происходит на самом деле при попытке вывести список всех доступных товаров. Сначала запрос (`GET /products`) получит HTTP-сервер, работающий на узле `node-1`. Входящий запрос передается с HTTP-сервера на сервис [шлюза](#Gateway), который выполняет всю обработку и сопоставление. В этом случае запрос пользователя преобразуется в действие `listProducts` сервиса `products`.  Далее запрос попадёт в [брокер](#Service-Broker), который проверит, является ли сервис `products` [локальным](#Local-Services) или [удалённым](#Remote-Services). В данном случае служба `products` удаленная, поэтому брокер должен использовать модуль [транспорта](#Transporter) для доставки запроса. Транспорт получит запрос и отправит его в шину сообщений. Поскольку оба узла (`node-1` и `node-2`) подключены к одной и той же шине связи (брокеру сообщений), запрос будет успешно доставлен к узлу `node-2`. При приеме брокер узла `node-2` разберёт входящий запрос и переправит его в сервис `products`. Наконец, сервис `products` выполнит действие `listProducts` и вернёт список всех доступных товаров. Ответ будет отправлен конечному пользователю.
 
-**Flow of user's request**
+**Обработка запросов пользователей**
 <div align="center">
     <img src="assets/overview.svg" alt="Описание архитектуры" />
 </div>
 
-All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
+Все детали, которые мы только что увидели, могут показаться пугающими и сложными, но вам не нужно бояться. Moleculer делает все тяжелые приёмы за Вас! Вам (разработчику) нужно сосредоточиться только на логике приложения. Посмотрите на [реализацию](#Implementation) нашего интернет-магазина.
 
 ### Реализация
-Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/download/nats-io/nats-server/). Run it with the default settings. You should get the following message:
+Теперь, когда мы определили архитектуру нашего магазина, давайте его сделаем. Мы будем использовать NATS, систему обмена сообщениями с открытым исходным кодом, в качестве шины для коммуникаций. Так что перейдите по ссылке и получите последнюю версию [NATS сервера](https://nats.io/download/nats-io/nats-server/). Запустите с настройками по умолчанию. Вы должны получить следующее сообщение:
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4
@@ -53,7 +53,7 @@ Now that we've defined the architecture of our shop, let's implement it. We're g
 [18141] 2016/10/31 13:13:40.732967 [INF] Server is ready
 ```
 
-Next, create a new directory for our application, create a new `package.json` and install the dependencies. We´re going to use `moleculer` to create our services, `moleculer-web` as the HTTP gateway and `nats` for communication. In the end your `package.json` should look like this:
+Далее, создайте новый каталог для нашего приложения, создайте новый `package.json` и установите зависимости. Мы собираемся использовать `moleculer` для создания наших сервисов, `moleculer-web` для HTTP шлюза и `nats` для коммуникации между ними. В конце концов, ваш `package.json` должен выглядеть так:
 
 ```json
 // package.json
@@ -67,31 +67,31 @@ Next, create a new directory for our application, create a new `package.json` an
 }
 ```
 
-Finally, we need to configure the brokers and create our services. So let's create a new file (`index.js`) and do it:
+Наконец, нам нужно настроить брокеров и создать наши сервисы. Давайте создадим новый файл (`index.js`) и сделаем это:
 ```javascript
 // index.js
 const { ServiceBroker } = require("moleculer");
 const HTTPServer = require("moleculer-web");
 
-// Create the broker for node-1
-// Define nodeID and set the communication bus
+// создание брокера для первого узла
+// определение nodeID и транспорта
 const brokerNode1 = new ServiceBroker({
   nodeID: "node-1",
   transporter: "NATS"
 });
 
-// Create the "gateway" service
+// создать сервис "шлюз"
 brokerNode1.createService({
-  // Define service name
+  // имя сервиса
   name: "gateway",
-  // Load the HTTP server
+  // загрузить HTTP сервер
   mixins: [HTTPServer],
 
   settings: {
     routes: [
       {
         aliases: {
-          // When the "GET /products" request is made the "listProducts" action of "products" service is executed
+          // при получении запроса "GET /products" будет выполнено действие "listProducts" из сервиса "products"
           "GET /products": "products.listProducts"
         }
       }
@@ -99,20 +99,20 @@ brokerNode1.createService({
   }
 });
 
-// Create the broker for node-2
-// Define nodeID and set the communication bus
+// создание брокера для второго узла
+// определение nodeID и транспорта
 const brokerNode2 = new ServiceBroker({
   nodeID: "node-2",
   transporter: "NATS"
 });
 
-// Create the "products" service
+// создание сервиса "products"
 brokerNode2.createService({
-  // Define service name
+  // имя сервиса
   name: "products",
 
   actions: {
-    // Define service action that returns the available products
+    // определение действия, которое вернёт список доступных товаров
     listProducts(ctx) {
       return [
         { name: "Apples", price: 5 },
@@ -123,10 +123,10 @@ brokerNode2.createService({
   }
 });
 
-// Start both brokers
+// запуск обоих брокеров
 Promise.all([brokerNode1.start(), brokerNode2.start()]);
 ```
-Now run `node index.js` in your terminal and open the link [`http://localhost:3000/products`](http://localhost:3000/products). You should get the following response:
+Теперь запустите `node index.js` в терминале и откройте ссылку [`http://localhost:3000/products`](http://localhost:3000/products). Вы должны получить следующий ответ:
 ```json
 [
     { "name": "Apples", "price": 5 },
@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
+Всего за пару десятков строк кода мы создали два изолированных сервиса, способных обслуживать запросы пользователей и выводить список товаров. Кроме того, наши сервисы легко масштабируются и отказоустойчивы. Впечатляюще, правда?
 
-Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
+Загляните в раздел [Документация](broker.html) для получения более подробной информации или посмотрите страницу [Примеры](examples.html) для более комплексных примеров.

@@ -1,7 +1,7 @@
 title: Кеширование
 ---
 
-Moleculer имеет встроенное решение для кэширования, чтобы кэшировать ответы от экшенов в сервисах. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer имеет встроенное решение для кэширования результатов вызова методов сервисов. Чтобы включить его, укажите тип кэша `cacher` в [параметрах брокера](configuration.html#Broker-options) и включите кэш `cache: true` в [определении метода](services.html#Actions) результаты выполнения которого необходимо кэшировать.
 
 **Пример**
 ```js
@@ -48,32 +48,32 @@ broker.start()
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
-As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+Как видите, сообщение `Handler called` появляется только один раз, потому что ответ второго запроса был возвращён из кэша.
 
-> [Попробуйте это на Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
+> [Попробуйте это в Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Кэш ключи
-Кэшер генерирует ключ из имени сервиса, имени экшена и параметров контекста. Синтаксис ключа:
+## Ключи кэширования
+Ключ кэширования генерируется из имени сервиса, имени метода и параметров контекста. Синтаксис ключа:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+Если вызвать метод `posts.list` с параметрами `{ limit: 5, offset: 20 }`, алгоритм кэширования вычислит хэш от параметров. Таким образом, при следующем вызове с такими же параметрами, результат будет найдет кэше по ключу.
 
-**Example hashed cache key for "posts.find" action**
+**Пример хэш-ключа кэша для действия "posts.find"**
 ```
 posts.find:limit|5|offset|20
 ```
 
-The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+Объект params может содержать свойства, которые не имеют отношения к ключу кэша. Также, это может вызвать проблемы с производительностью, если ключ слишком длинный. Поэтому рекомендуется задать объект `cache` со списком основных имён параметров в свойстве `keys`. Для указания ключей кэша из объекта мета в свойстве `keys` используйте префикс `#`.
 
-**Strict the list of `params` & `meta` properties for key generation**
+**Для генерации ключа кэша используются свойства только объектов `params` и `meta`**
 ```js
 {
     name: "posts",
     actions: {
         list: {
             cache: {
-                //  generate cache key from "limit", "offset" params and "user.id" meta
+                // формирует ключ кеширования из параметров "limit", "offset" и мета "user.id"
                 keys: ["limit", "offset","#user.id"]
             },
             handler(ctx) {
@@ -83,29 +83,29 @@ The params object can contain properties that are not relevant for the cache key
     }
 }
 
-// If params is { limit: 10, offset: 30 } and meta is { user: { id: 123 } }, 
-// the cache key will be:
+// если параметры равны { limit: 10, offset: 30 } и мета равна { user: { id: 123 } }, 
+// ключ кэширования будет:
 //   posts.list:10|30|123
 ```
 
 {% note info Performance tip %}
-This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+Это решение работает довольно быстро, поэтому мы рекомендуем использовать его на продакшене. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
-### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+### Ограничение длины ключа кэша
+Иногда ключ может быть очень длинным, что может вызвать проблемы с производительностью. Чтобы избежать этого, можно задать параметр кеширования `maxParamsLength`. Когда длина ключа превысит указанное значение, алгоритм вычисляет хэш (SHA256) от полного ключа и добавляет его в конец ключа.
 
-> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> Минимум для `maxParamsLength` составляет `44` (SHA 256 хэш в Base64).
 > 
-> To disable this feature, set it to `0` or `null`.
+> Для отключения этой функции установите значение `0` или `null`.
 
-**Generate a full key from the whole params without limit**
+**Формирование полного ключ из всех параметров без ограничения**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
 // Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
 ```
 
-**Generate a limited-length key**
+**Формирование ключа ограниченной длины**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -116,22 +116,22 @@ const broker = new ServiceBroker({
     }
 });
 
-cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
-// Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
+cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. Таким образом, этот ключ также будет слишком длинным" });
+// ключ: 'posts.find:id|2|title|New pL4ozU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
-## Conditional caching
+## Условное кэширование
 
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+Условное кэширование позволяет обойти кэш и выполнить действие для получения "свежих" данных. Чтобы обойти кэш необходимо присвоить `ctx.meta.$cache` `false` перед вызовом действия.
 
-**Example of turning off the caching for the `greeter.hello` action**
+**Пример отключения кэширования для действия `greeter.hello`**
 ```js
 broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 ```
 
-As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+В качестве альтернативы, можно использовать пользовательскую функцию, чтобы активировать обход кэша. Пользовательская функция принимает в качестве аргумента контекст (`ctx`), поэтому она имеет доступ к любым параметрам или мета-данным. Это позволяет передать флаг обхода внутри запроса.
 
-**Example of a custom conditional caching function**
+**Пример пользовательской функции условного кэширования**
 ```js
 // greeter.service.js
 module.exports = {
@@ -139,7 +139,7 @@ module.exports = {
     actions: {
         hello: {
             cache: {
-                enabled: ctx => ctx.params.noCache !== true, //`noCache` passed as a parameter
+                enabled: ctx => ctx.params.noCache !== true, //`noCache` передан в качестве параметра
                 keys: ["name"]
             },
             handler(ctx) {
@@ -150,19 +150,19 @@ module.exports = {
     }
 };
 
-// Use custom `enabled` function to turn off caching for this request
+// использование пользовательской функции `выключающей` кэширование этого запроса
 broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
 ```
 
-## TTL
-Default TTL setting can be overriden in action definition.
+## TTL время жизни
+Настройки TTL по умолчанию могут быть переопределены в определении действия.
 
 ```js
 const broker = new ServiceBroker({
     cacher: {
         type: "memory",
         options: {
-            ttl: 30 // 30 seconds
+            ttl: 30 // 30 секунд
         }
     }
 });
@@ -172,7 +172,7 @@ broker.createService({
     actions: {
         list: {
             cache: {
-                // These cache entries will be expired after 5 seconds instead of 30.
+                // этот кэш устареет спустя 5 секунд вместо 30.
                 ttl: 5
             },
             handler(ctx) {
@@ -183,8 +183,8 @@ broker.createService({
 });
 ```
 
-## Пользовательский генератор ключей
-To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
+## Пользовательский формирователь ключа
+Чтобы переопределить встроенный формирователь ключей кэширования, установите собственную функцию `keygen` в параметрах кэширования.
 
 ```js
 const broker = new ServiceBroker({
@@ -192,11 +192,11 @@ const broker = new ServiceBroker({
         type: "memory",
         options: {
             keygen(name, params, meta, keys) {
-                // Generate a cache key
-                // name - action name
+                // формирует ключ кеширования
+                // name - имя действия
                 // params - ctx.params
                 // meta - ctx.meta
-                // keys - cache keys defined in action
+                // keys - ключи, заданные в описании действия
                 return "";
             }
         }
@@ -204,71 +204,71 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Manual caching
-The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+## Ручное кэширование
+Модуль кэширования может использоваться вручную. Просто вызовите методы `get`, `set`, `del` в `broker.cacher`.
 
 ```js
-// Save to cache
+// сохранить в кэш
 broker.cacher.set("mykey.a", { a: 5 });
 
-// Get from cache (async)
+// получить из кэша (async)
 const obj = await broker.cacher.get("mykey.a")
 
-// Remove entry from cache
+// удалить запись из кэша
 await broker.cacher.del("mykey.a");
 
-// Clean all 'mykey' entries
+// очистить все записи 'mykey'
 await broker.cacher.clean("mykey.**");
 
-// Clean all entries
+// очистить все записи
 await broker.cacher.clean();
 ```
 
-Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+Кроме того, при использовании встроенного Redis кэша можно использовать любой метод API [ioredis](https://github.com/luin/ioredis) в `broker.cacher.client`:
 
 ```js
-// create an ioredis pipeline
+// создать конвейер ioredis
 const pipeline = broker.cacher.client.pipeline();
-// set values in cache
+// записать кэш
 pipeline.set('mykey.a', 'myvalue.a');
 pipeline.set('mykey.b', 'myvalue.b');
-// execute pipeline
+// выполнить конвейер
 pipeline.exec();
 ```
 
-## Очистить кэш
-When you create a new model in your service, you have to clear the old cached model entries.
+## Очистка кэша
+Когда вы создаете новую модель в своём сервисе, вам необходимо очистить старые записи в кэше.
 
-**Example to clean the cache inside actions**
+**Пример очистки кэша внутри действий**
 ```js
 {
     name: "users",
     actions: {
         create(ctx) {
-            // Create new user entity
+            // создание новой записи user
             const user = new User(ctx.params);
 
-            // Clear all cache entries
+            // очистка всего кеша
             this.broker.cacher.clean();
 
-            // Clear all cache entries which keys start with `users.`
+            // очистка всех записей у которых ключ начинается с `users.`
             this.broker.cacher.clean("users.**");
 
-            // Clear multiple cache entries
+            // очистка множества записей
             this.broker.cacher.clean([ "users.**", "posts.**" ]);
 
-            // Delete an entry
+            // удаление конкретной записи
             this.broker.cacher.del("users.list");
 
-            // Delete multiple entries
+            // удаление нескольких записей
             this.broker.cacher.del([ "users.model:5", "users.model:8" ]);
         }
     }
 }
 ```
 
-### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+### Очистка кэша для нескольких экземпляров сервиса
+Наилучшая практика очистки кэша среди нескольких экземпляров сервиса заключается в использовании широковещательных событий. Обратите внимание, что это требуется только для децентрализованных кэшей, таких как `Memory` или `MemoryLRU`.
 
 **Пример**
 ```js
@@ -276,10 +276,10 @@ module.exports = {
     name: "users",
     actions: {
         create(ctx) {
-            // Create new user entity
+            // создание новой записи
             const user = new User(ctx.params);
 
-            // Clear cache
+            // очистка кеша
             this.cleanCache();
 
             return user;
@@ -288,7 +288,7 @@ module.exports = {
 
     methods: {
         cleanCache() {
-            // Broadcast the event, so all service instances receive it (including this instance). 
+            // отправка широковещательного события, так что все экземпляры сервиса получат его (включая этот экземпляр). 
             this.broker.broadcast("cache.clean.users");
         }
     }
@@ -303,10 +303,10 @@ module.exports = {
 }
 ```
 
-### Clear cache among different services
-Зависимость от услуг - обычная ситуация. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+### Очистка кэша между различными сервисами
+Зависимость сервисов - обычная ситуация. Например сервис `posts` хранит информацию из сервиса `users` в кэшированных записях (в случае заполнения).
 
-**Example cache entry in `posts` service**
+**Пример записи кэша в сервисе `posts`**
 ```js
 {
     _id: 1,
@@ -320,9 +320,9 @@ module.exports = {
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+Поле `author` получено из сервиса `users`. Если сервис `users` очищает записи кэша, то служба `posts` также должна очистить собственные записи кэша. Поэтому вы должны также подписаться на событие `cache.clear.users` в сервисе `posts`.
 
-To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
+Чтобы упростить это, создайте примесь `CacheCleaner` и определите схему зависимости сервисов.
 
 **cache.cleaner.mixin.js**
 ```js
@@ -361,60 +361,60 @@ module.exports = {
 };
 ```
 
-With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear its own cache entries.
+При этом, если сервис `users` вызывает событие `cache.clean.users`, то сервис `posts` также очистит свои собственные записи кэша.
 
-## Cache locking
-Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
+## Блокировка кэша
+Moleculer также поддерживает функцию блокировки кэша. Для получения подробной информации [ознакомьтесь с PR](https://github.com/moleculerjs/moleculer/pull/490).
 
-**Enable Lock**
+**Включение блокировки**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         ttl: 60,
-        lock: true, // Set to true to enable cache locks. Default is disabled.
+        lock: true, // передать true для включения блокировки кэша. По умолчанию отключено.
     }
 });
 ```
 
-**Enable with TTL**
-```js
-const broker = new ServiceBroker({
-    cacher: {
-        ttl: 60,
-        lock: {
-            ttl: 15, // The maximum amount of time you want the resource locked in seconds
-            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
-        }
-    }
-});
-```
-
-**Disable Lock**
+**Включение с TTL**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         ttl: 60,
         lock: {
-            enable: false, // Set to false to disable.
-            ttl: 15, // The maximum amount of time you want the resource locked in seconds
-            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+            ttl: 15, // максимальное время блокировки в секундах
+            staleTime: 10, // если TTL меньше этого числа, то кэш устарел
         }
     }
 });
 ```
-**Example for Redis cacher with `redlock` library**
+
+**Отключение блокировки**
+```js
+const broker = new ServiceBroker({
+    cacher: {
+        ttl: 60,
+        lock: {
+            enable: false, // установить в false для отключения.
+            ttl: 15, // максимальное время блокировки в секундах
+            staleTime: 10, // если TTL меньше этого числа, то кэш устарел
+        }
+    }
+});
+```
+**Пример кэша Redis с использованием библиотеки `redlock`**
 ```js
 const broker = new ServiceBroker({
   cacher: {
     type: "Redis",
     options: {
-      // Prefix for keys
+      // префикс ключей
       prefix: "MOL",
-      // set Time-to-live to 30sec.
+      // установить время жизни 30 сек
       ttl: 30,
-      // Turns Redis client monitoring on.
+      // включить мониторинг Redis.
       monitor: false,
-      // Redis settings
+      // настройки Redis
       redis: {
         host: "redis-server",
         port: 6379,
@@ -422,40 +422,40 @@ const broker = new ServiceBroker({
         db: 0
       },
       lock: {
-        ttl: 15, //the maximum amount of time you want the resource locked in seconds
-        staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+        ttl: 15, // максимальное время блокировки в секундах
+        staleTime: 10, // если TTL меньше этого числа, то кэш устарел
       },
-      // Redlock settings
+      // настройки Redlock
       redlock: {
-        // Redis clients. Support node-redis or ioredis. By default will use the local client.
+        // клиенты Redis. Поддерживаются Node-redis или ioredis. По умолчанию будет использован локальный клиент.
         clients: [client1, client2, client3],
-        // the expected clock drift; for more details
-        // see http://redis.io/topics/distlock
-        driftFactor: 0.01, // time in ms
+        // ожидаемое отклонение времени; подробнее
+        // см. http://redis.io/topics/distlock
+        driftFactor: 0.01, // время в мс
 
-        // the max number of times Redlock will attempt
-        // to lock a resource before erroring
+        // максимальное количество попыток Redlock
+        // получить блокировку перед вызовом ошибки
         retryCount: 10,
 
-        // the time in ms between attempts
-        retryDelay: 200, // time in ms
+        // задержка между попытками
+        retryDelay: 200, // время в мс
 
-        // the max time in ms randomly added to retries
-        // to improve performance under high contention
-        // see https://www.awsarchitectureblog.com/2015/03/backoff.html
-        retryJitter: 200 // time in ms
+        // максимальное время, случайно добавляемое перед попыткой
+        // для улучшения производительности при большом разбросе
+        // см. https://www.awsarchitectureblog.com/2015/03/backoff.html
+        retryJitter: 200 // время в мс
       }
     }
   }
 });
 ```
 
-## Built-in cachers
+## Встроенные типы кэша
 
 ### Memory cacher
-`MemoryCacher` is a built-in memory cache module. It stores entries in the heap memory.
+`MemoryCacher` это встроенный модуль кэширования. Он сохраняет записи в памяти кучи.
 
-**Enable memory cacher**
+**Включение**
 ```js
 const broker = new ServiceBroker({
     cacher: "Memory"
@@ -468,33 +468,33 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Enable with options**
+**Включить с параметрами**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         type: "Memory",
         options: {
-            ttl: 30 // Set Time-to-live to 30sec. Disabled: 0 or null
-            clone: true // Deep-clone the returned value
+            ttl: 30 // установить время жизни 30 сек. Отключить: 0 или null
+            clone: true // глубокое клонирование возвращаемого значения
         }
     }
 });
 ```
 
-**Options**
+**Параметры**
 
-| Name              | Type                    | Default | Description                                 |
-| ----------------- | ----------------------- | ------- | ------------------------------------------- |
-| `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| Имя               | Тип                      | По умолчанию | Описание                                               |
+| ----------------- | ------------------------ | ------------ | ------------------------------------------------------ |
+| `ttl`             | `Number`                 | `null`       | Время жизни в секундах.                                |
+| `clone`           | `Boolean` или `Function` | `false`      | Клонировать кэшированные данные при возврате.          |
+| `keygen`          | `Function`               | `null`       | Функция формирования ключей кэша.                      |
+| `maxParamsLength` | `Number`                 | `null`       | Максимальная длина параметров в сформированных ключах. |
+| `lock`            | `Boolean` или `Object`   | `null`       | Включить функцию блокировки.                           |
 
-#### Cloning
-The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
+#### Клонирование
+Кэшер использует метод клонирования `_.cloneDeep` из библиотеки lodash. Чтобы его изменить, передайте `Function` в свойство `clone` вместо `Boolean`.
 
-**Custom clone function with JSON parse & stringify**
+**Пользовательская функция клонирования через JSON сериализацию**
 ```js
 const broker = new ServiceBroker({ 
     cacher: {
@@ -534,14 +534,14 @@ let broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
-| ----------------- | ----------------------- | ------- | ------------------------------------------- |
-| `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `max`             | `Number`                | `null`  | Maximum items in the cache.                 |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| Имя               | Тип                      | По умолчанию | Description                                 |
+| ----------------- | ------------------------ | ------------ | ------------------------------------------- |
+| `ttl`             | `Number`                 | `null`       | Time-to-live in seconds.                    |
+| `max`             | `Number`                 | `null`       | Maximum items in the cache.                 |
+| `clone`           | `Boolean` или `Function` | `false`      | Clone the cached data when return it.       |
+| `keygen`          | `Function`               | `null`       | Custom cache key generator function.        |
+| `maxParamsLength` | `Number`                 | `null`       | Maximum length of params in generated keys. |
+| `lock`            | `Boolean` or `Object`    | `null`       | Enable lock feature.                        |
 
 
 {% note info Dependencies %}
@@ -630,29 +630,29 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Options**
+**Параметры**
 
-| Name              | Type             | Default  | Description                                                                                                                                           |
-| ----------------- | ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`          | `String`         | `null`   | Prefix for generated keys.                                                                                                                            |
-| `ttl`             | `Number`         | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                                          |
-| `monitor`         | `Boolean`        | `false`  | Enable Redis client [monitoring feature](https://github.com/luin/ioredis#monitor). If enabled, every client operation will be logged (on debug level) |
-| `redis`           | `Object`         | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                 |
-| `keygen`          | `Function`       | `null`   | Custom cache key generator function.                                                                                                                  |
-| `maxParamsLength` | `Number`         | `null`   | Maximum length of params in generated keys.                                                                                                           |
-| `serializer`      | `String`         | `"JSON"` | Name of a built-in serializer.                                                                                                                        |
-| `cluster`         | `Object`         | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                                       |
-| `lock`            | `Boolean|Object` | `null`   | Enable lock feature.                                                                                                                                  |
+| Имя               | Тип              | По умолчанию | Описание                                                                                                                                                               |
+| ----------------- | ---------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prefix`          | `String`         | `null`       | Префикс для сгенерированных ключей.                                                                                                                                    |
+| `ttl`             | `Number`         | `null`       | Время жизни в секундах. Отключить: 0 или null                                                                                                                          |
+| `monitor`         | `Boolean`        | `false`      | Включить [функцию мониторинга](https://github.com/luin/ioredis#monitor) клиента Redis. Если включено, каждая операция клиента будет записана в лог (на уровне отладки) |
+| `redis`           | `Object`         | `null`       | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                                  |
+| `keygen`          | `Function`       | `null`       | Custom cache key generator function.                                                                                                                                   |
+| `maxParamsLength` | `Number`         | `null`       | Maximum length of params in generated keys.                                                                                                                            |
+| `serializer`      | `String`         | `"JSON"`     | Name of a built-in serializer.                                                                                                                                         |
+| `cluster`         | `Object`         | `null`       | Конфигурация кластера Redis. [More information](https://github.com/luin/ioredis#cluster)                                                                               |
+| `lock`            | `Boolean|Object` | `null`       | Включить функции блокировок.                                                                                                                                           |
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
+Чтобы использовать этот тип кэша, необходимо установить модуль `ioredis` командой `npm install ioredis --save`.
 {% endnote %}
 
 
-## Custom cacher
-Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+## Собственный алгоритм кэширования
+Можно создать собственный модуль кэширования. Рекомендуется использовать в качестве образца модуль [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) или [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) и реализовать методы `get`, `set`, `del` и `clean`.
 
-### Create custom cacher
+### Создание собственного алгоритма кэширования
 ```js
 const BaseCacher = require("moleculer").Cachers.Base;
 
@@ -664,7 +664,7 @@ class MyCacher extends BaseCacher {
 }
 ```
 
-### Use custom cacher
+### Использование собственного алгоритма кэширования
 
 ```js
 const { ServiceBroker } = require("moleculer");

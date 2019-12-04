@@ -160,6 +160,38 @@ module.exports = {
     }
 };
 ```
+## Переопределение глобальных параметров
+Вы можете переопределить глобально заданную стратегию балансировки внутри методов действий или событий.
+
+**Использование стратегии 'Shard' для действия 'hello' вместо глобального 'RoundRobin'**
+```js
+// moleculer.config.js
+module.exports = {
+    registry: {
+        strategy: "RoundRobin"
+    }
+});
+
+// greeter.service.js
+module.exports = {
+    name: "greeter",
+    actions: {
+        hello: {
+            params: {
+                name: "string"
+            },
+            strategy: "Shard",
+            strategyOptions: {
+                shardKey: "name"
+            }            
+            handler(ctx) {
+                return `Hello ${ctx.params.name}`;
+            }
+        }
+    }
+};
+```
+
 
 
 ## Своя стратегия

@@ -1,22 +1,22 @@
-title: Contributing
+title: Сотрудничество
 ---
-We welcome you to join the development of Moleculer. This document helps you through the process.
+Приглашаем Вас присоединиться к развитию Moleculer. Этот документ поможет вам в этом процессе.
 
-## Before You Start
+## Перед началом работы
 
-Please follow the coding style:
-- Use tabs with size of 4 for indents.
-- Always use strict mode & semicolons.
-- Use double quotes instead of single quotes.
+Пожалуйста, используйте следующий стиль написания кода:
+- Используйте отступы из 4 пробелов.
+- Всегда использовать строгий режим и точку с запятой.
+- Использовать двойные кавычки вместо одинарных.
 
-## Contribution in the core modules
+## Вклад в основные модули
 
-Follow this workflow if you would like to modify the core modules.
+Если вы хотите изменить основные модули выполните следующие шаги.
 
-### Workflow
+### Шаги
 
-1. Fork the [moleculerjs/moleculer](https://github.com/moleculerjs/moleculer) repo.
-2. Clone the repository to your computer and install dependencies.
+1. Форкните репозиторий [moleculerjs/moleculer](https://github.com/moleculerjs/moleculer).
+2. Клонируйте репозиторий на ваш компьютер и установите зависимости.
 
     ```bash
     $ git clone https://github.com/<username>/moleculer.git
@@ -24,77 +24,77 @@ Follow this workflow if you would like to modify the core modules.
     $ npm install
     ```
 
-3. Start Moleculer in dev mode
+3. Запустить Moleculer в dev режиме
 
     ```bash
     $ npm run dev
     ```
 
-    or in continuous test mode
+    или в режиме непрерывного тестирования
 
     ```bash
     $ npm run ci
     ```
 
-4. Fix the bug or add a new feature.
-5. Run tests & check the coverage report.
+4. Исправьте ошибку или добавьте новую функцию.
+5. Запустите тесты и проверьте отчёт о покрытии.
 
     ```bash
     $ npm test
     ```
 
-    > If you added new features, please add relevant new test cases! We aim to 100% cover.
+    > Если вы добавили новые функции, пожалуйста, добавьте для них тесты! Мы стремимся к 100% покрытию.
 
     {% note info %}
-    Your pull request will only get merged when tests passed and covered all codes. Don't forget to run tests before submission.
+    Ваш запрос на слияние будет объединён только после прохождения всех тестов при полном покрытии всего кода. Не забудьте запустить тесты перед отправкой.
     {% endnote %}
 
-6. Commit & push the branch.
+6. Зафиксируйте и отправьте ветку.
 
-7. Create a pull request and describe the change.
+7. Создайте запрос на слияние и опишите изменения.
 
-8. If you've changed APIs, update the [documentation](https://github.com/moleculerjs/site), as well.
+8. Если вы изменили API, так же обновите [документацию](https://github.com/moleculerjs/site).
 
-## Contribution to create a new Moleculer module
+## Вклад в создание нового модуля
 
-Follow this workflow if you would like to create a new module for Moleculer
+Если вы хотите хотите создать новый модуль для Moleculer, выполните следующие шаги
 
-### Workflow
+### Шаги
 
-1. Install the command-line tool.
+1. Установите инструмент командной строки.
     ```bash
     $ npm install moleculer-cli -g
     ```
 
-2. Create a new module skeleton (named `moleculer-awesome`).
+2. Создайте новый скелет модуля (с именем `moleculer-awesome`).
     ```bash
     $ moleculer init module moleculer-awesome
     ```
 
-3. Edit `src/index.js` and implement the logic.
+3. Отредактируйте `src/index.js` и реализуйте требуемую логику.
 
-4. For development use the `dev` mode (it starts your module with `example/simple/index.js`)
+4. Для разработки используйте режим `dev` (он запустит ваш модуль с `example/simple/index.js`)
 
     ```bash
     $ npm run dev
     ```
 
-    or the continuous test mode
+    или режим непрерывного тестирования
 
     ```bash
     $ npm run ci
     ```
 
-5. Create tests in `test/unit/index.spec.js` & cover the full source.
+5. Создайте тесты в `test/unit/index.spec.js` и полностью покройте ими исходный код.
 
     ```bash
     $ npm test
     ```
 
-6. If it's done and you think it will be useful for other users, [tell us!](https://github.com/moleculerjs/moleculer/issues)
+6. Если всё сделано, и вы думаете, что это будет полезно для других пользователей, [сообщите нам!](https://github.com/moleculerjs/moleculer/issues)
 
-## Reporting Issues
+## Сообщение о проблеме
 
-When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Gitter](https://gitter.im/moleculerjs/moleculer), [Discord](https://discord.gg/TSEcDRP) or on [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
+Когда вы сталкиваетесь с некоторыми проблемами при использовании Moleculer, вы можете найти решения в [FAQ](faq.html) или спросить нас в [Gitter](https://gitter.im/moleculerjs/moleculer), [Discord](https://discord.gg/TSEcDRP) или на [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). Если вы не можете найти ответ, пожалуйста, сообщите нам об этом через [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
 
-Thank you!
+Спасибо!

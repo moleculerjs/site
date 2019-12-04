@@ -3,9 +3,9 @@ title: Валидация
 Moleculer имеет встроенный модуль валидации. Используется библиотека [fastest-validator](https://github.com/icebob/fastest-validator).
 
 ## Встроенный валидатор
-It's enabled by default, so you should just define `params` property in action definition which contains validation schema for the incoming `ctx.params`.
+Включён по умолчанию, поэтому достаточно определить свойство `params` содержащее схему валидации для входящих параметров `ctx.params`.
 
-**Example**
+**Пример**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -17,7 +17,7 @@ broker.createService({
     name: "say",
     actions: {
         hello: {
-            // Validator schema for params
+            // схема валидации
             params: {
                 name: { type: "string", min: 2 }
             },
@@ -41,25 +41,25 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 // -> "Hello Walter"
 
 ```
-[Play it on Runkit](https://runkit.com/icebob/moleculer-validation-example)
+[Попробуйте это в Runkit](https://runkit.com/icebob/moleculer-validation-example)
 
-**Example validation schema**
+**Пример схемы валидации**
 ```js
 {
     id: { type: "number", positive: true, integer: true },
     name: { type: "string", min: 3, max: 255 },
-    status: "boolean" // short-hand def
+    status: "boolean" // сокращённый способ описания
 }
 ```
 
 {% note info Documentation %}
-Find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
+Более подробную информацию о схеме проверки можно найти в [документации библиотеки](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
 
-## Custom validator
-Custom validator can be created. You should implement `compile` and `validate` methods of `BaseValidator`.
+## Пользовательский валидатор
+Можно создать свой валидатор. Для этого необходимо реализовать методы `compile` и `validate` базового класса `BaseValidator`.
 
-### Create a [Joi](https://github.com/hapijs/joi) validator
+### Использование валидатора [Joi](https://github.com/hapijs/joi)
 ```js
 const BaseValidator = require("moleculer").Validator;
 const { ValidationError } = require("moleculer").Errors;
@@ -86,7 +86,7 @@ class JoiValidator extends BaseValidator {
 module.exports = JoiValidator;
 ```
 
-**Use custom Joi validator**
+**Пользовательский валидатор Joi**
 ```js
 const { ServiceBroker } = require("moleculer");
 const Joi = require("joi");
@@ -129,5 +129,5 @@ broker.start()
 ```
 
 {% note info Find more validators %}
-[Check the modules page and find more validators.](/modules.html#validation)
+[На странице модулей доступно больше валидаторов.](/modules.html#validation)
 {% endnote %}

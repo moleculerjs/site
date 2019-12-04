@@ -1,41 +1,41 @@
-title: What is Moleculer?
+title: Что такое Moleculer?
 ---
-Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+Moleculer - это быстрый, современный и мощный микросервисный фреймворк для [Node.js](https://nodejs.org/en/). Он поможет вам построить эффективные, надежные и масштабируемые сервисы. Moleculer предоставляет множество возможностей для создания и управления микросервисами.
 
-## Features
+## Возможности
 
-- Promise-based solution (async/await compatible)
-- request-reply concept
-- all nodes are equal, no master/leader node
-- multiple services on a node/server
-- support event-driven architecture with balancing
-- built-in service registry & dynamic service discovery
-- load balanced requests & events (round-robin, random, cpu-usage, latency, shard)
-- many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
-- plugin/middleware system
-- support versioned services
-- service mixins
-- support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
-- built-in caching solution (memory, MemoryLRU, Redis)
-- pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
-- pluggable transporters (TCP, NATS, MQTT, Redis, AMQP, NATS Streaming, Kafka)
-- pluggable serializers (JSON, Avro, MsgPack, Protocol Buffers, Thrift)
-- pluggable validator
-- built-in metrics with reporters (CSV, Prometheus, Datadog, StatsD, Events)
-- built-in tracing support with exporters (Zipkin, Jaeger, Datadog, Events)
-- parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
-- official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](https://github.com/moleculerjs/moleculer-db) and many other modules...
+- Асинхронный код на базе промисов (async/await compatible)
+- концепция запрос-ответ
+- все узлы равны, нет главного/лидирующего узла
+- несколько сервисов на узле/сервере
+- поддержка событийно-управляемой архитектуры с балансированием
+- встроенный реестр сервисов и их динамическое обнаружение
+- балансировка запросов и событий (round-robin, random, cpu-usage, latency, shard)
+- устойчивость к отказам (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
+- система плагинов и middleware
+- поддержка версионирования сервисов
+- поддержка миксинов на уровне сервисов
+- поддержка [потоков](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)
+- встроенные механизмы кеширования (memory, MemoryLRU, Redis)
+- подключаемые логгеры (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
+- подключаемые транспорты (TCP, NATS, MQTT, Redis, AMQP, NATS Streaming, Kafka)
+- подключаемые сериализаторы (JSON, Avro, MsgPack, Protocol Buffers, Thrift)
+- подключаемые валидаторы
+- встроенные метрики с репортерами (CSV, Prometheus, Datadog, StatsD, Events)
+- встроенная поддержка отслеживания с экспортерами (Zipkin, Jaeger, Datadog, Events)
+- валидация параметров [fastest-validator](https://github.com/icebob/fastest-validator)
+- официальный [API шлюз](https://github.com/moleculerjs/moleculer-web), [доступ к БД](https://github.com/moleculerjs/moleculer-db) и множество других модулей...
 
-## How fast?
+## Насколько быстро?
 
-We spent a lot of hours to improve the performance of Moleculer and create the fastest microservices framework for Node.js.
+Мы потратили много часов, чтобы улучшить работу Moleculer и создать самый быстрый микросервис для Node.js.
 
-[![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Локальный Benchmark](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Удаленный Benchmark](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
-Check the results on your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
+Проверьте результаты на своем компьютере! Просто клонируйте [этот репозиторий](https://github.com/icebob/microservices-benchmark) и запустите `npm install && npm start`.
 
-[Check out our benchmark results.](benchmark.html)
+[Посмотрите наши результаты.](benchmark.html)
 
 {% note info Versioning %}
-Until Moleculer reaches a `1.0` release, breaking changes will be released with a new minor version. For example `0.13.1`, and `0.13.4` will be backward compatible, but `0.14.0` will have breaking changes.
+До тех пор, пока Moleculer не достигнет релиза `1.0`, критические изменения будут выпускаться в новых минорных версиях. Например `0.13.1`, и `0.13.4` будут обратно совместимыми, но `0.14.0` будут иметь критические изменения.
 {% endnote %}
