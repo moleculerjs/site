@@ -159,3 +159,11 @@ companies:
         name: Cryptonoid
         link: https://cryptonoid.io/
         logo: https://camo.githubusercontent.com/b3018f2020e4bafc7961607fc443aa7651f7016b/68747470733a2f2f63727970746f6e6f69642e696f2f7374617469632f6d656469612f6c6f676f2e38326135653134352e737667
+    -
+        name: Workpuls
+        link: https://www.workpuls.com/
+        logo: https://uploads-ssl.webflow.com/5c7d946d0a9b3441344fdb9d/5c7e4d1710414d18f34f603a_workpuls-full.svg
+    -
+        name: Motivac
+        link: https://motivac.io
+        logo: https://camo.githubusercontent.com/fc432a4a05d3ede5533cf0124106548b02a94ff5/68747470733a2f2f6d6f74697661632e696f2f7374617469632f696d616765732f6c6f676f5f66756c6c2e737667
