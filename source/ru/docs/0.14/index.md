@@ -39,3 +39,8 @@ Moleculer - это быстрый, современный и мощный мик
 {% note info Versioning %}
 До тех пор, пока Moleculer не достигнет релиза `1.0`, критические изменения будут выпускаться в новых минорных версиях. Например `0.13.1`, и `0.13.4` будут обратно совместимыми, но `0.14.0` будут иметь критические изменения.
 {% endnote %}
+
+
+{% note info Node.js support %}
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `10`.
+{% endnote %}
