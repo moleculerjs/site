@@ -468,7 +468,7 @@ module.exports = {
     actions: {
         get: {
             tracing: {
-                spanName: ctx => `User access event in '${ctx.service.fullName}' service`
+                spanName: ctx => `Get a post by ID: ${ctx.params.id}`
             },
             async handler(ctx) {
                 // ...
