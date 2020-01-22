@@ -36,6 +36,7 @@ docs:
     clustering: clustering.html
     deploying: deploying.html
     benchmark: benchmark.html
+    testing: testing.html
     faq: faq.html
     contributing: contributing.html
 
