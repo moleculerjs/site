@@ -32,11 +32,11 @@ describe("Test '<SERVICE-NAME>'", () => {
 });
 ```
 
-To test the service two things are `required`: the `ServiceBroker` class and the schema of the service that is going to be tested. Next thing to do is to create a instance of `ServiceBroker` and, after that, create the actual instance of the service. Then Jest's `beforeAll()` helper function is used that starts the service broker and, after all tests are complete, the broker is stopped with the `afterAll()`.
+To test the service two things are `required`: the `ServiceBroker` class and the schema of the service that is going to be tested. Next thing to do is to create an instance of `ServiceBroker` and, after that, create the actual instance of the service. Then Jest's `beforeAll()` helper function is used that starts the service broker and, after all tests are complete, the broker is stopped with the `afterAll()`.
 
 With this setup in place we are ready to write the actual tests.
 
-> TIP: Disable the logs, by passing `logger` to `false` params during `broker` creation, to avoid polluting the console.
+> TIP: Disable the logs, by setting `logger` to `false` during `broker` creation, to avoid polluting the console.
 
 ## Unit Tests
 
@@ -299,11 +299,7 @@ module.exports = {
             {
                 path: "/api",
 
-                whitelist: ["**"],
-
-                aliases: {
-                    "GET users/status": "users.status"
-                }
+                whitelist: ["**"]
             }
         ]
     }
@@ -317,6 +313,7 @@ module.exports = {
 
     actions: {
         status: {
+            rest: "/users/status",
             handler(ctx) {
                 // Check the status
                 return { status: "Active" };
@@ -337,7 +334,6 @@ const UsersSchema = require("../../services/users.service");
 
 describe("Test 'api' endpoints", () => {
     let broker = new ServiceBroker({ logger: false });
-    // create services
     let usersService = broker.createService(UsersSchema);
     let apiService = broker.createService(APISchema);
 
@@ -407,6 +403,8 @@ describe("Test 'users' service", () => {
             let result = await broker.call("users.create", { name: "John" });
 
             expect(result).toEqual({ id: 123, name: "John" });
+            expect(fakeSend).toBeCalledTimes(1);
+            expect(fakeSend).toBeCalledWith({ name: "John" });
         });
     });
 });
