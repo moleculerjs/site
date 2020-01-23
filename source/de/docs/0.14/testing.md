@@ -86,8 +86,6 @@ describe("Test 'helper' actions", () => {
 
     describe("Test 'helper.toUpperCase' action", () => {
         it("should return uppercase name", async () => {
-            expect.assertions(1);
-
             // call the action
             const result = await broker.call("helper.toUpperCase", {
                 name: "John"
@@ -108,8 +106,6 @@ describe("Test 'helper' actions", () => {
         });
 
         it("should emit 'name.uppercase' event ", async () => {
-            expect.assertions(2);
-
             // Spy on context emit function
             jest.spyOn(Context.prototype, "emit");
 
@@ -172,7 +168,6 @@ describe("Test 'users' service", () => {
 
     describe("Test 'users.create' action", () => {
         it("should create new user", async () => {
-            expect.assertions(3);
             // Replace adapter's insert with a mock
             usersService.adapter.insert = mockInsert;
 
@@ -369,8 +364,6 @@ describe("Test 'users' service", () => {
 
     describe("Test 'users.notify' action", () => {
         it("should notify the user", async () => {
-            expect.assertions(2);
-
             let result = await broker.call("users.notify");
 
             expect(result).toBe("Fake Mail Sent");
