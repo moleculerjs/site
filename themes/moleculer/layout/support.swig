@@ -33,6 +33,13 @@
                                     src="https://opencollective.com/moleculer/tiers/gold-sponsor.svg?avatarHeight=70&width=600"
                                     alt="Become a sponsor"></a></p>
 
+                        <h3 id="Copper-backers" class="article-heading"><a href="#Copper-backers" class="headerlink"
+                                title="Copper-backers"></a>Copper-backers<a class="article-anchor" href="#Copper-backers" aria-hidden="true"></a>
+                        </h3>
+                        <p><a href="https://opencollective.com/moleculer" target="_blank" rel="noopener"><img
+                                    src="https://opencollective.com/moleculer/tiers/copper-backer.svg?avatarHeight=70&width=600"
+                                    alt="Become a backer"></a></p>
+
                         <!-- Contributors -->
 
                         <h2 id="Contributors" class="article-heading"><a href="#Contributors" class="headerlink"
