@@ -6,6 +6,8 @@
   <meta name="keywords" content="microservices, nodejs, node.js, javascript, github, opensource, framework, moleculer, github, scaling">
   <meta name="description" content="Moleculer is a fast, scalable and powerful microservices framework for Node.js.">
   <meta name="robots" content="index, follow">
+  <meta name="docsearch:language" content="{{ config.language }}" />
+  <meta name="docsearch:version" content="{{ get_version() }}" />
   <!-- Canonical links -->
   <link rel="canonical" href="{{ url }}">
   <!-- Alternative links -->
