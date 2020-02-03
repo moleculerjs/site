@@ -216,7 +216,7 @@ API Gateway has implemented file uploads. You can upload files as a multipart fo
 Please note, you have to disable other body parsers in order to accept files.
 {% endnote %}
 
-**Example**
+**Пример**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -276,7 +276,7 @@ Gateway will regenerate the routes every time a service joins or leaves the netw
 
 Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
 
-**Example**
+**Пример**
 ```js
 // api.service.js
 module.exports = {
@@ -388,7 +388,7 @@ API gateway collects parameters from URL querystring, request params & request b
 ### Disable merging
 To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
 
-**Example**
+**Пример**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -442,7 +442,7 @@ foo: {
 ## Middlewares
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
-**Example**
+**Пример**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -608,7 +608,7 @@ To define response headers & status code use `ctx.meta` fields:
 * `ctx.meta.$responseHeaders` - set all keys in header.
 * `ctx.meta.$location` - set `Location` key in header for redirects.
 
-**Example**
+**Пример**
 ```js
 module.exports = {
     name: "export",
@@ -801,7 +801,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Usage**
+**Первые шаги**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -841,7 +841,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Usage**
+**Первые шаги**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -985,7 +985,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Usage**
+**Первые шаги**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
