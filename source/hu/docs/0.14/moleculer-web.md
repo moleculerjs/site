@@ -534,6 +534,10 @@ broker.createService({
 ## Calling options
 The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retries` or `fallbackResponse` options for routes. [Read more about calling options](actions.html#Call-services)
 
+{% note info %}
+Please note that you can also set the timeout for an action directly in its [definition](actions.html#Timeout)
+{% endnote %}
+
 ```js
 broker.createService({
     mixins: [ApiService],
