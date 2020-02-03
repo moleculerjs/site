@@ -106,6 +106,9 @@ broker.createService({
 The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters, as well.
 {% endnote %}
 
+{% note info Aliases Action%}
+The API gateway implements `listAliases` [action](actions.html) that lists the HTTP endpoints to actions mappings.
+{% endnote %}
 
 You can also create RESTful APIs.
 ```js
@@ -776,6 +779,21 @@ broker.createService({
             res.writeHead(501);
             res.end("Global error: " + err.message);
         }       
+    }
+}
+```
+
+### Error formatter
+API gateway implements a helper function that formats the error. You can use it to filter out the unnecessary data.
+
+```js
+broker.createService({
+    mixins: [ApiService],
+    methods: {
+        reformatError(err) {
+            // Filter out the data from the error before sending it to the client
+            return _.pick(err, ["name", "message", "code", "type", "data"]);
+        },
     }
 }
 ```
