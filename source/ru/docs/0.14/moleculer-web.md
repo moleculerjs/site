@@ -106,6 +106,9 @@ broker.createService({
 The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters, as well.
 {% endnote %}
 
+{% note info Aliases Action%}
+The API gateway implements `listAliases` [action](actions.html) that lists the HTTP endpoints to actions mappings.
+{% endnote %}
 
 You can also create RESTful APIs.
 ```js
@@ -780,10 +783,25 @@ broker.createService({
 }
 ```
 
+### Error formatter
+API gateway implements a helper function that formats the error. You can use it to filter out the unnecessary data.
+
+```js
+broker.createService({
+    mixins: [ApiService],
+    methods: {
+        reformatError(err) {
+            // Filter out the data from the error before sending it to the client
+            return _.pick(err, ["name", "message", "code", "type", "data"]);
+        },
+    }
+}
+```
+
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Первые шаги**
+**Usage**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -823,7 +841,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Первые шаги**
+**Usage**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -967,7 +985,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Первые шаги**
+**Usage**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
