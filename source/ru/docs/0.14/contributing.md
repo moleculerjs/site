@@ -95,6 +95,6 @@ title: Сотрудничество
 
 ## Сообщение о проблеме
 
-Когда вы сталкиваетесь с некоторыми проблемами при использовании Moleculer, вы можете найти решения в [FAQ](faq.html) или спросить нас в [Gitter](https://gitter.im/moleculerjs/moleculer), [Discord](https://discord.gg/TSEcDRP) или на [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). Если вы не можете найти ответ, пожалуйста, сообщите нам об этом через [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
+Когда вы сталкиваетесь с некоторыми проблемами при использовании Moleculer, вы можете найти решения в [FAQ](faq.html) или спросить нас в [Discord](https://discord.gg/TSEcDRP) или на [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). Если вы не можете найти ответ, пожалуйста, сообщите нам об этом через [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
 
 Спасибо!
