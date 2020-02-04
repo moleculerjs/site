@@ -123,8 +123,8 @@ module.exports = {
                     mode: "metric",
                     // Saved metrics types.
                     types: null,
-                    // Saving interval in milliseconds
-                    interval: 5 * 1000,
+                    // Saving interval in seconds
+                    interval: 5,
                     // Custom filename formatter
                     filenameFormatter: null,
                     // Custom CSV row formatter.
@@ -155,8 +155,8 @@ module.exports = {
                     groups: null,
                     // Send only changed metrics
                     onlyChanges: false,
-                    // Sending interval in milliseconds
-                    interval: 5 * 1000,
+                    // Sending interval in seconds
+                    interval: 5,
                 }
             }
         ]
