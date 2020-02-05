@@ -365,6 +365,7 @@ module.exports = {
   },
   dependencies: [
       "likes", // shorthand w/o version
+      "v2.auth", // shorthand w version
       { name: "users", version: 2 }, // with numeric version
       { name: "comments", version: "staging" } // with string version
   ],
@@ -375,7 +376,7 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
+The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
 
 ### Wait for services via ServiceBroker
 To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
