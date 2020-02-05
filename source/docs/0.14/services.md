@@ -364,8 +364,9 @@ module.exports = {
       $dependencyTimeout: 30000 // Default: 0 - no timeout
   },
   dependencies: [
-      "likes",
-      "v2.users"
+      "likes", // shorthand w/o version
+      { name: "users", version: 2 }, // with numeric version
+      { name: "comments", version: "staging" } // with string version
   ],
   async started() {
       this.logger.info("It will be called after all dependent services are available.");
@@ -374,7 +375,7 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `v2.users` services are available (either the local or remote nodes).
+The `started` service handler is called once the `likes`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
 
 ### Wait for services via ServiceBroker
 To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
