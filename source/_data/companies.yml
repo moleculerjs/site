@@ -31,10 +31,10 @@ companies:
         name: Distopik
         link: https://www.mixanalog.com/?utm_medium=partner&utm_source=moleculer&utm_campaign=moleculer_footer_logo&utm_content=logo
         logo: https://files.gitter.im/baadc0de/ugWV/m_logo_cutout_with_text.svg
-    -
-        name: AMRetail
-        link: http://amretail.ru
-        logo: https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png
+    #-
+    #    name: AMRetail
+    #    link: http://amretail.ru
+    #    logo: https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png
     -
         name: SmartTones Media
         link: http://www.smarttonesmedia.com/
@@ -67,14 +67,10 @@ companies:
         name: Instarem
         link: https://www.instarem.com/
         logo: https://cdn.instarem.com/images/logo.png?v=0.9
-    -
-        name: Wispay
-        link: https://www.wispay.io/
-        logo: https://assets.wispay.io/logo_text_blue.png
-    -
-        name: Kriblet
-        link: https://kriblet.com/
-        logo: https://kriblet.com/img/logo-kriblet.png
+   # -
+   #     name: Wispay
+   #     link: https://www.wispay.io/
+   #     logo: https://assets.wispay.io/logo_text_blue.png
     -
         name: Ghost
         link: https://ghost.org/
@@ -87,10 +83,6 @@ companies:
         name: Koodoo
         link: https://koodoo.io
         logo: https://user-images.githubusercontent.com/794241/58009243-ea638180-7ae5-11e9-8210-54df52788f62.png
-    -
-        name: Power CMS
-        link: https://power-cms.com/
-        logo: https://user-images.githubusercontent.com/2998592/57999577-24c52280-7ad6-11e9-829b-2c34aa6b8e50.png
     -
         name: Vakavic
         link: https://vakavic.com/
@@ -155,3 +147,23 @@ companies:
         name: Делимобиль
         link: https://delimobil.ru
         logo: https://user-images.githubusercontent.com/1832800/68968183-07f27900-07f3-11ea-9380-dbd756be5ac9.png
+    -
+        name: Cryptonoid
+        link: https://cryptonoid.io/
+        logo: https://camo.githubusercontent.com/b3018f2020e4bafc7961607fc443aa7651f7016b/68747470733a2f2f63727970746f6e6f69642e696f2f7374617469632f6d656469612f6c6f676f2e38326135653134352e737667
+    -
+        name: Workpuls
+        link: https://www.workpuls.com/
+        logo: https://uploads-ssl.webflow.com/5c7d946d0a9b3441344fdb9d/5c7e4d1710414d18f34f603a_workpuls-full.svg
+    -
+        name: Motivac
+        link: https://motivac.io
+        logo: https://camo.githubusercontent.com/fc432a4a05d3ede5533cf0124106548b02a94ff5/68747470733a2f2f6d6f74697661632e696f2f7374617469632f696d616765732f6c6f676f5f66756c6c2e737667
+    -
+        name: TuntsCorp
+        link: http://www.tuntscorp.com/site/
+        logo: https://camo.githubusercontent.com/241f2ab6d22f8008908008076eece09c611ccab6/687474703a2f2f7777772e74756e7473636f72702e636f6d2f736974652f6173736574732f696d672f74756e7473332e706e67
+    -
+        name: LALALAB
+        link: https://www.lalalab.com/en
+        logo: https://user-images.githubusercontent.com/9802754/71734328-9a061d80-2e43-11ea-96ce-7737ee8b6c3e.png

@@ -1,4 +1,11 @@
 patreon:
+    silver:
+        name: Silver backers
+        users:
+            -
+                name: Adrien Ménoret
+                link: null
+                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/26700967/0aa2c4660f9a4c86808b67fc519e4c88/1.png?token-time=2145916800&token-hash=ecj5JZPlOWAodA2FksFN5_iG07irOJ5MvA7RBnazQWo%3D
     bronze:
         name: Bronze backers
         users:
@@ -10,10 +17,6 @@ patreon:
                 name: Ivan Zhuravlev
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/22945866/21a0785376524874bbc9e06eb723a8aa/1.jpeg?token-time=2145916800&token-hash=BBvW23x3d-R7KGw_zxMKfOTRRfNcqprn4SqMHwtyGec%3D
-            -
-                name: Alex
-                link: null
-                logo: https://c8.patreon.com/2/200/15329101
     copper:
         name: Copper backers
         users:
@@ -50,3 +53,11 @@ patreon:
                 name: Marcel Zúbrik
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/20502856/b4c040fb32a94e06b315551f430f62d7/1.jpeg?token-time=2145916800&token-hash=vtnv5DPMxrdK47HKSOV8ZbKia3_evpwjIOEsnYwY_G0%3D
+            -
+                name: Alexander B.
+                link: null
+                logo: https://c8.patreon.com/2/200/15329101
+            -
+                name: Itamar
+                link: null
+                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/274758/15fd791893d24df2a2ed9c5417f7ed79/1.jpeg?token-time=2145916800&token-hash=yE0fa3cLU6cChnLo6t1fWC8ytEwS-3sUhn5Zc13e5mY%3D

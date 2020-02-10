@@ -3,7 +3,6 @@ menu:
   modules: Modules
   support: Support
   github: Github
-  gitter: Gitter Chat
   discord: Discord Chat
   blog: Blog
   store: Store
@@ -73,6 +72,7 @@ sidebar:
     serverless: Serverless
     benchmark: Benchmark
     faq: FAQ
+    testing: Testing
     contributing: Contributing
 
     # Old 01.12 menu

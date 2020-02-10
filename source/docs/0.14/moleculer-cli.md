@@ -12,8 +12,8 @@ $ npm i -g moleculer-cli
 
 ## Commands
 
-### Init a new project
-Scaffold a new Moleculer project.
+## Init
+The `init` command is used to scaffold a new Moleculer project.
 
 ``` bash
 $ moleculer init project my-project
@@ -45,7 +45,7 @@ The above command downloads the template from [moleculerjs/moleculer-template-pr
 	* tests & coverage with [Jest](http://facebook.github.io/jest/)
 	* lint with [ESLint](http://eslint.org/)
 
-#### Custom templates
+### Custom templates
 
 ``` bash
 $ moleculer init username/repo my-project
@@ -54,14 +54,14 @@ Where username/repo is the GitHub repo shorthand for your fork.
 
 The shorthand repo notation is passed to [download-git-repo](https://github.com/flipxfx/download-git-repo) so it can be `bitbucket:username/repo` for a Bitbucket repo and `username/repo#branch` for tags or branches.
 
-#### Local Templates
+### Local Templates
 
 Instead of a GitHub repo, use a template from local filesystem:
 ``` bash
 $ moleculer init ./path/to-custom-template my-project
 ```
 
-#### Template aliases
+### Template aliases
 
 To simplify usage of custom templates (local and remote), it is possible to register an alias and use that afterwards instead of the whole repository url.
 ```bash
@@ -73,7 +73,7 @@ $ moleculer init myAlias my-project
 ```
 All registered template aliases are stored in the file `~/.moleculer-templates.json` and can also be edited manually.
 
-#### Creating Custom Templates
+### Creating Custom Templates
 
 Moleculer templates consist of a `meta.js` file and a `template` directory.
 
@@ -97,7 +97,7 @@ The `template` directory contains files which will be transformed using [Handleb
 
 Handlebars can also transform file names.
 
-### Start a broker locally
+## Start
 This command starts a new `ServiceBroker` locally and switches to REPL mode.
 ```bash
 $ moleculer start
@@ -114,7 +114,7 @@ $ moleculer start
   --commands     Custom REPL command file mask          [string] [default: null]
 ```
 
-### Start a broker and connect to a transporter
+## Connect
 This command starts a new `ServiceBroker`, connects to a transporter server and switches to REPL mode.
 ```bash
 # Connect with TCP transporter
@@ -146,4 +146,59 @@ $ moleculer connect --config ./moleculer.config.js
   --cb           Enable circuit breaker               [boolean] [default: false]
   --serializer   Serializer                             [string] [default: null]
   --commands     Custom REPL command file mask          [string] [default: null]
+```
+
+## Call
+The `call` command can be used establish a connection with a Moleculer project and call an action with parameters. The result (stringified JSON) will be printed to the console. This means that you can process the result with another tool. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
+
+**Example with params**
+```bash
+moleculer call math.add --transporter NATS --@a 5 --@b 3
+```
+
+**Example with params & meta**
+```bash
+moleculer call math.add --transporter NATS --@a 5 --@b 3 --#meta-key MyMetaValue
+```
+
+**Example with post processing the result with [jq](https://stedolan.github.io/jq/)**
+```bash
+moleculer call "\$node.health" | jq '.mem.free'
+```
+
+>The transporter can be defined via `TRANSPORTER` environment variable, as well.
+
+**Example with transporter env var**
+```bash
+TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
+```
+
+## Emit
+The `emit` command can be used establish a connection with a Moleculer project and emit an event with a payload. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
+
+**Example with params**
+```bash
+moleculer emit user.created --transporter NATS --@id 3 --@name John
+```
+
+**Example with params & meta**
+```bash
+moleculer emit math.add --transporter NATS --@id 3 --@name John --#meta-key MyMetaValue
+```
+
+**Example with broadcast & groups**
+```bash
+moleculer emit math.add --transporter NATS --broadcast --@id 3 --@name John --group accounts
+```
+
+**Example with multi groups**
+```bash
+moleculer emit math.add --transporter NATS --broadcast --@id 3 --@name John --group accounts --group mail
+```
+
+>The transporter can be defined via `TRANSPORTER` environment variable, as well.
+
+**Example with transporter env var**
+```bash
+TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
 ```

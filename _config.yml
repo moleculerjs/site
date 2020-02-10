@@ -36,6 +36,7 @@ markdown:
 # disqus_shortname: moleculer
 google_analytics: UA-99099811-1
 # fb_admins: 100000247608790
+# https://github.com/algolia/docsearch-configs/edit/master/configs/moleculer.json
 algolia:
   en:
     api_key: xyz

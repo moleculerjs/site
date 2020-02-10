@@ -41,6 +41,6 @@ Moleculer's localization effort uses Crowdin, an awesome platform for collaborat
 
 
 # Contact
-Copyright (c) 2016-2019 Moleculer JS
+Copyright (c) 2016-2020 Moleculer JS
 
 [![@icebob](https://img.shields.io/badge/github-moleculerjs-green.svg)](https://github.com/moleculerjs) [![@icebob](https://img.shields.io/badge/twitter-MoleculerJS-blue.svg)](https://twitter.com/MoleculerJS)

@@ -40,3 +40,8 @@ Check the results on your computer! Just clone [this repo](https://github.com/ic
 {% note info Versioning %}
 Until Moleculer reaches a `1.0` release, breaking changes will be released with a new minor version. For example `0.13.1`, and `0.13.4` will be backward compatible, but `0.14.0` will have breaking changes.
 {% endnote %}
+
+
+{% note info Node.js support %}
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `10`.
+{% endnote %}
