@@ -242,6 +242,24 @@ module.exports = {
 };
 ```
 
+**Connect to Redis cluster**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: {
+        type: "Redis",
+        options: {
+            cluster: {
+                nodes: [
+                    { host: "localhost", port: 6379 },
+                    { host: "localhost", port: 6378 }
+                ]
+            }
+        }
+    }
+};
+```
+
 ### MQTT Transporter
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [MQTT](http://mqtt.org/) protocol *(e.g.: [Mosquitto](https://mosquitto.org/))*.
 
@@ -365,7 +383,7 @@ module.exports = {
 ```js
 // moleculer.config.js
 module.exports = {
-    transporter: "amqp://rabbitmq-server:5672"
+    transporter: "amqp10://activemq-server:5672"
 };
 ```
 {% note info Dependencies %}
