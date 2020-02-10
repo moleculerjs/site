@@ -106,6 +106,9 @@ broker.createService({
 The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters, as well.
 {% endnote %}
 
+{% note info Aliases Action%}
+The API gateway implements `listAliases` [action](actions.html) that lists the HTTP endpoints to actions mappings.
+{% endnote %}
 
 You can also create RESTful APIs.
 ```js
@@ -213,7 +216,7 @@ API Gateway has implemented file uploads. You can upload files as a multipart fo
 Please note, you have to disable other body parsers in order to accept files.
 {% endnote %}
 
-**Example**
+**Пример**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -273,7 +276,7 @@ Gateway will regenerate the routes every time a service joins or leaves the netw
 
 Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
 
-**Example**
+**Пример**
 ```js
 // api.service.js
 module.exports = {
@@ -385,7 +388,7 @@ API gateway collects parameters from URL querystring, request params & request b
 ### Disable merging
 To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
 
-**Example**
+**Пример**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -439,7 +442,7 @@ foo: {
 ## Middlewares
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
-**Example**
+**Пример**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -531,6 +534,10 @@ broker.createService({
 ## Calling options
 The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retries` or `fallbackResponse` options for routes. [Read more about calling options](actions.html#Call-services)
 
+{% note info %}
+Please note that you can also set the timeout for an action directly in its [definition](actions.html#Timeout)
+{% endnote %}
+
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -605,7 +612,7 @@ To define response headers & status code use `ctx.meta` fields:
 * `ctx.meta.$responseHeaders` - set all keys in header.
 * `ctx.meta.$location` - set `Location` key in header for redirects.
 
-**Example**
+**Пример**
 ```js
 module.exports = {
     name: "export",
@@ -776,6 +783,21 @@ broker.createService({
             res.writeHead(501);
             res.end("Global error: " + err.message);
         }       
+    }
+}
+```
+
+### Error formatter
+API gateway implements a helper function that formats the error. You can use it to filter out the unnecessary data.
+
+```js
+broker.createService({
+    mixins: [ApiService],
+    methods: {
+        reformatError(err) {
+            // Filter out the data from the error before sending it to the client
+            return _.pick(err, ["name", "message", "code", "type", "data"]);
+        },
     }
 }
 ```

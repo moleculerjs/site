@@ -454,7 +454,29 @@ module.exports = {
 };
 ```
 
-## Adding Tags from Context
+## Customizing
+### Custom Span Names
+You can customize the span name of you traces. In this case, you must specify the `spanName` that must be a static `String` or a `Function`.
+
+**Creating a custom name for a trace via Function**
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        get: {
+            tracing: {
+                spanName: ctx => `Get a post by ID: ${ctx.params.id}`
+            },
+            async handler(ctx) {
+                // ...
+            }
+        }
+    }
+};
+```
+
+### Adding Tags from Context
 You can customize what context `params` or `meta` values are added to span tags.
 
 **Default** The default behaviour is that add all properties from `ctx.params` only.

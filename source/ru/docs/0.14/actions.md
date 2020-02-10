@@ -219,6 +219,10 @@ const stream = fs.createReadStream(fileName);
 broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
+{% note info Object Mode Streaming%}
+[Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. In order to enable it set `$streamObjectMode: true` in [`meta`](actions.html#Metadata).
+{% endnote %}
+
 Имейте ввиду, что `params` должен быть потоком, и вы не сможете добавить дополнительные переменные в свойство `params`. Используйте свойство `meta` для передачи дополнительных данных.
 
 **Получение потока в сервисе**

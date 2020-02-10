@@ -1,8 +1,9 @@
-title: Валидация
+title: Parameter Validation
 ---
 Moleculer имеет встроенный модуль валидации. Используется библиотека [fastest-validator](https://github.com/icebob/fastest-validator).
 
-## Встроенный валидатор
+## Built-in Validator
+### Actions Validation
 Включён по умолчанию, поэтому достаточно определить свойство `params` содержащее схему валидации для входящих параметров `ctx.params`.
 
 **Пример**
@@ -55,6 +56,31 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 {% note info Documentation %}
 Более подробную информацию о схеме проверки можно найти в [документации библиотеки](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
+
+### Events Validation
+Event parameter validation is also supported. To enable it, define `params` in event definition and the built-in `Validator` will take care of the validation.
+> Please note that the validation errors are not sent back to the caller, as happens with action errors. Event validation errors are logged but you can also catch them with the [global error handler](broker.html#Global-error-handler).
+
+```js
+// mailer.service.js
+module.exports = {
+    name: "mailer",
+    events: {
+        "send.mail": {
+            // Validation schema with shorthand notation
+            // More info: https://github.com/icebob/fastest-validator#shorthand-definitions
+            params: {
+                from: "string|optional",
+                to: "email",
+                subject: "string"
+            },
+            handler(ctx) {
+                this.logger.info("Event received, parameters OK!", ctx.params);
+            }
+        }
+    }
+};
+```
 
 ## Пользовательский валидатор
 Можно создать свой валидатор. Для этого необходимо реализовать методы `compile` и `validate` базового класса `BaseValidator`.
