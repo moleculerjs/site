@@ -242,6 +242,24 @@ module.exports = {
 };
 ```
 
+**Connect to Redis cluster**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: {
+        type: "Redis",
+        options: {
+            cluster: {
+                nodes: [
+                    { host: "localhost", port: 6379 },
+                    { host: "localhost", port: 6378 }
+                ]
+            }
+        }
+    }
+};
+```
+
 ### MQTT Transporter
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [MQTT](http://mqtt.org/) protocol *(e.g.: [Mosquitto](https://mosquitto.org/))*.
 
@@ -252,7 +270,7 @@ module.exports = {
     transporter: "mqtt://mqtt-server:1883"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
@@ -365,7 +383,7 @@ module.exports = {
 ```js
 // moleculer.config.js
 module.exports = {
-    transporter: "amqp://rabbitmq-server:5672"
+    transporter: "amqp10://activemq-server:5672"
 };
 ```
 {% note info Dependencies %}
@@ -418,7 +436,7 @@ module.exports = {
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [Kafka](https://kafka.apache.org/).
 > It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
 {% endnote %}
 
@@ -477,7 +495,7 @@ module.exports = {
 };
 ```
 
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
@@ -541,7 +559,7 @@ module.exports = {
 ## Disabled balancer
 Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
 
-**Пример**
+**Example**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -557,7 +575,7 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 ## Serialization
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
-**Пример**
+**Example**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -625,7 +643,7 @@ module.exports = {
     serializer: "ProtoBuf"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
 {% endnote %}
 
@@ -638,7 +656,7 @@ module.exports = {
     serializer: "Thrift"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `thrift` module with `npm install thrift --save` command.
 {% endnote %}
 
