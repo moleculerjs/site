@@ -118,9 +118,9 @@ const broker = new ServiceBroker({
 ```js
 // nodes.json
 [
-	"127.0.0.1:6001/client-1",
-	"127.0.0.1:7001/server-1",
-	"127.0.0.1:7002/server-2"
+    "127.0.0.1:6001/client-1",
+    "127.0.0.1:7001/server-1",
+    "127.0.0.1:7002/server-2"
 ]
 ```
 
@@ -225,6 +225,21 @@ const broker = new ServiceBroker({
         }
     }
 });
+
+// Connect to Redis cluster
+const broker = new ServiceBroker({
+    transporter: {
+        type: "Redis",
+        options: {
+            cluster: {
+                nodes: [
+                    { host: "redis-1", port: 6379 },
+                    { host: "redis-2", port: 6379 }
+                ]
+            }
+        }
+    }
+};
 ```
 
 ### MQTT Transporter 
