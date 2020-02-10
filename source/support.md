@@ -7,7 +7,7 @@ Moleculer is an open source MIT licensed project. It is free to use for your per
 
 **Once you decide to support us, please:**
 * set up a recurring monthly donation [on Patreon](https://www.patreon.com/moleculer) or [on Open Collective][opencollective] and you will get exciting news about what works on (things that I share with supporters only) or
-* make a one-time donation via [PayPal][paypal] or [Wispay][wispay].
+* make a one-time donation via [PayPal][paypal].
 
 **Other ways to support us:**
 * make additional modules & services to Moleculer. We have a [wishlist](https://github.com/moleculerjs/moleculer/issues/100).
@@ -19,4 +19,3 @@ Moleculer is an open source MIT licensed project. It is free to use for your per
 [paypal]: https://paypal.me/meregnorbert/50usd
 [patreon]: https://www.patreon.com/bePatron?u=6245171
 [opencollective]: https://opencollective.com/moleculer
-[wispay]: https://www.wispay.io/t/qKe

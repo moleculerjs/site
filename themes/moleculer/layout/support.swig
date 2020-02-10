@@ -50,16 +50,6 @@
                                     src="https://opencollective.com/moleculer/tiers/copper-backer.svg?avatarHeight=70&width=600"
                                     alt="Become a backer"></a></p>
 
-                        <!-- Wispay -->
-
-                        <h2 id="Wispay-sponsoring" class="article-heading">
-                            <a href="#Wispay-sponsoring" class="headerlink"
-                                title="Wispay sponsoring"></a>Wispay sponsoring<a
-                                class="article-anchor" href="#Wispay-sponsoring" aria-hidden="true"></a></h2>
-
-                        <a href="https://www.wispay.io/t/qKe" target="_blank"><img src="https://assets.wispay.io/wgt2_d_b.png" style="height: 60px;"></a>
-
-
                         <!-- Contributors -->
 
                         <h2 id="Contributors" class="article-heading"><a href="#Contributors" class="headerlink"
