@@ -328,7 +328,7 @@ let { ServiceBroker } = require("moleculer");
 
 const broker = new ServiceBroker({
     nodeID: "server-1",
-    transporter: "amqp://rabbitmq-server:5672"
+    transporter: "amqp10://activemq-server:5672"
 });
 ```
 {% note info Dependencies %}
