@@ -268,8 +268,9 @@ $article-footer-link
 
 .support-backers
   display: flex
+  flex-wrap wrap
   justify-content: space-between
-  align-items: center;
+  align-items: center
 
   a.company-logo
     flex: 1
@@ -301,6 +302,16 @@ $article-footer-link
       text-align: center
       font-weight: 600
       display: block
+
+
+  &.silver img
+    max-height: 100px
+
+  &.bronze img
+    max-height: 80px
+
+  &.copper img
+    max-height: 60px
 
 .alert
     padding 0.5em 1.0em

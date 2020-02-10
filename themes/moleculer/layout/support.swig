@@ -11,11 +11,6 @@
 
                         {{ page_anchor(page.content) }}
 
-                        <!-- Sponsor links -->
-
-                        <a href="https://www.patreon.com/bePatron?u=6245171" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
-                        <a href="https://www.wispay.io/t/qKe" target="_blank"><img src="https://assets.wispay.io/wgt2_d_b.png" style="height: 60px;"></a>
-
                         <!-- Patreon sponsors -->
 
                         {{ partial('partial/sponsors') }}
@@ -55,6 +50,16 @@
                                     src="https://opencollective.com/moleculer/tiers/copper-backer.svg?avatarHeight=70&width=600"
                                     alt="Become a backer"></a></p>
 
+                        <!-- Wispay -->
+
+                        <h2 id="Wispay-sponsoring" class="article-heading">
+                            <a href="#Wispay-sponsoring" class="headerlink"
+                                title="Wispay sponsoring"></a>Wispay sponsoring<a
+                                class="article-anchor" href="#Wispay-sponsoring" aria-hidden="true"></a></h2>
+
+                        <a href="https://www.wispay.io/t/qKe" target="_blank"><img src="https://assets.wispay.io/wgt2_d_b.png" style="height: 60px;"></a>
+
+
                         <!-- Contributors -->
 
                         <h2 id="Contributors" class="article-heading"><a href="#Contributors" class="headerlink"
@@ -66,6 +71,7 @@
                             <a href="https://github.com/moleculerjs/moleculer/graphs/contributors" target="_blank"><img
                                     src="https://opencollective.com/moleculer/contributors.svg?width=890&button=false"></a>
                         </div>
+
                     </div>
                     <footer class="article-footer">
                         <time class="article-footer-updated" datetime="{{ date_xml(page.updated) }}" itemprop="dateModified">{{ __('page.last_updated', date(page.updated)) }}</time>

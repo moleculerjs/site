@@ -14,9 +14,7 @@ Moleculer is an open source MIT licensed project. It is free to use for your per
 * help with documentation. Fix typos, fill missing sections or add more examples.
 * promote Moleculer framework. Write Medium articles or blog posts about why Moleculer is an excellent microservices framework. Share your positive experience with potential users to make Moleculer community more vivid.
 
-**Be an atom to build the Molecule stronger!**
-
-Thank you in advance!
+**Be an atom to build the Molecule stronger! Thank you in advance!**
 
 [paypal]: https://paypal.me/meregnorbert/50usd
 [patreon]: https://www.patreon.com/bePatron?u=6245171
