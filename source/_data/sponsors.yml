@@ -1,5 +1,12 @@
 patreon:
     bronze:
+        name: Silver backers
+        users:
+            -
+                name: Adrien Ménoret
+                link: null
+                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/26700967/0aa2c4660f9a4c86808b67fc519e4c88/1.png?token-time=2145916800&token-hash=ecj5JZPlOWAodA2FksFN5_iG07irOJ5MvA7RBnazQWo%3D
+    bronze:
         name: Bronze backers
         users:
             -
