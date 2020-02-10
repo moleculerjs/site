@@ -269,7 +269,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-### AMQP Transporter 
+### AMQP 0.9 Transporter 
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
 Built-in transporter for [AMQP](https://www.amqp.org/) protocol *(e.g.: [RabbitMQ](https://www.rabbitmq.com/))*.
 
@@ -313,6 +313,59 @@ const broker = new ServiceBroker({
             // If true, queues will be autodeleted once service is stopped, i.e., queue listener is removed
             autoDeleteQueues: true
         }
+    }
+});
+```
+
+### AMQP 1.0 Transporter 
+![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
+Built-in transporter for [AMQP 1.0](https://www.amqp.org/resources/specifications) protocol *(e.g.: [ActiveMq](https://activemq.apache.org/) or [RabbitMQ](https://www.rabbitmq.com/) + [rabbitmq-amqp1.0 plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0))*.
+
+>Please note, it is an **experimental** transporter. **Do not use it in production yet!**
+
+```js
+let { ServiceBroker } = require("moleculer");
+
+const broker = new ServiceBroker({
+    nodeID: "server-1",
+    transporter: "amqp://rabbitmq-server:5672"
+});
+```
+{% note info Dependencies %}
+To use this transporter install the `rhea-promise` module with `npm install rhea-promise --save` command.
+{% endnote %}
+
+#### Transporter options
+Options can be passed to `rhea.connection.open()` method, the topics, the queues, and the messages themselves.
+
+```js
+// Connect to 'amqp10://guest:guest@localhost:5672'
+const broker = new ServiceBroker({
+    transporter: "AMQP10"
+});
+
+// Connect to a remote server
+const broker = new ServiceBroker({
+    transporter: "amqp10://activemq-server:5672"
+});
+
+// Connect to a remote server with options & credentials
+const broker = new ServiceBroker({
+    transporter: {
+        url: "amqp10://user:pass@activemq-server:5672",
+        eventTimeToLive: 5000,
+        heartbeatTimeToLive: 5000,
+        connectionOptions: { // rhea connection options https://github.com/amqp/rhea#connectoptions, example:
+            ca: "", // (if using tls)
+            servername: "", // (if using tls)
+            key: "", // (if using tls with client auth)
+            cert: "" // (if using tls with client auth)
+        },
+        queueOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
+        topicOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
+        messageOptions: {}, // rhea message specific options https://github.com/amqp/rhea#message
+        topicPrefix: "topic://", // RabbitMq uses '/topic/' instead, 'topic://' is more common
+        prefetch: 1
     }
 });
 ```
