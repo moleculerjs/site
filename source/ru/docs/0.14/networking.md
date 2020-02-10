@@ -325,7 +325,7 @@ module.exports = {
     transporter: "amqp://rabbitmq-server:5672"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `amqplib` module with `npm install amqplib --save` command.
 {% endnote %}
 
@@ -386,7 +386,7 @@ module.exports = {
     transporter: "amqp10://activemq-server:5672"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `rhea-promise` module with `npm install rhea-promise --save` command.
 {% endnote %}
 
@@ -436,7 +436,7 @@ module.exports = {
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [Kafka](https://kafka.apache.org/).
 > It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
 {% endnote %}
 
@@ -495,7 +495,7 @@ module.exports = {
 };
 ```
 
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
@@ -559,7 +559,7 @@ module.exports = {
 ## Disabled balancer
 Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
 
-**Example**
+**Пример**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -575,7 +575,7 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 ## Serialization
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
-**Example**
+**Пример**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -604,7 +604,7 @@ module.exports = {
     serializer: "Avro"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `avsc` module with `npm install avsc --save` command.
 {% endnote %}
 
@@ -617,7 +617,7 @@ module.exports = {
     serializer: "MsgPack"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
 {% endnote %}
 
@@ -630,7 +630,7 @@ module.exports = {
     serializer: "Notepack"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `notepack` module with `npm install notepack.io --save` command.
 {% endnote %}
 
@@ -643,7 +643,7 @@ module.exports = {
     serializer: "ProtoBuf"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
 {% endnote %}
 
@@ -656,7 +656,7 @@ module.exports = {
     serializer: "Thrift"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `thrift` module with `npm install thrift --save` command.
 {% endnote %}
 
