@@ -358,11 +358,67 @@ module.exports = {
 };
 ```
 
+### AMQP 1.0 Transporter
+![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg) Built-in transporter for [AMQP 1.0](https://www.amqp.org/resources/specifications) protocol *(e.g.: [ActiveMq](https://activemq.apache.org/) or [RabbitMQ](https://www.rabbitmq.com/) + [rabbitmq-amqp1.0 plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0))*.
+> Please note, it is an **experimental** transporter. **Do not use it in production yet!**
+
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "amqp://rabbitmq-server:5672"
+};
+```
+{% note info Dependencies %}
+To use this transporter install the `rhea-promise` module with `npm install rhea-promise --save` command.
+{% endnote %}
+
+#### Transporter options
+Options can be passed to `rhea.connection.open()` method, the topics, the queues, and the messages themselves.
+
+**Connect to 'amqp10://guest:guest@localhost:5672'**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "AMQP10"
+};
+```
+
+**Connect to a remote server**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "amqp10://activemq-server:5672"
+};
+```
+
+**Connect to a remote server with options & credentials**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: {
+        url: "amqp10://user:pass@activemq-server:5672",
+        eventTimeToLive: 5000,
+        heartbeatTimeToLive: 5000,
+        connectionOptions: { // rhea connection options https://github.com/amqp/rhea#connectoptions, example:
+            ca: "", // (if using tls)
+            servername: "", // (if using tls)
+            key: "", // (if using tls with client auth)
+            cert: "" // (if using tls with client auth)
+        },
+        queueOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
+        topicOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
+        messageOptions: {}, // rhea message specific options https://github.com/amqp/rhea#message
+        topicPrefix: "topic://", // RabbitMq uses '/topic/' instead, 'topic://' is more common
+        prefetch: 1
+    }
+};
+```
+
 ### Kafka Transporter
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [Kafka](https://kafka.apache.org/).
 > It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
 {% endnote %}
 
@@ -421,7 +477,7 @@ module.exports = {
 };
 ```
 
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
@@ -485,7 +541,7 @@ module.exports = {
 ## Disabled balancer
 Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
 
-**Example**
+**Пример**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -501,7 +557,7 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 ## Serialization
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
-**Example**
+**Пример**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -569,7 +625,7 @@ module.exports = {
     serializer: "ProtoBuf"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
 {% endnote %}
 
@@ -582,7 +638,7 @@ module.exports = {
     serializer: "Thrift"
 };
 ```
-{% note info Dependencies %}
+{% note info Зависимости %}
 To use this serializer install the `thrift` module with `npm install thrift --save` command.
 {% endnote %}
 
