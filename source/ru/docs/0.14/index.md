@@ -6,24 +6,24 @@ Moleculer - это быстрый, современный и мощный мик
 
 - Асинхронный код на базе промисов (async/await compatible)
 - концепция запрос-ответ
-- все узлы равны, нет главного/лидирующего узла
-- несколько сервисов на узле/сервере
-- поддержка событийно-управляемой архитектуры с балансированием
+- support event driven architecture with balancing
 - встроенный реестр сервисов и их динамическое обнаружение
-- балансировка запросов и событий (round-robin, random, cpu-usage, latency, shard)
+- load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
 - устойчивость к отказам (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
 - система плагинов и middleware
 - поддержка версионирования сервисов
-- поддержка миксинов на уровне сервисов
 - поддержка [потоков](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)
-- встроенные механизмы кеширования (memory, MemoryLRU, Redis)
+- поддержка миксинов на уровне сервисов
+- built-in caching solution (Memory, MemoryLRU, Redis)
 - подключаемые логгеры (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
-- подключаемые транспорты (TCP, NATS, MQTT, Redis, AMQP, NATS Streaming, Kafka)
-- подключаемые сериализаторы (JSON, Avro, MsgPack, Protocol Buffers, Thrift)
-- подключаемые валидаторы
-- встроенные метрики с репортерами (CSV, Prometheus, Datadog, StatsD, Events)
-- встроенная поддержка отслеживания с экспортерами (Zipkin, Jaeger, Datadog, Events)
+- pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
+- pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
+- pluggable parameter validator
+- несколько сервисов на узле/сервере
+- master-less architecture, all nodes are equal
 - валидация параметров [fastest-validator](https://github.com/icebob/fastest-validator)
+- built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
+- built-in tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin)
 - официальный [API шлюз](https://github.com/moleculerjs/moleculer-web), [доступ к БД](https://github.com/moleculerjs/moleculer-db) и множество других модулей...
 
 ## Насколько быстро?
