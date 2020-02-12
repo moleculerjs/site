@@ -1,4 +1,11 @@
 patreon:
+    gold:
+        name: Gold sponsors
+        users:
+            -
+                name: Toby de Havilland
+                link: null
+                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/30541478/f1bbed8c898b441b9ce9e6462697703a/1.jpeg?token-time=2145916800&token-hash=RUJHQuE-BWjAKPvwVc7x5BU3QDfFA0xDOIS-Ok8fikE%3D
     silver:
         name: Silver backers
         users:
