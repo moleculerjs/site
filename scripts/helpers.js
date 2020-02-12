@@ -91,8 +91,8 @@ hexo.extend.helper.register("isCurrentVersion", function() {
 
     const idx = versions.findIndex(v => v == ver);
 	const latestIdx = versions.findIndex(v => v == this.site.data.versions.latest);
-	
-    return (idx === latestIdx);
+
+    return (idx === latestIdx && idx > 0);
 });
 
 hexo.extend.helper.register("isNewerVersion", function() {
