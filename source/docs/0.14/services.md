@@ -304,31 +304,6 @@ module.exports = {
 
 > In methods the `this` is always pointed to the Service instance.
 
-## Current Context Storage
-ServiceBroker has a continuous local storage that stores the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`. 
-
-> Context storage is built with Node.js [`async_hooks`](https://nodejs.org/api/async_hooks.html) built-in module.
-
-```js
-// greeter.service.js
-module.exports = {
-    name: "greeter",
-    actions: {
-        hello(ctx) {
-            return this.Promise.resolve()
-                .then(() => this.doSomething());
-
-        }
-    },
-    methods: {
-        doSomething() {
-            const ctx = this.currentContext;
-            return ctx.call("other.service");
-        }
-    }
-});
-```
-
 ## Lifecycle Events
 There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
 
