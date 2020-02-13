@@ -361,7 +361,7 @@ To wait for services, you can also use the `waitForServices` method of `ServiceB
 | `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
 | `interval` | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
 
-**Example**
+**Пример**
 ```js
 broker.waitForServices(["posts", "v2.users"]).then(() => {
     // Called after the `posts` & `v2.users` services are available
@@ -377,7 +377,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 });
 ```
 
-## Metadata
+## Метаданные
 
 The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store it whatever you want._
 
@@ -501,12 +501,12 @@ module.exports = function() {
 ### Load multiple services from a folder
 If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
 
-**Syntax**
+**Синтаксис**
 ```js
 broker.loadServices(folder = "./services", fileMask = "**/*.service.js");
 ```
 
-**Example**
+**Пример**
 ```js
 // Load every *.service.js file from the "./services" folder (including subfolders)
 broker.loadServices();
@@ -519,7 +519,7 @@ broker.loadServices("./svc", "user*.service.js");
 ```
 
 ### Load with Moleculer Runner (recommended)
-We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
+We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Подробнее о Moleculer Runner](runner.html). It is the easiest way to start a node.
 
 ## Hot Reloading Services
 Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
@@ -787,7 +787,7 @@ broker.call("$node.actions").then(res => console.log(res));
 ```
 It has some options which you can declare within `params`.
 
-**Options**
+**Параметры**
 
 | Название        | Тип       | Default | Описание                             |
 | --------------- | --------- | ------- | ------------------------------------ |
@@ -803,7 +803,7 @@ broker.call("$node.events").then(res => console.log(res));
 ```
 It has some options which you can declare within `params`.
 
-**Options**
+**Параметры**
 
 | Название        | Тип       | Default | Описание                                   |
 | --------------- | --------- | ------- | ------------------------------------------ |
@@ -819,7 +819,7 @@ broker.call("$node.metrics").then(res => console.log(res));
 ```
 It has some options which you can declare within `params`.
 
-**Options**
+**Параметры**
 
 | Название   | Type                | Default | Описание                                                                       |
 | ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
