@@ -126,6 +126,30 @@ module.exports = {
 }
 ```
 
+## Event parameter validation
+Similar to action parameter validation, the event parameter validation is supported. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+
+```js
+// mailer.service.js
+module.exports = {
+    name: "mailer",
+    events: {
+        "send.mail": {
+            // Validation schema
+            params: {
+                from: "string|optional",
+                to: "email",
+                subject: "string"
+            },
+            handler(ctx) {
+                this.logger.info("Event received, parameters OK!", ctx.params);
+            }
+        }
+    }
+};
+```
+> The validation errors are not sent back to the caller, they are logged or you can catch them with the new [global error handler](broker.html#Global-error-handler).
+
 # Internal events
 The broker broadcasts some internal events. These events always starts with `$` prefix.
 
