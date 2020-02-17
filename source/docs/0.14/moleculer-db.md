@@ -519,7 +519,12 @@ broker.createService({
             },
 
             // Custom populator handler function
-            "rate"(ids, rule, ctx) {
+            "rate"(ids, items, rule, ctx) {
+                // items argument is a mutable array containing response items
+                // the resolved value from promise do not matter - items array will always be passed as populated response
+                // so you should du custom populate by mutating items, if confused check implementaion:
+                // https://github.com/moleculerjs/moleculer-db/blob/master/packages/moleculer-db/src/index.js#L636
+                
                 return Promise.resolve(...);
             }
         }
