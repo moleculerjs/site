@@ -175,3 +175,7 @@ companies:
         name: TinkerLink
         link: https://tinkerlink.com/
         logo: https://user-images.githubusercontent.com/6136978/75237627-f80a0e00-57bf-11ea-92ce-682a37f7fbc7.png  
+    -
+        name: eDoctor
+        link: https://edoctor.io/
+        logo: https://edoctor.io/logo/horizontal.svg
