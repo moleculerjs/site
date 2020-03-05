@@ -31,7 +31,7 @@ const MyDoSomethingMiddleware = {
             return function(ctx) {
                 doSomethingBeforeHandler(ctx);
 
-                return handler(ctx)
+                return next(ctx)
                     .then(res => {
                         doSomethingAfterHandler(res);
                         // Return the original result
@@ -48,7 +48,7 @@ const MyDoSomethingMiddleware = {
 
         // If the feature is disabled we don't wrap it, return the original handler
         // So it won't cut down the performance when the feature is disabled.
-        return handler;
+        return next;
     }
 };
 ```
