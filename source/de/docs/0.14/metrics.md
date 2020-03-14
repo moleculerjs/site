@@ -178,6 +178,8 @@ module.exports = {
                 options: {
                     // Hostname
                     host: "my-host",
+                    // Base URL. If not provided defaults to https://api.datadoghq.com/api/
+                    baseUrl: "https://api.datadoghq.eu/api/",
                     // API version
                     apiVersion: "v1",
                     // Server URL path
