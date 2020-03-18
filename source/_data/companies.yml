@@ -183,3 +183,7 @@ companies:
         name: SmartFocus
         link: https://www.smartfocus.com/
         logo: https://user-images.githubusercontent.com/1516450/75885550-00e58a00-5e27-11ea-967d-439510faf82b.png
+    -
+        name: SwissDevJobs
+        link: https://swissdevjobs.ch/
+        logo: https://camo.githubusercontent.com/7a59cb546e836aaf990f7c69d93a718629fa4d10/68747470733a2f2f7374617469632e73776973736465766a6f62732e63682f70696374757265732f73776973736465766a6f62732d322d312e706e67
