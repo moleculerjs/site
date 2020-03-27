@@ -297,6 +297,25 @@ module.exports = {
     }
 };
 ```
+If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) you the following notation:
+
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+
+    methods: {
+        list: {
+            async handler(count) {
+                // Do something
+                return posts;
+            }
+        }
+    }
+};
+```
+
+
 > The method name can't be `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
 
 > In methods the `this` is always pointed to the Service instance.
