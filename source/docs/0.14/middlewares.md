@@ -199,6 +199,25 @@ module.export = {
 }
 ```
 
+### `localMethod(next, method)`
+
+This hook wraps service methods.
+
+```js
+// my.middleware.js
+module.exports = {
+    name: "MyMiddleware",
+
+    localMethod(next, method) {
+        return (...args) => {
+            console.log(`The '${method.name}' method is called in '${method.service.fullName}' service.`, args);
+            return handler(...args);
+        }
+    }
+}
+```
+
+
 ### `createService(next)`
 This hook wraps the `broker.createService` method.
 

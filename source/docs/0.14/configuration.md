@@ -22,6 +22,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
 * **`bulkhead`**: `Object` - Settings of [bulkhead](fault-tolerance.html#Bulkhead).
 * **`transit.maxQueueSize`**: `Number` - A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
+* **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_ 
 * **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _Default: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _Default: `false`_
 * **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_

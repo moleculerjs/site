@@ -307,7 +307,7 @@ Integration tests involve testing two (or more) services to ensure that the inte
 
 ### Services
 
-Situations when one service depends on another one are a very common situation. The example bellow shows that `notify` action of `users` service depends on the `mail` service. This means that to test the `notify` action we need to mock the `send` action of `email` service.
+Situations when one service depends on another one are very common. The example bellow shows that `notify` action of `users` service depends on the `mail` service. This means that to test the `notify` action we need to mock the `send` action of `email` service.
 
 ```js
 // users.service.js
