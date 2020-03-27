@@ -22,6 +22,7 @@ title: Конфигурация
 * **`circuitBreaker`**: `Object` - Настройки [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
 * **`bulkhead`**: `Object` - Настройки [bulkhead](fault-tolerance.html#Bulkhead).
 * **`transit.maxQueueSize`**: `Number` - Защита от чрезмерного потребления памяти, когда слишком много исходящих запросов. Если число запросов больше _указанного_, новые запросы будут отклонены с ошибкой `QueueIsFullError`. _По умолчанию: `50000`_
+* **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_
 * **`transit.disableReconnect`**: `Boolean` - Отключить логику переподключения при запуске брокера. _По умолчанию: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Отключить логику проверки версий протокола. _По умолчанию: `false`_
 * **`transit.packetLogFilter`**: `Array` - Фильтрует пакеты в сообщениях журнала отладки. Это может быть полезно для фильтрации `HEARTBEAT` пакетов при отладке. _По умолчанию: `[]`_
