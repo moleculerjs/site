@@ -209,6 +209,7 @@ hexo.extend.helper.register('page_anchor', function(str){
 
 	headings.each(function(){
 		var id = $(this).attr('id');
+        if (!id) return str;
 
 		$(this)
 			.addClass('article-heading')
