@@ -1,7 +1,7 @@
-title: Actions
+title: 活动
 ---
 
-The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+服务公开的可调用的方法称为活动(actions)。 活动通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
 
 If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
 
