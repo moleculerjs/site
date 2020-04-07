@@ -1,46 +1,46 @@
 title: What is Moleculer?
 ---
-Moleculer是基于[Node.js](https://nodejs.org/en/)的快速、多功能的现代微型服务框架。 It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+Moleculer是基于[Node.js](https://nodejs.org/en/)的快速、多功能的现代微服务框架。 它能帮助您建立高效的、可靠的可伸缩服务。 Moleculer提供了许多构建和管理您的微服务的特性。
 
-## Features
+## 特性概览
 
-- Promise-based solution (async/await compatible)
-- request-reply concept
-- support event driven architecture with balancing
-- built-in service registry & dynamic service discovery
-- load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
-- many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
-- plugin/middleware system
-- support versioned services
-- support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
-- service mixins
-- built-in caching solution (Memory, MemoryLRU, Redis)
-- pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
-- pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
-- pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
-- pluggable parameter validator
-- multiple services on a node/server
-- master-less architecture, all nodes are equal
-- parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
-- built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
-- built-in tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin)
-- official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](https://github.com/moleculerjs/moleculer-db) and many other modules...
+- 基于'承诺'(Promise)的解决方案(与 async/await 兼容)
+- 请求-响应模式
+- 事件驱动和负载均衡支持
+- 内置的服务注册和动态服务发现
+- 请求与事件负载均衡(round-robin, random, cpu-usage, latency, sharding)
+- 多容错特性(Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
+- 插件与中间件系统
+- 服务版本支持
+- 流支持
+- 服务 mixins
+- 内建缓存解决方案 (Memory, MemoryLRU, Redis)
+- 可插拔的日志模块 (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
+- 可插拔的推送系统 (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
+- 可插拔的序列化器(JSON, Avro, MsgPack, Protocol Buffer, Thrift)
+- 可插拔的参数验证器
+- 每节点/服务器可承载多个服务
+- 去中心化结构，所有的节点都是平等的
+- 使用[fastest-validator](https://github.com/icebob/fastest-validator)的参数验证
+- 内置计量与记录(Console, CSV, Datadog, Event, Prometheus, StatsD)
+- 内置性能跟踪导出特性 (Console, Datadog, Event, Jaeger, Zipkin)
+- 内建官方[API 网关](https://github.com/moleculerjs/moleculer-web), [数据库访问](https://github.com/moleculerjs/moleculer-db) 等其他模块...
 
-## How fast?
+## 超快
 
-We spent a lot of hours to improve the performance of Moleculer and create the fastest microservices framework for Node.js.
+我们花了很多时间来提高Moleculer的性能，致力于为Node.js创建最快的微服务框架。
 
 [![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
-Check the results on your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
+想要在您的计算机上检验结果! 只需克隆[此仓库](https://github.com/icebob/microservices-benchmark)并运行 `npm install && npm start`。
 
-[Check out our benchmark results.](benchmark.html)
+[或查看我们的基准测试。](benchmark.html)
 
 {% note info Versioning %}
-Until Moleculer reaches a `1.0` release, breaking changes will be released with a new minor version. For example `0.13.1`, and `0.13.4` will be backward compatible, but `0.14.0` will have breaking changes.
+在Moleculer达到`1.0`之前，重大更改仅通过次要版本发布。 例如，`0.13.1 `和`0.13.4 `将是后向兼容的，但`0.14.0`将会发生重大变化。
 {% endnote %}
 
 
 {% note info Node.js support %}
-Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `10`.
+Moleculer 跟随Node.js [发布周期](https://nodejs.org/en/about/releases/) 意味着最低要求版本是 `10`。
 {% endnote %}
