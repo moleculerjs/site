@@ -1,21 +1,21 @@
-title: Core Concepts
+核心概念
 ---
 
-This guide covers the core concepts of any Moleculer application.
+本指南涵盖 Moleculer 的核心概念。
 
-## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+## 服务
+一个[service](services.html)就是一个简单的 JavaScript 模块，它是某个复杂的应用程序的一部分。 服务是独立的, 自包含的，即使某个服务停止工作或者崩溃了，其它的服务也不会受到影响。
 
-## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+## 节点
+节点是一个在本地或外部网络上运行的简单进程。 单个节点实例可以提供一个或多个服务。
 
-### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+### 本地服务
+在单个节点上运行的两个(或多个) 服务被视为当地服务。 他们共享硬件资源并以本地方式相互通讯，无网络延迟(也不需要使用[transporter](#Transporter))。
 
-### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+### 远程服务
+跨越多个节点分配的服务被认为是远程的。 在这种情况下，通过[transporter](#Transporter)进行通信。
 
-## Service Broker
+## 服务管理者
 [Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
 
 ## Transporter
