@@ -29,9 +29,9 @@
 
 ### 架构
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+从构建的角度来看，这个网上商店可以被看作是两个独立服务的组合：`products` 服务和 `gateway` 服务。 Products 服务负责产品的储存和管理，gateway 服务接受用户的请求，并将其转达到`products` 服务上。
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+现在让我们看看怎样使用 Moleculer 来创建这个假设的商店。
 
 To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
 
