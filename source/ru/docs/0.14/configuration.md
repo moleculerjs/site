@@ -16,12 +16,13 @@ title: Конфигурация
 * **`maxCallLevel`**: `Number` - Ограничение уровня вложенных действий. Если он достигнет предела, брокер бросит ошибку `MaxCallLevelError`. _(Защита от бесконечного цикла)_ _По умолчанию: `0`_
 * **`heartbeatInterval`**: `Number` - Период отправки пакета сердечного ритма, в секундах. _По умолчанию: `5`_
 * **`heartbeatTimeout`**: `Number` - Число секунд ожидания перед установкой статуса недоступности удаленного узла в реестре. _По умолчанию: `15`_
-* **`tracking`**: `Object` - Отслеживание запросов и ожидание выполнения запросов перед выключением. _(Вежливое выключение)_ [Подробнее](fault-tolerance.html).
+* **`tracking`**: `Object` - Отслеживание запросов и ожидание выполнения запросов перед выключением. _(Вежливое выключение)_ [Подробнее](context.html#Context-tracking).
 * **`disableBalancer`**: Boolean - Отключить встроенный балансировщик действий и событий. _Транспорт должен поддерживать его._ [Подробнее](networking.html#Disabled-balancer). _По умолчанию: `false`_
 * **`registry`**: `Object` - Настройки [Реестра сервиса](registry.html).
 * **`circuitBreaker`**: `Object` - Настройки [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
 * **`bulkhead`**: `Object` - Настройки [bulkhead](fault-tolerance.html#Bulkhead).
 * **`transit.maxQueueSize`**: `Number` - Защита от чрезмерного потребления памяти, когда слишком много исходящих запросов. Если число запросов больше _указанного_, новые запросы будут отклонены с ошибкой `QueueIsFullError`. _По умолчанию: `50000`_
+* **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_
 * **`transit.disableReconnect`**: `Boolean` - Отключить логику переподключения при запуске брокера. _По умолчанию: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Отключить логику проверки версий протокола. _По умолчанию: `false`_
 * **`transit.packetLogFilter`**: `Array` - Фильтрует пакеты в сообщениях журнала отладки. Это может быть полезно для фильтрации `HEARTBEAT` пакетов при отладке. _По умолчанию: `[]`_

@@ -297,34 +297,28 @@ module.exports = {
     }
 };
 ```
+If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) you the following notation:
+
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+
+    methods: {
+        list: {
+            async handler(count) {
+                // Do something
+                return posts;
+            }
+        }
+    }
+};
+```
+
+
 > The method name can't be `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
 
 > In methods the `this` is always pointed to the Service instance.
-
-## Current Context Storage
-ServiceBroker has a continuous local storage that stores the current context. It means you don't need pass the `ctx` from actions to service [methods](#Methods). You can get it with `this.currentContext`.
-
-> Context storage is built with Node.js [`async_hooks`](https://nodejs.org/api/async_hooks.html) built-in module.
-
-```js
-// greeter.service.js
-module.exports = {
-    name: "greeter",
-    actions: {
-        hello(ctx) {
-            return this.Promise.resolve()
-                .then(() => this.doSomething());
-
-        }
-    },
-    methods: {
-        doSomething() {
-            const ctx = this.currentContext;
-            return ctx.call("other.service");
-        }
-    }
-});
-```
 
 ## Lifecycle Events
 There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.

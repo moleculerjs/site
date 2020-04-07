@@ -508,3 +508,22 @@ module.exports = {
     }
 };
 ```
+
+## Custom logger
+If you have your custom logger you should wrap it into a `BaseLogger` class and implement at least the `getLogHandler` method.
+
+**Using a custom logger**
+```js
+// moleculer.config.js
+ const BaseLogger = require("moleculer").Loggers.Base;
+
+class MyLogger extends BaseLogger {
+    getLogHandler(bindings) {
+        return (type, args) => console[type](`[MYLOG-${bindings.mod}]`, ...args);
+    }
+}
+
+module.exports = {
+    logger: new MyLogger()
+};
+```
