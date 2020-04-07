@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-The `meta` is sent back to the caller service. Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+`meta` 会被回传给服务调用者。 Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
 
 ```js
 broker.createService({
