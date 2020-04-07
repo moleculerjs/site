@@ -1,10 +1,10 @@
 title: Examples
 ---
 
-## Project examples
+## 项目示例
 
-### Realworld backend server
-This is a [RealWorld.io](https://realworld.io/) example backend server with Moleculer microservices framework.
+### Realworld 后端服务器
+这是一个使用 Moleculer 编写的 [RealWorld.io](https://realworld.io/) 示例后端服务器。
 
 **Key features**
 - 7 microservices
