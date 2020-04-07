@@ -74,7 +74,7 @@ broker.start()
   <img src="assets/usage/usage-demo-2.gif" />
 </div>
 
-5. Open the [http://localhost:3000/](http://localhost:3000/) link in your browser. 它显示了一个包含两个链接的起始页面，通过 [API 网关](https://github.com/moleculerjs/moleculer-web)调用`greeter` 服务。
+5. 在您的浏览器中打开 [http://localhost:3000/](http://localhost:3000/) 链接。 它显示了一个包含两个链接的起始页面，通过 [API 网关](https://github.com/moleculerjs/moleculer-web)调用`greeter` 服务。
 
 {% note info Congratulations! %}
 您刚刚创建了第一个基于 Moleculer 的微服务项目！ 接下来，查看 Moleculer [核心概念](concepts.html) 页面来熟悉这些概念并看看它们是如何相互配合的。 或者，您也可以签出[examples](examples.html)或[demo projects](https://github.com/moleculerjs/moleculer-examples)。
