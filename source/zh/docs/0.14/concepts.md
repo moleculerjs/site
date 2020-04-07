@@ -16,18 +16,18 @@
 跨越多个节点分配的服务被认为是远程的。 在这种情况下，通过[transporter](#Transporter)进行通信。
 
 ## 服务管理者
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+[Service Broker](broker.html)是Moleculer的核心。 它负责各（本地和远程）服务之间的管理和通信。 每个节点至少需要有一个 Service Broker 实例。
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## 推送系统
+[Transporter](networking.html)用于在服务间交换信息。 它传送事件、请求和响应。
 
-## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+## 网关
+[API 网关](moleculer-web.html)将 Moleculer 服务暴露给最终用户。 网关是一个运行 (HTTP, WebSockets 等) 服务器的 Moleculer 常规服务。 它处理收到的请求，将请求转换为服务调用，然后返回适当的响应。
 
 ## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+说半天不如举个例子。 我们假设有一个网上商店，现在，只想列出它的产品。 它实际上没有在线销售任何东西。
 
-### Architecture
+### 架构
 
 From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
 
