@@ -289,15 +289,15 @@ module.exports = {
 ```
 
 ## 动作的可见性
-The action has a `visibility` property to control the visibility & callability of service actions.
+动作有一个 `visibility` 属性，用来控制服务动作的可见性和可调用性。
 
-**Available values:**
-- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
-- `public`: public action, can be called locally & remotely but not published via API GW
-- `protected`: can be called only locally (from local services)
-- `private`: can be called only internally (via `this.actions.xy()` inside service)
+**可用值：**
+- `published` 或 `null`: 公开的动作。 它可以被本地调用，远程调用，并可以通过 API 网关发布
+- `public`: 公开动作可以在本地调用 & 远程调用，但不能通过 API GW 发布
+- `protected`：只能本地调用(从本地服务)
+- `private`：只能在服务内部调用 ( `this.actions.xy()`)
 
-**Change visibility**
+**更改可见性**
 ```js
 module.exports = {
     name: "posts",
@@ -317,6 +317,9 @@ module.exports = {
         }
     }
 }
+ 
+Text
+Xpath: /pre[19]/code
 ```
 
 > The default values is `null` (means `published`) due to backward compatibility.
