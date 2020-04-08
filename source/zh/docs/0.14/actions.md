@@ -322,10 +322,10 @@ Text
 Xpath: /pre[19]/code
 ```
 
-> The default values is `null` (means `published`) due to backward compatibility.
+> 为了后向兼容性，默认值是 `null` (意为`published`)。
 
-## Action hooks
-Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+## 动作钩子
+动作钩子是可插入和可重用的middleware功能，可以在服务动作中注册`before`, `after` 或`errors`钩子。 A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
 ### Before hooks
 In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
