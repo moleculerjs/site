@@ -3,8 +3,8 @@ title: 参数验证
 Moleculer 有一个内置的验证模块。 它使用[fastest-validator](https://github.com/icebob/fastest-validator) 库.
 
 ## 内置验证器
-### 活动验证
-活动验证默认是启用的，因此您只需要定义活动声明中的`params`属性，活动声明包含正在接收的`ctx.params`的验证模型。
+### 动作验证
+动作验证默认是启用的，因此您只需要定义动作声明中的`params`属性，动作声明包含正在接收的`ctx.params`的验证模型。
 
 **示例**
 ```js
@@ -59,7 +59,7 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 
 ### 事件验证
 也支持事件参数验证。 为了启用它，定义事件声明中的 `params`，而内置的 `Validator` 将负责验证它们。
-> 注意，同时有活动错误发生时，验证错误不会回送给调用者。 事件验证错误会输出到日志，您也可以使用 [global error handler](broker.html#Global-error-handler) 来捕获它们。
+> 注意，同时有动作错误发生时，验证错误不会回送给调用者。 事件验证错误会输出到日志，您也可以使用 [global error handler](broker.html#Global-error-handler) 来捕获它们。
 
 ```js
 // mailer.service.js
