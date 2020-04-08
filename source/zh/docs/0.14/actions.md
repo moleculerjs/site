@@ -1,24 +1,24 @@
-title: 活动
+title: 动作
 ---
 
-服务公开的可调用的方法称为活动(actions)。 活动通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
+服务公开的可调用的方法称为动作 (actions)。 动作通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
 
-如果您有多个服务实例，服务管理器(broker) 将负责均衡它们的请求。 [获取更多关于负载均衡的信息](balancing.html)。
+如果您有多个服务实例，服务管理器 (broker)  将负责均衡它们的请求。 [获取更多关于负载均衡的信息](balancing.html)。
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
 ## 服务调用
-要调用服务，请使用 `broker.call` 方法。 服务管理者寻找具有指定活动的服务（和节点）并调用该活动。 调用后返回 `Promise`。
+要调用服务，请使用 `broker.call` 方法。 服务管理者寻找具有指定动作的服务（和节点）并调用该动作。 调用后返回 `Promise`。
 
 ### 语法
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-这里，`actionName`是一个点分隔的字符串。 点之前是服务名称，点后面则是活动名称。 因此，如果您的 `posts` 服务有一个 `create` 活动，您可以这样调用 `posts.create`。
+这里，`actionName`是一个点分隔的字符串。 点之前是服务名称，点后面则是动作名称。 因此，如果您的 `posts` 服务有一个 `create` 动作，您可以这样调用 `posts.create`。
 
-`params` 是一个对象，作为 [Context](context.html) 的一部分传递到该活动。 服务可以经由 `ctx.params` 访问它。 *params</0> 是可选的。 如果您没有定义它，则为 `{}`</p>
+`params` 是一个对象，作为 [Context](context.html) 的一部分传递到该动作。 服务可以经由 `ctx.params` 访问它。 *params</0> 是可选的。 如果您没有定义它，则为 `{}`</p>
 
 `opts` 是一个要 设置/覆盖 某些请求参数的对象，例如`timeout`, `retryCount`。 *opts 也是可选的。*
 
