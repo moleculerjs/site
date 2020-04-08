@@ -18,7 +18,7 @@ const res = await broker.call(actionName, params, opts);
 ```
 这里，`actionName`是一个点分隔的字符串。 点之前是服务名称，点后面则是动作名称。 因此，如果您的 `posts` 服务有一个 `create` 动作，您可以这样调用 `posts.create`。
 
-`params` 是一个对象，作为 [Context](context.html) 的一部分传递到该动作。 服务可以经由 `ctx.params` 访问它。 *params</0> 是可选的。 如果您没有定义它，则为 `{}`</p>
+`params` 是一个对象，作为 [Context](context.html) 的一部分传递到该动作。 服务可以经由 `ctx.params` 访问它。 *params 是可选的。 如果您没有定义它，则为 `{}`*
 
 `opts` 是一个要 设置/覆盖 某些请求参数的对象，例如`timeout`, `retryCount`。 *opts 也是可选的。*
 
@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-`meta` 会被回传给服务调用者。 Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+`meta` 会被回传给服务调用者。 使用它来向调用者回送额外的元信息。 例如：将响应头回送到API网关或解析登录用户的元数据。
 
 ```js
 broker.createService({
@@ -112,9 +112,9 @@ broker.createService({
 });
 ```
 
-When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
+当服务内部调用动作 (`this.actions.xy()`)时，您应该设置 `meta` 的 `parentCtx` 字段以传递数据。
 
-**Internal calls**
+**内部调用**
 ```js
 broker.createService({
   name: "mod",
@@ -137,11 +137,11 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
-### Timeout
+### 超时
 
-Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+最好在动作声明中设定超时。 它覆盖全局服务管理者的 [`requestTimeout` 选项](fault-tolerance.html#Timeout)，但在不会覆盖调用选项中的`timeout`。
 
-**Example**
+**示例**
  ```js
 // moleculer.config.js
 module.exports = {
@@ -166,7 +166,7 @@ module.exports = {
         }
     },
 ```
-**Calling examples**
+**调用示例**
 ```js
 // It uses the global 3000 timeout
 await broker.call("greeter.normal");
@@ -175,11 +175,11 @@ await broker.call("greeter.slow");
  // It uses 1000 timeout from calling option
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
-### Multiple calls
+### 多个调用
 
-Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+同时调用多个动作也是可能的。 要做到这一点，请使用 `broker.mcall` 或 `ctx.mcall`。
 
-**`mcall` with Array< Object >**
+**`mcall` 使用 Object 数组**
 ```js
 await broker.mcall(
     [
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` with Object**
+**`mcall` 使用 Object**
 ```js
 await broker.mcall(
     {
@@ -207,12 +207,12 @@ await broker.mcall(
 );
 ```
 
-## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+## 流
+Moleculer 支持 Node.js 流作为请求 `params` 和响应。 使用它从网关传入文件、编码/解码或压缩/解压流。
 
-### Examples
+### 示例
 
-**Send a file to a service as a stream**
+**将文件作为流发送到服务**
 ```js
 const stream = fs.createReadStream(fileName);
 
@@ -220,12 +220,12 @@ broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
 {% note info Object Mode Streaming%}
-[Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. In order to enable it set `$streamObjectMode: true` in [`meta`](actions.html#Metadata).
+还支持[对象模式流](https://nodejs.org/api/stream.html#stream_object_mode)。 为了启用它，在 [`meta`](actions.html#Metadata) 中设置 `$streamObjectMode：true` 。
 {% endnote %}
 
-Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
+请注意，现在`params`应该是一个流，您不能在`params`添加任何其他变量。 使用`meta`属性来传输额外数据。
 
-**Receiving a stream in a service**
+**在服务中接收流**
 ```js
 module.exports = {
     name: "storage",
@@ -239,7 +239,7 @@ module.exports = {
 };
 ```
 
-**Return a stream as response in a service**
+**在服务中返回响应流**
 ```js
 module.exports = {
     name: "storage",
@@ -256,7 +256,7 @@ module.exports = {
 };
 ```
 
-**Process received stream on the caller side**
+**调用方收到流程流**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -267,7 +267,7 @@ broker.call("storage.get", { filename })
     })
 ```
 
-**AES encode/decode example service**
+**AES 编码/解码服务示例**
 ```js
 const crypto = require("crypto");
 const password = "moleculer";
@@ -288,7 +288,7 @@ module.exports = {
 };
 ```
 
-## Action visibility
+## 动作的可见性
 The action has a `visibility` property to control the visibility & callability of service actions.
 
 **Available values:**
