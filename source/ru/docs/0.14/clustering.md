@@ -5,17 +5,17 @@ Moleculer framework supports several software architectures.
 ## Monolith architecture
 In this version, all services are running on the same node like a monolith. There is no network latency and no transporter module. _The local calls are the fastest._
 
-![Monolith architecture](assets/architectures/monolith.svg)
+![Monolith architecture](../../../docs/0.14/assets/architectures/monolith.svg)
 
 ## Microservices architecture
 This is the well-known microservices architecture when all services are running on individual nodes and communicate via transporter. In this case, the network latency is not negligible. However, your services can be scaled to be resilient and fault-tolerant.
 
-![Microservices architecture](assets/architectures/microservices.svg)
+![Microservices architecture](../../../docs/0.14/assets/architectures/microservices.svg)
 
 ## Mixed architecture
 In this case, we are running coherent services in a group on the same node. It combines the advantages of monolith and microservices architectures. For example, if the `posts` service calls the `users` service multiple times, put them to the same node, so that the network latency between these services is cut down. If the node is overloaded, just scale it up.
 
-![Mixed architecture](assets/architectures/mixed.svg)
+![Mixed architecture](../../../docs/0.14/assets/architectures/mixed.svg)
 
 {% note info Tip %}
 The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. This logic can be turned off in [broker options](configuration.html#Broker-options) with `preferLocal: false` property under the `registry` key.

@@ -65,7 +65,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-full.png#zoomable)
+**Preview** ![Console](../../../docs/0.14/assets/logging/console-full.png#zoomable)
 
 
 ##### `short` formatter
@@ -81,7 +81,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-short.png#zoomable)
+**Preview** ![Console](../../../docs/0.14/assets/logging/console-short.png#zoomable)
 
 
 ##### `simple` formatter
@@ -97,7 +97,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-simple.png#zoomable)
+**Preview** ![Console](../../../docs/0.14/assets/logging/console-simple.png#zoomable)
 
 
 ##### `json` formatter
@@ -113,7 +113,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-json.png#zoomable)
+**Preview** ![Console](../../../docs/0.14/assets/logging/console-json.png#zoomable)
 
 
 ##### Custom formatter
@@ -129,7 +129,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-custom.png#zoomable)
+**Preview** ![Console](../../../docs/0.14/assets/logging/console-custom.png#zoomable)
 
 
 ### File
@@ -208,7 +208,7 @@ module.exports = {
 To use this logger please install the `pino` module with `npm install pino --save` command.
 {% endnote %}
 
-**Preview** ![Pino](assets/logging/pino.png#zoomable)
+**Preview** ![Pino](../../../docs/0.14/assets/logging/pino.png#zoomable)
 
 ### Bunyan
 This logger uses the [Bunyan](https://github.com/trentm/node-bunyan) logger.
@@ -244,7 +244,7 @@ module.exports = {
 To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
 {% endnote %}
 
-**Preview** ![Bunyan](assets/logging/bunyan.png#zoomable)
+**Preview** ![Bunyan](../../../docs/0.14/assets/logging/bunyan.png#zoomable)
 
 ### Winston
 This logger uses the [Winston](https://github.com/winstonjs/winston) logger.
@@ -285,7 +285,7 @@ module.exports = {
 To use this logger please install the `winston` module with `npm install winston --save` command.
 {% endnote %}
 
-**Preview** ![Winston](assets/logging/winston.png#zoomable)
+**Preview** ![Winston](../../../docs/0.14/assets/logging/winston.png#zoomable)
 
 ### `debug`
 This logger uses the [debug](https://github.com/visionmedia/debug) logger. To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
@@ -316,7 +316,7 @@ module.exports = {
 To use this logger please install the `debug` module with `npm install debug --save` command.
 {% endnote %}
 
-**Preview** ![debug](assets/logging/debug.png#zoomable)
+**Preview** ![debug](../../../docs/0.14/assets/logging/debug.png#zoomable)
 
 ### Log4js
 This logger uses the [Log4js](https://github.com/log4js-node/log4js-node) logger.
@@ -357,7 +357,7 @@ module.exports = {
 To use this logger please install the `log4js` module with `npm install log4js --save` command.
 {% endnote %}
 
-**Preview** ![Log4js](assets/logging/log4js.png#zoomable)
+**Preview** ![Log4js](../../../docs/0.14/assets/logging/log4js.png#zoomable)
 
 ### Datadog
 This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) server.
@@ -402,7 +402,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
+**Preview** ![Datadog Log Explorer](../../../docs/0.14/assets/logging/datadog-log-explorer.png#zoomable)
 
 ## Multiple Loggers
 This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.

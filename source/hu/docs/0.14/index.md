@@ -30,7 +30,7 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 
 We spent a lot of hours to improve the performance of Moleculer and create the fastest microservices framework for Node.js.
 
-[![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Benchmark local](../../../docs/0.14/assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](../../../docs/0.14/assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 Check the results on your computer! Just clone [this repo](https://github.com/icebob/microservices-benchmark) and run `npm install && npm start`.
 

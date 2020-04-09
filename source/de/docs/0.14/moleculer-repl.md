@@ -58,9 +58,9 @@ mol $ nodes
     --save [filename]     save service registry to a JSON file
 ```
 
-**Output** ![image](assets/repl/nodes.png)
+**Output** ![image](../../../docs/0.14/assets/repl/nodes.png)
 
-**Detailed output** ![image](assets/repl/nodes-detailed.png)
+**Detailed output** ![image](../../../docs/0.14/assets/repl/nodes-detailed.png)
 
 ### List services
 ```bash
@@ -76,9 +76,9 @@ mol $ services
     -l, --local           only local services
 ```
 
-**Output** ![image](assets/repl/services.png)
+**Output** ![image](../../../docs/0.14/assets/repl/services.png)
 
-**Detailed output** ![image](assets/repl/services-detailed.png)
+**Detailed output** ![image](../../../docs/0.14/assets/repl/services-detailed.png)
 
 ### List actions
 ```bash
@@ -94,9 +94,9 @@ mol $ actions
     -l, --local           only local actions
 ```
 
-**Output** ![image](assets/repl/actions.png)
+**Output** ![image](../../../docs/0.14/assets/repl/actions.png)
 
-**Detailed output** ![image](assets/repl/actions-detailed.png)
+**Detailed output** ![image](../../../docs/0.14/assets/repl/actions-detailed.png)
 
 ### List events
 ```bash
@@ -112,9 +112,9 @@ mol $ events
     -l, --local           only local event listeners
 ```
 
-**Output** ![image](assets/repl/events.png)
+**Output** ![image](../../../docs/0.14/assets/repl/events.png)
 
-**Detailed output** ![image](assets/repl/events-detailed.png)
+**Detailed output** ![image](../../../docs/0.14/assets/repl/events-detailed.png)
 
 
 ### Show common information
@@ -134,7 +134,7 @@ mol $ env
 mol $ call "test.hello"
 ```
 
-**Output** ![image](assets/repl/call1.png)
+**Output** ![image](../../../docs/0.14/assets/repl/call1.png)
 
 **Options**
 ```
@@ -224,7 +224,7 @@ mol $ bench --time 30 math.add
     --nodeID <nodeID>  NodeID (direct call)
 ```
 
-**Output** ![image](assets/repl/bench.gif)
+**Output** ![image](../../../docs/0.14/assets/repl/bench.gif)
 
 
 #### Parameters
@@ -253,7 +253,7 @@ mol $ metrics
     -f, --filter <match>  filter metrics (e.g.: 'moleculer.**')
 ```
 
-**Output** ![image](assets/repl/metrics.png#zoomable)
+**Output** ![image](../../../docs/0.14/assets/repl/metrics.png#zoomable)
 
 ### Custom commands
 Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.

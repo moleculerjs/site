@@ -30,7 +30,7 @@ Moleculer是基于[Node.js](https://nodejs.org/en/)的快速、多功能的现�
 
 我们花了很多时间来提高Moleculer的性能，致力于为Node.js创建最快的微服务框架。
 
-[![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Benchmark local](../../../docs/0.14/assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](../../../docs/0.14/assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 想要在您的计算机上检验结果! 只需克隆[此仓库](https://github.com/icebob/microservices-benchmark)并运行 `npm install && npm start`。
 
