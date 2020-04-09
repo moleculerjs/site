@@ -1,41 +1,41 @@
-title: Actions
+title: 动作
 ---
 
-The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+服务公开的可调用的方法称为动作 (actions)。 动作通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
 
-If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
+如果您有多个服务实例，服务管理器 (broker)  将负责均衡它们的请求。 [获取更多关于负载均衡的信息](balancing.html)。
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
-## Call services
-To call a service use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
+## 服务调用
+要调用服务，请使用 `broker.call` 方法。 服务管理者寻找具有指定动作的服务（和节点）并调用该动作。 调用后返回 `Promise`。
 
-### Syntax
+### 语法
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
+这里，`actionName`是一个点分隔的字符串。 点之前是服务名称，点后面则是动作名称。 因此，如果您的 `posts` 服务有一个 `create` 动作，您可以这样调用 `posts.create`。
 
-The `params` is an object which is passed to the action as a part of the [Context](context.html). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
+`params` 是一个对象，作为 [Context](context.html) 的一部分传递到该动作。 服务可以经由 `ctx.params` 访问它。 *params 是可选的。 如果您没有定义它，则为 `{}`*
 
-The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
+`opts` 是一个要 设置/覆盖 某些请求参数的对象，例如`timeout`, `retryCount`。 *opts 也是可选的。*
 
-**Available calling options:**
+**可用的调用选项：**
 
-| Name               | Type      | Default | Description                                                                                                                                                                                                                                                                                           |
-| ------------------ | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null`  | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`  | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null`  | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                    |
-| `nodeID`           | `String`  | `null`  | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
-| `meta`             | `Object`  | `{}`    | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
-| `parentCtx`        | `Context` | `null`  | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
-| `requestID`        | `String`  | `null`  | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
+| 名称                 | 类型        | 默认值    | 说明                                                                                                                                                                                                                                                                                                    |
+| ------------------ | --------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
+| `fallbackResponse` | `Any`     | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                    |
+| `nodeID`           | `String`  | `null` | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
+| `meta`             | `Object`  | `{}`   | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
+| `parentCtx`        | `Context` | `null` | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
+| `requestID`        | `String`  | `null` | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
 
 
-### Usages
+### 用例
 **Call without params**
 ```js
 const res = await broker.call("user.list");
@@ -67,8 +67,8 @@ broker.call("posts.update", { id: 2, title: "Modified post title" })
 const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
-### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
+### 元数据
+服务的 `meta` 属性负责发送元数据。 在活动处理器中通过 `ctx.mete` 来访问它。 注意，在嵌套调用中 `meta` 被合并。
 ```js
 broker.createService({
     name: "test",
@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-The `meta` is sent back to the caller service. Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+`meta` 会被回传给服务调用者。 使用它来向调用者回送额外的元信息。 例如：将响应头回送到API网关或解析登录用户的元数据。
 
 ```js
 broker.createService({
@@ -112,9 +112,9 @@ broker.createService({
 });
 ```
 
-When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
+当服务内部调用动作 (`this.actions.xy()`)时，您应该设置 `meta` 的 `parentCtx` 字段以传递数据。
 
-**Internal calls**
+**内部调用**
 ```js
 broker.createService({
   name: "mod",
@@ -137,11 +137,11 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
-### Timeout
+### 超时
 
-Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+最好在动作声明中设定超时。 它覆盖全局服务管理者的 [`requestTimeout` 选项](fault-tolerance.html#Timeout)，但在不会覆盖调用选项中的`timeout`。
 
-**Example**
+**示例**
  ```js
 // moleculer.config.js
 module.exports = {
@@ -166,7 +166,7 @@ module.exports = {
         }
     },
 ```
-**Calling examples**
+**调用示例**
 ```js
 // It uses the global 3000 timeout
 await broker.call("greeter.normal");
@@ -175,11 +175,11 @@ await broker.call("greeter.slow");
  // It uses 1000 timeout from calling option
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
-### Multiple calls
+### 多个调用
 
-Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+同时调用多个动作也是可能的。 要做到这一点，请使用 `broker.mcall` 或 `ctx.mcall`。
 
-**`mcall` with Array< Object >**
+**`mcall` 使用 Object 数组**
 ```js
 await broker.mcall(
     [
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` with Object**
+**`mcall` 使用 Object**
 ```js
 await broker.mcall(
     {
@@ -207,12 +207,12 @@ await broker.mcall(
 );
 ```
 
-## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+## 流
+Moleculer 支持 Node.js 流作为请求 `params` 和响应。 使用它从网关传入文件、编码/解码或压缩/解压流。
 
-### Examples
+### 示例
 
-**Send a file to a service as a stream**
+**将文件作为流发送到服务**
 ```js
 const stream = fs.createReadStream(fileName);
 
@@ -220,12 +220,12 @@ broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
 {% note info Object Mode Streaming%}
-[Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. In order to enable it set `$streamObjectMode: true` in [`meta`](actions.html#Metadata).
+还支持[对象模式流](https://nodejs.org/api/stream.html#stream_object_mode)。 为了启用它，在 [`meta`](actions.html#Metadata) 中设置 `$streamObjectMode：true` 。
 {% endnote %}
 
-Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
+请注意，现在`params`应该是一个流，您不能在`params`添加任何其他变量。 使用`meta`属性来传输额外数据。
 
-**Receiving a stream in a service**
+**在服务中接收流**
 ```js
 module.exports = {
     name: "storage",
@@ -239,7 +239,7 @@ module.exports = {
 };
 ```
 
-**Return a stream as response in a service**
+**在服务中返回响应流**
 ```js
 module.exports = {
     name: "storage",
@@ -256,7 +256,7 @@ module.exports = {
 };
 ```
 
-**Process received stream on the caller side**
+**调用方收到流程流**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -267,7 +267,7 @@ broker.call("storage.get", { filename })
     })
 ```
 
-**AES encode/decode example service**
+**AES 编码/解码服务示例**
 ```js
 const crypto = require("crypto");
 const password = "moleculer";
@@ -288,16 +288,16 @@ module.exports = {
 };
 ```
 
-## Action visibility
-The action has a `visibility` property to control the visibility & callability of service actions.
+## 动作的可见性
+动作有一个 `visibility` 属性，用来控制服务动作的可见性和可调用性。
 
-**Available values:**
-- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
-- `public`: public action, can be called locally & remotely but not published via API GW
-- `protected`: can be called only locally (from local services)
-- `private`: can be called only internally (via `this.actions.xy()` inside service)
+**可用值：**
+- `published` 或 `null`: 公开的动作。 它可以被本地调用，远程调用，并可以通过 API 网关发布
+- `public`: 公开动作可以在本地调用 & 远程调用，但不能通过 API GW 发布
+- `protected`：只能本地调用(从本地服务)
+- `private`：只能在服务内部调用 ( `this.actions.xy()`)
 
-**Change visibility**
+**更改可见性**
 ```js
 module.exports = {
     name: "posts",
@@ -317,12 +317,15 @@ module.exports = {
         }
     }
 }
+ 
+Text
+Xpath: /pre[19]/code
 ```
 
-> The default values is `null` (means `published`) due to backward compatibility.
+> 为了后向兼容性，默认值是 `null` (意为`published`)。
 
-## Action hooks
-Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+## 动作钩子
+动作钩子是可插入和可重用的middleware功能，可以在服务动作中注册`before`, `after` 或`errors`钩子。 A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
 ### Before hooks
 In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._

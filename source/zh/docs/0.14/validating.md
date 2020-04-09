@@ -1,12 +1,12 @@
-title: Parameter Validation
+title: 参数验证
 ---
-Moleculer has a built-in validator module. It uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+Moleculer 有一个内置的验证模块。 它使用[fastest-validator](https://github.com/icebob/fastest-validator) 库.
 
-## Built-in Validator
-### Actions Validation
-It's enabled by default, so you should just define `params` property in action definition which contains validation schema for the incoming `ctx.params`.
+## 内置验证器
+### 动作验证
+动作验证默认是启用的，因此您只需要定义动作声明中的`params`属性，动作声明包含正在接收的`ctx.params`的验证模型。
 
-**Example**
+**示例**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -42,9 +42,9 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 // -> "Hello Walter"
 
 ```
-[Play it on Runkit](https://runkit.com/icebob/moleculer-validation-example)
+[在 Runkit 运行](https://runkit.com/icebob/moleculer-validation-example)
 
-**Example validation schema**
+**验证模式示例**
 ```js
 {
     id: { type: "number", positive: true, integer: true },
@@ -54,12 +54,12 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 ```
 
 {% note info Documentation %}
-Find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
+在[库文档](https://github.com/icebob/fastest-validator#readme)中查找更多关于验证模型的信息
 {% endnote %}
 
-### Events Validation
-Event parameter validation is also supported. To enable it, define `params` in event definition and the built-in `Validator` will take care of the validation.
-> Please note that the validation errors are not sent back to the caller, as happens with action errors. Event validation errors are logged but you can also catch them with the [global error handler](broker.html#Global-error-handler).
+### 事件验证
+也支持事件参数验证。 为了启用它，定义事件声明中的 `params`，而内置的 `Validator` 将负责验证它们。
+> 注意，同时有动作错误发生时，验证错误不会回送给调用者。 事件验证错误会输出到日志，您也可以使用 [global error handler](broker.html#Global-error-handler) 来捕获它们。
 
 ```js
 // mailer.service.js
@@ -82,10 +82,10 @@ module.exports = {
 };
 ```
 
-## Custom validator
-Custom validator can be created. You should implement `compile` and `validate` methods of `BaseValidator`.
+## 自定义验证器
+可以创建自定义验证器。 您需要实现 `compile` 和 `validate` 方法`BaseValidator`。
 
-### Create a [Joi](https://github.com/hapijs/joi) validator
+### 创建 [Joi](https://github.com/hapijs/joi) 验证器
 ```js
 const BaseValidator = require("moleculer").Validator;
 const { ValidationError } = require("moleculer").Errors;
@@ -112,7 +112,7 @@ class JoiValidator extends BaseValidator {
 module.exports = JoiValidator;
 ```
 
-**Use custom Joi validator**
+**使用自定义 Joi 验证器**
 ```js
 const { ServiceBroker } = require("moleculer");
 const Joi = require("joi");
@@ -155,5 +155,5 @@ broker.start()
 ```
 
 {% note info Find more validators %}
-[Check the modules page and find more validators.](/modules.html#validation)
+[可从模块页面找到更多验证器。](/modules.html#validation)
 {% endnote %}

@@ -1,102 +1,102 @@
 ---
 menu:
-  docs: Documentation
-  modules: Modules
-  support: Support
+  docs: 文档
+  modules: 模块
+  support: 支持
   github: Github
-  discord: Discord Chat
-  blog: Blog
-  store: Store
-  search: Search...
+  discord: Discord 聊天
+  blog: 博客
+  store: 商店
+  search: 搜索...
 index:
-  get_started: Get started
-  who_is_using: Who is using Moleculer?
-  tell_us: If you don't see here your company, tell us.
+  get_started: 开始使用
+  who_is_using: 谁在使用 Moleculer？
+  tell_us: 如果在这里看不到你的公司，告诉我们。
 page:
-  contents: Contents
-  back_to_top: Back to Top
-  improve: Improve this doc
-  prev: Prev
-  next: Next
-  last_updated: "Last updated: %s"
+  contents: 目录
+  back_to_top: 返回顶部
+  improve: 改进本文档
+  prev: 上一个
+  next: 下一个
+  last_updated: "最后更新： %s"
 sidebar:
   docs:
-    getting_started: Getting Started
-    what_is_it: What is Moleculer?
-    overview: Overview
-    install: Install
-    usage: Usage
-    examples: Examples
-    concepts: Core Concepts
-    support: Support
-    introduction: Introduction
-    core: Core
-    configuration: Configuration
-    broker: Broker
-    service: Service
-    services: Services
-    lifecycle: Lifecycles
-    actions: Actions
-    events: Events
-    context: Context
-    middlewares: Middlewares
-    caching: Caching
-    networking: Networking
-    registry: Discovery & Registry
-    balancing: Load balancing
-    fault_tolerance: Fault tolerance
-    metrics: Metrics
-    tracing: Tracing
-    logging: Logging
-    validating: Validating
-    errors: Errors
-    runner: Moleculer Runner
-    modules: Modules
-    tools: Tools
-    moleculer_web: API Gateway
-    moleculer_repl: REPL console
-    moleculer_cli: CLI Tool
-    moleculer_db: DB Adapters
-    other_modules: Other modules
-    all_modules: All modules
-    miscellaneous: Miscellaneous
-    clustering: Clustering
-    deploying: Deploying
-    nodes: Nodes
+    getting_started: 开始
+    what_is_it: Moleculer 是什么?
+    overview: 概览
+    install: 安装
+    usage: 使用
+    examples: 示例
+    concepts: 核心概念
+    support: 支持
+    introduction: 简介
+    core: 核心
+    configuration: 配置
+    broker: 服务管理者
+    service: 服务
+    services: 服务
+    lifecycle: 生命周期
+    actions: 活动
+    events: 事件
+    context: 上下文
+    middlewares: 中间件
+    caching: 缓存
+    networking: 网络
+    registry: 发现和注册
+    balancing: 负载均衡
+    fault_tolerance: 容错
+    metrics: 指标
+    tracing: 跟踪
+    logging: 日志记录
+    validating: 验证
+    errors: 错误
+    runner: Moleculer 运行器
+    modules: 模块
+    tools: 工具
+    moleculer_web: API 网关
+    moleculer_repl: REPL 控制台
+    moleculer_cli: CLI 工具
+    moleculer_db: 数据库适配器
+    other_modules: 其他模块
+    all_modules: 所有模块
+    miscellaneous: 杂项
+    clustering: 集群
+    deploying: 部署
+    nodes: 节点
     docker: Docker
-    serverless: Serverless
-    benchmark: Benchmark
-    faq: FAQ
-    testing: Testing
-    contributing: Contributing
+    serverless: 无服务
+    benchmark: 基准测试
+    faq: 常见问题
+    testing: 测试
+    contributing: 贡献
     #Old 01.12 menu
-    transporters: Transporters
-    logger: Logger
-    circuit-breaker: Circuit Breaker
-    service-registry: Service Registry
-    cachers: Cachers
-    serializers: Serializers
-    statistics: Statistics
-    validation: Validation
+    transporters: 推送系统
+    logger: 日志
+    circuit-breaker: 断路器
+    service-registry: 服务注册
+    cachers: 缓存器
+    serializers: 序列化器
+    statistics: 统计
+    validation: 验证
     api: API
-    api_servicebroker: ServiceBroker
-    api_service: Service
-    api_context: Context
-    api_protocol: Protocol
+    api_servicebroker: 服务管理者
+    api_service: 服务
+    api_context: 上下文
+    api_protocol: 协议
 modules:
-  name: Name
-  description: Description
-  author: Author
-  version: Version
-  checkout_awesome: Check our Awesome Moleculer repo!
-  doyouhave: Do you have a custom module for Moleculer?
-  tellus: Tell us!
-  gateway: Gateways
-  general: General
-  databases: Databases & stores
-  tasks: Tasks, queues & jobs
-  metrics: Metrics & Tracing
-  validation: Validation
-  security: Security
-  tools: Tools
-  others: Others
+  name: 名字
+  description: 描述
+  author: 作者
+  version: 版本
+  checkout_awesome: 检出超赞的 Moleculer 库!
+  doyouhave: 您有 Moleculer 的自定义模块吗？
+  tellus: 告诉我们！
+  gateway: 网关
+  general: 通用
+  databases: 数据库和存储
+  tasks: 工作、 队列和任务
+  metrics: 计量和跟踪
+  validation: 验证
+  security: 安全
+  tools: 工具
+  others: 其 他

@@ -1,37 +1,37 @@
-title: Core Concepts
+核心概念
 ---
 
-This guide covers the core concepts of any Moleculer application.
+本指南涵盖 Moleculer 的核心概念。
 
-## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+## 服务
+一个[service](services.html)就是一个简单的 JavaScript 模块，它是某个复杂的应用程序的一部分。 服务是独立的, 自包含的，即使某个服务停止工作或者崩溃了，其它的服务也不会受到影响。
 
-## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+## 节点
+节点是一个在本地或外部网络上运行的简单进程。 单个节点实例可以提供一个或多个服务。
 
-### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+### 本地服务
+在单个节点上运行的两个(或多个) 服务被视为当地服务。 他们共享硬件资源并以本地方式相互通讯，无网络延迟(也不需要使用[transporter](#Transporter))。
 
-### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+### 远程服务
+跨越多个节点分配的服务被认为是远程的。 在这种情况下，通过[transporter](#Transporter)进行通信。
 
-## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+## 服务管理者
+[Service Broker](broker.html)是Moleculer的核心。 它负责各（本地和远程）服务之间的管理和通信。 每个节点至少需要有一个 Service Broker 实例。
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## 推送系统
+[Transporter](networking.html)用于在服务间交换信息。 它传送事件、请求和响应。
 
-## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+## 网关
+[API 网关](moleculer-web.html)将 Moleculer 服务暴露给最终用户。 网关是一个运行 (HTTP, WebSockets 等) 服务器的 Moleculer 常规服务。 它处理收到的请求，将请求转换为服务调用，然后返回适当的响应。
 
 ## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+说半天不如举个例子。 我们假设有一个网上商店，现在，只想列出它的产品。 它实际上没有在线销售任何东西。
 
-### Architecture
+### 架构
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+从构建的角度来看，这个网上商店可以被看作是两个独立服务的组合：`products` 服务和 `gateway` 服务。 Products 服务负责产品的储存和管理，gateway 服务接受用户的请求，并将其转达到`products` 服务上。
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+现在让我们看看怎样使用 Moleculer 来创建这个假设的商店。
 
 To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
 
