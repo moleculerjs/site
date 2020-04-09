@@ -20,7 +20,21 @@ $ moleculer init project my-project
 ```
 The above command downloads the template from [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), prompts some information and generates a new module to the `./my-project` folder.
 
-#### [Official templates](https://github.com/topics/moleculer-template)
+### Answers from file
+You can put the question answers into a JSON file and load it with the `--answers` argument. It can be useful to generate project programmatically.
+
+```bash
+$ moleculer init project my-project --answers ./answers.json
+```
+
+### Disable installing dependencies
+You can disable the automatic NPM dependency installation with `--no-install` argument. It can be useful to generate project programmatically.
+
+```bash
+$ moleculer init project my-project --answers ./answers.json --no-install
+```
+
+### [Official templates](https://github.com/topics/moleculer-template)
 
 * [**project**](https://github.com/moleculerjs/moleculer-template-project) - Generate a common Moleculer-based project. *Use it if you want to start a new project which is based on Moleculer framework*
 	* sample service (`greeter`)
@@ -105,13 +119,15 @@ $ moleculer start
 
 **Options**
 ```
-  --config, -c   Load configuration from a file           [string] [default: ""]
-  --ns           Namespace                                [string] [default: ""]
-  --id           NodeID                                 [string] [default: null]
-  --metrics, -m  Enable metrics                       [boolean] [default: false]
-  --hot, -h      Enable hot-reload                    [boolean] [default: false]
-  --cb           Enable circuit breaker               [boolean] [default: false]
-  --commands     Custom REPL command file mask          [string] [default: null]
+  --version     Show version number                                    [boolean]
+  --help        Show help                                              [boolean]
+  --config, -c  Load configuration from a file            [string] [default: ""]
+  --ns          Namespace                                 [string] [default: ""]
+  --level       Logging level                         [string] [default: "info"]
+  --id          NodeID                                  [string] [default: null]
+  --hot, -h     Enable hot-reload                     [boolean] [default: false]
+  --commands    Custom REPL command file mask (e.g.: ./commands/*.js)
+                                                        [string] [default: null]
 ```
 
 ## Connect
@@ -138,18 +154,33 @@ $ moleculer connect --config ./moleculer.config.js
 
 **Options**
 ```
-  --config, -c   Load configuration from a file           [string] [default: ""]
-  --ns           Namespace                                [string] [default: ""]
-  --id           NodeID                                 [string] [default: null]
-  --metrics, -m  Enable metrics                       [boolean] [default: false]
-  --hot, -h      Enable hot-reload                    [boolean] [default: false]
-  --cb           Enable circuit breaker               [boolean] [default: false]
-  --serializer   Serializer                             [string] [default: null]
-  --commands     Custom REPL command file mask          [string] [default: null]
+  --version     Show version number                                    [boolean]
+  --help        Show help                                              [boolean]
+  --config, -c  Load configuration from a file            [string] [default: ""]
+  --ns          Namespace                                 [string] [default: ""]
+  --level       Logging level                         [string] [default: "info"]
+  --id          NodeID                                  [string] [default: null]
+  --hot, -h     Enable hot-reload                     [boolean] [default: false]
+  --serializer  Serializer                              [string] [default: null]
+  --commands    Custom REPL command file mask (e.g.: ./commands/*.js)
+                                                        [string] [default: null]
 ```
 
 ## Call
 The `call` command can be used establish a connection with a Moleculer project and call an action with parameters. The result (stringified JSON) will be printed to the console. This means that you can process the result with another tool. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
+
+**Options**
+```
+  --version          Show version number                               [boolean]
+  --help             Show help                                         [boolean]
+  --config, -c       Load configuration from a file       [string] [default: ""]
+  --transporter, -t  Transporter connection string (NATS, nats://127.0.0.1:4222,
+                     ...etc)                            [string] [default: null]
+  --ns               Namespace                            [string] [default: ""]
+  --level            Logging level                  [string] [default: "silent"]
+  --id               NodeID                             [string] [default: null]
+  --serializer       Serializer                         [string] [default: null]
+```
 
 **Example with params**
 ```bash
@@ -175,6 +206,21 @@ TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
 
 ## Emit
 The `emit` command can be used establish a connection with a Moleculer project and emit an event with a payload. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
+
+**Options**
+```
+  --version          Show version number                               [boolean]
+  --help             Show help                                         [boolean]
+  --config, -c       Load configuration from a file       [string] [default: ""]
+  --transporter, -t  Transporter connection string (NATS, nats://127.0.0.1:4222,
+                     ...etc)                            [string] [default: null]
+  --ns               Namespace                            [string] [default: ""]
+  --level            Logging level                  [string] [default: "silent"]
+  --id               NodeID                             [string] [default: null]
+  --serializer       Serializer                         [string] [default: null]
+  --broadcast, -b    Send broadcast event             [boolean] [default: false]
+  --group, -g        Event groups                       [string] [default: null]
+```
 
 **Example with params**
 ```bash
