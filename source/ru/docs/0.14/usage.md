@@ -51,7 +51,7 @@ broker.start()
     ```bash
     $ moleculer init project moleculer-demo
     ```
- <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
+ <div align="center"><img src="../../../docs/0.14/assets/usage/usage-demo-1.gif" /></div>
 
     > Нажмите `ENTER` на все вопросы _(используйте стандартные ответы)_    
     
@@ -72,7 +72,7 @@ broker.start()
 
 
 <div align="center">
-  <img src="assets/usage/usage-demo-2.gif" />
+  <img src="../../../docs/0.14/assets/usage/usage-demo-2.gif" />
 </div>
 
 5. Откройте ссылку [http://localhost:3000/](http://localhost:3000/) в вашем браузере. Он покажет стартовую страницу, которая содержит две ссылки для вызова службы `greeter` через [API шлюз](https://github.com/moleculerjs/moleculer-web).

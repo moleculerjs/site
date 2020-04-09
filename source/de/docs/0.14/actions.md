@@ -6,7 +6,7 @@ The actions are the callable/public methods of the service. The action calling r
 If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
 
 <div align="center">
-    <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
+    <img src="../../../docs/0.14/assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
 ## Call services

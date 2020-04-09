@@ -51,7 +51,7 @@ In this example we use the official [Moleculer CLI tool](moleculer-cli.html) to 
     ```bash
     $ moleculer init project moleculer-demo
     ```
- <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
+ <div align="center"><img src="../../../docs/0.14/assets/usage/usage-demo-1.gif" /></div>
 
     > Press `ENTER` to all questions _(accept default answers)_    
     
@@ -72,7 +72,7 @@ In this example we use the official [Moleculer CLI tool](moleculer-cli.html) to 
 
 
 <div align="center">
-  <img src="assets/usage/usage-demo-2.gif" />
+  <img src="../../../docs/0.14/assets/usage/usage-demo-2.gif" />
 </div>
 
 5. Open the [http://localhost:3000/](http://localhost:3000/) link in your browser. It shows a start page which contains two links to call the `greeter` service via [API gateway](https://github.com/moleculerjs/moleculer-web).

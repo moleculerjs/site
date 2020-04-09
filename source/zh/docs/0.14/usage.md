@@ -51,7 +51,7 @@ broker.start()
     ```bash
     $ moleculer init project moleculer-demo
     ```
- <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
+ <div align="center"><img src="../../../docs/0.14/assets/usage/usage-demo-1.gif" /></div>
 
     > 按下 `ENTER` 来回答所有问题 _(接受默认答案)_    
     
@@ -71,7 +71,7 @@ broker.start()
 
 
 <div align="center">
-  <img src="assets/usage/usage-demo-2.gif" />
+  <img src="../../../docs/0.14/assets/usage/usage-demo-2.gif" />
 </div>
 
 5. 在您的浏览器中打开 [http://localhost:3000/](http://localhost:3000/) 链接。 它显示了一个包含两个链接的起始页面，通过 [API 网关](https://github.com/moleculerjs/moleculer-web)调用`greeter` 服务。
