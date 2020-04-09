@@ -3,7 +3,7 @@ title: Брокер
 `ServiceBroker` является основным компонентом Moleculer. Он обрабатывает действия и события сервиса, а так же общается с удаленными узлами. Экземпляр `ServiceBroker` должен быть запущен на каждом узле.
 
 <div align="center">
-    <img src="../../../docs/0.14/assets/service-broker.svg" alt="Диаграмма логики работы брокера" />
+    <img src="assets/service-broker.svg" alt="Диаграмма логики работы брокера" />
 </div>
 
 ## Создание ServiceBroker

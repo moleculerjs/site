@@ -16,7 +16,7 @@ Suite: Call local actions
    Nanoservices*      -94.72%         (90,510 rps)   (avg: 11μs)
    Seneca*            -99.23%         (13,252 rps)   (avg: 75μs)
 ```
-[![Диаграмма результатов](../../../docs/0.14/assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti)
+[![Диаграмма результатов](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti)
 
 ### Удаленный запрос
 ```
@@ -31,7 +31,7 @@ Suite: Call remote actions
    Cote*                0%         (15,442 rps)   (avg: 64μs)
    Seneca*         -80.91%          (2,947 rps)   (avg: 339μs)
 ```
-[![Диаграмма результатов](../../../docs/0.14/assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Диаграмма результатов](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 ## Результаты сравнения
 

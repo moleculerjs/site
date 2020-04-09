@@ -8,7 +8,7 @@ The event listeners are arranged to logical groups. It means that only one liste
 > **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
 
 <div align="center">
-    <img src="../../../docs/0.14/assets/balanced-events.gif" alt="Balanced events diagram" />
+    <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
 </div>
 
 The group name comes from the service name, but it can be overwritten in event definition in services.
@@ -50,7 +50,7 @@ broker.emit("user.created", user, ["mail", "payments"]);
 The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
 
 <div align="center">
-    <img src="../../../docs/0.14/assets/broadcast-events.gif" alt="Broadcast events diagram" />
+    <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
 </div>
 
 Send broadcast events with `broker.broadcast` method.

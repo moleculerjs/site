@@ -6,7 +6,7 @@ title: 动作
 如果您有多个服务实例，服务管理器 (broker)  将负责均衡它们的请求。 [获取更多关于负载均衡的信息](balancing.html)。
 
 <div align="center">
-    <img src="../../../docs/0.14/assets/action-balancing.gif" alt="Action balancing diagram" />
+    <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
 ## 服务调用

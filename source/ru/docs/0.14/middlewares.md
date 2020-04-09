@@ -796,6 +796,6 @@ module.exports = {
 ## Global view
 
 <div align="center">
-    <img src="../../../docs/0.14/assets/middlewares.svg" alt="Middlewares diagram" />
+    <img src="assets/middlewares.svg" alt="Middlewares diagram" />
 </div>
 

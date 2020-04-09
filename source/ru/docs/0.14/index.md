@@ -30,7 +30,7 @@ Moleculer - это быстрый, современный и мощный мик
 
 Мы потратили много часов, чтобы улучшить работу Moleculer и создать самый быстрый микросервис для Node.js.
 
-[![Локальный Benchmark](../../../docs/0.14/assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Удаленный Benchmark](../../../docs/0.14/assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Локальный Benchmark](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Удаленный Benchmark](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 Проверьте результаты на своем компьютере! Просто клонируйте [этот репозиторий](https://github.com/icebob/microservices-benchmark) и запустите `npm install && npm start`.
 
