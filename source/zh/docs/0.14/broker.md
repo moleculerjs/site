@@ -125,52 +125,52 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## ServiceBroker 属性
 
-| 名称                  | 类型                     | 说明                        |
-| ------------------- | ---------------------- | ------------------------- |
-| `broker.options`    | `Object`               | 服务管理器选项                   |
-| `broker.Promise`    | `Promise`              | Bluebird Promise 类.       |
-| `broker.started`    | `Boolean`              | 服务管理器状态                   |
-| `broker.namespace`  | `String`               | Namespace.                |
-| `broker.nodeID`     | `String`               | Node ID.                  |
-| `broker.instanceID` | `String`               | Instance ID.              |
-| `broker.metadata`   | `Object`               | 来自服务管理器选项的 Metadata       |
-| `broker.logger`     | `Logger`               | ServiceBroker 的日志类.       |
-| `broker.cacher`     | `Cacher`               | Cacher 实例                 |
-| `broker.serializer` | `Serializer`           | Serializer 实例.            |
-| `broker.validator`  | `Any`                  | 参数验证器实例。                  |
-| `broker.services`   | `Array<Service>` | Local services.           |
-| `broker.metrics`    | `MetricRegistry`       | Built-in Metric Registry. |
-| `broker.tracer`     | `Tracer`               | Built-in Tracer instance. |
+| 名称                  | 类型                     | 说明                   |
+| ------------------- | ---------------------- | -------------------- |
+| `broker.options`    | `Object`               | 服务管理器选项              |
+| `broker.Promise`    | `Promise`              | Bluebird Promise 类.  |
+| `broker.started`    | `Boolean`              | 服务管理器状态              |
+| `broker.namespace`  | `String`               | Namespace.           |
+| `broker.nodeID`     | `String`               | Node ID.             |
+| `broker.instanceID` | `String`               | Instance ID.         |
+| `broker.metadata`   | `Object`               | 来自服务管理器选项的 Metadata  |
+| `broker.logger`     | `Logger`               | ServiceBroker 的日志类.  |
+| `broker.cacher`     | `Cacher`               | Cacher 实例            |
+| `broker.serializer` | `Serializer`           | Serializer 实例.       |
+| `broker.validator`  | `Any`                  | 参数验证器实例。             |
+| `broker.services`   | `Array<Service>` | 本地服务.                |
+| `broker.metrics`    | `MetricRegistry`       | 内置的 Metric Registry. |
+| `broker.tracer`     | `Tracer`               | 内置 Tracer 实例。        |
 
 ## ServiceBroker 方法
 
-| 名称                                                        | 响应                    | 说明                                                          |
-| --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
-| `broker.start()`                                          | `Promise`             | Start broker.                                               |
-| `broker.stop()`                                           | `Promise`             | Stop broker.                                                |
-| `broker.repl()`                                           | -                     | Start REPL mode.                                            |
-| `broker.errorHandler(err, info)`                          | -                     | Call the global error handler.                              |
-| `broker.getLogger(module, props)`                         | `Logger`              | Get a child logger.                                         |
-| `broker.fatal(message, err, needExit)`                    | -                     | Throw an error and exit the process.                        |
-| `broker.loadServices(folder, fileMask)`                   | `Number`              | Load services from a folder.                                |
-| `broker.loadService(filePath)`                            | `Service`             | Load a service from file.                                   |
-| `broker.createService(schema, schemaMods)`                | `Service`             | Create a service from schema.                               |
-| `broker.destroyService(service)`                          | `Promise`             | Destroy a loaded local service.                             |
-| `broker.getLocalService(name)`                            | `Service`             | Get a local service instance by full name (e.g. `v2.posts`) |
-| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Wait for services.                                          |
-| `broker.call(actionName, params, opts)`                   | `Promise`             | Call a service.                                             |
-| `broker.mcall(def)`                                       | `Promise`             | Multiple service calling.                                   |
-| `broker.emit(eventName, payload, opts)`                   | -                     | Emit a balanced event.                                      |
-| `broker.broadcast(eventName, payload, opts)`              | -                     | Broadcast an event.                                         |
-| `broker.broadcastLocal(eventName, payload, opts)`         | -                     | Broadcast an event to local services only.                  |
-| `broker.ping(nodeID, timeout)`                            | `Promise`             | Ping remote nodes.                                          |
-| `broker.hasEventListener("eventName")`                    | `Boolean`             | Checks if broker is listening to an event.                  |
-| `broker.getEventListeners("eventName")`                   | `Array<Object>` | Returns all registered event listeners for an event name.   |
-| `broker.generateUid()`                                    | `String`              | Generate an UUID/token.                                     |
-| `broker.callMiddlewareHook(name, args, opts)`             | -                     | Call an async hook in the registered middlewares.           |
-| `broker.callMiddlewareHookSync(name, args, opts)`         | -                     | Call a sync hook in the registered middlewares.             |
-| `broker.isMetricsEnabled()`                               | `Boolean`             | Check the metrics feature is enabled.                       |
-| `broker.isTracingEnabled()`                               | `Boolean`             | Check the tracing feature is enabled.                       |
+| 名称                                                        | 响应                    | 说明                        |
+| --------------------------------------------------------- | --------------------- | ------------------------- |
+| `broker.start()`                                          | `Promise`             | 启动服务管理器                   |
+| `broker.stop()`                                           | `Promise`             | 停止服务管理器                   |
+| `broker.repl()`                                           | -                     | 以 REPL (交互式方式) 启动         |
+| `broker.errorHandler(err, info)`                          | -                     | 调用全局错误处理器。                |
+| `broker.getLogger(module, props)`                         | `Logger`              | 获取日志子类。                   |
+| `broker.fatal(message, err, needExit)`                    | -                     | 抛出错误并退出进程。                |
+| `broker.loadServices(folder, fileMask)`                   | `Number`              | 从文件夹中加载服务。                |
+| `broker.loadService(filePath)`                            | `Service`             | 从文件载入服务。                  |
+| `broker.createService(schema, schemaMods)`                | `Service`             | 依据 schema 创建一个服务。         |
+| `broker.destroyService(service)`                          | `Promise`             | 销毁加载的本地服务。                |
+| `broker.getLocalService(name)`                            | `Service`             | 通过全名获取本地服务实例(如：`v2.poss`) |
+| `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | 等待服务(完成启动)。               |
+| `broker.call(actionName, params, opts)`                   | `Promise`             | 调用一个服务动作                  |
+| `broker.mcall(def)`                                       | `Promise`             | 调用多个服务动作                  |
+| `broker.emit(eventName, payload, opts)`                   | -                     | 发出事件                      |
+| `broker.broadcast(eventName, payload, opts)`              | -                     | 广播一个事件。                   |
+| `broker.broadcastLocal(eventName, payload, opts)`         | -                     | 仅向本地服务广播一个事件。             |
+| `broker.ping(nodeID, timeout)`                            | `Promise`             | Ping 远程节点。                |
+| `broker.hasEventListener("eventName")`                    | `Boolean`             | 服务管理器是否在侦听指定的事件。          |
+| `broker.getEventListeners("eventName")`                   | `Array<Object>` | 返回指定事件的所有已注册事件监听器。        |
+| `broker.generateUid()`                                    | `String`              | 生成一个 UUID/token。          |
+| `broker.callMiddlewareHook(name, args, opts)`             | -                     | 在注册的 middlewares 中调用异步钩子. |
+| `broker.callMiddlewareHookSync(name, args, opts)`         | -                     | 在注册的 middlewares 中调用同步钩子. |
+| `broker.isMetricsEnabled()`                               | `Boolean`             | 检查计量功能是否已启用。              |
+| `broker.isTracingEnabled()`                               | `Boolean`             | 检查跟踪功能是否已启用。              |
 
 ## 全局错误处理器
 全局错误处理程序是处理异常的通用方式。 它会捕获未处理的动作 & 事件处理器错误。
