@@ -51,17 +51,17 @@ const broker = new ServiceBroker({
 });
 ```
 {% note info %}
-The `metadata` property can be obtained by running `$node.list` action.
+`metadata`属性可以通过运行 `$node.list` 动作获得。
 {% endnote %}
 
 {% note info %}
-The `metadata` property is transferred to other nodes.
+`metadata`属性会传送到其他节点。
 {% endnote %}
 
 ## Ping
-To ping remote nodes, use `broker.ping` method. You can ping a node, or all available nodes. It returns a `Promise` which contains the received ping information (latency, time difference). A timeout value can be defined.
+若要ping 远程节点，请使用 `broker.ping` 方法。 您可以ping 一个节点，或者所有可用的节点。 它返回一个`Promise`，其中包含已收到的 ping信息(latency, time difference)。 超时是可定义的。
 
-### Ping a node with 1 second timeout
+### 以1秒超时Ping 节点
 ```js
 broker.ping("node-123", 1000).then(res => broker.logger.info(res));
 ```
@@ -74,9 +74,9 @@ broker.ping("node-123", 1000).then(res => broker.logger.info(res));
     timeDiff: -3 
 }
 ```
-> The `timeDiff` value is the difference of the system clock between these two nodes.
+> `timeDiff`值是这两个节点之间系统时钟的差异。
 
-### Ping multiple nodes
+### Ping 多个节点
 ```js
 broker.ping(["node-100", "node-102"]).then(res => broker.logger.info(res));
 ```
@@ -97,7 +97,7 @@ broker.ping(["node-100", "node-102"]).then(res => broker.logger.info(res));
 }
 ```
 
-### Ping all available nodes
+### Ping 所有可用节点
 ```js
 broker.ping().then(res => broker.logger.info(res));
 ```
@@ -123,28 +123,28 @@ broker.ping().then(res => broker.logger.info(res));
 }
 ```
 
-## Properties of ServiceBroker
+## ServiceBroker 属性
 
-| Name                | Type                   | Description                    |
-| ------------------- | ---------------------- | ------------------------------ |
-| `broker.options`    | `Object`               | Broker options.                |
-| `broker.Promise`    | `Promise`              | Bluebird Promise class.        |
-| `broker.started`    | `Boolean`              | Broker state.                  |
-| `broker.namespace`  | `String`               | Namespace.                     |
-| `broker.nodeID`     | `String`               | Node ID.                       |
-| `broker.instanceID` | `String`               | Instance ID.                   |
-| `broker.metadata`   | `Object`               | Metadata from broker options.  |
-| `broker.logger`     | `Logger`               | Logger class of ServiceBroker. |
-| `broker.cacher`     | `Cacher`               | Cacher instance                |
-| `broker.serializer` | `Serializer`           | Serializer instance.           |
-| `broker.validator`  | `Any`                  | Parameter Validator instance.  |
-| `broker.services`   | `Array<Service>` | Local services.                |
-| `broker.metrics`    | `MetricRegistry`       | Built-in Metric Registry.      |
-| `broker.tracer`     | `Tracer`               | Built-in Tracer instance.      |
+| 名称                  | 类型                     | 说明                        |
+| ------------------- | ---------------------- | ------------------------- |
+| `broker.options`    | `Object`               | 服务管理器选项                   |
+| `broker.Promise`    | `Promise`              | Bluebird Promise 类.       |
+| `broker.started`    | `Boolean`              | 服务管理器状态                   |
+| `broker.namespace`  | `String`               | Namespace.                |
+| `broker.nodeID`     | `String`               | Node ID.                  |
+| `broker.instanceID` | `String`               | Instance ID.              |
+| `broker.metadata`   | `Object`               | 来自服务管理器选项的 Metadata       |
+| `broker.logger`     | `Logger`               | ServiceBroker 的日志类.       |
+| `broker.cacher`     | `Cacher`               | Cacher 实例                 |
+| `broker.serializer` | `Serializer`           | Serializer 实例.            |
+| `broker.validator`  | `Any`                  | 参数验证器实例。                  |
+| `broker.services`   | `Array<Service>` | Local services.           |
+| `broker.metrics`    | `MetricRegistry`       | Built-in Metric Registry. |
+| `broker.tracer`     | `Tracer`               | Built-in Tracer instance. |
 
-## Methods of ServiceBroker
+## ServiceBroker 方法
 
-| Name                                                      | Response              | Description                                                 |
+| 名称                                                        | 响应                    | 说明                                                          |
 | --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
 | `broker.start()`                                          | `Promise`             | Start broker.                                               |
 | `broker.stop()`                                           | `Promise`             | Stop broker.                                                |
@@ -172,10 +172,10 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.isMetricsEnabled()`                               | `Boolean`             | Check the metrics feature is enabled.                       |
 | `broker.isTracingEnabled()`                               | `Boolean`             | Check the tracing feature is enabled.                       |
 
-## Global error handler
-The global error handler is generic way to handle exceptions. It catches the unhandled errors of action & event handlers.
+## 全局错误处理器
+全局错误处理程序是处理异常的通用方式。 它会捕获未处理的动作 & 事件处理器错误。
 
-**Catch, handle & log the error**
+**捕获，处理 & 把错误记录到日志**
 ```js
 const broker = new ServiceBroker({
     errorHandler(err, info) {
@@ -185,7 +185,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Catch & throw further the error**
+**捕获 & 重新抛出错误**
 ```js
 const broker = new ServiceBroker({
     errorHandler(err, info) {
@@ -196,5 +196,5 @@ const broker = new ServiceBroker({
 ```
 
 {% note info %}
-The `info` object contains the broker and the service instances, the current context and the action or the event definition.
+`info`对象包含服务管理器和服务实例、当前 context 和动作或事件定义。
 {% endnote %}
