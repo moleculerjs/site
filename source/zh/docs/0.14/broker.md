@@ -1,24 +1,24 @@
 title: Broker
 ---
-The `ServiceBroker` is the main component of Moleculer. It handles services, calls actions, emits events and communicates with remote nodes. You must create a `ServiceBroker` instance on every node.
+`ServiceBroker`是Moleculer的主要组成部分。 它处理服务、调用动作、发送事件与远程节点通信等。 您必须在每个节点上创建一个 `ServiceBroker` 实例。
 
 <div align="center">
     <img src="assets/service-broker.svg" alt="Broker logical diagram" />
 </div>
 
-## Create a ServiceBroker
+## 创建 ServiceBroker
 
 {% note info %}
-**Quick tip:** You don't need to create manually ServiceBroker in your project. Use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
+**Quick tip:** 不需要在你的项目中手动创建 ServiceBroker。 使用 [Moleculer Runner](runner.html) 创建、执行服务管理器并加载服务。 [阅读更多关于 Moleculer Runner 的内容](runner.html)。
 {% endnote %}
 
-**Create broker with default settings:**
+**使用默认设置创建服务管理器：**
 ```js
 const { ServiceBroker } = require("moleculer");
 const broker = new ServiceBroker();
 ```
 
-**Create broker with custom settings:**
+**使用自定义设置创建服务管理器：**
 ```js
 const { ServiceBroker } = require("moleculer");
 const broker = new ServiceBroker({
@@ -26,7 +26,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Create broker with transporter to communicate with remote nodes:**
+**创建使用推送系统的服务管理器与远程节点通信：**
 ```js
 const { ServiceBroker } = require("moleculer");
 const broker = new ServiceBroker({
@@ -38,8 +38,8 @@ const broker = new ServiceBroker({
 ```
 
 
-### Metadata option
-Use `metadata` property to store custom values. It can be useful for a custom [middleware](middlewares.html#Loading-amp-Extending) or [strategy](balancing.html#Custom-strategy).
+### 元数据选项
+使用`metadata`属性来存储自定义值。 它可以用于自定义 [middleware](middlewares.html#Loading-amp-Extending) 或 [strategy](balancing.html#Custom-strategy)。
 
 ```js
 const broker = new ServiceBroker({
