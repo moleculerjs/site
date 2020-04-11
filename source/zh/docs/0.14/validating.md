@@ -83,7 +83,7 @@ module.exports = {
 ```
 
 ## 自定义验证器
-可以创建自定义验证器。 您需要实现 `compile` 和 `validate` 方法`BaseValidator`。
+可以创建自定义验证器。 您需要实现 `BaseValidator` 的 `compile` 和 `validate` 方法。
 
 ### 创建 [Joi](https://github.com/hapijs/joi) 验证器
 ```js
