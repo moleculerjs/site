@@ -371,6 +371,41 @@ module.exports = {
 };
 ```
 
+### NewRelic
+NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewRelic](https://newrelic.com/) server.
+
+```js
+// moleculer.config.js
+{
+    tracing: {
+        enabled: true,
+        events: true,
+        exporter: [
+            {
+                type: 'NewRelic',
+                options: {
+                    // Base URL for NewRelic server
+                    baseURL: 'https://trace-api.newrelic.com',
+                    // NewRelic Insert Key
+                    insertKey: 'my-secret-key',
+                    // Sending time interval in seconds.
+                    interval: 5,
+                    // Additional payload options.
+                    payloadOptions: {
+                        // Set `debug` property in payload.
+                        debug: false,
+                        // Set `shared` property in payload.
+                        shared: false,
+                    },
+                    // Default tags. They will be added into all span tags.
+                    defaultTags: null,
+                },
+            },
+        ],
+    },    
+}
+```
+
 ## Multiple exporters
 You can define multiple tracing exporters.
 
