@@ -1,9 +1,9 @@
-title: Configuration
+title: 配置
 ---
-## Broker options
-These options can be used in `ServiceBroker` constructor or in `moleculer.config.js` file.
+## 服务管理器选项
+这些选项可以在`ServiceBroker`构造函数或`moleculer.config.js`文件中使用。
 
-**List of all available broker options:**
+**所有可用的服务管理器选项列表：**
 
 * **`namespace`**: `String` - Namespace of nodes to segment your nodes on the same network (e.g.: "development", "staging", "production"). _Default: `""`_
 * **`nodeID`**: `String` - Unique node identifier. Must be unique in a namespace. If not the broker will throw a fatal error and stop the process. _Default: hostname + PID_
