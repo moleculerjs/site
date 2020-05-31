@@ -14,8 +14,10 @@ npm i moleculer-repl
 ```js
 const broker = new ServiceBroker();
 
-// Switch to REPL mode
-broker.repl();
+broker.start().then(() => {
+    // Switch to REPL mode
+    broker.repl();
+});
 ```
 
 ## REPL Commands
@@ -30,9 +32,9 @@ broker.repl();
     broadcastLocal <eventName>                          Broadcast an event locally
     call [options] <actionName> [jsonParams]            Call an action
     dcall [options] <nodeID> <actionName> [jsonParams]  Direct call an action
-    destroy <serviceName> [version]                     Destroy a locally running service
     clear [pattern]                                     Clear cache entries
     cls                                                 Clear console    
+    destroy <serviceName> [version]                     Destroy a locally running service
     emit <eventName>                                    Emit an event
     env                                                 List of environment variables
     events [options]                                    List of event listeners
@@ -150,6 +152,12 @@ mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
 Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
+#### Call an action with params & meta
+```bash
+mol $ call "math.add" --a 5 --#b Bob
+```
+Params will be `{ a: 5 }` and meta will be `{ b: 'Bob' }`
+
 #### Call with JSON string parameter
 ```bash
 mol $ call "math.add" '{"a": 5, "b": "Bob", "c": true, "d": false, "e": { "f": "hello" } }'
@@ -202,6 +210,12 @@ mol $ emit "user.created" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
 Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
+#### Emit an event with params & meta
+```bash
+mol $ emit "user.created" --a 5 --#b Bob
+```
+Params will be `{ a: 5 }` and meta will be `{ b: 'Bob' }`
+
 ### Benchmark services
 
 Moleculer REPL module has a new bench command to measure your services.
@@ -217,7 +231,7 @@ mol $ bench --num 5000 math.add
 mol $ bench --time 30 math.add
 ```
 
-**Options**
+**Параметры**
 ```
     --num <number>     Number of iterates
     --time <seconds>   Time of bench
@@ -248,7 +262,7 @@ mol $ load "./services"
 mol $ metrics
 ```
 
-**Options**
+**Параметры**
 ```
     -f, --filter <match>  filter metrics (e.g.: 'moleculer.**')
 ```

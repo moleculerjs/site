@@ -1,18 +1,18 @@
-title: Configuration
+title: 配置
 ---
-## Broker options
-These options can be used in `ServiceBroker` constructor or in `moleculer.config.js` file.
+## 服务管理器选项
+这些选项可以在`ServiceBroker`构造函数或`moleculer.config.js`文件中使用。
 
-**List of all available broker options:**
+**所有可用的服务管理器选项列表：**
 
-* **`namespace`**: `String` - Namespace of nodes to segment your nodes on the same network (e.g.: "development", "staging", "production"). _Default: `""`_
-* **`nodeID`**: `String` - Unique node identifier. Must be unique in a namespace. If not the broker will throw a fatal error and stop the process. _Default: hostname + PID_
-* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - Logger class. By default, it prints message to the `console`. [Read more](logging.html). _Default: `"Console"`
-* **`logLevel`**: `String | Object` - Log level for loggers (trace, debug, info, warn, error, fatal). [Read more](logging.html). _Default: `info`_
-* **`transporter`**: `String | Object | Transporter` - Transporter configuration. [Read more](networking.html).  _Default: `null`_
-* **`requestTimeout`**: `Number` - Number of milliseconds to wait before reject a request with a `RequestTimeout` error. Disabled: `0` _Default: `0`_
-* **`retryPolicy`**: `Object` - Retry policy configuration. [Read more](fault-tolerance.html#Retry).
-* **`contextParamsCloning`**: `Boolean` - Cloning the `params` of context if enabled. _High performance impact. Use it with caution!_ _Default: `false`_
+* **`namespace`**: `String` - 节点的命名空间，用于在同一网络上细分您的节点（例如：“development”，“staging”，“production”） _Default: `""`_
+* **`nodeID`**: `String` - 节点标识符。 在命名空间中必须是唯一的。 否则，服务管理器会引发致命错误并停止该进程。 _Default: hostname + PID_
+* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - 日志类。 默认情况下，将消息打印到 `console`。 [Read more](logging.html). _Default: `"Console"`
+* **`logLevel`**: `String | Object` - 日志级别 (trace, debug, info, warn, error, fatal). [Read more](logging.html). _Default: `info`_
+* **`transporter`**: `String | Object | Transporter` - 推送系统配置项 [Read more](networking.html).  _Default: `null`_
+* **`requestTimeout`**: `Number` - 在拒绝一个带有`RequestTimeout`错误的请求之前等待的毫秒数。 Disabled: `0` _Default: `0`_
+* **`retryPolicy`**: `Object` - 重试策略配置项 [Read more](fault-tolerance.html#Retry).
+* **`contextParamsCloning`**: `Boolean` - 若启用则会复制上下文的 `params` 。 _会影响性能。 请谨慎使用!_ _默认: `false`_
 * **`maxCallLevel`**: `Number` - Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ _Default: `0`_
 * **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `5`_
 * **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
