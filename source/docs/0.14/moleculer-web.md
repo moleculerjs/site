@@ -269,6 +269,12 @@ module.exports = {
     }
 });
 ```
+**Multipart files**
+
+In order to access the files passed by multipart-form these specific fields can be used inside the action:
+- `ctx.params` is the Readable stream containing the file passed to the endpoint
+- `ctx.meta.$multipart` contains the additional text form-data fields passed _before other files fields_.
+
 ### Auto-alias
 The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
 
