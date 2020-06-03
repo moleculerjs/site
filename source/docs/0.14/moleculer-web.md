@@ -212,7 +212,7 @@ broker.createService({
 You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
 
 ### File upload aliases
-API Gateway has implemented file uploads. You can upload files as a multipart form data (thanks to [busboy](https://github.com/mscdex/busboy) library) or as a raw request body. In both cases, the file is transferred to an action as a `Stream`. In multipart form data mode you can upload multiple files, as well.
+API Gateway has implemented file uploads. You can upload files as a ù form data (thanks to [busboy](https://github.com/mscdex/busboy) library) or as a raw request body. In both cases, the file is transferred to an action as a `Stream`. In multipart form data mode you can upload multiple files, as well.
 
 {% note warn %}
 Please note, you have to disable other body parsers in order to accept files.
@@ -269,7 +269,7 @@ module.exports = {
     }
 });
 ```
-**Multipart files**
+**Multipart parameters**
 
 In order to access the files passed by multipart-form these specific fields can be used inside the action:
 - `ctx.params` is the Readable stream containing the file passed to the endpoint
