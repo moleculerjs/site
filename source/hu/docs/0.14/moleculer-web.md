@@ -267,6 +267,12 @@ module.exports = {
     }
 });
 ```
+**Multipart parameters**
+
+In order to access the files passed by multipart-form these specific fields can be used inside the action:
+- `ctx.params` is the Readable stream containing the file passed to the endpoint
+- `ctx.meta.$multipart` contains the additional text form-data fields passed _before other files fields_.
+
 ### Auto-alias
 The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
 
@@ -1217,7 +1223,7 @@ Service method removes the route by path (`this.removeRoute("/admin")`).
 - [Full](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
     - SSL
     - static files
-    - middlewares
+    - middleware-ek
     - multiple routes with different roles
     - role-based authorization with JWT
     - whitelist
