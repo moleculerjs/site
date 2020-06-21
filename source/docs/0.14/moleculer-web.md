@@ -242,7 +242,7 @@ module.exports = {
                     "POST /": "multipart:file.save",
                     
                     // File upload from AJAX or cURL
-                    "PUT /": "stream:file.save",
+                    "PUT /:id": "stream:file.save",
 
                     // File upload from HTML form and overwrite busboy config
                     "POST /multi": {
@@ -273,6 +273,7 @@ module.exports = {
 
 In order to access the files passed by multipart-form these specific fields can be used inside the action:
 - `ctx.params` is the Readable stream containing the file passed to the endpoint
+- `ctx.params.$params` parameters from URL querystring
 - `ctx.meta.$multipart` contains the additional text form-data fields passed _before other files fields_.
 
 ### Auto-alias
