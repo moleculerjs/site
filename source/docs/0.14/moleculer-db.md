@@ -497,7 +497,7 @@ broker.start()
 ```
 
 ## Populating
-The service allows you to easily populate fields from other services. For exapmle: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
+The service allows you to easily populate fields from other services. For example: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
 
 
 **Example of populate schema**
