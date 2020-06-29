@@ -1,10 +1,48 @@
 title: Parameter Validation
 ---
-Moleculer has a built-in validator module. It uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
 
-## Built-in Validator
+Validation middleware is used for [`actions`](actions.html) and [`events`](events.html) parameter validation.
+
+## Fastest Validator
+By default, Moleculer uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+
+**Default usage**
+```js
+//moleculer.config.js
+module.exports = {
+    nodeID: "node-100",
+    validator: true // Using the default Fastest Validator
+}
+```
+
+**Setting validator by name**
+```js
+//moleculer.config.js
+module.exports = {
+    nodeID: "node-100",
+    validator: "FastestValidator" // Using the Fastest Validator
+}
+```
+
+**Example with options**
+```js
+//moleculer.config.js
+module.exports = {
+    nodeID: "node-100",
+    validator: {
+        type: "FastestValidator",
+        options: {
+            useNewCustomCheckerFunction: true,
+            defaults: { /*...*/ },
+            messages: { /*...*/ },
+            aliases: { /*...*/ }
+        }
+    }
+}
+```
+
 ### Actions Validation
-It's enabled by default, so you should just define `params` property in action definition which contains validation schema for the incoming `ctx.params`.
+In order to perform parameter validation you need to define `params` property in action definition and create validation schema for the incoming `ctx.params`.
 
 **Example**
 ```js
@@ -58,7 +96,7 @@ Find more information about validation schema in the [documentation of the libra
 {% endnote %}
 
 ### Events Validation
-Event parameter validation is also supported. To enable it, define `params` in event definition and the built-in `Validator` will take care of the validation.
+Event parameter validation is also supported. To enable it, define `params` in event definition.
 > Please note that the validation errors are not sent back to the caller, as happens with action errors. Event validation errors are logged but you can also catch them with the [global error handler](broker.html#Global-error-handler).
 
 ```js
@@ -83,13 +121,29 @@ module.exports = {
 ```
 
 ## Custom validator
-Custom validator can be created. You should implement `compile` and `validate` methods of `BaseValidator`.
+You can also implement custom validators. We recommend to copy the source of [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) and implement the `compile` and `validate` methods.
 
-### Create a [Joi](https://github.com/hapijs/joi) validator
+**Creating custom validator**
 ```js
-const BaseValidator = require("moleculer").Validator;
-const { ValidationError } = require("moleculer").Errors;
+//moleculer.config.js
+const BaseValidator = require("moleculer").Validators.Base;
 
+class MyValidator extends BaseValidator {}
+
+module.exports = {
+    nodeID: "node-100",
+    validator: new MyValidator()
+}
+```
+
+**Build Joi validator**
+```js
+const { ServiceBroker } = require("moleculer");
+const BaseValidator = require("moleculer").Validators.Base;
+const { ValidationError } = require("moleculer").Errors;
+const Joi = require("joi");
+
+// --- JOI VALIDATOR CLASS ---
 class JoiValidator extends BaseValidator {
     constructor() {
         super();
@@ -109,26 +163,20 @@ class JoiValidator extends BaseValidator {
     }
 }
 
-module.exports = JoiValidator;
-```
-
-**Use custom Joi validator**
-```js
-const { ServiceBroker } = require("moleculer");
-const Joi = require("joi");
-const JoiValidator = require("./joi.validator");
-
-const broker = new ServiceBroker({
+let broker = new ServiceBroker({
     logger: true,
-    // Use custom validator
-    validator: new JoiValidator()
+    validator: new JoiValidator // Use Joi validator
 });
 
-// --- SERVICE ---
+// --- TEST BROKER ---
+
 broker.createService({
     name: "greeter",
     actions: {
         hello: {
+            /*params: {
+                name: { type: "string", min: 4 }
+            },*/
             params: Joi.object().keys({
                 name: Joi.string().min(4).max(30).required()
             }),
@@ -139,17 +187,13 @@ broker.createService({
     }
 });
 
-// --- TEST ---
 broker.start()
     .then(() => broker.call("greeter.hello").then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
-
     .then(() => broker.call("greeter.hello", { name: 100 }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
-
     .then(() => broker.call("greeter.hello", { name: "Joe" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
-
     .then(() => broker.call("greeter.hello", { name: "John" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data));
 ```
