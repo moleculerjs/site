@@ -1,7 +1,7 @@
 title: Parameter Validation
 ---
 
-Validation middleware is used for [`actions`](actions.html) and [`events`](events.html) parameter validation.
+Validation middleware is used for [Actions](actions.html) and [Events](events.html) parameter validation.
 
 ## Fastest Validator
 By default, Moleculer uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
