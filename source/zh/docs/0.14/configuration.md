@@ -13,6 +13,7 @@ title: 配置
 * **`requestTimeout`**: `Number` - 在拒绝一个带有`RequestTimeout`错误的请求之前等待的毫秒数。 Disabled: `0` _Default: `0`_
 * **`retryPolicy`**: `Object` - 重试策略配置项 [Read more](fault-tolerance.html#Retry).
 * **`contextParamsCloning`**: `Boolean` - 若启用则会复制上下文的 `params` 。 _会影响性能。 请谨慎使用!_ _默认: `false`_
+* **`dependencyInterval`**: Configurable interval (defined in `ms`) that's used by the services while waiting for dependency services. _Default: `1000`_
 * **`maxCallLevel`**: `Number` - Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ _Default: `0`_
 * **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `5`_
 * **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
