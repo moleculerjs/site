@@ -305,6 +305,7 @@ An info is a single string or number value like process arguments, hostname or v
 ### OS metrics
 - `os.memory.free` (gauge)
 - `os.memory.total` (gauge)
+- `os.memory.used` (gauge)
 - `os.uptime` (gauge)
 - `os.type` (info)
 - `os.release` (info)
