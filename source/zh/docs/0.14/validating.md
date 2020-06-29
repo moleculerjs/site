@@ -1,10 +1,48 @@
 title: 参数验证
 ---
-Moleculer 有一个内置的验证模块。 它使用[fastest-validator](https://github.com/icebob/fastest-validator) 库.
 
-## 内置验证器
+Validation middleware is used for [`actions`](actions.html) and [`events`](events.html) parameter validation.
+
+## Fastest Validator
+By default, Moleculer uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+
+**Default usage**
+```js
+//moleculer.config.js
+module.exports = {
+    nodeID: "node-100",
+    validator: true // Using the default Fastest Validator
+}
+```
+
+**Setting validator by name**
+```js
+//moleculer.config.js
+module.exports = {
+    nodeID: "node-100",
+    validator: "FastestValidator" // Using the Fastest Validator
+}
+```
+
+**Example with options**
+```js
+//moleculer.config.js
+module.exports = {
+    nodeID: "node-100",
+    validator: {
+        type: "FastestValidator",
+        options: {
+            useNewCustomCheckerFunction: true,
+            defaults: { /*...*/ },
+            messages: { /*...*/ },
+            aliases: { /*...*/ }
+        }
+    }
+}
+```
+
 ### 动作验证
-动作验证默认是启用的，因此您只需要定义动作声明中的`params`属性，动作声明包含正在接收的`ctx.params`的验证模型。
+In order to perform parameter validation you need to define `params` property in action definition and create validation schema for the incoming `ctx.params`.
 
 **示例**
 ```js
@@ -58,7 +96,7 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 {% endnote %}
 
 ### 事件验证
-也支持事件参数验证。 为了启用它，定义事件声明中的 `params`，而内置的 `Validator` 将负责验证它们。
+也支持事件参数验证。 To enable it, define `params` in event definition.
 > 注意，同时有动作错误发生时，验证错误不会回送给调用者。 事件验证错误会输出到日志，您也可以使用 [global error handler](broker.html#Global-error-handler) 来捕获它们。
 
 ```js
@@ -83,13 +121,29 @@ module.exports = {
 ```
 
 ## 自定义验证器
-可以创建自定义验证器。 您需要实现 `BaseValidator` 的 `compile` 和 `validate` 方法。
+You can also implement custom validators. We recommend to copy the source of [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) and implement the `compile` and `validate` methods.
 
-### 创建 [Joi](https://github.com/hapijs/joi) 验证器
+**Creating custom validator**
 ```js
-const BaseValidator = require("moleculer").Validator;
-const { ValidationError } = require("moleculer").Errors;
+//moleculer.config.js
+const BaseValidator = require("moleculer").Validators.Base;
 
+class MyValidator extends BaseValidator {}
+
+module.exports = {
+    nodeID: "node-100",
+    validator: new MyValidator()
+}
+```
+
+**Build Joi validator**
+```js
+const { ServiceBroker } = require("moleculer");
+const BaseValidator = require("moleculer").Validators.Base;
+const { ValidationError } = require("moleculer").Errors;
+const Joi = require("joi");
+
+// --- JOI VALIDATOR CLASS ---
 class JoiValidator extends BaseValidator {
     constructor() {
         super();
@@ -109,26 +163,20 @@ class JoiValidator extends BaseValidator {
     }
 }
 
-module.exports = JoiValidator;
-```
-
-**使用自定义 Joi 验证器**
-```js
-const { ServiceBroker } = require("moleculer");
-const Joi = require("joi");
-const JoiValidator = require("./joi.validator");
-
-const broker = new ServiceBroker({
+let broker = new ServiceBroker({
     logger: true,
-    // Use custom validator
-    validator: new JoiValidator()
+    validator: new JoiValidator // Use Joi validator
 });
 
-// --- SERVICE ---
+// --- TEST BROKER ---
+
 broker.createService({
     name: "greeter",
     actions: {
         hello: {
+            /*params: {
+                name: { type: "string", min: 4 }
+            },*/
             params: Joi.object().keys({
                 name: Joi.string().min(4).max(30).required()
             }),
@@ -139,17 +187,13 @@ broker.createService({
     }
 });
 
-// --- TEST ---
 broker.start()
     .then(() => broker.call("greeter.hello").then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
-
     .then(() => broker.call("greeter.hello", { name: 100 }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
-
     .then(() => broker.call("greeter.hello", { name: "Joe" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
-
     .then(() => broker.call("greeter.hello", { name: "John" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data));
 ```
