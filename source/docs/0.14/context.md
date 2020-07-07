@@ -34,6 +34,7 @@ When you call an action or emit an event, the broker creates a `Context` instanc
 | `ctx.startSpan(name, opts)` | `Span` | Creates a new child span. |
 | `ctx.finishSpan(span)` | `void` | Finishes a span. |
 | `ctx.toJSON()` | `Object` | Convert `Context` to a printable JSON. |
+| `ctx.copy()` | `this` | Create a copy of the `Context` instance. |
 
 ## Context tracking
 If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
