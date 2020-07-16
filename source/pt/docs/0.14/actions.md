@@ -1,7 +1,7 @@
 title: Ações
 ---
 
-As ações são os métodos de serviço públicos/que podem ser chamados. As ações são chamadas via RPC (Remote Procedure Call). Elas são como requisições HTTP, com parâmetros de requisição e respostas de retorno.
+Ações são os métodos de um serviço que podem ser chamados externamente. As ações são chamadas via RPC (Remote Procedure Call). Elas são parecidas com requisições HTTP, com parâmetros de requisição e respostas de retorno.
 
 Se você possuir várias instâncias de um serviço, o broker irá balancear as requisições entre as instâncias. [Leia mais sobre balanceamento](balancing.html).
 
