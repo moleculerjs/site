@@ -1,26 +1,26 @@
 title: Ações
 ---
 
-As ações são os métodos públicos/invocáveis do serviço. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+As ações são os métodos de serviço públicos/que podem ser chamados. As ações são chamadas via RPC (Remote Procedure Call). Elas são como requisições HTTP, com parâmetros de requisição e respostas de retorno.
 
-If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
+Se você possuir várias instâncias de um serviço, o broker irá balancear as requisições entre as instâncias. [Leia mais sobre balanceamento](balancing.html).
 
 <div align="center">
-    <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
+    <img src="assets/action-balancing.gif" alt="Diagrama de balanceamento de ações" />
 </div>
 
-## Call services
-To call a service use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
+## Chamada de serviços
+Para chamar um serviço use o método `broker.call`. O broker procura o serviço (e um nó) que possui a ação especificada e chama-a. A função retorna uma `Promise`.
 
-### Syntax
+### Sintaxe
 ```js
 const res = await broker.call(actionName, params, opts);
 ```
-The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
+O parâmetro `actionName` é uma string separada por pontos. Sua primeira parte é o nome do serviço, enquanto a segunda parte representa o nome da ação. Então, se você tiver um serviço de `posts` com uma ação `create`, você pode chamá-la utilizando `posts.create`.
 
-The `params` is an object which is passed to the action as a part of the [Context](context.html). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
+O parâmetro `params` é um objeto que é passado para a ação como parte do [Contexto](context.html). O serviço pode acessá-lo através de `ctx.params`. *É opcional. Caso não seja definido, seu valor padrão é `{}`*.
 
-The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
+O parâmetro `opts` é um objeto utilizado para definir/substituir alguns parâmetros da solicitação, por exemplo: `timeout`, `retryCount`. *É opcional.*
 
 **Available calling options:**
 
