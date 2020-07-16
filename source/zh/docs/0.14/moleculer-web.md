@@ -240,7 +240,7 @@ module.exports = {
                     "POST /": "multipart:file.save",
 
                     // File upload from AJAX or cURL
-                    "PUT /": "stream:file.save",
+                    "PUT /:id": "stream:file.save",
 
                     // File upload from HTML form and overwrite busboy config
                     "POST /multi": {
@@ -267,6 +267,13 @@ module.exports = {
     }
 });
 ```
+**Multipart parameters**
+
+In order to access the files passed by multipart-form these specific fields can be used inside the action:
+- `ctx.params` is the Readable stream containing the file passed to the endpoint
+- `ctx.params.$params` parameters from URL querystring
+- `ctx.meta.$multipart` contains the additional text form-data fields passed _before other files fields_.
+
 ### Auto-alias
 The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
 
@@ -276,7 +283,7 @@ Gateway will regenerate the routes every time a service joins or leaves the netw
 
 Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
 
-**Example**
+**示例**
 ```js
 // api.service.js
 module.exports = {
@@ -388,7 +395,7 @@ API gateway collects parameters from URL querystring, request params & request b
 ### Disable merging
 To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
 
-**Example**
+**示例**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -442,7 +449,7 @@ foo: {
 ## Middlewares
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
-**Example**
+**示例**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -612,7 +619,7 @@ To define response headers & status code use `ctx.meta` fields:
 * `ctx.meta.$responseHeaders` - set all keys in header.
 * `ctx.meta.$location` - set `Location` key in header for redirects.
 
-**Example**
+**示例**
 ```js
 module.exports = {
     name: "export",
@@ -845,7 +852,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Usage**
+**使用**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -989,7 +996,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Usage**
+**使用**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1217,7 +1224,7 @@ Service method removes the route by path (`this.removeRoute("/admin")`).
 - [Full](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
     - SSL
     - static files
-    - middlewares
+    - 中间件
     - multiple routes with different roles
     - role-based authorization with JWT
     - whitelist
