@@ -322,23 +322,23 @@ module.exports = {
 > O valor padrão é `null` (que será considerado como `published`) devido à compatibilidade com versões anteriores.
 
 ## Hooks de ação
-Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+Os hooks de ação são funções de middleware conectáveis e reutilizáveis que podem ser registradas em `before`, `after` ou em `errors` nas ações de serviço. Um hook é uma `função` ou uma `String`. Em caso de `String`, seu nome deve corresponder ao nome do [método](services.html#Methods) do serviço.
 
-### Before hooks
-In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
+### Before Hooks
+Os hooks before são executados antes de uma ação ocorrer. Recebem `ctx` e podem manipular `ctx.params`, `ctx.meta`, ou adicionar variáveis personalizadas em `ctx.locals` para ser utilizadas nos handlers das ações. Se houver algum problema, o hook pode disparar um `Error`. _Por favor, observe que você não pode quebrar/ignorar as futuras execuções de hooks ou handlers da ação._
 
-**Main usages:**
-- parameter sanitization
-- parameter validation
-- entity finding
-- authorization
+**Principais usos:**
+- tratamentos de parâmetros
+- validações de parâmetros
+- pesquisar entidades
+- autorização
 
 ### After hooks
-In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
+Os hooks são executados após uma ação ocorrer. Recebem `ctx` e `response`. Eles podem manipular ou alterar completamente a resposta da ação. A resposta da ação deve sempre ser retornada no hook.
 
-**Main usages:**
-- property populating
-- remove sensitive data.
+**Principais usos:**
+- preencher propriedades
+- remover dados confidenciais.
 - wrapping the response into an `Object`
 - convert the structure of the response
 
