@@ -325,7 +325,7 @@ module.exports = {
 Os hooks de ação são funções de middleware conectáveis e reutilizáveis que podem ser registradas em `before`, `after` ou em `errors` nas ações de serviço. Um hook é uma `função` ou uma `String`. Em caso de `String`, seu nome deve corresponder ao nome do [método](services.html#Methods) do serviço.
 
 ### Before Hooks
-Os hooks before são executados antes de uma ação ocorrer. Recebem `ctx` e podem manipular `ctx.params`, `ctx.meta`, ou adicionar variáveis personalizadas em `ctx.locals` para ser utilizadas nos handlers das ações. Se houver algum problema, o hook pode disparar um `Error`. _Por favor, observe que você não pode quebrar/ignorar as futuras execuções de hooks ou handlers da ação._
+Os before hooks são executados antes de uma ação ocorrer. Recebem `ctx` e podem manipular `ctx.params`, `ctx.meta`, ou adicionar variáveis personalizadas em `ctx.locals` para ser utilizadas nos handlers das ações. Se houver algum problema, o hook pode disparar um `Error`. _Por favor, observe que você não pode quebrar/ignorar as futuras execuções de hooks ou handlers da ação._
 
 **Principais usos:**
 - tratamentos de parâmetros
@@ -334,30 +334,30 @@ Os hooks before são executados antes de uma ação ocorrer. Recebem `ctx` e pod
 - autorização
 
 ### After hooks
-Os hooks são executados após uma ação ocorrer. Recebem `ctx` e `response`. Eles podem manipular ou alterar completamente a resposta da ação. A resposta da ação deve sempre ser retornada no hook.
+Os after hooks são executados após uma ação ocorrer. Recebem `ctx` e `response`. Eles podem manipular ou alterar completamente a resposta da ação. A resposta da ação deve sempre ser retornada no hook.
 
 **Principais usos:**
 - preencher propriedades
 - remover dados confidenciais.
-- wrapping the response into an `Object`
-- convert the structure of the response
+- envolver a resposta em um `Object`
+- converter a estrutura da resposta
 
 ### Error hooks
-The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
+Os hooks de erro são chamados quando um `Erro` é lançado durante a chamada da ação. Recebe `ctx` e `err`. Pode lidar com o erro e retornar uma resposta (fallback) ou lançar o erro.
 
-**Main usages:**
-- error handling
-- wrap the error into another one
-- fallback response
+**Principais usos:**
+- manipulação de erros
+- encapsular o erro em outro
+- resposta de fallback
 
-### Service level declaration
-Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
+### Declaração de nível de serviço
+Hooks podem ser atribuídos a uma ação específica (especificando o `name` da ação) ou para todas as ações (`*`) de um serviço.
 
 {% note warn%}
-Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+Note que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução dos hooks](#Execution-order).
 {% endnote %}
 
-**Before hooks**
+**Before Hooks**
 
 ```js
 const DbService = require("moleculer-db");
@@ -367,11 +367,11 @@ module.exports = {
     mixins: [DbService]
     hooks: {
         before: {
-            // Define a global hook for all actions
-            // The hook will call the `resolveLoggedUser` method.
+            // Define um hook global para todas as ações
+            // O hook chamará o método `resolveLoggedUser`.
             "*": "resolveLoggedUser",
 
-            // Define multiple hooks for action `remove`
+            // Define vários hooks para a ação `remove`
             remove: [
                 function isAuthenticated(ctx) {
                     if (!ctx.user)
