@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-` meta ` é enviada de volta ao serviço que fez a chamada do método. Você pode utilizar para enviar metadados extras de volta ao chamador da ação. Ex.: enviar cabeçalhos de resposta de volta para o API gateway ou gravar dados do usuário conectado nos metadados.
+` meta ` é enviada de volta ao serviço que fez a chamada do método. Você pode utilizar para enviar metadados extras de volta ao remetente da ação. Ex.: enviar cabeçalhos de resposta de volta para o API gateway ou gravar dados do usuário conectado nos metadados.
 
 ```js
 broker.createService({
@@ -256,7 +256,7 @@ module.exports = {
 };
 ```
 
-**Process received stream on the caller side**
+**Processando o fluxo recebido no lado do remetente**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -267,7 +267,7 @@ broker.call("storage.get", { filename })
     })
 ```
 
-**AES encode/decode example service**
+**Exemplo de serviço de codificação/decodificação AES**
 ```js
 const crypto = require("crypto");
 const password = "moleculer";
@@ -288,40 +288,40 @@ module.exports = {
 };
 ```
 
-## Action visibility
-The action has a `visibility` property to control the visibility & callability of service actions.
+## Visibilidade das ações
+A ação tem uma propriedade `visibility` para controlar sua visibilidade e a possibilidade de chamá-la por outros serviços.
 
-**Available values:**
-- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
-- `public`: public action, can be called locally & remotely but not published via API GW
-- `protected`: can be called only locally (from local services)
-- `private`: can be called only internally (via `this.actions.xy()` inside service)
+**Valores disponíveis:**
+- `published` ou `null`: ação pública. Pode ser chamada localmente, remotamente, e pode ser publicada através da API Gateway
+- `public`: ação pública, pode ser chamada localmente & remotamente, mas não publicada via API Gateway
+- `protected`: só pode ser chamado localmente (de serviços locais)
+- `private`: só pode ser chamado internamente (através de `this.actions.xy()` dentro do serviço)
 
-**Change visibility**
+**Alterar visibilidade**
 ```js
 module.exports = {
     name: "posts",
     actions: {
-        // It's published by default
+        // É públicado por padrão
         find(ctx) {},
         clean: {
-            // Callable only via `this.actions.clean`
+            // Chamado apenas via `this.actions.clean`
             visibility: "private",
             handler(ctx) {}
         }
     },
     methods: {
         cleanEntities() {
-            // Call the action directly
+            // Chama a ação diretamente
             return this.actions.clean();
         }
     }
 }
 ```
 
-> The default values is `null` (means `published`) due to backward compatibility.
+> O valor padrão é `null` (que será considerado como `published`) devido à compatibilidade com versões anteriores.
 
-## Action hooks
+## Hooks de ação
 Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
 ### Before hooks
