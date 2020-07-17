@@ -141,7 +141,7 @@ broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 
 O tempo limite (timeout) também pode ser definido na definição de uma ação. Ele substitui a [opção `requestTimeout`](fault-tolerance.html#Timeout) do gerenciador de serviços (broker) global, mas não substitui o `timeout` nas opções de chamada.
 
-**Example**
+**Exemplo**
  ```js
 // moleculer.config.js
 module.exports = {
@@ -166,53 +166,53 @@ module.exports = {
         }
     },
 ```
-**Calling examples**
+**Exemplos de chamada**
 ```js
-// It uses the global 3000 timeout
+// Utiliza o timeout global como 5000
 await broker.call("greeter.normal");
- // It uses the 5000 timeout from action definition
+ // Utiliza o timeout de 3000 definido na ação 
 await broker.call("greeter.slow");
- // It uses 1000 timeout from calling option
+ // Utiliza o timeout de 1000 passado nas opções da chamada
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
-### Multiple calls
+### Chamadas múltiplas
 
-Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+Chamar várias ações ao mesmo tempo também é possível. Para fazer isso, utilize `broker.mcall` ou `ctx.mcall`.
 
-**`mcall` with Array< Object >**
+**`mcall` com Array< Object >**
 ```js
 await broker.mcall(
     [
-        { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        { action: 'posts.find', params: { author: 1 }, opções: { /* Opções da chamada. */} },
         { action: 'users.find', params: { name: 'John' } }
     ],
     {
-        // Common calling options for all calls.
+        // Opções comuns para todas as chamadas.
         meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
     }
 );
 ```
 
-**`mcall` with Object**
+**`mcall` com Object**
 ```js
 await broker.mcall(
     {
-        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Opções da chamada. */} },
         users: { action: 'users.find', params: { name: 'John' } }
     }, 
     {
-        // Common calling options for all calls.
+        // Opções comuns para todas as chamadas.
         meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
     }
 );
 ```
 
 ## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+O Moleculer suporta os streams do Node.js nos parâmetros da requisição `params` e nas respostas. Utilize streams para transferir um arquivo recebido de um gateway, codificar/decodificar ou compactar/descompactar streams.
 
-### Examples
+### Exemplos
 
-**Send a file to a service as a stream**
+**Enviar um arquivo como stream para um serviço**
 ```js
 const stream = fs.createReadStream(fileName);
 
@@ -220,12 +220,12 @@ broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 ```
 
 {% note info Object Mode Streaming%}
-[Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. In order to enable it set `$streamObjectMode: true` in [`meta`](actions.html#Metadata).
+Também há suporte para [Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode). Para ativar, defina `$streamObjectMode: true` no [`meta`](actions.html#Metadata).
 {% endnote %}
 
-Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
+Note que `params` deve ser um stream, você não pode adicionar nenhuma variável adicional a `params`. Use a propriedade `meta` para transferir dados adicionais.
 
-**Receiving a stream in a service**
+**Recebendo um stream em um serviço**
 ```js
 module.exports = {
     name: "storage",
@@ -239,7 +239,7 @@ module.exports = {
 };
 ```
 
-**Return a stream as response in a service**
+**Retornar um stream como resposta em um serviço**
 ```js
 module.exports = {
     name: "storage",
