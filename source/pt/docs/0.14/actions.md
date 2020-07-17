@@ -30,23 +30,23 @@ O parâmetro `opts` é um objeto utilizado para definir/substituir alguns parâm
 | `retries`          | `Number`  | `null`       | Número de tentativas. Se a requisição atingir seu tempo limite, o broker irá tentar chamá-la novamente. Defina como `0` para desativar. Quando não definido, assumirá o `retryPolicy.retries` definido nas configurações do broker. [Leia mais](fault-tolerance.html#Retry).                                                               |
 | `fallbackResponse` | `Any`     | `null`       | Se a solicitação falhar, essa resposta alternativa será retornada. [Leia mais](fault-tolerance.html#Fallback).                                                                                                                                                                                                                             |
 | `nodeID`           | `String`  | `null`       | ID do nó de destino. Se definido, fará uma chamada direta para o nó especificado.                                                                                                                                                                                                                                                          |
-| `meta`             | `Objeto`  | `{}`         | Metadados da requisição. Acesse-o utilizando ` ctx.meta ` nas ações. It will be transferred & merged at nested calls, as well.                                                                                                                                                                                                             |
-| `parentCtx`        | `Context` | `null`       | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                                                      |
-| `requestID`        | `String`  | `null`       | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                                                          |
+| `meta`             | `Objeto`  | `{}`         | Metadados da requisição. Acesse-o utilizando ` ctx.meta ` nas ações. Será transferido & mesclado em chamadas encadeadas.                                                                                                                                                                                                                   |
+| `parentCtx`        | `Context` | `null`       | Instância de contexto pai ` Context `. Use-o para encadear as chamadas.                                                                                                                                                                                                                                                                    |
+| `requestID`        | `String`  | `null`       | ID de Requisição ou Correlação. Use-o para rastreamento.                                                                                                                                                                                                                                                                                   |
 
 
-### Usages
-**Call without params**
+### Utilização
+**Chamada sem parâmetros**
 ```js
 const res = await broker.call("user.list");
 ```
 
-**Call with params**
+**Chamada com parâmetros**
 ```js
 const res = await broker.call("user.get", { id: 3 });
 ```
 
-**Call with calling options**
+**Chamada com opções de chamada**
 ```js
 const res = await broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
@@ -55,20 +55,20 @@ const res = await broker.call("user.recommendation", { limit: 5 }, {
 });
 ```
 
-**Call with promise error handling**
+**Chamada com tratamento de erros**
 ```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
     .catch(err => console.error("Unable to update Post!", err));    
 ```
 
-**Direct call: get health info from the "node-21" node**
+**Chamada direta: obtenha informações de saúde do nó "node-21"**
 ```js
 const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
-### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
+### Metadados
+Envie metadados para serviços com a propriedade `meta`. Acesse-as utilizando ` ctx.meta ` nas ações. Observe que em chamadas aninhadas o `meta` é mesclado.
 ```js
 broker.createService({
     name: "test",
@@ -90,7 +90,7 @@ broker.call("test.first", null, { meta: {
 }});
 ```
 
-The `meta` is sent back to the caller service. Use it to send extra meta information back to the caller. E.g.: send response headers back to API gateway or set resolved logged in user to metadata.
+` meta ` é enviada de volta ao serviço que fez a chamada do método. Você pode utilizar para enviar metadados extras de volta ao chamador da ação. Ex.: enviar cabeçalhos de resposta de volta para o API gateway ou gravar dados do usuário conectado nos metadados.
 
 ```js
 broker.createService({
@@ -112,9 +112,9 @@ broker.createService({
 });
 ```
 
-When making internal calls to actions (`this.actions.xy()`) you should set `parentCtx` to pass `meta` data.
+Ao chamar ações dentro do serviço (`this.actions.xy()`), você deve definir o campo ` parentCtx` de `meta` para transmitir dados.
 
-**Internal calls**
+**Chamadas internas**
 ```js
 broker.createService({
   name: "mod",
@@ -139,7 +139,7 @@ broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 
 ### Timeout
 
-Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+O tempo limite (timeout) também pode ser definido na definição de uma ação. Ele substitui a [opção `requestTimeout`](fault-tolerance.html#Timeout) do gerenciador de serviços (broker) global, mas não substitui o `timeout` nas opções de chamada.
 
 **Example**
  ```js
