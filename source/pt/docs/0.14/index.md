@@ -1,20 +1,20 @@
-title: What is Moleculer?
+title: O que é o Moleculer?
 ---
-Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+Moleculer é uma estrutura de microserviços rápida, moderna e poderosa para [Node.js](https://nodejs.org/en/). Crie serviços eficientes, confiáveis & escaláveis na sua aplicação. O Moleculer fornece muitas funcionalidades para a construção e gerenciamento de seus microserviços.
 
-## Features
+## Funcionalidades
 
-- Promise-based solution (async/await compatible)
-- request-reply concept
-- support event driven architecture with balancing
-- built-in service registry & dynamic service discovery
-- load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
-- many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
-- plugin/middleware system
-- support versioned services
-- support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
-- service mixins
-- built-in caching solution (Memory, MemoryLRU, Redis)
+- solução baseada em Promises (compatível com async/await)
+- conceito de request-respose
+- arquitetura conduzida por eventos com balanceamento
+- registro de serviços integrado & descoberta de serviços dinâmico
+- requisições & eventos com balanceamento de carga (round-robin, aleatório, uso de cpu, latência, sharding)
+- muitos recursos de tolerância a falhas (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
+- sistema de plugin/middleware
+- suporte a serviços versionados
+- suporte a [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
+- mixins de serviço
+- solução de cache integrada (Memory, MemoryLRU, Redis)
 - pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
 - pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
 - pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
