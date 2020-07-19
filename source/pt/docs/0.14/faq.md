@@ -30,7 +30,7 @@ Os eventos de Moleculer são "disparar e esquecer" (fire-and-forget), isso signi
 ## Por que o broker encerra sem exibir qualquer erro quando inicio meu serviço?
 Se não houver nenhum processo em execução continuamente (por exemplo, conexão com transportador, API gateway, conexão de BD) que mantenha o laço de eventos em execução, o processo será fechado. É um comportamento normal e não um erro. Se você quiser manter seu broker em execução, você deve manter o loop de eventos "ocupado". Tente habilitar o transportador em `moleculer.config.js`.
 
-# Gateway de API (moleculer-web)
+# API Gateway (moleculer-web)
 
 ## Por que estou recebendo uma mensagem de erro `413 - request entity too large` ao enviar um POST com muitos dados?
 Você deve configurar os `bodyParsers` para sobrescrever o limite padrão de `100kb` que existe para o corpo de requisições POST. [Mais informações](https://github.com/expressjs/body-parser#limit).
@@ -57,7 +57,7 @@ Use o [recurso de streaming](https://moleculer.services/docs/0.13/actions.html#S
 {% endnote %}
 
 ## Como faço para formatar as respostas de erro?
-Você deve definir um hook `onError` nas configurações do API Gateway. [More info](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
+Você deve definir um hook `onError` nas configurações do API Gateway. [Mais informações](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
 
 ```js
 // api.service.js
@@ -78,9 +78,9 @@ module.exports = {
 ```
 
 # DB Adapters (moleculer-db)
-## How can I manage multiple entities/tables per service?
-At the moment, [Moleculer DB](moleculer-db.html) only supports [one model per service](https://microservices.io/patterns/data/database-per-service.html). This design works well if you are using a NoSQL database, especially Document database, because you can easily nest all child entities. However, for SQL databases things get tricky because you can have multiple and complex relations between the entities/tables. Due to this, its difficult (with the current workforce) to create a solution that will work for everyone. Therefore, for scenarios with multiple entities and relationships you will have to write your own adapter.
+## Como posso gerenciar várias entidades/tabelas por serviço?
+No momento, [Moleculer DB](moleculer-db.html) suporta apenas [um modelo por serviço](https://microservices.io/patterns/data/database-per-service.html). Este design funciona bem se você estiver usando um banco de dados NoSQL, especialmente bancos de dados orientados a documentos, porque você pode facilmente aninhar todas as entidades filhas. No entanto, para os bancos de dados SQL as coisas ficam complicadas, porque você pode ter relações múltiplas e complexas entre as entidades/tabelas. Devido a isso, é muito difícil (com a atual força de trabalho) criar uma solução que funcionará para todos. Portanto, para cenários com várias entidades e relacionamentos, você terá que escrever seu próprio adaptador.
 
 
-## `moleculer-db` violates Domain-Driven Design (DDD)?
-`moleculer-db` is a simple (and optional) service mixin to handle one DB entity/table. By no means it obliges or forces you to change your mindset or your way of implementing/modeling things. If the features provided by the `moleculer-db` don't fit your needs then you should write your own service with custom actions.
+## `moleculer-db` viola o Design Orientado pelo Domínio (DDD)?
+`moleculer-db` é um mixin de serviço simples (e opcional) que auxilia na manipulação de uma entidade/tabela de BD. Não significa que isso obrigue ou force você a alterar sua mentalidade ou sua maneira de implementar/modelar as coisas. Se os recursos fornecidos pelo `moleculer-db` não atendem a suas necessidades, então você deve escrever seu próprio serviço com ações personalizadas.
