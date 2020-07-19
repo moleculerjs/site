@@ -3,8 +3,8 @@ title: FAQ
 
 # Core & Common
 
-## Why am I getting `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` error message when starting my project?
-The NATS server is not part of the Moleculer. You have to install & start it before starting your project. Download it from here: https://nats.io/download/nats-io/nats-server/
+## Por que estou recebendo um `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` quando tento iniciar o meu projeto?
+O servidor NATS não faz parte do Moleculer. Você tem que o instalar & iniciar antes de executar o seu projeto. Baixe-o aqui: https://nats.io/download/nats-io/nats-server/
 ```
 [7480] 2019/10/06 14:18:05.801763 [INF] Starting nats-server version 2.0.0
 [7480] 2019/10/06 14:18:05.805763 [INF] Git commit [not set]
@@ -13,27 +13,27 @@ The NATS server is not part of the Moleculer. You have to install & start it bef
 [7480] 2019/10/06 14:18:05.810763 [INF] Server is ready
 ```
 
-## How can I start services with Moleculer Runner in debug mode?
-Use the following command:
+## Como posso iniciar serviços com o Moleculer Runner no modo de debug?
+Use o seguinte comando:
 ```bash
 $ node --inspect=0.0.0.0:9229 node_modules/moleculer/bin/moleculer-runner services
 ```
 
-## How to add V8 flags for Moleculer Runner?
+## Como adicionar flags V8 ao executar o Moleculer Runner?
 ```bash
 $ node --max-old-space-size=8192 node_modules/moleculer/bin/moleculer-runner services
 ```
 
-## What happens if I emit an event and the service with the event handler is offline?
-Moleculer's events are fire-and-forget meaning that if the service is offline, the event will be lost. If you want persistent events you should look for the transporters that offer this kind of capabilities.
+## O que acontece se eu emitir um evento e o serviço que utiliza esse evento estiver offline?
+Os eventos de Moleculer são "disparar e esquecer" (fire-and-forget), isso significa que caso o serviço esteja offline, o evento será perdido. Se você quiser eventos persistentes, procure por transportadores que oferecem este tipo de recursos.
 
-## Why the broker exits without any error when I start my service?
-If there is no continuously running process (e.g., transporter connection, API gateway, DB connection) that keeps event loop running then the process will exit. It's normal behavior and not a bug. If you want to keep your service broker running then you should keep the event loop "busy". Try to enable the transporter in `moleculer.config.js`.
+## Por que o broker encerra sem exibir qualquer erro quando inicio meu serviço?
+Se não houver nenhum processo em execução continuamente (por exemplo, conexão com transportador, API gateway, conexão de BD) que mantenha o laço de eventos em execução, o processo será fechado. É um comportamento normal e não um erro. Se você quiser manter seu broker em execução, você deve manter o loop de eventos "ocupado". Tente habilitar o transportador em `moleculer.config.js`.
 
-# API Gateway (moleculer-web)
+# Gateway de API (moleculer-web)
 
-## Why am I getting `413 - request entity too large` error message when sending a big POST body?
-You should configure the `bodyParsers` to overwrite the default `100kb` POST body limit. [More info](https://github.com/expressjs/body-parser#limit).
+## Por que estou recebendo uma mensagem de erro `413 - request entity too large` ao enviar um POST com muitos dados?
+Você deve configurar os `bodyParsers` para sobrescrever o limite padrão de `100kb` que existe para o corpo de requisições POST. [Mais informações](https://github.com/expressjs/body-parser#limit).
 
 ```js
 module.exports = {
@@ -53,11 +53,11 @@ module.exports = {
 ```
 
 {% note info Recommendation %}
-Use [streaming feature](https://moleculer.services/docs/0.13/actions.html#Streaming) when you want to send big data to a service or receive from a service.
+Use o [recurso de streaming](https://moleculer.services/docs/0.13/actions.html#Streaming) quando você quiser enviar ou receber grandes volumes de dados de/para um serviço.
 {% endnote %}
 
-## How do I reformat error responses?
-You should define an `onError` hook in API Gateway settings. [More info](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
+## Como faço para formatar as respostas de erro?
+Você deve definir um hook `onError` nas configurações do API Gateway. [More info](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
 
 ```js
 // api.service.js
