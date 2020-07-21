@@ -1,98 +1,98 @@
-title: Examples
+title: Exemplos
 ---
 
-## Project examples
+## Exemplos de projetos
 
-### Realworld backend server
-This is a [RealWorld.io](https://realworld.io/) example backend server with Moleculer microservices framework.
+### Servidor de backend Realworld
+Esse é um exemplo de um servidor backend [RealWorld.io](https://realworld.io/) construído com o framework de microserviços Moleculer.
 
-**Key features**
-- 7 microservices
-- NeDB or MongoDB database without Mongoose
-- User login & signup
-- User authentication with JWT
-- Memory caching
-- Docker files
+**Principais recursos**
+- 7 microserviços
+- NeDB ou banco de dados MongoDB sem Mongoose
+- Login de usuário & cadastro
+- Autenticação de usuário com JWT
+- Cache de memória
+- Arquivos do Docker
 
 **Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
 
 ### Blog
-This is a simple blog example.
+Este é um exemplo simples de blog.
 
-**Key features**
-- Docker files
-- ExpressJS www server with Pug template engine
-- MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
+**Principais recursos**
+- Arquivos do Docker
+- Servidor www ExpressJS com o Pug template engine
+- Banco de dados MongoDB com módulos [moleculer-db](https://github.com/moleculerjs/moleculer-db) e [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose)
 - NATS transporter
-- Redis cacher
-- [Traefik](https://traefik.io/) reverse proxy (in micro arch)
-- static frontend
+- Cache Redis
+- [Traefik](https://traefik.io/) proxy reverso (em micro arquitetura)
+- frontend estático
 
 **Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog#readme**
 
-## Short examples
-The main Moleculer repository contains [some examples](https://github.com/moleculerjs/moleculer/blob/master/examples/).
+## Exemplos curtos
+O repositório principal do Moleculer contém [alguns exemplos](https://github.com/moleculerjs/moleculer/blob/master/examples/).
 {% note info %}
-To try them, at first, you should clone the Moleculer repo with the following command:
+Para experimentá-los, no início, você deve clonar o repositório Moleculer com o seguinte comando:
 
 `git clone https://github.com/moleculerjs/moleculer.git`
 {% endnote %}
 
-### Simple
-This is a simple demo with a Math service which can `add`, `sub`, `mult` and `divide` two numbers.
+### Simples
+Esta é uma demonstração simples com um serviço matemático que pode `somar`, `subtrair`, `multiplicar` e `dividir ` dois números.
 
 ```bash
 $ npm run demo simple
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/simple/index.js)
+[O código fonte está disponível no Github](https://github.com/moleculerjs/moleculer/blob/master/examples/simple/index.js)
 
-### Server & client nodes
-In this example, you can start any servers & clients. The servers serve the `math.add` action and clients call it in a loop. You can start multiple instances from both. *They use TCP transporter, but you can change it with `TRANSPORTER` env variable.*
+### Nós de servidor & cliente
+Neste exemplo, você pode iniciar quaisquer servidores & clientes. Os servidores servem a ação `math.add` e os clientes a chamam em um loop. Você pode iniciar várias instâncias de ambos. *Eles usam o transporte TCP, mas você pode alterá-lo na variável de ambiente `TRANSPORTER`.*
 
-**Start a server**
+**Iniciar um servidor**
 ```bash
 $ node examples/client-server/server
 ```
 
-**Start a client**
+**Iniciar um cliente**
 ```bash
 $ node examples/client-server/client
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
+[O código fonte está disponível no Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
 
 ### Middlewares
-This example demonstrates how the middleware system works.
+Este exemplo demonstra como o sistema de middleware funciona.
 
 ```bash
 $ npm run demo middlewares
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
+[O código fonte está disponível no Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
 
 ### Runner
-This example shows how you can start a broker and load services with [Moleculer Runner](moleculer-runner.html).
+Este exemplo mostra como você pode iniciar um broker e carregar serviços com [Moleculer Runner](moleculer-runner.html).
 
 ```bash
 $ node ./bin/moleculer-runner.js -c examples/runner/moleculer.config.js -r examples/user.service.js
 ```
-It starts a broker with options from `moleculer.config.js`, loads the user service from `user.service.js` file and switch to REPL mode.
+Inicia um broker com as opções contidas em `moleculer.config.js`, carrega o serviço de usuário de `user.service.js` e muda para o modo REPL.
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/runner)
+[O código fonte está disponível no Github](https://github.com/moleculerjs/moleculer/blob/master/examples/runner)
 
-### Load tester
-With this example, you can start a load test. The server & client prints how many requests executed in a second.
+### Teste de carga
+Com este exemplo, você pode começar um teste de carga. Servidor & cliente exibem quantas solicitações foram executadas em um segundo.
 
-**Start server**
+**Iniciar um servidor**
 ```bash
 $ node examples/loadtest/server
 ```
 
-**Start & fork clients (number of CPU cores)**
+**Inicia & divide clientes (quantidade de núcleos do CPU)**
 ```bash
 $ node examples/loadtest/clients
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
+[O código fonte está disponível no Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
 
