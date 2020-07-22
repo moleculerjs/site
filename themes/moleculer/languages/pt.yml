@@ -1,10 +1,10 @@
 ---
 menu:
-  docs: Documentation
-  modules: Modules
-  support: Support
+  docs: Documentação
+  modules: Módulos
+  support: Contribua
   github: Github
-  discord: Discord Chat
+  discord: Chat do Discord
   blog: Blog
   store: Store
   search: Search...
