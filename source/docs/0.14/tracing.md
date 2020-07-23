@@ -37,7 +37,8 @@ module.exports = {
 | `defaultTags` | `Object` | `null` | Default tags. It will be added to all spans. |
 
 ## Sampling
-The Moleculer Tracer supports some sampling method.
+The Moleculer Tracer supports several sampling methods. The determination whether to sample or not is made on the root span and propagated to all child spans. This ensures that a complete trace is always exported regardless of the sample method or the rate selected.
+
 
 ### Constant sampling
 This sampling method uses a constant sampling rate value from `0` to `1`. The `1` means all spans will be sampled, the `0` means none of them.
