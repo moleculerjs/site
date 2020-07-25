@@ -5,7 +5,7 @@ Moleculer é uma estrutura de microserviços rápida, moderna e poderosa para [N
 ## Funcionalidades
 
 - solução baseada em Promises (compatível com async/await)
-- conceito de request-respose
+- conceito de request-response
 - arquitetura conduzida por eventos com balanceamento
 - registro de serviços integrado & descoberta de serviços dinâmico
 - requisições & eventos com balanceamento de carga (round-robin, aleatório, uso de cpu, latência, sharding)
