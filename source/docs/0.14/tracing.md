@@ -618,6 +618,8 @@ module.exports = {
                 return {
                     params: ctx.params,
                     meta: ctx.meta,
+                    // add the caller
+                    caller: ctx.caller,
                     custom: {
                         a: 5
                     },
