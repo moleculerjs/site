@@ -106,7 +106,7 @@ module.exports = {
 ### Estratégia de sharding
 A estratégia de sharding é baseada no algoritmo [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing). Utiliza um valor chave definido em `params` ou `meta` do contexto para rotear o pedido para os nós. Isto significa que pedidos com o mesmo valor chave serão encaminhados para o mesmo nó.
 
-**Example of a shard key `name` in context `params`**
+**Exemplo de uma shard key `name` em `params`**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -119,7 +119,7 @@ module.exports = {
 };
 ```
 
-**Example of a shard key `user.id` in context `meta`**
+**Exemplo de uma shard key `user.id` em `meta`**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -132,20 +132,20 @@ module.exports = {
 };
 ```
 {% note info %}
-If shard key is in context's `meta` it must be declared with a `#` at the beginning. The actual `#` is ignored.
+Se a shard key estiver em `meta` ela deve ser declarada no início com um `#`. O `#` é ignorado e é utilizado apenas o valor que existe após ele.
 {% endnote %}
 
-**Strategy options**
+**Opções da estratégia**
 
-| Name        | Type     | Default | Description             |
-| ----------- | -------- | ------- | ----------------------- |
-| `shardKey`  | `String` | `null`  | Shard key               |
-| `vnodes`    | `Number` | `10`    | Number of virtual nodes |
-| `ringSize`  | `Number` | `2^32`  | Size of the ring        |
-| `cacheSize` | `Number` | `1000`  | Size of the cache       |
+| Nome        | Tipo     | Valor padrão | Descrição              |
+| ----------- | -------- | ------------ | ---------------------- |
+| `shardKey`  | `String` | `null`       | Shard key              |
+| `vnodes`    | `Number` | `10`         | Número de nós virtuais |
+| `ringSize`  | `Number` | `2^32`       | Tamanho do anel        |
+| `cacheSize` | `Number` | `1000`       | Tamanho do cache       |
 
 
-**All available options of Shard strategy**
+**Todas as opções disponíveis na estratégia de Sharding**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -160,7 +160,7 @@ module.exports = {
     }
 };
 ```
-## Overwrite global options
+## Sobrescrever opções globais
 You can overwrite globally defined load balancing strategy in action/event definitions.
 
 **Using 'Shard' strategy for 'hello' action instead of global 'RoundRobin'**
