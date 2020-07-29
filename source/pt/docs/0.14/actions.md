@@ -478,9 +478,9 @@ broker.createService({
 
 - `before` hooks: global (`*`) `->` nível de serviço `->` nível de ação.
 
-- `after` hooks: action level `->` service level `->` global (`*`).
+- `after` hooks: nível de ação `->` nível de serviço `->` global (`*`).
 
-**Example of a global, service & action level hook execution chain**
+**Exemplo de uma cadeia de execução de hook global, a nível de serviço & de ação**
 ```js
 broker.createService({
     name: "greeter",
@@ -525,7 +525,7 @@ broker.createService({
     }
 });
 ```
-**Output produced by global, service & action level hooks**
+**Saída produzida por hooks globais, nível de serviço & de ação**
 ```bash
 INFO  - Before all hook
 INFO  -   Before hook
@@ -536,8 +536,8 @@ INFO  -   After hook
 INFO  - After all hook
 ```
 
-### Reusability
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+### Reusabilidade
+A maneira mais eficiente de reutilizar hooks é declarando-os como métodos de serviço em um arquivo separado e importando-os com o mecanismo [mixin](services.html#Mixins). Dessa forma, um único gancho pode ser facilmente compartilhado entre várias ações.
 
 ```js
 // authorize.mixin.js
@@ -590,10 +590,10 @@ module.exports = {
     }
 };
 ```
-### Local Storage
-The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+### Armazenamento local
+A propriedade `locals` do `Contexto` é um armazenamento simples que pode ser usado para armazenar alguns dados adicionais e passá-los para o manipulador de ações. A propriedade `locals` utilizada em conjunto com hooks formam um poderoso combo:
 
-**Setting `ctx.locals` in before hook**
+**Configurando `ctx.locals` em um before hook**
 ```js
 module.exports = {
     name: "user",
