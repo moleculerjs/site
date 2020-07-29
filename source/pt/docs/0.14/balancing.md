@@ -1,15 +1,15 @@
-title: Load balancing
+title: Balanceamento de carga
 ---
 
-Moleculer has several built-in load balancing strategies. If a service is running on multiple node instances, ServiceRegistry uses these strategies to select a single node from the available ones.
+Moleculer tem várias estratégias de balanceamento de carga embutidas. Se um serviço estiver rodando em múltiplas instâncias de nós, o ServiceRegistry utiliza essas estratégias para selecionar um único nó entre os que estão disponíveis.
 
-## Built-in strategies
-To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
+## Estratégias integradas
+Para configurar a estratégia, defina a propriedade `strategy` que está contida em `registry` nas configurações do broker. O valor pode ser um nome (em caso de estratégias incorporadas) ou uma classe `Strategy` que herde de `BaseStrategy` (em caso de estratégias personalizadas).
 
-### RoundRobin strategy
-This strategy selects a node based on [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS) algorithm.
+### Estratégia RoundRobin
+Esta estratégia seleciona um nó baseando-se no algoritmo [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS).
 
-**Usage**
+**Utilização**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -19,10 +19,10 @@ module.exports = {
 };
 ```
 
-### Random strategy
-This strategy selects a node randomly.
+### Estratégia aleatória
+Esta estratégia seleciona um nó aleatoriamente.
 
-**Usage**
+**Utilização**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -31,10 +31,10 @@ module.exports = {
     }
 };
 ```
-### CPU usage-based strategy
-This strategy selects a node that has the lowest CPU usage. Since the node list can be very long, it gets samples and selects the node with the lowest CPU usage only from a sample instead of the whole node list.
+### Estratégia baseada na CPU
+Esta estratégia seleciona um nó que possui o menor uso de CPU. Uma vez que a lista de nós pode ser muito longa, a estratégia se baseia em amostragem, selecionando o nó com a menor utilização de CPU à partir da amostra verificada ao invés de verificar toda a lista de nós.
 
-**Usage**
+**Utilização**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -44,14 +44,14 @@ module.exports = {
 };
 ```
 
-**Strategy options**
+**Opções da estratégia**
 
-| Name          | Type     | Default | Description                                                                                                |
-| ------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `sampleCount` | `Number` | `3`     | The number of samples. _To turn of sampling, set to `0`._                                                  |
-| `lowCpuUsage` | `Number` | `10`    | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
+| Nome          | Tipo     | Valor padrão | Descrição                                                                                                                |
+| ------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `sampleCount` | `Number` | `3`          | O número de amostras. _Para desativar a amostragem, defina como `0`._                                                    |
+| `lowCpuUsage` | `Number` | `10`         | A porcentagem de uso da CPU (%). O nó que possuir utilização de CPU menor do que este valor é selecionado imediatamente. |
 
-**Usage with custom options**
+**Uso com opções personalizadas**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -65,10 +65,10 @@ module.exports = {
 };
 ```
 
-### Latency-based strategy
-This strategy selects a node that has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Since the node list can be very long, it gets samples and selects the host with the lowest latency only from a sample instead of the whole node list.
+### Estratégia baseada em latência
+Esta estratégia seleciona o nó que tem a mais baixa latência, medida por comandos de ping periódicos. Observe que essa estratégia somente pinga um nó / host. Uma vez que a lista de nós pode ser muito longa, a estratégia se baseia em amostragem, selecionando o nó com a menor latência à partir da amostra verificada ao invés de verificar toda a lista de nós.
 
-**Usage**
+**Utilização**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -78,16 +78,16 @@ module.exports = {
 };
 ```
 
-**Strategy options**
+**Opções da estratégia**
 
-| Name           | Type     | Default | Description                                                                                                                           |
-| -------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `sampleCount`  | `Number` | `5`     | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
-| `lowLatency`   | `Number` | `10`    | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
-| `collectCount` | `Number` | `5`     | The number of measured latency per host to keep in order to calculate the average latency.                                            |
-| `pingInterval` | `Number` | `10`    | Ping interval in seconds. If you have a lot of host/nodes, it's recommended to *increase* the value.                                  |
+| Nome           | Tipo     | Valor padrão | Descrição                                                                                                                                |
+| -------------- | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `sampleCount`  | `Number` | `5`          | O número de amostras. Se você tem muitos hosts/nós, é recomendado *aumentar* esse valor. _Para desativar a amostragem, defina como `0`._ |
+| `lowLatency`   | `Number` | `10`         | A menor latência (ms). O nó que possuir latência menor do que este valor é selecionado imediatamente.                                    |
+| `collectCount` | `Number` | `5`          | O número de medições de latência por host para calcular a latência média.                                                                |
+| `pingInterval` | `Number` | `10`         | Intervalo de ping em segundos. Se você tem muitos host/nós, é recomendado que *aumente* este valor.                                      |
 
-**Usage with custom options**
+**Uso com opções personalizadas**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -103,8 +103,8 @@ module.exports = {
 };
 ```
 
-### Sharding strategy
-Shard invocation strategy is based on [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing) algorithm. It uses a key value from context `params` or `meta` to route the request to nodes. It means that requests with same key value will be routed to the same node.
+### Estratégia de sharding
+A estratégia de sharding é baseada no algoritmo [consistent-hashing](https://www.toptal.com/big-data/consistent-hashing). Utiliza um valor chave definido em `params` ou `meta` do contexto para rotear o pedido para os nós. Isto significa que pedidos com o mesmo valor chave serão encaminhados para o mesmo nó.
 
 **Example of a shard key `name` in context `params`**
 ```js
