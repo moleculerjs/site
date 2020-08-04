@@ -1,3 +1,6 @@
+<!-- NPM version badge -->
+<img src="https://badgen.net/npm/v/moleculer" />
+
 <!-- Travis badge -->
 <img src="https://travis-ci.org/moleculerjs/moleculer.svg?branch=master" />
 
