@@ -394,7 +394,7 @@ module.exports = {
 }
 ```
 
-**After & Error hooks**
+**After & Error Hooks**
 
 ```js
 const DbService = require("moleculer-db");
@@ -404,22 +404,22 @@ module.exports = {
     mixins: [DbService]
     hooks: {
         after: {
-            // Define a global hook for all actions to remove sensitive data
+            // Define um hook global para todas ações para remover dados sensíveis
             "*": function(ctx, res) {
                 // Remove password
                 delete res.password;
 
-                // Please note, must return result (either the original or a new)
+                // Observe que deve retornar result (seja o original ou um novo)
                 return res;
             },
             get: [
-                // Add a new virtual field to the entity
+                // Adiciona um campo virtual à entidade
                 async function (ctx, res) {
                     res.friends = await ctx.call("friends.count", { query: { follower: res._id }});
 
                     return res;
                 },
-                // Populate the `referrer` field
+                // Popula o campo `referrer`
                 async function (ctx, res) {
                     if (res.referrer)
                         res.referrer = await ctx.call("users.get", { id: res._id });
@@ -441,11 +441,11 @@ module.exports = {
 };
 ```
 
-### Action level declaration
-Hooks can be also registered inside action declaration.
+### Declaração a nível de ação
+Hooks também podem ser registrados dentro da declaração da ação.
 
 {% note warn%}
-Please note that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+Observe que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução do hook](#Execution-order).
 {% endnote %}
 
 **Before & After hooks**
@@ -473,14 +473,14 @@ broker.createService({
     }
 });
 ```
-### Execution order
-It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels.  Overall, the hooks have the following execution logic:
+### Ordem de execução
+É importante ter em mente que os hooks têm uma ordem de execução específica. Isto é especialmente importante quando vários hooks estão registrados em diferentes níveis ([serviço](#Service-level-declaration) e/ou [ação](#Action-level-declaration)).  Em geral, os hooks têm a seguinte lógica de execução:
 
-- `before` hooks: global (`*`) `->` service level `->` action level.
+- `before` hooks: global (`*`) `->` nível de serviço `->` nível de ação.
 
-- `after` hooks: action level `->` service level `->` global (`*`).
+- `after` hooks: nível de ação `->` nível de serviço `->` global (`*`).
 
-**Example of a global, service & action level hook execution chain**
+**Exemplo de uma cadeia de execução de hook global, a nível de serviço & de ação**
 ```js
 broker.createService({
     name: "greeter",
@@ -525,7 +525,7 @@ broker.createService({
     }
 });
 ```
-**Output produced by global, service & action level hooks**
+**Saída produzida por hooks globais, nível de serviço & de ação**
 ```bash
 INFO  - Before all hook
 INFO  -   Before hook
@@ -536,8 +536,8 @@ INFO  -   After hook
 INFO  - After all hook
 ```
 
-### Reusability
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+### Reusabilidade
+A maneira mais eficiente de reutilizar hooks é declarando-os como métodos de serviço em um arquivo separado e importando-os com o mecanismo [mixin](services.html#Mixins). Dessa forma, um único gancho pode ser facilmente compartilhado entre várias ações.
 
 ```js
 // authorize.mixin.js
@@ -590,10 +590,10 @@ module.exports = {
     }
 };
 ```
-### Local Storage
-The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+### Armazenamento local
+A propriedade `locals` do `Contexto` é um armazenamento simples que pode ser usado para armazenar alguns dados adicionais e passá-los para o manipulador de ações. A propriedade `locals` utilizada em conjunto com hooks formam um poderoso combo:
 
-**Setting `ctx.locals` in before hook**
+**Configurando `ctx.locals` em um before hook**
 ```js
 module.exports = {
     name: "user",

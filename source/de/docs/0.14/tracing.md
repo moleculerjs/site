@@ -25,20 +25,20 @@ module.exports = {
 
 ## Options
 
-| Name          | Type                              | Default                                       | Description                                                     |
-| ------------- | --------------------------------- | --------------------------------------------- | --------------------------------------------------------------- |
-| `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                         |
-| `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters) |
-| `sampling`    | `Object`                          |                                               | Sampling settings. [More info](#Sampling)                       |
-| `actions`     | `Boolean`                         | `true`                                        | Tracing the service actions.                                    |
-| `events`      | `Boolean`                         | `false`                                       | Tracing the service events.                                     |
-| `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Error object fields which are added into span tags.             |
-| `stackTrace`  | `Boolean`                         | `false`                                       | Add stack trace info into span tags in case of error.           |
-| `defaultTags` | `Object`                          | `null`                                        | Default tags. It will be added to all spans.                    |
+| Name          | Type                              | Default                                       | Description                                                                                      |
+| ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                                                          |
+| `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                  |
+| `sampling`    | `Object`                          |                                               | Sampling settings. [More info](#Sampling)                                                        |
+| `actions`     | `Boolean`                         | `true`                                        | Tracing the service actions.                                                                     |
+| `events`      | `Boolean`                         | `false`                                       | Tracing the service events.                                                                      |
+| `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Error object fields which are added into span tags.                                              |
+| `stackTrace`  | `Boolean`                         | `false`                                       | Add stack trace info into span tags in case of error.                                            |
+| `tags`        | `Object`                          | `null`                                        | Add custom span tags to all actions and events spans. [More info](#Global-action-and-event-tags) |
+| `defaultTags` | `Object`                          | `null`                                        | Default tags. It will be added to all spans.                                                     |
 
 ## Sampling
 The Moleculer Tracer supports several sampling methods. The determination whether to sample or not is made on the root span and propagated to all child spans. This ensures that a complete trace is always exported regardless of the sample method or the rate selected.
-
 
 ### Constant sampling
 This sampling method uses a constant sampling rate value from `0` to `1`. The `1` means all spans will be sampled, the `0` means none of them.
@@ -589,7 +589,45 @@ module.exports = {
 ```
 
 {% note info %}
-Please note, the function will be called two times in case of success execution. First with `ctx`, and second times with `ctx` & `response` as the response of action call.
+Please note, when used with an action the function will be called two times in case of successful execution. First with `ctx` and the second time with `ctx` & `response` as the response of the action call.
+{% endnote %}
+
+## Global action and event tags
+
+Custom action and event span tags can be defined using the `tags` property in the tracer [options](#Options). These will be applied to all action and event spans unless overridden in the service schema's action and event definitions. All custom tag types defined [above](#Customizing) are valid. Any tags defined in the service schema's action and event definitions will take precendence but the merge of `params`, `meta`, and `response` tag definitions are shallow, meaning that it is possible to do things like define `meta` tags globally and `response` tags locally in each service.
+
+```js
+// moleculer.config.js
+module.exports = {
+    tracing: {
+        enabled: true,
+        tags: {
+            action: {
+                // Never add params
+                params: false,
+                // Add `loggedIn.username` value from `ctx.meta`
+                meta: ["loggedIn.username"],
+                // Always add the response
+                response: true,
+            },
+            event(ctx) {
+                return {
+                    params: ctx.params,
+                    meta: ctx.meta,
+                    // add the caller
+                    caller: ctx.caller,
+                    custom: {
+                        a: 5
+                    },
+                };
+            },            
+        }
+    }
+};
+```
+
+{% note info %}
+Custom tags defined using the `tags` property have access to `ctx` and if used with an action the `response`. The tags defined in `defaultTags` must either be a static object or a function that accepts the `tracer` instance and returns an object. It also has access to the `broker` instance via the `tracer` instance but does not have access to `ctx`.
 {% endnote %}
 
 **Example of Event tracing** You can tracing the events, as well. To enable it, set `events: true` in tracing broker options.
