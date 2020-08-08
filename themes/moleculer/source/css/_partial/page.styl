@@ -77,10 +77,25 @@ note-warn = hsl(0, 100%, 50%)
   padding-bottom: 20px
 
 .article-title
-  float: left
+  display: block
   font-family: font-title
   font-size: 36px
   font-weight: 300
+  text-decoration: none
+  color: color-default
+  transition: 0.2s
+  a&:hover
+    color: color-link-hover
+  .post &
+    float: none
+
+.article-subtitle
+  display: block
+  font-family: font-title
+  font-size: 18px
+  font-weight: 300
+  font-style: italic
+  margin: 12px 0
   text-decoration: none
   color: color-default
   transition: 0.2s

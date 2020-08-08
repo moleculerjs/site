@@ -31,11 +31,13 @@
     "lodash": "^4.17.19",
     "lunr": "^0.6.0",
     "marked": "^0.7.0",
-    "mkdirp": "0.5.1",
     "moleculer": "^0.14.6",
     "pug": "2.0.4",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "semver": "6.3.0"
+  },
+  "devDependencies": {
+    "mkdirp": "^0.5.1"
   }
 }
