@@ -16,8 +16,8 @@ page:
   contents: 目录
   back_to_top: 返回顶部
   improve: 改进本文档
-  prev: 上一个
-  next: 下一个
+  prev: 上一页
+  next: 下一页
   last_updated: "最后更新： %s"
 sidebar:
   docs:
@@ -32,7 +32,7 @@ sidebar:
     introduction: 简介
     core: 核心
     configuration: 配置
-    broker: 服务管理者
+    broker: 服务管理器
     service: 服务
     services: 服务
     lifecycle: 生命周期

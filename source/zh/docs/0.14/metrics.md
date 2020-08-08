@@ -178,6 +178,8 @@ module.exports = {
                 options: {
                     // Hostname
                     host: "my-host",
+                    // Base URL
+                    baseUrl: "https://api.datadoghq.eu/api/", // Default is https://api.datadoghq.com/api/
                     // API version
                     apiVersion: "v1",
                     // Server URL path
@@ -303,6 +305,7 @@ An info is a single string or number value like process arguments, hostname or v
 ### OS metrics
 - `os.memory.free` (gauge)
 - `os.memory.total` (gauge)
+- `os.memory.used` (gauge)
 - `os.uptime` (gauge)
 - `os.type` (info)
 - `os.release` (info)
@@ -352,6 +355,9 @@ An info is a single string or number value like process arguments, hostname or v
 - `moleculer.request.bulkhead.queue.size` (gauge)
 - `moleculer.event.bulkhead.inflight` (gauge)
 - `moleculer.event.bulkhead.queue.size` (gauge)
+- `moleculer.event.received.time` (histogram)
+- `moleculer.event.received.error.total`(counter)
+- `moleculer.event.received.active` (gauge)
 - `moleculer.request.timeout.total` (counter)
 - `moleculer.request.retry.attempts.total` (counter)
 - `moleculer.request.fallback.total` (counter)

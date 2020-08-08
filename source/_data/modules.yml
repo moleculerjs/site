@@ -48,6 +48,13 @@ gateway:
     official: false
     author: felipegcampos
     display: unset
+  - name: moleculer-grpc-api
+    link: 'https://github.com/brunonunes/moleculer-grpc-api'
+    desc: |
+      <a href="https://grpc.io/">gRPC</a> server for Moleculer.
+    official: false
+    author: brunonunes
+    display: unset
 databases:
   - name: moleculer-db
     link: 'https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db#readme'
@@ -226,6 +233,13 @@ general:
     official: false
     author: is2ei
     display: unset
+  - name: moleculer-data-provider
+    link: 'https://github.com/RancaguaInnova/moleculer-data-provider'
+    desc: |
+      React-Admin Data provider to interact with Moleculer Services APIs
+    official: false
+    author: RancaguaInnova
+    display: unset
 security:
   - name: moleculer-protect-services
     link: 'https://github.com/icebob/moleculer-protect-services'
@@ -262,6 +276,13 @@ security:
     official: false
     author: zerocowl
     display: none
+  - name: moleculer-iam
+    link: 'https://github.com/qmit-pro/moleculer-iam'
+    desc: |
+      Centralized IAM module for moleculer.
+    official: false
+    author: qmit-pro
+    display: unset
 others:
   - name: imicros-flow
     link: 'https://github.com/al66/imicros-flow'
@@ -482,3 +503,17 @@ tools:
     official: false
     author: amroessam
     display: unset
+  - name: fastest-validator-decorators
+    link: 'https://github.com/tobydeh/fastest-validator-decorators'
+    desc: |
+      Typescript decorators for the fastest-validator library.
+    official: false
+    author: tobydeh
+    display: unset
+  - name: moleculer-snippets
+    link: 'https://github.com/pavittarx/moleculer-snippets'
+    desc: |
+      vscode extension for inserting moleculerjs code snippets
+    official: false
+    author: pavittarx
+    display: none

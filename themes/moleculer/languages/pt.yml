@@ -1,0 +1,102 @@
+---
+menu:
+  docs: Documentação
+  modules: Módulos
+  support: Contribua
+  github: Github
+  discord: Chat do Discord
+  blog: Blog
+  store: Loja
+  search: Buscar...
+index:
+  get_started: Comece a usar
+  who_is_using: Quem está usando Moleculer?
+  tell_us: Se a sua empresa não estiver na lista, conte-nos.
+page:
+  contents: Conteúdo
+  back_to_top: Voltar ao topo
+  improve: Melhorar este documento
+  prev: Anterior
+  next: Próximo
+  last_updated: "Última atualização: %s"
+sidebar:
+  docs:
+    getting_started: Primeiros passos
+    what_is_it: O que é o Moleculer?
+    overview: Visão geral
+    install: Instalação
+    usage: Utilização
+    examples: Exemplos
+    concepts: Conceitos Principais
+    support: Contribua
+    introduction: Introdução
+    core: Principal
+    configuration: Configuração
+    broker: Gerenciador de Serviços
+    service: Serviço
+    services: Serviços
+    lifecycle: Ciclo de vida
+    actions: Ações
+    events: Eventos
+    context: Contexto
+    middlewares: Middlewares
+    caching: Cache
+    networking: Rede
+    registry: Descoberta e Registro
+    balancing: Balanceamento de carga
+    fault_tolerance: Tolerância a falhas
+    metrics: Métricas
+    tracing: Rastreamento
+    logging: Logs
+    validating: Validações
+    errors: Erros
+    runner: Moleculer Runner
+    modules: Módulos
+    tools: Ferramentas
+    moleculer_web: API Gateway
+    moleculer_repl: REPL console
+    moleculer_cli: CLI Tool
+    moleculer_db: DB Adapters
+    other_modules: Other modules
+    all_modules: All modules
+    miscellaneous: Miscellaneous
+    clustering: Clustering
+    deploying: Deploying
+    nodes: Nodes
+    docker: Docker
+    serverless: Serverless
+    benchmark: Benchmark
+    faq: FAQ
+    testing: Testing
+    contributing: Contributing
+    #Old 01.12 menu
+    transporters: Transporters
+    logger: Logger
+    circuit-breaker: Circuit Breaker
+    service-registry: Service Registry
+    cachers: Cachers
+    serializers: Serializers
+    statistics: Statistics
+    validation: Validation
+    api: API
+    api_servicebroker: ServiceBroker
+    api_service: Service
+    api_context: Context
+    api_protocol: Protocol
+modules:
+  name: Name
+  description: Description
+  author: Author
+  version: Version
+  checkout_awesome: Check our Awesome Moleculer repo!
+  doyouhave: Do you have a custom module for Moleculer?
+  tellus: Tell us!
+  gateway: Gateways
+  general: General
+  databases: Databases & stores
+  tasks: Tasks, queues & jobs
+  metrics: Metrics & Tracing
+  validation: Validation
+  security: Security
+  tools: Tools
+  others: Others

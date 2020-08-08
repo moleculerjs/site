@@ -1,7 +1,7 @@
-title: 动作
+title: Actions
 ---
 
-服务公开的可调用的方法称为动作 (actions)。 动作通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
+服务公开的可调用的方法称为动作或行为 (actions)。 动作通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
 
 如果您有多个服务实例，服务管理器 (broker)  将负责均衡它们的请求。 [获取更多关于负载均衡的信息](balancing.html)。
 
@@ -24,29 +24,29 @@ const res = await broker.call(actionName, params, opts);
 
 **可用的调用选项：**
 
-| 名称                 | 类型        | 默认值    | 说明                                                                                                                                                                                                                                                                                                    |
-| ------------------ | --------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                    |
-| `nodeID`           | `String`  | `null` | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
-| `meta`             | `Object`  | `{}`   | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
-| `parentCtx`        | `Context` | `null` | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
-| `requestID`        | `String`  | `null` | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
+| 名称                 | 类型        | 默认值    | 说明                                                                                                                                                                         |
+| ------------------ | --------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null` | 请求超时，单位为毫秒。 如果请求超时且您没有定义`fallbackResponse`, broker 将抛出一个`RequestTimeout`错误。 设为 `0` 表示禁用。 不设置此项，将使用 broker 选项的`requestTimeout`值。 [Read more](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null` | 重试次数. 如果请求超时，broker 会重试调用。 设为 `0` 表示禁用。 不设置此项，将使用 broker 选项的`retryPolicy.retries`值。 [Read more](fault-tolerance.html#Retry).                                               |
+| `fallbackResponse` | `Any`     | `null` | 如果请求失败，返回此替代响应。 [Read more](fault-tolerance.html#Fallback).                                                                                                                |
+| `nodeID`           | `String`  | `null` | 目标节点。 直接调用指定节点的动作。                                                                                                                                                         |
+| `meta`             | `Object`  | `{}`   | 请求元数据。 在动作处理器中通过 `ctx.mete` 来访问它。 它会在嵌套调用中传输 & 合并.                                                                                                                         |
+| `parentCtx`        | `Context` | `null` | Parent `Context` instance. Use it to chain the calls.                                                                                                                      |
+| `requestID`        | `String`  | `null` | Request ID 或 Correlation ID. 用于跟踪。                                                                                                                                         |
 
 
 ### 用例
-**Call without params**
+**无参数调用**
 ```js
 const res = await broker.call("user.list");
 ```
 
-**Call with params**
+**带参数调用**
 ```js
 const res = await broker.call("user.get", { id: 3 });
 ```
 
-**Call with calling options**
+**使用调用选项**
 ```js
 const res = await broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
@@ -55,14 +55,14 @@ const res = await broker.call("user.recommendation", { limit: 5 }, {
 });
 ```
 
-**Call with promise error handling**
+**带 promise 错误处理**
 ```js
 broker.call("posts.update", { id: 2, title: "Modified post title" })
     .then(res => console.log("Post updated!"))
     .catch(err => console.error("Unable to update Post!", err));    
 ```
 
-**Direct call: get health info from the "node-21" node**
+**直接调用: get health info from the "node-21" node**
 ```js
 const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
@@ -139,7 +139,7 @@ broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 
 ### 超时
 
-最好在动作声明中设定超时。 它覆盖全局服务管理者的 [`requestTimeout` 选项](fault-tolerance.html#Timeout)，但在不会覆盖调用选项中的`timeout`。
+最好在动作声明中设定超时。 它覆盖全局服务管理者的 [`requestTimeout` 选项](fault-tolerance.html#Timeout)，但不会覆盖调用选项中的`timeout`。
 
 **示例**
  ```js
@@ -256,7 +256,7 @@ module.exports = {
 };
 ```
 
-**调用方收到流程流**
+**调用方收到流**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -325,7 +325,7 @@ Xpath: /pre[19]/code
 > 为了后向兼容性，默认值是 `null` (意为`published`)。
 
 ## 动作钩子
-动作钩子是可插入和可重用的middleware功能，可以在服务动作中注册`before`, `after` 或`errors`钩子。 A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+动作钩子是可插入和可重用的 middleware 功能，可以在服务动作中注册`before`, `after` 或`errors`钩子。 钩子可以是 `Function`或`String`。 在`String`的情况下，它必须是服务的[method](services.html#Methods)名称。
 
 ### Before hooks
 In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._

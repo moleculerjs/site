@@ -146,7 +146,7 @@ companies:
     -
         name: Cryptonoid
         link: https://cryptonoid.io/
-        logo: https://camo.githubusercontent.com/b3018f2020e4bafc7961607fc443aa7651f7016b/68747470733a2f2f63727970746f6e6f69642e696f2f7374617469632f6d656469612f6c6f676f2e38326135653134352e737667
+        logo: https://cryptonoid.io/static/media/logo-header.82f263c6.svg
     -
         name: Workpuls
         link: https://www.workpuls.com/
@@ -195,3 +195,31 @@ companies:
         name: Соната
         link: https://sonatazvit.com.ua/
         logo: https://user-images.githubusercontent.com/38657428/79430464-a1f06480-7fd1-11ea-82e1-7939f1c5ffe1.png
+    -
+        name: Cards Against Formality
+        link: https://cardsagainstformality.io/
+        logo: https://user-images.githubusercontent.com/25152742/83291961-3230e480-a1e1-11ea-9a40-e2f820bd2077.png
+    -
+        name: TIKAJ
+        link: https://www.tikaj.com/
+        logo: https://user-images.githubusercontent.com/16584558/83345177-d031c580-a32d-11ea-9c99-835e902c8807.png
+    -
+        name: Doubtnut
+        link: https://doubtnut.com/
+        logo: https://camo.githubusercontent.com/1c7a9decf019873d3e9f2d7435440f4bfad6f496/68747470733a2f2f6c68332e676f6f676c6575736572636f6e74656e742e636f6d2f35425f397a4f50343046354e4b694742394c43643261493339615774364865515632443734514f386f6847714d71395935383364737655554f346e655a78564535673d733138302d7277
+    -
+        name: 2Labs Technology
+        link: https://2labs.com.br/
+        logo: https://camo.githubusercontent.com/feec587fea2945b1b15f0bb269c38dde12b7a6d7/68747470733a2f2f326c6162732e636f6d2e62722f696d672f6c6f676f5f326c6162735f6c617267655f636f72726563742e706e67
+    -
+        name: Prabandhak
+        link: https://reverieinc.com/prabandhak
+        logo: https://user-images.githubusercontent.com/13831913/85519612-643a3880-b61f-11ea-9802-b1d415801c9e.png
+    -
+        name: FairManager
+        link: https://fairmanager.de/
+        logo: https://user-images.githubusercontent.com/1658949/85694760-b76fc200-b6d7-11ea-8854-e1d064b5ea39.png
+    -
+        name: FINFORT
+        link: https://finfort.ru/
+        logo: https://user-images.githubusercontent.com/2254768/87274715-16f60c00-c4e5-11ea-9fc8-a5952b8df1e9.png
