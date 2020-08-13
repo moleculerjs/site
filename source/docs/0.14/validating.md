@@ -20,7 +20,7 @@ module.exports = {
 //moleculer.config.js
 module.exports = {
     nodeID: "node-100",
-    validator: "FastestValidator" // Using the Fastest Validator
+    validator: "Fastest" // Using the Fastest Validator
 }
 ```
 
@@ -30,7 +30,7 @@ module.exports = {
 module.exports = {
     nodeID: "node-100",
     validator: {
-        type: "FastestValidator",
+        type: "Fastest",
         options: {
             useNewCustomCheckerFunction: true,
             defaults: { /*...*/ },
