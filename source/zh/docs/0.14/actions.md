@@ -330,7 +330,7 @@ Xpath: /pre[19]/code
 ### Before hooks
 Before hooks 会接收 `ctx`, 取决于你的需求, 它可以操纵 `ctx.params`, `ctx. eta`, 或将自定义变量添加到 `ctx.locals` 。 如果有任何错误，它会抛出 `Error`。 _请注意，您不能 中断或跳过 hooks 或任何动作处理程序。_
 
-**Main usages:**
+**主要用法：**
 - parameter sanitization
 - parameter validation
 - entity finding
