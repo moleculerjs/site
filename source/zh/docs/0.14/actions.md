@@ -328,7 +328,7 @@ Xpath: /pre[19]/code
 动作钩子是可插入和可重用的 middleware 功能，可以在服务动作中注册`before`, `after` 或`errors`钩子。 钩子可以是 `Function`或`String`。 在`String`的情况下，它必须是服务的[method](services.html#Methods)名称。
 
 ### Before hooks
-In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
+Before hooks 会接收 `ctx`, 取决于你的需求, 它可以操纵 `ctx.params`, `ctx. eta`, 或将自定义变量添加到 `ctx.locals` 。 如果有任何错误，它会抛出 `Error`。 _请注意，您不能 中断或跳过 hooks 或任何动作处理程序。_
 
 **Main usages:**
 - parameter sanitization
