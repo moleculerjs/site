@@ -1085,7 +1085,7 @@ settings: {
             mergeParams: true,
 
             // Route-level middlewares
-            uses: [
+            use: [
                 helmet(),
                 passport.initialize()
             ],
