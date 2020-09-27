@@ -523,6 +523,16 @@ broker.createService({
                     fields: "username fullName"
                 }
             },
+            // In case the original field shouldn't be overwritten with the populated values.  
+            // The reviewer field will be added to the result containing the values 
+            // resolved by the "users.get" action based on the reviewerId field.
+            "reviewer": {
+                field: "reviewerId",
+                action: "users.get",
+                params: {
+                    fields: "username fullName"
+                }
+            },
 
             // Custom populator handler function
             "rate"(ids, items, rule, ctx) {
