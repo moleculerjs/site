@@ -27,7 +27,8 @@ RUN npm install --production
 
 COPY . .
 
-CMD ["npm", "start"]  # Запускает moleculer-runner
+# Execute moleculer-runner
+CMD ["node", "./node_modules/moleculer/bin/moleculer-runner.js"]
 ```
 
 ### Docker Compose
