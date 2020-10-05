@@ -839,6 +839,8 @@ new SqlAdapter('database', 'username', 'password', {
         idle: 10000
     },
 
+    noSync: true // If true, the model will not be synced by Sequelize
+
     // SQLite only
     storage: 'path/to/database.sqlite'
 });
