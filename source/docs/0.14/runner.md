@@ -113,7 +113,7 @@ The runner loads service files or folders defined in CLI arguments. If you defin
 1. If `SERVICEDIR` env found, but no `SERVICES` env, it loads all services from the `SERVICEDIR` directory.
 2. If `SERVICEDIR` & `SERVICES` env found, it loads the specified services from the `SERVICEDIR` directory.
 3. If no `SERVICEDIR`, but `SERVICES` env found, it loads the specified services from the current directory.
-4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. It glob pattern found, it applies and load the found files.
+4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. If glob pattern found, it applies and load the found files.
 
 >Please note: shorthand names can also be used in `SERVICES` env var.
 
