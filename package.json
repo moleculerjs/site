@@ -27,7 +27,7 @@
     "hexo-renderer-marked": "2.0.0",
     "hexo-renderer-stylus": "1.1.0",
     "hexo-server": "1.0.0",
-    "highlight.js": "9.15.10",
+    "highlight.js": "10.1.2",
     "lodash": "^4.17.19",
     "lunr": "^0.6.0",
     "marked": "^0.7.0",
