@@ -1,4 +1,11 @@
 patreon:
+    platinum:
+        name: Platinum sponsors
+        users:
+            -
+                name: Server-Eye
+                link: https://www.server-eye.de/
+                logo: https://www.server-eye.de/wp-content/uploads/server-eye_logo2019.png
     gold:
         name: Gold sponsors
         users:
