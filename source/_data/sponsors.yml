@@ -6,6 +6,7 @@ patreon:
                 name: Server-Eye
                 link: https://www.server-eye.de/
                 logo: https://www.server-eye.de/wp-content/uploads/server-eye_logo2019.png
+                company: true
     gold:
         name: Gold sponsors
         users:
@@ -17,14 +18,11 @@ patreon:
                 name: Jason Grey (Astute Solutions, LLC)
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/36887092/2c8346d940d2486299efdd476ce698fb/1.jpeg?token-time=2145916800&token-hash=-Kpv7IcjhK9Ab3Z_WLVZyC2PNSC7yyMLHANBmTHhRY4%3D
-                
+
     silver:
         name: Silver backers
-        users:
-            -
-                name: Adrien Ménoret
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/26700967/0aa2c4660f9a4c86808b67fc519e4c88/1.png?token-time=2145916800&token-hash=ecj5JZPlOWAodA2FksFN5_iG07irOJ5MvA7RBnazQWo%3D
+        users: []
+
     bronze:
         name: Bronze backers
         users:
@@ -32,51 +30,30 @@ patreon:
                 name: Ivan Petrovic
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D
+
     copper:
         name: Copper backers
         users:
-            -
-                name: ingenious
-                link: http://www.ingsw.com/
-                logo: https://user-images.githubusercontent.com/306521/31340277-edc01780-ad05-11e7-952e-0c959a107a2c.png
-                company: true
             -
                 name: Andreas Leinen
                 link: null
                 logo: https://c8.patreon.com/2/400/10631269
             -
-                name: David Roman
-                link: null
-                logo: https://c8.patreon.com/2/200/2521846
-            -
                 name: Tejas Bhatt
                 link: null
                 logo: https://c8.patreon.com/2/200/16817468
-            -
-                name: Leandro Hoffmann
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/16886297/9e5df1ea1a984509bde7fad34040ffd6/1.jpeg?token-time=2145916800&token-hash=5gyc9bb4GtVtFbgFZJd33_NukMXj2XBZa5ee14Nu4Y8%3D
             -
                 name: Frederik Granna
                 link: null
                 logo: https://c8.patreon.com/2/200/20690350
             -
-                name: Daniel Yeoman
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/25523003/230ade38caf94b8b871fa1802aacc42f/1.png?token-time=2145916800&token-hash=jmiJctkhxntb1BuPllIe0exGniMLFR6QSbhCkc4NfJQ%3D
-            -
                 name: Marcel Zúbrik
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/20502856/b4c040fb32a94e06b315551f430f62d7/1.jpeg?token-time=2145916800&token-hash=vtnv5DPMxrdK47HKSOV8ZbKia3_evpwjIOEsnYwY_G0%3D
             -
-                name: Alexander B.
-                link: null
-                logo: https://c8.patreon.com/2/200/15329101
-            -
                 name: Itamar
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/274758/15fd791893d24df2a2ed9c5417f7ed79/1.jpeg?token-time=2145916800&token-hash=yE0fa3cLU6cChnLo6t1fWC8ytEwS-3sUhn5Zc13e5mY%3D
-
             -
                 name: David Børresen
                 link: null
@@ -89,10 +66,6 @@ patreon:
                 name: Albert Baldassarre
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/284528/9a679fabd2e1407eaa2272b1afc3ce32/1.jpeg?token-time=2145916800&token-hash=QBhHy3s8LGcNgYfonlkZfySmmpTK4uPcHuvRVJjDLCQ%3D
-            -
-                name: Otumba Oloo
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/40162438/31c20f93fef147fc939a25f42aaa9c00/1.png?token-time=2145916800&token-hash=GFvAASa1i-gz5Y1kn7xx9qXQ_cWZSUFBO9WuehVhxMs%3D
             -
                 name: Autodrop3d Mike
                 link: null
