@@ -449,7 +449,7 @@ foo: {
 ## Middlewares
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
-**Example**
+**Példák**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -486,6 +486,39 @@ broker.createService({
         ]
     }
 });
+```
+Use [swagger-stats UI](https://swaggerstats.io/) for quick look on the "health" of your API (TypeScript)
+```ts
+import { Service, ServiceSchema } from "moleculer";
+import ApiGatewayService from "moleculer-web";
+const swStats = require("swagger-stats");
+
+const swMiddleware = swStats.getMiddleware();
+
+broker.createService({
+    mixins: [ApiGatewayService],
+    name: "gw-main",
+
+    settings: {
+        cors: {
+            methods: ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"],
+            origin: "*",
+        },
+
+        routes: [
+            // ...
+        ],
+
+        use: [swMiddleware],
+    },
+
+    async started(this: Service): Promise<void> {
+        this.addRoute({
+            path: "/",
+            use: [swMiddleware],
+        });
+    },
+} as ServiceSchema);
 ```
 
 ### Error-handler middleware

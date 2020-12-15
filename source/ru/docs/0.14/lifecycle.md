@@ -83,3 +83,32 @@ module.exports = {
 {% note info %}
 Это асинхронный обработчик событий. Можно вернуть `Promise` или использовать `async/await`.
 {% endnote %}
+
+### `merged` event handler
+This handler is called after the service schemas (including [mixins](services.html#Mixins)) has been merged but before service is registered. It means you can manipulate the merged service schema before it's processed.
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+
+    settings: {},
+
+    actions: {
+        find: {
+            params: {
+                limit: "number"
+            },
+            handler(ctx) {
+                // ...
+            }
+        }
+    },
+
+    merged(schema) {
+        // Modify the service settings
+        schema.settings.myProp = "myValue";
+        // Modify the param validation schema in an action schema
+        schema.actions.find.params.offset = "number";
+    }
+};
+```

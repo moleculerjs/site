@@ -449,7 +449,7 @@ foo: {
 ## Middlewares
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
-**Example**
+**Exemplos**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -486,6 +486,39 @@ broker.createService({
         ]
     }
 });
+```
+Use [swagger-stats UI](https://swaggerstats.io/) for quick look on the "health" of your API (TypeScript)
+```ts
+import { Service, ServiceSchema } from "moleculer";
+import ApiGatewayService from "moleculer-web";
+const swStats = require("swagger-stats");
+
+const swMiddleware = swStats.getMiddleware();
+
+broker.createService({
+    mixins: [ApiGatewayService],
+    name: "gw-main",
+
+    settings: {
+        cors: {
+            methods: ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"],
+            origin: "*",
+        },
+
+        routes: [
+            // ...
+        ],
+
+        use: [swMiddleware],
+    },
+
+    async started(this: Service): Promise<void> {
+        this.addRoute({
+            path: "/",
+            use: [swMiddleware],
+        });
+    },
+} as ServiceSchema);
 ```
 
 ### Error-handler middleware
@@ -619,7 +652,7 @@ To define response headers & status code use `ctx.meta` fields:
 * `ctx.meta.$responseHeaders` - set all keys in header.
 * `ctx.meta.$location` - set `Location` key in header for redirects.
 
-**Example**
+**Exemplo**
 ```js
 module.exports = {
     name: "export",
@@ -812,7 +845,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Usage**
+**Utilização**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -852,7 +885,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Usage**
+**Utilização**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -996,7 +1029,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Usage**
+**Utilização**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],

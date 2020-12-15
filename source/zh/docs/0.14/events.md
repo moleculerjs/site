@@ -113,13 +113,13 @@ module.exports = {
             console.log("User created:", ctx.params);
         },
 
-        // Subscribe to all `user` events
+        // Subscribe to all `user` events, e.g. "user.created", or "user.removed"
         "user.*"(ctx) {
             console.log("User event:", ctx.params);
         }
-
+        // Subscribe to every events
         // Legacy event handler signature with context
-        "$**"(payload, sender, event, ctx) {
+        "**"(payload, sender, event, ctx) {
             console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
     }

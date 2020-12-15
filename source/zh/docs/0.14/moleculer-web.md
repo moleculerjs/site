@@ -487,6 +487,39 @@ broker.createService({
     }
 });
 ```
+Use [swagger-stats UI](https://swaggerstats.io/) for quick look on the "health" of your API (TypeScript)
+```ts
+import { Service, ServiceSchema } from "moleculer";
+import ApiGatewayService from "moleculer-web";
+const swStats = require("swagger-stats");
+
+const swMiddleware = swStats.getMiddleware();
+
+broker.createService({
+    mixins: [ApiGatewayService],
+    name: "gw-main",
+
+    settings: {
+        cors: {
+            methods: ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"],
+            origin: "*",
+        },
+
+        routes: [
+            // ...
+        ],
+
+        use: [swMiddleware],
+    },
+
+    async started(this: Service): Promise<void> {
+        this.addRoute({
+            path: "/",
+            use: [swMiddleware],
+        });
+    },
+} as ServiceSchema);
+```
 
 ### Error-handler middleware
 There is support to use error-handler middlewares in the API Gateway. So if you pass an `Error` to the `next(err)` function, it will call error handler middlewares which have signature as `(err, req, res, next)`.
@@ -812,7 +845,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Usage**
+**使用**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
