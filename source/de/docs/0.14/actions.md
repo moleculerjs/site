@@ -1,38 +1,38 @@
 title: Actions
 ---
 
-Actions sind die aufrufbaren/öffentlichen Methoden des Services. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+Actions sind die aufrufbaren/öffentlichen Methoden des Services. Der Action-Aufruf repräsentiert einen Remote-Procedure-Call (RPC). Eine Action hat Request-Parameter & gibt, ähnlich wie ein HTTP-Request, einen Response zurück.
 
-If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
+Wenn es mehrere Instanzen desselben Services gibt, verteilt der Broker eingehende Requests via Load-Balancing an die Instanzen. [Mehr zum Thema Load-Balancing](balancing.html).
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
 </div>
 
-## Call services
-To call a service use the `broker.call` method. The broker looks for the service (and a node) which has the given action and call it. The function returns a `Promise`.
+## Service Aufrufe
+Um einen Aufruf an einen Service zu senden nutze die `broker.call` Methode. Der Broker sucht nach einem Service (und einem Node) mit der entsprechenden Action und ruft diese auf. Die Funktion gibt einen `Promise` zurück.
 
 ### Syntax
 ```js
-const res = await broker.call(actionName, params, opts);
+const res = warte broker.call(actionName, params, opts);
 ```
-The `actionName` is a dot-separated string. The first part of it is the service name, while the second part of it represents the action name. So if you have a `posts` service with a `create` action, you can call it as `posts.create`.
+Der `actionName` ist ein mit Punkt getrennter String. Der erste Teil ist der Name des Services, während der zweite Teil den Namen der Action darstellt. Wenn es also einen `posts` Service mit einer `create` Action gibt, kann man diese mit `posts.create` aufrufen.
 
-The `params` is an object which is passed to the action as a part of the [Context](context.html). The service can access it via `ctx.params`. *It is optional. If you don't define, it will be `{}`*.
+Das `params` ist ein Objekt welches von der Action als Teil des [Context](context.html)s mitgegeben wird. Der Service kann mit `ctx.params` darauf zugreifen. *Es ist optional. Wenn es nicht definiert wird, ist es `{}`*.
 
-The `opts` is an object to set/override some request parameters, e.g.: `timeout`, `retryCount`. *It is optional.*
+Das `opts` ist ein Objekt um einige Request-Parameter zu setzen/überschreiben wie z. B. `timeout` oder `retryCount`. *Es ist optional.*
 
-**Available calling options:**
+**Verfügbare Aufruf-Optionen:**
 
-| Name               | Type      | Default | Description                                                                                                                                                                                                                                                                                           |
-| ------------------ | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null`  | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null`  | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                            |
-| `fallbackResponse` | `Any`     | `null`  | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                    |
-| `nodeID`           | `String`  | `null`  | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                              |
-| `meta`             | `Object`  | `{}`    | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                          |
-| `parentCtx`        | `Context` | `null`  | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                 |
-| `requestID`        | `String`  | `null`  | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                     |
+| Name               | Typ       | Default | Beschreibung                                                                                                                                                                                                                                                                                             |
+| ------------------ | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null`  | Timeout des Requests in Millisekunden. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null`  | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry).                                                               |
+| `fallbackResponse` | `Any`     | `null`  | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback).                                                                                                                                                                                                                       |
+| `nodeID`           | `String`  | `null`  | Target nodeID. If set, it will make a direct call to the specified node.                                                                                                                                                                                                                                 |
+| `meta`             | `Object`  | `{}`    | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well.                                                                                                                                                                             |
+| `parentCtx`        | `Context` | `null`  | Parent `Context` instance. Use it to chain the calls.                                                                                                                                                                                                                                                    |
+| `requestID`        | `String`  | `null`  | Request ID or Correlation ID. Use it for tracing.                                                                                                                                                                                                                                                        |
 
 
 ### Usages
