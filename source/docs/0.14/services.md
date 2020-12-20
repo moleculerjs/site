@@ -402,7 +402,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 ## Metadata
 
 The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions.
-_Moleculer core modules don't use it. You can store it whatever you want._
+_Moleculer core modules don't use it. You can store in it whatever you want._
 
 ```js
 module.exports = {
