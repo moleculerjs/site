@@ -279,3 +279,7 @@ companies:
         name: hugo
         link: https://hugoapp.com/
         logo: https://hugoapp.nyc3.digitaloceanspaces.com/common/logo%20hugo-8.png
+    -
+        name: Adscook
+        link: https://adscook.com/
+        logo: https://user-images.githubusercontent.com/16320737/103137217-62d9ed80-46e0-11eb-889b-97e068b34304.png
