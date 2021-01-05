@@ -1,8 +1,8 @@
 <!-- NPM version badge -->
 <img src="https://badgen.net/npm/v/moleculer" />
 
-<!-- Travis badge -->
-<img src="https://travis-ci.org/moleculerjs/moleculer.svg?branch=master" />
+<!-- CI badge -->
+<img src="https://github.com/moleculerjs/moleculer/workflows/CI%20test/badge.svg" />
 
 <!-- Coveralls badge -->
 <img src="https://coveralls.io/repos/github/moleculerjs/moleculer/badge.svg?branch=master" />
