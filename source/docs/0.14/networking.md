@@ -229,7 +229,7 @@ module.exports = {
 ```js
 // moleculer.config.js
 module.exports = {
-    transporter: "rediss://localhost:6379"
+    transporter: "redis://localhost:6379"
 };
 ```
 
