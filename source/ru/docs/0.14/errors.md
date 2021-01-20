@@ -1,22 +1,22 @@
-title: Errors
+title: Ошибки
 ---
-Moleculer has some built-in `Error` to raise an error in services.
+Moleculer предоставляет несколько классов `Error`, для вызова в сервисах.
 
-## Base error classes
+## Базовые классы ошибок
 
 ### `MoleculerError`
-The base error class.
+Базовый класс ошибки.
 
-**Parameters**
+**Параметры**
 
-| Название  | Type     | Default | Описание          |
-| --------- | -------- | ------- | ----------------- |
-| `message` | `String` |         | Error message     |
-| `code`    | `Number` | `500`   | Error code        |
-| `type`    | `String` |         | Error type        |
-| `data`    | `any`    |         | Any relevant data |
+| Название  | Тип      | Значение по умолчанию | Описание                     |
+| --------- | -------- | --------------------- | ---------------------------- |
+| `message` | `String` |                       | Сообщение об ошибке          |
+| `code`    | `Number` | `500`                 | Код ошибки                   |
+| `type`    | `String` |                       | Тип ошибки                   |
+| `data`    | `any`    |                       | Любые соответствующие данные |
 
-**Example**
+**Пример**
 ```js
 const { MoleculerError } = require("moleculer").Errors;
 
