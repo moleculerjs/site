@@ -6,15 +6,15 @@ menu:
   github: Github
   discord: Discord чат
   blog: Блог
-  store: Мерч
+  store: Магазин
   search: Поиск...
 index:
   get_started: С чего начать
-  who_is_using: Что такое Moleculer?
-  tell_us: Не нашли вашу компанию? Сообщите нам!
+  who_is_using: Кто использует Moleculer?
+  tell_us: Не нашли вашу компанию? Сообщите нам.
 page:
   contents: Содержание
-  back_to_top: Вверх
+  back_to_top: Вернуться к началу
   improve: Предложить улучшение
   prev: Назад
   next: Далее
@@ -67,7 +67,7 @@ sidebar:
     serverless: Serverless
     benchmark: Benchmark
     faq: FAQ
-    testing: Testing
+    testing: Тестирование
     contributing: Contributing
     #Old 01.12 menu
     transporters: Транспорт
