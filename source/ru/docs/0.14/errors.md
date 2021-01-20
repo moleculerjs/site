@@ -24,18 +24,18 @@ throw new MoleculerError("Something happened", 501, "ERR_SOMETHING", { a: 5, nod
 ```
 
 ### `MoleculerRetryableError`
-Error for retryable errors. It uses in `broker.call`. The broker retries requests if they rejected a `MoleculerRetryableError`.
+Ошибка для повторных ошибок. Используется в `broker.call`. Брокер повторяет запрос, если запрос не удался и вернул ошибку `MoleculerRetryableError`.
 
-**Parameters**
+**Параметры**
 
-| Название  | Type     | Default | Описание          |
-| --------- | -------- | ------- | ----------------- |
-| `message` | `String` |         | Error message     |
-| `code`    | `Number` | `500`   | Error code        |
-| `type`    | `String` |         | Error type        |
-| `data`    | `any`    |         | Any relevant data |
+| Название  | Тип      | Значение по умолчанию | Описание                     |
+| --------- | -------- | --------------------- | ---------------------------- |
+| `message` | `String` |                       | Сообщение об ошибке          |
+| `code`    | `Number` | `500`                 | Код ошибки                   |
+| `type`    | `String` |                       | Тип ошибки                   |
+| `data`    | `any`    |                       | Любые соответствующие данные |
 
-**Example**
+**Пример**
 ```js
 const { MoleculerRetryableError } = require("moleculer").Errors;
 
@@ -43,26 +43,26 @@ throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOM
 ```
 
 ### `MoleculerServerError`
-Error for retryable server errors. Parameters are same as `MoleculerRetryableError`.
+Ошибка для повторных серверных ошибок. Параметры такие же, как для `MoleculerRetryableError`.
 
 
 ### `MoleculerClientError`
-Error for client error which is **not** retryable. Parameters are same as `MoleculerError`.
+Клиентская ошибка, при получении которой **не** будет выполнен повторный запрос. Параметры такие же, как для `MoleculerError`.
 
-## Internal error classes
+## Классы внутренних ошибок
 
 ### `ServiceNotFoundError`
-Throw it if you `call` a not registered service action. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_FOUND`
+Бросьте эту ошибку, если происходит вызов `call` не зарегистрированного служебного действия. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_FOUND`
 
 ### `ServiceNotAvailableError`
-Throw it if you `call` a currently unavailable service action. E.g. node disconnected which contains this service or circuit breaker is opened. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_AVAILABLE`
+Бросьте эту ошибку, если происходит вызов `call` недоступного в момент вызова действия сервиса. Например, узел, который содержит данный сервис отключён или открыт прерыватель бесконечных циклов. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_AVAILABLE`
 
 
 ### `RequestTimeoutError`
-Throw it if your request is timed out. Error code: **504** Retryable: **true** Type: `REQUEST_TIMEOUT`
+Бросьте эту ошибку, если время вашего запроса истекло. Error code: **504** Retryable: **true** Type: `REQUEST_TIMEOUT`
 
 ### `RequestSkippedError`
-Throw it if your nested call is skipped because the execution is timed out due to distributed timeout. Error code: **514** Retryable: **false** Type: `REQUEST_SKIPPED`
+Бросьте эту ошибку, если вложенный вызов пропущен, потому что его выполнение истекает по причине наступления распределенного тайм-аута. Error code: **514** Retryable: **false** Type: `REQUEST_SKIPPED`
 
 ### `RequestRejectedError`
 Throw it if the called node is disconnected during requesting. Error code: **503** Retryable: **true** Type: `REQUEST_REJECTED`
