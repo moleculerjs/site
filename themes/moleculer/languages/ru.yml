@@ -23,11 +23,11 @@ sidebar:
   docs:
     getting_started: Первые шаги
     what_is_it: Что такое Moleculer?
-    overview: Описание
+    overview: Обзор
     install: Установка
-    usage: Первые шаги
+    usage: Использование
     examples: Примеры
-    concepts: Архитектура
+    concepts: Основные концепции
     support: Поддержка
     introduction: Введение
     core: Ядро
@@ -88,15 +88,15 @@ modules:
   description: Описание
   author: Автор
   version: Версия
-  checkout_awesome: Посмотрите Awesome Moleculer репозиторий!
-  doyouhave: У вас имеется свой модуль для Moleculer?
-  tellus: Сообщите нам!
+  checkout_awesome: Ознакомьтесь потрясный Moleculer репозиторий!
+  doyouhave: Имеется свой модуль для Moleculer?
+  tellus: Расскажите нам!
   gateway: Шлюз
-  general: Основные
+  general: Общего назначения
   databases: Базы данных и хранилища
   tasks: Очереди и задачи
   metrics: Метрика и трассировка
   validation: Валидация
   security: Безопасность
-  tools: Утилиты
+  tools: Инструменты
   others: Прочее
