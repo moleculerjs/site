@@ -27,7 +27,7 @@ RUN npm install --production
 
 COPY . .
 
-# Execute moleculer-runner
+# Запустить moleculer-runner
 CMD ["node", "./node_modules/moleculer/bin/moleculer-runner.js"]
 ```
 
