@@ -85,7 +85,7 @@ module.exports = {
 {% endnote %}
 
 ### `merged` event handler
-This handler is called after the service schemas (including [mixins](services.html#Mixins)) has been merged but before service is registered. It means you can manipulate the merged service schema before it's processed.
+Этот обработчик вызывается после объединения схемы сервиса (включая [примеси](services.html#Mixins)), но до регистрации сервиса. It means you can manipulate the merged service schema before it's processed.
 ```js
 // posts.service.js
 module.exports = {
