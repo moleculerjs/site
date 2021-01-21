@@ -84,8 +84,8 @@ module.exports = {
 Это асинхронный обработчик событий. Можно вернуть `Promise` или использовать `async/await`.
 {% endnote %}
 
-### `merged` event handler
-Этот обработчик вызывается после объединения схемы сервиса (включая [примеси](services.html#Mixins)), но до регистрации сервиса. It means you can manipulate the merged service schema before it's processed.
+### `merged` обработчик события
+Этот обработчик вызывается после объединения схемы сервиса (включая [примеси](services.html#Mixins)), но до регистрации сервиса. Это означает, что вы можете манипулировать объединённой схемой сервиса до её обработки.
 ```js
 // posts.service.js
 module.exports = {
@@ -105,9 +105,9 @@ module.exports = {
     },
 
     merged(schema) {
-        // Modify the service settings
+        // Изменят настройки сервиса
         schema.settings.myProp = "myValue";
-        // Modify the param validation schema in an action schema
+        // Изменяет параметр схемы валидации в схеме действия
         schema.actions.find.params.offset = "number";
     }
 };
