@@ -13,7 +13,7 @@ title: Конфигурация
 * **`requestTimeout`**: `Number` - Количество миллисекунд, чтобы подождать, прежде чем отклонить запрос с ошибкой `RequestTimeout`. Отключить: `0` _По умолчанию: `0`_
 * **`retryPolicy`**: `Object` - Конфигурации политики повторных запросов. [Подробнее](fault-tolerance.html#Retry).
 * **`contextParamsCloning`**: `Boolean` - Включить клонирование параметров `params` контекста. _Оказывает сильное влияние на производительность. Используйте его с осторожностью!_ _По умолчанию: `false`_
-* **`dependencyInterval`**: Configurable interval (defined in `ms`) that's used by the services while waiting for dependency services. _По умолчанию: `1000`_
+* **`dependencyInterval`**: Настраиваемый интервал (определён в `ms`) который используется сервисами, в ожидании обслуживания зависимостей. _По умолчанию: `1000`_
 * **`maxCallLevel`**: `Number` - Ограничение уровня вложенных действий. Если он достигнет предела, брокер бросит ошибку `MaxCallLevelError`. _(Защита от бесконечного цикла)_ _По умолчанию: `0`_
 * **`heartbeatInterval`**: `Number` - Период отправки пакета сердечного ритма, в секундах. _По умолчанию: `5`_
 * **`heartbeatTimeout`**: `Number` - Число секунд ожидания перед установкой статуса недоступности удаленного узла в реестре. _По умолчанию: `15`_
@@ -23,8 +23,8 @@ title: Конфигурация
 * **`circuitBreaker`**: `Object` - Настройки [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
 * **`bulkhead`**: `Object` - Настройки [bulkhead](fault-tolerance.html#Bulkhead).
 * **`transit.maxQueueSize`**: `Number` - Защита от чрезмерного потребления памяти, когда слишком много исходящих запросов. Если число запросов больше _указанного_, новые запросы будут отклонены с ошибкой `QueueIsFullError`. _По умолчанию: `50000`_
-* **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_
-* **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _По умолчанию: `false`_
+* **`transit.maxChunkSize`** `Number` - Максимальный размер чанка в потоке.  _По умолчанию: `256KB`_
+* **`transit.disableReconconnect`**: `Boolean` - отключает логику переподключения при запуске брокера. _По умолчанию: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _По умолчанию: `false`_
 * **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_
 * **`uidGenerator`**: `Function` - Custom UID generator function for Context ID.
