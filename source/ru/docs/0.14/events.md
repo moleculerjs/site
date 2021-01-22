@@ -33,59 +33,59 @@ module.exports = {
 ```
 
 ## Выдача сбалансированного события
-Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _To send multiple values, wrap them into an `Object`._
+Отправлять сбалансированные события с помощью функции `broker.emit`. Первый параметр — это название события, второй параметр — это полезная нагрузка. _Чтобы отправить несколько значений, оберните их в `Object`._
 
 ```js
-// The `user` will be serialized to transportation.
+// `user` будет сериализован к транспорту.
 broker.emit("user.created", user);
 ```
 
-Specify which groups/services shall receive the event:
+Укажите, какие группы/сервисы должны получить событие:
 ```js
-// Only the `mail` & `payments` services receives it
+// Только `mail` & `payments` сервисы принимают его
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-# Broadcast event
-The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
+# Широковещательное событие
+Штроковещательное событие отправляется всем доступным локальным & удаленным сервисам. Оно не сбалансировано, все экземпляры сервиса получат его.
 
 <div align="center">
     <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
 </div>
 
-Send broadcast events with `broker.broadcast` method.
+Отправка широковещательного события выполняется с помощью метода `broker.broadcast`.
 ```js
 broker.broadcast("config.changed", config);
 ```
 
-Specify which groups/services shall receive the event:
+Укажите, какие группы/сервисы должны получить событие:
 ```js
-// Send to all "mail" service instances
+// Отправляем во все экземпляры сервиса "mail"
 broker.broadcast("user.created", { user }, "mail");
 
-// Send to all "user" & "purchase" service instances.
+// Отправляем всем "user" & "purchase" экземплярам сервиса.
 broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
-## Local broadcast event
-Send broadcast events only to all local services with `broker.broadcastLocal` method.
+## Локальное широковещательное событие
+Для отправки события только всем локальным службам используется метод `broker.broadcastLocal`.
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
 
-# Subscribe to events
+# Подписка на события
 
-The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
+Версия `v0.14` поддерживает обработчики событий на основе контекста. Контекст событий полезен, если вы используете архитектуру под управлением событий и хотите отслеживать ваши события. Если вы знакомы с [Action Context](context.html), вы будете чувствовать себя как дома. Контекст события очень похож на контекст действий, за исключением нескольких новых свойств относящихся к событиям. [Посмотреть полный список всех свойств](context.html)
 
 {% note info Legacy event handlers %}
 
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers:
-- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context.
-- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
+Вам не нужно переписывать все существующие обработчики событий, так как Moleculer все еще поддерживает старую сигнатуру `"user.created"(payload) { ... }`. Он способен обнаружить различные сигнатуры обработчиков событий:
+- Если найдена сигнатура `"user.created"(ctx) { ... }`, то вызов выполнится с контекстом событий.
+- Если нет, вызов выполнится со старыми аргументами & 4-й аргумент будет контекст события, например `"user.created"(payload, отправитель, eventName, ctx) {...}`
 
 {% endnote %}
 
-**Context-based event handler & emit a nested event**
+**Обработчик событий на основе контекста & выпуск вложенного события**
 ```js
 module.exports = {
     name: "accounts",
