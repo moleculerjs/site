@@ -65,10 +65,10 @@ throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOM
 Бросьте эту ошибку, если вложенный вызов пропущен, потому что его выполнение истекает по причине наступления распределенного тайм-аута. Error code: **514** Retryable: **false** Type: `REQUEST_SKIPPED`
 
 ### `RequestRejectedError`
-Throw it if the called node is disconnected during requesting. Error code: **503** Retryable: **true** Type: `REQUEST_REJECTED`
+Бросьте эту ошибку если вызываемый узел отключен во время запроса. Error code: **503** Retryable: **true** Type: `REQUEST_REJECTED`
 
 ### `QueueIsFullError`
-Throw it if there are too many active requests. Error code: **429** Retryable: **true** Type: `QUEUE_FULL`
+Бросьте эту ошибку если слишком много активных запросов. Error code: **429** Retryable: **true** Type: `QUEUE_FULL`
 
 ### `ValidationError`
 Validator throws it if the calling parameters are not valid. Error code: **422** Retryable: **false** Type: `VALIDATION_ERROR` _(default)_
