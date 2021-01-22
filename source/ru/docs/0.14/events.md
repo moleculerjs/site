@@ -1,25 +1,25 @@
-title: Events
+title: События
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services.
+У брокера есть встроенная шина событий для поддержки [управляемой событиями архитектуры](http://microservices.io/patterns/data/event-driven-architecture.html) и для отправки событий локальным и удаленным сервисам.
 
-# Balanced events
-The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
+# Сбалансированные события
+Прослушиватели событий расположены в логических группах. Это означает, что в каждой группе вызывается только один слушатель.
 
-> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
+> **Пример:** у вас есть 2 основных сервиса: `users` & `payments`. Оба подписываются на cобытие `user.created`. Вы запускаете 3 экземпляра сервиса `users` и 2 экземпляра сервиса `payments`. Когда вы выдаете событие `user.created`, только один экземпляр сервиса `users` и один экземпляр сервиса `payments` получит событие.
 
 <div align="center">
     <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
 </div>
 
-The group name comes from the service name, but it can be overwritten in event definition in services.
+Название группы происходит от имени сервиса, но оно может быть перезаписано в определении события в сервисах.
 
-**Example**
+**Пример**
 ```js
 module.exports = {
     name: "payment",
     events: {
         "order.created": {
-            // Register handler to the "other" group instead of "payment" group.
+            // Регистрация обработчика в группу "other" вместо группы "payment".
             group: "other",
             handler(ctx) {
                 console.log("Payload:", ctx.params);
@@ -32,7 +32,7 @@ module.exports = {
 }
 ```
 
-## Emit balanced events
+## Выдача сбалансированного события
 Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _To send multiple values, wrap them into an `Object`._
 
 ```js
