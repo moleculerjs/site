@@ -103,22 +103,22 @@ module.exports = {
 ```
 
 
-Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
+Подписка на события осуществляется в ['events' свойстве сервиса](services.html#events). Допускается использование масок (`?`, `*`, `**`) в именах событий.
 
 ```js
 module.exports = {
     events: {
-        // Subscribe to `user.created` event
+        // Подписка на событие `user.created`
         "user.created"(ctx) {
             console.log("User created:", ctx.params);
         },
 
-        // Subscribe to all `user` events, e.g. "user.created", or "user.removed"
+        // Подписака на все собтия `user`, например "user.created" или "user.removed"
         "user.*"(ctx) {
             console.log("User event:", ctx.params);
         }
-        // Subscribe to every events
-        // Legacy event handler signature with context
+        // Подписка на каждое событие
+        // Используется сигнатура устаревшего обработчика событий с контекстом
         "**"(payload, sender, event, ctx) {
             console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
@@ -126,8 +126,8 @@ module.exports = {
 }
 ```
 
-## Event parameter validation
-Similar to action parameter validation, the event parameter validation is supported. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+## Валидация параметров события
+Аналогично проверке параметра действия, поддерживается проверка параметров события. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
 
 ```js
 // mailer.service.js
