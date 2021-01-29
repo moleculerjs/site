@@ -1,18 +1,18 @@
-title: Examples
+title: Примеры
 ---
 
-## Project examples
+## Примеры проекта
 
-### Realworld backend server
-This is a [RealWorld.io](https://realworld.io/) example backend server with Moleculer microservices framework.
+### Бэкэнд сервер Realworld
+Это [RealWorld.io](https://realworld.io/) пример бэкэнд сервера с применением микросервисного фреймворка Moleculer.
 
-**Key features**
-- 7 microservices
-- NeDB or MongoDB database without Mongoose
-- User login & signup
-- User authentication with JWT
-- Memory caching
-- Docker files
+**Ключевые функции**
+- 7 микросервисов
+- База данных NeDB или MongoDB без Mongoose
+- Авторизация пользователя & регистрация
+- Аутентификация пользователя с помощью JWT
+- Кэширование памяти
+- Файлы Docker
 
 **Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
 
