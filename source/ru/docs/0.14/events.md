@@ -8,7 +8,7 @@ title: События
 > **Пример:** у вас есть 2 основных сервиса: `users` & `payments`. Оба подписываются на cобытие `user.created`. Вы запускаете 3 экземпляра сервиса `users` и 2 экземпляра сервиса `payments`. Когда вы выдаете событие `user.created`, только один экземпляр сервиса `users` и один экземпляр сервиса `payments` получит событие.
 
 <div align="center">
-    <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
+    <img src="assets/balanced-events.gif" alt="Диаграмма сбалансированных событий" />
 </div>
 
 Название группы происходит от имени сервиса, но оно может быть перезаписано в определении события в сервисах.
@@ -50,7 +50,7 @@ broker.emit("user.created", user, ["mail", "payments"]);
 Штроковещательное событие отправляется всем доступным локальным & удаленным сервисам. Оно не сбалансировано, все экземпляры сервиса получат его.
 
 <div align="center">
-    <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
+    <img src="assets/broadcast-events.gif" alt="Диаграмма широковещательных событий" />
 </div>
 
 Отправка широковещательного события выполняется с помощью метода `broker.broadcast`.
@@ -148,90 +148,90 @@ module.exports = {
     }
 };
 ```
-> The validation errors are not sent back to the caller, they are logged or you can catch them with the new [global error handler](broker.html#Global-error-handler).
+> Ошибки валидации не отсылаются обратно вызывающему, они логируются и могут быть пойманы с помощью нового [глобального обработчика ошибок](broker.html#Global-error-handler).
 
-# Internal events
-The broker broadcasts some internal events. These events always starts with `$` prefix.
+# Внутренние события
+Брокер транслирует некоторые внутренние события. Эти события всегда начинаются с префикса `$`.
 
 ## `$services.changed`
-The broker sends this event if the local node or a remote node loads or destroys services.
+Брокер отправляет это событие, если локальный узел или удаленный узел загружает или уничтожает сервисы.
 
 **Payload**
 
-| Название       | Type      | Описание                         |
-| -------------- | --------- | -------------------------------- |
-| `localService` | `Boolean` | True if a local service changed. |
+| Название       | Тип       | Описание                               |
+| -------------- | --------- | -------------------------------------- |
+| `localService` | `Boolean` | True, если Локальный сервис изменился. |
 
 ## `$circuit-breaker.opened`
-The broker sends this event when the circuit breaker module change its state to `open`.
+Брокер отправляет это событие, когда модуль прерывания зацикливаний изменит свое состояние на `открыто`.
 
 **Payload**
 
-| Название   | Type     | Описание          |
-| ---------- | -------- | ----------------- |
-| `nodeID`   | `String` | Node ID           |
-| `action`   | `String` | Action name       |
-| `failures` | `Number` | Count of failures |
+| Название   | Тип      | Описание           |
+| ---------- | -------- | ------------------ |
+| `nodeID`   | `String` | Идентификатор узла |
+| `action`   | `String` | Название действия  |
+| `failures` | `Number` | Количество сбоев   |
 
 
 ## `$circuit-breaker.half-opened`
-The broker sends this event when the circuit breaker module change its state to `half-open`.
+Брокер отправляет это событие, когда модуль прерывания зацикливаний изменит свое состояние на `полуоткрыто`.
 
 **Payload**
 
-| Название | Type     | Описание    |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Название | Тип      | Описание           |
+| -------- | -------- | ------------------ |
+| `nodeID` | `String` | Идентификатор узла |
+| `action` | `String` | Название действия  |
 
 ## `$circuit-breaker.closed`
-The broker sends this event when the circuit breaker module change its state to `closed`.
+Брокер отправляет это событие, когда модуль прерывания зацикливаний изменит свое состояние на `закрыто`.
 
 **Payload**
 
-| Название | Type     | Описание    |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Название | Тип      | Описание           |
+| -------- | -------- | ------------------ |
+| `nodeID` | `String` | Идентификатор узла |
+| `action` | `String` | Название действия  |
 
 ## `$node.connected`
-The broker sends this event when a node connected or reconnected.
+Брокер посылает это событие когда узел подключен или переподключен.
 
 **Payload**
 
-| Название      | Type      | Описание         |
-| ------------- | --------- | ---------------- |
-| `node`        | `Node`    | Node info object |
-| `reconnected` | `Boolean` | Is reconnected?  |
+| Название      | Тип       | Описание                 |
+| ------------- | --------- | ------------------------ |
+| `node`        | `Node`    | Объект информации о узле |
+| `reconnected` | `Boolean` | Переподключено?          |
 
 ## `$node.updated`
-The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
+Брокер отправляет это событие, когда он получил сообщение INFO от узла (например, серивс загружен или уничтожен).
 
 **Payload**
 
-| Название | Type   | Описание         |
-| -------- | ------ | ---------------- |
-| `node`   | `Node` | Node info object |
+| Название | Тип    | Описание                 |
+| -------- | ------ | ------------------------ |
+| `node`   | `Node` | Объект информации о узле |
 
 ## `$node.disconnected`
-The broker sends this event when a node disconnected (gracefully or unexpectedly).
+Брокер посылает это событие когда узел откючен (плавно или неожиданно).
 
 **Payload**
 
-| Название     | Type      | Описание                                                                            |
-| ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `Node`    | Node info object                                                                    |
-| `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
+| Название     | Тип       | Описание                                                                       |
+| ------------ | --------- | ------------------------------------------------------------------------------ |
+| `node`       | `Node`    | Объект информации о узле                                                       |
+| `unexpected` | `Boolean` | `true` - Не получен хартбит, `false` - Получено сообщение `ОТКЛЮЧИТЬ` от узла. |
 
 ## `$broker.started`
-The broker sends this event once `broker.start()` is called and all local services are started.
+Брокер отправляет это событие после того, как вызван `broker.start()` и все локальные сервисы запущены.
 
 ## `$broker.stopped`
-The broker sends this event once `broker.stop()` is called and all local services are stopped.
+Брокер отправляет это событие после того, как вызван `broker.stop()` и все локальные сервисы остановлены.
 
 ## `$transporter.connected`
-The transporter sends this event once the transporter is connected.
+Транспорт отправляет это событие после подключения транспорта.
 
 ## `$transporter.disconnected`
-The transporter sends this event once the transporter is disconnected.
+Транспорт отправляет это событие после отключения транспорта.
 
