@@ -17,7 +17,7 @@ title: Примеры
 **Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
 
 ### Блог
-This is a simple blog example.
+Это простой пример блога.
 
 **Key features**
 - Docker files
