@@ -127,7 +127,7 @@ module.exports = {
 ```
 
 ## Валидация параметров события
-Аналогично проверке параметра действия, поддерживается проверка параметров события. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+Аналогично проверке параметра действия, поддерживается проверка параметров события. Как и в определении действий, следует определить `параметры` для событий, а встроенный `Валидатор` валидирует параметры в событиях.
 
 ```js
 // mailer.service.js
@@ -135,7 +135,7 @@ module.exports = {
     name: "mailer",
     events: {
         "send.mail": {
-            // Validation schema
+            //  Схема валидации
             params: {
                 from: "string|optional",
                 to: "email",
