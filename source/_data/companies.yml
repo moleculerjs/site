@@ -289,5 +289,9 @@ companies:
         logo: https://user-images.githubusercontent.com/23665094/104382377-99db3c00-54f3-11eb-9a1a-a407fbec581b.png
     -
         name: BerarkRays
-        link: http://www.berarkrays.com/
+        link: https://www.berarkrays.com/
         logo: https://user-images.githubusercontent.com/48491079/105792721-de63de80-5fad-11eb-9957-55909ccf1f3c.jpg
+    -
+        name: Teachoo
+        link: https://www.teachoo.com/
+        logo: https://camo.githubusercontent.com/9940a8d0370f0b1bc3eba00249b6c9d6a5f287630e613558be3ac678a610f89f/68747470733a2f2f64656c616e357378726a386a6a2e636c6f756466726f6e742e6e65742f6d6973632f6c6f676f5f677265656e5f666f6e7433362e706e67
