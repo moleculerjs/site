@@ -22,77 +22,77 @@ title: Примеры
 **Ключевые функции**
 - Файлы Docker
 - Веб-сервер на ExpressJS с движком шаблонов Pug
-- MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
-- NATS transporter
-- Redis cacher
-- [Traefik](https://traefik.io/) reverse proxy (in micro arch)
-- static frontend
+- База данных MongoDB с модулями [moleculer-db](https://github.com/moleculerjs/moleculer-db) и [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose)
+- Транспорт NATS
+- Кэш Redis
+- [Traefik](https://traefik.io/) обратный прокси (микроархитектура)
+- статический фронтенд
 
 **Repo: https://github.com/moleculerjs/moleculer-examples/blob/master/blog#readme**
 
-## Short examples
-The main Moleculer repository contains [some examples](https://github.com/moleculerjs/moleculer/blob/master/examples/).
+## Краткие примеры
+Главный репозиторий Moleculer содержит [некоторые примеры](https://github.com/moleculerjs/moleculer/blob/master/examples/).
 {% note info %}
-To try them, at first, you should clone the Moleculer repo with the following command:
+Чтобы попробовать их, сначала необходимо клонировать репозиторий Moleculer со следующей командой:
 
 `git clone https://github.com/moleculerjs/moleculer.git`
 {% endnote %}
 
-### Simple
-This is a simple demo with a Math service which can `add`, `sub`, `mult` and `divide` two numbers.
+### Простой пример
+Это простое демо с математическим сервисом, который может ` add`, `sub`, `mult` и `divide` два числа.
 
 ```bash
 $ npm run demo simple
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/simple/index.js)
+[Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/blob/master/examples/simple/index.js)
 
-### Server & client nodes
-In this example, you can start any servers & clients. The servers serve the `math.add` action and clients call it in a loop. You can start multiple instances from both. *They use TCP transporter, but you can change it with `TRANSPORTER` env variable.*
+### Сервер & клиентские узлы
+В этом примере можно запустить любые серверы & клиенты. Серверы обрабатывают `math.add` действие, а клиенты вызывают его в цикле. Вы можете запустить несколько экземпляров серверов и клиентов. *Они используют TCP транспорт, но его можно изменить с помощью переменной `TRANSPORTER`.*
 
-**Start a server**
+**Запуск сервера**
 ```bash
 $ node examples/client-server/server
 ```
 
-**Start a client**
+**Запуск клиента**
 ```bash
 $ node examples/client-server/client
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
+[Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
 
 ### Middlewares
-This example demonstrates how the middleware system works.
+В этом примере показано, как работает middleware система.
 
 ```bash
 $ npm run demo middlewares
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
+[Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
 
 ### Runner
-This example shows how you can start a broker and load services with [Moleculer Runner](moleculer-runner.html).
+Этот пример показывает, как запустить брокер и загрузить сервисы с помощью [Moleculer Runner](moleculer-runner.html).
 
 ```bash
 $ node ./bin/moleculer-runner.js -c examples/runner/moleculer.config.js -r examples/user.service.js
 ```
-It starts a broker with options from `moleculer.config.js`, loads the user service from `user.service.js` file and switch to REPL mode.
+Команда запускает брокер с опциями `moleculer.config.js`, загружает пользовательский сервис из файла `user.service.js` и переключается в режим REPL.
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/runner)
+[Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/blob/master/examples/runner)
 
-### Load tester
-With this example, you can start a load test. The server & client prints how many requests executed in a second.
+### Тестирование нагрузки
+С помощью этого примера можете запустить нагрузочный тест. Сервер & клиент вывод количество выполняемых запросов за секунду.
 
-**Start server**
+**Запуск сервера**
 ```bash
 $ node examples/loadtest/server
 ```
 
-**Start & fork clients (number of CPU cores)**
+**Запуск & клонирование клиентов (по количеству ядер процессора)**
 ```bash
 $ node examples/loadtest/clients
 ```
 
-[Source code is available on Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
+[Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
 
