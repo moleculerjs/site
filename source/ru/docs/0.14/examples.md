@@ -19,9 +19,9 @@ title: Примеры
 ### Блог
 Это простой пример блога.
 
-**Key features**
-- Docker files
-- ExpressJS www server with Pug template engine
+**Ключевые функции**
+- Файлы Docker
+- Веб-сервер на ExpressJS с движком шаблонов Pug
 - MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
 - NATS transporter
 - Redis cacher
