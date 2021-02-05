@@ -151,16 +151,16 @@ module.exports = {
 | `methods`                       | 合并 & 覆盖。                                                                                               |
 | `events`                        | 连接侦听器。                                                                                                 |
 | `created`, `started`, `stopped` | 连接侦听器。                                                                                                 |
-| `mixins`                        | Merge & overwrite.                                                                                     |
-| `dependencies`                  | Merge & overwrite.                                                                                     |
-| _any custom_                    | Merge & overwrite.                                                                                     |
+| `mixins`                        | 合并 & 覆盖。                                                                                               |
+| `dependencies`                  | 合并 & 覆盖。                                                                                               |
+| _any custom_                    | 合并 & 覆盖。                                                                                               |
 
 {% note info Merge algorithm examples %}
-__Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
+__合并 & 覆盖__: 如果 serviceA 有 `a: 5`, `b: 8` 且 serviceB 有`c: 10` `b: 15`, 混合服务将有 `a: 5`, `b: 15` and `c: 10` __Concatenate__: 如果 serviceA & serviceB 订阅 `users.created` 事件，当 `users.created` 事件发出时，两个事件处理程序都会被调用。
 {% endnote %}
 
 ## Actions
-The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+服务公开的可调用的方法称为活动或动作或行为 (actions, 以后不加区分)。 他们可以使用 `broker.call` 或 `ctx.call` 来调用。 该动作可以是 `Function` (简写为 handler) 或一个对象具有 `handler` 属性及更多属性。 该动作应该放置在方案中的 `actions` 下. 参见 [actions documentation](actions.html).
 
 ```js
 // math.service.js
@@ -189,13 +189,13 @@ module.exports = {
     }
 };
 ```
-You can call the above actions as
+您可以这样调用上述动作
 ```js
 const res = await broker.call("math.add", { a: 5, b: 7 });
 const res = await broker.call("math.mult", { a: 10, b: 31 });
 ```
 
-Inside actions, you can call other nested actions in other services with `ctx.call` method. It is an alias to `broker.call`, but it sets itself as parent context (due to correct tracing chains).
+在动作中，您可以使用 `ctx.call` 方法在其他服务中调用其他嵌套动作。 它是 `broker.call`的一个别名，但它将自己设置为父 context (由于正确的追踪链)。
 ```js
 // posts.service.js
 module.exports = {
@@ -218,11 +218,11 @@ module.exports = {
     }
 };
 ```
-> In action handlers the `this` is always pointed to the Service instance.
+> 动作处理器的 `this` 总是指向 Service 实例。
 
 
 ## Events
-You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
+您可以在 `events` 中订阅事件。 参见 [events documentation](events.html).
 
 ```js
 // report.service.js
@@ -251,10 +251,10 @@ module.exports = {
     }
 };
 ```
-> In event handlers the `this` is always pointed to the Service instance.
+> 动作处理器的 `this` 总是指向 Service 实例。
 
 ### Grouping
-The broker groups the event listeners by group name. By default, the group name is the service name. But you can overwrite it in the event definition.
+服务管理器按群组名称将事件监听器分组。 默认情况下，群组名称是服务名称。 但你可以在事件定义中覆盖它。
 
 ```js
 // payment.service.js
@@ -273,9 +273,9 @@ module.exports = {
 ```
 
 ## Methods
-To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
+若要在服务中创建私有方法，请将您的函数放在 `methods` 中。 这些函数是私有的，无法与 `broker.call` 一起调用。 但你可以在服务中调用它(来自操作处理器、事件处理器和生命周期事件处理器)。
 
-**Usage**
+**用例**
 ```js
 // mailer.service.js
 module.exports = {
@@ -297,7 +297,7 @@ module.exports = {
     }
 };
 ```
-If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) you the following notation:
+如果你想要用 [middleware](middlewares.html#localMethod-next-method) 包装一个方法，以下：
 
 ```js
 // posts.service.js
@@ -316,9 +316,9 @@ module.exports = {
 ```
 
 
-> The method name can't be `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
+> 方法名称不能是 `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, 因为在方案中这些名字是保留的。
 
-> In methods the `this` is always pointed to the Service instance.
+> 方法中的 `this` 总是指向 Service 实例。
 
 ## Lifecycle Events
 There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
