@@ -331,29 +331,29 @@ Xpath: /pre[19]/code
 Before hooks 会接收 `ctx`, 取决于你的需求, 它可以操纵 `ctx.params`, `ctx. eta`, 或将自定义变量添加到 `ctx.locals` 。 如果有任何错误，它会抛出 `Error`。 _请注意，您不能 中断或跳过 hooks 或任何动作处理程序。_
 
 **主要用法：**
-- parameter sanitization
-- parameter validation
-- entity finding
-- authorization
+- 清理参数
+- 验证参数
+- 查找实体
+- 授权
 
 ### After hooks
-In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
+After hooks 会收到 `ctx` 和 `response`. 在这里可以修改响应信息。
 
-**Main usages:**
-- property populating
-- remove sensitive data.
-- wrapping the response into an `Object`
-- convert the structure of the response
+**主要用法：**
+- 生成属性
+- 清除敏感数据
+- 将响应包装到一个 `Object`
+- 转换响应的结构
 
 ### Error hooks
-The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
+当动作调用过程中抛出 `Error` 时，错误钩子被调用。 它会收到 `ctx` 和 `err`. 它可以处理错误并返回另一个响应 (fallback) 或重新抛出错误。
 
-**Main usages:**
-- error handling
-- wrap the error into another one
-- fallback response
+**主要用法：**
+- 处理错误
+- 包装成另一个错误
+- 响应回退
 
-### Service level declaration
+### 声明在服务上
 Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
 
 {% note warn%}
