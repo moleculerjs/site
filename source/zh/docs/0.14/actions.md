@@ -354,7 +354,7 @@ After hooks 会收到 `ctx` 和 `response`. 在这里可以修改响应信息。
 - 响应回退
 
 ### 声明在服务上
-Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
+可以把钩子设在服务的某个动作上(通过指派 `name`)，也可以应用到所有动作(通过指派`*`)。
 
 {% note warn%}
 Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
