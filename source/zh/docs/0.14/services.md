@@ -1,11 +1,11 @@
-title: Services
+title: 服务
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+`Service` 表示 Moleculer 框架中的微服务。 您可以在服务中定义动作和订阅事件。 要创建服务，您必须定义一个方案。 服务方案类似于 [VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components) 的一个组件。
 
 ## Schema
-The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+方案有一些主要部件: `name`, `version`, `settings`, `actions`, `methods`, `events`.
 
-### Simple service schema to define two actions
+### 定义有2个动作的简单服务方案
 ```js
 // math.service.js
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
 }
 ```
 
-## Base properties
-The Service has some base properties in the schema.
+## 基本属性
+服务方案中有一些基础属性。
 ```js
 // posts.v1.service.js
 module.exports = {
@@ -31,11 +31,11 @@ module.exports = {
     version: 1
 }
 ```
-The `name` is a mandatory property so it must be defined. It's the first part of action name when you call it.
+`name` 是一个必须定义的属性。 当你调用它时，它是动作名称的第一部分。
 
-> To disable service name prefixing set `$noServiceNamePrefix: true` in Service settings.
+> 要禁用服务名称前缀, 请在服务设置中修改 `$noServiceNamePrefix: true` 。
 
-The `version` is an optional property. Use it to run multiple version from the same service. It is a prefix in the action name. It can be a `Number` or a `String`.
+`version` 是一个可选的属性。 使用它来运行来自同一服务的多个版本。 它也是动作名称中的前缀。 它可以是 `Number` 或 `String`。
 ```js
 // posts.v2.service.js
 module.exports = {
@@ -46,19 +46,19 @@ module.exports = {
     }
 }
 ```
-To call this `find` action on version `2` service:
+在版本 `2` 上调用此服务的动作 `find`:
 ```js
 broker.call("v2.posts.find");
 ```
 
 {% note info REST call %}
-Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
+通过[API Gateway](moleculer-web.html), 发出请求 `GET /v2/posts/find`.
 {% endnote %}
 
-> To disable version prefixing set `$noVersionPrefix: true` in Service settings.
+> 要禁用服务名称前缀, 请在服务设置中修改 `$noVersionPrefix: true` 。
 
-## Settings
-The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
+## 设置
+`settings` 属性是一个静态存储属性，您可以在那里存储每个设置/选项到您的服务。 您可以通过服务内的 `this.settings` 操作它。
 
 ```js
 // mailer.service.js
@@ -77,21 +77,21 @@ module.exports = {
     }
 }
 ```
-> The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
+> `settings` 也可以在远程节点上获得。 它在发现服务期间转移。
 
-### Internal Settings
-There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
+### 内部设置
+核心模块使用了一些内部设置。 这些设置名称具有 `$` _(dollar sign)_ 前缀。
 
-| Name                   | Type      | Default | Description                                          |
-| ---------------------- | --------- | ------- | ---------------------------------------------------- |
-| `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
-| `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
-| `$dependencyTimeout`   | `Number`  | `0`     | Timeout for dependency waiting.                      |
-| `$shutdownTimeout`     | `Number`  | `0`     | Timeout for waiting for active requests at shutdown. |
-| `$secureSettings`      | `Array`   | `[]`    | List of secure settings.                             |
+| Name                   | Type      | Default | 说明              |
+| ---------------------- | --------- | ------- | --------------- |
+| `$noVersionPrefix`     | `Boolean` | `false` | 在动作名称中禁用版本前缀。   |
+| `$noServiceNamePrefix` | `Boolean` | `false` | 在动作名称中禁用名字前缀。   |
+| `$dependencyTimeout`   | `Number`  | `0`     | 等待此服务的依赖服务超时时间。 |
+| `$shutdownTimeout`     | `Number`  | `0`     | 超时关闭此等待的活动请求。   |
+| `$secureSettings`      | `Array`   | `[]`    | 安全设置列表。         |
 
-### Secure service settings
-To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
+### 服务安全设置项
+为了保护您的令牌 & API 密钥，在服务设置中定义 `$secureSettings: []` 属性并设置受保护的属性键。 受保护的设置不会被发布到其他节点，它不会出现在服务注册表中。 这些设置仅在服务函数内的 `this.settings` 下可用。
 
 ```js
 // mail.service.js
@@ -113,10 +113,10 @@ module.exports = {
 };
 ```
 
-## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
+## 混入
+Mixins 是分配 Moleculer 服务的可重复使用功能的一种灵活的方式。 服务构造器将这些混入功能与当前服务方案合并。 当一个服务使用混入时，mixins 中存在的所有属性都将被“混入”到当前的服务中。
 
-**Example how to extend `moleculer-web` service**
+**以下示例扩展 `moleculer-web` 服务**
 
 ```js
 // api.service.js
@@ -136,24 +136,24 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which inherits all properties from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
+上面的示例创建一个 `api` 服务，继承来自 `ApiGwService` 的所有属性，但覆盖端口设置并通过新的 `myAction` 动作扩展。
 
-### Merge algorithm
-The merge algorithm depends on the property type.
+### 合并算法
+合并算法取决于属性类型。
 
-| Property                        | Algorithm                                                                                                                                                   |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`, `version`               | Merge & overwrite.                                                                                                                                          |
-| `settings`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `metadata`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `actions`                       | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
-| `hooks`                         | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `methods`                       | Merge & overwrite.                                                                                                                                          |
-| `events`                        | Concatenate listeners.                                                                                                                                      |
-| `created`, `started`, `stopped` | Concatenate listeners.                                                                                                                                      |
-| `mixins`                        | Merge & overwrite.                                                                                                                                          |
-| `dependencies`                  | Merge & overwrite.                                                                                                                                          |
-| _any custom_                    | Merge & overwrite.                                                                                                                                          |
+| Property                        | Algorithm                                                                                              |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `name`, `version`               | 合并 & 覆盖。                                                                                               |
+| `settings`                      | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。                                |
+| `metadata`                      | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。                                |
+| `actions`                       | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。 _如果您在服务中设置为 `fals` 您可以禁用混入行为。_ |
+| `hooks`                         | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。                                |
+| `methods`                       | 合并 & 覆盖。                                                                                               |
+| `events`                        | 连接侦听器。                                                                                                 |
+| `created`, `started`, `stopped` | 连接侦听器。                                                                                                 |
+| `mixins`                        | Merge & overwrite.                                                                                     |
+| `dependencies`                  | Merge & overwrite.                                                                                     |
+| _any custom_                    | Merge & overwrite.                                                                                     |
 
 {% note info Merge algorithm examples %}
 __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
