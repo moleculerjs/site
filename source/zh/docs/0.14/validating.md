@@ -1,10 +1,10 @@
 title: 参数验证
 ---
 
-Validation middleware is used for [Actions](actions.html) and [Events](events.html) parameter validation.
+验证中间件用于 [Actions](actions.html) 和[Events](events.html) 参数验证。
 
 ## Fastest Validator
-By default, Moleculer uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+默认情况下，Moleculer 使用 [fastest-validator](https://github.com/icebob/fastest-validator) 库。
 
 **Default usage**
 ```js
@@ -15,7 +15,7 @@ module.exports = {
 }
 ```
 
-**Setting validator by name**
+**按名称设置验证器**
 ```js
 //moleculer.config.js
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**带选项的示例**
 ```js
 //moleculer.config.js
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
 ```
 
 ### 动作验证
-In order to perform parameter validation you need to define `params` property in action definition and create validation schema for the incoming `ctx.params`.
+为了执行参数校验，您需要在动作中定义 `params` 属性，并为动作传入 `ctx.params`以创建验证模式。
 
 **示例**
 ```js
@@ -96,7 +96,7 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 {% endnote %}
 
 ### 事件验证
-也支持事件参数验证。 To enable it, define `params` in event definition.
+也支持事件参数验证。 要启用它，在事件中定义 `params`。
 > 注意，同时有动作错误发生时，验证错误不会回送给调用者。 事件验证错误会输出到日志，您也可以使用 [global error handler](broker.html#Global-error-handler) 来捕获它们。
 
 ```js
@@ -121,9 +121,9 @@ module.exports = {
 ```
 
 ## 自定义验证器
-You can also implement custom validators. We recommend to copy the source of [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) and implement the `compile` and `validate` methods.
+您也可以实现自定义验证器。 推荐直接复制 [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) 代码，并实现 `compile` 和 `validate` 方法。
 
-**Creating custom validator**
+**创建自定义验证器**
 ```js
 //moleculer.config.js
 const BaseValidator = require("moleculer").Validators.Base;
@@ -136,7 +136,7 @@ module.exports = {
 }
 ```
 
-**Build Joi validator**
+**生成 Joi 验证器**
 ```js
 const { ServiceBroker } = require("moleculer");
 const BaseValidator = require("moleculer").Validators.Base;
