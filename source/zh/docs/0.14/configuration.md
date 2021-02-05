@@ -5,7 +5,7 @@ title: 配置
 
 **所有可用的服务管理器选项列表：**
 
-* **`namespace`**: `String` - 节点的命名空间，用于在同一网络上细分您的节点（例如：“development”，“staging”，“production”） _Default: `""`_
+* **`namespace`**: `String` - 节点的命名空间，用于在同一网络上细分您的节点（例如：“development”，“staging”，“production”） _Default:_ `""`
 * **`nodeID`**: `String` - 节点标识符。 在命名空间中必须是唯一的。 否则，服务管理器会引发致命错误并停止该进程。 _Default: hostname + PID_
 * **`logger`**: `Boolean | String | Object | Array<Object>`  ) - 日志类。 默认情况下，将消息打印到 `console`。 [Read more](logging.html). _Default: `"Console"`
 * **`logLevel`**: `String | Object` - 日志级别 (trace, debug, info, warn, error, fatal). [Read more](logging.html). _Default: `info`_
