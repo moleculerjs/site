@@ -26,13 +26,13 @@ title: 配置
 * **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_
 * **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _Default: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _Default: `false`_
-* **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_
-* **`uidGenerator`**: `Function` - Custom UID generator function for Context ID.
-* **`errorHandler`**: `Function` - [Global error handler](broker.html#Global-error-handler) function.
-* **`cacher`**: `String | Object | Cacher` - Cacher settings. [Read more](caching.html). _Default: `null`_
-* **`serializer`**: `String | Serializer` - Instance of serializer. [Read more](networking.html). _Default: `JSONSerializer`_
-* **`validator`**: `Boolean | Validator` - Enable the default or create custom [parameters validation](validating.html). _Default: `true`_
-* **`metrics`**: `Boolean | Object` - Enable & configure [metrics](metrics.html) feature. _Default: `false`_
+* **`transit.packetLogFilter`**: `Array` -过滤调试信息。 在调试时过滤 `HEARTBEAT` 数据包可能是有用的。 _Default: `[]`_
+* **`uidGenerator`**: `Function` - 自定义 Context ID 生成器函数。
+* **`errorHandler`**: `Function` - [全局错误处理](broker.html#Global-error-handler)。
+* **`cacher`**: `String | Object | Cacher` - 缓存器设置。 [Read more](caching.html). _Default: `null`_
+* **`serializer`**: `String | Serializer` - serializer 实例。 [Read more](networking.html). _默认： `JSONSerializer`_
+* **`validator`**: `Boolean | Validator` - 启用默认或自定义的 [parameters validation](validating.html). _Default: `true`_
+* **`metrics`**: `Boolean | Object` - 启用& 配置[metrics](metrics.html) 特性。 _Default: `false`_
 * **`tracing`**: `Boolean | Object` - Enable & configure [tracing](tracing.html) feature. _Default: `false`_
 * **`internalServices`**: `Boolean | Object` - Register [internal services](services.html#Internal-Services) at start. _Default: `true`_
 * **`internalServices.$node`** - `Object` - Extend internal services with [custom actions](services.html#Extending). _Default: `null`_
@@ -48,7 +48,7 @@ title: 配置
 * **`ServiceFactory`**: `ServiceClass` - Custom `Service` class. If not `null`, broker will use it when creating services by service schema. _Default: `null`_
 * **`ContextFactory`**: `ContextClass` - Custom `Context` class. If not `null`, broker will use it when creating contexts for requests & events. _Default: `null`_
 
-### Full options object
+### 完整选项
 ```js
 {
     namespace: "dev",
