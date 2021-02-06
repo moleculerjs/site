@@ -320,8 +320,8 @@ module.exports = {
 
 > 方法中的 `this` 总是指向 Service 实例。
 
-## Lifecycle Events
-There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
+## 生命周期事件
+有一些生命周期服务事件，将由服务管理器触发。 它们放置服务方案中。
 
 ```js
 // www.service.js
@@ -344,8 +344,8 @@ module.exports = {
     }
 };
 ```
-## Dependencies
-If your service depends on other services, use the `dependencies` property in the schema. The service waits for dependent services before calls the `started` lifecycle event handler.
+## 依赖关系
+如果您的服务依赖于其他服务，请使用方案中的 `dependencies` 属性。 服务在调用 `started` 事件之前会等待它的依赖服务处理完毕。
 
 ```js
 // posts.service.js
@@ -367,27 +367,27 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
+一旦 `likes`, `v2.auth`, `v2.users`, `staging.comments` (无论以上服务在本地还是远程节点) 变得可用，服务立即执行 `started` 处理器。
 
-### Wait for services via ServiceBroker
-To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
+### 等待通过 ServiceBroker 提供的服务
+可以使用 `ServiceBroker` 的方法 `waitForServices` 来等待服务。 所有定义的服务可用 & 启动后, 它返回的 `Promise` 将被解决。
 
 **Parameters**
 
-| Parameter  | Type                | Default | Description                                                                                   |
-| ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
+| Parameter  | Type                | Default | Description                                         |
+| ---------- | ------------------- | ------- | --------------------------------------------------- |
+| `services` | `String` or `Array` | -       | 等待服务列表                                              |
+| `timeout`  | `Number`            | `0`     | 等待超时。 `0` 意味着没有超时。 如果超时，引发 `MoleculerServerError` 。 |
+| `interval` | `Number`            | `1000`  | 以毫秒为单位的监视频率                                         |
 
-**Example**
+**示例**
 ```js
 broker.waitForServices(["posts", "v2.users"]).then(() => {
     // Called after the `posts` & `v2.users` services are available
 });
 ```
 
-**Set timeout & interval**
+**设置超时 & 间隔**
 ```js
 broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
     // Called if `accounts` service becomes available in 10 seconds
@@ -396,9 +396,9 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 });
 ```
 
-## Metadata
+## 元数据
 
-The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store in it whatever you want._
+`Service` 方案有一个 `metadata` 属性。 您可以在此存储任何关于服务的元信息。 您可以在服务函数内用 `this.metadata` 访问它。 _Moleculer 核心模块不使用它, 你可以用它存储任何东西。_
 
 ```js
 module.exports = {
@@ -412,10 +412,10 @@ module.exports = {
     actions: { ... }
 };
 ```
-> The `metadata` is also obtainable on remote nodes. It is transferred during service discovering.
+> `metadata` 也可以在远程节点上获得。 它在服务发现期间转移。
 
-## Properties of Service Instances
-In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
+## ServiceBroker 属性
+在服务函数中， `this` 始终指向服务实例。 它有一些属性 & 方法可以用于您的服务函数。
 
 | Name                   | Type                 | Description                                                 |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
@@ -432,11 +432,11 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
 | `this.currentContext`  | `Context`            | Get or set the current Context object.                      |
 
-## Service Creation
-There are several ways to create and load a service.
+## 服务创建
+创建和加载服务有几种方式。
 
 ### broker.createService()
-For testing, developing or prototyping, use the `broker.createService` method to load & create a service by schema. It's simplest & fastest.
+想要用于测试、开发或查看原型，使用 `broker.createService` 方法加载 & 通过 schema 创建的服务。 这是最简单 & 最快的方法。
 
 ```js
 broker.createService({
@@ -449,8 +449,8 @@ broker.createService({
 });
 ```
 
-### Load service from file
-The recommended way is to place your service code into a single file and load it with the broker.
+### 从文件载入服务
+推荐的方式是将您的服务代码放入一个文件并加载到服务管理器。
 
 **math.service.js**
 ```js
@@ -468,7 +468,7 @@ module.exports = {
 }
 ```
 
-**Load it with broker:**
+**用服务管理器加载它：**
 ```js
 // Create broker
 const broker = new ServiceBroker();
