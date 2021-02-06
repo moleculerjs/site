@@ -480,7 +480,7 @@ broker.loadService("./math.service");
 broker.start();
 ```
 
-In the service file you can also create the Service instance. In this case, you have to export a function which returns the instance of [Service](#service).
+在服务文件中，您也可以创建服务实例。 在这种情况下，您必须导出返回 [Service](#service) 实例的函数。
 ```js
 const { Service } = require("moleculer");
 
@@ -500,7 +500,7 @@ module.exports = function(broker) {
 }
 ```
 
-Or create a function which returns with the schema of service
+或者创建一个以服务模式返回的函数
 ```js
 // Export a function, the `loadService` will call with the ServiceBroker instance.
 module.exports = function() {
@@ -517,15 +517,15 @@ module.exports = function() {
 }
 ```
 
-### Load multiple services from a folder
-If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
+### 从文件夹加载多个服务
+如果您有许多服务(而且您必将会有)我们建议将它们放到 `services` 文件夹中，使用 `broker.loadServices` 方法加载它们。
 
 **Syntax**
 ```js
 broker.loadServices(folder = "./services", fileMask = "**/*.service.js");
 ```
 
-**Example**
+**示例**
 ```js
 // Load every *.service.js file from the "./services" folder (including subfolders)
 broker.loadServices();
@@ -537,13 +537,13 @@ broker.loadServices("./");
 broker.loadServices("./svc", "user*.service.js");
 ```
 
-### Load with Moleculer Runner (recommended)
-We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
+### (推荐) 使用 Moleculer Runner 加载
+我们建议使用 [Moleculer Runner](runner.html) 启动一个 ServiceBroker 并加载服务。 [阅读更多关于 Moleculer Runner 的内容](runner.html)。 这是启动节点最容易的办法。
 
-## Hot Reloading Services
-Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
+## 服务热重载
+Moleculer 具有内置的热重载功能。 在开发过程中，它可能非常有用，因为当您修改它时它会重新加载您的服务。 您可以在服务管理器选项或 [Moleculer Runner](runner.html) 中启用它。 [视频演示它如何工作。](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
-**Enable in broker options**
+**在服务管理器选项中启用**
 
 ```js
 const broker = new ServiceBroker({
@@ -553,26 +553,26 @@ const broker = new ServiceBroker({
 broker.loadService("./services/test.service.js");
 ```
 
-**Enable it in Moleculer Runner**
+**在 Moleculer Runner 中启用**
 
-Turn it on with `--hot` or `-H` flags.
+使用 `--hot` 或 `-H` 打开它。
 
 ```bash
 $ moleculer-runner --hot ./services/test.service.js
 ```
 
 {% note info %}
-Hot reloading function is working only with Moleculer Runner or if you load your services with `broker.loadService` or `broker.loadServices`. It doesn't work with `broker.createService`.
+热重载功能仅适用于 Moleculer Runner ，或者如果您使用 `broker.loadService` 或 `broker.loadServices` 加载您的服务。 `broker.createService` 不起作用。
 {% endnote %}
 
 {% note info %}
-Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
+热重载机制监视服务文件及其依赖。 每次检测到文件更改时，热重载机制将跟踪依赖它的服务并重新启动它们。
 {% endnote %}
 
-## Local Variables
-If you would like to use local properties/variables in your service, declare them in the `created` event handler.
+## 本地变量
+如果您想要在您的服务中使用本地属性/变量，在 `created` 事件方法中声明它们。
 
-**Example for local variables**
+**本地变量示例**
 ```js
 const http = require("http");
 
@@ -607,15 +607,15 @@ module.exports = {
 }
 ```
 {% note warn Naming restriction %}
-It is important to be aware that you can't use variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.
+注意，你不能使用保留给服务的变量名称，或者与你的方法名冲突！ 例如： `this.name`, `this.version`, `this.settings`, `this.schema`...等。
 {% endnote %}
 
 ## ES6 Classes
-If you prefer ES6 classes to Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
+如果您喜欢ES6类而不是Moleculer服务模式，您可以在 ES6 类中写入您的服务。 这样做有两种方式。
 
-### Native ES6 classes with schema parsing
+### 具有schema解析的原生ES6类
 
-Define `actions` and `events` handlers as class methods and call the `parseServiceSchema` method in constructor with schema definition where the handlers pointed to these class methods.
+定义 `actions` 和 `events` 方法作为类方法并调用 `parseServiceSchema` 构造函数中包含schema 定义的方法，处理程序指向这些类方法。
 ```js
 const Service = require("moleculer").Service;
 
@@ -696,14 +696,14 @@ class GreeterService extends Service {
 module.exports = GreeterService;
 ```
 
-### Use decorators
-Thanks for [@ColonelBundy](https://github.com/ColonelBundy), you can use ES7/TS decorators as well: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
+### 使用装饰器
+感谢 [@ColonelBundy](https://github.com/ColonelBundy), 你也可以使用 ES7/TS 装饰符: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
 
 {% note info Need a compiler %}
-Please note, you must use Typescript or Babel to compile decorators.
+注意，您必须使用 Typescript 或 Babel 来编译装饰器。
 {% endnote %}
 
-**Example service**
+**服务示例**
 ```js
 const { ServiceBroker } = require('moleculer');
 const { Service, Action, Event, Method } = require('moleculer-decorators');
@@ -768,11 +768,11 @@ broker.createService(MyService);
 broker.start();
 ```
 
-## Internal Services
-The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
+## 内置服务
+`ServiceBroker` 包含一些内部服务来检查节点健康状况或获取一些注册表信息。 您可以通过设置服务管理器选项 `internalServices: false` 来禁用他们。
 
-### List of nodes
-It lists all known nodes (including local node).
+### 节点列表
+它列出所有已知节点(包括本地节点)。
 ```js
 broker.call("$node.list").then(res => console.log(res));
 ```
@@ -784,8 +784,8 @@ broker.call("$node.list").then(res => console.log(res));
 | `withServices`  | `Boolean` | `false` | List with services.        |
 | `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
 
-### List of services
-It lists all registered services (local & remote).
+### 服务列表
+它列出所有注册的服务(本地 & 远程)。
 ```js
 broker.call("$node.services").then(res => console.log(res));
 ```
@@ -799,12 +799,12 @@ broker.call("$node.services").then(res => console.log(res));
 | `withActions`   | `Boolean` | `false` | List with actions.                    |
 | `onlyAvailable` | `Boolean` | `false` | List only available services.         |
 
-### List of local actions
-It lists all registered actions (local & remote).
+### 本地动作列表
+它列出所有注册的动作(本地 & 远程)。
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+它有一些您可以在 `params` 中声明的选项。
 
 **Options**
 
@@ -815,12 +815,12 @@ It has some options which you can declare within `params`.
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.       |
 | `onlyAvailable` | `Boolean` | `false` | List only available actions.         |
 
-### List of local events
-It lists all event subscriptions.
+### 本地事件列表
+它列出所有事件订阅。
 ```js
 broker.call("$node.events").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+它有一些您可以在 `params` 中声明的选项。
 
 **Options**
 
@@ -831,12 +831,12 @@ It has some options which you can declare within `params`.
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.             |
 | `onlyAvailable` | `Boolean` | `false` | List only available subscriptions.         |
 
-### List of metrics
-It lists all metrics.
+### 性能指标列表
+它列出了所有衡量标准。
 ```js
 broker.call("$node.metrics").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+它有一些您可以在 `params` 中声明的选项。
 
 **Options**
 
@@ -846,19 +846,19 @@ It has some options which you can declare within `params`.
 | `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
 | `excludes` | `String` or `Array` | `null`  | List of metrics to be excluded from the response.                              |
 
-### Get Broker options
-It returns the broker options.
+### 获取服务管理器选项
+它返回服务管理器选项。
 ```js
 broker.call("$node.options").then(res => console.log(res));
 ```
 
-### Health of node
-It returns the health info of local node (including process & OS information).
+### 节点健康值
+它返回本地节点的健康信息(包括 process & OS 信息)。
 ```js
 broker.call("$node.health").then(res => console.log(res));
 ```
 
-Example health info:
+健康信息示例：
 ```js
 {
     "cpu": {
@@ -919,11 +919,11 @@ Example health info:
 }
 ```
 {% note info %}
-Please note, internal service actions are not traced.
+注意，内部服务动作作未被追踪。
 {% endnote %}
 
-### Extending
-Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option.
+### 扩展
+内部服务可以通过自定义功能轻松扩展。 要做到这一点，您必须定义一个 mixin schema `internalServices` 选项。
 
 ```javascript
 // moleculer.config.js
