@@ -1,10 +1,10 @@
-title: FAQ
+title: Вопросы и Ответы
 ---
 
-# Core & Common
+# Ядро & Общие
 
-## Why am I getting `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` error message when starting my project?
-The NATS server is not part of the Moleculer. You have to install & start it before starting your project. Download it from here: https://nats.io/download/nats-io/nats-server/
+## Почему я получаю `NATS ошибку. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` сообщение об ошибке при запуске моего проекта?
+Сервер NATS не является частью Moleculer. Его необходимо установить & запустить перед запуском проекта. Скачать можно отсюда https://nats.io/download/nats-io/nats-server/
 ```
 [7480] 2019/10/06 14:18:05.801763 [INF] Starting nats-server version 2.0.0
 [7480] 2019/10/06 14:18:05.805763 [INF] Git commit [not set]
@@ -13,13 +13,13 @@ The NATS server is not part of the Moleculer. You have to install & start it bef
 [7480] 2019/10/06 14:18:05.810763 [INF] Server is ready
 ```
 
-## How can I start services with Moleculer Runner in debug mode?
-Use the following command:
+## Как запустить сервисы с Moleculer Runner в режиме отладки?
+Используйте следующую команду:
 ```bash
 $ node --inspect=0.0.0.0:9229 node_modules/moleculer/bin/moleculer-runner services
 ```
 
-## How to add V8 flags for Moleculer Runner?
+## Как добавить флаги V8 для Moleculer Runner?
 ```bash
 $ node --max-old-space-size=8192 node_modules/moleculer/bin/moleculer-runner services
 ```
