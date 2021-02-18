@@ -77,6 +77,23 @@ module.exports = {
 };
 ```
 
+## Why am I getting `502 - Bad Gateway` when api-gateway is behind ALB on AWS?
+You need to adjust the keepAliveTimeouts in the HTTP server. You can access the HTTP server instance in `created()` function of api-gateway. More info [here](https://github.com/moleculerjs/moleculer-web/issues/226).
+
+```js
+module.exports = {
+    mixins: [ApiService],
+
+    created() {
+        // Ensure all inactive connections are terminated by the ALB, by setting this a few seconds higher than the ALB idle timeout
+        this.server.keepAliveTimeout = 65000;
+        // Ensure the headersTimeout is set higher than the keepAliveTimeout due to this nodejs regression bug: https://github.com/nodejs/node/issues/27363
+        this.server.headersTimeout = 66000;
+    }
+};
+```
+
+
 # Адаптеры баз данных (moleculer-db)
 ## Как я могу управлять несколькими сущностями/таблицами по сервису?
 На данный момент [Moleculer DB](moleculer-db.html) поддерживает только [одну модель на сервис](https://microservices.io/patterns/data/database-per-service.html). Такой дизайн хорошо работает при использовании NoSQL баз данных, особенно для Документных баз данных, так как вы можете легко сгруппировать все дочерние сущности. Однако, в случае SQL всё становится сложнее, потому что может присутствовать множество сложных взаимосвязей между сущностями/таблицами. В связи с этим, трудно (имеющимися ресурсами) разработать более общее и подходящее всем решение. Поэтому для сценариев с несколькими сущностями и взаимосвязями следует релизовать собственный адаптер базы данных.
