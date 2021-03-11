@@ -77,17 +77,17 @@ module.exports = {
 };
 ```
 
-## Why am I getting `502 - Bad Gateway` when api-gateway is behind ALB on AWS?
-You need to adjust the keepAliveTimeouts in the HTTP server. You can access the HTTP server instance in `created()` function of api-gateway. More info [here](https://github.com/moleculerjs/moleculer-web/issues/226).
+## Почему я получаю `502 - Bad Gateway` когда api-шлюз находится за ALB (балансировщик нагрузки приложений) на AWS?
+Необходимо настроить keepAliveTimeouts на HTTP-сервере. Можно получить доступ к экземпляру сервера HTTP в `created()` функции api-шлюза. Больше информации [здесь](https://github.com/moleculerjs/moleculer-web/issues/226).
 
 ```js
-module.exports = {
+модуль. xports = {
     mixins: [ApiService],
 
     created() {
-        // Ensure all inactive connections are terminated by the ALB, by setting this a few seconds higher than the ALB idle timeout
+        // Убедитесь, что все неактивные подключения разорваны средствами ALB, установив значение на несколько секунд больше чем тайм-аут простоя ALB.
         this.server.keepAliveTimeout = 65000;
-        // Ensure the headersTimeout is set higher than the keepAliveTimeout due to this nodejs regression bug: https://github.com/nodejs/node/issues/27363
+        // Убедитесь, что заголовки таймаута установлены выше, чем keepAliveTimeout из-за  регрессионной ошибки nodejs: https://github. om/nodejs/node/issues/27363
         this.server.headersTimeout = 66000;
     }
 };
