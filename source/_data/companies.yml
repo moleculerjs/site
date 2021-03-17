@@ -158,7 +158,7 @@ companies:
     -
         name: TuntsCorp
         link: http://www.tuntscorp.com/site/
-        logo: https://camo.githubusercontent.com/241f2ab6d22f8008908008076eece09c611ccab6/687474703a2f2f7777772e74756e7473636f72702e636f6d2f736974652f6173736574732f696d672f74756e7473332e706e67
+        logo: https://user-images.githubusercontent.com/5932386/111358535-34c5d300-8669-11eb-821a-524a74acdd8d.png
     -
         name: LALALAB
         link: https://www.lalalab.com/en
@@ -299,7 +299,3 @@ companies:
         name: Lumile
         link: https://www.lumile.com.ar/
         logo: https://user-images.githubusercontent.com/864965/110517271-6844b280-80e9-11eb-96bb-aebf91f55b5a.png
-    -
-        name: TuntsCorp
-        link: http://www.tuntscorp.com/site/
-        logo: https://user-images.githubusercontent.com/5932386/111358535-34c5d300-8669-11eb-821a-524a74acdd8d.png
