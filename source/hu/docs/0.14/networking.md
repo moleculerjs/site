@@ -135,7 +135,11 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `nats` module with `npm install nats --save` command.
+To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
+{% endnote %}
+
+{% note warn NATS v2.0 %}
+Please note that [nats `v2.x`](https://github.com/nats-io/nats.js/blob/HEAD/migration.md), a complete re-write of nats client, is not yet supported.
 {% endnote %}
 
 #### Példák
