@@ -135,7 +135,11 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `nats` module with `npm install nats --save` command.
+To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
+{% endnote %}
+
+{% note warn NATS v2.0 %}
+Please note that [nats `v2.x`](https://github.com/nats-io/nats.js/blob/HEAD/migration.md), a complete re-write of nats client, is not yet supported.
 {% endnote %}
 
 #### Examples
@@ -559,7 +563,7 @@ module.exports = {
 ## Disabled balancer
 Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
 
-**Example**
+**示例**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -575,7 +579,7 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 ## Serialization
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
-**Example**
+**示例**
 ```js
 // moleculer.config.js
 module.exports = {
