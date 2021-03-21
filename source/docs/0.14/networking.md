@@ -170,7 +170,7 @@ module.exports = {
     transporter: {
         type: "NATS",
         options: {
-            url: "nats://localhost:4222"
+            url: "nats://localhost:4222",
             user: "admin",
             pass: "1234"
         }
