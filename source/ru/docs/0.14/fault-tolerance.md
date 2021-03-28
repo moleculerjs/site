@@ -8,37 +8,37 @@ Moleculer имеет несколько встроенных механизмо�
 Молекулер имеет встроенный механизм защиты от зацикливания. Это реализация на основе пороговых значений. Для проверки частоты неудачного запроса используется временное окно. При достижении порогового значения активирует механизм защиты от зацикливания.
 
 {% note info What is the circuit breaker? %}
-The Circuit Breaker can prevent an application from repeatedly trying to execute an operation that's likely to fail. Allowing it to continue without waiting for the fault to be fixed or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been fixed, the application can try to invoke the operation.
+Защита от зацикливания может помешать приложению многократно пытаться выполнить операцию, которая, скорее всего, не сработает. Тем самым позволяет продолжить работу без ожидания исправления сбоя или потери циклов процессора, пока срабатывает определение, что ошибка длительное время сохраняется. Паттерн прерывания зацикливания также позволяет приложению определить, была ли устранена ошибка. Если проблема была исправлена, приложение может попытаться вызвать операцию.
 
-Read more about circuit breaker on [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html) or on [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
+Подробнее о защите от зацикливания можной узнать на [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html) или [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
 {% endnote %}
 
-If you enable it, all service calls will be protected by the circuit breaker.
+Если вы включите его, то все сервисные вызовы будут защищены от зацикливания.
 
-**Enable it in the broker options**
+**Включить можно в параметрах брокера**
 ```js
 const broker = new ServiceBroker({
     circuitBreaker: {
         enabled: true,
         threshold: 0.5,
         minRequestCount: 20,
-        windowTime: 60, // in seconds
-        halfOpenTime: 5 * 1000, // in milliseconds
+        windowTime: 60, // в секундах
+        halfOpenTime: 5 * 1000, // в миллисекундах
         check: err => err && err.code >= 500
     }
 });
 ```
 
-### Settings
+### Настройки
 
-| Название          | Type       | Default                             | Описание                                                             |
-| ----------------- | ---------- | ----------------------------------- | -------------------------------------------------------------------- |
-| `enabled`         | `Boolean`  | `false`                             | Enable feature                                                       |
-| `threshold`       | `Number`   | `0.5`                               | Threshold value. `0.5` means that 50% should be failed for tripping. |
-| `minRequestCount` | `Number`   | `20`                                | Minimum request count. Below it, CB does not trip.                   |
-| `windowTime`      | `Number`   | `60`                                | Number of seconds for time window.                                   |
-| `halfOpenTime`    | `Number`   | `10000`                             | Number of milliseconds to switch from `open` to `half-open` state    |
-| `check`           | `Function` | `err && err.code >= 500` | A function to check failed requests.                                 |
+| Название          | Тип        | По умолчанию                        | Описание                                                                          |
+| ----------------- | ---------- | ----------------------------------- | --------------------------------------------------------------------------------- |
+| `enabled`         | `Boolean`  | `false`                             | Включить функцию                                                                  |
+| `threshold`       | `Number`   | `0.5`                               | Значение порога. `0.5` означает, что 50% не могут быть доставлены для передачи.   |
+| `minRequestCount` | `Number`   | `20`                                | Минимальное количество запросов. Ниже этого значения, CB не передаётся.           |
+| `windowTime`      | `Number`   | `60`                                | Количество секунд за окно времени.                                                |
+| `halfOpenTime`    | `Number`   | `10000`                             | Количество миллисекунд для переключения с `открытого` на `полуоткрытое` состояние |
+| `check`           | `Function` | `err && err.code >= 500` | Функция для проверки неудачных запросов.                                          |
 
 > If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#circuit-breaker-opened).
 
