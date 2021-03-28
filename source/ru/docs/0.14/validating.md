@@ -1,4 +1,4 @@
-title: Parameter Validation
+title: Валидация параметров
 ---
 
 Validation middleware is used for [Actions](actions.html) and [Events](events.html) parameter validation.
