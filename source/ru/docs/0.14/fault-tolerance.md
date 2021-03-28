@@ -40,9 +40,9 @@ const broker = new ServiceBroker({
 | `halfOpenTime`    | `Number`   | `10000`                             | Количество миллисекунд для переключения с `открытого` на `полуоткрытое` состояние |
 | `check`           | `Function` | `err && err.code >= 500` | Функция для проверки неудачных запросов.                                          |
 
-> If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#circuit-breaker-opened).
+> Если состояние защиты от зацикливания изменено, ServiceBroker отправит [внутренние события](events.html#circuit-breaker-opened).
 
-These global options can be overridden in action definition, as well.
+Эти глобальные параметры также могут быть переопределены в определении действий.
 ```js
 // users.service.js
 module.export = {
@@ -50,7 +50,7 @@ module.export = {
     actions: {
         create: {
             circuitBreaker: {
-                // All CB options can be overwritten from broker options.
+                // Все параметры CB могут быть переопределены параметров брокера.
                 threshold: 0.3,
                 windowTime: 30
             },
@@ -60,10 +60,10 @@ module.export = {
 };
 ```
 
-## Retry
-There is an exponential backoff retry solution. It can recall failed requests.
+## Повтор
+Для выполнения повторных попыток применяется решение на базе экспоненциального отката. Оно может повторно вызвать неудачные запросы.
 
-**Enable it in the broker options**
+**Включить можно в параметрах брокера**
 ```js
 const broker = new ServiceBroker({
     retryPolicy: {
