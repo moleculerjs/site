@@ -1,11 +1,11 @@
-title: Fault tolerance
+title: Устойчивость к отказу
 ---
 
-Moleculer has several built-in fault-tolerance features. They can be enabled or disabled in broker options.
+Moleculer имеет несколько встроенных механизмов, обеспечивающих отказоустойчивость. Они могут быть включены или отключены в настройках брокера.
 
-## Circuit Breaker
+## Защита от зацикливания
 
-Moleculer has a built-in circuit-breaker solution. It is a threshold-based implementation. It uses a time window to check the failed request rate. Once the threshold value is reached, it trips the circuit breaker.
+Молекулер имеет встроенный механизм защиты от зацикливания. Это реализация на основе пороговых значений. Для проверки частоты неудачного запроса используется временное окно. При достижении порогового значения активирует механизм защиты от зацикливания.
 
 {% note info What is the circuit breaker? %}
 The Circuit Breaker can prevent an application from repeatedly trying to execute an operation that's likely to fail. Allowing it to continue without waiting for the fault to be fixed or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been fixed, the application can try to invoke the operation.
