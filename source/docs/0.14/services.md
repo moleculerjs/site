@@ -338,6 +338,10 @@ module.exports = {
         // Fired when the service instance created (with `broker.loadService` or `broker.createService`)
     },
 
+    merged() {
+        // Fired after the service schemas merged and before the service instance created
+    },
+    
     async started() {
         // Fired when broker starts this service (in `broker.start()`)
     }
