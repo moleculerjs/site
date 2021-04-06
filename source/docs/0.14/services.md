@@ -300,7 +300,7 @@ module.exports = {
     }
 };
 ```
-If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) you the following notation:
+If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) use the following notation:
 
 ```js
 // posts.service.js
