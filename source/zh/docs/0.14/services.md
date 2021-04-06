@@ -297,7 +297,7 @@ module.exports = {
     }
 };
 ```
-如果你想要用 [middleware](middlewares.html#localMethod-next-method) 包装一个方法，以下：
+If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) use the following notation:
 
 ```js
 // posts.service.js
