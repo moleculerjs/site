@@ -1,7 +1,7 @@
-title: Actions
+title: 动作
 ---
 
-服务公开的可调用的方法称为动作或行为 (actions)。 动作通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。
+服务公开的可调用的方法称为活动或动作或行为 (actions, 以后不加区分)。 动作通过RPC(远程过程调用) 来调用。它们就好像 HTTP 请求一样，具有请求参数并返回响应。 它有请求参数 & 返回响应，就像一个 HTTP 请求。
 
 如果您有多个服务实例，服务管理器 (broker)  将负责均衡它们的请求。 [获取更多关于负载均衡的信息](balancing.html)。
 
@@ -20,19 +20,19 @@ const res = await broker.call(actionName, params, opts);
 
 `params` 是一个对象，作为 [Context](context.html) 的一部分传递到该动作。 服务可以经由 `ctx.params` 访问它。 *params 是可选的。 如果您没有定义它，则为 `{}`*
 
-`opts` 是一个要 设置/覆盖 某些请求参数的对象，例如`timeout`, `retryCount`。 *opts 也是可选的。*
+`opts` 是一个要 设置/覆盖 某些请求参数的对象，例如`timeout`, `retryCount`。 *opts*也是可选的。
 
 **可用的调用选项：**
 
-| 名称                 | 类型        | 默认值    | 说明                                                                                                                                                                         |
-| ------------------ | --------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `timeout`          | `Number`  | `null` | 请求超时，单位为毫秒。 如果请求超时且您没有定义`fallbackResponse`, broker 将抛出一个`RequestTimeout`错误。 设为 `0` 表示禁用。 不设置此项，将使用 broker 选项的`requestTimeout`值。 [Read more](fault-tolerance.html#Timeout). |
-| `retries`          | `Number`  | `null` | 重试次数. 如果请求超时，broker 会重试调用。 设为 `0` 表示禁用。 不设置此项，将使用 broker 选项的`retryPolicy.retries`值。 [Read more](fault-tolerance.html#Retry).                                               |
-| `fallbackResponse` | `Any`     | `null` | 如果请求失败，返回此替代响应。 [Read more](fault-tolerance.html#Fallback).                                                                                                                |
-| `nodeID`           | `String`  | `null` | 目标节点。 直接调用指定节点的动作。                                                                                                                                                         |
-| `meta`             | `Object`  | `{}`   | 请求元数据。 在动作处理器中通过 `ctx.mete` 来访问它。 它会在嵌套调用中传输 & 合并.                                                                                                                         |
-| `parentCtx`        | `Context` | `null` | Parent `Context` instance. Use it to chain the calls.                                                                                                                      |
-| `requestID`        | `String`  | `null` | Request ID 或 Correlation ID. 用于跟踪。                                                                                                                                         |
+| 名称                 | 类型        | 默认值    | 说明                                                                                                                                                                  |
+| ------------------ | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout`          | `Number`  | `null` | 请求超时，单位为毫秒。 如果请求超时且您没有定义`fallbackResponse`, broker 将抛出一个`RequestTimeout`错误。 设为 `0` 表示禁用。 不设置此项，将使用 broker 选项的`requestTimeout`值。 [更多](fault-tolerance.html#Timeout). |
+| `retries`          | `Number`  | `null` | 重试次数. 如果请求超时，broker 会重试调用。 设为 `0` 表示禁用。 不设置此项，将使用 broker 选项的`retryPolicy.retries`值。 [更多](fault-tolerance.html#Retry).                                               |
+| `fallbackResponse` | `Any`     | `null` | 如果请求失败，返回此替代响应。 [更多](fault-tolerance.html#Fallback).                                                                                                                |
+| `nodeID`           | `String`  | `null` | 目标节点。 直接调用指定节点的动作。                                                                                                                                                  |
+| `meta`             | `Object`  | `{}`   | 请求元数据。 在动作处理器中通过 `ctx.mete` 来访问它。 它会在嵌套调用中传输 & 合并.                                                                                                                  |
+| `parentCtx`        | `Context` | `null` | 父 `Context` 实例。 Use it to chain the calls.                                                                                                                          |
+| `requestID`        | `String`  | `null` | Request ID 或 Correlation ID. 用于跟踪。                                                                                                                                  |
 
 
 ### 用例
@@ -331,33 +331,33 @@ Xpath: /pre[19]/code
 Before hooks 会接收 `ctx`, 取决于你的需求, 它可以操纵 `ctx.params`, `ctx. eta`, 或将自定义变量添加到 `ctx.locals` 。 如果有任何错误，它会抛出 `Error`。 _请注意，您不能 中断或跳过 hooks 或任何动作处理程序。_
 
 **主要用法：**
-- parameter sanitization
-- parameter validation
-- entity finding
-- authorization
+- 清理参数
+- 验证参数
+- 查找实体
+- 授权
 
 ### After hooks
-In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
+After hooks 会收到 `ctx` 和 `response`. 在这里可以修改响应信息。
 
-**Main usages:**
-- property populating
-- remove sensitive data.
-- wrapping the response into an `Object`
-- convert the structure of the response
+**主要用法：**
+- 生成属性
+- 清除敏感数据
+- 将响应包装到一个 `Object`
+- 转换响应的结构
 
 ### Error hooks
-The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
+当动作调用过程中抛出 `Error` 时，错误钩子被调用。 它会收到 `ctx` 和 `err`. 它可以处理错误并返回另一个响应 (fallback) 或重新抛出错误。
 
-**Main usages:**
-- error handling
-- wrap the error into another one
-- fallback response
+**主要用法：**
+- 处理错误
+- 包装成另一个错误
+- 响应回退
 
-### Service level declaration
-Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
+### 声明在服务上
+可以把钩子设在服务的某个动作上(通过指派 `name`)，也可以应用到所有动作(通过指派`*`)。
 
 {% note warn%}
-Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+请注意钩子注册顺序很重要，因为它定义了执行钩子的顺序。 欲了解更多信息，参见 [hook execution order](#Execution-order)。
 {% endnote %}
 
 **Before hooks**
@@ -444,11 +444,11 @@ module.exports = {
 };
 ```
 
-### Action level declaration
-Hooks can be also registered inside action declaration.
+### 声明在动作上
+钩子也可以注册在动作中。
 
 {% note warn%}
-Please note that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
+请注意，挂钩注册顺序很重要，因为它定义了执行钩子的顺序。 欲了解更多信息，参见 [hook execution order](#Execution-order)。
 {% endnote %}
 
 **Before & After hooks**
@@ -476,14 +476,14 @@ broker.createService({
     }
 });
 ```
-### Execution order
-It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels.  Overall, the hooks have the following execution logic:
+### 执行顺序
+请记住，钩子有指定的执行顺序。 这对理解多个钩子在不同级别注册时特别重要([service](#Service-level-declaration) 和/或 [动作](#Action-level-declaration)) 。  总的来说，钩子有以下执行逻辑：
 
 - `before` hooks: global (`*`) `->` service level `->` action level.
 
 - `after` hooks: action level `->` service level `->` global (`*`).
 
-**Example of a global, service & action level hook execution chain**
+**以下示例 global, service & action 级别钩子的执行链**
 ```js
 broker.createService({
     name: "greeter",
@@ -528,7 +528,7 @@ broker.createService({
     }
 });
 ```
-**Output produced by global, service & action level hooks**
+**以下为 global, service & action 级别的钩子输出**
 ```bash
 INFO  - Before all hook
 INFO  -   Before hook
@@ -539,8 +539,8 @@ INFO  -   After hook
 INFO  - After all hook
 ```
 
-### Reusability
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+### 重用
+重用钩子的最有效方式是在单独的文件中将钩子作为服务方法并使用 [mixin](services.html#Mixins) 机制导入。 这样，单个钩子可以轻松地在多个操作中共享。
 
 ```js
 // authorize.mixin.js
@@ -593,10 +593,10 @@ module.exports = {
     }
 };
 ```
-### Local Storage
-The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+### 本地存储
+`Context` 的 `locals` 属性对象是一个简单的存储库，可用来存储一些额外的数据并传递到操作处理器。 `locals` 属性和钩子组合使用:
 
-**Setting `ctx.locals` in before hook**
+**在 before 钩子中设置 `ctx.locals`**
 ```js
 module.exports = {
     name: "user",

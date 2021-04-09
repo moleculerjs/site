@@ -1,30 +1,30 @@
-title: Parameter Validation
+title: Валидация параметров
 ---
 
-Validation middleware is used for [Actions](actions.html) and [Events](events.html) parameter validation.
+Для проверки параметров в [Действиях](actions.html) и [Событиях](events.html) используется промежуточный слой валидации.
 
 ## Fastest Validator
-By default, Moleculer uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+По умолчанию в молекулере используется библиотека [fastest-validator](https://github.com/icebob/fastest-validator).
 
-**Default usage**
+**Использование по умолчанию**
 ```js
 //moleculer.config.js
 module.exports = {
     nodeID: "node-100",
-    validator: true // Using the default Fastest Validator
+    validator: true // Использовать Fastest Validator по умолчанию
 }
 ```
 
-**Setting validator by name**
+**Установка валидатора по имени**
 ```js
 //moleculer.config.js
 module.exports = {
     nodeID: "node-100",
-    validator: "Fastest" // Using the Fastest Validator
+    validator: true // Использовать Fastest Validator
 }
 ```
 
-**Example with options**
+**Пример с параметрами**
 ```js
 //moleculer.config.js
 module.exports = {
@@ -41,8 +41,8 @@ module.exports = {
 }
 ```
 
-### Actions Validation
-In order to perform parameter validation you need to define `params` property in action definition and create validation schema for the incoming `ctx.params`.
+### Валидация действий
+Чтобы выполнить валидацию параметров, необходимо определить свойство `params` в определении действия и создать схему валидации для входящих `ctx. arams`.
 
 **Пример**
 ```js
@@ -95,9 +95,9 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 Более подробную информацию о схеме проверки можно найти в [документации библиотеки](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
 
-### Events Validation
-Event parameter validation is also supported. To enable it, define `params` in event definition.
-> Please note that the validation errors are not sent back to the caller, as happens with action errors. Event validation errors are logged but you can also catch them with the [global error handler](broker.html#Global-error-handler).
+### Валидация событий
+Также поддерживается валидация параметров события. Чтобы включить его, определите `params` в определении события.
+> Пожалуйста, обратите внимание, что ошибки валидации не отправляются вызывающему коду, как это происходит с ошибками действия. Ошибки валидации событий логируются, но вы также можно поймать их с помощью [глобального обработчика ошибок](broker.html#Global-error-handler).
 
 ```js
 // mailer.service.js
@@ -105,8 +105,8 @@ module.exports = {
     name: "mailer",
     events: {
         "send.mail": {
-            // Validation schema with shorthand notation
-            // More info: https://github.com/icebob/fastest-validator#shorthand-definitions
+            // Схема валидации, записанная с использованием сокращённой записи
+            // Больше информации: https://github.com/icebob/fastest-validator#shorthand-definitions
             params: {
                 from: "string|optional",
                 to: "email",
@@ -121,9 +121,9 @@ module.exports = {
 ```
 
 ## Пользовательский валидатор
-You can also implement custom validators. We recommend to copy the source of [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) and implement the `compile` and `validate` methods.
+Имеется возможность реализовать пользовательские валидаторы. Мы рекомендуем скопировать источник [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) и реализовать методы `compile` и `validate`.
 
-**Creating custom validator**
+**Создание пользовательского валидатора**
 ```js
 //moleculer.config.js
 const BaseValidator = require("moleculer").Validators.Base;
@@ -136,14 +136,14 @@ module.exports = {
 }
 ```
 
-**Build Joi validator**
+**Создание Joi валидатора**
 ```js
 const { ServiceBroker } = require("moleculer");
 const BaseValidator = require("moleculer").Validators.Base;
 const { ValidationError } = require("moleculer").Errors;
 const Joi = require("joi");
 
-// --- JOI VALIDATOR CLASS ---
+// --- КЛАСС JOI ВАЛИДАТОРА ---
 class JoiValidator extends BaseValidator {
     constructor() {
         super();
@@ -165,10 +165,10 @@ class JoiValidator extends BaseValidator {
 
 let broker = new ServiceBroker({
     logger: true,
-    validator: new JoiValidator // Use Joi validator
+    validator: new JoiValidator // Использование Joi валидатора
 });
 
-// --- TEST BROKER ---
+// --- ТЕСТОВЫЙ БРОКЕР ---
 
 broker.createService({
     name: "greeter",
@@ -199,5 +199,5 @@ broker.start()
 ```
 
 {% note info Find more validators %}
-[Check the modules page and find more validators.](/modules.html#validation)
+[Проверьте страницу модулей и найдите больше валидаторов.](/modules.html#validation)
 {% endnote %}

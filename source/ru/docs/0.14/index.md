@@ -6,24 +6,24 @@ Moleculer - это быстрый, современный и мощный мик
 
 - Асинхронный код на базе промисов (async/await compatible)
 - концепция запрос-ответ
-- support event driven architecture with balancing
+- поддержка событийной архитектуры с балансировкой
 - встроенный реестр сервисов и их динамическое обнаружение
-- load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
+- запросы с распределением нагрузки & события (round-robin, random, использование cpu, задержка, шардинг)
 - устойчивость к отказам (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
 - система плагинов и middleware
 - поддержка версионирования сервисов
 - поддержка [потоков](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)
 - поддержка миксинов на уровне сервисов
-- built-in caching solution (Memory, MemoryLRU, Redis)
+- встроенное кэширование (Memory, MemoryLRU, Redis)
 - подключаемые логгеры (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
-- pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
-- pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
-- pluggable parameter validator
+- подключаемые транспорты (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
+- подключаемые сериализаторы (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
+- подключаемые валидаторы параметров
 - несколько сервисов на узле/сервере
-- master-less architecture, all nodes are equal
+- архитектура без ведущего узла, все узлы равны
 - валидация параметров [fastest-validator](https://github.com/icebob/fastest-validator)
-- built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
-- built-in tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin)
+- встроенные метрики с отчётами (Console, CSV, Datadog, Event, Prometheus, StatsD)
+- встроенные трассировщики с отчётами (Console, Datadog, Event, Jaeger, Zipkin)
 - официальный [API шлюз](https://github.com/moleculerjs/moleculer-web), [доступ к БД](https://github.com/moleculerjs/moleculer-db) и множество других модулей...
 
 ## Насколько быстро?
@@ -42,5 +42,5 @@ Moleculer - это быстрый, современный и мощный мик
 
 
 {% note info Node.js support %}
-Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `10`.
+Moleculer следует за [релизными циклами](https://nodejs.org/en/about/releases/) Node.js, это означает, что требуется версии не ниже `10`.
 {% endnote %}

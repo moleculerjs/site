@@ -297,7 +297,7 @@ module.exports = {
     }
 };
 ```
-If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) you the following notation:
+If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) use the following notation:
 
 ```js
 // posts.service.js
@@ -333,6 +333,10 @@ module.exports = {
 
     created() {
         // Fired when the service instance created (with `broker.loadService` or `broker.createService`)
+    },
+
+    merged() {
+        // Fired after the service schemas merged and before the service instance created
     },
 
     async started() {
@@ -398,7 +402,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 
 ## Metadata
 
-The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store it whatever you want._
+The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store in it whatever you want._
 
 ```js
 module.exports = {

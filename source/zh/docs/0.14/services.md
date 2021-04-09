@@ -1,11 +1,11 @@
-title: Services
+title: 服务
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+`Service` 表示 Moleculer 框架中的微服务。 您可以在服务中定义动作和订阅事件。 要创建服务，您必须定义一个方案。 服务方案类似于 [VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components) 的一个组件。
 
 ## Schema
-The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+方案有一些主要部件: `name`, `version`, `settings`, `actions`, `methods`, `events`.
 
-### Simple service schema to define two actions
+### 定义有2个动作的简单服务方案
 ```js
 // math.service.js
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
 }
 ```
 
-## Base properties
-The Service has some base properties in the schema.
+## 基本属性
+服务方案中有一些基础属性。
 ```js
 // posts.v1.service.js
 module.exports = {
@@ -31,11 +31,11 @@ module.exports = {
     version: 1
 }
 ```
-The `name` is a mandatory property so it must be defined. It's the first part of action name when you call it.
+`name` 是一个必须定义的属性。 当你调用它时，它是动作名称的第一部分。
 
-> To disable service name prefixing set `$noServiceNamePrefix: true` in Service settings.
+> 要禁用服务名称前缀, 请在服务设置中修改 `$noServiceNamePrefix: true` 。
 
-The `version` is an optional property. Use it to run multiple version from the same service. It is a prefix in the action name. It can be a `Number` or a `String`.
+`version` 是一个可选的属性。 使用它来运行来自同一服务的多个版本。 它也是动作名称中的前缀。 它可以是 `Number` 或 `String`。
 ```js
 // posts.v2.service.js
 module.exports = {
@@ -46,19 +46,19 @@ module.exports = {
     }
 }
 ```
-To call this `find` action on version `2` service:
+在版本 `2` 上调用此服务的动作 `find`:
 ```js
 broker.call("v2.posts.find");
 ```
 
 {% note info REST call %}
-Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
+通过[API Gateway](moleculer-web.html), 发出请求 `GET /v2/posts/find`.
 {% endnote %}
 
-> To disable version prefixing set `$noVersionPrefix: true` in Service settings.
+> 要禁用服务名称前缀, 请在服务设置中修改 `$noVersionPrefix: true` 。
 
-## Settings
-The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
+## 设置
+`settings` 属性是一个静态存储属性，您可以在那里存储每个设置/选项到您的服务。 您可以通过服务内的 `this.settings` 操作它。
 
 ```js
 // mailer.service.js
@@ -77,21 +77,21 @@ module.exports = {
     }
 }
 ```
-> The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
+> `settings` 也可以在远程节点上获得。 它在发现服务期间转移。
 
-### Internal Settings
-There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
+### 内部设置
+核心模块使用了一些内部设置。 这些设置名称具有 `$` _(dollar sign)_ 前缀。
 
-| Name                   | Type      | Default | Description                                          |
-| ---------------------- | --------- | ------- | ---------------------------------------------------- |
-| `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
-| `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
-| `$dependencyTimeout`   | `Number`  | `0`     | Timeout for dependency waiting.                      |
-| `$shutdownTimeout`     | `Number`  | `0`     | Timeout for waiting for active requests at shutdown. |
-| `$secureSettings`      | `Array`   | `[]`    | List of secure settings.                             |
+| Name                   | Type      | Default | 说明              |
+| ---------------------- | --------- | ------- | --------------- |
+| `$noVersionPrefix`     | `Boolean` | `false` | 在动作名称中禁用版本前缀。   |
+| `$noServiceNamePrefix` | `Boolean` | `false` | 在动作名称中禁用名字前缀。   |
+| `$dependencyTimeout`   | `Number`  | `0`     | 等待此服务的依赖服务超时时间。 |
+| `$shutdownTimeout`     | `Number`  | `0`     | 超时关闭此等待的活动请求。   |
+| `$secureSettings`      | `Array`   | `[]`    | 安全设置列表。         |
 
-### Secure service settings
-To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
+### 服务安全设置项
+为了保护您的令牌 & API 密钥，在服务设置中定义 `$secureSettings: []` 属性并设置受保护的属性键。 受保护的设置不会被发布到其他节点，它不会出现在服务注册表中。 这些设置仅在服务函数内的 `this.settings` 下可用。
 
 ```js
 // mail.service.js
@@ -113,10 +113,10 @@ module.exports = {
 };
 ```
 
-## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
+## 混入
+Mixins 是分配 Moleculer 服务的可重复使用功能的一种灵活的方式。 服务构造器将这些混入功能与当前服务方案合并。 当一个服务使用混入时，mixins 中存在的所有属性都将被“混入”到当前的服务中。
 
-**Example how to extend `moleculer-web` service**
+**以下示例扩展 `moleculer-web` 服务**
 
 ```js
 // api.service.js
@@ -136,31 +136,31 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which inherits all properties from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
+上面的示例创建一个 `api` 服务，继承来自 `ApiGwService` 的所有属性，但覆盖端口设置并通过新的 `myAction` 动作扩展。
 
-### Merge algorithm
-The merge algorithm depends on the property type.
+### 合并算法
+合并算法取决于属性类型。
 
-| Property                        | Algorithm                                                                                                                                                   |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`, `version`               | Merge & overwrite.                                                                                                                                          |
-| `settings`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `metadata`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `actions`                       | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
-| `hooks`                         | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `methods`                       | Merge & overwrite.                                                                                                                                          |
-| `events`                        | Concatenate listeners.                                                                                                                                      |
-| `created`, `started`, `stopped` | Concatenate listeners.                                                                                                                                      |
-| `mixins`                        | Merge & overwrite.                                                                                                                                          |
-| `dependencies`                  | Merge & overwrite.                                                                                                                                          |
-| _any custom_                    | Merge & overwrite.                                                                                                                                          |
+| Property                        | Algorithm                                                                                              |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `name`, `version`               | 合并 & 覆盖。                                                                                               |
+| `settings`                      | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。                                |
+| `metadata`                      | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。                                |
+| `actions`                       | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。 _如果您在服务中设置为 `fals` 您可以禁用混入行为。_ |
+| `hooks`                         | 在 [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep) 的情况下深度扩展。                                |
+| `methods`                       | 合并 & 覆盖。                                                                                               |
+| `events`                        | 连接侦听器。                                                                                                 |
+| `created`, `started`, `stopped` | 连接侦听器。                                                                                                 |
+| `mixins`                        | 合并 & 覆盖。                                                                                               |
+| `dependencies`                  | 合并 & 覆盖。                                                                                               |
+| _any custom_                    | 合并 & 覆盖。                                                                                               |
 
 {% note info Merge algorithm examples %}
-__Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
+__合并 & 覆盖__: 如果 serviceA 有 `a: 5`, `b: 8` 且 serviceB 有`c: 10` `b: 15`, 混合服务将有 `a: 5`, `b: 15` and `c: 10` __Concatenate__: 如果 serviceA & serviceB 订阅 `users.created` 事件，当 `users.created` 事件发出时，两个事件处理程序都会被调用。
 {% endnote %}
 
 ## Actions
-The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+服务公开的可调用的方法称为活动或动作或行为 (actions, 以后不加区分)。 他们可以使用 `broker.call` 或 `ctx.call` 来调用。 该动作可以是 `Function` (简写为 handler) 或一个对象具有 `handler` 属性及更多属性。 该动作应该放置在方案中的 `actions` 下. 参见 [actions documentation](actions.html).
 
 ```js
 // math.service.js
@@ -189,13 +189,13 @@ module.exports = {
     }
 };
 ```
-You can call the above actions as
+您可以这样调用上述动作
 ```js
 const res = await broker.call("math.add", { a: 5, b: 7 });
 const res = await broker.call("math.mult", { a: 10, b: 31 });
 ```
 
-Inside actions, you can call other nested actions in other services with `ctx.call` method. It is an alias to `broker.call`, but it sets itself as parent context (due to correct tracing chains).
+在动作中，您可以使用 `ctx.call` 方法在其他服务中调用其他嵌套动作。 它是 `broker.call`的一个别名，但它将自己设置为父 context (由于正确的追踪链)。
 ```js
 // posts.service.js
 module.exports = {
@@ -218,11 +218,11 @@ module.exports = {
     }
 };
 ```
-> In action handlers the `this` is always pointed to the Service instance.
+> 动作处理器的 `this` 总是指向 Service 实例。
 
 
 ## Events
-You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
+您可以在 `events` 中订阅事件。 参见 [events documentation](events.html).
 
 ```js
 // report.service.js
@@ -251,10 +251,10 @@ module.exports = {
     }
 };
 ```
-> In event handlers the `this` is always pointed to the Service instance.
+> 动作处理器的 `this` 总是指向 Service 实例。
 
 ### Grouping
-The broker groups the event listeners by group name. By default, the group name is the service name. But you can overwrite it in the event definition.
+服务管理器按群组名称将事件监听器分组。 默认情况下，群组名称是服务名称。 但你可以在事件定义中覆盖它。
 
 ```js
 // payment.service.js
@@ -273,9 +273,9 @@ module.exports = {
 ```
 
 ## Methods
-To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
+若要在服务中创建私有方法，请将您的函数放在 `methods` 中。 这些函数是私有的，无法与 `broker.call` 一起调用。 但你可以在服务中调用它(来自操作处理器、事件处理器和生命周期事件处理器)。
 
-**Usage**
+**用例**
 ```js
 // mailer.service.js
 module.exports = {
@@ -297,7 +297,7 @@ module.exports = {
     }
 };
 ```
-If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) you the following notation:
+If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) use the following notation:
 
 ```js
 // posts.service.js
@@ -316,12 +316,12 @@ module.exports = {
 ```
 
 
-> The method name can't be `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
+> 方法名称不能是 `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, 因为在方案中这些名字是保留的。
 
-> In methods the `this` is always pointed to the Service instance.
+> 方法中的 `this` 总是指向 Service 实例。
 
-## Lifecycle Events
-There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
+## 生命周期事件
+有一些生命周期服务事件，将由服务管理器触发。 它们放置服务方案中。
 
 ```js
 // www.service.js
@@ -335,6 +335,10 @@ module.exports = {
         // Fired when the service instance created (with `broker.loadService` or `broker.createService`)
     },
 
+    merged() {
+        // Fired after the service schemas merged and before the service instance created
+    },
+
     async started() {
         // Fired when broker starts this service (in `broker.start()`)
     }
@@ -344,8 +348,8 @@ module.exports = {
     }
 };
 ```
-## Dependencies
-If your service depends on other services, use the `dependencies` property in the schema. The service waits for dependent services before calls the `started` lifecycle event handler.
+## 依赖关系
+如果您的服务依赖于其他服务，请使用方案中的 `dependencies` 属性。 服务在调用 `started` 事件之前会等待它的依赖服务处理完毕。
 
 ```js
 // posts.service.js
@@ -367,27 +371,27 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
+一旦 `likes`, `v2.auth`, `v2.users`, `staging.comments` (无论以上服务在本地还是远程节点) 变得可用，服务立即执行 `started` 处理器。
 
-### Wait for services via ServiceBroker
-To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
+### 等待通过 ServiceBroker 提供的服务
+可以使用 `ServiceBroker` 的方法 `waitForServices` 来等待服务。 所有定义的服务可用 & 启动后, 它返回的 `Promise` 将被解决。
 
 **Parameters**
 
-| Parameter  | Type                | Default | Description                                                                                   |
-| ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
+| Parameter  | Type                | Default | Description                                         |
+| ---------- | ------------------- | ------- | --------------------------------------------------- |
+| `services` | `String` or `Array` | -       | 等待服务列表                                              |
+| `timeout`  | `Number`            | `0`     | 等待超时。 `0` 意味着没有超时。 如果超时，引发 `MoleculerServerError` 。 |
+| `interval` | `Number`            | `1000`  | 以毫秒为单位的监视频率                                         |
 
-**Example**
+**示例**
 ```js
 broker.waitForServices(["posts", "v2.users"]).then(() => {
     // Called after the `posts` & `v2.users` services are available
 });
 ```
 
-**Set timeout & interval**
+**设置超时 & 间隔**
 ```js
 broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
     // Called if `accounts` service becomes available in 10 seconds
@@ -396,9 +400,9 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 });
 ```
 
-## Metadata
+## 元数据
 
-The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store it whatever you want._
+`Service` 方案有一个 `metadata` 属性。 您可以在此存储任何关于服务的元信息。 您可以在服务函数内用 `this.metadata` 访问它。 _Moleculer 核心模块不使用它, 你可以用它存储任何东西。_
 
 ```js
 module.exports = {
@@ -412,10 +416,10 @@ module.exports = {
     actions: { ... }
 };
 ```
-> The `metadata` is also obtainable on remote nodes. It is transferred during service discovering.
+> `metadata` 也可以在远程节点上获得。 它在服务发现期间转移。
 
-## Properties of Service Instances
-In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
+## ServiceBroker 属性
+在服务函数中， `this` 始终指向服务实例。 它有一些属性 & 方法可以用于您的服务函数。
 
 | Name                   | Type                 | Description                                                 |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
@@ -432,11 +436,11 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
 | `this.currentContext`  | `Context`            | Get or set the current Context object.                      |
 
-## Service Creation
-There are several ways to create and load a service.
+## 服务创建
+创建和加载服务有几种方式。
 
 ### broker.createService()
-For testing, developing or prototyping, use the `broker.createService` method to load & create a service by schema. It's simplest & fastest.
+想要用于测试、开发或查看原型，使用 `broker.createService` 方法加载 & 通过 schema 创建的服务。 这是最简单 & 最快的方法。
 
 ```js
 broker.createService({
@@ -449,8 +453,8 @@ broker.createService({
 });
 ```
 
-### Load service from file
-The recommended way is to place your service code into a single file and load it with the broker.
+### 从文件载入服务
+推荐的方式是将您的服务代码放入一个文件并加载到服务管理器。
 
 **math.service.js**
 ```js
@@ -468,7 +472,7 @@ module.exports = {
 }
 ```
 
-**Load it with broker:**
+**用服务管理器加载它：**
 ```js
 // Create broker
 const broker = new ServiceBroker();
@@ -480,7 +484,7 @@ broker.loadService("./math.service");
 broker.start();
 ```
 
-In the service file you can also create the Service instance. In this case, you have to export a function which returns the instance of [Service](#service).
+在服务文件中，您也可以创建服务实例。 在这种情况下，您必须导出返回 [Service](#service) 实例的函数。
 ```js
 const { Service } = require("moleculer");
 
@@ -500,7 +504,7 @@ module.exports = function(broker) {
 }
 ```
 
-Or create a function which returns with the schema of service
+或者创建一个以服务模式返回的函数
 ```js
 // Export a function, the `loadService` will call with the ServiceBroker instance.
 module.exports = function() {
@@ -517,15 +521,15 @@ module.exports = function() {
 }
 ```
 
-### Load multiple services from a folder
-If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
+### 从文件夹加载多个服务
+如果您有许多服务(而且您必将会有)我们建议将它们放到 `services` 文件夹中，使用 `broker.loadServices` 方法加载它们。
 
 **Syntax**
 ```js
 broker.loadServices(folder = "./services", fileMask = "**/*.service.js");
 ```
 
-**Example**
+**示例**
 ```js
 // Load every *.service.js file from the "./services" folder (including subfolders)
 broker.loadServices();
@@ -537,13 +541,13 @@ broker.loadServices("./");
 broker.loadServices("./svc", "user*.service.js");
 ```
 
-### Load with Moleculer Runner (recommended)
-We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
+### (推荐) 使用 Moleculer Runner 加载
+我们建议使用 [Moleculer Runner](runner.html) 启动一个 ServiceBroker 并加载服务。 [阅读更多关于 Moleculer Runner 的内容](runner.html)。 这是启动节点最容易的办法。
 
-## Hot Reloading Services
-Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
+## 服务热重载
+Moleculer 具有内置的热重载功能。 在开发过程中，它可能非常有用，因为当您修改它时它会重新加载您的服务。 您可以在服务管理器选项或 [Moleculer Runner](runner.html) 中启用它。 [视频演示它如何工作。](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
-**Enable in broker options**
+**在服务管理器选项中启用**
 
 ```js
 const broker = new ServiceBroker({
@@ -553,26 +557,26 @@ const broker = new ServiceBroker({
 broker.loadService("./services/test.service.js");
 ```
 
-**Enable it in Moleculer Runner**
+**在 Moleculer Runner 中启用**
 
-Turn it on with `--hot` or `-H` flags.
+使用 `--hot` 或 `-H` 打开它。
 
 ```bash
 $ moleculer-runner --hot ./services/test.service.js
 ```
 
 {% note info %}
-Hot reloading function is working only with Moleculer Runner or if you load your services with `broker.loadService` or `broker.loadServices`. It doesn't work with `broker.createService`.
+热重载功能仅适用于 Moleculer Runner ，或者如果您使用 `broker.loadService` 或 `broker.loadServices` 加载您的服务。 `broker.createService` 不起作用。
 {% endnote %}
 
 {% note info %}
-Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
+热重载机制监视服务文件及其依赖。 每次检测到文件更改时，热重载机制将跟踪依赖它的服务并重新启动它们。
 {% endnote %}
 
-## Local Variables
-If you would like to use local properties/variables in your service, declare them in the `created` event handler.
+## 本地变量
+如果您想要在您的服务中使用本地属性/变量，在 `created` 事件方法中声明它们。
 
-**Example for local variables**
+**本地变量示例**
 ```js
 const http = require("http");
 
@@ -607,15 +611,15 @@ module.exports = {
 }
 ```
 {% note warn Naming restriction %}
-It is important to be aware that you can't use variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.
+注意，你不能使用保留给服务的变量名称，或者与你的方法名冲突！ 例如： `this.name`, `this.version`, `this.settings`, `this.schema`...等。
 {% endnote %}
 
 ## ES6 Classes
-If you prefer ES6 classes to Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
+如果您喜欢ES6类而不是Moleculer服务模式，您可以在 ES6 类中写入您的服务。 这样做有两种方式。
 
-### Native ES6 classes with schema parsing
+### 具有schema解析的原生ES6类
 
-Define `actions` and `events` handlers as class methods and call the `parseServiceSchema` method in constructor with schema definition where the handlers pointed to these class methods.
+定义 `actions` 和 `events` 方法作为类方法并调用 `parseServiceSchema` 构造函数中包含schema 定义的方法，处理程序指向这些类方法。
 ```js
 const Service = require("moleculer").Service;
 
@@ -696,14 +700,14 @@ class GreeterService extends Service {
 module.exports = GreeterService;
 ```
 
-### Use decorators
-Thanks for [@ColonelBundy](https://github.com/ColonelBundy), you can use ES7/TS decorators as well: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
+### 使用装饰器
+感谢 [@ColonelBundy](https://github.com/ColonelBundy), 你也可以使用 ES7/TS 装饰符: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
 
 {% note info Need a compiler %}
-Please note, you must use Typescript or Babel to compile decorators.
+注意，您必须使用 Typescript 或 Babel 来编译装饰器。
 {% endnote %}
 
-**Example service**
+**服务示例**
 ```js
 const { ServiceBroker } = require('moleculer');
 const { Service, Action, Event, Method } = require('moleculer-decorators');
@@ -768,11 +772,11 @@ broker.createService(MyService);
 broker.start();
 ```
 
-## Internal Services
-The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
+## 内置服务
+`ServiceBroker` 包含一些内部服务来检查节点健康状况或获取一些注册表信息。 您可以通过设置服务管理器选项 `internalServices: false` 来禁用他们。
 
-### List of nodes
-It lists all known nodes (including local node).
+### 节点列表
+它列出所有已知节点(包括本地节点)。
 ```js
 broker.call("$node.list").then(res => console.log(res));
 ```
@@ -784,8 +788,8 @@ broker.call("$node.list").then(res => console.log(res));
 | `withServices`  | `Boolean` | `false` | List with services.        |
 | `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
 
-### List of services
-It lists all registered services (local & remote).
+### 服务列表
+它列出所有注册的服务(本地 & 远程)。
 ```js
 broker.call("$node.services").then(res => console.log(res));
 ```
@@ -799,12 +803,12 @@ broker.call("$node.services").then(res => console.log(res));
 | `withActions`   | `Boolean` | `false` | List with actions.                    |
 | `onlyAvailable` | `Boolean` | `false` | List only available services.         |
 
-### List of local actions
-It lists all registered actions (local & remote).
+### 本地动作列表
+它列出所有注册的动作(本地 & 远程)。
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+它有一些您可以在 `params` 中声明的选项。
 
 **Options**
 
@@ -815,12 +819,12 @@ It has some options which you can declare within `params`.
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.       |
 | `onlyAvailable` | `Boolean` | `false` | List only available actions.         |
 
-### List of local events
-It lists all event subscriptions.
+### 本地事件列表
+它列出所有事件订阅。
 ```js
 broker.call("$node.events").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+它有一些您可以在 `params` 中声明的选项。
 
 **Options**
 
@@ -831,12 +835,12 @@ It has some options which you can declare within `params`.
 | `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.             |
 | `onlyAvailable` | `Boolean` | `false` | List only available subscriptions.         |
 
-### List of metrics
-It lists all metrics.
+### 性能指标列表
+它列出了所有衡量标准。
 ```js
 broker.call("$node.metrics").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+它有一些您可以在 `params` 中声明的选项。
 
 **Options**
 
@@ -846,19 +850,19 @@ It has some options which you can declare within `params`.
 | `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
 | `excludes` | `String` or `Array` | `null`  | List of metrics to be excluded from the response.                              |
 
-### Get Broker options
-It returns the broker options.
+### 获取服务管理器选项
+它返回服务管理器选项。
 ```js
 broker.call("$node.options").then(res => console.log(res));
 ```
 
-### Health of node
-It returns the health info of local node (including process & OS information).
+### 节点健康值
+它返回本地节点的健康信息(包括 process & OS 信息)。
 ```js
 broker.call("$node.health").then(res => console.log(res));
 ```
 
-Example health info:
+健康信息示例：
 ```js
 {
     "cpu": {
@@ -919,11 +923,11 @@ Example health info:
 }
 ```
 {% note info %}
-Please note, internal service actions are not traced.
+注意，内部服务动作作未被追踪。
 {% endnote %}
 
-### Extending
-Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option.
+### 扩展
+内部服务可以通过自定义功能轻松扩展。 要做到这一点，您必须定义一个 mixin schema `internalServices` 选项。
 
 ```javascript
 // moleculer.config.js

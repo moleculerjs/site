@@ -135,7 +135,11 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `nats` module with `npm install nats --save` command.
+To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
+{% endnote %}
+
+{% note warn NATS v2.0 %}
+Please note that [nats `v2.x`](https://github.com/nats-io/nats.js/blob/HEAD/migration.md), a complete re-write of nats client, is not yet supported.
 {% endnote %}
 
 #### Примеры
@@ -162,7 +166,7 @@ module.exports = {
     transporter: {
         type: "NATS",
         options: {
-            url: "nats://localhost:4222"
+            url: "nats://localhost:4222",
             user: "admin",
             pass: "1234"
         }
@@ -270,7 +274,7 @@ module.exports = {
     transporter: "mqtt://mqtt-server:1883"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
@@ -325,7 +329,7 @@ module.exports = {
     transporter: "amqp://rabbitmq-server:5672"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `amqplib` module with `npm install amqplib --save` command.
 {% endnote %}
 
@@ -386,7 +390,7 @@ module.exports = {
     transporter: "amqp10://activemq-server:5672"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `rhea-promise` module with `npm install rhea-promise --save` command.
 {% endnote %}
 
@@ -436,7 +440,7 @@ module.exports = {
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [Kafka](https://kafka.apache.org/).
 > It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
 {% endnote %}
 
@@ -495,7 +499,7 @@ module.exports = {
 };
 ```
 
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
@@ -604,7 +608,7 @@ module.exports = {
     serializer: "Avro"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `avsc` module with `npm install avsc --save` command.
 {% endnote %}
 
@@ -617,7 +621,7 @@ module.exports = {
     serializer: "MsgPack"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
 {% endnote %}
 
@@ -630,7 +634,7 @@ module.exports = {
     serializer: "Notepack"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `notepack` module with `npm install notepack.io --save` command.
 {% endnote %}
 
@@ -643,7 +647,7 @@ module.exports = {
     serializer: "ProtoBuf"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
 {% endnote %}
 
@@ -656,7 +660,7 @@ module.exports = {
     serializer: "Thrift"
 };
 ```
-{% note info Зависимости %}
+{% note info Dependencies %}
 To use this serializer install the `thrift` module with `npm install thrift --save` command.
 {% endnote %}
 

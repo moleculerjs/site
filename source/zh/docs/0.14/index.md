@@ -1,4 +1,4 @@
-title: What is Moleculer?
+moleculer 是什么?
 ---
 Moleculer是基于[Node.js](https://nodejs.org/en/)的快速、多功能的现代微服务框架。 它能帮助您建立高效的、可靠的可伸缩服务。 Moleculer提供了许多构建和管理您的微服务的特性。
 
@@ -28,7 +28,7 @@ Moleculer是基于[Node.js](https://nodejs.org/en/)的快速、多功能的现�
 
 ## 超快
 
-我们花了很多时间来提高Moleculer的性能，致力于为Node.js创建最快的微服务框架。
+我们耗费精力来提高Moleculer的性能，致力于为Node.js创建最快的微服务框架。
 
 [![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 

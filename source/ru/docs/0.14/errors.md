@@ -1,22 +1,22 @@
-title: Errors
+title: Ошибки
 ---
-Moleculer has some built-in `Error` to raise an error in services.
+Moleculer предоставляет несколько классов `Error`, для вызова в сервисах.
 
-## Base error classes
+## Базовые классы ошибок
 
 ### `MoleculerError`
-The base error class.
+Базовый класс ошибки.
 
-**Parameters**
+**Параметры**
 
-| Название  | Type     | Default | Описание          |
-| --------- | -------- | ------- | ----------------- |
-| `message` | `String` |         | Error message     |
-| `code`    | `Number` | `500`   | Error code        |
-| `type`    | `String` |         | Error type        |
-| `data`    | `any`    |         | Any relevant data |
+| Название  | Тип      | Значение по умолчанию | Описание                     |
+| --------- | -------- | --------------------- | ---------------------------- |
+| `message` | `String` |                       | Сообщение об ошибке          |
+| `code`    | `Number` | `500`                 | Код ошибки                   |
+| `type`    | `String` |                       | Тип ошибки                   |
+| `data`    | `any`    |                       | Любые соответствующие данные |
 
-**Example**
+**Пример**
 ```js
 const { MoleculerError } = require("moleculer").Errors;
 
@@ -24,18 +24,18 @@ throw new MoleculerError("Something happened", 501, "ERR_SOMETHING", { a: 5, nod
 ```
 
 ### `MoleculerRetryableError`
-Error for retryable errors. It uses in `broker.call`. The broker retries requests if they rejected a `MoleculerRetryableError`.
+Ошибка для повторных ошибок. Используется в `broker.call`. Брокер повторяет запрос, если запрос не удался и вернул ошибку `MoleculerRetryableError`.
 
-**Parameters**
+**Параметры**
 
-| Название  | Type     | Default | Описание          |
-| --------- | -------- | ------- | ----------------- |
-| `message` | `String` |         | Error message     |
-| `code`    | `Number` | `500`   | Error code        |
-| `type`    | `String` |         | Error type        |
-| `data`    | `any`    |         | Any relevant data |
+| Название  | Тип      | Значение по умолчанию | Описание                     |
+| --------- | -------- | --------------------- | ---------------------------- |
+| `message` | `String` |                       | Сообщение об ошибке          |
+| `code`    | `Number` | `500`                 | Код ошибки                   |
+| `type`    | `String` |                       | Тип ошибки                   |
+| `data`    | `any`    |                       | Любые соответствующие данные |
 
-**Example**
+**Пример**
 ```js
 const { MoleculerRetryableError } = require("moleculer").Errors;
 
@@ -43,56 +43,56 @@ throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOM
 ```
 
 ### `MoleculerServerError`
-Error for retryable server errors. Parameters are same as `MoleculerRetryableError`.
+Ошибка для повторных серверных ошибок. Параметры такие же, как для `MoleculerRetryableError`.
 
 
 ### `MoleculerClientError`
-Error for client error which is **not** retryable. Parameters are same as `MoleculerError`.
+Клиентская ошибка, при получении которой **не** будет выполнен повторный запрос. Параметры такие же, как для `MoleculerError`.
 
-## Internal error classes
+## Классы внутренних ошибок
 
 ### `ServiceNotFoundError`
-Throw it if you `call` a not registered service action. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_FOUND`
+Бросьте эту ошибку, если происходит вызов `call` не зарегистрированного служебного действия. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_FOUND`
 
 ### `ServiceNotAvailableError`
-Throw it if you `call` a currently unavailable service action. E.g. node disconnected which contains this service or circuit breaker is opened. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_AVAILABLE`
+Бросьте эту ошибку, если происходит вызов `call` недоступного в момент вызова действия сервиса. Например, узел, который содержит данный сервис отключён или открыт прерыватель бесконечных циклов. Error code: **404** Retryable: **true** Type: `SERVICE_NOT_AVAILABLE`
 
 
 ### `RequestTimeoutError`
-Throw it if your request is timed out. Error code: **504** Retryable: **true** Type: `REQUEST_TIMEOUT`
+Бросьте эту ошибку, если время вашего запроса истекло. Error code: **504** Retryable: **true** Type: `REQUEST_TIMEOUT`
 
 ### `RequestSkippedError`
-Throw it if your nested call is skipped because the execution is timed out due to distributed timeout. Error code: **514** Retryable: **false** Type: `REQUEST_SKIPPED`
+Бросьте эту ошибку, если вложенный вызов пропущен, потому что его выполнение истекает по причине наступления распределенного тайм-аута. Error code: **514** Retryable: **false** Type: `REQUEST_SKIPPED`
 
 ### `RequestRejectedError`
-Throw it if the called node is disconnected during requesting. Error code: **503** Retryable: **true** Type: `REQUEST_REJECTED`
+Бросьте эту ошибку, если вызываемый узел отключен во время запроса. Error code: **503** Retryable: **true** Type: `REQUEST_REJECTED`
 
 ### `QueueIsFullError`
-Throw it if there are too many active requests. Error code: **429** Retryable: **true** Type: `QUEUE_FULL`
+Бросьте эту ошибку, если слишком много активных запросов. Error code: **429** Retryable: **true** Type: `QUEUE_FULL`
 
 ### `ValidationError`
-Validator throws it if the calling parameters are not valid. Error code: **422** Retryable: **false** Type: `VALIDATION_ERROR` _(default)_
+Валидатор бросает эту ошибку, если вызывающие параметры недействительны. Error code: **422** Retryable: **false** Type: `VALIDATION_ERROR` _(по умолчанию)_
 
 ### `MaxCallLevelError`
-Throw it if your nested calls reached the `maxCallLevel` value (to avoid infinite calling loops). Error code: **500** Retryable: **false** Type: `MAX_CALL_LEVEL`
+Бросьте эту ошибку, если вложенные вызовы достигли значения `maxCallLevel` (чтобы избежать бесконечных циклов вызовов). Error code: **500** Retryable: **false** Type: `MAX_CALL_LEVEL`
 
 ### `ServiceSchemaError`
-Throw it if your service schema is not valid. Error code: **500** Retryable: **false** Type: `SERVICE_SCHEMA_ERROR`
+Бросьте эту ошибку, если ваша схема сервиса невалидна. Error code: **500** Retryable: **false** Type: `SERVICE_SCHEMA_ERROR`
 
 ### `BrokerOptionsError`
-Throw it if your broker options are not valid. Error code: **500** Retryable: **false** Type: `BROKER_OPTIONS_ERROR`
+Бросьте эту ошибку, если параметры вашего брокера невалидные. Error code: **500** Retryable: **false** Type: `BROKER_OPTIONS_ERROR`
 
 ### `GracefulStopTimeoutError`
-Throw it if shutdown is timed out. Error code: **500** Retryable: **false** Type: `GRACEFUL_STOP_TIMEOUT`
+Бросьте эту ошибку, если время плавного выключения истекло. Error code: **500** Retryable: **false** Type: `GRACEFUL_STOP_TIMEOUT`
 
 ### `ProtocolVersionMismatchError`
-Throw it if an old nodeID connected with older protocol version. Error code: **500** Retryable: **false** Type: `PROTOCOL_VERSION_MISMATCH`
+Бросьте эту ошибку, если старый идентификатор узла подключен к более старшей версии протокола. Error code: **500** Retryable: **false** Type: `PROTOCOL_VERSION_MISMATCH`
 
 ### `InvalidPacketDataError`
-Throw it if transporter receives unknow data. Error code: **500** Retryable: **false** Type: `INVALID_PACKET_DATA`
+Бросьте эту ошибку, если транспорт получает неизвестные данные. Error code: **500** Retryable: **false** Type: `INVALID_PACKET_DATA`
 
-## Create custom errors
-The following example shows how to create a custom `Error` class which is inherited from `MoleculerError`.
+## Создание пользовательских ошибок
+Следующий пример показывает, как создать пользовательский класс `Error`, который унаследован от `MoleculerError`.
 
 ```js
 const { MoleculerError } = require("moleculer").Errors;

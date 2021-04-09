@@ -77,6 +77,23 @@ module.exports = {
 };
 ```
 
+## Why am I getting `502 - Bad Gateway` when api-gateway is behind ALB on AWS?
+You need to adjust the keepAliveTimeouts in the HTTP server. You can access the HTTP server instance in `created()` function of api-gateway. More info [here](https://github.com/moleculerjs/moleculer-web/issues/226).
+
+```js
+module.exports = {
+    mixins: [ApiService],
+
+    created() {
+        // Ensure all inactive connections are terminated by the ALB, by setting this a few seconds higher than the ALB idle timeout
+        this.server.keepAliveTimeout = 65000;
+        // Ensure the headersTimeout is set higher than the keepAliveTimeout due to this nodejs regression bug: https://github.com/nodejs/node/issues/27363
+        this.server.headersTimeout = 66000;
+    }
+};
+```
+
+
 # DB Adapters (moleculer-db)
 ## Como posso gerenciar várias entidades/tabelas por serviço?
 No momento, [Moleculer DB](moleculer-db.html) suporta apenas [um modelo por serviço](https://microservices.io/patterns/data/database-per-service.html). Este design funciona bem se você estiver usando um banco de dados NoSQL, especialmente bancos de dados orientados a documentos, porque você pode facilmente aninhar todas as entidades filhas. No entanto, para os bancos de dados SQL as coisas ficam complicadas, porque você pode ter relações múltiplas e complexas entre as entidades/tabelas. Devido a isso, é muito difícil (com a atual força de trabalho) criar uma solução que funcionará para todos. Portanto, para cenários com várias entidades e relacionamentos, você terá que escrever seu próprio adaptador.

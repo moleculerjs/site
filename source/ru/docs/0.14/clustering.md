@@ -1,25 +1,25 @@
-title: Clustering
+title: Кластеризация
 ---
-Moleculer framework supports several software architectures.
+Moleculer фреймворк поддерживает несколько архитектур программного обеспечения.
 
-## Monolith architecture
-In this version, all services are running on the same node like a monolith. There is no network latency and no transporter module. _The local calls are the fastest._
+## Архитектура монолита
+В этой версии все сервисы работают на одном узле, как монолит. Отсутствует задержка сети и модуль транспорта. _Местные вызовы самые быстрые._
 
-![Monolith architecture](assets/architectures/monolith.svg)
+![Архитектура монолита](assets/architectures/monolith.svg)
 
-## Microservices architecture
-This is the well-known microservices architecture when all services are running on individual nodes and communicate via transporter. In this case, the network latency is not negligible. However, your services can be scaled to be resilient and fault-tolerant.
+## Микросервисная архитектура
+Это известная архитектура микросервисов, когда все службы работают на отдельных узлах и общаются через транспорт. В этом случае задержкой в сети нельзя пренебречь. Однако сервисы можно масштабировать, чтобы они были гибкими и отказоустойчивыми.
 
-![Microservices architecture](assets/architectures/microservices.svg)
+![Микросервисная архитектура](assets/architectures/microservices.svg)
 
-## Mixed architecture
-In this case, we are running coherent services in a group on the same node. It combines the advantages of monolith and microservices architectures. For example, if the `posts` service calls the `users` service multiple times, put them to the same node, so that the network latency between these services is cut down. If the node is overloaded, just scale it up.
+## Смешанная архитектура
+В этом случае мы запускаем согласованные сервисы в группе на одном узле. Такой подход сочетает в себе преимущества архитектуры монолита и микросервисов. Например, если сервис `posts` вызывает сервис `users` несколько раз, эти два сервиса следует разместить на одном узле для сокращения сетевых задержек между ними. Перегруженные узлы можно просто масштабировать.
 
-![Mixed architecture](assets/architectures/mixed.svg)
+![Смешанная архитектура](assets/architectures/mixed.svg)
 
 {% note info Tip %}
-The ServiceBroker first tries to call the local instances of service (if exists) to reduce network latencies. This logic can be turned off in [broker options](configuration.html#Broker-options) with `preferLocal: false` property under the `registry` key.
+ServiceBroker сначала пытается вызвать локальные экземпляры сервиса (если существует) для уменьшения задержки сети. Эта логика может быть отключена в [настройках брокера](configuration.html#Broker-options) с помощью установки `preferLocal: false` свойства в ключе `registry`.
 {% endnote %}
 
-## How choose
-Do you choose between monolith and microservices when developing your application? Do you choose monolith approach because its easy to develop? Do you prefer microservices architecture because it is reliable and highly scalable? With Moleculer you don't have to choose. You can have the best of both approaches. During the development of your application load all services is single node. This way you can quickly debug and test of your application logic. When ready, simply distribute your services across multiple nodes. Don't worry, you don't have to change a single line of code in your services. Just select a transporter, load one service per node and you're done. Your application is running in microservices architecture.
+## Как выбрать
+Выбираете между монолитом и микросервисом при разработке приложения? Выберете монолитный подход, потому что его легко развивать? Предпочитаете микросервисную архитектуру, потому что она надёжна и масштабируема? С Moleculer вам не нужно выбирать. Можно получить лучшее из двух подходов. Во время разработки приложения загружайте все сервисы на одним узле. Таким образом можете быстро отладить и проверить логику приложения. Когда будете готовы, просто распространите свои сервисы на нескольких узлах. Не волнуйтесь, для этого не нужно менять код в сервисах. Просто укажите транспорт, разместите каждый сервис на отдельном узле и всё готово. Ваше приложение работает на микросервисной архитектуре.

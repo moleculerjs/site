@@ -1,10 +1,10 @@
-title: FAQ
+title: Вопросы и Ответы
 ---
 
-# Core & Common
+# Ядро & Общие
 
-## Why am I getting `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` error message when starting my project?
-The NATS server is not part of the Moleculer. You have to install & start it before starting your project. Download it from here: https://nats.io/download/nats-io/nats-server/
+## Почему я получаю `NATS ошибку. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` сообщение об ошибке при запуске моего проекта?
+Сервер NATS не является частью Moleculer. Его необходимо установить & запустить перед запуском проекта. Скачать можно отсюда https://nats.io/download/nats-io/nats-server/
 ```
 [7480] 2019/10/06 14:18:05.801763 [INF] Starting nats-server version 2.0.0
 [7480] 2019/10/06 14:18:05.805763 [INF] Git commit [not set]
@@ -13,27 +13,27 @@ The NATS server is not part of the Moleculer. You have to install & start it bef
 [7480] 2019/10/06 14:18:05.810763 [INF] Server is ready
 ```
 
-## How can I start services with Moleculer Runner in debug mode?
-Use the following command:
+## Как запустить сервисы с Moleculer Runner в режиме отладки?
+Используйте следующую команду:
 ```bash
 $ node --inspect=0.0.0.0:9229 node_modules/moleculer/bin/moleculer-runner services
 ```
 
-## How to add V8 flags for Moleculer Runner?
+## Как добавить флаги V8 для Moleculer Runner?
 ```bash
 $ node --max-old-space-size=8192 node_modules/moleculer/bin/moleculer-runner services
 ```
 
-## What happens if I emit an event and the service with the event handler is offline?
-Moleculer's events are fire-and-forget meaning that if the service is offline, the event will be lost. If you want persistent events you should look for the transporters that offer this kind of capabilities.
+## Что произойдет, если будет сгенерировано событие, а сервис с обработчиком этого события недоступен/выключен?
+События Молекулера следуют принципу выпустил и забыл, что в свою очередь означает, если служба не в сети - событие будет потеряно. Если существует необходимость в персистентных событиях, следует использовать транспорт, предоставляющий такой функционал.
 
-## Why the broker exits without any error when I start my service?
-If there is no continuously running process (e.g., transporter connection, API gateway, DB connection) that keeps event loop running then the process will exit. It's normal behavior and not a bug. If you want to keep your service broker running then you should keep the event loop "busy". Try to enable the transporter in `moleculer.config.js`.
+## Почему при запуске сервиса брокер завершат работу без каких-либо ошибок?
+Если не запущен постоянный процесс (например, подключения к транспорту, API шлюз, соединение с базой данных), который поддерживает event loop в рабочем состоянии, то процесс Moleculer завершится. Это нормальное поведение, а не баг. Для того, чтобы процесс брокера постоянно выполнялся, необходимо поддерживать event loop в состоянии "занято". Можно попробовать включить транспорт в `moleculer.config.js`.
 
-# API Gateway (moleculer-web)
+# API шлюз (moleculer-web)
 
-## Why am I getting `413 - request entity too large` error message when sending a big POST body?
-You should configure the `bodyParsers` to overwrite the default `100kb` POST body limit. [More info](https://github.com/expressjs/body-parser#limit).
+## Почему я получаю сообщение об ошибке `413 - request entity too large`, когда делаю POST запрос с большим объёмом данных в body?
+Следует настроить параметр `bodyParsers`, чтобы перезаписать значение по умолчанию, установленное в `100kb` для body в POST запросе. [Подробнее](https://github.com/expressjs/body-parser#limit).
 
 ```js
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
         routes: [{
             path: "/api",
 
-            // Use bodyparser modules
+            // Использовать bodyparser модули
             bodyParsers: {
                 json: { limit: "2MB" },
                 urlencoded: { extended: true, limit: "2MB" }
@@ -53,18 +53,18 @@ module.exports = {
 ```
 
 {% note info Recommendation %}
-Use [streaming feature](https://moleculer.services/docs/0.13/actions.html#Streaming) when you want to send big data to a service or receive from a service.
+Для передачи сервису данных большого объёма или при получении таковых от сервиса, используйте функцию [потокового вещания](https://moleculer.services/docs/0.13/actions.html#Streaming).
 {% endnote %}
 
-## How do I reformat error responses?
-You should define an `onError` hook in API Gateway settings. [More info](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
+## Как изменить формат ответных ошибок?
+Необходимо определить хук `onError` в настройках шлюза API. [Подробнее](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
 
 ```js
 // api.service.js
 module.exports = {
     mixins: [ApiService],
     settings: {
-        // Global error handler
+        // Глобальный обработчик ошибок
         onError(req, res, err) {
             res.setHeader("Content-Type", "application/json");
             res.writeHead(err.code || 500);
@@ -77,10 +77,27 @@ module.exports = {
 };
 ```
 
-# DB Adapters (moleculer-db)
-## How can I manage multiple entities/tables per service?
-At the moment, [Moleculer DB](moleculer-db.html) only supports [one model per service](https://microservices.io/patterns/data/database-per-service.html). This design works well if you are using a NoSQL database, especially Document database, because you can easily nest all child entities. However, for SQL databases things get tricky because you can have multiple and complex relations between the entities/tables. Due to this, its difficult (with the current workforce) to create a solution that will work for everyone. Therefore, for scenarios with multiple entities and relationships you will have to write your own adapter.
+## Почему я получаю `502 - Bad Gateway` когда api-шлюз находится за ALB (балансировщик нагрузки приложений) на AWS?
+Необходимо настроить keepAliveTimeouts на HTTP-сервере. Можно получить доступ к экземпляру сервера HTTP в `created()` функции api-шлюза. Больше информации [здесь](https://github.com/moleculerjs/moleculer-web/issues/226).
+
+```js
+модуль. xports = {
+    mixins: [ApiService],
+
+    created() {
+        // Убедитесь, что все неактивные подключения разорваны средствами ALB, установив значение на несколько секунд больше чем тайм-аут простоя ALB.
+        this.server.keepAliveTimeout = 65000;
+        // Убедитесь, что заголовки таймаута установлены выше, чем keepAliveTimeout из-за  регрессионной ошибки nodejs: https://github. om/nodejs/node/issues/27363
+        this.server.headersTimeout = 66000;
+    }
+};
+```
 
 
-## `moleculer-db` violates Domain-Driven Design (DDD)?
-`moleculer-db` is a simple (and optional) service mixin to handle one DB entity/table. By no means it obliges or forces you to change your mindset or your way of implementing/modeling things. If the features provided by the `moleculer-db` don't fit your needs then you should write your own service with custom actions.
+# Адаптеры баз данных (moleculer-db)
+## Как я могу управлять несколькими сущностями/таблицами по сервису?
+На данный момент [Moleculer DB](moleculer-db.html) поддерживает только [одну модель на сервис](https://microservices.io/patterns/data/database-per-service.html). Такой дизайн хорошо работает при использовании NoSQL баз данных, особенно для Документных баз данных, так как вы можете легко сгруппировать все дочерние сущности. Однако, в случае SQL всё становится сложнее, потому что может присутствовать множество сложных взаимосвязей между сущностями/таблицами. В связи с этим, трудно (имеющимися ресурсами) разработать более общее и подходящее всем решение. Поэтому для сценариев с несколькими сущностями и взаимосвязями следует релизовать собственный адаптер базы данных.
+
+
+## `moleculer-db` нарушает Domain-Driven Design (DDD)?
+`moleculer-db` - это простая (и опциональная) примесь сервиса для обработки одной сущности/таблицы БД. Это ни в коем случае не обязывает вас менять подход или способ реализации/проектирования сервисов. Если функциональность примеси `moleculer-db` не соответствует требованиям вашего проекта, тогда следует реализовать собственный сервис с кастомными действиями.

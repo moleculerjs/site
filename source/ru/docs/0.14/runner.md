@@ -10,9 +10,9 @@ Moleculer Runner - это вспомогательный скрипт, кото�
 
 ## Синтаксис
 ```
-$ moleculer-runner [options] [service files or directories or glob masks]
+$ moleculer-runner [параметры] [файлы сервисов или директории или глоабльный шаблон]
 ```
-> Примечание: Он работает только из NPM скриптов. Для прямого вызова непосредственно из консоли, используйте `./node_modules/.bin/moleculer-runner --repl` или `node ./node_modules/moleculer/bin/moleculer-runner.js --repl`.
+> Примечание: работает только из NPM скриптов. Для прямого вызова непосредственно из консоли, используйте `./node_modules/.bin/moleculer-runner --repl` или `node ./node_modules/moleculer/bin/moleculer-runner.js --repl`.
 
 ## Параметры
 
@@ -73,9 +73,9 @@ module.exports = {
 ```
 
 
-### Asynchronous Configuration file
+### Асинхронный файл конфигурации
 
-Moleculer Runner also supports asynchronous configuration files. In this case `moleculer.config.js` must export a `Function` that returns a `Promise` (or you can use `async/await`).
+Moleculer Runner также поддерживает асинхронные конфигурационные файлы. В этом случае `moleculer.config.js` должен экспортировать `Функцию`, которая возвращает `Promise` (или можно использовать `async/await`).
 
 ```js
 // moleculer.config.js
@@ -107,14 +107,14 @@ METRICS=true
 ```
 
 ## Логика загрузки служб
-The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `**/*.service.js` from specified one(s) (including sub-folders too). Services & service folder can be loaded with `SERVICES` and `SERVICEDIR` environment variables.
+Runner загружает файлы или папки, определенные в аргументах CLI. Если вы определяете папку(и), runner загружает все сервисы `**/*.service.js` из них (включая также вложенные папки). Сервисы & и сервисные папки могут быть загружены с помощью переменных окружения `SERVICES` и `SERVICEDIR`.
 
-**Loading steps:**
-1. If `SERVICEDIR` env found, but no `SERVICES` env, it loads all services from the `SERVICEDIR` directory.
-2. If `SERVICEDIR` & `SERVICES` env found, it loads the specified services from the `SERVICEDIR` directory.
-3. If no `SERVICEDIR`, but `SERVICES` env found, it loads the specified services from the current directory.
-4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. If glob pattern found, it applies and load the found files.
-> Please note: shorthand names can also be used in `SERVICES` env var.
+**Очерёдность загрузки:**
+1. Если задана переменная окружения `SERVICEDIR`, но не задана `SERVICES`, то производится загрузка всех сервисов из каталога `SERVICEDIR`.
+2. Если заданы обе переменные окружения `SERVICEDIR` & `SERVICES`, то производится загрузка из директорий, указанных в `SERVICEDIR`.
+3. Если не задана `SERVICEDIR`, но задана `SERVICES`, то производится загрузка указанных сервисов из текущей директории.
+4. Проверка аргументов CLI. При обнаружении имён файлов производится их загрузка. Если задан каталог, то производится загрузка из него. Если задан глобальный шаблон, то он применяется и производится загрузка найденных файлов.
+> Обратите внимание: короткие имена также могут быть использованы в перемнной окружения `СЕРВИСЫ`.
 
 **Пример**
 ```
@@ -126,21 +126,21 @@ SERVICES=math,post,user
 ```
 SERVICEDIR=my-services
 ```
-It loads all `*.service.js` files from the `my-services` folder (including sub-folders too).
+Производится загрузка всех файлов `*.service.js` из папки `my-services` (включая также вложенные папки).
 
-### Glob шаблоны
-If you want to be more specific, use glob patterns. It is useful when loading all services except certain ones.
+### Глобальные шаблоны
+Использование глобальных шаблонов позволяет делать запуск более гибким. Это полезно при загрузке всех сервисов, за исключением некоторых из них.
 
 ```bash
 $ moleculer-runner services !services/others/**/*.service.js services/others/mandatory/main.service.js
 ```
 
-**Explanations:**
-- `services` - legacy mode. Load all services from the `services` folder with `**/*.service.js` file mask.
-- `!services/others/**/*.service.js` - skip all services in the `services/others` folder and sub-folders.
-- `services/others/mandatory/main.service.js` - load the exact service.
+**Пояснения:**
+- ` services` - устаревший режим. Загрузка всех сервисы из папки `services` с помощью маски файлов `**/*.service.js`.
+- `!services/others/**/*.service.js` - пропустить все сервисы в папке `services/others` и её подпапках.
+- `services/others/mandatory/main.service.js` - загрузите только указанный сервис.
 
-> The glob patterns work in the `SERVICES` enviroment variables, as well.
+> Глобальные шаблоны можно указывать в переменных окружения `SERVICES`.
 
 ## Встроенная кластеризация
 

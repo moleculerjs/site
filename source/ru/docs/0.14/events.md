@@ -1,25 +1,25 @@
-title: Events
+title: События
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services.
+У брокера есть встроенная шина событий для поддержки [управляемой событиями архитектуры](http://microservices.io/patterns/data/event-driven-architecture.html) и для отправки событий локальным и удаленным сервисам.
 
-# Balanced events
-The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
+# Сбалансированные события
+Прослушиватели событий расположены в логических группах. Это означает, что в каждой группе вызывается только один слушатель.
 
-> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
+> **Пример:** у вас есть 2 основных сервиса: `users` & `payments`. Оба подписываются на cобытие `user.created`. Вы запускаете 3 экземпляра сервиса `users` и 2 экземпляра сервиса `payments`. Когда вы выдаете событие `user.created`, только один экземпляр сервиса `users` и один экземпляр сервиса `payments` получит событие.
 
 <div align="center">
-    <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
+    <img src="assets/balanced-events.gif" alt="Диаграмма сбалансированных событий" />
 </div>
 
-The group name comes from the service name, but it can be overwritten in event definition in services.
+Название группы происходит от имени сервиса, но оно может быть перезаписано в определении события в сервисах.
 
-**Example**
+**Пример**
 ```js
 module.exports = {
     name: "payment",
     events: {
         "order.created": {
-            // Register handler to the "other" group instead of "payment" group.
+            // Регистрация обработчика в группу "other" вместо группы "payment".
             group: "other",
             handler(ctx) {
                 console.log("Payload:", ctx.params);
@@ -32,60 +32,60 @@ module.exports = {
 }
 ```
 
-## Emit balanced events
-Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _To send multiple values, wrap them into an `Object`._
+## Выдача сбалансированного события
+Отправлять сбалансированные события с помощью функции `broker.emit`. Первый параметр — это название события, второй параметр — это полезная нагрузка. _Чтобы отправить несколько значений, оберните их в `Object`._
 
 ```js
-// The `user` will be serialized to transportation.
+// `user` будет сериализован к транспорту.
 broker.emit("user.created", user);
 ```
 
-Specify which groups/services shall receive the event:
+Укажите, какие группы/сервисы должны получить событие:
 ```js
-// Only the `mail` & `payments` services receives it
+// Только `mail` & `payments` сервисы принимают его
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-# Broadcast event
-The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
+# Широковещательное событие
+Штроковещательное событие отправляется всем доступным локальным & удаленным сервисам. Оно не сбалансировано, все экземпляры сервиса получат его.
 
 <div align="center">
-    <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
+    <img src="assets/broadcast-events.gif" alt="Диаграмма широковещательных событий" />
 </div>
 
-Send broadcast events with `broker.broadcast` method.
+Отправка широковещательного события выполняется с помощью метода `broker.broadcast`.
 ```js
 broker.broadcast("config.changed", config);
 ```
 
-Specify which groups/services shall receive the event:
+Укажите, какие группы/сервисы должны получить событие:
 ```js
-// Send to all "mail" service instances
+// Отправляем во все экземпляры сервиса "mail"
 broker.broadcast("user.created", { user }, "mail");
 
-// Send to all "user" & "purchase" service instances.
+// Отправляем всем "user" & "purchase" экземплярам сервиса.
 broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
-## Local broadcast event
-Send broadcast events only to all local services with `broker.broadcastLocal` method.
+## Локальное широковещательное событие
+Для отправки события только всем локальным службам используется метод `broker.broadcastLocal`.
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
 
-# Subscribe to events
+# Подписка на события
 
-The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
+Версия `v0.14` поддерживает обработчики событий на основе контекста. Контекст событий полезен, если вы используете архитектуру под управлением событий и хотите отслеживать ваши события. Если вы знакомы с [Action Context](context.html), вы будете чувствовать себя как дома. Контекст события очень похож на контекст действий, за исключением нескольких новых свойств относящихся к событиям. [Посмотреть полный список всех свойств](context.html)
 
 {% note info Legacy event handlers %}
 
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers:
-- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context.
-- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
+Вам не нужно переписывать все существующие обработчики событий, так как Moleculer все еще поддерживает старую сигнатуру `"user.created"(payload) { ... }`. Он способен обнаружить различные сигнатуры обработчиков событий:
+- Если найдена сигнатура `"user.created"(ctx) { ... }`, то вызов выполнится с контекстом событий.
+- Если нет, вызов выполнится со старыми аргументами & 4-й аргумент будет контекст события, например `"user.created"(payload, отправитель, eventName, ctx) {...}`
 
 {% endnote %}
 
-**Context-based event handler & emit a nested event**
+**Обработчик событий на основе контекста & выпуск вложенного события**
 ```js
 module.exports = {
     name: "accounts",
@@ -103,22 +103,22 @@ module.exports = {
 ```
 
 
-Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
+Подписка на события осуществляется в ['events' свойстве сервиса](services.html#events). Допускается использование масок (`?`, `*`, `**`) в именах событий.
 
 ```js
 module.exports = {
     events: {
-        // Subscribe to `user.created` event
+        // Подписка на событие `user.created`
         "user.created"(ctx) {
             console.log("User created:", ctx.params);
         },
 
-        // Subscribe to all `user` events, e.g. "user.created", or "user.removed"
+        // Подписака на все собтия `user`, например "user.created" или "user.removed"
         "user.*"(ctx) {
             console.log("User event:", ctx.params);
         }
-        // Subscribe to every events
-        // Legacy event handler signature with context
+        // Подписка на каждое событие
+        // Используется сигнатура устаревшего обработчика событий с контекстом
         "**"(payload, sender, event, ctx) {
             console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
@@ -126,8 +126,8 @@ module.exports = {
 }
 ```
 
-## Event parameter validation
-Similar to action parameter validation, the event parameter validation is supported. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+## Валидация параметров события
+Аналогично проверке параметра действия, поддерживается проверка параметров события. Как и в определении действий, следует определить `параметры` для событий, а встроенный `Валидатор` валидирует параметры в событиях.
 
 ```js
 // mailer.service.js
@@ -135,7 +135,7 @@ module.exports = {
     name: "mailer",
     events: {
         "send.mail": {
-            // Validation schema
+            //  Схема валидации
             params: {
                 from: "string|optional",
                 to: "email",
@@ -148,90 +148,90 @@ module.exports = {
     }
 };
 ```
-> The validation errors are not sent back to the caller, they are logged or you can catch them with the new [global error handler](broker.html#Global-error-handler).
+> Ошибки валидации не отсылаются обратно вызывающему, они логируются и могут быть пойманы с помощью нового [глобального обработчика ошибок](broker.html#Global-error-handler).
 
-# Internal events
-The broker broadcasts some internal events. These events always starts with `$` prefix.
+# Внутренние события
+Брокер транслирует некоторые внутренние события. Эти события всегда начинаются с префикса `$`.
 
 ## `$services.changed`
-The broker sends this event if the local node or a remote node loads or destroys services.
+Брокер отправляет это событие, если локальный узел или удаленный узел загружает или уничтожает сервисы.
 
 **Payload**
 
-| Название       | Type      | Описание                         |
-| -------------- | --------- | -------------------------------- |
-| `localService` | `Boolean` | True if a local service changed. |
+| Название       | Тип       | Описание                               |
+| -------------- | --------- | -------------------------------------- |
+| `localService` | `Boolean` | True, если Локальный сервис изменился. |
 
 ## `$circuit-breaker.opened`
-The broker sends this event when the circuit breaker module change its state to `open`.
+Брокер отправляет это событие, когда модуль прерывания зацикливаний изменит свое состояние на `открыто`.
 
 **Payload**
 
-| Название   | Type     | Описание          |
-| ---------- | -------- | ----------------- |
-| `nodeID`   | `String` | Node ID           |
-| `action`   | `String` | Action name       |
-| `failures` | `Number` | Count of failures |
+| Название   | Тип      | Описание           |
+| ---------- | -------- | ------------------ |
+| `nodeID`   | `String` | Идентификатор узла |
+| `action`   | `String` | Название действия  |
+| `failures` | `Number` | Количество сбоев   |
 
 
 ## `$circuit-breaker.half-opened`
-The broker sends this event when the circuit breaker module change its state to `half-open`.
+Брокер отправляет это событие, когда модуль прерывания зацикливаний изменит свое состояние на `полуоткрыто`.
 
 **Payload**
 
-| Название | Type     | Описание    |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Название | Тип      | Описание           |
+| -------- | -------- | ------------------ |
+| `nodeID` | `String` | Идентификатор узла |
+| `action` | `String` | Название действия  |
 
 ## `$circuit-breaker.closed`
-The broker sends this event when the circuit breaker module change its state to `closed`.
+Брокер отправляет это событие, когда модуль прерывания зацикливаний изменит свое состояние на `закрыто`.
 
 **Payload**
 
-| Название | Type     | Описание    |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Название | Тип      | Описание           |
+| -------- | -------- | ------------------ |
+| `nodeID` | `String` | Идентификатор узла |
+| `action` | `String` | Название действия  |
 
 ## `$node.connected`
-The broker sends this event when a node connected or reconnected.
+Брокер посылает это событие когда узел подключен или переподключен.
 
 **Payload**
 
-| Название      | Type      | Описание         |
-| ------------- | --------- | ---------------- |
-| `node`        | `Node`    | Node info object |
-| `reconnected` | `Boolean` | Is reconnected?  |
+| Название      | Тип       | Описание                 |
+| ------------- | --------- | ------------------------ |
+| `node`        | `Node`    | Объект информации о узле |
+| `reconnected` | `Boolean` | Переподключено?          |
 
 ## `$node.updated`
-The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
+Брокер отправляет это событие, когда он получил сообщение INFO от узла (например, серивс загружен или уничтожен).
 
 **Payload**
 
-| Название | Type   | Описание         |
-| -------- | ------ | ---------------- |
-| `node`   | `Node` | Node info object |
+| Название | Тип    | Описание                 |
+| -------- | ------ | ------------------------ |
+| `node`   | `Node` | Объект информации о узле |
 
 ## `$node.disconnected`
-The broker sends this event when a node disconnected (gracefully or unexpectedly).
+Брокер посылает это событие когда узел откючен (плавно или неожиданно).
 
 **Payload**
 
-| Название     | Type      | Описание                                                                            |
-| ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `Node`    | Node info object                                                                    |
-| `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
+| Название     | Тип       | Описание                                                                       |
+| ------------ | --------- | ------------------------------------------------------------------------------ |
+| `node`       | `Node`    | Объект информации о узле                                                       |
+| `unexpected` | `Boolean` | `true` - Не получен хартбит, `false` - Получено сообщение `ОТКЛЮЧИТЬ` от узла. |
 
 ## `$broker.started`
-The broker sends this event once `broker.start()` is called and all local services are started.
+Брокер отправляет это событие после того, как вызван `broker.start()` и все локальные сервисы запущены.
 
 ## `$broker.stopped`
-The broker sends this event once `broker.stop()` is called and all local services are stopped.
+Брокер отправляет это событие после того, как вызван `broker.stop()` и все локальные сервисы остановлены.
 
 ## `$transporter.connected`
-The transporter sends this event once the transporter is connected.
+Транспорт отправляет это событие после подключения транспорта.
 
 ## `$transporter.disconnected`
-The transporter sends this event once the transporter is disconnected.
+Транспорт отправляет это событие после отключения транспорта.
 

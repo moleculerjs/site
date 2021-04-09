@@ -506,78 +506,78 @@ const broker = new ServiceBroker({
 });
 ```
 
-### LRU memory cacher
-`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. It deletes the least-recently-used items.
+### Кэш памяти LRU
+`Кэш памяти LRU` - это встроенный [кэш LRU](https://github.com/isaacs/node-lru-cache) модуль. Он удаляет наименее используемые элементы.
 
-**Enable LRU cacher**
+**Включение LRU кэша**
 ```js
 const broker = new ServiceBroker({
     cacher: "MemoryLRU"
 });
 ```
 
-**With options**
+**С параметрами**
 ```js
 let broker = new ServiceBroker({
     logLevel: "debug",
     cacher: {
         type: "MemoryLRU",
         options: {
-            // Maximum items
+            // Максимальное количество элементов
             max: 100,
-            // Time-to-Live
+            // Время жизни
             ttl: 3
         }
     }
 });
 ```
 
-**Options**
+**Параметры**
 
-| Имя               | Тип                      | По умолчанию | Description                                 |
-| ----------------- | ------------------------ | ------------ | ------------------------------------------- |
-| `ttl`             | `Number`                 | `null`       | Time-to-live in seconds.                    |
-| `max`             | `Number`                 | `null`       | Maximum items in the cache.                 |
-| `clone`           | `Boolean` или `Function` | `false`      | Clone the cached data when return it.       |
-| `keygen`          | `Function`               | `null`       | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                 | `null`       | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`    | `null`       | Enable lock feature.                        |
+| Имя               | Тип                      | По умолчанию | Описание                                              |
+| ----------------- | ------------------------ | ------------ | ----------------------------------------------------- |
+| `ttl`             | `Number`                 | `null`       | Время жизни в секундах.                               |
+| `max`             | `Number`                 | `null`       | Максимальное количестов элементов в кэше.             |
+| `clone`           | `Boolean` или `Function` | `false`      | Клонировать кэшированные данные при возврате.         |
+| `keygen`          | `Function`               | `null`       | Пользовательская функция генерации ключей кэша.       |
+| `maxParamsLength` | `Number`                 | `null`       | Максимальная длина параметров сгенерированных ключей. |
+| `lock`            | `Boolean` или `Object`   | `null`       | Включить функцию блокировки.                          |
 
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `lru-cache` module with the `npm install lru-cache --save` command.
+Чтобы использовать этот тип кэша, необходимо установить модуль `lru-cache` командой `npm install lru-cache --save`.
 {% endnote %}
 
-### Redis cacher
-`RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. It uses [`ioredis`](https://github.com/luin/ioredis) library. Use it, if you have multiple instances of services because if one instance stores some data in the cache, other instances will find it.
+### Кэш Redis
+`RedisCacher` является встроенным распределенным модулем кэша на базе [Redis](https://redis.io/). Он использует библиотеку [`ioredis`](https://github.com/luin/ioredis). Используйте его, если имеется несколько экземпляров сервисов, потому что если в одном экземпляре хранятся некоторые данные в кэше, другие экземпляры смогут найти их.
 
-**Enable Redis cacher**
+**Включение Redis кэша**
 ```js
 const broker = new ServiceBroker({
     cacher: "Redis"
 });
 ```
 
-**With connection string**
+**С указанием строки подключения**
 ```js
 const broker = new ServiceBroker({
     cacher: "redis://redis-server:6379"
 });
 ```
 
-**With options**
+**С параметрами**
 ```js
 const broker = new ServiceBroker({
     cacher: {
         type: "Redis",
         options: {
-            // Prefix for keys
+            // Префикс для ключей
             prefix: "MOL",            
-            // set Time-to-live to 30sec.
+            // установить время жизни равное 30 сек.
             ttl: 30, 
-            // Turns Redis client monitoring on.
+            // Включает мониторинг Redis клиента.
             monitor: false 
-            // Redis settings
+            // настройки Redis
             redis: {
                 host: "redis-server",
                 port: 6379,
@@ -589,7 +589,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With MessagePack serializer** You can define a serializer for Redis Cacher. By default, it uses the JSON serializer.
+**С использованием сериализатора MessagePack** Вы можете определить сериализатор для кэша Redis. По умолчанию используется сериализатор JSON.
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-123",
@@ -598,7 +598,7 @@ const broker = new ServiceBroker({
         options: {
             ttl: 30,
 
-            // Using MessagePack serializer to store data.
+            // Использовать сериализатор MessagePack для хранения данных.
             serializer: "MsgPack",
 
             redis: {
@@ -609,7 +609,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With Redis Cluster Client**
+**С использованием клиента для Redis кластера**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -623,7 +623,8 @@ const broker = new ServiceBroker({
                     { port: 6381, host: "127.0.0.1" },
                     { port: 6382, host: "127.0.0.1" }
                 ],
-                options: { /* More information: https://github.com/luin/ioredis#cluster */ }
+                options: { /* Больше информации:
+https://github.com/luin/ioredis#cluster */ }
             }   
         }
     }
@@ -637,11 +638,11 @@ const broker = new ServiceBroker({
 | `prefix`          | `String`         | `null`       | Префикс для сгенерированных ключей.                                                                                                                                    |
 | `ttl`             | `Number`         | `null`       | Время жизни в секундах. Отключить: 0 или null                                                                                                                          |
 | `monitor`         | `Boolean`        | `false`      | Включить [функцию мониторинга](https://github.com/luin/ioredis#monitor) клиента Redis. Если включено, каждая операция клиента будет записана в лог (на уровне отладки) |
-| `redis`           | `Object`         | `null`       | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                                  |
-| `keygen`          | `Function`       | `null`       | Custom cache key generator function.                                                                                                                                   |
-| `maxParamsLength` | `Number`         | `null`       | Maximum length of params in generated keys.                                                                                                                            |
-| `serializer`      | `String`         | `"JSON"`     | Name of a built-in serializer.                                                                                                                                         |
-| `cluster`         | `Object`         | `null`       | Конфигурация кластера Redis. [More information](https://github.com/luin/ioredis#cluster)                                                                               |
+| `redis`           | `Object`         | `null`       | Пользовательские параметры Redis. Будут переданы в конструктор `new Redis()`. [Подробнее](https://github.com/luin/ioredis#connect-to-redis).                           |
+| `keygen`          | `Function`       | `null`       | Пользовательская функция генерации ключей кэша.                                                                                                                        |
+| `maxParamsLength` | `Number`         | `null`       | Максимальная длина параметров сгенерированных ключей.                                                                                                                  |
+| `serializer`      | `String`         | `"JSON"`     | Имя встроенного сериализатора.                                                                                                                                         |
+| `cluster`         | `Object`         | `null`       | Конфигурация кластера Redis. [Подробнее](https://github.com/luin/ioredis#cluster)                                                                                      |
 | `lock`            | `Boolean|Object` | `null`       | Включить функции блокировок.                                                                                                                                           |
 
 {% note info Dependencies %}
