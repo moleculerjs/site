@@ -77,11 +77,11 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Настройки
 
-| Название   | Type       | Default                          | Описание                                                 |
+| Название   | Тип        | Значение по умолчанию            | Описание                                                 |
 | ---------- | ---------- | -------------------------------- | -------------------------------------------------------- |
-| `enabled`  | `Boolean`  | `false`                          | Enable feature.                                          |
+| `enabled`  | `Boolean`  | `false`                          | Включить функцию.                                        |
 | `retries`  | `Number`   | `5`                              | Count of retries.                                        |
 | `delay`    | `Number`   | `100`                            | First delay in milliseconds.                             |
 | `maxDelay` | `Number`   | `2000`                           | Maximum delay in milliseconds.                           |
