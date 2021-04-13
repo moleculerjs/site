@@ -1,6 +1,6 @@
-title: Networking
+title: 联网
 ---
-In order to communicate with other nodes (ServiceBrokers) you need to configure a transporter. Most of the supported transporters connect to a central message broker that provide a reliable way of exchanging messages among remote nodes. These message brokers mainly support publish/subscribe messaging pattern.
+为了与其他节点(ServiceBrokers) 进行沟通，您需要配置一个传输器。 大多数受支持的传输器都连接到一个中央消息转发器，它为远程节点之间交换消息提供了可靠的方式。 这些消息 brokers 主要支持 publish/subscribe 消息模式。
 
 <div align="center">
     <img src="assets/networking.svg" alt="Networking diagram" />
