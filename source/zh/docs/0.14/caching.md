@@ -1,9 +1,9 @@
-title: Caching
+title: 缓存
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer 有一个内置的缓存服务动作的解决方案。 要启用它， 在 [broker option](configuration.html#Broker-options)中设置一种 <1>cacher</1> 类型 并在 [action](services.html#Actions) 定义中设置 `cacher：true` 用以缓存想要的内容。
 
-**Cached action example**
+**动作缓存示例**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -48,16 +48,16 @@ broker.start()
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
-As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+如你所见，调用 `Handler called` 信息只出现一次，因为第二次请求的响应是从缓存中返回的。
 
 > [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Cache keys
-The cacher generates key from service name, action name and the params of context. The syntax of key is:
+## 缓存键
+缓存器从服务名称、动作名称和上下文参数生成键。 键的语法是：
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+因此, 当使用参数`{ limit: 5, offset: 20 }`调用 `posts.list` 动作时, cacher 从参数中计算 hash. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
 
 **Example hashed cache key for "posts.find" action**
 ```
