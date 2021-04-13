@@ -1,22 +1,22 @@
-title: Networking
+title: 联网
 ---
-In order to communicate with other nodes (ServiceBrokers) you need to configure a transporter. Most of the supported transporters connect to a central message broker that provide a reliable way of exchanging messages among remote nodes. These message brokers mainly support publish/subscribe messaging pattern.
+为了与其他节点(ServiceBrokers) 进行沟通，您需要配置一个传输器。 大多数受支持的传输器都连接到一个中央消息转发器，它为远程节点之间交换消息提供了可靠的方式。 这些消息 brokers 主要支持 publish/subscribe 消息模式。
 
 <div align="center">
     <img src="assets/networking.svg" alt="Networking diagram" />
 </div>
 
-## Transporters
-Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If multiple instances of a service are running on different nodes then the requests will be load-balanced among them.
+## 推送系统( Transporters 传输器, 以下不区分)
+如果您在多个节点上运行服务，传输器将是一个重要的模块。 传输器用来与其他节点通信。 它传输事件、呼叫请求、处理响应...等。 如果一个服务的多个实例运行在不同的节点上，请求将在它们之间实现负载平衡。
 
-The whole communication logic is outside of transporter class. It means that you can switch between transporters without changing any line of code.
+传输器不负责通信逻辑。 这意味着您可以在多个传输器之间切换而不用改变任何代码。
 
-There are several built-in transporters in Moleculer framework.
+Molecer框架内有几个内置的传输器。
 
 ### TCP transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) This is a no-dependency, zero-configuration TCP transporter. It uses [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) to disseminate node statuses, service list and heartbeats. It contains an integrated UDP discovery feature to detect new and disconnected nodes on the network. If the UDP is prohibited on your network, use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) 这是一个无依赖、零配置的 TCP 传输器。 它使用 [Gossip 协议](https://en.wikipedia.org/wiki/Gossip_protocol) 来传播节点状态、服务列表和心跳。 它包含一个集成的 UDP发现功能，用于检测网络上的新增或断开的节点。 如果UDP在您的网络上被禁止，请使用 `urls` 选项。 这是远程端点列表(主机/ip、端口、节点ID)。 它可以是您配置中的静态列表或包含列表的文件路径。
 
-**Use TCP transporter with default options**
+**使用包含默认选项的 TCP 传输器**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
 };
 ```
 
-**All TCP transporter options with default values**
+**所有带有默认值的 TCP 传输器选项**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -70,7 +70,7 @@ module.exports = {
 };
 ```
 
-**TCP transporter with static endpoint list**
+**TCP 传输器和静态端点列表**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -89,9 +89,9 @@ module.exports = {
     }
 };
 ```
-_You don't need to set `port` because it find & parse the self TCP port from URL list._
+_不需要设置 `port` 因为它会自动从 URL 列表查找并复制自身端口。_
 
-**TCP transporter with shorthand static endpoint list** It needs to start with `tcp://`.
+**TCP transporter with shorthand static endpoint list** 它需要以 `tcp://` 开头。
 ```js
 // moleculer.config.js
 module.exports = {
@@ -100,7 +100,7 @@ module.exports = {
 };
 ```
 
-**TCP transporter with static endpoint list file**
+**TCP 传输器和静态端点列表文件**
 ```js
 // moleculer.config.js
 module.exports = {

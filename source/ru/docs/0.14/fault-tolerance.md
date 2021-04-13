@@ -77,23 +77,23 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Настройки
 
-| Название   | Type       | Default                          | Описание                                                 |
-| ---------- | ---------- | -------------------------------- | -------------------------------------------------------- |
-| `enabled`  | `Boolean`  | `false`                          | Enable feature.                                          |
-| `retries`  | `Number`   | `5`                              | Count of retries.                                        |
-| `delay`    | `Number`   | `100`                            | First delay in milliseconds.                             |
-| `maxDelay` | `Number`   | `2000`                           | Maximum delay in milliseconds.                           |
-| `factor`   | `Number`   | `2`                              | Backoff factor for delay. `2` means exponential backoff. |
-| `check`    | `Function` | `err && !!err.retryable` | A function to check failed requests.                     |
+| Название   | Тип        | Значение по умолчанию            | Описание                                                                        |
+| ---------- | ---------- | -------------------------------- | ------------------------------------------------------------------------------- |
+| `enabled`  | `Boolean`  | `false`                          | Включить функцию.                                                               |
+| `retries`  | `Number`   | `5`                              | Количество попыток.                                                             |
+| `delay`    | `Number`   | `100`                            | Первая задержка в миллисекундах.                                                |
+| `maxDelay` | `Number`   | `2000`                           | Максимальная задержка в миллисекундах.                                          |
+| `factor`   | `Number`   | `2`                              | Отключение фактора задержки. `2` означает экспоненциальный алгоритм отключения. |
+| `check`    | `Function` | `err && !!err.retryable` | Функция для проверки неудачных запросов.                                        |
 
-**Overwrite the retries value in calling option**
+**Перезаписать значение повторов в опции вызова**
 ```js
 broker.call("posts.find", {}, { retries: 3 });
 ```
 
-**Overwrite the retry policy values in action definitions**
+**Перезаписать значения политики ретраев в определении действий**
 ```js
 // users.service.js
 module.export = {
@@ -101,7 +101,7 @@ module.export = {
     actions: {
         find: {
             retryPolicy: {
-                // All Retry policy options can be overwritten from broker options.
+                // Все настройки политики повторов могут быть перезаписаны значениями из настроек брокера.
                 retries: 3,
                 delay: 500
             },
@@ -109,7 +109,7 @@ module.export = {
         },
         create: {
             retryPolicy: {
-                // Disable retries for this action
+                // Отключить повторы для этого действия
                 enabled: false
             },
             handler(ctx) {}
@@ -118,23 +118,23 @@ module.export = {
 };
 ```
 
-## Timeout
-Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
+## Таймауты
+На вызов сервиса можно установить таймаут. Он может быть установлен глобально в опциях брокера или при вызове параметров. Если тайм-аут определен и запрос превышен, брокер выбрасывает ошибку `RequestTimeoutError`.
 
-**Enable it in the broker options**
+**Включить можно в параметрах брокера**
 ```js
 const broker = new ServiceBroker({
-    requestTimeout: 5 * 1000 // in milliseconds
+    requestTimeout: 5 * 1000 // в миллисекундах
 });
 ```
 
-**Overwrite the timeout value in calling option**
+**Перезаписать значение тайм-аута в параметрах вызова**
 ```js
 broker.call("posts.find", {}, { timeout: 3000 });
 ```
 
-### Distributed timeouts
-Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of nested calls, the timeout value is decremented with the elapsed time. If the timeout value is less or equal than 0, the next nested calls will be skipped (`RequestSkippedError`) because the first call has already been rejected with a `RequestTimeoutError` error.
+### Распределённые таймауты
+Moleculer использует [распределенные таймауты](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). В случае вложенных вызовов значение таймаута определяется с задержкой выполнения. Если значение таймаута меньше или равно 0, следующие вложенные вызовы будут пропущены (`RequestSkippedError`), потому что первый вызов уже был отклонен с ошибкой `RequestTimeoutError`.
 
 ## Bulkhead
 Bulkhead feature is implemented in Moleculer framework to control the concurrent request handling of actions.

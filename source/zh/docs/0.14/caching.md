@@ -1,9 +1,9 @@
-title: Caching
+title: 缓存
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer 有一个内置的缓存服务动作的解决方案。 要启用它， 在 [broker option](configuration.html#Broker-options)中设置一种 <1>cacher</1> 类型 并在 [action](services.html#Actions) 定义中设置 `cacher：true` 用以缓存想要的内容。
 
-**Cached action example**
+**动作缓存示例**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -48,25 +48,25 @@ broker.start()
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
-As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+如你所见，调用 `Handler called` 信息只出现一次，因为第二次请求的响应是从缓存中返回的。
 
 > [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Cache keys
-The cacher generates key from service name, action name and the params of context. The syntax of key is:
+## 缓存键
+缓存器从服务名称、动作名称和上下文参数生成键。 键的语法是：
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+因此, 当使用参数`{ limit: 5, offset: 20 }`调用 `posts.list` 动作时, cacher 从参数中计算 hash. 下一次，当你用相同的参数来调用此操作时，它将会通过键在缓存中找到此项。
 
-**Example hashed cache key for "posts.find" action**
+**"posts.find" 动作 hash 键示例**
 ```
 posts.find:limit|5|offset|20
 ```
 
-The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+参数对象可以包含与缓存键无关的属性。 而且，如果键太长，这也会造成性能问题。 因此建议为 `cache` 属性设置一个对象，对象包含一个在 `keys` 属性中。 若要在缓存 `keys` 使用 meta，相关属性用 `#` 前缀装饰。
 
-**Strict the list of `params` & `meta` properties for key generation**
+**留意以下键生成器使用了 `params` & `meta` 属性**
 ```js
 {
     name: "posts",
@@ -89,23 +89,23 @@ The params object can contain properties that are not relevant for the cache key
 ```
 
 {% note info Performance tip %}
-This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+这个解决方案很快，所以我们建议在生产环境中使用它。 ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
-### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+### 限制缓存键长度
+有时，键可能很长，可能造成性能问题。 为了避免它，在缓存配置中限制键长度为 `maxParamsLength` 。 当键长于配置的限制值时， 缓存从全键计算哈希(SHA256)，并将其添加到键的末尾。
 
-> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> `maxParamsLength` 不要小于 `44` (SHA 256 hash length in Base64).
 > 
-> To disable this feature, set it to `0` or `null`.
+> 要禁用此功能，请将其设置为 `0` 或 `null`。
 
-**Generate a full key from the whole params without limit**
+**不受限制地从整个参数生成完整键**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
 // Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
 ```
 
-**Generate a limited-length key**
+**生成限长键**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -120,18 +120,18 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 // Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
-## Conditional caching
+## 条件缓存
 
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+条件缓存允许绕过缓存的响应并执行操作以获取“新”数据。 若要绕过缓存，请将 `ctx.meta.$cache` 设置为 `false` 然后调用一个动作。
 
-**Example of turning off the caching for the `greeter.hello` action**
+**示例关闭 `greeter.hello` 动作缓存**
 ```js
 broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 ```
 
-As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+作为替代，可以实现一个自定义函数来绕过 cache。 自定义函数接受上下文(`ctx`) 作为参数，因此它可以访问任何参数或 meta 数据。 这允许在请求中传递旁路 flag。
 
-**Example of a custom conditional caching function**
+**自定义缓存函数示例**
 ```js
 // greeter.service.js
 module.exports = {
@@ -155,7 +155,7 @@ broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
 ```
 
 ## TTL
-Default TTL setting can be overriden in action definition.
+在动作定义中可以覆盖默认的 TTL 设置。
 
 ```js
 const broker = new ServiceBroker({
@@ -183,8 +183,8 @@ broker.createService({
 });
 ```
 
-## Custom key-generator
-To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
+## 自定义键生成器
+要覆盖内置的缓存键生成器，请在缓存选项中设置您自己的函数为 `keygen`。
 
 ```js
 const broker = new ServiceBroker({
@@ -204,8 +204,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Manual caching
-The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+## 手动操作缓存
+缓存模块可以手动使用。 只需调用 `broker.cacher` 的`get`, `set`, `del` 方法。
 
 ```js
 // Save to cache
@@ -224,7 +224,7 @@ await broker.cacher.clean("mykey.**");
 await broker.cacher.clean();
 ```
 
-Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+此外，使用内置Redis 缓存时，可用在 [broker.cacher.client](https://github.com/luin/ioredis) 使用完整的 `ioredis` API ：
 
 ```js
 // create an ioredis pipeline
@@ -236,10 +236,10 @@ pipeline.set('mykey.b', 'myvalue.b');
 pipeline.exec();
 ```
 
-## Clear cache
-When you create a new model in your service, you have to clear the old cached model entries.
+## 清除缓存
+当您在您的服务中创建一个新模型时，您必须清除旧的缓存模型条目。
 
-**Example to clean the cache inside actions**
+**清除操作内缓存的示例**
 ```js
 {
     name: "users",
@@ -267,10 +267,10 @@ When you create a new model in your service, you have to clear the old cached mo
 }
 ```
 
-### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+### 清除多个服务实例中的缓存
+清除多个服务实例中的缓存条目的最佳做法是使用广播事件。 请注意，这仅适用于非集中缓存，如 `Memory` 或 `MemoryLRU`。
 
-**Example**
+**示例**
 ```js
 module.exports = {
     name: "users",
@@ -303,10 +303,10 @@ module.exports = {
 }
 ```
 
-### Clear cache among different services
-Service dependency is a common situation. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+### 清除不同服务之间的缓存
+有依赖的服务是常见的。 例如： `posts` 服务存储来自 `users` 服务缓存条目中的信息(in case of populating)。
 
-**Example cache entry in `posts` service**
+**`posts` 服务中的缓存条目示例**
 ```js
 {
     _id: 1,
@@ -320,9 +320,9 @@ Service dependency is a common situation. E.g. `posts` service stores informatio
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+`author` 字段来自 `users` 服务 。 如果 `users` 服务清除缓存条目， `posts` 服务也必须清除自己的缓存条目。 因此，您也应该在 `posts` 服务中订阅 `cache.clear.user` 事件。
 
-To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
+更简捷一点，请在依赖的服务方案中创建一个 `CacheCleaner` mixin 并定义。
 
 **cache.cleaner.mixin.js**
 ```js
@@ -361,12 +361,12 @@ module.exports = {
 };
 ```
 
-With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear its own cache entries.
+如果 `users` 服务发布了 `cache.clean.users` 事件, `posts` 服务也将清除自己的缓存条目。
 
-## Cache locking
-Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
+## 缓存锁定
+Moleculer 也支持缓存锁定功能。 详情信息 [请检查此 PR](https://github.com/moleculerjs/moleculer/pull/490)。
 
-**Enable Lock**
+**启用锁定**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -389,7 +389,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Disable Lock**
+**禁用锁定**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -402,7 +402,7 @@ const broker = new ServiceBroker({
     }
 });
 ```
-**Example for Redis cacher with `redlock` library**
+**使用 `redlock` 库的 Redis 缓存示例**
 ```js
 const broker = new ServiceBroker({
   cacher: {
@@ -450,18 +450,18 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Built-in cachers
+## 内建缓存
 
 ### Memory cacher
-`MemoryCacher` is a built-in memory cache module. It stores entries in the heap memory.
+`MemoryCacher` 是一个内置内存缓存模块。 它在堆内存中储存条目。
 
-**Enable memory cacher**
+**启用内存缓存**
 ```js
 const broker = new ServiceBroker({
     cacher: "Memory"
 });
 ```
-Or
+或
 ```js
 const broker = new ServiceBroker({
     cacher: true
@@ -483,18 +483,18 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
+| 名称                | 类型                      | 默认设置    | 说明                                          |
 | ----------------- | ----------------------- | ------- | ------------------------------------------- |
 | `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
+| `clone`           | `Boolean` or `Function` | `false` | 返回时克隆缓存的数据。                                 |
+| `keygen`          | `Function`              | `null`  | 自定义缓存键生成器函数。                                |
 | `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| `lock`            | `Boolean` or `Object`   | `null`  | 启用锁定功能。                                     |
 
-#### Cloning
-The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
+#### 克隆
+Cacher 使用 lodash `_.cloneDeep` 方法进行克隆。 To change it, set a `Function` to the `clone` option instead of a `Boolean`.
 
-**Custom clone function with JSON parse & stringify**
+**使用 JSON parse & stringify 自定义克隆函数**
 ```js
 const broker = new ServiceBroker({ 
     cacher: {
@@ -507,7 +507,7 @@ const broker = new ServiceBroker({
 ```
 
 ### LRU memory cacher
-`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. It deletes the least-recently-used items.
+`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. 删除最近使用最少的项目。
 
 **Enable LRU cacher**
 ```js
@@ -534,7 +534,7 @@ let broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
+| 名称                | 类型                      | 默认设置    | 说明                                          |
 | ----------------- | ----------------------- | ------- | ------------------------------------------- |
 | `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
 | `max`             | `Number`                | `null`  | Maximum items in the cache.                 |
@@ -545,13 +545,13 @@ let broker = new ServiceBroker({
 
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `lru-cache` module with the `npm install lru-cache --save` command.
+要使用此缓存，请安装 `lru-cache` 模块, 使用 `npm install lru-cache --save` 命令。
 {% endnote %}
 
-### Redis cacher
-`RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. It uses [`ioredis`](https://github.com/luin/ioredis) library. Use it, if you have multiple instances of services because if one instance stores some data in the cache, other instances will find it.
+### Redis 缓存
+`RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. 它使用 [`ioredis`](https://github.com/luin/ioredis) 库. Use it, if you have multiple instances of services because if one instance stores some data in the cache, other instances will find it.
 
-**Enable Redis cacher**
+**启用 Redis 缓存**
 ```js
 const broker = new ServiceBroker({
     cacher: "Redis"
@@ -589,7 +589,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With MessagePack serializer** You can define a serializer for Redis Cacher. By default, it uses the JSON serializer.
+**With MessagePack serializer** 您可以为 Redis Cacher 定义一个序列化器。 默认情况下，它使用 JSON 序列化器。
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-123",
@@ -609,7 +609,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With Redis Cluster Client**
+**使用 Redis 集群客户端**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -632,27 +632,27 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type             | Default  | Description                                                                                                                                           |
-| ----------------- | ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`          | `String`         | `null`   | Prefix for generated keys.                                                                                                                            |
-| `ttl`             | `Number`         | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                                          |
-| `monitor`         | `Boolean`        | `false`  | Enable Redis client [monitoring feature](https://github.com/luin/ioredis#monitor). If enabled, every client operation will be logged (on debug level) |
-| `redis`           | `Object`         | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                 |
-| `keygen`          | `Function`       | `null`   | Custom cache key generator function.                                                                                                                  |
-| `maxParamsLength` | `Number`         | `null`   | Maximum length of params in generated keys.                                                                                                           |
-| `serializer`      | `String`         | `"JSON"` | Name of a built-in serializer.                                                                                                                        |
-| `cluster`         | `Object`         | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                                       |
-| `lock`            | `Boolean|Object` | `null`   | Enable lock feature.                                                                                                                                  |
+| 名称                | 类型               | 默认设置     | 说明                                                                                                                                    |
+| ----------------- | ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `prefix`          | `String`         | `null`   | 键前缀                                                                                                                                   |
+| `ttl`             | `Number`         | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                          |
+| `monitor`         | `Boolean`        | `false`  | 启用 Redis 客户端 [监测功能](https://github.com/luin/ioredis#monitor)。 If enabled, every client operation will be logged (on debug level)      |
+| `redis`           | `Object`         | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis). |
+| `keygen`          | `Function`       | `null`   | Custom cache key generator function.                                                                                                  |
+| `maxParamsLength` | `Number`         | `null`   | Maximum length of params in generated keys.                                                                                           |
+| `serializer`      | `String`         | `"JSON"` | Name of a built-in serializer.                                                                                                        |
+| `cluster`         | `Object`         | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                       |
+| `lock`            | `Boolean|Object` | `null`   | Enable lock feature.                                                                                                                  |
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
+要使用此缓存，请使用 `npm install ioredis --save` 命令安装 `ioredis` 模块。
 {% endnote %}
 
 
-## Custom cacher
-Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+## 自定义缓存
+可以创建自定义缓存模块。 我们建议复制 [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) 或 [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) 并实现 `get` `set`, `del` 和 `clean` 方法。
 
-### Create custom cacher
+### 创建自定义缓存
 ```js
 const BaseCacher = require("moleculer").Cachers.Base;
 
@@ -664,7 +664,7 @@ class MyCacher extends BaseCacher {
 }
 ```
 
-### Use custom cacher
+### 使用自定义缓存
 
 ```js
 const { ServiceBroker } = require("moleculer");
