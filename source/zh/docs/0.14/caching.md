@@ -57,16 +57,16 @@ broker.start()
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-因此, 当使用参数`{ limit: 5, offset: 20 }`调用 `posts.list` 动作时, cacher 从参数中计算 hash. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+因此, 当使用参数`{ limit: 5, offset: 20 }`调用 `posts.list` 动作时, cacher 从参数中计算 hash. 下一次，当你用相同的参数来调用此操作时，它将会通过键在缓存中找到此项。
 
-**Example hashed cache key for "posts.find" action**
+**"posts.find" 动作 hash 键示例**
 ```
 posts.find:limit|5|offset|20
 ```
 
-The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+参数对象可以包含与缓存键无关的属性。 而且，如果键太长，这也会造成性能问题。 因此建议为 `cache` 属性设置一个对象，对象包含一个在 `keys` 属性中。 若要在缓存 `keys` 使用 meta，相关属性用 `#` 前缀装饰。
 
-**Strict the list of `params` & `meta` properties for key generation**
+**留意以下键生成器使用了 `params` & `meta` 属性**
 ```js
 {
     name: "posts",
@@ -89,23 +89,23 @@ The params object can contain properties that are not relevant for the cache key
 ```
 
 {% note info Performance tip %}
-This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+这个解决方案很快，所以我们建议在生产环境中使用它。 ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
-### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+### 限制缓存键长度
+有时，键可能很长，可能造成性能问题。 为了避免它，在缓存配置中限制键长度为 `maxParamsLength` 。 当键长于配置的限制值时， 缓存从全键计算哈希(SHA256)，并将其添加到键的末尾。
 
-> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> `maxParamsLength` 不要小于 `44` (SHA 256 hash length in Base64).
 > 
-> To disable this feature, set it to `0` or `null`.
+> 要禁用此功能，请将其设置为 `0` 或 `null`。
 
-**Generate a full key from the whole params without limit**
+**不受限制地从整个参数生成完整键**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
 // Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
 ```
 
-**Generate a limited-length key**
+**生成限长键**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -120,18 +120,18 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 // Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
-## Conditional caching
+## 条件缓存
 
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+条件缓存允许绕过缓存的响应并执行操作以获取“新”数据。 若要绕过缓存，请将 `ctx.meta.$cache` 设置为 `false` 然后调用一个动作。
 
-**Example of turning off the caching for the `greeter.hello` action**
+**示例关闭 `greeter.hello` 动作缓存**
 ```js
 broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 ```
 
-As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+作为替代，可以实现一个自定义函数来绕过 cache。 自定义函数接受上下文(`ctx`) 作为参数，因此它可以访问任何参数或 meta 数据。 这允许在请求中传递旁路 flag。
 
-**Example of a custom conditional caching function**
+**自定义缓存函数示例**
 ```js
 // greeter.service.js
 module.exports = {
@@ -155,7 +155,7 @@ broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
 ```
 
 ## TTL
-Default TTL setting can be overriden in action definition.
+在动作定义中可以覆盖默认的 TTL 设置。
 
 ```js
 const broker = new ServiceBroker({
@@ -183,8 +183,8 @@ broker.createService({
 });
 ```
 
-## Custom key-generator
-To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
+## 自定义键生成器
+要覆盖内置的缓存键生成器，请在缓存选项中设置您自己的函数为 `keygen`。
 
 ```js
 const broker = new ServiceBroker({
@@ -204,8 +204,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Manual caching
-The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+## 手动操作缓存
+缓存模块可以手动使用。 只需调用 `broker.cacher` 的`get`, `set`, `del` 方法。
 
 ```js
 // Save to cache
@@ -224,7 +224,7 @@ await broker.cacher.clean("mykey.**");
 await broker.cacher.clean();
 ```
 
-Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+此外，使用内置Redis 缓存时，可用在 [broker.cacher.client](https://github.com/luin/ioredis) 使用完整的 `ioredis` API ：
 
 ```js
 // create an ioredis pipeline
@@ -236,10 +236,10 @@ pipeline.set('mykey.b', 'myvalue.b');
 pipeline.exec();
 ```
 
-## Clear cache
-When you create a new model in your service, you have to clear the old cached model entries.
+## 清除缓存
+当您在您的服务中创建一个新模型时，您必须清除旧的缓存模型条目。
 
-**Example to clean the cache inside actions**
+**清除操作内缓存的示例**
 ```js
 {
     name: "users",
@@ -267,10 +267,10 @@ When you create a new model in your service, you have to clear the old cached mo
 }
 ```
 
-### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+### 清除多个服务实例中的缓存
+清除多个服务实例中的缓存条目的最佳做法是使用广播事件。 请注意，这仅适用于非集中缓存，如 `Memory` 或 `MemoryLRU`。
 
-**Example**
+**示例**
 ```js
 module.exports = {
     name: "users",
@@ -303,10 +303,10 @@ module.exports = {
 }
 ```
 
-### Clear cache among different services
-Service dependency is a common situation. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+### 清除不同服务之间的缓存
+有依赖的服务是常见的。 例如： `posts` 服务存储来自 `users` 服务缓存条目中的信息(in case of populating)。
 
-**Example cache entry in `posts` service**
+**`posts` 服务中的缓存条目示例**
 ```js
 {
     _id: 1,
@@ -320,7 +320,7 @@ Service dependency is a common situation. E.g. `posts` service stores informatio
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+`author` 字段来自 `users` 服务 。 如果 `users` 服务清除缓存条目， `posts` 服务也必须清除自己的缓存条目。 因此，您也应该在 `posts` 服务中订阅 `cache.clear.user` 事件。
 
 To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
 
