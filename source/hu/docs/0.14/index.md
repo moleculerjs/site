@@ -30,7 +30,7 @@ A Moleculer egy gyors, modern és hatékony mikroszolgáltatási keretrendszer [
 
 Rengeteg órát töltöttünk a Moleculer teljesítményének javításával és a leggyorsabb mikroszolgáltatási keretrendszer létrehozásával a Node.js számára.
 
-[![Benchmark local](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Benchmark remote](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
+[![Helyi teljesítmény teszt](assets/benchmark/benchmark_local.svg)](http://cloud.highcharts.com/show/utideti) [![Távoli teljesítmény teszt](assets/benchmark/benchmark_remote.svg)](http://cloud.highcharts.com/show/abyfite)
 
 Ellenőrizd az eredményeket a saját számítógépeden! Csak klónozd le a[repót](https://github.com/icebob/microservices-benchmark) és futtasd az `npm install && npm start` parancsokat.
 
@@ -42,5 +42,5 @@ Amíg a Moleculer nem éri el a `1.0` verziószámú kiadást, addig minden brea
 
 
 {% note info Node.js support %}
-Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `10`.
+Moleculer követi a Node.js [kiadási ciklusokat](https://nodejs.org/en/about/releases/), ezért a minimálisan szükséges verzió a `10`-es.
 {% endnote %}
