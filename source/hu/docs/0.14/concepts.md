@@ -1,41 +1,41 @@
-title: Core Concepts
+title: Alapfogalmak
 ---
 
-This guide covers the core concepts of any Moleculer application.
+Ez az útmutató minden Moleculer alkalmazás alapfogalmait tartalmazza.
 
-## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+## Szolgáltatás
+A [szolgáltatás](services.html) egy egyszerű JavaScript modul, amely egy komplex alkalmazás egy részét tartalmazza. Elszigetelt és önálló, ami azt jelenti, hogy még ha le is áll vagy összeomlik, a többi szolgáltatást ez nem érinti.
 
-## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+## Csomópont
+A csomópont egy helyi vagy külső hálózaton futó egyszerű operációs rendszerfolyamat. Egy csomópont egyetlen példánya egy vagy több szolgáltatásnak is otthont adhat.
 
-### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+### Helyi szolgáltatások
+Az egy csomóponton futó két (vagy több) szolgáltatás helyi szolgáltatásnak minősül. Megosztják a hardver erőforrásokat, és a helyi buszon kommunikálnak egymással, nincs hálózati késleltetés (a [transzportert](#Transporter) nem használják).
 
-### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+### Távoli szolgáltatások
+A több csomóponton elosztott szolgáltatások távoli szolgáltatásnak minősülnek. Ebben az esetben a kommunikáció [transzporteren](#Transporter) keresztül történik.
 
 ## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+A [Service Broker](broker.html) a Moleculer szíve. Felelős a szolgáltatások (helyi és távoli) közötti irányításért és kommunikációért. Minden csomópontnak rendelkeznie kell a Service Broker egy példányával.
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## Transzporter
+A [Transporter](networking.html) egy kommunikációs busz, amelyet a szolgáltatások használnak az üzenetek cseréjére. Eseményeket, kéréseket és válaszokat továbbít.
 
-## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+## Átjáró
+Az [API Gateway](moleculer-web.html) a Moleculer szolgáltatásait tárja a végfelhasználók elé. Az átjáró egy hagyományos Moleculer szolgáltatás, amely egy (HTTP, WebSockets stb.) kiszolgálót futtat. Kezeli a bejövő kéréseket, leképezi őket szolgáltatáshívásokká, majd megfelelő válaszokat küld vissza.
 
-## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+## Átfogó nézet
+Nincs is jobb egy példánál, hogy lássuk, hogyan illeszkednek egymáshoz ezek a fogalmak. Vegyünk tehát egy hipotetikus webáruházat, amely csak a termékeit listázza. Valójában semmit sem árul online.
 
-### Architecture
+### Architektúra
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+Architektúra szempontból az online áruház 2 független szolgáltatás kompozíciójának tekinthető: a `termékszolgáltatás` és az `átjáró` szolgáltatás. Az első a termékek tárolásáért és kezeléséért felelős, míg a második egyszerűen fogadja a felhasználók kéréseit, és továbbítja azokat a `termékszolgáltatásnak`.
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+Most nézzük meg, hogyan hozható létre ez a feltételezett áruház a Moleculer segítségével.
 
-To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
+Annak érdekében, hogy rendszerünk ellenálló legyen a hibákkal szemben, a `termékeket` és az `átjáró` szolgáltatásokat dedikált [csomópontokon](#Node) (`node-1` és `node-2`) fogjuk futtatni. Ha emlékszik, a szolgáltatások dedikált csomópontokon történő futtatása azt jelenti, hogy a szolgáltatások közötti kommunikációhoz a [transzporter](#Transporter) modulra van szükség. A Moleculer által támogatott legtöbb transzporter egy üzenetközvetítőre támaszkodik a szolgáltatások közötti kommunikációhoz, ezért szükségünk lesz egy ilyen modulra. Összességében a tárolónk belső architektúráját az alábbi ábra mutatja be.
 
-Now, assuming that our services are up and running, the online store can serve user's requests. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
+Feltételezve, hogy a szolgáltatásaink működnek, az online áruház kiszolgálhatja a felhasználók kéréseit. Lássuk tehát, mi történik valójában egy olyan kérés esetén, amely az összes elérhető termék listázására irányul. Először is, a kérést (`GET /products`) a `node-1` csomóponton futó HTTP-kiszolgáló fogadja. A beérkező kérést a HTTP-kiszolgáló egyszerűen továbbítja a [gateway](#Gateway) szolgáltatásnak, amely elvégzi az összes feldolgozást és leképezést. Ebben az esetben a felhasználó kérését a `products` szolgáltatás `listProducts` műveletére képezi le.  Ezután a kérés átkerül a [brókerhez](#Service-Broker), amely ellenőrzi, hogy a `products` szolgáltatás [helyi](#Local-Services) vagy [távoli](#Remote-Services) szolgáltatás-e. Ebben az esetben a `products` szolgáltatás távoli, így a brókernek a kérés továbbításához a [transzporter](#Transporter) modult kell használnia. A transzporter egyszerűen elkapja a kérést, és elküldi a kommunikációs buszon keresztül. Mivel mindkét csomópont (`node-1` and `node-2`) ugyanahhoz a kommunikációs buszhoz (üzenetközvetítő) csatlakozik, a kérés sikeresen kézbesítésre kerül a `node-2` számára. A fogadás után a `node-2` csomópont brókere elemzi a beérkező kérést, és továbbítja azt a `products` szolgáltatáshoz. Végül a `products` szolgáltatás meghívja a `listProducts` műveletet, és visszaküldi az összes elérhető termék listáját. A választ egyszerűen továbbítja vissza a végfelhasználónak. A választ egyszerűen továbbítja vissza a végfelhasználónak.
 
 **Flow of user's request**
 <div align="center">
