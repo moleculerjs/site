@@ -297,7 +297,7 @@ module.exports = {
                 path: "/api",
 
                 whitelist: [
-                    "posts.*",
+                    "v2.posts.*",
                     "test.*"
                 ],
 
@@ -320,7 +320,9 @@ module.exports = {
 
     settings: {
         // Base path
-        rest: "posts/"
+        // rest: "posts/" // If you want to change the base 
+        // path with /api/posts instead 
+        // of /api/v2/posts, you can uncomment this line.
     },
 
     actions: {
