@@ -448,7 +448,7 @@ Find the next available endpoint for action
 
 
 
-`call(actionName: String, params, opts): Promise`
+`call(actionName: String, params: Object, opts: Object): Promise`
 
 Call an action
 
@@ -458,8 +458,8 @@ Call an action
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `actionName` | String | - | name of action |
-| `params` |  | - | params of action |
-| `opts` |  | - | options of call (optional) |
+| `params` | Object | - | params of action |
+| `opts` | Object | - | options of call (optional) |
 
 
 
@@ -472,7 +472,7 @@ Call an action
 
 
 
-`mcall(def): undefined`
+`mcall(def, options): Promise<Array<Object>|Object>|PromiseSettledResult`
 
 Multiple action calls.
 
@@ -481,8 +481,9 @@ Multiple action calls.
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `def` |  | - | Calling definitions. |
-
+| `def` | Array/Object | - | Calling definitions. |
+| `opts` | Object | - | Calling options for each call. |
+| `opts.settled` | Boolean | false | Set `true` for result of each promise with reject (only works from node.js version >= 12.9.0) |
 
 
 
@@ -520,7 +521,22 @@ broker.mcall({
 })
 ```
 
-
+**`mcall` with options**
+```js
+await broker.mcall(
+    [
+        { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        { action: 'users.find', params: { name: 'John' } },
+        { action: 'service.notfound', params: { notfound: 1 } },
+    ],
+    {
+        // result of each promise with reject
+        settled: true,
+        // set meta for each call 
+        meta: { userId: 12345 }
+    }
+);
+```
 
 
 
@@ -756,13 +772,3 @@ Version of Protocol
 `defaultOptions`
 
 Default configuration
-
-
-
-
-
-
-
-
-
-
