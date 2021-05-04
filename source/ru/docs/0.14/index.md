@@ -42,5 +42,5 @@ Moleculer - это быстрый, современный и мощный мик
 
 
 {% note info Node.js support %}
-Moleculer следует за [релизными циклами](https://nodejs.org/en/about/releases/) Node.js, это означает, что требуется версии не ниже `10`.
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `12`.
 {% endnote %}
