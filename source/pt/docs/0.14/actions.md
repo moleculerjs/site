@@ -178,8 +178,8 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ### Chamadas múltiplas
 
 Chamar várias ações ao mesmo tempo também é possível. Para fazer isso, utilize `broker.mcall` ou `ctx.mcall`.
+**`mcall` with Array \<Object\\>**
 
-**`mcall` com Array< Object >**
 ```js
 await broker.mcall(
     [
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` com Object**
+**`mcall` with Object and options.meta**
 ```js
 await broker.mcall(
     {
