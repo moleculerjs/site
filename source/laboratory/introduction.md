@@ -62,9 +62,9 @@ Make sure that the Lab Agent service is only loaded once and that it's running a
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `name` | `String` | `""` | The name of your project. |
-| `port` | `Number` | `3210` | The Agent port. _Env var: AGENT_PORT_ |
-| `token` | `String` | `null` | Protect the access from others (if you expose the Agent service to the internet). It can be a static string, or if it's not set, a random token will be generated and printed to the console. _Env var: AGENT_TOKEN_ |
-| `apiKey` | `String` | `null` | The API key is sent to beta testers in e-mail. _Env var: AGENT_APIKEY_ |
+| `port` | `Number` | `3210` | The Agent port. _Env var: LAB_PORT_ |
+| `token` | `String` | `null` | Protect the access from others (if you expose the Agent service to the internet). It can be a static string, or if it's not set, a random token will be generated and printed to the console. _Env var: LAB_TOKEN_ |
+| `apiKey` | `String` | `null` | The API key is sent to beta testers in e-mail. _Env var: LAB_APIKEY_ |
 
 ### Add additional Laboratory modules
 
