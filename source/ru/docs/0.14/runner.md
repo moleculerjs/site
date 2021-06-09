@@ -22,8 +22,8 @@ $ moleculer-runner [параметры] [файлы сервисов или ди
 | `-s`, `--silent`               | `Boolean` | `false`      | Отключить журнал брокера. Ничего не выводить в консоль.                                |
 | `-H`, `--hot`                  | `Boolean` | `false`      | Горячая перезагрузка при изменении исходных файлов.                                    |
 | `-c`, `--config <file>`  | `String`  | `null`       | Загрузить файл конфигурации из другого пути или другого имени файла.                   |
-| `-e`, `--env`                  | `Boolean` | `false`      | Load environment variables from the '.env' file from the current folder.               |
-| `-E`, `--envfile <file>` | `String`  | `null`       | Load environment variables from the specified file.                                    |
+| `-e`, `--env`                  | `Boolean` | `false`      | Загрузить переменные окружения из файла '.env' из текущей папки.                       |
+| `-E`, `--envfile <file>` | `String`  | `null`       | Загрузить переменные окружения из указанного файла.                                    |
 | `-i`, `--instances`            | `Number`  | `null`       | Запустить [number] экземпляров узлов или `max` для всех ядер cpu (с модулем `cluster`) |
 
 
