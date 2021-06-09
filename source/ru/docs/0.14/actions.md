@@ -178,7 +178,7 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ### Массовый вызов
 
 Также возможно выполнить несколько действий одновременно. Для этого используйте `broker.mcall` или `ctx.mcall`.
-**`mcall` with Array \<Object\\>**
+**`mcall` c Массивом \<Object\\>**
 
 ```js
 await broker.mcall(
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` with Object and options.meta**
+**`mcall` с объектом и options.meta**
 ```js
 await broker.mcall(
     {
