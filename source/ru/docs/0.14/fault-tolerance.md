@@ -189,7 +189,7 @@ module.export = {
 ```
 
 
-### Events Settings
+### Настройки событий
 Event handlers also support [bulkhead](#Bulkhead) feature.
 
 **Example**
