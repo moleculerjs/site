@@ -42,5 +42,5 @@ Até que a Moleculer alcance a versão `1.0`, breaking changes serão lançada c
 
 
 {% note info Node.js support %}
-O Moleculer segue o [release cycles](https://nodejs.org/en/about/releases/) do Node.js, o que significa que a versão mínima necessária é a `10`.
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `12`.
 {% endnote %}

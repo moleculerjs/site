@@ -136,10 +136,10 @@ broker.call("posts.find", {}, { timeout: 3000 });
 ### Распределённые таймауты
 Moleculer использует [распределенные таймауты](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). В случае вложенных вызовов значение таймаута определяется с задержкой выполнения. Если значение таймаута меньше или равно 0, следующие вложенные вызовы будут пропущены (`RequestSkippedError`), потому что первый вызов уже был отклонен с ошибкой `RequestTimeoutError`.
 
-## Bulkhead
-Bulkhead feature is implemented in Moleculer framework to control the concurrent request handling of actions.
+## Ограничение конкурентных запросов (Bulkhead)
+Функция Bulkhead реализована в фреймворке Moleculer для управления обработкой конкуретных запросов.
 
-**Enable it in the broker options**
+**Включить можно в параметрах брокера**
 ```js
 const broker = new ServiceBroker({
     bulkhead: {
@@ -150,21 +150,21 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Global Settings
+### Глобальные настройки
 
-| Название       | Type      | Default | Описание                       |
-| -------------- | --------- | ------- | ------------------------------ |
-| `enabled`      | `Boolean` | `false` | Enable feature.                |
-| `concurrency`  | `Number`  | `3`     | Maximum concurrent executions. |
-| `maxQueueSize` | `Number`  | `10`    | Maximum size of queue          |
+| Название       | Тип       | Значение по умолчанию | Описание                                          |
+| -------------- | --------- | --------------------- | ------------------------------------------------- |
+| `enabled`      | `Boolean` | `false`               | Включить функцию.                                 |
+| `concurrency`  | `Number`  | `3`                   | Максимальное количество одновременных выполнений. |
+| `maxQueueSize` | `Number`  | `10`                  | Максимальный размер очереди                       |
 
-The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit or it is 0, broker will throw `QueueIsFull` exception for every addition requests.
+Значение `concurrency` ограничивает количество одновременно выполняемых запросов. Если `maxQueueSize` больше, чем `0`, брокер сохраняет дополнительные запросы в очереди, если все слоты заняты. Если размер очереди достигнет лимита `maxQueueSize` или он равен 0, брокер бросит исключение `QueueIsFull` для каждого дополнительного запроса.
 
-### Action Settings
+### Настройки действий
 
-[Global settings](#Global-Settings) can be overridden in action definition.
+[Глобальные настройки](#Global-Settings) могут быть переопределены в определении действий.
 
-**Overwrite the retry policy values in action definitions**
+**Перезаписать значения политики ретраев в определении действий**
 ```js
 // users.service.js
 module.export = {
@@ -172,14 +172,14 @@ module.export = {
     actions: {
         find: {
             bulkhead: {
-                // Disable bulkhead for this action
+                // отключить bulkhead для этого действия
                 enabled: false
             },
             handler(ctx) {}
         },
         create: {
             bulkhead: {
-                // Increment the concurrency value for this action
+                // Увеличить количество конкуретных запросов для действия
                 concurrency: 10
             },
             handler(ctx) {}
@@ -189,10 +189,10 @@ module.export = {
 ```
 
 
-### Events Settings
-Event handlers also support [bulkhead](#Bulkhead) feature.
+### Настройки событий
+Обработчики событий также поддерживают функцию [переполнения](#Bulkhead).
 
-**Example**
+**Пример**
 ```js
 // my.service.js
 module.exports = {
@@ -204,63 +204,63 @@ module.exports = {
                 concurrency: 1
             },
             async handler(ctx) {
-                // Do something.
+                // Обработка.
             }
         }
     }
 }
 ```
 
-## Fallback
-Fallback feature is useful, when you don't want to give back errors to the users. Instead, call an other action or return some common content. Fallback response can be set in calling options or in action definition. It should be a `Function` which returns a `Promise` with any content. The broker passes the current `Context` & `Error` objects to this function as arguments.
+## Подстраховка
+Функция полстраховки полезна, когда вы не хотите выдавать ошибки пользователям. Вместо этого вызовите другое действие или верните общий контент. Ответ подстраховки может быть установлен в опциях вызова или в определении действия. Это должна быть `Функция`, которая возвращает `Promise` с любым содержимым. Брокер передает объекты текущего `Контекста` & `Ошибки` в эту функции в качестве аргументов.
 
-**Fallback response setting in calling options**
+**Установка ответа подстраховки в настройках вызова**
 ```js
 const result = await broker.call("users.recommendation", { userID: 5 }, {
     timeout: 500,
     fallbackResponse(ctx, err) {
-        // Return a common response from cache
+        // Вернуть общий ответ из кэша
         return broker.cacher.get("users.fallbackRecommendation:" + ctx.params.userID);
     }
 });
 ```
 
-### Fallback in action definition
-Fallback response can be also defined in receiver-side, in action definition.
-> Please note, this fallback response will only be used if the error occurs within action handler. If the request is called from a remote node and the request is timed out on the remote node, the fallback response is not be used. In this case, use the `fallbackResponse` in calling option.
+### Установка подстраховки для действий
+Ответ подстраховки также может быть определён в действии на стороне получателя.
+> Обратите внимание, что этот подстраховочный ответ будет использоваться только в том случае, если ошибка возникнет в обработчике действий. Если запрос вызывается с удаленного узла и запрос истекает на удаленном узле, подстраховочный ответ не используется. В этом случае используйте `fallbackResponse` в настройках вызова.
 
-**Fallback as a function**
+**Подстраховка как функция**
 ```js
 module.exports = {
     name: "recommends",
     actions: {
         add: {
-            fallback: (ctx, err) => "Some cached result",
+            fallback: (ctx, err) => "Какой-то результат из кэша",
             handler(ctx) {
-                // Do something
+                // Обработка
             }
         }
     }
 };
 ```
 
-**Fallback as method name string**
+**Подстраховка как строковый литерал с названием метода**
 ```js
 module.exports = {
     name: "recommends",
     actions: {
         add: {
-            // Call the 'getCachedResult' method when error occurred
+            // Вызвать метод 'getCachedResult' в случае ошибки
             fallback: "getCachedResult",
             handler(ctx) {
-                // Do something
+                // Обработка
             }
         }
     },
 
     methods: {
         getCachedResult(ctx, err) {
-            return "Some cached result";
+            return "Некоторый результат из кэша";
         }
     }
 };

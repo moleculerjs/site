@@ -295,7 +295,7 @@ module.exports = {
                 path: "/api",
 
                 whitelist: [
-                    "posts.*",
+                    "v2.posts.*",
                     "test.*"
                 ],
 
@@ -318,7 +318,9 @@ module.exports = {
 
     settings: {
         // Base path
-        rest: "posts/"
+        // rest: "posts/" // If you want to change the base 
+        // path with /api/posts instead 
+        // of /api/v2/posts, you can uncomment this line.
     },
 
     actions: {
@@ -735,6 +737,8 @@ To enable the support for authentication, you need to do something similar to wh
 1. Set `authentication: true` in your routes
 2. Define your custom `authenticate` method in your service
 
+The returned value will be set to the `ctx.meta.user` property. You can use it in your actions to get the logged in user entity.
+
 **Example authentication**
 ```js
 broker.createService({
@@ -752,7 +756,7 @@ broker.createService({
             let accessToken = req.query["access_token"];
             if (accessToken) {
                 if (accessToken === "12345") {
-                    // valid credentials
+                    // valid credentials. It will be set to `ctx.meta.user`
                     return Promise.resolve({ id: 1, username: "john.doe", name: "John Doe" });
                 } else {
                     // invalid credentials
@@ -845,7 +849,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Первые шаги**
+**Использование**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -885,7 +889,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Первые шаги**
+**Использование**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1029,7 +1033,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Первые шаги**
+**Использование**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],

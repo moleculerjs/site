@@ -178,8 +178,8 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ### 多个调用
 
 同时调用多个动作也是可能的。 要做到这一点，请使用 `broker.mcall` 或 `ctx.mcall`。
+**`mcall` with Array \<Object\\>**
 
-**`mcall` 使用 Object 数组**
 ```js
 await broker.mcall(
     [
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` 使用 Object**
+**`mcall` with Object and options.meta**
 ```js
 await broker.mcall(
     {

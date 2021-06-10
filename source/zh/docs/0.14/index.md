@@ -42,5 +42,5 @@ Moleculer是基于[Node.js](https://nodejs.org/en/)的快速、多功能的现�
 
 
 {% note info Node.js support %}
-Moleculer 跟随Node.js [发布周期](https://nodejs.org/en/about/releases/) 意味着最低要求版本是 `10`。
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `12`.
 {% endnote %}

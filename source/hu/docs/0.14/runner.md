@@ -22,8 +22,8 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 | `-s`, `--silent`               | `Boolean` | `false` | Disable the broker logger. It prints nothing to the console.                      |
 | `-H`, `--hot`                  | `Boolean` | `false` | Hot reload services when they change.                                             |
 | `-c`, `--config <file>`  | `String`  | `null`  | Load configuration file from a different path or a different filename.            |
-| `-e`, `--env`                  | `Boolean` | `false` | Load envorinment variables from the '.env' file from the current folder.          |
-| `-E`, `--envfile <file>` | `String`  | `null`  | Load envorinment variables from the specified file.                               |
+| `-e`, `--env`                  | `Boolean` | `false` | Load environment variables from the '.env' file from the current folder.          |
+| `-E`, `--envfile <file>` | `String`  | `null`  | Load environment variables from the specified file.                               |
 | `-i`, `--instances`            | `Number`  | `null`  | Launch [number] node instances or `max` for all cpu cores (with `cluster` module) |
 
 

@@ -42,5 +42,5 @@ Amíg a Moleculer nem éri el a `1.0` verziószámú kiadást, addig minden brea
 
 
 {% note info Node.js support %}
-Moleculer követi a Node.js [kiadási ciklusokat](https://nodejs.org/en/about/releases/), ezért a minimálisan szükséges verzió a `10`-es.
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required version is `12`.
 {% endnote %}
