@@ -1,6 +1,6 @@
 title: Логирование
 ---
-All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
+Все модули ядра Moleculer имеют пользовательский экземпляр логгер. Они унаследованы от экземпляра логгера брокера, который можно настроить в [настройках брокера](configuration.html#Broker-options).
 
 {% note warn %}
 Версия `v0.14` содержит изменения, не совместимый с предыдущими версиями. Это означает, что вы не можете использовать старый способ настройки логирования. Это не относится к встроенному логгеру в консоль. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
