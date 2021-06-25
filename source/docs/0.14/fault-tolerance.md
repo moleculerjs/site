@@ -158,7 +158,7 @@ const broker = new ServiceBroker({
 | `concurrency` | `Number` | `3` | Maximum concurrent executions. |
 | `maxQueueSize` | `Number` | `10` | Maximum size of queue |
 
-The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit or it is 0, broker will throw `QueueIsFull` exception for every addition requests.
+The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit, broker will throw `QueueIsFull` exception for every addition requests.
 
 ### Action Settings
 
