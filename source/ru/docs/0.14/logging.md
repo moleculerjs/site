@@ -1,9 +1,9 @@
 title: Логирование
 ---
-All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
+Все модули ядра Moleculer имеют пользовательский экземпляр логгер. Они унаследованы от экземпляра логгера брокера, который можно настроить в [настройках брокера](configuration.html#Broker-options).
 
 {% note warn %}
-Версия `v0.14` содержит изменения, не совместимый с предыдущими версиями. Это означает, что вы не можете использовать старый способ настройки логирования. Это не относится к встроенному логгеру в консоль. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+Версия `v0.14` содержит изменения, не совместимый с предыдущими версиями. Это означает, что вы не можете использовать старый способ настройки логирования. Это не относится к встроенному логгеру в консоль. Для получения дополнительной информации ознакомьтесь с [Руководством по миграции](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
 {% endnote %}
 
 
@@ -12,7 +12,7 @@ All Moleculer's core modules have a custom logger instance. They are inherited f
 ### Консоль (по умолчанию)
 Этот логгер выводит все сообщения в консоль `console`. Он поддерживает несколько встроенных форматов а так же пользовательский формат.
 
-**Простая конфигурация с настройками по умлчанию**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -33,42 +33,42 @@ module.exports = {
     logger: {
         type: "Console",
         options: {
-            // Logging level
+            // Уровень логирования
             level: "info",
-            // Using colors on the output
+            // Использовать цветные шрифты при выводе
             colors: true,
-            // Print module names with different colors (like docker-compose for containers)
+            // Печатать имена модулей различными цветами (аналогично docker-compose для контейнеров)
             moduleColors: false,
-            // Line formatter. It can be "json", "short", "simple", "full", a `Function` or a template string like "{timestamp} {level} {nodeID}/{mod}: {msg}"
+            // Форматирование линий. Может быть "json", "short", "simple", "full", `Function` или шаблон строкового литерала, например, "{timestamp} {level} {nodeID}/{mod}: {msg}"
             formatter: "full",
-            // Custom object printer. If not defined, it uses the `util.inspect` method.
+            // Принтер пользовательского объекта. Если не определено, то используется метод `util.inspect`.
             objectPrinter: null,
-            // Auto-padding the module name in order to messages begin at the same column.
+            // Автозаполнение имени модуля для того, чтобы сообщения начинались с того же столбца.
             autoPadding: false
         }
     }
 };
 ```
 
-#### Formatters
+#### Функции форматирования
 
-##### `full` formatter (default)
+##### `полный` формат (по умолчанию)
 ```js
 // moleculer.config.js
 module.exports = {
     logger: {
         type: "Console",
         options: {
-            formatter: "full" // or `null`
+            formatter: "full" // или `null`
         }
     }
 };
 ```
 
-**Preview** ![Console](assets/logging/console-full.png#zoomable)
+**Предпросмотр** ![Console](assets/logging/console-full.png#zoomable)
 
 
-##### `short` formatter
+##### `короткий` формат
 ```js
 // moleculer.config.js
 module.exports = {
@@ -81,10 +81,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-short.png#zoomable)
+**Предпросмотр** ![Console](assets/logging/console-short.png#zoomable)
 
 
-##### `simple` formatter
+##### `простой` формат
 ```js
 // moleculer.config.js
 module.exports = {
@@ -97,10 +97,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-simple.png#zoomable)
+**Предпросмотр** ![Console](assets/logging/console-simple.png#zoomable)
 
 
-##### `json` formatter
+##### `json` формат
 ```js
 // moleculer.config.js
 module.exports = {
@@ -113,10 +113,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-json.png#zoomable)
+**Предпросмотр** ![Console](assets/logging/console-json.png#zoomable)
 
 
-##### Custom formatter
+##### Пользовательский формат
 ```js
 // moleculer.config.js
 module.exports = {
@@ -129,52 +129,52 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-custom.png#zoomable)
+**Предпросмотр** ![Console](assets/logging/console-custom.png#zoomable)
 
 
-### File
-This logger saves all log messages to file(s). It supports JSON & formatted text files or you can use your custom formatter, as well.
+### Файл
+Этот логгер сохраняет все сообщения журнала в файл(ы). Он поддерживает JSON & форматированные текстовые файлы или можно использовать пользовательский формат.
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умлчанию**
 ```js
 // moleculer.config.js
 module.exports = {
     logger: "File",
 };
 ```
-_It will save the log messages to the `logs` folder in the current directory with `moleculer-{date}.log` filename._
+_Такая настройка сохранит сообщения журнала в папке `журналов` в текущем каталоге с именем `moleculer-{date}.log`._
 
-**Full configuration**
+**Полная конфигурация**
 ```js
 // moleculer.config.js
 module.exports = {
     logger: {
         type: "File",
         options: {
-            // Logging level
+            // Уровень логирования
             level: "info",
-            // Folder path to save files. You can use {nodeID} & {namespace} variables.
+            // Путь к папке для сохранения файлов. Вы можете использовать переменные {nodeID} & {namespace}.
             folder: "./logs",
-            // Filename template. You can use {date}, {nodeID} & {namespace} variables.
+            // Шаблон имени файла. Вы можете использовать переменные {date}, {nodeID} & {namespace}.
             filename: "moleculer-{date}.log",
-            // Line formatter. It can be "json", "short", "simple", "full", a `Function` or a template string like "{timestamp} {level} {nodeID}/{mod}: {msg}"
-            formatter: "json",
-            // Custom object printer. If not defined, it uses the `util.inspect` method.
+            // Формат строки. Может быть "json", "short", "simple", "full", `Function` или шаблон строкового литерала, например, "{timestamp} {level} {nodeID}/{mod}: {msg}"
+            formatter: "full",
+            // Принтер пользовательского объекта. Если не определено, то используется метод `util.inspect`.
             objectPrinter: null,
-            // End of line. Default values comes from the OS settings.
+            // Конец строки. Значения по умолчанию исходят из настроек ОС.
             eol: "\n",
-            // File appending interval in milliseconds.
+            // Интервал добавления файла в миллисекундах.
             interval: 1 * 1000
         }
     }
 };
 ```
-## External Loggers
+## Внешние логгеры
 
 ### Pino
-This logger uses the [Pino](https://github.com/pinojs/pino) logger.
+Этот логгер использует логгер [Pino](https://github.com/pinojs/pino).
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -182,22 +182,22 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
-// moleculer.config.js
+// модуль moleculer.config.js
 module.exports = {
     logger: {
         type: "Pino",
         options: {
-            // Logging level
+            // Уровень логирования
             level: "info",
 
             pino: {
-                // More info: http://getpino.io/#/docs/api?id=options-object
+                // Подробнее: http://getpino. o/#/docs/api? d=options-object
                 options: null,
 
-                // More info: http://getpino.io/#/docs/api?id=destination-sonicboom-writablestream-string
-                destination: "/logs/moleculer.log",
+                // Подробнее: http://getpino. o/#/docs/api?id=destination-sonicboom-wriablestream-string
+                destination: "/logs/moleculer. og",
             }
         }
     }
@@ -205,15 +205,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `pino` module with `npm install pino --save` command.
+Для использования этого логгера необходимо установить модуль `pino` командой `npm install pino --save`.
 {% endnote %}
 
-**Preview** ![Pino](assets/logging/pino.png#zoomable)
+**Предпросмотр** ![Pino](assets/logging/pino.png#zoomable)
 
 ### Bunyan
-This logger uses the [Bunyan](https://github.com/trentm/node-bunyan) logger.
+Этот логгер использует логгер [Bunyan](https://github.com/trentm/node-bunyan).
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -221,18 +221,18 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
-// moleculer.config.js
+// модуль moleculer.config.js
 module.exports = {
     logger: {
         type: "Bunyan",
         options: {
-            // Logging level
+            // Уровень логирования
             level: "info",
 
             bunyan: {
-                // More settings: https://github.com/trentm/node-bunyan#constructor-api
+                // Дополнительные настройки: https://github. om/trentm/node-bunyan#constructor-api
                 name: "moleculer"
             }
         }
@@ -241,10 +241,10 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
+Для использования этого логгера установите модуль `bunyan` с помощью команды `npm install bunyan --save`.
 {% endnote %}
 
-**Preview** ![Bunyan](assets/logging/bunyan.png#zoomable)
+**Предпросмотр** ![Bunyan](assets/logging/bunyan.png#zoomable)
 
 ### Winston
 This logger uses the [Winston](https://github.com/winstonjs/winston) logger.

@@ -579,6 +579,11 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 ## Serialization
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
+{% note warn %}
+Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with native JSON serializer. If you are working with this kind of data consider using [Avro](#Avro-serializer), [Notepack](#Notepack-serializer) or any other binary serializer.
+{% endnote %}
+
+
 **Пример**
 ```js
 // moleculer.config.js
