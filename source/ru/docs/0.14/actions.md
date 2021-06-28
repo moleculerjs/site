@@ -207,12 +207,36 @@ await broker.mcall(
 );
 ```
 
+**`settled` option in `broker.mcall`**
+
+The `mcall` method has a new `settled` option to receive all Promise results. If `settled: true`, the `mcall` returns a resolved Promise in any case and the response contains the statuses and responses of all calls. Note that, without this option you won't know how many (and which) calls were rejected.
+
+Пример
+```js
+const res = await broker.mcall([
+    { action: "posts.find", params: { limit: 2, offset: 0 },
+    { action: "users.find", params: { limit: 2, sort: "username" } },
+    { action: "service.notfound", params: { notfound: 1 } }
+], { settled: true });
+console.log(res);
+```
+
+The `res` will be something similar to
+
+```js
+[
+    { status: "fulfilled", value: [/*... response of `posts.find`...*/] },
+    { status: "fulfilled", value: [/*... response of `users.find`...*/] },
+    { status: "rejected", reason: {/*... Rejected response/Error`...*/} }
+]
+```
+
 ## Потоки
-Moleculer поддерживает потоки Node.js в параметрах запроса `params` и в ответах. Используйте их для передачи файлов из gateway, кодирования/декодирования или сжатия/распаковки потоков.
+Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
 
 ### Примеры
 
-**Отправка фала в виде потока в сервис**
+**Send a file to a service as a stream**
 ```js
 const stream = fs.createReadStream(fileName);
 
@@ -223,9 +247,9 @@ broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 Режим [Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) так же поддерживается. Чтобы его задействовать, установите `$streamObjectMode: true` в [`meta`](actions.html#Metadata).
 {% endnote %}
 
-Имейте ввиду, что `params` должен быть потоком, и вы не сможете добавить дополнительные переменные в свойство `params`. Используйте свойство `meta` для передачи дополнительных данных.
+Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
 
-**Получение потока в сервисе**
+**Receiving a stream in a service**
 ```js
 module.exports = {
     name: "storage",
@@ -239,7 +263,7 @@ module.exports = {
 };
 ```
 
-**Возврат потока сервисом**
+**Return a stream as response in a service**
 ```js
 module.exports = {
     name: "storage",
@@ -256,7 +280,7 @@ module.exports = {
 };
 ```
 
-**Обработка полученного потока на стороне отправителя**
+**Process received stream on the caller side**
 ```js
 const filename = "avatar-123.jpg";
 broker.call("storage.get", { filename })
@@ -267,7 +291,7 @@ broker.call("storage.get", { filename })
     })
 ```
 
-**Пример сервиса шифрования AES**
+**AES encode/decode example service**
 ```js
 const crypto = require("crypto");
 const password = "moleculer";
@@ -289,30 +313,30 @@ module.exports = {
 ```
 
 ## Видимость методов
-Действие имеет свойство `visibility` для контроля видимости и возможности его вызова другими сервисами.
+The action has a `visibility` property to control the visibility & callability of service actions.
 
-**Доступные значения:**
+**Available values:**
 - `published` или `null`: публичное действие. Оно может быть вызвано локально, удаленно и может быть опубликован через API шлюз
 - `public`: публичное действие, может быть вызвано локально или удаленно, но не опубликовано через API шлюз
 - `protected`: можно вызвать только локально (из локального сервиса)
 - `private`: можно вызвать только внутри сервиса (через `this.actions.xy()`)
 
-**Управление видимостью**
+**Change visibility**
 ```js
 module.exports = {
     name: "posts",
     actions: {
-        // публичное по умолчанию
+        // It's published by default
         find(ctx) {},
         clean: {
-            // можно вызвать только через `this.actions.clean`
+            // Callable only via `this.actions.clean`
             visibility: "private",
             handler(ctx) {}
         }
     },
     methods: {
         cleanEntities() {
-            // прямой вызов action
+            // Call the action directly
             return this.actions.clean();
         }
     }
@@ -322,10 +346,10 @@ module.exports = {
 > Значения по умолчанию `null` (означает `published`) для обратной совместимости.
 
 ## Хуки действий
-Хуки действия являются подключаемыми и переиспользуемыми функциями middleware, которые могут быть зарегистрированы `перед`, `после` или при `ошибке` действий сервиса. Хук является `Функцией` или `Строкой`. В случае `Строки` её имя должно совпадать с именем [метода](services.html#Methods) сервиса.
+Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
 ### Хуки Before
-Этот хук получает `ctx`, он может манипулировать `ctx.params`, `ctx.meta`, или добавить пользовательские переменные в `ctx.locals` которые можно использовать в обработчиках действий. В случае проблемы, она может бросить `Ошибку`. _Пожалуйста, обратите внимание, что нет возможности остановить/пропустить дальнейшие выполнения хуков или обработчиков действий._
+In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers. If there are any problem, it can throw an `Error`. _Please note, you can't break/skip the further executions of hooks or action handler._
 
 **Основное назначение:**
 - очистка параметров
@@ -334,30 +358,30 @@ module.exports = {
 - авторизация
 
 ### After hooks
-Этот хук получает `ctx` контекст и `response` ответ. Он может полностью изменить ответ. Хук должен вернуть ответ.
+In after hooks, it receives the `ctx` and the `response`. It can manipulate or completely change the response. In the hook, it has to return the response.
 
-**Основное назначение:**
+**Main usages:**
 - заполнение сущностей
 - удаление чувствительных данных.
 - оборачивание ответа в `Объект`
 - конвертирование структуры ответа
 
 ### Хуки ошибок
-Эти хуки вызываются в случае возникновения `Ошибок` во время выполнения действия. Этот хук получает `ctx` контекст и `err` ошибку. Он может обработать ошибку и вернуть другой ответ (резервный fallback) или бросить ошибку выше.
+The error hooks are called when an `Error` is thrown during action calling. It receives the `ctx` and the `err`. It can handle the error and return another response (fallback) or throws further the error.
 
-**Основное назначение:**
+**Main usages:**
 - обработка ошибок
 - обернуть ошибку в другую
 - резервный ответ
 
 ### Декларация на уровне сервиса
-Хуки могут быть назначены на определенное действие (указав действие `name`) или для всех действий (`*`) в сервисе.
+Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
 
 {% note warn%}
-Обратите внимание, что порядок регистрации хука имеет значение, так как он определяет последовательность, в которой выполняются хуки. Для получения дополнительной информации смотрите [порядок выполнения хуков](#Execution-order).
+Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
 {% endnote %}
 
-**Хуки Before**
+**Before hooks**
 
 ```js
 const DbService = require("moleculer-db");
@@ -394,7 +418,7 @@ module.export = {
 }
 ```
 
-**Хуки After и Error**
+**After & Error hooks**
 
 ```js
 const DbService = require("moleculer-db");
@@ -442,13 +466,13 @@ module.exports = {
 ```
 
 ### Декларация на уровне действия
-Хуки также могут быть зарегистрированы при объявлении действия.
+Hooks can be also registered inside action declaration.
 
 {% note warn%}
-Обратите внимание, что порядок регистрации хука имеет значение, так как он определяет последовательность, в которой выполняются хуки. Для получения дополнительной информации смотрите [порядок выполнения хуков](#Execution-order).
+Please note that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
 {% endnote %}
 
-**Хуки Before и After**
+**Before & After hooks**
 
 ```js
 broker.createService({
@@ -474,13 +498,13 @@ broker.createService({
 });
 ```
 ### Порядок выполнения
-Важно помнить, что хуки имеют конкретный порядок исполнения. Это особенно важно помнить, когда несколько хуков зарегистрированы на разных уровнях ([service](#Service-level-declaration) и/или [action](#Action-level-declaration)).  В целом хуки имеют следующую логику выполнения:
+It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels.  Overall, the hooks have the following execution logic:
 
 - `before` хуки: глобальные (`*`) `->` уровень сервиса `->` уровень действия.
 
 - `after` хуки: уровень действия `->` уровень сервиса `->` глобальные (`*`).
 
-**Пример порядка выполнения хуков разного уровня**
+**Example of a global, service & action level hook execution chain**
 ```js
 broker.createService({
     name: "greeter",
@@ -525,7 +549,7 @@ broker.createService({
     }
 });
 ```
-**Результат**
+**Output produced by global, service & action level hooks**
 ```bash
 INFO  - Before all hook
 INFO  -   Before hook
@@ -537,7 +561,7 @@ INFO  - After all hook
 ```
 
 ### Переиспользование
-Наиболее эффективным способом переиспользования хуков является их объявление в качестве методов сервиса в отдельном файле и импорт их с помощью механизма [примесей](services.html#Mixins). Таким образом, один хук может быть легко разделен между множеством действий.
+The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
 
 ```js
 // authorize.mixin.js
@@ -591,9 +615,9 @@ module.exports = {
 };
 ```
 ### Локальное хранилище
-Свойство `locals` у объекта `Context` является простым хранилищем, который может быть использован для сохранения некоторых дополнительных данных и передачи их в обработчик action метода. Свойство `locals` совместно с хуками удачно дополняют друг друга:
+The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
 
-**Установка `ctx.locals` в before хуке**
+**Setting `ctx.locals` in before hook**
 ```js
 module.exports = {
     name: "user",
