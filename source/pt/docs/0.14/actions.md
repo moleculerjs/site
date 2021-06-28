@@ -207,6 +207,30 @@ await broker.mcall(
 );
 ```
 
+**`settled` option in `broker.mcall`**
+
+The `mcall` method has a new `settled` option to receive all Promise results. If `settled: true`, the `mcall` returns a resolved Promise in any case and the response contains the statuses and responses of all calls. Note that, without this option you won't know how many (and which) calls were rejected.
+
+Exemplo
+```js
+const res = await broker.mcall([
+    { action: "posts.find", params: { limit: 2, offset: 0 },
+    { action: "users.find", params: { limit: 2, sort: "username" } },
+    { action: "service.notfound", params: { notfound: 1 } }
+], { settled: true });
+console.log(res);
+```
+
+The `res` will be something similar to
+
+```js
+[
+    { status: "fulfilled", value: [/*... response of `posts.find`...*/] },
+    { status: "fulfilled", value: [/*... response of `users.find`...*/] },
+    { status: "rejected", reason: {/*... Rejected response/Error`...*/} }
+]
+```
+
 ## Streaming
 O Moleculer suporta os streams do Node.js nos parâmetros da requisição `params` e nas respostas. Utilize streams para transferir um arquivo recebido de um gateway, codificar/decodificar ou compactar/descompactar streams.
 
@@ -445,7 +469,7 @@ module.exports = {
 Hooks também podem ser registrados dentro da declaração da ação.
 
 {% note warn%}
-Observe que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução do hook](#Execution-order).
+Observe que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução dos hooks](#Execution-order).
 {% endnote %}
 
 **Before & After hooks**
