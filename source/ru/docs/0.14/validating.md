@@ -95,6 +95,32 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 Более подробную информацию о схеме проверки можно найти в [документации библиотеки](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
 
+#### Async custom validator
+FastestValidator (`>= v1.11.0`) supports async custom validators and you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). In Moleculer, the FastestValidator passes the `ctx` as metadata. It means you can access the current context, service, broker. This allows you to make async calls (e.g calling another service) in custom checker functions.
+
+Пример
+
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        params: {
+            $$async: true,
+            owner: { type: "string", custom: async (value, errors, schema, name, parent, context) => {
+                const ctx = context.meta;
+
+                const res = await ctx.call("users.isValid", { id: value });
+                if (res !== true)
+                    errors.push({ type: "invalidOwner", field: "owner", actual: value });
+                return value;
+            } }, 
+        },
+        /* ... */
+    }
+}
+```
+
 ### Валидация событий
 Также поддерживается валидация параметров события. Чтобы включить его, определите `params` в определении события.
 > Пожалуйста, обратите внимание, что ошибки валидации не отправляются вызывающему коду, как это происходит с ошибками действия. Ошибки валидации событий логируются, но вы также можно поймать их с помощью [глобального обработчика ошибок](broker.html#Global-error-handler).
