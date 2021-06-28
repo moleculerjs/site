@@ -95,6 +95,32 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 Find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
 
+#### Async custom validator
+FastestValidator (`>= v1.11.0`) supports async custom validators and you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). In Moleculer, the FastestValidator passes the `ctx` as metadata. It means you can access the current context, service, broker. This allows you to make async calls (e.g calling another service) in custom checker functions.
+
+Example
+
+```js
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        params: {
+            $$async: true,
+            owner: { type: "string", custom: async (value, errors, schema, name, parent, context) => {
+                const ctx = context.meta;
+
+                const res = await ctx.call("users.isValid", { id: value });
+                if (res !== true)
+                    errors.push({ type: "invalidOwner", field: "owner", actual: value });
+                return value;
+            } }, 
+        },
+        /* ... */
+    }
+}
+```
+
 ### Events Validation
 Event parameter validation is also supported. To enable it, define `params` in event definition.
 > Please note that the validation errors are not sent back to the caller, as happens with action errors. Event validation errors are logged but you can also catch them with the [global error handler](broker.html#Global-error-handler).
