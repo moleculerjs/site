@@ -209,7 +209,7 @@ await broker.mcall(
 
 **opção `settled` em `broker.mcall`**
 
-The `mcall` method has a new `settled` option to receive all Promise results. If `settled: true`, the `mcall` returns a resolved Promise in any case and the response contains the statuses and responses of all calls. Note that, without this option you won't know how many (and which) calls were rejected.
+O método `mcall` possui uma nova opção `settled` para receber todas os resultados de Promises. Se `settled: true`, `mcall` retorna uma Promise resolvida para todos os casos e o response contém os status e as respostas de todas as chamadas. Note que, sem esta opção você não saberá quantas (nem quais) chamadas foram rejeitadas.
 
 Exemplo
 ```js
@@ -221,13 +221,13 @@ const res = await broker.mcall([
 console.log(res);
 ```
 
-The `res` will be something similar to
+`res` será algo parecido a
 
 ```js
 [
-    { status: "fulfilled", value: [/*... response of `posts.find`...*/] },
-    { status: "fulfilled", value: [/*... response of `users.find`...*/] },
-    { status: "rejected", reason: {/*... Rejected response/Error`...*/} }
+    { status: "fulfilled", value: [/*... resposta de `posts.find`...*/] },
+    { status: "fulfilled", value: [/*... resposta of `users.find`...*/] },
+    { status: "rejected", reason: {/*... Resposta rejeitada/Erro`...*/} }
 ]
 ```
 
