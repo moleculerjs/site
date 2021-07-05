@@ -178,7 +178,7 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ### Chamadas múltiplas
 
 Chamar várias ações ao mesmo tempo também é possível. Para fazer isso, utilize `broker.mcall` ou `ctx.mcall`.
-**`mcall` with Array \<Object\\>**
+**`mcall` com Objeto Array<Object\\>**
 
 ```js
 await broker.mcall(
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` with Object and options.meta**
+**`mcall` com Objeto e options.meta**
 ```js
 await broker.mcall(
     {
@@ -207,7 +207,7 @@ await broker.mcall(
 );
 ```
 
-**`settled` option in `broker.mcall`**
+**opção `settled` em `broker.mcall`**
 
 The `mcall` method has a new `settled` option to receive all Promise results. If `settled: true`, the `mcall` returns a resolved Promise in any case and the response contains the statuses and responses of all calls. Note that, without this option you won't know how many (and which) calls were rejected.
 
