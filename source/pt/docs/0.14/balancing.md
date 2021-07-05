@@ -163,7 +163,7 @@ module.exports = {
 ## Sobrescrever opções globais
 Você pode sobrescrever a estratégia de balanceamento definida globalmente nas definições de ações/eventos.
 
-**Using 'Shard' strategy for 'hello' action instead of global 'RoundRobin'**
+**Usando estratégia 'Shard' para a ação 'hello' ao invés da global 'RoundRobin'**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -194,8 +194,8 @@ module.exports = {
 
 
 
-## Custom strategy
-Custom strategy can be created. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
+## Estratégia personalizada
+Uma estratégia customizada pode ser criada. Recomendamos copiar o código fonte de [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) e implementar o método `select`.
 
 ### Criar estratégia personalizada
 ```js
