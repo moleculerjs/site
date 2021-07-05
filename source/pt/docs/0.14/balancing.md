@@ -161,7 +161,7 @@ module.exports = {
 };
 ```
 ## Sobrescrever opções globais
-You can overwrite globally defined load balancing strategy in action/event definitions.
+Você pode sobrescrever a estratégia de balanceamento definida globalmente nas definições de ações/eventos.
 
 **Using 'Shard' strategy for 'hello' action instead of global 'RoundRobin'**
 ```js
