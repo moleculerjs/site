@@ -208,7 +208,7 @@ class MyStrategy extends BaseStrategy {
 module.exports = MyStrategy;
 ```
 
-### Use custom strategy
+### Usar estratégia personalizada
 
 ```js
 const { ServiceBroker } = require("moleculer");
