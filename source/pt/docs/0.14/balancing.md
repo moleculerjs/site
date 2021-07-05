@@ -197,7 +197,7 @@ module.exports = {
 ## Custom strategy
 Custom strategy can be created. We recommend to copy the source of [RandomStrategy](https://github.com/moleculerjs/moleculer/blob/master/src/strategies/random.js) and implement the `select` method.
 
-### Create custom strategy
+### Criar estratégia personalizada
 ```js
 const BaseStrategy = require("moleculer").Strategies.Base;
 
