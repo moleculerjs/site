@@ -85,9 +85,9 @@ module.exports = {
     mixins: [ApiService],
 
     created() {
-        // Ensure all inactive connections are terminated by the ALB, by setting this a few seconds higher than the ALB idle timeout
+        // Garanta que todas as conexões inativas sejam encerradas pelo ALB, configurando alguns segundos a mais que o timeout ALB
         this.server.keepAliveTimeout = 65000;
-        // Ensure the headersTimeout is set higher than the keepAliveTimeout due to this nodejs regression bug: https://github.com/nodejs/node/issues/27363
+        // Garanta que o headersTimeout está configurado acima do keepAliveTimeout devido a esse erro de regressão do nodejs: https://github.com/nodejs/node/issues/27363
         this.server.headersTimeout = 66000;
     }
 };
