@@ -1,28 +1,28 @@
 title: Context
 ---
 
-When you call an action or emit an event, the broker creates a `Context` instance that contains all request information and passes it to the action/event handler as a single argument.
+Quando você chama uma ação ou emite um evento, o broker cria uma instância de `context` que contém todas as informações da requisição e a passa para o handler da ação/evento como um único argumento.
 
-## Properties of Context
+## Propriedades de Context
 
-| Name              | Type                  | Description                                                      |
-| ----------------- | --------------------- | ---------------------------------------------------------------- |
-| `ctx.id`          | `String`              | Context ID                                                       |
-| `ctx.broker`      | `ServiceBroker`       | Instance of the broker.                                          |
-| `ctx.nodeID`      | `String`              | The caller or target Node ID.                                    |
-| `ctx.action`      | `Object`              | Instance of action definition.                                   |
-| `ctx.event`       | `Object`              | Instance of event definition.                                    |
-| `ctx.eventName`   | `Object`              | The emitted event name.                                          |
-| `ctx.eventType`   | `String`              | Type of event ("emit" or "broadcast").                           |
-| `ctx.eventGroups` | `Array<String>` | Groups of event.                                                 |
-| `ctx.caller`      | `String`              | Service full name of the caller. E.g.: `v3.myService`            |
-| `ctx.requestID`   | `String`              | Request ID. If you make nested-calls, it will be the same ID.    |
-| `ctx.parentID`    | `String`              | Parent context ID (in nested-calls).                             |
-| `ctx.params`      | `Any`                 | Request params. *Second argument from `broker.call`.*            |
-| `ctx.meta`        | `Any`                 | Request metadata. *It will be also transferred to nested-calls.* |
-| `ctx.locals`      | `Any`                 | Local data.                                                      |
-| `ctx.level`       | `Number`              | Request level (in nested-calls). The first level is `1`.         |
-| `ctx.span`        | `Span`                | Current active span.                                             |
+| Nome              | Tipo                  | Descrição                                                            |
+| ----------------- | --------------------- | -------------------------------------------------------------------- |
+| `ctx.id`          | `String`              | ID do contexto                                                       |
+| `ctx.broker`      | `ServiceBroker`       | Instância do broker.                                                 |
+| `ctx.nodeID`      | `String`              | O ID do nó do requisitante ou do destino.                            |
+| `ctx.action`      | `Object`              | Instância da definição de ação.                                      |
+| `ctx.event`       | `Object`              | Instância da definição do evento.                                    |
+| `ctx.eventName`   | `Object`              | Nome do evento emitido.                                              |
+| `ctx.eventType`   | `String`              | Tipo de evento ("emit" ou "broadcast").                              |
+| `ctx.eventGroups` | `Array<String>` | Grupos de eventos.                                                   |
+| `ctx.caller`      | `String`              | Nome completo do serviço do requisitante. Ex.: `v3.myService`        |
+| `ctx.requestID`   | `String`              | ID da Requisição. Se você fizer chamadas aninhadas, será o mesmo ID. |
+| `ctx.parentID`    | `String`              | ID do contexto pai (em chamadas aninhadas).                          |
+| `ctx.params`      | `Any`                 | Parâmetros da requisição. *Second argument from `broker.call`.*      |
+| `ctx.meta`        | `Any`                 | Request metadata. *It will be also transferred to nested-calls.*     |
+| `ctx.locals`      | `Any`                 | Local data.                                                          |
+| `ctx.level`       | `Number`              | Request level (in nested-calls). The first level is `1`.             |
+| `ctx.span`        | `Span`                | Current active span.                                                 |
 
 ## Methods of Context
 
