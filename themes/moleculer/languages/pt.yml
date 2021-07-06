@@ -71,32 +71,32 @@ sidebar:
     contributing: Contribuições
     #Old 01.12 menu
     transporters: Transporte
-    logger: Logger
+    logger: Log
     circuit-breaker: Circuit Breaker
     service-registry: Service Registry
-    cachers: Cachers
-    serializers: Serializers
-    statistics: Statistics
-    validation: Validation
+    cachers: Cache
+    serializers: Serializadores
+    statistics: Estatísticas
+    validation: Validação
     api: API
     api_servicebroker: ServiceBroker
-    api_service: Service
+    api_service: Serviço
     api_context: Context
-    api_protocol: Protocol
+    api_protocol: Protocolo
 modules:
-  name: Name
-  description: Description
-  author: Author
-  version: Version
-  checkout_awesome: Check our Awesome Moleculer repo!
-  doyouhave: Do you have a custom module for Moleculer?
-  tellus: Tell us!
+  name: Nome
+  description: Descrição
+  author: Autor
+  version: Versão
+  checkout_awesome: Confira o nosso incrível repositório Moleculer!
+  doyouhave: Tem um módulo personalizado para Moleculer?
+  tellus: Conte para nós!
   gateway: Gateways
-  general: General
-  databases: Databases & stores
-  tasks: Tasks, queues & jobs
-  metrics: Metrics & Tracing
-  validation: Validation
-  security: Security
-  tools: Tools
-  others: Others
+  general: Geral
+  databases: Banco de Dados e armazenamento
+  tasks: Tarefas, filas & agendamento
+  metrics: Métricas e Rastreamento
+  validation: Validações
+  security: Segurança
+  tools: Ferramentas
+  others: Outros
