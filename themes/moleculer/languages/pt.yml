@@ -54,23 +54,23 @@ sidebar:
     modules: Módulos
     tools: Ferramentas
     moleculer_web: API Gateway
-    moleculer_repl: REPL console
-    moleculer_cli: CLI Tool
-    moleculer_db: DB Adapters
-    other_modules: Other modules
-    all_modules: All modules
-    miscellaneous: Miscellaneous
-    clustering: Clustering
-    deploying: Deploying
-    nodes: Nodes
+    moleculer_repl: Console REPL
+    moleculer_cli: Ferramenta CLI
+    moleculer_db: Adaptadores DB
+    other_modules: Outros módulos
+    all_modules: Todos os módulos
+    miscellaneous: Diversos
+    clustering: Cluster
+    deploying: Deploy
+    nodes: Nós
     docker: Docker
     serverless: Serverless
     benchmark: Benchmark
     faq: FAQ
-    testing: Testing
-    contributing: Contributing
+    testing: Testes
+    contributing: Contribuições
     #Old 01.12 menu
-    transporters: Transporters
+    transporters: Transporte
     logger: Logger
     circuit-breaker: Circuit Breaker
     service-registry: Service Registry
