@@ -1,15 +1,15 @@
 title: Broker
 ---
-The `ServiceBroker` is the main component of Moleculer. It handles services, calls actions, emits events and communicates with remote nodes. You must create a `ServiceBroker` instance on every node.
+O `ServiceBroker` é o componente principal do Moleculer. Ele lida com serviços, chamadas de ações, emite eventos e se comunica com nós remotos. Você deve criar uma instância do `ServiceBroker` em cada nó.
 
 <div align="center">
     <img src="assets/service-broker.svg" alt="Broker logical diagram" />
 </div>
 
-## Create a ServiceBroker
+## Criar um ServiceBroker
 
 {% note info %}
-**Quick tip:** You don't need to create manually ServiceBroker in your project. Use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
+**Dica rápida:** Você não precisa criar manualmente o ServiceBroker no seu projeto. Use the [Moleculer Runner](runner.html) to create and execute a broker and load services. [Read more about Moleculer Runner](runner.html).
 {% endnote %}
 
 **Create broker with default settings:**
