@@ -15,8 +15,8 @@ Siga este fluxo se você quiser modificar os módulos principais.
 
 ### Workflow
 
-1. Fork the [moleculerjs/moleculer](https://github.com/moleculerjs/moleculer) repo.
-2. Clone the repository to your computer and install dependencies.
+1. Faça o fork do repositório [moleculerjs/moleculer](https://github.com/moleculerjs/moleculer).
+2. Clone o repositório para o seu computador e instale dependências.
 
     ```bash
     $ git clone https://github.com/<username>/moleculer.git
@@ -24,77 +24,77 @@ Siga este fluxo se você quiser modificar os módulos principais.
     $ npm install
     ```
 
-3. Start Moleculer in dev mode
+3. Inicie Moleculer no modo de desenvolvimento
 
     ```bash
     $ npm run dev
     ```
 
-    or in continuous test mode
+    ou em modo de teste contínuo
 
     ```bash
     $ npm run ci
     ```
 
-4. Fix the bug or add a new feature.
-5. Run tests & check the coverage report.
+4. Corrija o bug ou adicione um novo recurso.
+5. Execute testes & verifique o resultado.
 
     ```bash
     $ npm test
     ```
 
-    > If you added new features, please add relevant new test cases! We aim to 100% cover.
+    > Se você adicionou novos recursos, por favor, adicione novos casos de teste relevantes! Nosso objetivo é a cobertura 100%.
 
     {% note info %}
-    Your pull request will only get merged when tests passed and covered all codes. Don't forget to run tests before submission.
+    Seu pull request somente será implementado quando os testes passem e cubram todo o código. Não esqueça de executar testes antes do envio.
     {% endnote %}
 
-6. Commit & push the branch.
+6. Execute o commit & push da branch.
 
-7. Create a pull request and describe the change.
+7. Crie um pull request e descreva a mudança.
 
-8. If you've changed APIs, update the [documentation](https://github.com/moleculerjs/site), as well.
+8. Se você mudou alguma API, atualize a [documentação](https://github.com/moleculerjs/site) também.
 
-## Contribution to create a new Moleculer module
+## Contribuição para criar um novo módulo Moleculer
 
-Follow this workflow if you would like to create a new module for Moleculer
+Siga este fluxo se quiser criar um novo módulo para o Moleculer
 
 ### Workflow
 
-1. Install the command-line tool.
+1. Instale a ferramenta de linha de comando.
     ```bash
     $ npm install moleculer-cli -g
     ```
 
-2. Create a new module skeleton (named `moleculer-awesome`).
+2. Crie um novo módulo (chamado `de moleculer-awesome`) a partir de um template padrão.
     ```bash
     $ moleculer init module moleculer-awesome
     ```
 
-3. Edit `src/index.js` and implement the logic.
+3. Edite `src/index.js` e implemente a lógica.
 
-4. For development use the `dev` mode (it starts your module with `example/simple/index.js`)
+4. Em desenvolvimento, use o modo `dev` (inicia seu módulo com `example/simple/index.js`)
 
     ```bash
     $ npm run dev
     ```
 
-    or the continuous test mode
+    ou em modo de teste contínuo
 
     ```bash
     $ npm run ci
     ```
 
-5. Create tests in `test/unit/index.spec.js` & cover the full source.
+5. Crie testes em `test/unit/index.spec.js` & cubra completamente o código.
 
     ```bash
     $ npm test
     ```
 
-6. If it's done and you think it will be useful for other users, [tell us!](https://github.com/moleculerjs/moleculer/issues)
+6. Se isso for feito e você acha que será útil para outros usuários, [conte pra nós!](https://github.com/moleculerjs/moleculer/issues)
 
-## Reporting Issues
+## Reportando problemas
 
-When you encounter some problems when using Moleculer, you can find the solutions in [FAQ](faq.html) or ask us on [Discord](https://discord.gg/TSEcDRP) or on [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). If you can't find the answer, please report it on [GitHub Issues](https://github.com/moleculerjs/moleculer/issues).
+Quando você encontrar alguns problemas ao usar Moleculer, você pode encontrar soluções no [FAQ](faq.html) ou nos perguntar no [Discord](https://discord.gg/TSEcDRP) ou no [StackOverflow](https://stackoverflow.com/questions/tagged/moleculer). Se você não consegue encontrar a resposta, por favor, reporte-o em [Problemas no GitHub](https://github.com/moleculerjs/moleculer/issues).
 
-Thank you!
+Muito obrigado!
