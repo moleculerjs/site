@@ -1,17 +1,17 @@
-title: Contributing
+title: Contribuições
 ---
-We welcome you to join the development of Moleculer. This document helps you through the process.
+Convidamos você a participar no desenvolvimento do Moleculer. Este documento ajuda ao longo do processo.
 
-## Before You Start
+## Antes de começar
 
-Please follow the coding style:
-- Use tabs with size of 4 for indents.
-- Always use strict mode & semicolons.
-- Use double quotes instead of single quotes.
+Siga o estilo de codificação:
+- Use tabulação com tamanho 4 para indentação.
+- Sempre use o modo estrito & ponto e vírgula.
+- Use aspas duplas em vez de aspas simples.
 
-## Contribution in the core modules
+## Contribuição nos módulos principais
 
-Follow this workflow if you would like to modify the core modules.
+Siga este fluxo se você quiser modificar os módulos principais.
 
 ### Workflow
 
