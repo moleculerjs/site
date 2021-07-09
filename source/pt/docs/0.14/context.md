@@ -1,45 +1,45 @@
 title: Context
 ---
 
-When you call an action or emit an event, the broker creates a `Context` instance that contains all request information and passes it to the action/event handler as a single argument.
+Quando você chama uma ação ou emite um evento, o broker cria uma instância de `context` que contém todas as informações da requisição e a passa para o handler da ação/evento como um único argumento.
 
-## Properties of Context
+## Propriedades de Context
 
-| Name              | Type                  | Description                                                      |
-| ----------------- | --------------------- | ---------------------------------------------------------------- |
-| `ctx.id`          | `String`              | Context ID                                                       |
-| `ctx.broker`      | `ServiceBroker`       | Instance of the broker.                                          |
-| `ctx.nodeID`      | `String`              | The caller or target Node ID.                                    |
-| `ctx.action`      | `Object`              | Instance of action definition.                                   |
-| `ctx.event`       | `Object`              | Instance of event definition.                                    |
-| `ctx.eventName`   | `Object`              | The emitted event name.                                          |
-| `ctx.eventType`   | `String`              | Type of event ("emit" or "broadcast").                           |
-| `ctx.eventGroups` | `Array<String>` | Groups of event.                                                 |
-| `ctx.caller`      | `String`              | Service full name of the caller. E.g.: `v3.myService`            |
-| `ctx.requestID`   | `String`              | Request ID. If you make nested-calls, it will be the same ID.    |
-| `ctx.parentID`    | `String`              | Parent context ID (in nested-calls).                             |
-| `ctx.params`      | `Any`                 | Request params. *Second argument from `broker.call`.*            |
-| `ctx.meta`        | `Any`                 | Request metadata. *It will be also transferred to nested-calls.* |
-| `ctx.locals`      | `Any`                 | Local data.                                                      |
-| `ctx.level`       | `Number`              | Request level (in nested-calls). The first level is `1`.         |
-| `ctx.span`        | `Span`                | Current active span.                                             |
+| Nome              | Tipo                  | Descrição                                                            |
+| ----------------- | --------------------- | -------------------------------------------------------------------- |
+| `ctx.id`          | `String`              | ID do contexto                                                       |
+| `ctx.broker`      | `ServiceBroker`       | Instância do broker.                                                 |
+| `ctx.nodeID`      | `String`              | O ID do nó do requisitante ou do destino.                            |
+| `ctx.action`      | `Object`              | Instância da definição de ação.                                      |
+| `ctx.event`       | `Object`              | Instância da definição do evento.                                    |
+| `ctx.eventName`   | `Object`              | Nome do evento emitido.                                              |
+| `ctx.eventType`   | `String`              | Tipo de evento ("emit" ou "broadcast").                              |
+| `ctx.eventGroups` | `Array<String>` | Grupos de eventos.                                                   |
+| `ctx.caller`      | `String`              | Nome completo do serviço do requisitante. Ex.: `v3.myService`        |
+| `ctx.requestID`   | `String`              | ID da Requisição. Se você fizer chamadas aninhadas, será o mesmo ID. |
+| `ctx.parentID`    | `String`              | ID do contexto pai (em chamadas aninhadas).                          |
+| `ctx.params`      | `Any`                 | Parâmetros da requisição. *Segundo argumento do `broker.call`.*      |
+| `ctx.meta`        | `Any`                 | Metadados da requisição. *Será transferido para chamadas aninhadas*  |
+| `ctx.locals`      | `Any`                 | Dados locais.                                                        |
+| `ctx.level`       | `Number`              | Nível da requisição (em chamadas aninhadas). O primeiro nível é `1`. |
+| `ctx.span`        | `Span`                | Span atual ativo.                                                    |
 
-## Methods of Context
+## Métodos de context
 
-| Name                        | Response  | Description                                            |
-| --------------------------- | --------- | ------------------------------------------------------ |
-| `ctx.call()`                | `Promise` | Make nested-call. Same arguments like in `broker.call` |
-| `ctx.emit()`                | `void`    | Emit an event, same as `broker.emit`                   |
-| `ctx.broadcast()`           | `void`    | Broadcast an event, same as `broker.broadcast`         |
-| `ctx.startSpan(name, opts)` | `Span`    | Creates a new child span.                              |
-| `ctx.finishSpan(span)`      | `void`    | Finishes a span.                                       |
-| `ctx.toJSON()`              | `Object`  | Convert `Context` to a printable JSON.                 |
-|  `ctx.copy()`               |  `this`   |  Create a copy of the `Context` instance.              |
+| Nome                        | Retorno   | Descrição                                                         |
+| --------------------------- | --------- | ----------------------------------------------------------------- |
+| `ctx.call()`                | `Promise` | Fazer chamadas aninhadas. Mesmos argumentos como em `broker.call` |
+| `ctx.emit()`                | `void`    | Emitir um evento, o mesmo que `broker.emit`                       |
+| `ctx.broadcast()`           | `void`    | Emitir um evento, o mesmo que `broker.broadcast`                  |
+| `ctx.startSpan(name, opts)` | `Span`    | Criar um novo span filho.                                         |
+| `ctx.finishSpan(span)`      | `void`    | Finalizar um span.                                                |
+| `ctx.toJSON()`              | `Object`  | Converter `Context` para um JSON formatado.                       |
+|  `ctx.copy()`               |  `this`   |  Criar uma cópia da instância de `Context`.                       |
 
-## Context tracking
-If you want graceful service shutdowns, enable the Context tracking feature in broker options. If you enable it, all services will wait for all running contexts before shutdown. A timeout value can be defined with `shutdownTimeout` broker option. The default values is `5` seconds.
+## Rastreamento de context
+Se você quer desligamentos elegantes dos serviços, ative o recurso Context tracking nas opções do broker. Se você habilitá-lo, todos os serviços esperarão por todos os context em execução antes de desligar. Um valor de timeout pode ser definido com a opção `shutdownTimeout` no broker. O valor padrão é `5` segundos.
 
-**Enable context tracking & change the timeout value**
+**Ativar context tracking & alterar o valor do timeout**
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-1",
@@ -50,9 +50,9 @@ const broker = new ServiceBroker({
 });
 ```
 
-> The shutdown timeout can be overwritten by `$shutdownTimeout` property in service settings.
+> O timeout de desligamento pode ser substituído pela propriedade `$shutdownTimeout` nas configurações de serviço.
 
-**Disable tracking in calling option**
+**Desativar tracking nas opções de chamada**
 
 ```js
 await broker.call("posts.find", {}, { tracking: false });

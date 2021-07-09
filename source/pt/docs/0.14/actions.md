@@ -178,7 +178,7 @@ await broker.call("greeter.slow", null, { timeout: 1000 });
 ### Chamadas múltiplas
 
 Chamar várias ações ao mesmo tempo também é possível. Para fazer isso, utilize `broker.mcall` ou `ctx.mcall`.
-**`mcall` with Array \<Object\\>**
+**`mcall` com Objeto Array<Object\\>**
 
 ```js
 await broker.mcall(
@@ -193,7 +193,7 @@ await broker.mcall(
 );
 ```
 
-**`mcall` with Object and options.meta**
+**`mcall` com Objeto e options.meta**
 ```js
 await broker.mcall(
     {
@@ -205,6 +205,30 @@ await broker.mcall(
         meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' }
     }
 );
+```
+
+**opção `settled` em `broker.mcall`**
+
+O método `mcall` possui uma nova opção `settled` para receber todas os resultados de Promises. Se `settled: true`, `mcall` retorna uma Promise resolvida para todos os casos e o response contém os status e as respostas de todas as chamadas. Note que, sem esta opção você não saberá quantas (nem quais) chamadas foram rejeitadas.
+
+Exemplo
+```js
+const res = await broker.mcall([
+    { action: "posts.find", params: { limit: 2, offset: 0 },
+    { action: "users.find", params: { limit: 2, sort: "username" } },
+    { action: "service.notfound", params: { notfound: 1 } }
+], { settled: true });
+console.log(res);
+```
+
+`res` será algo parecido a
+
+```js
+[
+    { status: "fulfilled", value: [/*... resposta de `posts.find`...*/] },
+    { status: "fulfilled", value: [/*... resposta of `users.find`...*/] },
+    { status: "rejected", reason: {/*... Resposta rejeitada/Erro`...*/} }
+]
 ```
 
 ## Streaming
@@ -445,7 +469,7 @@ module.exports = {
 Hooks também podem ser registrados dentro da declaração da ação.
 
 {% note warn%}
-Observe que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução do hook](#Execution-order).
+Observe que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução dos hooks](#Execution-order).
 {% endnote %}
 
 **Before & After hooks**

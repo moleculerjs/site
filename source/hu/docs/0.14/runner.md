@@ -43,10 +43,11 @@ The `start` script is to load the default `moleculer.config.js` file if it exist
 ## Configuration loading logic
 The runner does the following steps to load & merge configurations:
 
-1. It loads config file defined in CLI options. If it does not exist, it throws an error.
-2. If not defined, it loads the `moleculer.config.js` file from the current directory. If it does not exist, it loads the `moleculer.config.json` file.
-3. Once a config file has been loaded, it merges options with the default options of the ServiceBroker.
-4. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
+1. Load the config file defined in `MOLECULER_CONFIG` environment variable. If it does not exist, it throws an error.
+2. It loads config file defined in CLI options. If it does not exist, it throws an error. Note that `MOLECULER_CONFIG` has priority over CLI meaning that if both are defined `MOLECULER_CONFIG` is the one that's going to be used.
+3. If not defined, it loads the `moleculer.config.js` file from the current directory. If it does not exist, it loads the `moleculer.config.json` file.
+4. Once a config file has been loaded, it merges options with the default options of the ServiceBroker.
+5. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
 
 > To overwrite broker's deeply nested default options, which are not present in `moleculer.config.js`, via environment variables, use the `MOL_` prefix and double underscore `__` for nested properties in `.env` file. For example, to set the [cacher prefix](caching.html#Built-in-cachers) to `MOL` you should declare as `MOL_CACHER__OPTIONS__PREFIX=MOL`.
 

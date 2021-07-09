@@ -138,10 +138,6 @@ module.exports = {
 To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
 {% endnote %}
 
-{% note warn NATS v2.0 %}
-Please note that [nats `v2.x`](https://github.com/nats-io/nats.js/blob/HEAD/migration.md), a complete re-write of nats client, is not yet supported.
-{% endnote %}
-
 #### Examples
 **Connect to 'nats://localhost:4222'**
 ```js
@@ -668,6 +664,18 @@ module.exports = {
 {% note info Dependencies %}
 To use this serializer install the `thrift` module with `npm install thrift --save` command.
 {% endnote %}
+
+### CBOR serializer
+CBOR ((cbor-x)[https://github.com/kriszyp/cbor-x]) is the (fastest)[https://github.com/moleculerjs/moleculer/pull/905] than any other serializers.
+
+Exemplo
+```js
+// moleculer.config.js
+module.exports = {
+    logger: true,
+    serializer: "CBOR"
+};
+```
 
 ### Custom serializer
 Custom serializer module can be created. We recommend to copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.

@@ -1,17 +1,17 @@
-title: Deploying
+title: Deploy
 ---
 
-## Docker deployment
-The example below shows how to use [moleculer-runner](runner.html) and Docker to deploy Moleculer services across multiple containers.
+## Implementação do Docker
+O exemplo abaixo mostra como usar [moleculer-runner](runner.html) e Docker para implantar serviços Moleculer em vários contêineres.
 
 {% note info %}
-Note that moleculer-runner is capable of reading environment variables, which are heavily used in Docker deployments. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
+Note que moleculer-runner é capaz de ler variáveis de ambiente, que são muito usadas nas implantações do Docker. [Mais informações sobre a lógica de carregamento da configuração do runner](runner.html#Configuration-loading-logic).
 {% endnote %}
 
-> The Docker files shown here are from [moleculer-demo](usage.html#Create-a-Moleculer-project) project.
+> Os arquivos Docker exibidos aqui são do projeto [moleculer-demo](usage.html#Create-a-Moleculer-project).
 
 ### Dockerfile
-Dockerfile to run Moleculer services
+Dockerfile para executar os serviços do Moleculer
 
 ```docker
 FROM node:8-alpine
@@ -32,9 +32,9 @@ CMD ["node", "./node_modules/moleculer/bin/moleculer-runner.js"]
 ```
 
 ### Docker Compose
-Docker compose files to run Moleculer services with NATS & Traefik (load balancing the API Gateway)
+Arquivos Docker Compose para executar serviços Moleculer com NATS & Traefik (Balanceamento de carga na API Gateway)
 
-Set the necessary environment variables. **docker-compose.env**
+Defina as variáveis de ambiente necessárias. **docker-compose.env**
 ```bash
 NAMESPACE=
 LOGGER=true
@@ -44,7 +44,7 @@ SERVICEDIR=services           # Inform runner about the location of service file
 TRANSPORTER=nats://nats:4222  # Set transporter in all containers
 ```
 
-Configure the containers. **docker-compose.yml**
+Configurar os contêineres. **docker-compose.yml**
 ```yaml
 version: "3.2"
 
@@ -118,12 +118,12 @@ networks:
 
 ```
 
-**Start containers**
+**Iniciar contêineres**
 ```bash
 $ docker-compose up -d
 ```
 
-Access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
+Acesse seu app em `http://<docker-host>:3000/`. Dashboard do Traefik em `http://<docker-host>:3001/`
 
-## Kubernetes deployment
-Moleculer community members are [working on](https://github.com/moleculerjs/moleculer/issues/512) Kubernetes integration. You can check [dkuida](https://github.com/dkuida)'s [step by step tutorial](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07), [lehno](https://github.com/lehno)'s [code samples](https://github.com/lehno/moleculer-k8s-examples) and [tobydeh](https://github.com/tobydeh)'s [deployment guide](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5).
+## Implantação de Kubernetes
+Membros da comunidade Moleculer estão [trabalhando na](https://github.com/moleculerjs/moleculer/issues/512) integração Kubernetes. Você pode verificar o [passo a passo](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07) do [dkuida](https://github.com/dkuida), os [códigos de exemplo](https://github.com/lehno/moleculer-k8s-examples) do [lehno](https://github.com/lehno) e o [guia de implantação](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5) do [tobydeh](https://github.com/tobydeh).

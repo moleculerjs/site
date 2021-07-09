@@ -269,6 +269,34 @@ mol $ metrics
 
 **Output** ![image](assets/repl/metrics.png#zoomable)
 
+### Cache Keys
+You can list keys of cache entries with
+
+```bash
+mol $ cache keys
+```
+
+**Options**
+```
+-f, --filter <match>  filter keys
+```
+
+
+### Cache Clear
+
+You clear the cache with:
+
+```bash
+mol $ cache clear
+```
+
+that by default removes all the entries. If you want to remove a subset of entries, you must add a `pattern`:
+
+**Clear with pattern**
+```
+mol $ cache clear greeter.*
+```
+
 ### Custom commands
 Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.
 
