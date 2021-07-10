@@ -249,7 +249,7 @@ hexo.extend.helper.register('canonical_path_for_nav', function(){
 // Get name of language from lang-code
 hexo.extend.helper.register('lang_name', function(lang){
 	var data = this.site.data.languages[lang];
-	return data.name || data;
+	return data && data.name ? data.name : data;
 });
 
 // Not used
