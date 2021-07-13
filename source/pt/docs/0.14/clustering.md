@@ -1,19 +1,19 @@
-title: Clustering
+title: Cluster
 ---
-Moleculer framework supports several software architectures.
+O framework Moleculer suporta várias arquiteturas de software.
 
-## Monolith architecture
-In this version, all services are running on the same node like a monolith. There is no network latency and no transporter module. _The local calls are the fastest._
+## Arquitetura Monolítica
+Nesta versão, todos os serviços estão rodando no mesmo nó como um monolítico. Não há latência de rede e não há módulo de transporte. _As chamadas locais são as mais rápidas._
 
 ![Monolith architecture](assets/architectures/monolith.svg)
 
-## Microservices architecture
-This is the well-known microservices architecture when all services are running on individual nodes and communicate via transporter. In this case, the network latency is not negligible. However, your services can be scaled to be resilient and fault-tolerant.
+## Arquitetura de microsserviços
+Esta é a bem conhecida arquitetura dos microsserviços quando todos os serviços funcionam em nós individuais e se comunicam através do módulo de transporte. Neste caso, a latência de rede não é insignificante. No entanto, os seus serviços podem ser escalados de forma resiliente e com tolerância a falhas.
 
 ![Microservices architecture](assets/architectures/microservices.svg)
 
-## Mixed architecture
-In this case, we are running coherent services in a group on the same node. It combines the advantages of monolith and microservices architectures. For example, if the `posts` service calls the `users` service multiple times, put them to the same node, so that the network latency between these services is cut down. If the node is overloaded, just scale it up.
+## Arquitetura mista
+Neste caso, estamos executando serviços relacionados agrupados no mesmo nó. Isto combina as vantagens das arquiteturas monolíticas e de microsserviços. For example, if the `posts` service calls the `users` service multiple times, put them to the same node, so that the network latency between these services is cut down. If the node is overloaded, just scale it up.
 
 ![Mixed architecture](assets/architectures/mixed.svg)
 
