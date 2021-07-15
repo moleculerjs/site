@@ -267,10 +267,10 @@ Ao criar um novo registro em seu serviço, você deve limpar as entradas em cach
 }
 ```
 
-### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+### Limpar cache entre várias instâncias de serviço
+A melhor prática para limpar entradas de cache entre várias instâncias de serviço é usar eventos do tipo broadcast. Note que isso é necessário apenas para cachers não centralizados como `Memória` ou `MemoryLRU`.
 
-**Example**
+**Exemplo**
 ```js
 module.exports = {
     name: "users",
@@ -303,10 +303,10 @@ module.exports = {
 }
 ```
 
-### Clear cache among different services
-Service dependency is a common situation. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+### Limpar cache entre diferentes serviços
+Dependências entre serviços é uma situação comum. Ex.: O serviço de `posts` armazena em cache informações do serviço de `users` (quando houver campos populados).
 
-**Example cache entry in `posts` service**
+**Exemplo de entrada de cache no serviço `posts`**
 ```js
 {
     _id: 1,
@@ -320,9 +320,9 @@ Service dependency is a common situation. E.g. `posts` service stores informatio
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+O campo `author` é recebido do serviço `users`. Então se o serviço `users` limpar as entradas de cache, o serviço `posts` também terá que limpar as próprias entradas de cache. Portanto, você também deve se subscrever ao evento `cache.clear.users` no serviço `posts`.
 
-To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
+Para facilitar, crie um mixin `CacheCleaner` e defina no esquema de serviços dependentes.
 
 **cache.cleaner.mixin.js**
 ```js
