@@ -97,15 +97,15 @@ Esta solução é muito rápida, por isso recomendamos usá-la em produção. ![
 
 > O mínimo de `maxParamsLength` é `44` (Tamanho do hash SHA 256 em Base64).
 > 
-> To disable this feature, set it to `0` or `null`.
+> Para desativar este recurso, defina como `0` ou `null`.
 
-**Generate a full key from the whole params without limit**
+**Gerar uma chave completa a partir de todos os parâmetros sem limite**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
 // Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
 ```
 
-**Generate a limited-length key**
+**Gerar uma chave de comprimento limitado**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -120,16 +120,16 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 // Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
-## Conditional caching
+## Cache condicional
 
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+O cache condicional permite ignorar a resposta em cache e executar uma ação para obter dados "frescos". Para ignorar o cache defina `ctx.meta.$cache` para `false` antes de chamar uma ação.
 
-**Example of turning off the caching for the `greeter.hello` action**
+**Exemplo desativando o cache para a ação `greeter.hello`**
 ```js
 broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 ```
 
-As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+Como alternativa, uma função personalizada pode ser implementada para ignorar o cache. A função personalizada aceita como argumento uma instância do context (`ctx`), portanto, ela tem acesso a quaisquer parâmetros ou meta dados. Isso permite passar o sinalizador bypass dentro da requisição.
 
 **Example of a custom conditional caching function**
 ```js
@@ -155,7 +155,7 @@ broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
 ```
 
 ## TTL
-Default TTL setting can be overriden in action definition.
+A configuração padrão de TTL pode ser substituída na definição de ação.
 
 ```js
 const broker = new ServiceBroker({
@@ -183,8 +183,8 @@ broker.createService({
 });
 ```
 
-## Custom key-generator
-To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
+## Gerador de chaves personalizado
+Para sobrescrever o gerador de chaves de cache interno, defina sua própria função como `keygen` nas opções do cache.
 
 ```js
 const broker = new ServiceBroker({
@@ -204,8 +204,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Manual caching
-The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+## Cache manual
+O módulo de cache pode ser usado manualmente. Basta chamar os métodos `get`, `set`, `del` do `broker.cacher`.
 
 ```js
 // Save to cache
@@ -224,7 +224,7 @@ await broker.cacher.clean("mykey.**");
 await broker.cacher.clean();
 ```
 
-Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+Além disso, a API completa do cliente [ioredis](https://github.com/luin/ioredis) está disponível em `broker.cacher.client` quando estiver usando o cache Redis integrado:
 
 ```js
 // create an ioredis pipeline
@@ -236,10 +236,10 @@ pipeline.set('mykey.b', 'myvalue.b');
 pipeline.exec();
 ```
 
-## Clear cache
-When you create a new model in your service, you have to clear the old cached model entries.
+## Limpar cache
+Ao criar um novo registro em seu serviço, você deve limpar as entradas em cache antigas.
 
-**Example to clean the cache inside actions**
+**Exemplo de como limpar o cache dentro das ações**
 ```js
 {
     name: "users",
