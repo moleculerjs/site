@@ -66,7 +66,7 @@ posts.find:limit|5|offset|20
 
 O objeto params pode conter propriedades que não são relevantes para a chave de cache. Além disso, pode causar problemas de desempenho, se a chave for muito longa. Portanto, é recomendado definir um objeto para a propriedade `cache` que contém uma lista de nomes de parâmetros essenciais sob a propriedade `keys`. Para usar campos do meta no cache via propriedade `keys` use o prefixo `#`.
 
-**Strict the list of `params` & `meta` properties for key generation**
+**Restringe a lista de `params` & propriedades `meta` para a geração de chaves**
 ```js
 {
     name: "posts",
@@ -102,7 +102,7 @@ Esta solução é muito rápida, por isso recomendamos usá-la em produção. ![
 **Gerar uma chave completa a partir de todos os parâmetros sem limite**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
-// Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
+// Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. Portanto, esta chave será também muito longa'
 ```
 
 **Gerar uma chave de comprimento limitado**
@@ -131,7 +131,7 @@ broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 
 Como alternativa, uma função personalizada pode ser implementada para ignorar o cache. A função personalizada aceita como argumento uma instância do context (`ctx`), portanto, ela tem acesso a quaisquer parâmetros ou meta dados. Isso permite passar o sinalizador bypass dentro da requisição.
 
-**Example of a custom conditional caching function**
+**Exemplo de uma função de cache condicional personalizada**
 ```js
 // greeter.service.js
 module.exports = {
@@ -645,14 +645,14 @@ const broker = new ServiceBroker({
 | `lock`            | `Boolean|Object` | `null`       | Ativar recurso de bloqueio.                                                                                                                                                    |
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
+Para poder usar esse cacher, instale o módulo `ioredis` com o comando `npm install ioredis --save`.
 {% endnote %}
 
 
-## Custom cacher
-Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+## Cache personalizado
+Um módulo de cache personalizado pode ser criado. Recomendamos copiar o código fonte do [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) e implementar os métodos `get`, `set`, `del` e `clean`.
 
-### Create custom cacher
+### Criar cache personalizado
 ```js
 const BaseCacher = require("moleculer").Cachers.Base;
 
@@ -664,7 +664,7 @@ class MyCacher extends BaseCacher {
 }
 ```
 
-### Use custom cacher
+### Usar cache personalizado
 
 ```js
 const { ServiceBroker } = require("moleculer");
