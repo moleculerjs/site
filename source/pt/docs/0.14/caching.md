@@ -1,9 +1,9 @@
 title: Cache
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer tem uma solução integrada para armazenar em cache as respostas das ações dos serviços. Para ativá-lo, defina um tipo de `cache` em [opções do broker](configuration.html#Broker-options) e defina `cache: true` nas [configurações de ações](services.html#Actions) daquilo que quiser manter em cache.
 
-**Cached action example**
+**Exemplo de ação em cache**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -41,30 +41,30 @@ broker.start()
     });
 ```
 
-**Console messages:**
+**Mensagens do console:**
 ```
 [2017-08-18T13:04:33.845Z] INFO  dev-pc/BROKER: Broker started.
 [2017-08-18T13:04:33.848Z] INFO  dev-pc/USERS: Handler called!
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
-As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+Como pode ver, a mensagem `Handler called` aparece apenas uma vez porque a resposta da segunda requisição é retornada do cache.
 
-> [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
+> [Experimente no Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Cache keys
-The cacher generates key from service name, action name and the params of context. The syntax of key is:
+## Chaves de cache
+O cache gera a chave a partir do nome do serviço, nome da ação e os parâmetros do context. A sintaxe da chave é:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+Então, se você chamar a ação `posts.list` com parâmetros `{ limit: 5, offset: 20 }`, o cache calcula um hash dos parâmetros. Então, da próxima vez, quando você chamar esta ação com os mesmos parâmetros, ele encontrará a entrada no cache pela chave.
 
-**Example hashed cache key for "posts.find" action**
+**Exemplo de chave de cache para a ação "post.find"**
 ```
 posts.find:limit|5|offset|20
 ```
 
-The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+O objeto params pode conter propriedades que não são relevantes para a chave de cache. Além disso, pode causar problemas de desempenho, se a chave for muito longa. Portanto, é recomendado definir um objeto para a propriedade `cache` que contém uma lista de nomes de parâmetros essenciais sob a propriedade `keys`. Para usar campos do meta no cache via propriedade `keys` use o prefixo `#`.
 
 **Strict the list of `params` & `meta` properties for key generation**
 ```js
@@ -89,13 +89,13 @@ The params object can contain properties that are not relevant for the cache key
 ```
 
 {% note info Performance tip %}
-This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+Esta solução é muito rápida, por isso recomendamos usá-la em produção. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
-### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+### Limitando tamanho da chave cache
+Às vezes, a chave pode ser muito longa, o que pode causar problemas de desempenho. Para evitar isso, limite o tamanho dos parâmetros concatenados na chave com a opção de cache `maxParamsLength`. Quando a chave é maior do que o valor limite configurado, o cache calcula um hash (SHA256) da chave completa e a adiciona ao fim da chave.
 
-> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> O mínimo de `maxParamsLength` é `44` (Tamanho do hash SHA 256 em Base64).
 > 
 > To disable this feature, set it to `0` or `null`.
 
