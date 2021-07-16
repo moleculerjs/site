@@ -1,12 +1,12 @@
 title: Validação de parâmetros
 ---
 
-Validation middleware is used for [Actions](actions.html) and [Events](events.html) parameter validation.
+Um middleware de validação é usado para validações de parâmetros de [Ações](actions.html) e [Eventos](events.html).
 
 ## Fastest Validator
-By default, Moleculer uses the [fastest-validator](https://github.com/icebob/fastest-validator) library.
+Por padrão, Moleculer usa a biblioteca [fastest-validator](https://github.com/icebob/fastest-validator).
 
-**Default usage**
+**Uso padrão**
 ```js
 //moleculer.config.js
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**Exemplo com opções**
 ```js
 //moleculer.config.js
 module.exports = {
@@ -41,10 +41,10 @@ module.exports = {
 }
 ```
 
-### Actions Validation
-In order to perform parameter validation you need to define `params` property in action definition and create validation schema for the incoming `ctx.params`.
+### Validação de ações
+Para realizar a validação de parâmetros você precisa definir a propriedade `params` na definição da ação e criar um esquema de validação para a `ctx.params` recebida.
 
-**Example**
+**Exemplo**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -80,9 +80,9 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 // -> "Hello Walter"
 
 ```
-[Play it on Runkit](https://runkit.com/icebob/moleculer-validation-example)
+[Experimente no Runkit](https://runkit.com/icebob/moleculer-validation-example)
 
-**Example validation schema**
+**Exemplo de esquema de validação**
 ```js
 {
     id: { type: "number", positive: true, integer: true },
@@ -92,11 +92,11 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 ```
 
 {% note info Documentation %}
-Find more information about validation schema in the [documentation of the library](https://github.com/icebob/fastest-validator#readme)
+Encontre mais informações sobre o esquema de validação na [documentação da biblioteca](https://github.com/icebob/fastest-validator#readme)
 {% endnote %}
 
-#### Async custom validator
-FastestValidator (`>= v1.11.0`) supports async custom validators and you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). In Moleculer, the FastestValidator passes the `ctx` as metadata. It means you can access the current context, service, broker. This allows you to make async calls (e.g calling another service) in custom checker functions.
+#### Validador personalizado assíncrono
+FastestValidator (`>= v1.11.0`) suporta validadores customizados assíncronos e você pode [passar metadata para uma função de validação customizada](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). No Moleculer, o FastestValidator passa o `ctx` como metadados. Isso significa que você pode acessar o context atual, serviço, broker. Isso permite que você faça chamadas assíncronas (por exemplo, chamar outro serviço) em funções de validações personalizadas.
 
 Exemplo
 
@@ -121,9 +121,9 @@ module.exports = {
 }
 ```
 
-### Events Validation
-Event parameter validation is also supported. To enable it, define `params` in event definition.
-> Please note that the validation errors are not sent back to the caller, as happens with action errors. Event validation errors are logged but you can also catch them with the [global error handler](broker.html#Global-error-handler).
+### Validação de Eventos
+A validação dos parâmetros de evento também é suportada. Para habilitá-la, defina `params` na definição do evento.
+> Por favor, note que os erros de validação não são enviados de volta para o requisitante, como acontece com os erros de ação. Erros de validação de evento são registrados, mas você também pode recuperá-los com o [manipulador de erro global](broker.html#Global-error-handler).
 
 ```js
 // mailer.service.js
@@ -146,10 +146,10 @@ module.exports = {
 };
 ```
 
-## Custom validator
-You can also implement custom validators. We recommend to copy the source of [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) and implement the `compile` and `validate` methods.
+## Validador personalizado
+Você também pode implementar validadores personalizados. Recomendamos copiar o código fonte de [Fastest Validator](https://github.com/moleculerjs/moleculer/blob/master/src/validators/fastest.js) e implementar os métodos `compile` e `validate`.
 
-**Creating custom validator**
+**Criar validador personalizado**
 ```js
 //moleculer.config.js
 const BaseValidator = require("moleculer").Validators.Base;
@@ -162,7 +162,7 @@ module.exports = {
 }
 ```
 
-**Build Joi validator**
+**Criar validador Joi**
 ```js
 const { ServiceBroker } = require("moleculer");
 const BaseValidator = require("moleculer").Validators.Base;
@@ -225,5 +225,5 @@ broker.start()
 ```
 
 {% note info Find more validators %}
-[Check the modules page and find more validators.](/modules.html#validation)
+[Verifique a página de módulos e encontre mais validadores.](/modules.html#validation)
 {% endnote %}
