@@ -17,27 +17,27 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`maxCallLevel`**: `Number` - Limite de níveis de chamadas. Se atingir o limite, o broker retornará um erro ` MaxCallLevelError`. _(Proteção de Loop infinito)_ _Default: `0`_
 * **`heartbeatInterval`**: `Number` - Número de segundos para enviar um pacote de sinal de vida para outros nós. _Default: `5`_
 * **`heartbeatTimeout`**: `Number` - Número de segundos para esperar antes de configurar nós remotos para o status indisponível no Registro. _Default: `15`_
-* **`tracking`**: `Object` - Rastrear requisições e aguardar pelas requisições em andamento antes de desligar. _(Graceful shutdown)_ [Read more](context.html#Context-tracking).
-* **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
-* **`registry`**: `Object` - Settings of [Service Registry](registry.html).
-* **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
-* **`bulkhead`**: `Object` - Settings of [bulkhead](fault-tolerance.html#Bulkhead).
-* **`transit.maxQueueSize`**: `Number` - A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
-* **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_
-* **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _Default: `false`_
-* **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _Default: `false`_
-* **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_
-* **`uidGenerator`**: `Function` - Custom UID generator function for Context ID.
-* **`errorHandler`**: `Function` - [Global error handler](broker.html#Global-error-handler) function.
-* **`cacher`**: `String | Object | Cacher` - Cacher settings. [Read more](caching.html). _Default: `null`_
-* **`serializer`**: `String | Serializer` - Instance of serializer. [Read more](networking.html). _Default: `JSONSerializer`_
-* **`validator`**: `Boolean | Validator` - Enable the default or create custom [parameters validation](validating.html). _Default: `true`_
-* **`metrics`**: `Boolean | Object` - Enable & configure [metrics](metrics.html) feature. _Default: `false`_
-* **`tracing`**: `Boolean | Object` - Enable & configure [tracing](tracing.html) feature. _Default: `false`_
-* **`internalServices`**: `Boolean | Object` - Register [internal services](services.html#Internal-Services) at start. _Default: `true`_
-* **`internalServices.$node`** - `Object` - Extend internal services with [custom actions](services.html#Extending). _Default: `null`_
-* **`internalMiddlewares`**: `Boolean` - Register [internal middlewares](middlewares.html#Internal-middlewares). _Default: `true`_
-* **`hotReload`**: `Boolean` - Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-Reloading-Services). _Default: `false`_
+* **`tracking`**: `Object` - Rastrear requisições e aguardar pelas requisições em andamento antes de desligar. _(Desligamento elegante)_ [Leia mais](context.html#Context-tracking).
+* **`disableBalancer`**: Boolean - Desabilitar o balanceamento de carga integrado em requisições & emissões de evento. _O módulo de transporte também precisa atender._ [Leia mais](networking.html#Disabled-balancer). _Default: `false`_
+* **`registry`**: `Object` - Configurações do [Service Registry](registry.html).
+* **`circuitBreaker`**: `Object` - Configurações do [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
+* **`bulkhead`**: `Object` - Configurações do [bulkhead](fault-tolerance.html#Bulkhead).
+* **`transit.maxQueueSize`**: `Number` - Uma proteção contra uso exagerado de memória quando existem muitas solicitações de saída. Se houver mais requisições em tempo real do que o _indicado_, as novas solicitações serão rejeitadas com o erro `QueueIsFullError`. _Default: `50000`_
+* **`transit.maxChunkSize`** `Number` - Tamanho máximo durante streaming.  _Default: `256KB`_
+* **`transit.disableReconnect`**: `Boolean` - Desabilita a lógica de reconexão ao iniciar o broker. _Default: `false`_
+* **`transit.disableVersionCheck`**: `Boolean` - Desabilita a validação de versão do protocolo em Transit. _Default: `false`_
+* **`transit.packetLogFilter`**: `Array` - Filtra os pacotes nas mensagens de log do debug. Pode ser útil filtrar os pacotes `HEARTBEAT` durante o debug. _Default: `[]`_
+* **`uidGenerator`**: `Function` - Função de gerador de UID customizada para ID Context.
+* **`errorHandler`**: `Function` - Função [Manipulador de erros global](broker.html#Global-error-handler).
+* **`cacher`**: `String | Object | Cacher` - Configurações de cache. [Leia mais](caching.html). _Default: `null`_
+* **`serializer`**: `String | Serializer` - Instância do serializador. [Leia mais](networking.html). _Default: `JSONSerializer`_
+* **`validator`**: `Boolean | Validator` - Habilita o padrão ou cria [validação de parâmetros](validating.html) personalizada. _Default: `true`_
+* **`metrics`**: `Boolean | Object` - Habilita & configura o recurso de [métricas](metrics.html). _Default: `false`_
+* **`tracing`**: `Boolean | Object` - Habilita & configura o recurso de [tracing](tracing.html). _Default: `false`_
+* **`internalServices`**: `Boolean | Object` - Registra [serviços internos](services.html#Internal-Services) ao inicializar. _Default: `true`_
+* **`internalServices.$node`** - `Object` - Amplia serviços internos com [ações customizadas](services.html#Extending). _Default: `null`_
+* **`internalMiddlewares`**: `Boolean` - Registra [middlewares internos](middlewares.html#Internal-middlewares). _Default: `true`_
+* **`hotReload`**: `Boolean` - Observar os serviços carregados e recarregar se forem alterados. [Leia mais](services.html#Hot-Reloading-Services). _Default: `false`_
 * **`middlewares`**: `Array<Object>` - Register custom middlewares. _Default: `null`_
 * **`replCommands`**: `Array<Object>` - Register custom REPL commands. _Default: `null`_
 * **`metadata`**: `Object` - Store custom values. _Default: `null`_
