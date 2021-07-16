@@ -5,17 +5,17 @@ title: Ciclo de vida
 Esta seção descreve o que acontece quando o broker está iniciando & parando.
 
 ### Lógica de inicialização
-Ao iniciar, o broker tenta estabelecer uma conexão com o módulo de transporte. Quando terminado, ele não publica a lista de serviços local para nós remotos porque ainda não pode aceitar requisições. It starts all services (calls every [service `started` handler](lifecycle.html#started-event-handler)). Once all services started successfully, broker publishes the local service list to remote nodes. Hence, remote nodes only send requests after all local services are properly initialized and started.
+Ao iniciar, o broker tenta estabelecer uma conexão com o módulo de transporte. Quando terminado, ele não publica a lista de serviços local para nós remotos porque ainda não pode aceitar requisições. Ele inicia os serviços (chama cada [ manipulador de serviço `iniciado`](lifecycle.html#started-event-handler)). Depois que todos os serviços iniciaram com sucesso, o broker publica a lista de serviço local para nós remotos. Portanto, nós remotos só enviam requisições depois que todos os serviços locais forem inicializados corretamente.
 
 <div align="center">
     <img src="assets/lifecycle/broker-start.svg" alt="Broker starting lifecycle diagram" />
 </div>
 
 {% note warn Avoid deadlocks %}
-Deadlocks can occur when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method in `started` handler instead.
+Os deadlocks podem ocorrer quando dois serviços esperam um pelo outro. Ex: O serviço `users` tem `dependencies: ["posts"]` e o serviço `posts` tem `dependencies: ["users"]`. Para evitar isso, remova o serviço em questão de `dependencies` e ao invés disso use o método `this.waitForServices` no método `started`.
 {% endnote %}
 
-### Stopping logic
+### Lógica de parada
 When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services that are stopping. Next, the broker starts [stopping](#stopped-event-handler) all local services. After that, the transporter disconnects and process exits.
 
 <div align="center">
