@@ -16,13 +16,13 @@ Os deadlocks podem ocorrer quando dois serviços esperam um pelo outro. Ex: O se
 {% endnote %}
 
 ### Lógica de parada
-When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services that are stopping. Next, the broker starts [stopping](#stopped-event-handler) all local services. After that, the transporter disconnects and process exits.
+Quando você chamar o `broker.stop` ou parar o processo, inicialmente o broker publica uma lista de serviços vazia para os nós remotos, portanto, irão encaminhar as requisições para outras instâncias em vez de serviços que estão sendo desligados. Em seguida, o broker inicia a [parada](#stopped-event-handler) de todos os serviços locais. Depois disso, o módulo de transporte desconecta e processa o encerramento.
 
 <div align="center">
     <img src="assets/lifecycle/broker-stop.svg" alt="Broker stopping lifecycle diagram" />
 </div>
 
-## Service lifecycle
+## Ciclo de vida do serviço
 This section describes what happens when a service is starting & stopping and how you should use the lifecycle event handler.
 
 ### `created` event handler
