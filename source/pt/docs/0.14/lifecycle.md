@@ -1,11 +1,11 @@
-title: Lifecycle
+title: Ciclo de vida
 ---
 
-## Broker lifecycle
-This section describes what happens when the broker is starting & stopping.
+## Ciclo de vida do Broker
+Esta seção descreve o que acontece quando o broker está iniciando & parando.
 
-### Starting logic
-When starting, the broker tries to establish a connection with the transporter. When it's done, it doesn't publish the local service list to remote nodes because it can't accept request yet. It starts all services (calls every [service `started` handler](lifecycle.html#started-event-handler)). Once all services started successfully, broker publishes the local service list to remote nodes. Hence, remote nodes only send requests after all local services are properly initialized and started.
+### Lógica de inicialização
+Ao iniciar, o broker tenta estabelecer uma conexão com o módulo de transporte. Quando terminado, ele não publica a lista de serviços local para nós remotos porque ainda não pode aceitar requisições. It starts all services (calls every [service `started` handler](lifecycle.html#started-event-handler)). Once all services started successfully, broker publishes the local service list to remote nodes. Hence, remote nodes only send requests after all local services are properly initialized and started.
 
 <div align="center">
     <img src="assets/lifecycle/broker-start.svg" alt="Broker starting lifecycle diagram" />
