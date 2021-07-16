@@ -1,23 +1,23 @@
-title: Configuration
+title: Configuração
 ---
-## Broker options
-These options can be used in `ServiceBroker` constructor or in `moleculer.config.js` file.
+## Opções do broker
+Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `moleculer.config.js`.
 
-**List of all available broker options:**
+**Lista de todas as opções do broker disponíveis:**
 
-* **`namespace`**: `String` - Namespace of nodes to segment your nodes on the same network (e.g.: "development", "staging", "production"). _Default: `""`_
-* **`nodeID`**: `String` - Unique node identifier. Must be unique in a namespace. If not the broker will throw a fatal error and stop the process. _Default: hostname + PID_
-* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - Logger class. By default, it prints message to the `console`. [Read more](logging.html). _Default: `"Console"`
-* **`logLevel`**: `String | Object` - Log level for loggers (trace, debug, info, warn, error, fatal). [Read more](logging.html). _Default: `info`_
-* **`transporter`**: `String | Object | Transporter` - Transporter configuration. [Read more](networking.html).  _Default: `null`_
-* **`requestTimeout`**: `Number` - Number of milliseconds to wait before reject a request with a `RequestTimeout` error. Disabled: `0` _Default: `0`_
-* **`retryPolicy`**: `Object` - Retry policy configuration. [Read more](fault-tolerance.html#Retry).
-* **`contextParamsCloning`**: `Boolean` - Cloning the `params` of context if enabled. _High performance impact. Use it with caution!_ _Default: `false`_
-* **`dependencyInterval`**: Configurable interval (defined in `ms`) that's used by the services while waiting for dependency services. _Default: `1000`_
-* **`maxCallLevel`**: `Number` - Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ _Default: `0`_
-* **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `5`_
-* **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
-* **`tracking`**: `Object` - Tracking requests and waiting for running requests before shutdowning. _(Graceful shutdown)_ [Read more](context.html#Context-tracking).
+* **`namespace`**: `String` - Namespace de nós para segmentar seus nós na mesma rede (por exemplo: "development", "staging", "production"). _Default: `""`_
+* **`nodeID`**: `String` - Identificador de nó único. Deve ser único em um namespace. Se não o broker irá retornar um erro fatal e abortar o processo. _Default: hostname + PID_
+* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - Classe de Logger. Por padrão, ele imprime mensagem no `console`. [Leia mais](logging.html). _Default: `<code>"Console"`</li>
+* **`logLevel`**: `String | Object` - Nível de log (trace, debug, info, warn, error, fatal). [Leia mais](logging.html). _Default: `info`_
+* **`transporter`**: `String | Object | Transporter` - Configuração do módulo de transporte. [Leia mais](networking.html).  _Default: `null`_
+* **`requestTimeout`**: `Number` - Número de milissegundos para esperar antes de rejeitar uma solicitação com um erro de `RequestTimeout`. Desabilitado: `0` _Default: `0`_
+* **`retryPolicy`**: `Object` - Configuração de política de repetição. [Leia mais](fault-tolerance.html#Retry).
+* **`contextParamsCloning`**: `Boolean` - Clonando os `parâmetros` do context, se habilitado. _Alto impacto no desempenho. Use-o com cuidado!_ _Default: `false`_
+* **`dependencyInterval`**: Intervalo configurável (definido em `ms`) é usado pelos serviços enquanto aguarda dependências de serviços. _Default: `1000`_
+* **`maxCallLevel`**: `Number` - Limite de níveis de chamadas. Se atingir o limite, o broker retornará um erro ` MaxCallLevelError`. _(Proteção de Loop infinito)_ _Default: `0`_
+* **`heartbeatInterval`**: `Number` - Número de segundos para enviar um pacote de sinal de vida para outros nós. _Default: `5`_
+* **`heartbeatTimeout`**: `Number` - Número de segundos para esperar antes de configurar nós remotos para o status indisponível no Registro. _Default: `15`_
+* **`tracking`**: `Object` - Rastrear requisições e aguardar pelas requisições em andamento antes de desligar. _(Graceful shutdown)_ [Read more](context.html#Context-tracking).
 * **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
 * **`registry`**: `Object` - Settings of [Service Registry](registry.html).
 * **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
@@ -46,9 +46,9 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`started`**: `Function` - Fired when the broker started _(all local services loaded & transporter is connected)_. _Default: `null`_
 * **`stopped`**: `Function` - Fired when the broker stopped _(all local services stopped & transporter is disconnected)_. _Default: `null`_
 * **`ServiceFactory`**: `ServiceClass` - Custom `Service` class. If not `null`, broker will use it when creating services by service schema. _Default: `null`_
-* **`ContextFactory`**: `ContextClass` - Custom `Context` class. If not `null`, broker will use it when creating contexts for requests & events. _Default: `null`_
+* **`ContextFactory`**: `ContextClass` - Custom `Context` class. If not `null`, broker will use it when creating contexts for requests & events. _Default: `null`_</ul>
 
-### Full options object
+### Opções completas
 ```js
 {
     namespace: "dev",
