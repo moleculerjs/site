@@ -15,7 +15,7 @@ module.exports = {
 }
 ```
 
-**Setting validator by name**
+**Configurando o validador pelo nome**
 ```js
 //moleculer.config.js
 module.exports = {
