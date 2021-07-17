@@ -38,14 +38,14 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`internalServices.$node`** - `Object` - Amplia serviços internos com [ações customizadas](services.html#Extending). _Default: `null`_
 * **`internalMiddlewares`**: `Boolean` - Registra [middlewares internos](middlewares.html#Internal-middlewares). _Default: `true`_
 * **`hotReload`**: `Boolean` - Observar os serviços carregados e recarregar se forem alterados. [Leia mais](services.html#Hot-Reloading-Services). _Default: `false`_
-* **`middlewares`**: `Array<Object>` - Register custom middlewares. _Default: `null`_
-* **`replCommands`**: `Array<Object>` - Register custom REPL commands. _Default: `null`_
-* **`metadata`**: `Object` - Store custom values. _Default: `null`_
-* **`skipProcessEventRegistration`**: Boolean - Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case, you have to register them manually. _Default: `false`_
-* **`created`**: `Function` - Fired when the broker created. _Default: `null`_
-* **`started`**: `Function` - Fired when the broker started _(all local services loaded & transporter is connected)_. _Default: `null`_
-* **`stopped`**: `Function` - Fired when the broker stopped _(all local services stopped & transporter is disconnected)_. _Default: `null`_
-* **`ServiceFactory`**: `ServiceClass` - Custom `Service` class. If not `null`, broker will use it when creating services by service schema. _Default: `null`_
+* **`middlewares`**: `Array<Object>` - Registre middlewares personalizados. _Default: `null`_
+* **`replCommands`**: `Array<Object>` - Registre comandos REPL personalizados. _Default: `null`_
+* **`metadata`**: `Object` - Armazene valores personalizados. _Default: `null`_
+* **`skipProcessEventRegistration`**: Boolean - Ignore o manipulador [padrão](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) de eventos de desligamento elegante. Neste caso, você tem que registrá-los manualmente. _Default: `false`_
+* **`created`**: `Function` - Acionado quando o broker for criado. _Default: `null`_
+* **`started`**: `Function` - Acionado quando o broker for inicializado _(todos os serviços locais carregados & módulo de transporte conectado)_. _Default: `null`_
+* **`stopped`**: `Function` - Acionado quando o broker for parado _(todos os serviços locais parados & módulo de transporte está desconectado)_. _Default: `null`_
+* **`ServiceFactory`**: `ServiceClass` - Classe `Service` personalizada. Se não for `null`, o broker usará ao criar serviços via esquema de serviço. _Default: `null`_
 * **`ContextFactory`**: `ContextClass` - Custom `Context` class. If not `null`, broker will use it when creating contexts for requests & events. _Default: `null`_</ul>
 
 ### Opções completas
