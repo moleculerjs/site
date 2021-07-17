@@ -46,7 +46,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`started`**: `Function` - Acionado quando o broker for inicializado _(todos os serviços locais carregados & módulo de transporte conectado)_. _Default: `null`_
 * **`stopped`**: `Function` - Acionado quando o broker for parado _(todos os serviços locais parados & módulo de transporte está desconectado)_. _Default: `null`_
 * **`ServiceFactory`**: `ServiceClass` - Classe `Service` personalizada. Se não for `null`, o broker usará ao criar serviços via esquema de serviço. _Default: `null`_
-* **`ContextFactory`**: `ContextClass` - Custom `Context` class. If not `null`, broker will use it when creating contexts for requests & events. _Default: `null`_</ul>
+* **`ContextFactory`**: `ContextClass` - Classe `Context` personalizada. Se não for `null`, o broker usará ao criar contextos para requisições & eventos. _Default: `null`_</ul>
 
 ### Opções completas
 ```js
