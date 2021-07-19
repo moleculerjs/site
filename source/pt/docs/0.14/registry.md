@@ -51,7 +51,7 @@ module.exports = {
 ```
 
 ### Redis
-![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg) A descoberta baseada em Redis usa uma conexão dedicada com o [servidor Redis](https://redis.io/) para compartilhar descobertas e pacotes de sinal de vida. Esta abordagem reduz a carga sobre o módulo de transporte; e é usada exclusivamente para compartilhamento de requisições, respostas, pacotes de eventos.
+![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg) A descoberta baseada em Redis usa uma conexão dedicada com o [servidor Redis](https://redis.io/) para compartilhar descobertas e pacotes de sinal de vida. Esta abordagem reduz a carga sobre o módulo de transporte; e é usada exclusivamente para compartilhamento de requisições, respostas, pacotes de eventos.
 
 Quando o método de descoberta baseado em Redis está habilitado, os nós do Moleculer publicam e buscam periodicamente a informação no Redis e atualizam seu registro de serviços interno. Mecanismo de expiração de chaves do Redis remove nós que não publicam pacotes de sinal de vida por um determinado período de tempo. Isto permite que nós do Moleculer detectem que um nó específico foi desconectado.
 
@@ -139,7 +139,7 @@ Dica: Para reduzir ainda mais o tráfego de rede, use os serializadores [ MsgPac
 {% endnote %}
 
 ### etcd3
-![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
+![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg)
 
 O método de descoberta baseado em Etcd3 é muito semelhante ao [descoberta baseada em Redis](#Redis). Ele armazena sinais de vida e pacotes de descoberta no [servidor etcd3](https://etcd.io/). A opção [lease](https://etcd.io/docs/v3.4.0/learning/api/#lease-api) do etcd3 removerá as informações de sinal de vida dos nós que caírem ou forem desconectados da rede.
 
