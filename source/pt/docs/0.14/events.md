@@ -103,7 +103,7 @@ module.exports = {
 ```
 
 
-Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
+Inscreva-se aos eventos na propriedade ['eventos' dos serviços](services.html#events). O uso de caracteres curinga (`?`, `*`, `**`) está disponível nos nomes dos eventos.
 
 ```js
 module.exports = {
@@ -126,8 +126,8 @@ module.exports = {
 }
 ```
 
-## Event parameter validation
-Similar to action parameter validation, the event parameter validation is supported. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+## Validação de parâmetros do evento
+Semelhante à validação do parâmetro de ação, a validação do parâmetro de evento é suportada. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
 
 ```js
 // mailer.service.js
