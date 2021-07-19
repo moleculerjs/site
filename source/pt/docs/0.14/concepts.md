@@ -3,39 +3,39 @@ title: Conceitos Principais
 
 Este guia abrange os conceitos principais de qualquer aplicação Moleculer.
 
-## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+## Serviço
+Um [serviço](services.html) é simplesmente um módulo JavaScript que contém algumas partes de uma aplicação complexa. Ele é isolado e independente, o que significa que, mesmo que caia ou quebre os demais serviços não serão afetados.
 
-## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+## Nó
+Um nó é simplesmente um processo do SO rodando em uma rede local ou externa. Uma única instância de um nó pode hospedar um ou muitos serviços.
 
-### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+### Serviços locais
+Dois (ou mais) serviços rodando em um único nó são considerados serviços locais. Eles compartilham recursos de hardware e usam o barramento local para se comunicar entre si, sem latência da rede ([módulo de transporte](#Transporter) não é usado).
 
-### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+### Serviços Remotos
+Serviços distribuídos através de vários nós são considerados remotos. Neste caso, a comunicação é feita via [módulo de transporte](#Transporter).
 
 ## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+[Service Broker](broker.html) é o coração do Moleculer. É responsável pelo gerenciamento e pela comunicação entre os serviços (locais e remotos). Cada nó deve ter uma instância do Service Broker.
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## Módulo de transporte
+[O módulo de transporte](networking.html) é um protocolo de comunicação que os serviços usam para trocar mensagens. Emite eventos, requisições e respostas.
 
 ## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+A [API Gateway](moleculer-web.html) expõe o serviços Moleculer para o usuário final. O gateway é um serviço regular do Moleculer executando um servidor (HTTP, WebSockets, etc). Ele lida com as requisições recebidas, as direciona para chamadas de serviço e depois retorna as respostas adequadas.
 
-## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+## Visão geral
+Não há nada melhor do que um exemplo para ver como todos esses conceitos se encaixam. Então vamos considerar uma hipotética loja on-line que só lista seus produtos. Na verdade, não vende nada online.
 
-### Architecture
+### Arquitetura
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+Do ponto de vista da arquitetura a loja on-line pode ser vista como uma composição de 2 serviços independentes: o serviço de `products` e o serviço de `gateway`. O primeiro é responsável pelo armazenamento e gerenciamento dos produtos, enquanto o segundo simplesmente recebe requisições do usuário e os direciona para o serviço de `products`.
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+Agora vamos dar uma olhada como essa loja hipotética pode ser criada com Moleculer.
 
-To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
+Para garantir que o nosso sistema seja resistente a falhas, executaremos os serviços `products` e `gateway` em [nós](#Node) dedicados (`node-1` e `node-2`). Relembrando, serviços rodando em nós dedicados significa que o [módulo de transporte](#Transporter) é necessário para a comunicação entre serviços. A maioria dos módulos de transporte suportados pelo Moleculer dependem de um broker de mensagens para comunicação entre serviços, então vamos precisar de um conectado e executando. Em geral, a arquitetura interna de nossa loja é representada na figura abaixo.
 
-Now, assuming that our services are up and running, the online store can serve user's requests. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
+Agora, assumindo que nossos serviços estão prontos e funcionando, a loja on-line pode atender a requisições do usuário. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
 
 **Flow of user's request**
 <div align="center">
