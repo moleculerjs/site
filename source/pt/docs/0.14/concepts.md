@@ -1,7 +1,7 @@
-title: Core Concepts
+title: Conceitos Principais
 ---
 
-This guide covers the core concepts of any Moleculer application.
+Este guia abrange os conceitos principais de qualquer aplicação Moleculer.
 
 ## Service
 A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
