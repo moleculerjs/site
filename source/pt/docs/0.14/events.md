@@ -73,19 +73,19 @@ Emita eventos de transmissão apenas para todos os serviços locais com o métod
 broker.broadcastLocal("config.changed", config);
 ```
 
-# Subscribe to events
+# Inscrever-se para eventos
 
-The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
+A versão `v0.14` suporta manipuladores de eventos baseados em Contextos. O context do evento é útil se você estiver usando uma arquitetura orientada a eventos e deseja rastrear seus eventos. Se você estiver familiarizado com [Context de Ação](context.html) você vai se sentir em casa. O Context de Evento é muito semelhante ao Context de Ação, exceto para algumas novas propriedades relacionadas a eventos. [Verifique a lista completa de propriedades](context.html)
 
 {% note info Legacy event handlers %}
 
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers:
-- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context.
-- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
+Você não precisa reescrever todos os manipuladores de eventos existentes já que Moleculer ainda suporta assinatura legada `"user.created"(payload) { ... }`. Ele é capaz de detectar diferentes assinaturas de manipuladores de eventos:
+- Se a assinatura encontrada for `"user.created"(ctx) { ... }`, ele vai chamar com Context de eventos.
+- Se não, ele será chamado com argumentos antigos & o quarto argumento será o Context de Evento, como `"user.created"(payload, sender, eventName, ctx) {...}`
 
 {% endnote %}
 
-**Context-based event handler & emit a nested event**
+**Manipulador de eventos com base em context & emissão de evento aninhado**
 ```js
 module.exports = {
     name: "accounts",
