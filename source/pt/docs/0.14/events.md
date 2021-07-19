@@ -1,8 +1,8 @@
-title: Events
+title: Eventos
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services.
+O broker possui um barramento de eventos integrado para atender a uma [Arquitetura baseada em eventos](http://microservices.io/patterns/data/event-driven-architecture.html) e enviar eventos para serviços locais e remotos.
 
-# Balanced events
+# Eventos balanceados
 The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
 
 > **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
