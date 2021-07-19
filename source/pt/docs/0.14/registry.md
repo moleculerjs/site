@@ -1,18 +1,18 @@
-title: Registry & Discovery
+title: Registro & Descoberta
 ---
 
-## Dynamic service discovery
-Moleculer framework has a built-in module responsible for node discovery and periodic heartbeat verification. The discovery is dynamic meaning that a node don't need to know anything about other nodes during start time. When it starts, it will announce it's presence to all the other nodes so that each one can build its own local service registry. In case of a node crash (or stop) other nodes will detect it and remove the affected services from their registry. This way the following requests will be routed to live nodes.
+## Descoberta de serviço dinâmico
+O framework Moleculer possui um módulo integrado responsável pela descoberta e verificação periódica de sinal de vida de cada nó. A descoberta é dinâmica significando que um nó não precisa saber nada sobre outros nós durante a inicialização. Quando ele inicia, ele vai anunciar sua presença a todos os outros nós para que cada um possa construir seu próprio registro de serviço local. Em caso de falha de um nó (ou parada) outros nós irão detectá-lo e remover os serviços afetados do seu registro. Desta forma, as próximas requisições serão encaminhados para nós ativos.
 
 ### Local
-Local discovery (default option) uses the [transporter](networking.html#Transporters) module to exchange node info and heartbeat packets (for more info about packet structure check [Moleculer protocol](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md)). It's the simplest and the fastest among the available discovery mechanisms as it doesn't require any external solutions. However, this discovery method also has some drawbacks, especially for large scale deployments with `>100` nodes. The heartbeat packets can generate large amount traffic that can saturate the communication bus and, therefore, deteriorate the performance of actions and events, i.e., slow down the delivery of request/response and event packets.
+A Descoberta local (opção padrão) usa o [módulo de transporte](networking.html#Transporters) para trocar informações do nó e pacotes de sinal de vida (para mais informações sobre a estrutura dos pacotes, verifique o [protocolo Moleculer](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md)). É o mais simples e o mais rápido entre os mecanismos de descoberta disponíveis, pois não requer nenhuma solução externa. No entanto, este método de descoberta também tem alguns inconvenientes, especialmente para implantações de grande escala com mais de `100` nós. Os pacotes de sinal de vida podem gerar grande quantidade de tráfego que podem saturar o protocolo de comunicação e, portanto, deteriorar o desempenho de ações e eventos, por exemplo, lentidão na entrega de requisições/resposta e pacotes de eventos.
 
 
 {% note warn%}
-Please note the TCP transporter uses Gossip protocol & UDP packets for discovery & heartbeats, it means it can work only with local discovery mechanism.
+Observe que o módulo de transporte TCP usa o protocolo Gossip & pacotes UDP para descoberta & sinal de vida, o que significa que só pode funcionar como mecanismo local de descoberta.
 {% endnote %}
 
-**Local Discovery with default options**
+**Descoberta local com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 }
 ```
 
-**Local Discovery with custom options**
+**Descoberta local com opções personalizadas**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -51,7 +51,7 @@ module.exports = {
 ```
 
 ### Redis
-![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg) Redis-based discovery uses a dedicated connection with the [Redis server](https://redis.io/) to exchange discovery and heartbeat packets. This approach reduces the load over the transporter module, it's used exclusively for the exchange of the request, response, event packets.
+![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg) A descoberta baseada em Redis usa uma conexão dedicada com o [servidor Redis](https://redis.io/) para compartilhar descobertas e pacotes de sinal de vida. Esta abordagem reduz a carga sobre o módulo de transporte; e é usada exclusivamente para compartilhamento de requisições, respostas, pacotes de eventos.
 
 When Redis-based discovery method is enabled, Moleculer nodes periodically publish and fetch the info from Redis and update their internal service registry. Redis key expiration mechanism removes nodes that don't publish heartbeat packets for a certain period of time. This allows Moleculer nodes to detect that a specific node has disconnected.
 
