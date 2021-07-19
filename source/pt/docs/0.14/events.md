@@ -3,17 +3,17 @@ title: Eventos
 O broker possui um barramento de eventos integrado para atender a uma [Arquitetura baseada em eventos](http://microservices.io/patterns/data/event-driven-architecture.html) e enviar eventos para serviços locais e remotos.
 
 # Eventos balanceados
-The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
+Os assinantes de eventos são agrupados em grupos lógicos. Significa que apenas um assinante é acionado em cada grupo.
 
-> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
+> **Exemplo:** você tem 2 serviços principais: `users` & `payments`. Ambos se inscrevem para o evento `user.created`. Você inicia 3 instâncias do serviço `users` e 2 instâncias do serviço `payments`. Quando você emite o evento `user.created`, apenas uma instância do serviço `users` e uma de `payments` receberá o evento.
 
 <div align="center">
     <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
 </div>
 
-The group name comes from the service name, but it can be overwritten in event definition in services.
+O nome do grupo vem do nome do serviço, mas ele pode ser substituído na definição do evento em serviços.
 
-**Example**
+**Exemplo**
 ```js
 module.exports = {
     name: "payment",
@@ -32,33 +32,33 @@ module.exports = {
 }
 ```
 
-## Emit balanced events
-Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _To send multiple values, wrap them into an `Object`._
+## Emitir eventos balanceados
+Emita eventos balanceados com a função `broker.emit`. O primeiro parâmetro é o nome do evento, o segundo parâmetro é o payload. _Para enviar múltiplos valores, envolva-os em um `Object`._
 
 ```js
 // The `user` will be serialized to transportation.
 broker.emit("user.created", user);
 ```
 
-Specify which groups/services shall receive the event:
+Especifique quais grupos/serviços receberão o evento:
 ```js
 // Only the `mail` & `payments` services receives it
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-# Broadcast event
-The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
+# Evento de transmissão
+O evento de transmissão é enviado para todos os serviços locais & remotos disponíveis. Não é balanceado, todas as instâncias de serviços o receberão.
 
 <div align="center">
     <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
 </div>
 
-Send broadcast events with `broker.broadcast` method.
+Emita eventos de transmissão usando o método `broker.broadcast`.
 ```js
 broker.broadcast("config.changed", config);
 ```
 
-Specify which groups/services shall receive the event:
+Especifique quais grupos/serviços receberão o evento:
 ```js
 // Send to all "mail" service instances
 broker.broadcast("user.created", { user }, "mail");
@@ -67,8 +67,8 @@ broker.broadcast("user.created", { user }, "mail");
 broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
-## Local broadcast event
-Send broadcast events only to all local services with `broker.broadcastLocal` method.
+## Evento de transmissão local
+Emita eventos de transmissão apenas para todos os serviços locais com o método `broker.broadcastLocal`.
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
