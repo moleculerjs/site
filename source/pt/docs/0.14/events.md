@@ -1,19 +1,19 @@
-title: Events
+title: Eventos
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services.
+O broker possui um barramento de eventos integrado para atender a uma [Arquitetura baseada em eventos](http://microservices.io/patterns/data/event-driven-architecture.html) e enviar eventos para serviços locais e remotos.
 
-# Balanced events
-The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
+# Eventos balanceados
+Os assinantes de eventos são agrupados em grupos lógicos. Significa que apenas um assinante é acionado em cada grupo.
 
-> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
+> **Exemplo:** você tem 2 serviços principais: `users` & `payments`. Ambos se inscrevem para o evento `user.created`. Você inicia 3 instâncias do serviço `users` e 2 instâncias do serviço `payments`. Quando você emite o evento `user.created`, apenas uma instância do serviço `users` e uma de `payments` receberá o evento.
 
 <div align="center">
-    <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
+    <img src="assets/balanced-events.gif" alt="Diagrama de eventos balanceados" />
 </div>
 
-The group name comes from the service name, but it can be overwritten in event definition in services.
+O nome do grupo vem do nome do serviço, mas ele pode ser substituído na definição do evento em serviços.
 
-**Example**
+**Exemplo**
 ```js
 module.exports = {
     name: "payment",
@@ -32,33 +32,33 @@ module.exports = {
 }
 ```
 
-## Emit balanced events
-Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _To send multiple values, wrap them into an `Object`._
+## Emitir eventos balanceados
+Emita eventos balanceados com a função `broker.emit`. O primeiro parâmetro é o nome do evento, o segundo parâmetro é o payload. _Para enviar múltiplos valores, envolva-os em um `Object`._
 
 ```js
 // The `user` will be serialized to transportation.
 broker.emit("user.created", user);
 ```
 
-Specify which groups/services shall receive the event:
+Especifique quais grupos/serviços receberão o evento:
 ```js
 // Only the `mail` & `payments` services receives it
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-# Broadcast event
-The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
+# Evento de transmissão
+O evento de transmissão é emitido para todos os serviços locais & remotos disponíveis. Não é balanceado, todas as instâncias de serviços o receberão.
 
 <div align="center">
-    <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
+    <img src="assets/broadcast-events.gif" alt="Diagrama de transmissão de eventos" />
 </div>
 
-Send broadcast events with `broker.broadcast` method.
+Emita eventos de transmissão usando o método `broker.broadcast`.
 ```js
 broker.broadcast("config.changed", config);
 ```
 
-Specify which groups/services shall receive the event:
+Especifique quais grupos/serviços receberão o evento:
 ```js
 // Send to all "mail" service instances
 broker.broadcast("user.created", { user }, "mail");
@@ -67,25 +67,25 @@ broker.broadcast("user.created", { user }, "mail");
 broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
-## Local broadcast event
-Send broadcast events only to all local services with `broker.broadcastLocal` method.
+## Evento de transmissão local
+Emita eventos de transmissão apenas para todos os serviços locais com o método `broker.broadcastLocal`.
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
 
-# Subscribe to events
+# Inscrever-se para eventos
 
-The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
+A versão `v0.14` suporta manipuladores de eventos baseados em Contextos. O context do evento é útil se você estiver usando uma arquitetura orientada a eventos e deseja rastrear seus eventos. Se você estiver familiarizado com [Context de Ação](context.html) você vai se sentir em casa. O Context de Evento é muito semelhante ao Context de Ação, exceto para algumas novas propriedades relacionadas a eventos. [Verifique a lista completa de propriedades](context.html)
 
 {% note info Legacy event handlers %}
 
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers:
-- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context.
-- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
+Você não precisa reescrever todos os manipuladores de eventos existentes já que Moleculer ainda suporta assinatura legada `"user.created"(payload) { ... }`. Ele é capaz de detectar diferentes assinaturas de manipuladores de eventos:
+- Se a assinatura encontrada for `"user.created"(ctx) { ... }`, ele vai chamar com Context de eventos.
+- Se não, ele será chamado com argumentos antigos & o quarto argumento será o Context de Evento, como `"user.created"(payload, sender, eventName, ctx) {...}`
 
 {% endnote %}
 
-**Context-based event handler & emit a nested event**
+**Manipulador de eventos com base em context & emissão de evento aninhado**
 ```js
 module.exports = {
     name: "accounts",
@@ -103,7 +103,7 @@ module.exports = {
 ```
 
 
-Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
+Inscreva-se aos eventos na propriedade ['eventos' dos serviços](services.html#events). O uso de caracteres curinga (`?`, `*`, `**`) está disponível nos nomes dos eventos.
 
 ```js
 module.exports = {
@@ -126,8 +126,8 @@ module.exports = {
 }
 ```
 
-## Event parameter validation
-Similar to action parameter validation, the event parameter validation is supported. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+## Validação de parâmetros do evento
+Semelhante à validação do parâmetro de ação, a validação do parâmetro de evento é suportada. Como na definição de ação, você deve definir `params` na mesma definição e o `Validator` integrado valida os parâmetros nos eventos.
 
 ```js
 // mailer.service.js
@@ -148,90 +148,90 @@ module.exports = {
     }
 };
 ```
-> The validation errors are not sent back to the caller, they are logged or you can catch them with the new [global error handler](broker.html#Global-error-handler).
+> Os erros de validação não são enviados de volta para o requisitante, eles são logados ou você pode capturá-los com o novo [manipulador de erros global](broker.html#Global-error-handler).
 
-# Internal events
-The broker broadcasts some internal events. These events always starts with `$` prefix.
+# Eventos internos
+O broker transmite alguns eventos internos. Esses eventos sempre começam com prefixo `$`.
 
 ## `$services.changed`
-The broker sends this event if the local node or a remote node loads or destroys services.
+O broker emite este evento se o nó local ou um nó remoto carrega ou destrói serviços.
 
 **Payload**
 
-| Name           | Type      | Description                      |
-| -------------- | --------- | -------------------------------- |
-| `localService` | `Boolean` | True if a local service changed. |
+| Nome           | Tipo      | Descrição                             |
+| -------------- | --------- | ------------------------------------- |
+| `localService` | `Boolean` | Verdadeiro se um serviço local mudou. |
 
 ## `$circuit-breaker.opened`
-The broker sends this event when the circuit breaker module change its state to `open`.
+O broker emite este evento quando o módulo do circuit breaker altera seu estado para `aberto`.
 
 **Payload**
 
-| Name       | Type     | Description       |
-| ---------- | -------- | ----------------- |
-| `nodeID`   | `String` | Node ID           |
-| `action`   | `String` | Action name       |
-| `failures` | `Number` | Count of failures |
+| Nome       | Tipo     | Descrição          |
+| ---------- | -------- | ------------------ |
+| `nodeID`   | `String` | ID do nó           |
+| `action`   | `String` | Nome da ação       |
+| `failures` | `Number` | Contagem de falhas |
 
 
 ## `$circuit-breaker.half-opened`
-The broker sends this event when the circuit breaker module change its state to `half-open`.
+O broker emite este evento quando o módulo do circuit breaker altera seu estado para `meio-aberto`.
 
 **Payload**
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Nome     | Tipo     | Descrição    |
+| -------- | -------- | ------------ |
+| `nodeID` | `String` | ID do nó     |
+| `action` | `String` | Nome da ação |
 
 ## `$circuit-breaker.closed`
-The broker sends this event when the circuit breaker module change its state to `closed`.
+O broker emite este evento quando o módulo do circuit breaker altera seu estado para `fechado`.
 
 **Payload**
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Nome     | Tipo     | Descrição    |
+| -------- | -------- | ------------ |
+| `nodeID` | `String` | ID do nó     |
+| `action` | `String` | Nome da ação |
 
 ## `$node.connected`
-The broker sends this event when a node connected or reconnected.
+O broker emite este evento quando um nó se conecta ou desconecta.
 
 **Payload**
 
-| Name          | Type      | Description      |
-| ------------- | --------- | ---------------- |
-| `node`        | `Node`    | Node info object |
-| `reconnected` | `Boolean` | Is reconnected?  |
+| Nome          | Tipo      | Descrição                    |
+| ------------- | --------- | ---------------------------- |
+| `node`        | `Node`    | Objeto com informações do nó |
+| `reconnected` | `Boolean` | Está reconectado?            |
 
 ## `$node.updated`
-The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
+O broker emite este evento quando recebe uma mensagem INFO de um nó (ou seja, um serviço é carregado ou destruído).
 
 **Payload**
 
-| Name   | Type   | Description      |
-| ------ | ------ | ---------------- |
-| `node` | `Node` | Node info object |
+| Nome   | Tipo   | Descrição                    |
+| ------ | ------ | ---------------------------- |
+| `node` | `Node` | Objeto com informações do nó |
 
 ## `$node.disconnected`
-The broker sends this event when a node disconnected (gracefully or unexpectedly).
+O broker emite este evento quando um nó é desconectado (de forma elegante ou inesperada).
 
 **Payload**
 
-| Name         | Type      | Description                                                                         |
-| ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `Node`    | Node info object                                                                    |
-| `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
+| Nome         | Tipo      | Descrição                                                                              |
+| ------------ | --------- | -------------------------------------------------------------------------------------- |
+| `node`       | `Node`    | Objeto com informações do nó                                                           |
+| `unexpected` | `Boolean` | `true` - Não recebido sinal de vida, `false` - Recebido a mensagem `DISCONNECT` do nó. |
 
 ## `$broker.started`
-The broker sends this event once `broker.start()` is called and all local services are started.
+O broker emite este evento uma vez que `broker.start()` é chamado e todos os serviços locais são iniciados.
 
 ## `$broker.stopped`
-The broker sends this event once `broker.stop()` is called and all local services are stopped.
+O broker emite este evento uma vez que `broker.stop()` é chamado e todos os serviços locais são desconectados.
 
 ## `$transporter.connected`
-The transporter sends this event once the transporter is connected.
+O módulo de transporte emite este evento assim que o transporter estiver conectado.
 
 ## `$transporter.disconnected`
-The transporter sends this event once the transporter is disconnected.
+O módulo de transporte emite este evento assim que o transporter for desconectado.
 

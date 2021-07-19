@@ -922,7 +922,7 @@ const svc = broker.createService({
 ### Custom Store example
 ```js
 class CustomStore {
-    constructor(window, opts) {
+    constructor(clearPeriod, opts) {
         this.hits = new Map();
         this.resetTime = Date.now() + clearPeriod;
 

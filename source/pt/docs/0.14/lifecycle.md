@@ -1,32 +1,32 @@
-title: Lifecycle
+title: Ciclo de vida
 ---
 
-## Broker lifecycle
-This section describes what happens when the broker is starting & stopping.
+## Ciclo de vida do Broker
+Esta seção descreve o que acontece quando o broker está iniciando & parando.
 
-### Starting logic
-When starting, the broker tries to establish a connection with the transporter. When it's done, it doesn't publish the local service list to remote nodes because it can't accept request yet. It starts all services (calls every [service `started` handler](lifecycle.html#started-event-handler)). Once all services started successfully, broker publishes the local service list to remote nodes. Hence, remote nodes only send requests after all local services are properly initialized and started.
+### Lógica de inicialização
+Ao iniciar, o broker tenta estabelecer uma conexão com o módulo de transporte. Quando terminado, ele não publica a lista de serviços local para nós remotos porque ainda não pode aceitar requisições. Ele inicia os serviços (chama cada [ manipulador de serviço `iniciado`](lifecycle.html#started-event-handler)). Depois que todos os serviços iniciaram com sucesso, o broker publica a lista de serviço local para nós remotos. Portanto, nós remotos só enviam requisições depois que todos os serviços locais forem inicializados corretamente.
 
 <div align="center">
-    <img src="assets/lifecycle/broker-start.svg" alt="Broker starting lifecycle diagram" />
+    <img src="assets/lifecycle/broker-start.svg" alt="Diagrama de ciclo de vida da inicialização do broker" />
 </div>
 
 {% note warn Avoid deadlocks %}
-Deadlocks can occur when two services wait for each other. E.g.: `users` service has `dependencies: ["posts"]` and `posts` service has `dependencies: ["users"]`. To avoid it, remove the concerned service from `dependencies` and use `this.waitForServices` method in `started` handler instead.
+Os deadlocks podem ocorrer quando dois serviços esperam um pelo outro. Ex: O serviço `users` tem `dependencies: ["posts"]` e o serviço `posts` tem `dependencies: ["users"]`. Para evitar isso, remova o serviço em questão de `dependencies` e ao invés disso use o método `this.waitForServices` no método `started`.
 {% endnote %}
 
-### Stopping logic
-When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services that are stopping. Next, the broker starts [stopping](#stopped-event-handler) all local services. After that, the transporter disconnects and process exits.
+### Lógica de parada
+Quando você chamar o `broker.stop` ou parar o processo, inicialmente o broker publica uma lista de serviços vazia para os nós remotos, portanto, irão encaminhar as requisições para outras instâncias em vez de serviços que estão sendo desligados. Em seguida, o broker inicia a [parada](#stopped-event-handler) de todos os serviços locais. Depois disso, o módulo de transporte desconecta e processa o encerramento.
 
 <div align="center">
-    <img src="assets/lifecycle/broker-stop.svg" alt="Broker stopping lifecycle diagram" />
+    <img src="assets/lifecycle/broker-stop.svg" alt="Diagrama de ciclo de vida de parada do broker" />
 </div>
 
-## Service lifecycle
-This section describes what happens when a service is starting & stopping and how you should use the lifecycle event handler.
+## Ciclo de vida do serviço
+Esta seção descreve o que acontece quando um serviço está iniciando & parando e como você deve usar o manipulador de eventos do ciclo de vida.
 
-### `created` event handler
-This handler is triggered when the service instance is created (e.g.: at `broker.createService` or `broker.loadService`). You can use it to create other module instances (e.g. http server, database modules) and store them in `this`.
+### Manipulador de eventos `created`
+Este manipulador é acionado quando a instância do serviço é criada (por exemplo: em `broker.createService` ou `broker.loadService`). Você pode usá-lo para criar instâncias de outros módulos (por exemplo, servidor http, banco de dados) e armazená-los em `this`.
 
 ```js
 const http = require("http");
@@ -41,11 +41,11 @@ module.exports = {
 ```
 
 {% note info %}
-This is a sync event handler. You **cannot** return a `Promise` and you **cannot** use `async/await`.
+Este é um manipulador de eventos síncrono. Você **não pode** retornar uma `Promise` e você **não pode** usar `async/await`.
 {% endnote %}
 
-### `started` event handler
-This handler is triggered when the `broker.start` is called and the broker starts all local services. Use it to connect to database, listen servers...etc.
+### Manipulador de eventos `started`
+Este manipulador é acionado ao chamar `broker.start` e o broker inicia todos os serviços locais. Use-o para conectar ao banco de dados, se registrar a servidores... etc.
 
 ```js
 module.exports = {
@@ -61,11 +61,11 @@ module.exports = {
 ```
 
 {% note info %}
-This is an async event handler. A `Promise` can be returned or use `async/await`.
+Este é um manipulador de eventos assíncrono. Uma `Promise` pode ser retornada ou use `async/await`.
 {% endnote %}
 
-### `stopped` event handler
-This handler is triggered when the `broker.stop` is called and the broker starts stopping all local services. Use it to close database connections, close sockets...etc.
+### Manipulador de eventos `stopped`
+Este manipulador é acionado ao chamar `broker.stop` e o broker inicia o desligamento de todos os serviços locais. Use-o para fechar conexões do banco de dados, encerrar sockets...etc.
 
 ```js
 module.exports = {
@@ -81,11 +81,11 @@ module.exports = {
 ```
 
 {% note info %}
-This is an async event handler. A `Promise` can be returned or use `async/await`.
+Este é um manipulador de eventos assíncrono. Uma `Promise` pode ser retornada ou use `async/await`.
 {% endnote %}
 
-### `merged` event handler
-This handler is called after the service schemas (including [mixins](services.html#Mixins)) has been merged but before service is registered. It means you can manipulate the merged service schema before it's processed.
+### Manipulador de eventos `merged`
+Este manipulador é chamado após os esquemas de serviço (incluindo [mixins](services.html#Mixins)) forem mesclados, mas antes que o serviço seja registrado. Isso significa que você pode manipular o esquema de serviço mesclado antes dele ser processado.
 ```js
 // posts.service.js
 module.exports = {

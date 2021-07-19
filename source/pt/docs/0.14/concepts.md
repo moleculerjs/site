@@ -1,51 +1,51 @@
-title: Core Concepts
+title: Conceitos Principais
 ---
 
-This guide covers the core concepts of any Moleculer application.
+Este guia abrange os conceitos principais de qualquer aplicação Moleculer.
 
-## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+## Serviço
+Um [serviço](services.html) é simplesmente um módulo JavaScript que contém algumas partes de uma aplicação complexa. Ele é isolado e independente, o que significa que, mesmo que caia ou quebre os demais serviços não serão afetados.
 
-## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+## Nó
+Um nó é simplesmente um processo do SO rodando em uma rede local ou externa. Uma única instância de um nó pode hospedar um ou muitos serviços.
 
-### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+### Serviços locais
+Dois (ou mais) serviços rodando em um único nó são considerados serviços locais. Eles compartilham recursos de hardware e usam o barramento local para se comunicar entre si, sem latência da rede ([módulo de transporte](#Transporter) não é usado).
 
-### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+### Serviços Remotos
+Serviços distribuídos através de vários nós são considerados remotos. Neste caso, a comunicação é feita via [módulo de transporte](#Transporter).
 
 ## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+[Service Broker](broker.html) é o coração do Moleculer. É responsável pelo gerenciamento e pela comunicação entre os serviços (locais e remotos). Cada nó deve ter uma instância do Service Broker.
 
-## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+## Módulo de transporte
+[O módulo de transporte](networking.html) é um protocolo de comunicação que os serviços usam para trocar mensagens. Emite eventos, requisições e respostas.
 
 ## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+A [API Gateway](moleculer-web.html) expõe o serviços Moleculer para o usuário final. O gateway é um serviço regular do Moleculer executando um servidor (HTTP, WebSockets, etc). Ele lida com as requisições recebidas, as direciona para chamadas de serviço e depois retorna as respostas adequadas.
 
-## Overall View
-There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
+## Visão geral
+Não há nada melhor do que um exemplo para ver como todos esses conceitos se encaixam. Então vamos considerar uma hipotética loja on-line que só lista seus produtos. Na verdade, não vende nada online.
 
-### Architecture
+### Arquitetura
 
-From the architectural point-of-view the online store can be seen as a composition of 2 independent services: the `products` service and the `gateway` service. The first one is  responsible for storage and management of the products while the second simply receives user´s requests and conveys them to the `products` service.
+Do ponto de vista da arquitetura a loja on-line pode ser vista como uma composição de 2 serviços independentes: o serviço de `products` e o serviço de `gateway`. O primeiro é responsável pelo armazenamento e gerenciamento dos produtos, enquanto o segundo simplesmente recebe requisições do usuário e os direciona para o serviço de `products`.
 
-Now let's take a look at how this hypothetical store can be created with Moleculer.
+Agora vamos dar uma olhada como essa loja hipotética pode ser criada com Moleculer.
 
-To ensure that our system is resilient to failures we will run the `products` and the `gateway` services in dedicated [nodes](#Node) (`node-1` and `node-2`). If you recall, running services at dedicated nodes means that the [transporter](#Transporter) module is required for inter services communication. Most of the transporters supported by Moleculer rely on a message broker for inter services communication, so we're going to need one up and running. Overall, the internal architecture of our store is represented in the figure below.
+Para garantir que o nosso sistema seja resistente a falhas, executaremos os serviços `products` e `gateway` em [nós](#Node) dedicados (`node-1` e `node-2`). Relembrando, serviços rodando em nós dedicados significa que o [módulo de transporte](#Transporter) é necessário para a comunicação entre serviços. A maioria dos módulos de transporte suportados pelo Moleculer dependem de um broker de mensagens para comunicação entre serviços, então vamos precisar de um conectado e executando. Em geral, a arquitetura interna de nossa loja é representada na figura abaixo.
 
-Now, assuming that our services are up and running, the online store can serve user's requests. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
+Agora, assumindo que nossos serviços estão prontos e funcionando, a loja on-line pode atender a requisições do usuário. Então vamos ver o que acontece de verdade com uma requisição para listar todos os produtos disponíveis. Primeiro, a requisição (`GET /products`) é recebida pelo servidor HTTP em execução no `node-1`. A requisição recebida é simplesmente encaminhada do servidor HTTP para o [serviço de gateway](#Gateway) que faz todo o processamento e direcionamento. Neste caso, em particular, a requisição do usuário é direcionada para uma ação `listProducts` do serviço de `products`.  Em seguida, a requisição é passada para o [broker](#Service-Broker), que verifica se o serviço de `products` é um [serviço local](#Local-Services) ou um [ serviço remoto](#Remote-Services). Neste caso, o serviço de `products` é remoto, então o broker precisa usar o [módulo de transporte](#Transporter) para entregar a requisição. O módulo de transporte simplesmente recebe a requisição e o encaminha via protocolo de comunicação. Uma vez que ambos os nós (`node-1` e `node-2`) estão conectados ao mesmo protocolo de comunicação (broker de mensagens), a requisição será entregue com sucesso ao `node-2`. Após a recepção, o broker do `node-2` analisará a requisição recebida e encaminhará para o serviço `products`. Finalmente, o serviço `products` invoca a ação `listProducts` e retorna a lista de todos os produtos disponíveis. A resposta é simplesmente enviada de volta para o usuário final.
 
-**Flow of user's request**
+**Fluxo de requisições do usuário**
 <div align="center">
-    <img src="assets/overview.svg" alt="Architecture Overview" />
+    <img src="assets/overview.svg" alt="Visão Geral da Arquitetura" />
 </div>
 
-All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
+Todos os detalhes que acabamos de ver podem parecer assustadores e complicados, mas você não precisa ter medo. Moleculer faz todo o trabalho pesado para você! Você (o desenvolvedor) só precisa se concentrar na regra de negócio. Dê uma olhada na implementação real da nossa [loja online](#Implementation).
 
-### Implementation
-Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/download/nats-io/nats-server/). Run it with the default settings. You should get the following message:
+### Implementação
+Agora que definimos a arquitetura da nossa loja, vamos implementá-la. Vamos usar o NATS, um sistema de mensagens de código aberto, como protocolo de comunicação. Então vá em frente e obtenha a última versão do [Servidor NATS](https://nats.io/download/nats-io/nats-server/). Execute-o com as configurações padrão. Você deve receber a seguinte mensagem:
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4
@@ -53,7 +53,7 @@ Now that we've defined the architecture of our shop, let's implement it. We're g
 [18141] 2016/10/31 13:13:40.732967 [INF] Server is ready
 ```
 
-Next, create a new directory for our application, create a new `package.json` and install the dependencies. We´re going to use `moleculer` to create our services, `moleculer-web` as the HTTP gateway and `nats` for communication. In the end your `package.json` should look like this:
+Em seguida, crie um novo diretório para nossa aplicação, crie um novo `package.json` e instale as dependências. Vamos usar `moleculer` para criar nossos serviços, `moleculer-web` como o gateway HTTP e `nats` para comunicação. No final, o seu `package.json` deve se parecer com isto:
 
 ```json
 // package.json
@@ -67,7 +67,7 @@ Next, create a new directory for our application, create a new `package.json` an
 }
 ```
 
-Finally, we need to configure the brokers and create our services. So let's create a new file (`index.js`) and do it:
+Finalmente, precisamos configurar os brokers e criar os nossos serviços. Então vamos criar um novo arquivo (`index.js`) e implementar:
 ```javascript
 // index.js
 const { ServiceBroker } = require("moleculer");
@@ -126,7 +126,7 @@ brokerNode2.createService({
 // Start both brokers
 Promise.all([brokerNode1.start(), brokerNode2.start()]);
 ```
-Now run `node index.js` in your terminal and open the link [`http://localhost:3000/products`](http://localhost:3000/products). You should get the following response:
+Agora execute `node index.js` no seu terminal e abra o link [`http://localhost:3000/products`](http://localhost:3000/products). Você deve receber a seguinte resposta:
 ```json
 [
     { "name": "Apples", "price": 5 },
@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
+Com apenas algumas dezenas de linhas de código, criamos dois serviços isolados capazes de atender as requisições do usuário e listar os produtos. Além disso, os nossos serviços podem ser facilmente escalonados para se tornarem resilientes e tolerantes e falhas. Impressionante, verdade?
 
-Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
+Vá até a seção [Documentação](broker.html) para mais detalhes ou verifique a página [Exemplos](examples.html) para exemplos mais complexos.

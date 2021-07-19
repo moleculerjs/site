@@ -1,9 +1,9 @@
-title: Caching
+title: Cache
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer tem uma solução integrada para armazenar em cache as respostas das ações dos serviços. Para ativá-lo, defina um tipo de `cache` em [opções do broker](configuration.html#Broker-options) e defina `cache: true` nas [configurações de ações](services.html#Actions) daquilo que quiser manter em cache.
 
-**Cached action example**
+**Exemplo de ação em cache**
 ```js
 const { ServiceBroker } = require("moleculer");
 
@@ -41,32 +41,32 @@ broker.start()
     });
 ```
 
-**Console messages:**
+**Mensagens do console:**
 ```
 [2017-08-18T13:04:33.845Z] INFO  dev-pc/BROKER: Broker started.
 [2017-08-18T13:04:33.848Z] INFO  dev-pc/USERS: Handler called!
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count: 2
 [2017-08-18T13:04:33.849Z] INFO  dev-pc/BROKER: Users count from cache: 2
 ```
-As you can see, the `Handler called` message appears only once because the response of second request is returned from the cache.
+Como pode ver, a mensagem `Handler called` aparece apenas uma vez porque a resposta da segunda requisição é retornada do cache.
 
-> [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
+> [Experimente no Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
-## Cache keys
-The cacher generates key from service name, action name and the params of context. The syntax of key is:
+## Chaves de cache
+O cache gera a chave a partir do nome do serviço, nome da ação e os parâmetros do context. A sintaxe da chave é:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+Então, se você chamar a ação `posts.list` com parâmetros `{ limit: 5, offset: 20 }`, o cache calcula um hash dos parâmetros. Então, da próxima vez, quando você chamar esta ação com os mesmos parâmetros, ele encontrará a entrada no cache pela chave.
 
-**Example hashed cache key for "posts.find" action**
+**Exemplo de chave de cache para a ação "post.find"**
 ```
 posts.find:limit|5|offset|20
 ```
 
-The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property. To use meta keys in cache `keys` use the `#` prefix.
+O objeto params pode conter propriedades que não são relevantes para a chave de cache. Além disso, pode causar problemas de desempenho, se a chave for muito longa. Portanto, é recomendado definir um objeto para a propriedade `cache` que contém uma lista de nomes de parâmetros essenciais sob a propriedade `keys`. Para usar campos do meta no cache via propriedade `keys` use o prefixo `#`.
 
-**Strict the list of `params` & `meta` properties for key generation**
+**Restringe a lista de `params` & propriedades `meta` para a geração de chaves**
 ```js
 {
     name: "posts",
@@ -89,23 +89,23 @@ The params object can contain properties that are not relevant for the cache key
 ```
 
 {% note info Performance tip %}
-This solution is pretty fast, so we recommend to use it in production. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
+Esta solução é muito rápida, por isso recomendamos usá-la em produção. ![](https://img.shields.io/badge/performance-%2B20%25-brightgreen.svg)
 {% endnote %}
 
-### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+### Limitando tamanho da chave cache
+Às vezes, a chave pode ser muito longa, o que pode causar problemas de desempenho. Para evitar isso, limite o tamanho dos parâmetros concatenados na chave com a opção de cache `maxParamsLength`. Quando a chave é maior do que o valor limite configurado, o cache calcula um hash (SHA256) da chave completa e a adiciona ao fim da chave.
 
-> The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
+> O mínimo de `maxParamsLength` é `44` (Tamanho do hash SHA 256 em Base64).
 > 
-> To disable this feature, set it to `0` or `null`.
+> Para desativar este recurso, defina como `0` ou `null`.
 
-**Generate a full key from the whole params without limit**
+**Gerar uma chave completa a partir de todos os parâmetros sem limite**
 ```js
 cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
-// Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
+// Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. Portanto, esta chave será também muito longa'
 ```
 
-**Generate a limited-length key**
+**Gerar uma chave de comprimento limitado**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -120,18 +120,18 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 // Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
 ```
 
-## Conditional caching
+## Cache condicional
 
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+O cache condicional permite ignorar a resposta em cache e executar uma ação para obter dados "frescos". Para ignorar o cache defina `ctx.meta.$cache` para `false` antes de chamar uma ação.
 
-**Example of turning off the caching for the `greeter.hello` action**
+**Exemplo desativando o cache para a ação `greeter.hello`**
 ```js
 broker.call("greeter.hello", { name: "Moleculer" }, { meta: { $cache: false }}))
 ```
 
-As an alternative, a custom function can be implemented to enable bypassing the cache. The custom function accepts as an argument the context (`ctx`) instance therefore it has access any params or meta data. This allows to pass the bypass flag within the request.
+Como alternativa, uma função personalizada pode ser implementada para ignorar o cache. A função personalizada aceita como argumento uma instância do context (`ctx`), portanto, ela tem acesso a quaisquer parâmetros ou meta dados. Isso permite passar o sinalizador bypass dentro da requisição.
 
-**Example of a custom conditional caching function**
+**Exemplo de uma função de cache condicional personalizada**
 ```js
 // greeter.service.js
 module.exports = {
@@ -155,7 +155,7 @@ broker.call("greeter.hello", { name: "Moleculer", noCache: true }))
 ```
 
 ## TTL
-Default TTL setting can be overriden in action definition.
+A configuração padrão de TTL pode ser substituída na definição de ação.
 
 ```js
 const broker = new ServiceBroker({
@@ -183,8 +183,8 @@ broker.createService({
 });
 ```
 
-## Custom key-generator
-To overwrite the built-in cacher key generator, set your own function as `keygen` in cacher options.
+## Gerador de chaves personalizado
+Para sobrescrever o gerador de chaves de cache interno, defina sua própria função como `keygen` nas opções do cache.
 
 ```js
 const broker = new ServiceBroker({
@@ -204,8 +204,8 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Manual caching
-The cacher module can be used manually. Just call the `get`, `set`, `del` methods of `broker.cacher`.
+## Cache manual
+O módulo de cache pode ser usado manualmente. Basta chamar os métodos `get`, `set`, `del` do `broker.cacher`.
 
 ```js
 // Save to cache
@@ -224,7 +224,7 @@ await broker.cacher.clean("mykey.**");
 await broker.cacher.clean();
 ```
 
-Additionally, the complete [ioredis](https://github.com/luin/ioredis) client API is available at `broker.cacher.client` when using the built-in Redis cacher:
+Além disso, a API completa do cliente [ioredis](https://github.com/luin/ioredis) está disponível em `broker.cacher.client` quando estiver usando o cache Redis integrado:
 
 ```js
 // create an ioredis pipeline
@@ -236,10 +236,10 @@ pipeline.set('mykey.b', 'myvalue.b');
 pipeline.exec();
 ```
 
-## Clear cache
-When you create a new model in your service, you have to clear the old cached model entries.
+## Limpar cache
+Ao criar um novo registro em seu serviço, você deve limpar as entradas em cache antigas.
 
-**Example to clean the cache inside actions**
+**Exemplo de como limpar o cache dentro das ações**
 ```js
 {
     name: "users",
@@ -267,10 +267,10 @@ When you create a new model in your service, you have to clear the old cached mo
 }
 ```
 
-### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+### Limpar cache entre várias instâncias de serviço
+A melhor prática para limpar entradas de cache entre várias instâncias de serviço é usar eventos do tipo broadcast. Note que isso é necessário apenas para cachers não centralizados como `Memória` ou `MemoryLRU`.
 
-**Example**
+**Exemplo**
 ```js
 module.exports = {
     name: "users",
@@ -303,10 +303,10 @@ module.exports = {
 }
 ```
 
-### Clear cache among different services
-Service dependency is a common situation. E.g. `posts` service stores information from `users` service in cached entries (in case of populating).
+### Limpar cache entre diferentes serviços
+Dependências entre serviços é uma situação comum. Ex.: O serviço de `posts` armazena em cache informações do serviço de `users` (quando houver campos populados).
 
-**Example cache entry in `posts` service**
+**Exemplo de entrada de cache no serviço `posts`**
 ```js
 {
     _id: 1,
@@ -320,9 +320,9 @@ Service dependency is a common situation. E.g. `posts` service stores informatio
     createdAt: 1519729167666
 }
 ```
-The `author` field is received from `users` service. So if the `users` service clears cache entries, the `posts` service has to clear own cache entries, as well. Therefore you should also subscribe to the `cache.clear.users` event in `posts` service.
+O campo `author` é recebido do serviço `users`. Então se o serviço `users` limpar as entradas de cache, o serviço `posts` também terá que limpar as próprias entradas de cache. Portanto, você também deve se subscrever ao evento `cache.clear.users` no serviço `posts`.
 
-To make it easier, create a `CacheCleaner` mixin and define in the dependent services schema.
+Para facilitar, crie um mixin `CacheCleaner` e defina no esquema de serviços dependentes.
 
 **cache.cleaner.mixin.js**
 ```js
@@ -361,12 +361,12 @@ module.exports = {
 };
 ```
 
-With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear its own cache entries.
+Com esta solução se o serviço `users` emitir um evento `cache.clean.users`, o serviço `posts` também limpará suas próprias entradas de cache.
 
-## Cache locking
-Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
+## Bloqueio de cache
+Moleculer também suporta o recurso de bloqueio de cache. Para informações detalhadas [verifique esta PR](https://github.com/moleculerjs/moleculer/pull/490).
 
-**Enable Lock**
+**Ativar bloqueio**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -376,7 +376,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Enable with TTL**
+**Ativar com o TTL**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -389,7 +389,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Disable Lock**
+**Desativar Bloqueio**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -402,7 +402,7 @@ const broker = new ServiceBroker({
     }
 });
 ```
-**Example for Redis cacher with `redlock` library**
+**Exemplo de cache Redis com a biblioteca `redlock`**
 ```js
 const broker = new ServiceBroker({
   cacher: {
@@ -450,25 +450,25 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Built-in cachers
+## Caches integrados
 
-### Memory cacher
-`MemoryCacher` is a built-in memory cache module. It stores entries in the heap memory.
+### Cache de memória
+`MemoryCacher` é um módulo de cache de memória integrado. Ele armazena entradas na memória.
 
-**Enable memory cacher**
+**Habilitar cache de memória**
 ```js
 const broker = new ServiceBroker({
     cacher: "Memory"
 });
 ```
-Or
+Ou
 ```js
 const broker = new ServiceBroker({
     cacher: true
 });
 ```
 
-**Enable with options**
+**Habilitar com opções**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -481,20 +481,20 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Options**
+**Opções**
 
-| Name              | Type                    | Default | Description                                 |
-| ----------------- | ----------------------- | ------- | ------------------------------------------- |
-| `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| Nome              | Tipo                    | Padrão  | Descrição                                            |
+| ----------------- | ----------------------- | ------- | ---------------------------------------------------- |
+| `ttl`             | `Number`                | `null`  | Tempo de Vida em segundos.                           |
+| `clone`           | `Boolean` ou `Function` | `false` | Clonar os dados em cache quando retornarem.          |
+| `keygen`          | `Function`              | `null`  | Função de gerador de chaves de cache personalizada.  |
+| `maxParamsLength` | `Number`                | `null`  | Comprimento máximo de parâmetros nas chaves geradas. |
+| `lock`            | `Boolean` ou `Object`   | `null`  | Ativar recurso de bloqueio.                          |
 
-#### Cloning
-The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
+#### Clonagem
+O cache usa o método lodash `_.cloneDeep` para clonagem. Para mudá-lo, defina uma `Função` para a opção `clone` em vez de um `Boolean`.
 
-**Custom clone function with JSON parse & stringify**
+**Função de clone personalizada com parse de JSON & stringify**
 ```js
 const broker = new ServiceBroker({ 
     cacher: {
@@ -506,17 +506,17 @@ const broker = new ServiceBroker({
 });
 ```
 
-### LRU memory cacher
-`LRU memory cacher` is a built-in [LRU cache](https://github.com/isaacs/node-lru-cache) module. It deletes the least-recently-used items.
+### Cache de memória LRU
+`Cache de memória LRU` é um módulo [cache LRU](https://github.com/isaacs/node-lru-cache) integrado. Ele exclui os itens menos usados recentemente.
 
-**Enable LRU cacher**
+**Habilitar cache LRU**
 ```js
 const broker = new ServiceBroker({
     cacher: "MemoryLRU"
 });
 ```
 
-**With options**
+**Com opções**
 ```js
 let broker = new ServiceBroker({
     logLevel: "debug",
@@ -532,40 +532,40 @@ let broker = new ServiceBroker({
 });
 ```
 
-**Options**
+**Opções**
 
-| Name              | Type                    | Default | Description                                 |
-| ----------------- | ----------------------- | ------- | ------------------------------------------- |
-| `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
-| `max`             | `Number`                | `null`  | Maximum items in the cache.                 |
-| `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
-| `keygen`          | `Function`              | `null`  | Custom cache key generator function.        |
-| `maxParamsLength` | `Number`                | `null`  | Maximum length of params in generated keys. |
-| `lock`            | `Boolean` or `Object`   | `null`  | Enable lock feature.                        |
+| Nome              | Tipo                    | Valor padrão | Descrição                                            |
+| ----------------- | ----------------------- | ------------ | ---------------------------------------------------- |
+| `ttl`             | `Number`                | `null`       | Tempo de Vida em segundos.                           |
+| `max`             | `Number`                | `null`       | Máximo de itens no cache.                            |
+| `clone`           | `Boolean` ou `Function` | `false`      | Clonar os dados em cache quando retornarem.          |
+| `keygen`          | `Function`              | `null`       | Função de gerador de chaves de cache personalizada.  |
+| `maxParamsLength` | `Number`                | `null`       | Comprimento máximo de parâmetros nas chaves geradas. |
+| `lock`            | `Boolean` ou `Object`   | `null`       | Ativar recurso de bloqueio.                          |
 
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `lru-cache` module with the `npm install lru-cache --save` command.
+Para poder usar este cache, instale o módulo `lru-cache` com o comando `npm install lru-cache --save`.
 {% endnote %}
 
-### Redis cacher
-`RedisCacher` is a built-in [Redis](https://redis.io/) based distributed cache module. It uses [`ioredis`](https://github.com/luin/ioredis) library. Use it, if you have multiple instances of services because if one instance stores some data in the cache, other instances will find it.
+### Cache Redis
+`RedisCacher` é um módulo de cache distribuído baseado em [Redis](https://redis.io/). Ele usa a biblioteca [`ioredis`](https://github.com/luin/ioredis). Use-o, se você tem várias instâncias de serviços porque se uma instância armazena alguns dados no cache, outras instâncias o encontrarão.
 
-**Enable Redis cacher**
+**Habilitar cache do Redis**
 ```js
 const broker = new ServiceBroker({
     cacher: "Redis"
 });
 ```
 
-**With connection string**
+**Com string de conexão**
 ```js
 const broker = new ServiceBroker({
     cacher: "redis://redis-server:6379"
 });
 ```
 
-**With options**
+**Com opções**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -589,7 +589,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With MessagePack serializer** You can define a serializer for Redis Cacher. By default, it uses the JSON serializer.
+**Com o serializador MessagePack** Você pode definir um serializador para o Cache Redis. Por padrão, usa o serializador JSON.
 ```js
 const broker = new ServiceBroker({
     nodeID: "node-123",
@@ -609,7 +609,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-**With Redis Cluster Client**
+**Com o cliente Redis Cluster**
 ```js
 const broker = new ServiceBroker({
     cacher: {
@@ -630,29 +630,29 @@ const broker = new ServiceBroker({
 });
 ```
 
-**Options**
+**Opções**
 
-| Name              | Type             | Default  | Description                                                                                                                                           |
-| ----------------- | ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`          | `String`         | `null`   | Prefix for generated keys.                                                                                                                            |
-| `ttl`             | `Number`         | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                                          |
-| `monitor`         | `Boolean`        | `false`  | Enable Redis client [monitoring feature](https://github.com/luin/ioredis#monitor). If enabled, every client operation will be logged (on debug level) |
-| `redis`           | `Object`         | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                 |
-| `keygen`          | `Function`       | `null`   | Custom cache key generator function.                                                                                                                  |
-| `maxParamsLength` | `Number`         | `null`   | Maximum length of params in generated keys.                                                                                                           |
-| `serializer`      | `String`         | `"JSON"` | Name of a built-in serializer.                                                                                                                        |
-| `cluster`         | `Object`         | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                                       |
-| `lock`            | `Boolean|Object` | `null`   | Enable lock feature.                                                                                                                                  |
+| Nome              | Tipo             | Valor padrão | Descrição                                                                                                                                                                      |
+| ----------------- | ---------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `prefix`          | `String`         | `null`       | Prefixo para chaves geradas.                                                                                                                                                   |
+| `ttl`             | `Number`         | `null`       | Tempo de Vida em segundos. Desativado: 0 ou null                                                                                                                               |
+| `monitor`         | `Boolean`        | `false`      | Ativar o [recurso de monitoramento do cliente Redis](https://github.com/luin/ioredis#monitor). Se ativado, todas as operações do cliente serão registradas (no nível de debug) |
+| `redis`           | `Object`         | `null`       | Opções personalizadas de Redis. Serão transferidas ao construtor `new Redis()`. [Leia mais](https://github.com/luin/ioredis#connect-to-redis).                                 |
+| `keygen`          | `Function`       | `null`       | Função de gerador de chaves de cache personalizada.                                                                                                                            |
+| `maxParamsLength` | `Number`         | `null`       | Comprimento máximo de parâmetros nas chaves geradas.                                                                                                                           |
+| `serializer`      | `String`         | `"JSON"`     | Nome de um serializador integrado.                                                                                                                                             |
+| `cluster`         | `Object`         | `null`       | Configuração do cliente Redis Cluster. [Mais informações](https://github.com/luin/ioredis#cluster)                                                                             |
+| `lock`            | `Boolean|Object` | `null`       | Ativar recurso de bloqueio.                                                                                                                                                    |
 
 {% note info Dependencies %}
-To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
+Para poder usar esse cacher, instale o módulo `ioredis` com o comando `npm install ioredis --save`.
 {% endnote %}
 
 
-## Custom cacher
-Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
+## Cache personalizado
+Um módulo de cache personalizado pode ser criado. Recomendamos copiar o código fonte do [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) e implementar os métodos `get`, `set`, `del` e `clean`.
 
-### Create custom cacher
+### Criar cache personalizado
 ```js
 const BaseCacher = require("moleculer").Cachers.Base;
 
@@ -664,7 +664,7 @@ class MyCacher extends BaseCacher {
 }
 ```
 
-### Use custom cacher
+### Usar cache personalizado
 
 ```js
 const { ServiceBroker } = require("moleculer");

@@ -1,18 +1,18 @@
-title: Registry & Discovery
+title: Registro & Descoberta
 ---
 
-## Dynamic service discovery
-Moleculer framework has a built-in module responsible for node discovery and periodic heartbeat verification. The discovery is dynamic meaning that a node don't need to know anything about other nodes during start time. When it starts, it will announce it's presence to all the other nodes so that each one can build its own local service registry. In case of a node crash (or stop) other nodes will detect it and remove the affected services from their registry. This way the following requests will be routed to live nodes.
+## Descoberta de serviço dinâmico
+O framework Moleculer possui um módulo integrado responsável pela descoberta e verificação periódica de sinal de vida de cada nó. A descoberta é dinâmica significando que um nó não precisa saber nada sobre outros nós durante a inicialização. Quando ele inicia, ele vai anunciar sua presença a todos os outros nós para que cada um possa construir seu próprio registro de serviço local. Em caso de falha de um nó (ou parada) outros nós irão detectá-lo e remover os serviços afetados do seu registro. Desta forma, as próximas requisições serão encaminhados para nós ativos.
 
 ### Local
-Local discovery (default option) uses the [transporter](networking.html#Transporters) module to exchange node info and heartbeat packets (for more info about packet structure check [Moleculer protocol](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md)). It's the simplest and the fastest among the available discovery mechanisms as it doesn't require any external solutions. However, this discovery method also has some drawbacks, especially for large scale deployments with `>100` nodes. The heartbeat packets can generate large amount traffic that can saturate the communication bus and, therefore, deteriorate the performance of actions and events, i.e., slow down the delivery of request/response and event packets.
+A Descoberta local (opção padrão) usa o [módulo de transporte](networking.html#Transporters) para trocar informações do nó e pacotes de sinal de vida (para mais informações sobre a estrutura dos pacotes, verifique o [protocolo Moleculer](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md)). É o mais simples e o mais rápido entre os mecanismos de descoberta disponíveis, pois não requer nenhuma solução externa. No entanto, este método de descoberta também tem alguns inconvenientes, especialmente para implantações de grande escala com mais de `100` nós. Os pacotes de sinal de vida podem gerar grande quantidade de tráfego que podem saturar o protocolo de comunicação e, portanto, deteriorar o desempenho de ações e eventos, por exemplo, lentidão na entrega de requisições/resposta e pacotes de eventos.
 
 
 {% note warn%}
-Please note the TCP transporter uses Gossip protocol & UDP packets for discovery & heartbeats, it means it can work only with local discovery mechanism.
+Observe que o módulo de transporte TCP usa o protocolo Gossip & pacotes UDP para descoberta & sinal de vida, o que significa que só pode funcionar como mecanismo local de descoberta.
 {% endnote %}
 
-**Local Discovery with default options**
+**Descoberta local com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 }
 ```
 
-**Local Discovery with custom options**
+**Descoberta local com opções personalizadas**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -51,17 +51,17 @@ module.exports = {
 ```
 
 ### Redis
-![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg) Redis-based discovery uses a dedicated connection with the [Redis server](https://redis.io/) to exchange discovery and heartbeat packets. This approach reduces the load over the transporter module, it's used exclusively for the exchange of the request, response, event packets.
+![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg) A descoberta baseada em Redis usa uma conexão dedicada com o [servidor Redis](https://redis.io/) para compartilhar descobertas e pacotes de sinal de vida. Esta abordagem reduz a carga sobre o módulo de transporte; e é usada exclusivamente para compartilhamento de requisições, respostas, pacotes de eventos.
 
-When Redis-based discovery method is enabled, Moleculer nodes periodically publish and fetch the info from Redis and update their internal service registry. Redis key expiration mechanism removes nodes that don't publish heartbeat packets for a certain period of time. This allows Moleculer nodes to detect that a specific node has disconnected.
+Quando o método de descoberta baseado em Redis está habilitado, os nós do Moleculer publicam e buscam periodicamente a informação no Redis e atualizam seu registro de serviços interno. Mecanismo de expiração de chaves do Redis remove nós que não publicam pacotes de sinal de vida por um determinado período de tempo. Isto permite que nós do Moleculer detectem que um nó específico foi desconectado.
 
-Please note that this method is slower to detect new nodes as it relies on periodic heartbeat checks at Redis server. The periodicity depends on the `heartbeatInterval` broker option.
+Por favor, note que este método é mais lento para detectar novos nós já que ele depende de verificações periódicas de sinal de vida no servidor Redis. A periodicidade depende da opção `heartbeatInterval` do broker.
 
 {% note info%}
-To use Redis discovery install the `ioredis` module with the `npm install ioredis --save` command.
+Para usar a descoberta via Redis instale o módulo `ioredis` com o comando `npm install ioredis --save`.
 {% endnote %}
 
-**Example of connection to a local Redis server**
+**Exemplo de conexão em um servidor Redis local**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -72,7 +72,7 @@ module.exports = {
 ```
 
 
-**Example of connection to a remote Redis server**
+**Exemplo de conexão em um servidor Redis remoto**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -82,7 +82,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**Exemplo com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -135,21 +135,21 @@ module.exports = {
 ```
 
 {% note info%}
-Tip: To further reduce network traffic use [MsgPack/Notepack serializers](networking.html#MsgPack-serializer) instead of JSON.
+Dica: Para reduzir ainda mais o tráfego de rede, use os serializadores [ MsgPack/Notepack](networking.html#MsgPack-serializer) ao invés de JSON.
 {% endnote %}
 
 ### etcd3
-![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg)
+![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg)
 
-Etcd3-based discovery method is very similar to [Redis-based discovery](#Redis). It stores heartbeat and discovery packets at [etcd3 server](https://etcd.io/). etcd3's [lease](https://etcd.io/docs/v3.4.0/learning/api/#lease-api) option will remove heartbeat info of nodes that have crashed or disconnected from the network.
+O método de descoberta baseado em Etcd3 é muito semelhante ao [descoberta baseada em Redis](#Redis). Ele armazena sinais de vida e pacotes de descoberta no [servidor etcd3](https://etcd.io/). A opção [lease](https://etcd.io/docs/v3.4.0/learning/api/#lease-api) do etcd3 removerá as informações de sinal de vida dos nós que caírem ou forem desconectados da rede.
 
-This method has the same strengths and weaknesses of Redis-based discovery. It doesn't use the transporter module for the discovery but it's also slower to detect new or disconnected nodes.
+Este método tem os mesmos pontos fortes e fracos da descoberta baseada em Redis. Ele não usa o módulo de transporte para a descoberta, mas também é mais lento para detectar nós novos ou desconectados.
 
 {% note info%}
-To use etcd3 discovery install the `etcd3` module with the `npm install etcd3 --save` command.
+Para usar a descoberta via etcd3 instale o módulo `etcd3` com o comando `npm install etcd3 --save`.
 {% endnote %}
 
-**Example to connect local etcd3 server**
+**Exemplo para conectar o servidor local etcd3**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -159,7 +159,7 @@ module.exports = {
 }
 ```
 
-**Example to connect remote etcd3 server**
+**Exemplo de conexão do servidor remoto etcd3**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -169,7 +169,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**Exemplo com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -214,17 +214,17 @@ module.exports = {
 ```
 
 {% note info%}
-Tip: To further reduce network traffic use [MsgPack/Notepack serializers](networking.html#MsgPack-serializer) instead of JSON.
+Dica: Para reduzir ainda mais o tráfego de rede, use os serializadores [ MsgPack/Notepack](networking.html#MsgPack-serializer) ao invés de JSON.
 {% endnote %}
 
-### Customization
-You can create your custom discovery mechanism. We recommend to copy the source of Redis Discoverer and implement the necessary methods.
+### Personalização
+Você pode criar seu mecanismo de descoberta personalizado. Recomendamos copiar a fonte do Redis Discoverer e implementar os métodos necessários.
 
 <!-- **TODO: diagram, which shows node's local registry, when a new node coming & leaving.** -->
 
-## Built-in Service Registry
-Moleculer has a built-in service registry module. It stores all information about services, actions, event listeners and nodes. When you call a service or emit an event, broker asks the registry to look up a node which is able to execute the request. If there are multiple nodes, it uses load-balancing strategy to select the next node.
+## Registro de Serviços Integrado
+Moleculer tem um módulo de registro de serviços integrado. Ele armazena todas as informações sobre serviços, ações, assinantes de eventos e nós. Quando você chama um serviço ou emite um evento, o broker pede ao registro para procurar um nó que possa executar a requisição. Se houver vários nós, ele usa a estratégia de balanceamento de carga para selecionar o próximo nó.
 
-> Read more about [load-balancing & strategies](balancing.html).
+> Leia mais sobre o [balanceamento de carga & estratégias](balancing.html).
 
-> Registry data is available via [internal service](services.html#Internal-Services).
+> Os dados de registro estão disponíveis através de [serviço interno](services.html#Internal-Services).

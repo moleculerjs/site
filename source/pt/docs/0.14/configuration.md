@@ -1,54 +1,54 @@
-title: Configuration
+title: Configuração
 ---
-## Broker options
-These options can be used in `ServiceBroker` constructor or in `moleculer.config.js` file.
+## Opções do broker
+Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `moleculer.config.js`.
 
-**List of all available broker options:**
+**Lista de todas as opções do broker disponíveis:**
 
-* **`namespace`**: `String` - Namespace of nodes to segment your nodes on the same network (e.g.: "development", "staging", "production"). _Default: `""`_
-* **`nodeID`**: `String` - Unique node identifier. Must be unique in a namespace. If not the broker will throw a fatal error and stop the process. _Default: hostname + PID_
-* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - Logger class. By default, it prints message to the `console`. [Read more](logging.html). _Default: `"Console"`
-* **`logLevel`**: `String | Object` - Log level for loggers (trace, debug, info, warn, error, fatal). [Read more](logging.html). _Default: `info`_
-* **`transporter`**: `String | Object | Transporter` - Transporter configuration. [Read more](networking.html).  _Default: `null`_
-* **`requestTimeout`**: `Number` - Number of milliseconds to wait before reject a request with a `RequestTimeout` error. Disabled: `0` _Default: `0`_
-* **`retryPolicy`**: `Object` - Retry policy configuration. [Read more](fault-tolerance.html#Retry).
-* **`contextParamsCloning`**: `Boolean` - Cloning the `params` of context if enabled. _High performance impact. Use it with caution!_ _Default: `false`_
-* **`dependencyInterval`**: Configurable interval (defined in `ms`) that's used by the services while waiting for dependency services. _Default: `1000`_
-* **`maxCallLevel`**: `Number` - Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ _Default: `0`_
-* **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `5`_
-* **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
-* **`tracking`**: `Object` - Tracking requests and waiting for running requests before shutdowning. _(Graceful shutdown)_ [Read more](context.html#Context-tracking).
-* **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
-* **`registry`**: `Object` - Settings of [Service Registry](registry.html).
-* **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
-* **`bulkhead`**: `Object` - Settings of [bulkhead](fault-tolerance.html#Bulkhead).
-* **`transit.maxQueueSize`**: `Number` - A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
-* **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_
-* **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _Default: `false`_
-* **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _Default: `false`_
-* **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_
-* **`uidGenerator`**: `Function` - Custom UID generator function for Context ID.
-* **`errorHandler`**: `Function` - [Global error handler](broker.html#Global-error-handler) function.
-* **`cacher`**: `String | Object | Cacher` - Cacher settings. [Read more](caching.html). _Default: `null`_
-* **`serializer`**: `String | Serializer` - Instance of serializer. [Read more](networking.html). _Default: `JSONSerializer`_
-* **`validator`**: `Boolean | Validator` - Enable the default or create custom [parameters validation](validating.html). _Default: `true`_
-* **`metrics`**: `Boolean | Object` - Enable & configure [metrics](metrics.html) feature. _Default: `false`_
-* **`tracing`**: `Boolean | Object` - Enable & configure [tracing](tracing.html) feature. _Default: `false`_
-* **`internalServices`**: `Boolean | Object` - Register [internal services](services.html#Internal-Services) at start. _Default: `true`_
-* **`internalServices.$node`** - `Object` - Extend internal services with [custom actions](services.html#Extending). _Default: `null`_
-* **`internalMiddlewares`**: `Boolean` - Register [internal middlewares](middlewares.html#Internal-middlewares). _Default: `true`_
-* **`hotReload`**: `Boolean` - Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-Reloading-Services). _Default: `false`_
-* **`middlewares`**: `Array<Object>` - Register custom middlewares. _Default: `null`_
-* **`replCommands`**: `Array<Object>` - Register custom REPL commands. _Default: `null`_
-* **`metadata`**: `Object` - Store custom values. _Default: `null`_
-* **`skipProcessEventRegistration`**: Boolean - Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case, you have to register them manually. _Default: `false`_
-* **`created`**: `Function` - Fired when the broker created. _Default: `null`_
-* **`started`**: `Function` - Fired when the broker started _(all local services loaded & transporter is connected)_. _Default: `null`_
-* **`stopped`**: `Function` - Fired when the broker stopped _(all local services stopped & transporter is disconnected)_. _Default: `null`_
-* **`ServiceFactory`**: `ServiceClass` - Custom `Service` class. If not `null`, broker will use it when creating services by service schema. _Default: `null`_
-* **`ContextFactory`**: `ContextClass` - Custom `Context` class. If not `null`, broker will use it when creating contexts for requests & events. _Default: `null`_
+* **`namespace`**: `String` - Namespace de nós para segmentar seus nós na mesma rede (por exemplo: "development", "staging", "production"). _Default: `""`_
+* **`nodeID`**: `String` - Identificador de nó único. Deve ser único em um namespace. Se não o broker irá retornar um erro fatal e abortar o processo. _Default: hostname + PID_
+* **`logger`**: `Boolean | String | Object | Array<Object>`  ) - Classe de Logger. Por padrão, ele imprime mensagem no `console`. [Leia mais](logging.html). _Default: `<code>"Console"`</li>
+* **`logLevel`**: `String | Object` - Nível de log (trace, debug, info, warn, error, fatal). [Leia mais](logging.html). _Default: `info`_
+* **`transporter`**: `String | Object | Transporter` - Configuração do módulo de transporte. [Leia mais](networking.html).  _Default: `null`_
+* **`requestTimeout`**: `Number` - Número de milissegundos para esperar antes de rejeitar uma solicitação com um erro de `RequestTimeout`. Desabilitado: `0` _Default: `0`_
+* **`retryPolicy`**: `Object` - Configuração de política de repetição. [Leia mais](fault-tolerance.html#Retry).
+* **`contextParamsCloning`**: `Boolean` - Clonando os `parâmetros` do context, se habilitado. _Alto impacto no desempenho. Use-o com cuidado!_ _Default: `false`_
+* **`dependencyInterval`**: Intervalo configurável (definido em `ms`) é usado pelos serviços enquanto aguarda dependências de serviços. _Default: `1000`_
+* **`maxCallLevel`**: `Number` - Limite de níveis de chamadas. Se atingir o limite, o broker retornará um erro ` MaxCallLevelError`. _(Proteção de Loop infinito)_ _Default: `0`_
+* **`heartbeatInterval`**: `Number` - Número de segundos para enviar um pacote de sinal de vida para outros nós. _Default: `5`_
+* **`heartbeatTimeout`**: `Number` - Número de segundos para esperar antes de configurar nós remotos para o status indisponível no Registro. _Default: `15`_
+* **`tracking`**: `Object` - Rastrear requisições e aguardar pelas requisições em andamento antes de desligar. _(Desligamento elegante)_ [Leia mais](context.html#Context-tracking).
+* **`disableBalancer`**: Boolean - Desabilitar o balanceamento de carga integrado em requisições & emissões de evento. _O módulo de transporte também precisa atender._ [Leia mais](networking.html#Disabled-balancer). _Default: `false`_
+* **`registry`**: `Object` - Configurações do [Service Registry](registry.html).
+* **`circuitBreaker`**: `Object` - Configurações do [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
+* **`bulkhead`**: `Object` - Configurações do [bulkhead](fault-tolerance.html#Bulkhead).
+* **`transit.maxQueueSize`**: `Number` - Uma proteção contra uso exagerado de memória quando existem muitas solicitações de saída. Se houver mais requisições em tempo real do que o _indicado_, as novas solicitações serão rejeitadas com o erro `QueueIsFullError`. _Default: `50000`_
+* **`transit.maxChunkSize`** `Number` - Tamanho máximo durante streaming.  _Default: `256KB`_
+* **`transit.disableReconnect`**: `Boolean` - Desabilita a lógica de reconexão ao iniciar o broker. _Default: `false`_
+* **`transit.disableVersionCheck`**: `Boolean` - Desabilita a validação de versão do protocolo em Transit. _Default: `false`_
+* **`transit.packetLogFilter`**: `Array` - Filtra os pacotes nas mensagens de log do debug. Pode ser útil filtrar os pacotes `HEARTBEAT` durante o debug. _Default: `[]`_
+* **`uidGenerator`**: `Function` - Função de gerador de UID customizada para ID Context.
+* **`errorHandler`**: `Function` - Função [Manipulador de erros global](broker.html#Global-error-handler).
+* **`cacher`**: `String | Object | Cacher` - Configurações de cache. [Leia mais](caching.html). _Default: `null`_
+* **`serializer`**: `String | Serializer` - Instância do serializador. [Leia mais](networking.html). _Default: `JSONSerializer`_
+* **`validator`**: `Boolean | Validator` - Habilita o padrão ou cria [validação de parâmetros](validating.html) personalizada. _Default: `true`_
+* **`metrics`**: `Boolean | Object` - Habilita & configura o recurso de [métricas](metrics.html). _Default: `false`_
+* **`tracing`**: `Boolean | Object` - Habilita & configura o recurso de [tracing](tracing.html). _Default: `false`_
+* **`internalServices`**: `Boolean | Object` - Registra [serviços internos](services.html#Internal-Services) ao inicializar. _Default: `true`_
+* **`internalServices.$node`** - `Object` - Amplia serviços internos com [ações customizadas](services.html#Extending). _Default: `null`_
+* **`internalMiddlewares`**: `Boolean` - Registra [middlewares internos](middlewares.html#Internal-middlewares). _Default: `true`_
+* **`hotReload`**: `Boolean` - Observar os serviços carregados e recarregar se forem alterados. [Leia mais](services.html#Hot-Reloading-Services). _Default: `false`_
+* **`middlewares`**: `Array<Object>` - Registre middlewares personalizados. _Default: `null`_
+* **`replCommands`**: `Array<Object>` - Registre comandos REPL personalizados. _Default: `null`_
+* **`metadata`**: `Object` - Armazene valores personalizados. _Default: `null`_
+* **`skipProcessEventRegistration`**: Boolean - Ignore o manipulador [padrão](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) de eventos de desligamento elegante. Neste caso, você tem que registrá-los manualmente. _Default: `false`_
+* **`created`**: `Function` - Acionado quando o broker for criado. _Default: `null`_
+* **`started`**: `Function` - Acionado quando o broker for inicializado _(todos os serviços locais carregados & módulo de transporte conectado)_. _Default: `null`_
+* **`stopped`**: `Function` - Acionado quando o broker for parado _(todos os serviços locais parados & módulo de transporte está desconectado)_. _Default: `null`_
+* **`ServiceFactory`**: `ServiceClass` - Classe `Service` personalizada. Se não for `null`, o broker usará ao criar serviços via esquema de serviço. _Default: `null`_
+* **`ContextFactory`**: `ContextClass` - Classe `Context` personalizada. Se não for `null`, o broker usará ao criar contextos para requisições & eventos. _Default: `null`_</ul>
 
-### Full options object
+### Opções completas
 ```js
 {
     namespace: "dev",
