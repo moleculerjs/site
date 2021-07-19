@@ -8,7 +8,7 @@ Os assinantes de eventos são agrupados em grupos lógicos. Significa que apenas
 > **Exemplo:** você tem 2 serviços principais: `users` & `payments`. Ambos se inscrevem para o evento `user.created`. Você inicia 3 instâncias do serviço `users` e 2 instâncias do serviço `payments`. Quando você emite o evento `user.created`, apenas uma instância do serviço `users` e uma de `payments` receberá o evento.
 
 <div align="center">
-    <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
+    <img src="assets/balanced-events.gif" alt="Diagrama de eventos balanceados" />
 </div>
 
 O nome do grupo vem do nome do serviço, mas ele pode ser substituído na definição do evento em serviços.
@@ -47,10 +47,10 @@ broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
 # Evento de transmissão
-O evento de transmissão é enviado para todos os serviços locais & remotos disponíveis. Não é balanceado, todas as instâncias de serviços o receberão.
+O evento de transmissão é emitido para todos os serviços locais & remotos disponíveis. Não é balanceado, todas as instâncias de serviços o receberão.
 
 <div align="center">
-    <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
+    <img src="assets/broadcast-events.gif" alt="Diagrama de transmissão de eventos" />
 </div>
 
 Emita eventos de transmissão usando o método `broker.broadcast`.
@@ -127,7 +127,7 @@ module.exports = {
 ```
 
 ## Validação de parâmetros do evento
-Semelhante à validação do parâmetro de ação, a validação do parâmetro de evento é suportada. Like in action definition, you should define `params` in even definition and the built-in `Validator` validates the parameters in events.
+Semelhante à validação do parâmetro de ação, a validação do parâmetro de evento é suportada. Como na definição de ação, você deve definir `params` na mesma definição e o `Validator` integrado valida os parâmetros nos eventos.
 
 ```js
 // mailer.service.js
@@ -148,90 +148,90 @@ module.exports = {
     }
 };
 ```
-> The validation errors are not sent back to the caller, they are logged or you can catch them with the new [global error handler](broker.html#Global-error-handler).
+> Os erros de validação não são enviados de volta para o requisitante, eles são logados ou você pode capturá-los com o novo [manipulador de erros global](broker.html#Global-error-handler).
 
-# Internal events
-The broker broadcasts some internal events. These events always starts with `$` prefix.
+# Eventos internos
+O broker transmite alguns eventos internos. Esses eventos sempre começam com prefixo `$`.
 
 ## `$services.changed`
-The broker sends this event if the local node or a remote node loads or destroys services.
+O broker emite este evento se o nó local ou um nó remoto carrega ou destrói serviços.
 
 **Payload**
 
-| Name           | Type      | Description                      |
-| -------------- | --------- | -------------------------------- |
-| `localService` | `Boolean` | True if a local service changed. |
+| Nome           | Tipo      | Descrição                             |
+| -------------- | --------- | ------------------------------------- |
+| `localService` | `Boolean` | Verdadeiro se um serviço local mudou. |
 
 ## `$circuit-breaker.opened`
-The broker sends this event when the circuit breaker module change its state to `open`.
+O broker emite este evento quando o módulo do circuit breaker altera seu estado para `aberto`.
 
 **Payload**
 
-| Name       | Type     | Description       |
-| ---------- | -------- | ----------------- |
-| `nodeID`   | `String` | Node ID           |
-| `action`   | `String` | Action name       |
-| `failures` | `Number` | Count of failures |
+| Nome       | Tipo     | Descrição          |
+| ---------- | -------- | ------------------ |
+| `nodeID`   | `String` | ID do nó           |
+| `action`   | `String` | Nome da ação       |
+| `failures` | `Number` | Contagem de falhas |
 
 
 ## `$circuit-breaker.half-opened`
-The broker sends this event when the circuit breaker module change its state to `half-open`.
+O broker emite este evento quando o módulo do circuit breaker altera seu estado para `meio-aberto`.
 
 **Payload**
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Nome     | Tipo     | Descrição    |
+| -------- | -------- | ------------ |
+| `nodeID` | `String` | ID do nó     |
+| `action` | `String` | Nome da ação |
 
 ## `$circuit-breaker.closed`
-The broker sends this event when the circuit breaker module change its state to `closed`.
+O broker emite este evento quando o módulo do circuit breaker altera seu estado para `fechado`.
 
 **Payload**
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Nome     | Tipo     | Descrição    |
+| -------- | -------- | ------------ |
+| `nodeID` | `String` | ID do nó     |
+| `action` | `String` | Nome da ação |
 
 ## `$node.connected`
-The broker sends this event when a node connected or reconnected.
+O broker emite este evento quando um nó se conecta ou desconecta.
 
 **Payload**
 
-| Name          | Type      | Description      |
-| ------------- | --------- | ---------------- |
-| `node`        | `Node`    | Node info object |
-| `reconnected` | `Boolean` | Is reconnected?  |
+| Nome          | Tipo      | Descrição                    |
+| ------------- | --------- | ---------------------------- |
+| `node`        | `Node`    | Objeto com informações do nó |
+| `reconnected` | `Boolean` | Está reconectado?            |
 
 ## `$node.updated`
-The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
+O broker emite este evento quando recebe uma mensagem INFO de um nó (ou seja, um serviço é carregado ou destruído).
 
 **Payload**
 
-| Name   | Type   | Description      |
-| ------ | ------ | ---------------- |
-| `node` | `Node` | Node info object |
+| Nome   | Tipo   | Descrição                    |
+| ------ | ------ | ---------------------------- |
+| `node` | `Node` | Objeto com informações do nó |
 
 ## `$node.disconnected`
-The broker sends this event when a node disconnected (gracefully or unexpectedly).
+O broker emite este evento quando um nó é desconectado (de forma elegante ou inesperada).
 
 **Payload**
 
-| Name         | Type      | Description                                                                         |
-| ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `Node`    | Node info object                                                                    |
-| `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
+| Nome         | Tipo      | Descrição                                                                              |
+| ------------ | --------- | -------------------------------------------------------------------------------------- |
+| `node`       | `Node`    | Objeto com informações do nó                                                           |
+| `unexpected` | `Boolean` | `true` - Não recebido sinal de vida, `false` - Recebido a mensagem `DISCONNECT` do nó. |
 
 ## `$broker.started`
-The broker sends this event once `broker.start()` is called and all local services are started.
+O broker emite este evento uma vez que `broker.start()` é chamado e todos os serviços locais são iniciados.
 
 ## `$broker.stopped`
-The broker sends this event once `broker.stop()` is called and all local services are stopped.
+O broker emite este evento uma vez que `broker.stop()` é chamado e todos os serviços locais são desconectados.
 
 ## `$transporter.connected`
-The transporter sends this event once the transporter is connected.
+O módulo de transporte emite este evento assim que o transporter estiver conectado.
 
 ## `$transporter.disconnected`
-The transporter sends this event once the transporter is disconnected.
+O módulo de transporte emite este evento assim que o transporter for desconectado.
 
