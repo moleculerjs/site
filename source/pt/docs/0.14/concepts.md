@@ -35,17 +35,17 @@ Agora vamos dar uma olhada como essa loja hipotética pode ser criada com Molecu
 
 Para garantir que o nosso sistema seja resistente a falhas, executaremos os serviços `products` e `gateway` em [nós](#Node) dedicados (`node-1` e `node-2`). Relembrando, serviços rodando em nós dedicados significa que o [módulo de transporte](#Transporter) é necessário para a comunicação entre serviços. A maioria dos módulos de transporte suportados pelo Moleculer dependem de um broker de mensagens para comunicação entre serviços, então vamos precisar de um conectado e executando. Em geral, a arquitetura interna de nossa loja é representada na figura abaixo.
 
-Agora, assumindo que nossos serviços estão prontos e funcionando, a loja on-line pode atender a requisições do usuário. So let's see what actually happens with a request to list all available products. First, the request (`GET /products`) is received by the HTTP server running at `node-1`. The incoming request is simply passed from the HTTP server to the [gateway](#Gateway) service that does all the processing and mapping. In this case in particular, the user´s request is mapped into a `listProducts` action of the `products` service.  Next, the request is passed to the [broker](#Service-Broker), which checks whether the `products` service is a [local](#Local-Services) or a [remote](#Remote-Services) service. In this case, the `products` service is remote so the broker needs to use the [transporter](#Transporter) module to deliver the request. The transporter simply grabs the request and sends it through the communication bus. Since both nodes (`node-1` and `node-2`) are connected to the same communication bus (message broker), the request is successfully delivered to the `node-2`. Upon reception, the broker of `node-2` will parse the incoming request and forward it to the `products` service. Finally, the `products` service invokes the `listProducts` action and returns the list of all available products. The response is simply forwarded back to the end-user.
+Agora, assumindo que nossos serviços estão prontos e funcionando, a loja on-line pode atender a requisições do usuário. Então vamos ver o que acontece de verdade com uma requisição para listar todos os produtos disponíveis. Primeiro, a requisição (`GET /products`) é recebida pelo servidor HTTP em execução no `node-1`. A requisição recebida é simplesmente encaminhada do servidor HTTP para o [serviço de gateway](#Gateway) que faz todo o processamento e direcionamento. Neste caso, em particular, a requisição do usuário é direcionada para uma ação `listProducts` do serviço de `products`.  Em seguida, a requisição é passada para o [broker](#Service-Broker), que verifica se o serviço de `products` é um [serviço local](#Local-Services) ou um [ serviço remoto](#Remote-Services). Neste caso, o serviço de `products` é remoto, então o broker precisa usar o [módulo de transporte](#Transporter) para entregar a requisição. O módulo de transporte simplesmente recebe a requisição e o encaminha via protocolo de comunicação. Uma vez que ambos os nós (`node-1` e `node-2`) estão conectados ao mesmo protocolo de comunicação (broker de mensagens), a requisição será entregue com sucesso ao `node-2`. Após a recepção, o broker do `node-2` analisará a requisição recebida e encaminhará para o serviço `products`. Finalmente, o serviço `products` invoca a ação `listProducts` e retorna a lista de todos os produtos disponíveis. A resposta é simplesmente enviada de volta para o usuário final.
 
-**Flow of user's request**
+**Fluxo de requisições do usuário**
 <div align="center">
-    <img src="assets/overview.svg" alt="Architecture Overview" />
+    <img src="assets/overview.svg" alt="Visão Geral da Arquitetura" />
 </div>
 
-All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
+Todos os detalhes que acabamos de ver podem parecer assustadores e complicados, mas você não precisa ter medo. Moleculer faz todo o trabalho pesado para você! Você (o desenvolvedor) só precisa se concentrar na regra de negócio. Dê uma olhada na implementação real da nossa [loja online](#Implementation).
 
-### Implementation
-Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://nats.io/download/nats-io/nats-server/). Run it with the default settings. You should get the following message:
+### Implementação
+Agora que definimos a arquitetura da nossa loja, vamos implementá-la. Vamos usar o NATS, um sistema de mensagens de código aberto, como protocolo de comunicação. Então vá em frente e obtenha a última versão do [Servidor NATS](https://nats.io/download/nats-io/nats-server/). Execute-o com as configurações padrão. Você deve receber a seguinte mensagem:
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4
@@ -53,7 +53,7 @@ Now that we've defined the architecture of our shop, let's implement it. We're g
 [18141] 2016/10/31 13:13:40.732967 [INF] Server is ready
 ```
 
-Next, create a new directory for our application, create a new `package.json` and install the dependencies. We´re going to use `moleculer` to create our services, `moleculer-web` as the HTTP gateway and `nats` for communication. In the end your `package.json` should look like this:
+Em seguida, crie um novo diretório para nossa aplicação, crie um novo `package.json` e instale as dependências. Vamos usar `moleculer` para criar nossos serviços, `moleculer-web` como o gateway HTTP e `nats` para comunicação. No final, o seu `package.json` deve se parecer com isto:
 
 ```json
 // package.json
@@ -67,7 +67,7 @@ Next, create a new directory for our application, create a new `package.json` an
 }
 ```
 
-Finally, we need to configure the brokers and create our services. So let's create a new file (`index.js`) and do it:
+Finalmente, precisamos configurar os brokers e criar os nossos serviços. Então vamos criar um novo arquivo (`index.js`) e implementar:
 ```javascript
 // index.js
 const { ServiceBroker } = require("moleculer");
@@ -126,7 +126,7 @@ brokerNode2.createService({
 // Start both brokers
 Promise.all([brokerNode1.start(), brokerNode2.start()]);
 ```
-Now run `node index.js` in your terminal and open the link [`http://localhost:3000/products`](http://localhost:3000/products). You should get the following response:
+Agora execute `node index.js` no seu terminal e abra o link [`http://localhost:3000/products`](http://localhost:3000/products). Você deve receber a seguinte resposta:
 ```json
 [
     { "name": "Apples", "price": 5 },
@@ -135,6 +135,6 @@ Now run `node index.js` in your terminal and open the link [`http://localhost:30
 ]
 ```
 
-With just a couple dozen of lines of code we've created 2 isolated services capable of serving user's requests and list the products. Moreover, our services can be easily scaled to become resilient and fault-tolerant. Impressive, right?
+Com apenas algumas dezenas de linhas de código, criamos dois serviços isolados capazes de atender as requisições do usuário e listar os produtos. Além disso, os nossos serviços podem ser facilmente escalonados para se tornarem resilientes e tolerantes e falhas. Impressionante, verdade?
 
-Head out to the [Documentation](broker.html) section for more details or check the [Examples](examples.html) page for more complex examples.
+Vá até a seção [Documentação](broker.html) para mais detalhes ou verifique a página [Exemplos](examples.html) para exemplos mais complexos.
