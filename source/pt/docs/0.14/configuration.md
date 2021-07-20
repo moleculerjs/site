@@ -39,6 +39,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`internalMiddlewares`**: `Boolean` - Registra [middlewares internos](middlewares.html#Internal-middlewares). _Default: `true`_
 * **`hotReload`**: `Boolean` - Observar os serviços carregados e recarregar se forem alterados. [Leia mais](services.html#Hot-Reloading-Services). _Default: `false`_
 * **`middlewares`**: `Array<Object>` - Registre middlewares personalizados. _Default: `null`_
+* **`replDelimiter`**: `String` - Custom REPL commands delimiter. _Default: `mol $`_
 * **`replCommands`**: `Array<Object>` - Registre comandos REPL personalizados. _Default: `null`_
 * **`metadata`**: `Object` - Armazene valores personalizados. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Ignore o manipulador [padrão](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) de eventos de desligamento elegante. Neste caso, você tem que registrá-los manualmente. _Default: `false`_
@@ -140,6 +141,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 
     middlewares: ["MyMiddleware"],
 
+    replDelimiter: "mol $",
     replCommands: [],
 
     metadata: {
