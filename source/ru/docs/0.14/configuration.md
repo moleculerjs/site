@@ -39,6 +39,7 @@ title: Конфигурация
 * **`internalMiddlewares`**: `Boolean` - Регистрация [внутренних промежуточных функций](middlewares.html#Internal-middlewares). _По умолчанию: `true`_
 * **`hotReload`**: `Boolean` - Отслеживать загруженные сервисы и перезагружать их при изменениях. [Подробнее](services.html#Hot-Reloading-Services). _По умолчанию: `false`_
 * **`middlewares`**: `Array<Object>` - Регистрировать пользовательские промежуточные функции. _По умолчанию: `null`_
+* **`replDelimiter`**: `String` - Custom REPL commands delimiter. _Default: `mol $`_
 * **`replCommands`**: `Array<Object>` - Регистрировать пользовательские REPL команды. _По умолчанию: `null`_
 * **`metadata`**: `Object` - Хранить пользовательские значения. _По умолчанию: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Пропустить [по умолчанию](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) обработчики событий плавного завершения. В этом случае необходимо зарегистрировать их вручную. _По умолчанию: `false`_
@@ -140,6 +141,7 @@ title: Конфигурация
 
     middlewares: ["MyMiddleware"],
 
+    replDelimiter: "mol $",
     replCommands: [],
 
     metadata: {
