@@ -632,17 +632,18 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| 名称                | 类型               | 默认设置     | 说明                                                                                                                                    |
-| ----------------- | ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`          | `String`         | `null`   | 键前缀                                                                                                                                   |
-| `ttl`             | `Number`         | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                          |
-| `monitor`         | `Boolean`        | `false`  | 启用 Redis 客户端 [监测功能](https://github.com/luin/ioredis#monitor)。 If enabled, every client operation will be logged (on debug level)      |
-| `redis`           | `Object`         | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis). |
-| `keygen`          | `Function`       | `null`   | Custom cache key generator function.                                                                                                  |
-| `maxParamsLength` | `Number`         | `null`   | Maximum length of params in generated keys.                                                                                           |
-| `serializer`      | `String`         | `"JSON"` | Name of a built-in serializer.                                                                                                        |
-| `cluster`         | `Object`         | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                       |
-| `lock`            | `Boolean|Object` | `null`   | Enable lock feature.                                                                                                                  |
+| 名称                | 类型                    | 默认设置     | 说明                                                                                                                                    |
+| ----------------- | --------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `prefix`          | `String`              | `null`   | 键前缀                                                                                                                                   |
+| `ttl`             | `Number`              | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                          |
+| `monitor`         | `Boolean`             | `false`  | 启用 Redis 客户端 [监测功能](https://github.com/luin/ioredis#monitor)。 If enabled, every client operation will be logged (on debug level)      |
+| `redis`           | `Object`              | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis). |
+| `keygen`          | `Function`            | `null`   | Custom cache key generator function.                                                                                                  |
+| `maxParamsLength` | `Number`              | `null`   | Maximum length of params in generated keys.                                                                                           |
+| `serializer`      | `String`              | `"JSON"` | Name of a built-in serializer.                                                                                                        |
+| `cluster`         | `Object`              | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                       |
+| `lock`            | `Boolean` or `Object` | `null`   | Enable lock feature.                                                                                                                  |
+| `pingInterval`    | `Number`              | `null`   | Emit a Redis PING command every `pingInterval` milliseconds. Can be used to keep connections alive which may have idle timeouts.      |
 
 {% note info Dependencies %}
 要使用此缓存，请使用 `npm install ioredis --save` 命令安装 `ioredis` 模块。
