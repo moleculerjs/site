@@ -647,7 +647,8 @@ const broker = new ServiceBroker({
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
 | `serializer` | `String` | `"JSON"` | Name of a built-in serializer. |
 | `cluster` | `Object` | `null` | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster) |
-| `lock` | `Boolean|Object` | `null` | Enable lock feature. |
+| `lock` | `Boolean` or `Object` | `null` | Enable lock feature. |
+| `pingInterval` | `Number` | `null` | Emit a Redis PING command every `pingInterval` milliseconds. Can be used to keep connections alive which may have idle timeouts. |
 
 {% note info Dependencies %}
 To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.
