@@ -253,6 +253,35 @@ module.exports = {
 };
 ```
 
+### Customer Reporter
+Custom metrics module can be created. We recommend to copy the source of [Console Reporter](https://github.com/moleculerjs/moleculer/blob/master/src/metrics/reporters/console.js) and implement the `init`, `stop`, `metricChanged` methods.
+
+**Create custom metrics**
+```js
+const BaseReporter = require("moleculer").MetricReporters.Base;
+
+class MyMetricsReporter extends BaseReporter {
+    init() { /*...*/ }
+    stop() { /*...*/ }
+    metricChanged() { /*...*/ }
+}
+```
+
+**Use custom metrics**
+```js
+// moleculer.config.js
+const MyMetricsReporter = require("./my-metrics-reporter");
+
+module.exports = {
+    metrics: {
+        enabled: true,
+        reporter: [
+            new MyMetricsReporter(),
+        ]
+    }
+};
+```
+
 ## Supported Metric Types
 
 ### Counter
