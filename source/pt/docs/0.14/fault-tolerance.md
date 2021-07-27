@@ -1,21 +1,21 @@
 title: Tolerância a falhas
 ---
 
-Moleculer tem vários mecanismos integrados de tolerância a falhas. Eles podem ser habilitados ou desabilitados nas opções de broker.
+Moleculer tem vários recursos integrados de tolerância a falhas. Eles podem ser habilitados ou desabilitados nas opções de broker.
 
 ## Circuit Breaker
 
 Moleculer tem uma solução integrada que aplica o padrão circuit-breaker. Trata-se de uma implementação baseada em limites. Ele usa uma janela do tempo para verificar a taxa de falha das requisições. Uma vez que o limite é atingido, ele aciona o disjuntor.
 
 {% note info O que é circuit breaker? %}
-O Circuit Breaker pode impedir que um aplicativo tente repetidamente executar uma operação que provavelmente falhará. Allowing it to continue without waiting for the fault to be fixed or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been fixed, the application can try to invoke the operation.
+O Circuit Breaker pode impedir que um aplicativo tente repetidamente executar uma operação que provavelmente falhará. Permitindo que continue sem esperar que a falha seja corrigida ou desperdiçando processamento enquanto determina que a falha ainda persiste. O padrão Circuit Breaker também permite que uma aplicação detecte se a falha foi resolvida. Se o problema parece ter sido corrigido, a aplicação pode tentar chamar a operação.
 
-Read more about circuit breaker on [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html) or on [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
+Leia mais sobre o circuit breaker no [blog Martin Fowler](https://martinfowler.com/bliki/CircuitBreaker.html) ou no [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
 {% endnote %}
 
-If you enable it, all service calls will be protected by the circuit breaker.
+Se ativá-lo, todas as chamadas de serviço serão protegidas pelo circuit breaker.
 
-**Enable it in the broker options**
+**Habilite-o nas opções do broker**
 ```js
 const broker = new ServiceBroker({
     circuitBreaker: {
@@ -29,20 +29,20 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Confirgurações
 
-| Name              | Type       | Default                             | Description                                                          |
-| ----------------- | ---------- | ----------------------------------- | -------------------------------------------------------------------- |
-| `enabled`         | `Boolean`  | `false`                             | Enable feature                                                       |
-| `threshold`       | `Number`   | `0.5`                               | Threshold value. `0.5` means that 50% should be failed for tripping. |
-| `minRequestCount` | `Number`   | `20`                                | Minimum request count. Below it, CB does not trip.                   |
-| `windowTime`      | `Number`   | `60`                                | Number of seconds for time window.                                   |
-| `halfOpenTime`    | `Number`   | `10000`                             | Number of milliseconds to switch from `open` to `half-open` state    |
-| `check`           | `Function` | `err && err.code >= 500` | A function to check failed requests.                                 |
+| Nome              | Tipo       | Valor padrão                        | Descrição                                                                    |
+| ----------------- | ---------- | ----------------------------------- | ---------------------------------------------------------------------------- |
+| `enabled`         | `Boolean`  | `false`                             | Ativar recurso                                                               |
+| `threshold`       | `Number`   | `0.5`                               | Valor limite. `0.5` significa que 50% deve falhar para ser acionado.         |
+| `minRequestCount` | `Number`   | `20`                                | Contagem mínima de requisições. Abaixo dele, Circuit Breaker não é acionado. |
+| `windowTime`      | `Number`   | `60`                                | Número de segundos para a janela de tempo.                                   |
+| `halfOpenTime`    | `Number`   | `10000`                             | Número de milissegundos para mudar de `aberto` para estado `semiaberto`      |
+| `check`           | `Function` | `err && err.code >= 500` | Uma função para verificar falhas de requisições.                             |
 
-> If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#circuit-breaker-opened).
+> Se o estado do circuit breaker for alterado, o ServiceBroker enviará [eventos internos](events.html#circuit-breaker-opened).
 
-These global options can be overridden in action definition, as well.
+Estas opções globais também podem ser substituídas nas definições de ações.
 ```js
 // users.service.js
 module.export = {
@@ -61,9 +61,9 @@ module.export = {
 ```
 
 ## Retry
-There is an exponential backoff retry solution. It can recall failed requests.
+Há uma solução de backoff exponencial. Ele pode chamar novamente solicitações que falharam.
 
-**Enable it in the broker options**
+**Habilite-o nas opções do broker**
 ```js
 const broker = new ServiceBroker({
     retryPolicy: {
@@ -77,23 +77,23 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Confirgurações
 
-| Name       | Type       | Default                          | Description                                              |
-| ---------- | ---------- | -------------------------------- | -------------------------------------------------------- |
-| `enabled`  | `Boolean`  | `false`                          | Enable feature.                                          |
-| `retries`  | `Number`   | `5`                              | Count of retries.                                        |
-| `delay`    | `Number`   | `100`                            | First delay in milliseconds.                             |
-| `maxDelay` | `Number`   | `2000`                           | Maximum delay in milliseconds.                           |
-| `factor`   | `Number`   | `2`                              | Backoff factor for delay. `2` means exponential backoff. |
-| `check`    | `Function` | `err && !!err.retryable` | A function to check failed requests.                     |
+| Nome       | Tipo       | Valor padrão                     | Descrição                                                        |
+| ---------- | ---------- | -------------------------------- | ---------------------------------------------------------------- |
+| `enabled`  | `Boolean`  | `false`                          | Ativar recurso.                                                  |
+| `retries`  | `Number`   | `5`                              | Contagem de tentativas.                                          |
+| `delay`    | `Number`   | `100`                            | Primeiro atraso em milissegundos.                                |
+| `maxDelay` | `Number`   | `2000`                           | Atraso máximo em milissegundos.                                  |
+| `fator`    | `Number`   | `2`                              | Fator retroativo para atraso. `2` significa backoff exponencial. |
+| `check`    | `Function` | `err && !!err.retryable` | Uma função para verificar falhas de requisições.                 |
 
-**Overwrite the retries value in calling option**
+**Substituir valor de retentativas na opções de chamada**
 ```js
 broker.call("posts.find", {}, { retries: 3 });
 ```
 
-**Overwrite the retry policy values in action definitions**
+**Sobrescrever os valores da política de repetição nas definições da ação**
 ```js
 // users.service.js
 module.export = {
@@ -119,7 +119,7 @@ module.export = {
 ```
 
 ## Timeout
-Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
+Um Timeout pode ser definido para chamadas de serviço. Ele pode ser definido globalmente nas opções do broker ou nas opções de chamada. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
 
 **Enable it in the broker options**
 ```js
