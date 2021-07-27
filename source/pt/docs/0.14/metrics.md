@@ -165,7 +165,7 @@ module.exports = {
 ```
 
 ### Datadog
-Datadog reporter sends metrics to the [Datadog server](https://www.datadoghq.com/).
+Gerador para Datadog envia métricas para o [Servidor Datadog](https://www.datadoghq.com/).
 
 ```js
 // moleculer.config.js
@@ -201,7 +201,7 @@ module.exports = {
 ```
 
 ### Prometheus
-Prometheus reporter publishes metrics in Prometheus format. The [Prometheus](https://prometheus.io/) server can collect them. Default port is `3030`.
+O gerador para Prometheus publica métricas em formato Prometheus. O servidor [Prometheus](https://prometheus.io/) pode coletá-los. A porta padrão é `3030`.
 
 ```js
 // moleculer.config.js
@@ -229,7 +229,7 @@ module.exports = {
 ```
 
 ### StatsD
-The StatsD reporter sends metric values to [StatsD](https://github.com/statsd/statsd) server via UDP.
+O gerador StatsD envia valores de métricas para o servidor [StatsD](https://github.com/statsd/statsd) via UDP.
 
 ```js
 // moleculer.config.js
@@ -253,10 +253,10 @@ module.exports = {
 };
 ```
 
-### Customer Reporter
-Custom metrics module can be created. We recommend to copy the source of [Console Reporter](https://github.com/moleculerjs/moleculer/blob/master/src/metrics/reporters/console.js) and implement the `init`, `stop`, `metricChanged` methods.
+### Gerador personalizado
+Um módulo de métricas personalizadas pode ser criado. Recomendamos copiar o código fonte do [Console Reporter](https://github.com/moleculerjs/moleculer/blob/master/src/metrics/reporters/console.js) e implementar os métodos `init`, `stop`, `metricChanged`.
 
-**Create custom metrics**
+**Criar métricas personalizadas**
 ```js
 const BaseReporter = require("moleculer").MetricReporters.Base;
 
@@ -267,7 +267,7 @@ class MyMetricsReporter extends BaseReporter {
 }
 ```
 
-**Use custom metrics**
+**Usar métricas personalizadas**
 ```js
 // moleculer.config.js
 const MyMetricsReporter = require("./my-metrics-reporter");
@@ -282,13 +282,13 @@ module.exports = {
 };
 ```
 
-## Supported Metric Types
+## Tipos de métricas suportados
 
 ### Counter
-A counter is a cumulative metric that represents a single monotonically increasing counter whose value can only increase or be reset to zero. For example, you can use a counter to represent the number of requests served, tasks completed, or errors. It can also provide 1-minute rate.
+Um contador é uma métrica acumulativa que representa um único contador aumentando sistematicamente cujo valor só pode aumentar ou ser reposto a zero. Por exemplo, você pode usar um contador para representar o número de requisições atendidas, tarefas concluídas ou erros. Pode também fornecer uma taxa de minuto.
 
 ### Gauge
-A gauge is a metric that represents a single numerical value that can arbitrarily go up and down. Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of concurrent requests. It can also provide 1-minute rate.
+Gauge é uma métrica que representa um único valor numérico que pode arbitrariamente subir e cair. Gauges são usados tipicamente para valores medidos como o uso de memória atual, mas também "contagens" que podem subir e baixar, como o número de requisições simultâneas. Pode também fornecer uma taxa de minuto.
 
 ### Histogram
 A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values and calculates configurable quantiles over a sliding time window. It can also provide 1-minute rate.
