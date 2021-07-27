@@ -643,7 +643,7 @@ const broker = new ServiceBroker({
 | `serializer`      | `String`              | `"JSON"`     | Nome de um serializador integrado.                                                                                                                                             |
 | `cluster`         | `Object`              | `null`       | Configuração do cliente Redis Cluster. [Mais informações](https://github.com/luin/ioredis#cluster)                                                                             |
 | `lock`            | `Boolean` ou `Object` | `null`       | Ativar recurso de bloqueio.                                                                                                                                                    |
-| `pingInterval`    | `Number`              | `null`       | Emit a Redis PING command every `pingInterval` milliseconds. Can be used to keep connections alive which may have idle timeouts.                                               |
+| `pingInterval`    | `Number`              | `null`       | Emitir um comando Redis PING a cada `pingInterval` milissegundos. Pode ser usado para manter as conexões ativas apesar do timeout.                                             |
 
 {% note info Dependencies %}
 Para poder usar esse cacher, instale o módulo `ioredis` com o comando `npm install ioredis --save`.
