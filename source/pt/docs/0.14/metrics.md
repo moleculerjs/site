@@ -136,7 +136,7 @@ module.exports = {
 };
 ```
 ### Event
-Event reporter sends Moleculer events with metric values.
+O gerador Event envia eventos Moleculer com valores de métricas.
 
  ```js
 // moleculer.config.js
