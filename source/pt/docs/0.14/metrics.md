@@ -40,14 +40,14 @@ Moleculer possui vários geradores integrados. Todos eles têm as seguintes opç
 | Nome                  | Tipo                              | Valor padrão | Descrição                                                                                       |
 | --------------------- | --------------------------------- | ------------ | ----------------------------------------------------------------------------------------------- |
 | `includes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem exportadas. [Métricas padrão](metrics.html#Built-in-Internal-Metrics) |
-| `excludes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem excluídas. [Default metrics](metrics.html#Built-in-Internal-Metrics)  |
-| `metricNamePrefix`    | `String`                          | `null`       | Prefix to be added to metric names                                                              |
-| `metricNameSuffix`    | `String`                          | `null`       | Suffix to be added to metric names                                                              |
-| `metricNameFormatter` | `Function`                        | `null`       | Metric name formatter                                                                           |
-| `labelNameFormatter`  | `Function`                        | `null`       | Label name formatter                                                                            |
+| `excludes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem excluídas. [Métricas padrão](metrics.html#Built-in-Internal-Metrics)  |
+| `metricNamePrefix`    | `String`                          | `null`       | Prefixo a ser adicionado a nomes de métricas                                                    |
+| `metricNameSuffix`    | `String`                          | `null`       | Sufixo a ser adicionado aos nomes das métricas                                                  |
+| `metricNameFormatter` | `Function`                        | `null`       | Formatador para nome da métrica                                                                 |
+| `labelNameFormatter`  | `Function`                        | `null`       | Formatador para nome da tag                                                                     |
 
 
-**Example of metrics options**
+**Exemplo de opções métricas**
 ```js
 // moleculer.config.js
 module.exports = {
