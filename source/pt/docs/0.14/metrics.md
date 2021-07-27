@@ -122,18 +122,18 @@ module.exports = {
                     //   - "label" - save metrics by labels to individual files
                     mode: "metric",
                     // Saved metrics types.
-                    types: null,
-                    // Saving interval in seconds
-                    interval: 5,
-                    // Custom filename formatter
-                    filenameFormatter: null,
-                    // Custom CSV row formatter.
                     rowFormatter: null,
                 }
             }
         ]
     }
 };
+                    types: null,
+                    // Saving interval in seconds
+                    interval: 5,
+                    // Custom filename formatter
+                    filenameFormatter: null,
+                    // Custom CSV row formatter.
 ```
 ### Event
 O gerador Event envia eventos Moleculer com valores de métricas.
@@ -291,14 +291,14 @@ Um contador é uma métrica acumulativa que representa um único contador aument
 Gauge é uma métrica que representa um único valor numérico que pode arbitrariamente subir e cair. Gauges são usados tipicamente para valores medidos como o uso de memória atual, mas também "contagens" que podem subir e baixar, como o número de requisições simultâneas. Pode também fornecer uma taxa de minuto.
 
 ### Histogram
-A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values and calculates configurable quantiles over a sliding time window. It can also provide 1-minute rate.
+Um histograma apresenta observações (geralmente coisas como durações de requisições ou tamanhos de resposta) e as agrupam em buckets configuráveis. Também fornece uma soma de todos os valores observados e calcula quantidades configuráveis ao longo de um período de tempo. Pode também fornecer uma taxa de minuto.
 
 ### Info
-An info is a single string or number value like process arguments, hostname or version numbers.
+Uma info é uma única string ou valor de número, como argumentos de processo, nome de host ou números de versão.
 
-## Built-in Internal Metrics
+## Métricas internas integradas
 
-### Process metrics
+### Métricas de processo
 - `process.arguments` (info)
 - `process.pid` (info)
 - `process.ppid` (info)
@@ -331,7 +331,7 @@ An info is a single string or number value like process arguments, hostname or v
 - `process.gc.total.time` (gauge)
 - `process.gc.executed.total` (gauge)
 
-### OS metrics
+### Métricas do Sistema Operacional
 - `os.memory.free` (gauge)
 - `os.memory.total` (gauge)
 - `os.memory.used` (gauge)
@@ -364,7 +364,7 @@ An info is a single string or number value like process arguments, hostname or v
 - `os.cpu.info.times.sys` (gauge)
 
 
-### Moleculer metrics
+### Métricas Moleculer
 - `moleculer.node.type` (info)
 - `moleculer.node.versions.moleculer` (info)
 - `moleculer.node.versions.protocol` (info)
@@ -410,13 +410,13 @@ An info is a single string or number value like process arguments, hostname or v
 
 
 
-## Customizing
+## Personalizando
 
-### New metric registration
+### Registro de novas métricas
 
-You can easily create custom metrics.
+Você pode facilmente criar novas métricas.
 
-**Create a counter**
+**Criar counter**
 ```js
 // posts.service.js
 module.exports = {
@@ -445,7 +445,7 @@ module.exports = {
 };
 ```
 
-**Create a gauge with labels**
+**Criar gauge com tags**
 ```js
 // posts.service.js
 module.exports = {
@@ -481,7 +481,7 @@ module.exports = {
 };
 ```
 
-**Create a histogram with buckets & quantiles**
+**Criar histogram com buckets & quantidades**
 ```js
 // posts.service.js
 module.exports = {
