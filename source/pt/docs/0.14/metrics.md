@@ -1,13 +1,13 @@
 title: Métricas
 ---
 
-Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer possui um módulo de métricas integrado que coleta muitos valores de métricas internos do Moleculer e de processos. Além disso, você pode definir facilmente suas métricas personalizadas. Existem vários geradores de métricas integrados como `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 {% note warn %}
-If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy` tracing exporter. [More info](tracing.html#Event-legacy).
+Se você deseja usar as métricas [legacy (<= v0.13)](/modules.html#metrics) use `EventLegacy` como exportador de rastreamento. [Mais informações](tracing.html#Event-legacy).
 {% endnote %}
 
-**Enable metrics & define console reporter**
+**Habilitar métricas & definir gerador para console**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -20,31 +20,31 @@ module.exports = {
 };
 ```
 
-## Options
+## Opções
 
-| Name                    | Type                              | Default | Description                                                                                                |
-| ----------------------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `enabled`               | `Boolean`                         | `false` | Enable tracing feature.                                                                                    |
-| `reporter`              | `Object` or `Array<Object>` | `null`  | Metric reporter configuration. [More info](#Metrics-Reporters)                                             |
-| `collectProcessMetrics` | `Boolean`                         |         | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"`                           |
-| `collectInterval`       | `Number`                          | `5`     | Collect time period in seconds.                                                                            |
-| `defaultBuckets`        | `Array<Number>`             |         | Default bucket values for histograms. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` |
-| `defaultQuantiles`      | `Array<Number>`             |         | Default quantiles for histograms. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]`                                 |
-| `defaultMaxAgeSeconds`  | `Number`                          | `60`    | Max age seconds for quantile calculation.                                                                  |
-| `defaultAgeBuckets`     | `Number`                          | `10`    | Number of buckets for quantile calculation.                                                                |
-| `defaultAggregator`     | `String`                          | `sum`   | Value aggregator method.                                                                                   |
+| Nome                    | Tipo                              | Valor padrão | Descrição                                                                                                    |
+| ----------------------- | --------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `enabled`               | `Boolean`                         | `false`      | Ativar recurso de rastreamento.                                                                              |
+| `reporter`              | `Object` or `Array<Object>` | `null`       | Configuração de gerador métrico. [Mais informações](#Metrics-Reporters)                                      |
+| `collectProcessMetrics` | `Boolean`                         |              | Colete métricas relacionadas ao processo & ao sistema operacional. Padrão: `process.env.NODE_ENV !== "test"` |
+| `collectInterval`       | `Number`                          | `5`          | Período de tempo para coleta em segundos.                                                                    |
+| `defaultBuckets`        | `Array<Number>`             |              | Valores padrão para histogramas. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]`        |
+| `defaultQuantiles`      | `Array<Number>`             |              | Valores padrão para histogramas. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]`                                    |
+| `defaultMaxAgeSeconds`  | `Number`                          | `60`         | Tempo máximo para o cálculo da quantidade.                                                                   |
+| `defaultAgeBuckets`     | `Number`                          | `10`         | Número de buckets para cálculo da quantidade.                                                                |
+| `defaultAggregator`     | `String`                          | `sum`        | Método para agregador de valor.                                                                              |
 
-## Metrics Reporters
-Moleculer has several built-in reporters. All of them have the following options:
+## Geradores de Métricas
+Moleculer possui vários geradores integrados. Todos eles têm as seguintes opções:
 
-| Name                  | Type                              | Default | Description                                                                               |
-| --------------------- | --------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `includes`            | `String` or `Array<String>` | `null`  | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `excludes`            | `String` or `Array<String>` | `null`  | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `metricNamePrefix`    | `String`                          | `null`  | Prefix to be added to metric names                                                        |
-| `metricNameSuffix`    | `String`                          | `null`  | Suffix to be added to metric names                                                        |
-| `metricNameFormatter` | `Function`                        | `null`  | Metric name formatter                                                                     |
-| `labelNameFormatter`  | `Function`                        | `null`  | Label name formatter                                                                      |
+| Nome                  | Tipo                              | Valor padrão | Descrição                                                                                       |
+| --------------------- | --------------------------------- | ------------ | ----------------------------------------------------------------------------------------------- |
+| `includes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem exportadas. [Métricas padrão](metrics.html#Built-in-Internal-Metrics) |
+| `excludes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem excluídas. [Default metrics](metrics.html#Built-in-Internal-Metrics)  |
+| `metricNamePrefix`    | `String`                          | `null`       | Prefix to be added to metric names                                                              |
+| `metricNameSuffix`    | `String`                          | `null`       | Suffix to be added to metric names                                                              |
+| `metricNameFormatter` | `Function`                        | `null`       | Metric name formatter                                                                           |
+| `labelNameFormatter`  | `Function`                        | `null`       | Label name formatter                                                                            |
 
 
 **Example of metrics options**
