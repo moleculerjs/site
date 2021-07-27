@@ -73,7 +73,7 @@ module.exports = {
 ```
 
 ### Console
-This is a debugging reporter which periodically prints the metrics to the console.
+Este é um gerador para debug que exibe periodicamente as métricas no console.
 
 ```js
 // moleculer.config.js
@@ -100,7 +100,7 @@ module.exports = {
 ```
 
 ### CSV
-Comma-Separated Values (CSV) reporter saves changes to a CSV file.
+O gerador (CSV) salva as interações em um arquivo CSV.
 
 ```js
 // moleculer.config.js
