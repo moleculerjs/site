@@ -796,7 +796,7 @@ broker.call("$node.services").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                           |
+| 名字              | Type      | 默认设置    | 描述                                    |
 | --------------- | --------- | ------- | ------------------------------------- |
 | `onlyLocal`     | `Boolean` | `false` | List only local services.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
@@ -812,7 +812,7 @@ broker.call("$node.actions").then(res => console.log(res));
 
 **Options**
 
-| Name            | Type      | Default | Description                          |
+| 名字              | Type      | 默认设置    | 描述                                   |
 | --------------- | --------- | ------- | ------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
@@ -828,7 +828,7 @@ broker.call("$node.events").then(res => console.log(res));
 
 **Options**
 
-| Name            | Type      | Default | Description                                |
+| 名字              | Type      | 默认设置    | 描述                                         |
 | --------------- | --------- | ------- | ------------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
@@ -844,11 +844,11 @@ broker.call("$node.metrics").then(res => console.log(res));
 
 **Options**
 
-| Name       | Type                | Default | Description                                                                    |
-| ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
-| `types`    | `String` or `Array` | `null`  | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
-| `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
-| `excludes` | `String` or `Array` | `null`  | List of metrics to be excluded from the response.                              |
+| 名字         | Type                | 默认设置   | 描述                                                                             |
+| ---------- | ------------------- | ------ | ------------------------------------------------------------------------------ |
+| `types`    | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
+| `includes` | `String` or `Array` | `null` | List of metrics to be included in response.                                    |
+| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response.                              |
 
 ### 获取服务管理器选项
 它返回服务管理器选项。
