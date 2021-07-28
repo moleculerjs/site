@@ -598,7 +598,7 @@ Many integrated features have been exposed as internal middlewares. These middle
 
 **Internal middlewares**
 
-| Class name                | Type     | Description                                                                |
+| Class name                | Typ      | Beschreibung                                                               |
 | ------------------------- | -------- | -------------------------------------------------------------------------- |
 | `ActionHook`              | Optional | Action hooks handler. [Read more](actions.html#Action-hooks)               |
 | `Validator`               | Optional | Parameter validation. [Read more](validating.html)                         |
@@ -682,7 +682,7 @@ module.exports = {
 
 **Complete option list**
 
-| Class name      | Type                   | Default     | Description                                                        |
+| Class name      | Typ                    | Default     | Beschreibung                                                       |
 | --------------- | ---------------------- | ----------- | ------------------------------------------------------------------ |
 | `logger`        | `Object` or `Function` | `null`      | Logger class. [Read more](logging.html).                           |
 | `logLevel`      | `String`               | `info`      | Log level for built-in console logger. [Read more](logging.html).  |
@@ -720,7 +720,7 @@ module.exports = {
 
 **Complete option list**
 
-| Class name       | Type                   | Default  | Description                                                                                             |
+| Class name       | Typ                    | Default  | Beschreibung                                                                                            |
 | ---------------- | ---------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
 | `logger`         | `Object` or `Function` | `null`   | Logger class. [Read more](logging.html).                                                                |
 | `logLevel`       | `String`               | `info`   | Log level for built-in console logger. [Read more](logging.html).                                       |
