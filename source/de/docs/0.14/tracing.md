@@ -25,7 +25,7 @@ module.exports = {
 
 ## Options
 
-| Name          | Type                              | Default                                       | Description                                                                                      |
+| Name          | Typ                               | Default                                       | Beschreibung                                                                                     |
 | ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                                                          |
 | `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                  |
