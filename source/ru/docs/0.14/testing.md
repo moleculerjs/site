@@ -42,7 +42,7 @@ With this setup in place we are ready to write the actual tests.
 
 ### Действия
 
-#### Simple
+#### Простой пример
 
 A typical (yet very simplistic) [action](actions.html) looks like the one presented bellow:
 
