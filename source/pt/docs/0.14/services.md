@@ -57,7 +57,7 @@ Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
 
 > To disable version prefixing set `$noVersionPrefix: true` in Service settings.
 
-## Settings
+## Confirgurações
 The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
 
 ```js
@@ -82,7 +82,7 @@ module.exports = {
 ### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
-| Name                   | Type      | Default | Description                                          |
+| Nome                   | Tipo      | Padrão  | Descrição                                            |
 | ---------------------- | --------- | ------- | ---------------------------------------------------- |
 | `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
@@ -159,8 +159,8 @@ The merge algorithm depends on the property type.
 __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
 {% endnote %}
 
-## Actions
-The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+## Ações
+Ações são os métodos de um serviço que podem ser chamados externamente. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
 // math.service.js
@@ -221,7 +221,7 @@ module.exports = {
 > In action handlers the `this` is always pointed to the Service instance.
 
 
-## Events
+## Eventos
 You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
 
 ```js
@@ -275,7 +275,7 @@ module.exports = {
 ## Methods
 To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
 
-**Usage**
+**Utilização**
 ```js
 // mailer.service.js
 module.exports = {
@@ -376,15 +376,15 @@ The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`,
 ### Wait for services via ServiceBroker
 To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
 
-**Parameters**
+**Parâmetros**
 
-| Parameter  | Type                | Default | Description                                                                                   |
-| ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
+| Parameter  | Tipo                | Valor padrão | Descrição                                                                                     |
+| ---------- | ------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| `services` | `String` or `Array` | -            | Service list to waiting                                                                       |
+| `timeout`  | `Number`            | `0`          | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
+| `interval` | `Number`            | `1000`       | Frequency of watches in milliseconds                                                          |
 
-**Example**
+**Exemplo**
 ```js
 broker.waitForServices(["posts", "v2.users"]).then(() => {
     // Called after the `posts` & `v2.users` services are available
@@ -400,7 +400,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 });
 ```
 
-## Metadata
+## Metadados
 
 The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store in it whatever you want._
 
@@ -421,7 +421,7 @@ module.exports = {
 ## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
-| Name                   | Type                 | Description                                                 |
+| Nome                   | Tipo                 | Descrição                                                   |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
 | `this.name`            | `String`             | Name of service (from schema)                               |
 | `this.version`         | `Number` or `String` | Version of service (from schema)                            |
@@ -431,10 +431,10 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.schema`          | `Object`             | Schema definition of service                                |
 | `this.broker`          | `ServiceBroker`      | Instance of broker                                          |
 | `this.Promise`         | `Promise`            | Class of Promise (Bluebird)                                 |
-| `this.logger`          | `Logger`             | Logger instance                                             |
+| `this.logger`          | `Log`                | Logger instance                                             |
 | `this.actions`         | `Object`             | Actions of service. _Service can call own actions directly_ |
 | `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
-| `this.currentContext`  | `Context`            | Get or set the current Context object.                      |
+| `this.currentContext`  | `Contexto`           | Get or set the current Context object.                      |
 
 ## Service Creation
 There are several ways to create and load a service.
@@ -524,12 +524,12 @@ module.exports = function() {
 ### Load multiple services from a folder
 If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
 
-**Syntax**
+**Sintaxe**
 ```js
 broker.loadServices(folder = "./services", fileMask = "**/*.service.js");
 ```
 
-**Example**
+**Exemplo**
 ```js
 // Load every *.service.js file from the "./services" folder (including subfolders)
 broker.loadServices();
@@ -542,7 +542,7 @@ broker.loadServices("./svc", "user*.service.js");
 ```
 
 ### Load with Moleculer Runner (recommended)
-We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
+We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Leia mais sobre o Moleculer Runner](runner.html). It is the easiest way to start a node.
 
 ## Hot Reloading Services
 Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
@@ -781,9 +781,9 @@ It lists all known nodes (including local node).
 broker.call("$node.list").then(res => console.log(res));
 ```
 
-**Parameters**
+**Parâmetros**
 
-| Name            | Type      | Default | Description                |
+| Nome            | Tipo      | Padrão  | Descrição                  |
 | --------------- | --------- | ------- | -------------------------- |
 | `withServices`  | `Boolean` | `false` | List with services.        |
 | `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
@@ -794,9 +794,9 @@ It lists all registered services (local & remote).
 broker.call("$node.services").then(res => console.log(res));
 ```
 
-**Parameters**
+**Parâmetros**
 
-| Name            | Type      | Default | Description                           |
+| Nome            | Tipo      | Padrão  | Descrição                             |
 | --------------- | --------- | ------- | ------------------------------------- |
 | `onlyLocal`     | `Boolean` | `false` | List only local services.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
@@ -810,9 +810,9 @@ broker.call("$node.actions").then(res => console.log(res));
 ```
 It has some options which you can declare within `params`.
 
-**Options**
+**Opções**
 
-| Name            | Type      | Default | Description                          |
+| Nome            | Tipo      | Padrão  | Descrição                            |
 | --------------- | --------- | ------- | ------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
@@ -826,9 +826,9 @@ broker.call("$node.events").then(res => console.log(res));
 ```
 It has some options which you can declare within `params`.
 
-**Options**
+**Opções**
 
-| Name            | Type      | Default | Description                                |
+| Nome            | Tipo      | Padrão  | Descrição                                  |
 | --------------- | --------- | ------- | ------------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
@@ -842,13 +842,13 @@ broker.call("$node.metrics").then(res => console.log(res));
 ```
 It has some options which you can declare within `params`.
 
-**Options**
+**Opções**
 
-| Name       | Type                | Default | Description                                                                    |
-| ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
-| `types`    | `String` or `Array` | `null`  | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
-| `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
-| `excludes` | `String` or `Array` | `null`  | List of metrics to be excluded from the response.                              |
+| Nome       | Tipo                | Padrão | Descrição                                                                      |
+| ---------- | ------------------- | ------ | ------------------------------------------------------------------------------ |
+| `types`    | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
+| `includes` | `String` or `Array` | `null` | List of metrics to be included in response.                                    |
+| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response.                              |
 
 ### Get Broker options
 It returns the broker options.
