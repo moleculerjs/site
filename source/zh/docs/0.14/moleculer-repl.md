@@ -3,12 +3,12 @@ title: REPL console
 ## moleculer repl [![npm](https://img.shields.io/npm/v/moleculer-repl.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-repl)
 The [moleculer-repl](https://github.com/moleculerjs/moleculer-repl) is an interactive developer console for Moleculer.
 
-## Install
+## 安装
 ```bash
 npm i moleculer-repl
 ```
 
-## Usage
+## 使用
 
 **Switch broker to REPL mode**
 ```js
