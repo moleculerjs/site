@@ -125,7 +125,7 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Properties of ServiceBroker
 
-| Name                | Type                   | Description                    |
+| Név                 | Type                   | Leírás                         |
 | ------------------- | ---------------------- | ------------------------------ |
 | `broker.options`    | `Object`               | Broker options.                |
 | `broker.Promise`    | `Promise`              | Bluebird Promise class.        |
@@ -134,7 +134,7 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.nodeID`     | `String`               | Node ID.                       |
 | `broker.instanceID` | `String`               | Instance ID.                   |
 | `broker.metadata`   | `Object`               | Metadata from broker options.  |
-| `broker.logger`     | `Logger`               | Logger class of ServiceBroker. |
+| `broker.logger`     | `Naplózó`              | Logger class of ServiceBroker. |
 | `broker.cacher`     | `Cacher`               | Cacher instance                |
 | `broker.serializer` | `Serializer`           | Serializer instance.           |
 | `broker.validator`  | `Any`                  | Parameter Validator instance.  |
@@ -144,19 +144,19 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Methods of ServiceBroker
 
-| Name                                                      | Response              | Description                                                 |
+| Név                                                       | Response              | Leírás                                                      |
 | --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
 | `broker.start()`                                          | `Promise`             | Start broker.                                               |
 | `broker.stop()`                                           | `Promise`             | Stop broker.                                                |
 | `broker.repl()`                                           | -                     | Start REPL mode.                                            |
 | `broker.errorHandler(err, info)`                          | -                     | Call the global error handler.                              |
-| `broker.getLogger(module, props)`                         | `Logger`              | Get a child logger.                                         |
+| `broker.getLogger(module, props)`                         | `Naplózó`             | Get a child logger.                                         |
 | `broker.fatal(message, err, needExit)`                    | -                     | Throw an error and exit the process.                        |
 | `broker.loadServices(folder, fileMask)`                   | `Number`              | Load services from a folder.                                |
-| `broker.loadService(filePath)`                            | `Service`             | Load a service from file.                                   |
-| `broker.createService(schema, schemaMods)`                | `Service`             | Create a service from schema.                               |
+| `broker.loadService(filePath)`                            | `Szolgáltatás`        | Load a service from file.                                   |
+| `broker.createService(schema, schemaMods)`                | `Szolgáltatás`        | Create a service from schema.                               |
 | `broker.destroyService(service)`                          | `Promise`             | Destroy a loaded local service.                             |
-| `broker.getLocalService(name)`                            | `Service`             | Get a local service instance by full name (e.g. `v2.posts`) |
+| `broker.getLocalService(name)`                            | `Szolgáltatás`        | Get a local service instance by full name (e.g. `v2.posts`) |
 | `broker.waitForServices(serviceNames, timeout, interval)` | `Promise`             | Wait for services.                                          |
 | `broker.call(actionName, params, opts)`                   | `Promise`             | Call a service.                                             |
 | `broker.mcall(def)`                                       | `Promise`             | Multiple service calling.                                   |
