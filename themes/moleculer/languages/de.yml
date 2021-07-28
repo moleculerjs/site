@@ -85,7 +85,7 @@ sidebar:
     api_protocol: Protocol
 modules:
   name: Name
-  description: Description
+  description: Beschreibung
   author: Author
   version: Version
   checkout_awesome: Check our Awesome Moleculer repo!
