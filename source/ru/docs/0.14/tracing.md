@@ -23,9 +23,9 @@ module.exports = {
 };
 ```
 
-## Options
+## Параметры
 
-| Название      | Type                              | Default                                       | Описание                                                                                         |
+| Название      | Тип                               | Значение по умолчанию                         | Описание                                                                                         |
 | ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                                                          |
 | `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                  |
