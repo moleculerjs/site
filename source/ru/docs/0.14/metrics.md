@@ -20,31 +20,31 @@ module.exports = {
 };
 ```
 
-## Options
+## Параметры
 
-| Название                | Type                              | Default | Описание                                                                                                   |
-| ----------------------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `enabled`               | `Boolean`                         | `false` | Enable tracing feature.                                                                                    |
-| `reporter`              | `Object` or `Array<Object>` | `null`  | Metric reporter configuration. [More info](#Metrics-Reporters)                                             |
-| `collectProcessMetrics` | `Boolean`                         |         | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"`                           |
-| `collectInterval`       | `Number`                          | `5`     | Collect time period in seconds.                                                                            |
-| `defaultBuckets`        | `Array<Number>`             |         | Default bucket values for histograms. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` |
-| `defaultQuantiles`      | `Array<Number>`             |         | Default quantiles for histograms. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]`                                 |
-| `defaultMaxAgeSeconds`  | `Number`                          | `60`    | Max age seconds for quantile calculation.                                                                  |
-| `defaultAgeBuckets`     | `Number`                          | `10`    | Number of buckets for quantile calculation.                                                                |
-| `defaultAggregator`     | `String`                          | `sum`   | Value aggregator method.                                                                                   |
+| Название                | Тип                               | Значение по умолчанию | Описание                                                                                                   |
+| ----------------------- | --------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `enabled`               | `Boolean`                         | `false`               | Enable tracing feature.                                                                                    |
+| `reporter`              | `Object` or `Array<Object>` | `null`                | Metric reporter configuration. [More info](#Metrics-Reporters)                                             |
+| `collectProcessMetrics` | `Boolean`                         |                       | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"`                           |
+| `collectInterval`       | `Number`                          | `5`                   | Collect time period in seconds.                                                                            |
+| `defaultBuckets`        | `Array<Number>`             |                       | Default bucket values for histograms. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` |
+| `defaultQuantiles`      | `Array<Number>`             |                       | Default quantiles for histograms. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]`                                 |
+| `defaultMaxAgeSeconds`  | `Number`                          | `60`                  | Max age seconds for quantile calculation.                                                                  |
+| `defaultAgeBuckets`     | `Number`                          | `10`                  | Number of buckets for quantile calculation.                                                                |
+| `defaultAggregator`     | `String`                          | `sum`                 | Value aggregator method.                                                                                   |
 
 ## Metrics Reporters
 Moleculer has several built-in reporters. All of them have the following options:
 
-| Название              | Type                              | Default | Описание                                                                                  |
-| --------------------- | --------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `includes`            | `String` or `Array<String>` | `null`  | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `excludes`            | `String` or `Array<String>` | `null`  | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `metricNamePrefix`    | `String`                          | `null`  | Prefix to be added to metric names                                                        |
-| `metricNameSuffix`    | `String`                          | `null`  | Suffix to be added to metric names                                                        |
-| `metricNameFormatter` | `Function`                        | `null`  | Metric name formatter                                                                     |
-| `labelNameFormatter`  | `Function`                        | `null`  | Label name formatter                                                                      |
+| Название              | Тип                               | Значение по умолчанию | Описание                                                                                  |
+| --------------------- | --------------------------------- | --------------------- | ----------------------------------------------------------------------------------------- |
+| `includes`            | `String` or `Array<String>` | `null`                | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `excludes`            | `String` or `Array<String>` | `null`                | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `metricNamePrefix`    | `String`                          | `null`                | Prefix to be added to metric names                                                        |
+| `metricNameSuffix`    | `String`                          | `null`                | Suffix to be added to metric names                                                        |
+| `metricNameFormatter` | `Function`                        | `null`                | Metric name formatter                                                                     |
+| `labelNameFormatter`  | `Function`                        | `null`                | Label name formatter                                                                      |
 
 
 **Example of metrics options**
