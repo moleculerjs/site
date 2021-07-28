@@ -9,7 +9,7 @@ To configure strategy, set `strategy` broker options under `registry` property. 
 ### RoundRobin strategy
 This strategy selects a node based on [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS) algorithm.
 
-**Usage**
+**Használat**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 ### Random strategy
 This strategy selects a node randomly.
 
-**Usage**
+**Használat**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -34,7 +34,7 @@ module.exports = {
 ### CPU usage-based strategy
 This strategy selects a node that has the lowest CPU usage. Since the node list can be very long, it gets samples and selects the node with the lowest CPU usage only from a sample instead of the whole node list.
 
-**Usage**
+**Használat**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -46,7 +46,7 @@ module.exports = {
 
 **Strategy options**
 
-| Name          | Type     | Default | Description                                                                                                |
+| Név           | Type     | Default | Leírás                                                                                                     |
 | ------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | `sampleCount` | `Number` | `3`     | The number of samples. _To turn of sampling, set to `0`._                                                  |
 | `lowCpuUsage` | `Number` | `10`    | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
@@ -68,7 +68,7 @@ module.exports = {
 ### Latency-based strategy
 This strategy selects a node that has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Since the node list can be very long, it gets samples and selects the host with the lowest latency only from a sample instead of the whole node list.
 
-**Usage**
+**Használat**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -80,7 +80,7 @@ module.exports = {
 
 **Strategy options**
 
-| Name           | Type     | Default | Description                                                                                                                           |
+| Név            | Type     | Default | Leírás                                                                                                                                |
 | -------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `sampleCount`  | `Number` | `5`     | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
 | `lowLatency`   | `Number` | `10`    | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
@@ -137,7 +137,7 @@ If shard key is in context's `meta` it must be declared with a `#` at the beginn
 
 **Strategy options**
 
-| Name        | Type     | Default | Description             |
+| Név         | Type     | Default | Leírás                  |
 | ----------- | -------- | ------- | ----------------------- |
 | `shardKey`  | `String` | `null`  | Shard key               |
 | `vnodes`    | `Number` | `10`    | Number of virtual nodes |
