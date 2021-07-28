@@ -483,7 +483,7 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
+| Name              | Typ                     | Default | Beschreibung                                |
 | ----------------- | ----------------------- | ------- | ------------------------------------------- |
 | `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
 | `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
@@ -534,7 +534,7 @@ let broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
+| Name              | Typ                     | Default | Beschreibung                                |
 | ----------------- | ----------------------- | ------- | ------------------------------------------- |
 | `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
 | `max`             | `Number`                | `null`  | Maximum items in the cache.                 |
@@ -632,7 +632,7 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                  | Default  | Description                                                                                                                                           |
+| Name              | Typ                   | Default  | Beschreibung                                                                                                                                          |
 | ----------------- | --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prefix`          | `String`              | `null`   | Prefix for generated keys.                                                                                                                            |
 | `ttl`             | `Number`              | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                                          |
