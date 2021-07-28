@@ -6,7 +6,7 @@ Moleculer framework has an official set of [DB adapters](https://github.com/mole
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
-## Features
+## Funkciók
 * default CRUD actions
 * [cached](caching.html) actions
 * pagination support
