@@ -51,7 +51,7 @@ broker.start().then(() => {
 mol $ nodes
 ```
 
-**Options**
+**Параметры**
 ```
     -a, --all             list all (offline) nodes
     -d, --details         detailed list
@@ -69,7 +69,7 @@ mol $ nodes
 mol $ services
 ```
 
-**Options**
+**Параметры**
 ```
     -a, --all             list all (offline) services
     -d, --details         print endpoints
@@ -87,7 +87,7 @@ mol $ services
 mol $ actions
 ```
 
-**Options**
+**Параметры**
 ```
     -a, --all             list all (offline) actions
     -d, --details         print endpoints
@@ -105,7 +105,7 @@ mol $ actions
 mol $ events
 ```
 
-**Options**
+**Параметры**
 ```
     -a, --all             list all (offline) event listeners
     -d, --details         print endpoints
@@ -138,7 +138,7 @@ mol $ call "test.hello"
 
 **Output** ![image](assets/repl/call1.png)
 
-**Options**
+**Параметры**
 ```
     --help               output usage information
     --load [filename]    Load params from file
@@ -241,7 +241,7 @@ mol $ bench --time 30 math.add
 **Output** ![image](assets/repl/bench.gif)
 
 
-#### Parameters
+#### Параметры
 Please note, parameters can be passed only as JSON string.
 ```bash
 mol $ bench math.add '{ "a": 50, "b": 32 }'
