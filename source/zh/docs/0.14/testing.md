@@ -40,7 +40,7 @@ With this setup in place we are ready to write the actual tests.
 
 ## Unit Tests
 
-### Actions
+### 活动
 
 #### Simple
 
@@ -123,7 +123,7 @@ describe("Test 'helper' actions", () => {
 });
 ```
 
-#### DB Adapters
+#### 数据库适配器
 
 Some actions persist the data that they receive. To test such actions it is necessary to mock the [DB adapter](moleculer-db.html). The example below shows how to do it:
 
@@ -184,7 +184,7 @@ describe("Test 'users' service", () => {
 });
 ```
 
-### Events
+### 事件
 
 [Events](events.html) are tricky to test as they are fire-and-forget, i.e., they don't return any values. However, it is possible to test the "internal" behavior of an event. For this kind of tests the `Service` class implements a helper function called `emitLocalEventHandler` that allows to call the event handler directly.
 
@@ -270,7 +270,7 @@ describe("Test 'helper' methods", () => {
 });
 ```
 
-### Local Variables
+### 本地变量
 
 Just as [methods](#Methods), [local variables](services.html#Local-Variables) are also only available within the service scope. This means that to test them we need to use the same strategy that is used in methods tests.
 
@@ -305,7 +305,7 @@ describe("Test 'helper' local variables", () => {
 
 Integration tests involve testing two (or more) services to ensure that the interactions between them work properly.
 
-### Services
+### 服务
 
 Situations when one service depends on another one are very common. The example bellow shows that `notify` action of `users` service depends on the `mail` service. This means that to test the `notify` action we need to mock the `send` action of `email` service.
 
@@ -374,7 +374,7 @@ describe("Test 'users' service", () => {
 });
 ```
 
-### API Gateway
+### API 网关
 
 The logic that our services implement is also usually available via [API gateway](moleculer-web.html). This means that we also need to write integration tests for the API gateway. The example bellows show to to it:
 
