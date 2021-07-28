@@ -6,7 +6,7 @@ In order to communicate with other nodes (ServiceBrokers) you need to configure 
     <img src="assets/networking.svg" alt="Networking diagram" />
 </div>
 
-## Transporters
+## Transporte
 Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If multiple instances of a service are running on different nodes then the requests will be load-balanced among them.
 
 The whole communication logic is outside of transporter class. It means that you can switch between transporters without changing any line of code.
@@ -138,7 +138,7 @@ module.exports = {
 To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
 {% endnote %}
 
-#### Examples
+#### Exemplos
 **Connect to 'nats://localhost:4222'**
 ```js
 // moleculer.config.js
@@ -203,7 +203,7 @@ module.exports = {
 To use this transporter install the `ioredis` module with `npm install ioredis --save` command.
 {% endnote %}
 
-#### Examples
+#### Exemplos
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -274,7 +274,7 @@ module.exports = {
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
-#### Examples
+#### Exemplos
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -377,7 +377,7 @@ module.exports = {
 ```
 
 ### AMQP 1.0 Transporter
-![Experimental transporter](https://img.shields.io/badge/status-experimental-orange.svg) Built-in transporter for [AMQP 1.0](https://www.amqp.org/resources/specifications) protocol *(e.g.: [ActiveMq](https://activemq.apache.org/) or [RabbitMQ](https://www.rabbitmq.com/) + [rabbitmq-amqp1.0 plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0))*.
+![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg) Built-in transporter for [AMQP 1.0](https://www.amqp.org/resources/specifications) protocol *(e.g.: [ActiveMq](https://activemq.apache.org/) or [RabbitMQ](https://www.rabbitmq.com/) + [rabbitmq-amqp1.0 plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0))*.
 > Please note, it is an **experimental** transporter. **Do not use it in production yet!**
 
 ```js
@@ -499,7 +499,7 @@ module.exports = {
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
-#### Examples
+#### Exemplos
 **Connect with default settings**
 ```js
 // moleculer.config.js
