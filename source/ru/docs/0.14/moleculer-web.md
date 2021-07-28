@@ -391,7 +391,7 @@ module.exports = {
 ```
 
 
-## Parameters
+## Параметры
 API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
 
 ### Disable merging
@@ -1228,7 +1228,7 @@ This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = tr
 Service method removes the route by path (`this.removeRoute("/admin")`).
 
 ## Примеры
-- [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
+- [Простой пример](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
     - simple gateway with default settings.
 
 - [SSL server](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
