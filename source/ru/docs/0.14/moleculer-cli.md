@@ -117,7 +117,7 @@ This command starts a new `ServiceBroker` locally and switches to REPL mode.
 $ moleculer start
 ```
 
-**Options**
+**Параметры**
 ```
   --version     Show version number                                    [boolean]
   --help        Show help                                              [boolean]
