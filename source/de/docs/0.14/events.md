@@ -158,7 +158,7 @@ The broker sends this event if the local node or a remote node loads or destroys
 
 **Payload**
 
-| Name           | Type      | Description                      |
+| Name           | Typ       | Beschreibung                     |
 | -------------- | --------- | -------------------------------- |
 | `localService` | `Boolean` | True if a local service changed. |
 
@@ -167,7 +167,7 @@ The broker sends this event when the circuit breaker module change its state to 
 
 **Payload**
 
-| Name       | Type     | Description       |
+| Name       | Typ      | Beschreibung      |
 | ---------- | -------- | ----------------- |
 | `nodeID`   | `String` | Node ID           |
 | `action`   | `String` | Action name       |
@@ -179,27 +179,27 @@ The broker sends this event when the circuit breaker module change its state to 
 
 **Payload**
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Name     | Typ      | Beschreibung |
+| -------- | -------- | ------------ |
+| `nodeID` | `String` | Node ID      |
+| `action` | `String` | Action name  |
 
 ## `$circuit-breaker.closed`
 The broker sends this event when the circuit breaker module change its state to `closed`.
 
 **Payload**
 
-| Name     | Type     | Description |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| Name     | Typ      | Beschreibung |
+| -------- | -------- | ------------ |
+| `nodeID` | `String` | Node ID      |
+| `action` | `String` | Action name  |
 
 ## `$node.connected`
 The broker sends this event when a node connected or reconnected.
 
 **Payload**
 
-| Name          | Type      | Description      |
+| Name          | Typ       | Beschreibung     |
 | ------------- | --------- | ---------------- |
 | `node`        | `Node`    | Node info object |
 | `reconnected` | `Boolean` | Is reconnected?  |
@@ -209,7 +209,7 @@ The broker sends this event when it has received an INFO message from a node, (i
 
 **Payload**
 
-| Name   | Type   | Description      |
+| Name   | Typ    | Beschreibung     |
 | ------ | ------ | ---------------- |
 | `node` | `Node` | Node info object |
 
@@ -218,7 +218,7 @@ The broker sends this event when a node disconnected (gracefully or unexpectedly
 
 **Payload**
 
-| Name         | Type      | Description                                                                         |
+| Name         | Typ       | Beschreibung                                                                        |
 | ------------ | --------- | ----------------------------------------------------------------------------------- |
 | `node`       | `Node`    | Node info object                                                                    |
 | `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
