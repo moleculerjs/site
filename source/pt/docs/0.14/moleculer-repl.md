@@ -3,12 +3,12 @@ title: REPL console
 ## moleculer repl [![npm](https://img.shields.io/npm/v/moleculer-repl.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-repl)
 The [moleculer-repl](https://github.com/moleculerjs/moleculer-repl) is an interactive developer console for Moleculer.
 
-## Install
+## Instalação
 ```bash
 npm i moleculer-repl
 ```
 
-## Usage
+## Utilização
 
 **Switch broker to REPL mode**
 ```js
@@ -51,7 +51,7 @@ broker.start().then(() => {
 mol $ nodes
 ```
 
-**Options**
+**Opções**
 ```
     -a, --all             list all (offline) nodes
     -d, --details         detailed list
@@ -69,7 +69,7 @@ mol $ nodes
 mol $ services
 ```
 
-**Options**
+**Opções**
 ```
     -a, --all             list all (offline) services
     -d, --details         print endpoints
@@ -87,7 +87,7 @@ mol $ services
 mol $ actions
 ```
 
-**Options**
+**Opções**
 ```
     -a, --all             list all (offline) actions
     -d, --details         print endpoints
@@ -105,7 +105,7 @@ mol $ actions
 mol $ events
 ```
 
-**Options**
+**Opções**
 ```
     -a, --all             list all (offline) event listeners
     -d, --details         print endpoints
@@ -138,7 +138,7 @@ mol $ call "test.hello"
 
 **Output** ![image](assets/repl/call1.png)
 
-**Options**
+**Opções**
 ```
     --help               output usage information
     --load [filename]    Load params from file
@@ -231,7 +231,7 @@ mol $ bench --num 5000 math.add
 mol $ bench --time 30 math.add
 ```
 
-**Options**
+**Opções**
 ```
     --num <number>     Number of iterates
     --time <seconds>   Time of bench
@@ -241,7 +241,7 @@ mol $ bench --time 30 math.add
 **Output** ![image](assets/repl/bench.gif)
 
 
-#### Parameters
+#### Parâmetros
 Please note, parameters can be passed only as JSON string.
 ```bash
 mol $ bench math.add '{ "a": 50, "b": 32 }'
@@ -262,7 +262,7 @@ mol $ load "./services"
 mol $ metrics
 ```
 
-**Options**
+**Opções**
 ```
     -f, --filter <match>  filter metrics (e.g.: 'moleculer.**')
 ```
@@ -276,7 +276,7 @@ You can list keys of cache entries with
 mol $ cache keys
 ```
 
-**Options**
+**Opções**
 ```
 -f, --filter <match>  filter keys
 ```
