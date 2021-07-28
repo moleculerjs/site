@@ -40,9 +40,9 @@ With this setup in place we are ready to write the actual tests.
 
 ## Unit Tests
 
-### Actions
+### Ações
 
-#### Simple
+#### Simples
 
 A typical (yet very simplistic) [action](actions.html) looks like the one presented bellow:
 
@@ -123,7 +123,7 @@ describe("Test 'helper' actions", () => {
 });
 ```
 
-#### DB Adapters
+#### Adaptadores DB
 
 Some actions persist the data that they receive. To test such actions it is necessary to mock the [DB adapter](moleculer-db.html). The example below shows how to do it:
 
@@ -184,7 +184,7 @@ describe("Test 'users' service", () => {
 });
 ```
 
-### Events
+### Eventos
 
 [Events](events.html) are tricky to test as they are fire-and-forget, i.e., they don't return any values. However, it is possible to test the "internal" behavior of an event. For this kind of tests the `Service` class implements a helper function called `emitLocalEventHandler` that allows to call the event handler directly.
 
@@ -305,7 +305,7 @@ describe("Test 'helper' local variables", () => {
 
 Integration tests involve testing two (or more) services to ensure that the interactions between them work properly.
 
-### Services
+### Serviços
 
 Situations when one service depends on another one are very common. The example bellow shows that `notify` action of `users` service depends on the `mail` service. This means that to test the `notify` action we need to mock the `send` action of `email` service.
 
