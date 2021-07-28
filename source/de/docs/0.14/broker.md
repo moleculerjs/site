@@ -125,7 +125,7 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Properties of ServiceBroker
 
-| Name                | Type                   | Description                    |
+| Name                | Typ                    | Beschreibung                   |
 | ------------------- | ---------------------- | ------------------------------ |
 | `broker.options`    | `Object`               | Broker options.                |
 | `broker.Promise`    | `Promise`              | Bluebird Promise class.        |
@@ -144,7 +144,7 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Methods of ServiceBroker
 
-| Name                                                      | Response              | Description                                                 |
+| Name                                                      | Response              | Beschreibung                                                |
 | --------------------------------------------------------- | --------------------- | ----------------------------------------------------------- |
 | `broker.start()`                                          | `Promise`             | Start broker.                                               |
 | `broker.stop()`                                           | `Promise`             | Stop broker.                                                |
