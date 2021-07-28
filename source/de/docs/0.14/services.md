@@ -82,7 +82,7 @@ module.exports = {
 ### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
-| Name                   | Type      | Default | Description                                          |
+| Name                   | Typ       | Default | Beschreibung                                         |
 | ---------------------- | --------- | ------- | ---------------------------------------------------- |
 | `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
@@ -160,7 +160,7 @@ __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, 
 {% endnote %}
 
 ## Actions
-The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+Actions sind die aufrufbaren/öffentlichen Methoden des Services. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
 // math.service.js
@@ -378,7 +378,7 @@ To wait for services, you can also use the `waitForServices` method of `ServiceB
 
 **Parameters**
 
-| Parameter  | Type                | Default | Description                                                                                   |
+| Parameter  | Typ                 | Default | Beschreibung                                                                                  |
 | ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
 | `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
 | `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
@@ -421,7 +421,7 @@ module.exports = {
 ## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
-| Name                   | Type                 | Description                                                 |
+| Name                   | Typ                  | Beschreibung                                                |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
 | `this.name`            | `String`             | Name of service (from schema)                               |
 | `this.version`         | `Number` or `String` | Version of service (from schema)                            |
@@ -783,7 +783,7 @@ broker.call("$node.list").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                |
+| Name            | Typ       | Default | Beschreibung               |
 | --------------- | --------- | ------- | -------------------------- |
 | `withServices`  | `Boolean` | `false` | List with services.        |
 | `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
@@ -796,7 +796,7 @@ broker.call("$node.services").then(res => console.log(res));
 
 **Parameters**
 
-| Name            | Type      | Default | Description                           |
+| Name            | Typ       | Default | Beschreibung                          |
 | --------------- | --------- | ------- | ------------------------------------- |
 | `onlyLocal`     | `Boolean` | `false` | List only local services.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
@@ -812,7 +812,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name            | Type      | Default | Description                          |
+| Name            | Typ       | Default | Beschreibung                         |
 | --------------- | --------- | ------- | ------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
@@ -828,7 +828,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name            | Type      | Default | Description                                |
+| Name            | Typ       | Default | Beschreibung                               |
 | --------------- | --------- | ------- | ------------------------------------------ |
 | `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
 | `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
@@ -844,7 +844,7 @@ It has some options which you can declare within `params`.
 
 **Options**
 
-| Name       | Type                | Default | Description                                                                    |
+| Name       | Typ                 | Default | Beschreibung                                                                   |
 | ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
 | `types`    | `String` or `Array` | `null`  | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
 | `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
