@@ -57,7 +57,7 @@ Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
 
 > To disable version prefixing set `$noVersionPrefix: true` in Service settings.
 
-## Settings
+## Настройки
 The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
 
 ```js
@@ -82,13 +82,13 @@ module.exports = {
 ### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
 
-| Название               | Type      | Default | Описание                                             |
-| ---------------------- | --------- | ------- | ---------------------------------------------------- |
-| `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
-| `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
-| `$dependencyTimeout`   | `Number`  | `0`     | Timeout for dependency waiting.                      |
-| `$shutdownTimeout`     | `Number`  | `0`     | Timeout for waiting for active requests at shutdown. |
-| `$secureSettings`      | `Array`   | `[]`    | List of secure settings.                             |
+| Название               | Тип       | Значение по умолчанию | Описание                                             |
+| ---------------------- | --------- | --------------------- | ---------------------------------------------------- |
+| `$noVersionPrefix`     | `Boolean` | `false`               | Disable version prefixing in action names.           |
+| `$noServiceNamePrefix` | `Boolean` | `false`               | Disable service name prefixing in action names.      |
+| `$dependencyTimeout`   | `Number`  | `0`                   | Timeout for dependency waiting.                      |
+| `$shutdownTimeout`     | `Number`  | `0`                   | Timeout for waiting for active requests at shutdown. |
+| `$secureSettings`      | `Array`   | `[]`                  | List of secure settings.                             |
 
 ### Secure service settings
 To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
@@ -159,8 +159,8 @@ The merge algorithm depends on the property type.
 __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
 {% endnote %}
 
-## Actions
-The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+## Действия
+Действия (Action) это публично вызываемый метод сервиса. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
 // math.service.js
@@ -221,7 +221,7 @@ module.exports = {
 > In action handlers the `this` is always pointed to the Service instance.
 
 
-## Events
+## События
 You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
 
 ```js
@@ -376,13 +376,13 @@ The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`,
 ### Wait for services via ServiceBroker
 To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
 
-**Parameters**
+**Параметры**
 
-| Parameter  | Type                | Default | Описание                                                                                      |
-| ---------- | ------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -       | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`     | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`  | Frequency of watches in milliseconds                                                          |
+| Parameter  | Тип                 | Значение по умолчанию | Описание                                                                                      |
+| ---------- | ------------------- | --------------------- | --------------------------------------------------------------------------------------------- |
+| `services` | `String` or `Array` | -                     | Service list to waiting                                                                       |
+| `timeout`  | `Number`            | `0`                   | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
+| `interval` | `Number`            | `1000`                | Frequency of watches in milliseconds                                                          |
 
 **Пример**
 ```js
@@ -421,7 +421,7 @@ module.exports = {
 ## Properties of Service Instances
 In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
 
-| Название               | Type                 | Описание                                                    |
+| Название               | Тип                  | Описание                                                    |
 | ---------------------- | -------------------- | ----------------------------------------------------------- |
 | `this.name`            | `String`             | Name of service (from schema)                               |
 | `this.version`         | `Number` or `String` | Version of service (from schema)                            |
@@ -431,10 +431,10 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.schema`          | `Object`             | Schema definition of service                                |
 | `this.broker`          | `ServiceBroker`      | Instance of broker                                          |
 | `this.Promise`         | `Promise`            | Class of Promise (Bluebird)                                 |
-| `this.logger`          | `Logger`             | Logger instance                                             |
+| `this.logger`          | `Логгер`             | Logger instance                                             |
 | `this.actions`         | `Object`             | Actions of service. _Service can call own actions directly_ |
 | `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
-| `this.currentContext`  | `Context`            | Get or set the current Context object.                      |
+| `this.currentContext`  | `Контекст`           | Get or set the current Context object.                      |
 
 ## Service Creation
 There are several ways to create and load a service.
@@ -781,12 +781,12 @@ It lists all known nodes (including local node).
 broker.call("$node.list").then(res => console.log(res));
 ```
 
-**Parameters**
+**Параметры**
 
-| Название        | Type      | Default | Описание                   |
-| --------------- | --------- | ------- | -------------------------- |
-| `withServices`  | `Boolean` | `false` | List with services.        |
-| `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
+| Название        | Тип       | Значение по умолчанию | Описание                   |
+| --------------- | --------- | --------------------- | -------------------------- |
+| `withServices`  | `Boolean` | `false`               | List with services.        |
+| `onlyAvailable` | `Boolean` | `false`               | List only available nodes. |
 
 ### List of services
 It lists all registered services (local & remote).
@@ -794,14 +794,14 @@ It lists all registered services (local & remote).
 broker.call("$node.services").then(res => console.log(res));
 ```
 
-**Parameters**
+**Параметры**
 
-| Название        | Type      | Default | Описание                              |
-| --------------- | --------- | ------- | ------------------------------------- |
-| `onlyLocal`     | `Boolean` | `false` | List only local services.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
-| `withActions`   | `Boolean` | `false` | List with actions.                    |
-| `onlyAvailable` | `Boolean` | `false` | List only available services.         |
+| Название        | Тип       | Значение по умолчанию | Описание                              |
+| --------------- | --------- | --------------------- | ------------------------------------- |
+| `onlyLocal`     | `Boolean` | `false`               | List only local services.             |
+| `skipInternal`  | `Boolean` | `false`               | Skip the internal services (`$node`). |
+| `withActions`   | `Boolean` | `false`               | List with actions.                    |
+| `onlyAvailable` | `Boolean` | `false`               | List only available services.         |
 
 ### List of local actions
 It lists all registered actions (local & remote).
@@ -812,12 +812,12 @@ It has some options which you can declare within `params`.
 
 **Параметры**
 
-| Название        | Тип       | Default | Описание                             |
-| --------------- | --------- | ------- | ------------------------------------ |
-| `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
-| `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.       |
-| `onlyAvailable` | `Boolean` | `false` | List only available actions.         |
+| Название        | Тип       | Значение по умолчанию | Описание                             |
+| --------------- | --------- | --------------------- | ------------------------------------ |
+| `onlyLocal`     | `Boolean` | `false`               | List only local actions.             |
+| `skipInternal`  | `Boolean` | `false`               | Skip the internal actions (`$node`). |
+| `withEndpoints` | `Boolean` | `false`               | List with endpoints _(nodes)_.       |
+| `onlyAvailable` | `Boolean` | `false`               | List only available actions.         |
 
 ### List of local events
 It lists all event subscriptions.
@@ -828,12 +828,12 @@ It has some options which you can declare within `params`.
 
 **Параметры**
 
-| Название        | Тип       | Default | Описание                                   |
-| --------------- | --------- | ------- | ------------------------------------------ |
-| `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
-| `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.             |
-| `onlyAvailable` | `Boolean` | `false` | List only available subscriptions.         |
+| Название        | Тип       | Значение по умолчанию | Описание                                   |
+| --------------- | --------- | --------------------- | ------------------------------------------ |
+| `onlyLocal`     | `Boolean` | `false`               | List only local subscriptions.             |
+| `skipInternal`  | `Boolean` | `false`               | Skip the internal event subscriptions `$`. |
+| `withEndpoints` | `Boolean` | `false`               | List with endpoints _(nodes)_.             |
+| `onlyAvailable` | `Boolean` | `false`               | List only available subscriptions.         |
 
 ### List of metrics
 It lists all metrics.
@@ -844,11 +844,11 @@ It has some options which you can declare within `params`.
 
 **Параметры**
 
-| Название   | Type                | Default | Описание                                                                       |
-| ---------- | ------------------- | ------- | ------------------------------------------------------------------------------ |
-| `types`    | `String` or `Array` | `null`  | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
-| `includes` | `String` or `Array` | `null`  | List of metrics to be included in response.                                    |
-| `excludes` | `String` or `Array` | `null`  | List of metrics to be excluded from the response.                              |
+| Название   | Тип                 | Значение по умолчанию | Описание                                                                       |
+| ---------- | ------------------- | --------------------- | ------------------------------------------------------------------------------ |
+| `types`    | `String` or `Array` | `null`                | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
+| `includes` | `String` or `Array` | `null`                | List of metrics to be included in response.                                    |
+| `excludes` | `String` or `Array` | `null`                | List of metrics to be excluded from the response.                              |
 
 ### Get Broker options
 It returns the broker options.
