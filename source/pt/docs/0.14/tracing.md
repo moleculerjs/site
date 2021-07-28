@@ -23,11 +23,11 @@ module.exports = {
 };
 ```
 
-## Options
+## Opções
 
-| Name          | Type                              | Default                                       | Description                                                                                             |
+| Nome          | Tipo                              | Padrão                                        | Descrição                                                                                               |
 | ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                                                                 |
+| `enabled`     | `Boolean`                         | `false`                                       | Ativar recurso de rastreamento.                                                                         |
 | `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                         |
 | `sampling`    | `Object`                          |                                               | Sampling settings. [More info](#Sampling)                                                               |
 | `actions`     | `Boolean`                         | `true`                                        | Tracing the service actions.                                                                            |
@@ -408,7 +408,7 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
 ### Customer Exporter
 Custom tracing module can be created. We recommend to copy the source of [Console Exporter](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) and implement the `init`, `stop`, `spanStarted` and `spanFinished` methods.
 
-**Create custom metrics**
+**Criar métricas personalizadas**
 ```js
 const TracerBase = require("moleculer").TracerExporters.Base;
 
@@ -420,7 +420,7 @@ class MyTracingExporters extends TracerBase {
 }
 ```
 
-**Use custom metrics**
+**Usar métricas personalizadas**
 ```js
 // moleculer.config.js
 const MyMetricsReporter = require("./my-tracing-exporter");
@@ -520,7 +520,7 @@ module.exports = {
 };
 ```
 
-## Customizing
+## Personalizando
 ### Custom Span Names
 You can customize the span name of you traces. In this case, you must specify the `spanName` that must be a static `String` or a `Function`.
 
