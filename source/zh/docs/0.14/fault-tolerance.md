@@ -3,7 +3,7 @@ title: Fault tolerance
 
 Moleculer has several built-in fault-tolerance features. They can be enabled or disabled in broker options.
 
-## Circuit Breaker
+## 断路器
 
 Moleculer has a built-in circuit-breaker solution. It is a threshold-based implementation. It uses a time window to check the failed request rate. Once the threshold value is reached, it trips the circuit breaker.
 
@@ -29,9 +29,9 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### 设置
 
-| Name              | Type       | Default                             | Description                                                          |
+| Name              | Type       | 默认设置                                | 说明                                                                   |
 | ----------------- | ---------- | ----------------------------------- | -------------------------------------------------------------------- |
 | `enabled`         | `Boolean`  | `false`                             | Enable feature                                                       |
 | `threshold`       | `Number`   | `0.5`                               | Threshold value. `0.5` means that 50% should be failed for tripping. |
@@ -77,9 +77,9 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### 设置
 
-| Name       | Type       | Default                          | Description                                              |
+| 名称         | 类型         | 默认设置                             | 说明                                                       |
 | ---------- | ---------- | -------------------------------- | -------------------------------------------------------- |
 | `enabled`  | `Boolean`  | `false`                          | Enable feature.                                          |
 | `retries`  | `Number`   | `5`                              | Count of retries.                                        |
@@ -118,7 +118,7 @@ module.export = {
 };
 ```
 
-## Timeout
+## 超时
 Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
 
 **Enable it in the broker options**
@@ -152,7 +152,7 @@ const broker = new ServiceBroker({
 
 ### Global Settings
 
-| Name           | Type      | Default | Description                    |
+| 名称             | 类型        | 默认设置    | 说明                             |
 | -------------- | --------- | ------- | ------------------------------ |
 | `enabled`      | `Boolean` | `false` | Enable feature.                |
 | `concurrency`  | `Number`  | `3`     | Maximum concurrent executions. |
@@ -192,7 +192,7 @@ module.export = {
 ### Events Settings
 Event handlers also support [bulkhead](#Bulkhead) feature.
 
-**Example**
+**示例**
 ```js
 // my.service.js
 module.exports = {
