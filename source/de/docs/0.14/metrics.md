@@ -22,7 +22,7 @@ module.exports = {
 
 ## Options
 
-| Name                    | Type                              | Default | Description                                                                                                |
+| Name                    | Typ                               | Default | Beschreibung                                                                                               |
 | ----------------------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | `enabled`               | `Boolean`                         | `false` | Enable tracing feature.                                                                                    |
 | `reporter`              | `Object` or `Array<Object>` | `null`  | Metric reporter configuration. [More info](#Metrics-Reporters)                                             |
@@ -37,7 +37,7 @@ module.exports = {
 ## Metrics Reporters
 Moleculer has several built-in reporters. All of them have the following options:
 
-| Name                  | Type                              | Default | Description                                                                               |
+| Name                  | Typ                               | Default | Beschreibung                                                                              |
 | --------------------- | --------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
 | `includes`            | `String` or `Array<String>` | `null`  | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
 | `excludes`            | `String` or `Array<String>` | `null`  | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
