@@ -3,7 +3,7 @@ title: Middlewares
 
 Moleculer supports middlewares. It's same as plugins in other frameworks. The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
 
-**Example**
+**Exemplo**
 ```js
 // awesome.middleware.js
 module.exports = {
@@ -598,7 +598,7 @@ Many integrated features have been exposed as internal middlewares. These middle
 
 **Internal middlewares**
 
-| Class name                | Type     | Description                                                                |
+| Class name                | Tipo     | Descrição                                                                  |
 | ------------------------- | -------- | -------------------------------------------------------------------------- |
 | `ActionHook`              | Optional | Action hooks handler. [Read more](actions.html#Action-hooks)               |
 | `Validator`               | Optional | Parameter validation. [Read more](validating.html)                         |
@@ -610,7 +610,7 @@ Many integrated features have been exposed as internal middlewares. These middle
 | `Retry`                   | Always   | Retry feature. [Read more](fault-tolerance.html#Retry)                     |
 | `Fallback`                | Always   | Fallback feature. [Read more](fault-tolerance.html#Fallback)               |
 | `ErrorHandler`            | Always   | Error handling.                                                            |
-| `Metrics`                 | Optional | Metrics feature. [Read more](metrics.html)                                 |
+| `Métricas`                | Optional | Metrics feature. [Read more](metrics.html)                                 |
 | `Debounce`                | Optional | Debounce feature. [Read more](#Debounce)                                   |
 | `Throttle`                | Optional | Throttle feature. [Read more](#Throttle)                                   |
 | `Transmit.Encryption`     | Optional | Transmission encryption middleware. [Read more](#Encryption)               |
@@ -682,16 +682,16 @@ module.exports = {
 
 **Complete option list**
 
-| Class name      | Type                   | Default     | Description                                                        |
-| --------------- | ---------------------- | ----------- | ------------------------------------------------------------------ |
-| `logger`        | `Object` or `Function` | `null`      | Logger class. [Read more](logging.html).                           |
-| `logLevel`      | `String`               | `info`      | Log level for built-in console logger. [Read more](logging.html).  |
-| `logPacketData` | `Boolean`              | `false`     | Logs packet parameters                                             |
-| `folder`        | `Object`               | `null`      | Folder where logs will be written                                  |
-| `extension`     | `String`               | `.json`     | File extension of log file                                         |
-| `color.receive` | `String`               | `grey`      | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `color.send`    | `String`               | `grey`      | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `packetFilter`  | `Array<String>`  | `HEARTBEAT` | Type of [packets](protocol.html#Packets) to skip                   |
+| Class name      | Tipo                   | Valor padrão | Descrição                                                          |
+| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------ |
+| `logger`        | `Object` or `Function` | `null`       | Logger class. [Leia mais](logging.html).                           |
+| `logLevel`      | `String`               | `info`       | Log level for built-in console logger. [Leia mais](logging.html).  |
+| `logPacketData` | `Boolean`              | `false`      | Logs packet parameters                                             |
+| `folder`        | `Object`               | `null`       | Folder where logs will be written                                  |
+| `extension`     | `String`               | `.json`      | File extension of log file                                         |
+| `color.receive` | `String`               | `grey`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `color.send`    | `String`               | `grey`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
+| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Type of [packets](protocol.html#Packets) to skip                   |
 
 #### Action Logger
 Action Logger middleware tracks "how" service actions were executed.
@@ -720,18 +720,18 @@ module.exports = {
 
 **Complete option list**
 
-| Class name       | Type                   | Default  | Description                                                                                             |
-| ---------------- | ---------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| `logger`         | `Object` or `Function` | `null`   | Logger class. [Read more](logging.html).                                                                |
-| `logLevel`       | `String`               | `info`   | Log level for built-in console logger. [Read more](logging.html).                                       |
-| `logParams`      | `Boolean`              | `false`  | Logs request parameters                                                                                 |
-| `logMeta`        | `Boolean`              | `false`  | Logs meta parameters                                                                                    |
-| `folder`         | `String`               | `null`   | Path do folder where logs will be written                                                               |
-| `extension`      | `String`               | `.json`  | File extension of log file                                                                              |
-| `color.request`  | `String`               | `yellow` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `color.response` | `String`               | `cyan`   | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `colors.error`   | `String`               | `red`    | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `whitelist`      | `Array<String>`  | `["**"]` | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
+| Class name       | Tipo                   | Valor padrão | Descrição                                                                                               |
+| ---------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
+| `logger`         | `Object` or `Function` | `null`       | Logger class. [Leia mais](logging.html).                                                                |
+| `logLevel`       | `String`               | `info`       | Log level for built-in console logger. [Leia mais](logging.html).                                       |
+| `logParams`      | `Boolean`              | `false`      | Logs request parameters                                                                                 |
+| `logMeta`        | `Boolean`              | `false`      | Logs meta parameters                                                                                    |
+| `folder`         | `String`               | `null`       | Path do folder where logs will be written                                                               |
+| `extension`      | `String`               | `.json`      | File extension of log file                                                                              |
+| `color.request`  | `String`               | `yellow`     | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
+| `color.response` | `String`               | `cyan`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
+| `colors.error`   | `String`               | `red`        | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
+| `whitelist`      | `Array<String>`  | `["**"]`     | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
 
 ### Event Execution Rate
 
