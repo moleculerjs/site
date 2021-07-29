@@ -1,18 +1,18 @@
-title: Logging
+title: Log
 ---
-All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
+Todos os módulos principais do Moleculer têm uma instância de logger personalizada. Elas são herdadas da instância do broker que pode ser configurada nas [opções do broker](configuration.html#Broker-options).
 
 {% note warn %}
-The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+A versão `v0.14` contém alterações significativas. Isso significa que você não pode usar a maneira antiga de configurar o logger. Se você estiver usando o logger padrão do console, esta mudança não afeta você. Para mais informações verifique o [Guia de Migração](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
 {% endnote %}
 
 
-## Built-in Loggers
+## Loggers integrados
 
-### Console (default)
-This logger prints all log messages to the `console`. It supports several built-in formatters or you can use your custom formatter, as well.
+### Console (padrão)
+Este logger imprime todas as mensagens de log no `console`. Ele suporta vários formatadores integrados ou você pode usar o seu formatador personalizado.
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -50,9 +50,9 @@ module.exports = {
 };
 ```
 
-#### Formatters
+#### Formatadores
 
-##### `full` formatter (default)
+##### Formatador `full` (default)
 ```js
 // moleculer.config.js
 module.exports = {
@@ -65,10 +65,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-full.png#zoomable)
+**Pré visualizar** ![Console](assets/logging/console-full.png#zoomable)
 
 
-##### `short` formatter
+##### Formatador `short`
 ```js
 // moleculer.config.js
 module.exports = {
@@ -81,10 +81,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-short.png#zoomable)
+**Pré visualizar** ![Console](assets/logging/console-short.png#zoomable)
 
 
-##### `simple` formatter
+##### Formatador `simple`
 ```js
 // moleculer.config.js
 module.exports = {
@@ -97,10 +97,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-simple.png#zoomable)
+**Pré visualizar** ![Console](assets/logging/console-simple.png#zoomable)
 
 
-##### `json` formatter
+##### Formatador `json`
 ```js
 // moleculer.config.js
 module.exports = {
@@ -113,10 +113,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-json.png#zoomable)
+**Pré visualizar** ![Console](assets/logging/console-json.png#zoomable)
 
 
-##### Custom formatter
+##### Formatador personalizado
 ```js
 // moleculer.config.js
 module.exports = {
@@ -129,22 +129,22 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-custom.png#zoomable)
+**Pré visualizar** ![Console](assets/logging/console-custom.png#zoomable)
 
 
 ### File
-This logger saves all log messages to file(s). It supports JSON & formatted text files or you can use your custom formatter, as well.
+Este logger salva todas as mensagens de log em arquivo(s). Ele suporta JSON & arquivos de texto formatados ou você pode usar o seu formatador personalizado.
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
     logger: "File",
 };
 ```
-_It will save the log messages to the `logs` folder in the current directory with `moleculer-{date}.log` filename._
+_Ele salvará as mensagens de log na pasta `logs` no diretório atual com nome do arquivo `molleculer -{date}.log`._
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -169,10 +169,10 @@ module.exports = {
     }
 };
 ```
-## External Loggers
+## Loggers Externos
 
 ### Pino
-This logger uses the [Pino](https://github.com/pinojs/pino) logger.
+Este logger usa o logger [Pino](https://github.com/pinojs/pino).
 
 **Shorthand configuration with default options**
 ```js
