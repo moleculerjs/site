@@ -1,6 +1,6 @@
 title: Tracing
 ---
-Moleculer has a built-in tracing module that collects tracing information inside a Moleculer application. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
+O Moleculer possui um módulo de rastreamento integrado que coleta informações de rastreamento dentro de uma aplicação Moleculer. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 **Enable tracing**
 ```js
