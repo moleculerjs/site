@@ -1,8 +1,8 @@
 title: Tracing
 ---
-O Moleculer possui um módulo de rastreamento integrado que coleta informações de rastreamento dentro de uma aplicação Moleculer. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
+O Moleculer possui um módulo de rastreamento integrado que coleta informações de rastreamento dentro de uma aplicação Moleculer. Além disso, você pode definir facilmente seus módulos de rastreamento personalizados. Existem vários geradores de rastreamento integrados como [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
 
-**Enable tracing**
+**Habilitar rastreamento**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
 };
 ```
 
-**Enable tracing with options**
+**Habilitar rastreamento com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -25,25 +25,25 @@ module.exports = {
 
 ## Opções
 
-| Nome          | Tipo                              | Padrão                                        | Descrição                                                                                               |
-| ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `enabled`     | `Boolean`                         | `false`                                       | Ativar recurso de rastreamento.                                                                         |
-| `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                         |
-| `sampling`    | `Object`                          |                                               | Sampling settings. [More info](#Sampling)                                                               |
-| `actions`     | `Boolean`                         | `true`                                        | Tracing the service actions.                                                                            |
-| `events`      | `Boolean`                         | `false`                                       | Tracing the service events.                                                                             |
-| `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Error object fields which are added into span tags.                                                     |
-| `stackTrace`  | `Boolean`                         | `false`                                       | Add stack trace info into span tags in case of error.                                                   |
-| `tags`        | `Object`                          | `null`                                        | Add custom span tags to all actions and events spans. [Mais informações](#Global-action-and-event-tags) |
-| `defaultTags` | `Objeto`                          | `null`                                        | Default tags. It will be added to all spans.                                                            |
+| Nome          | Tipo                              | Padrão                                        | Descrição                                                                                                                     |
+| ------------- | --------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`     | `Boolean`                         | `false`                                       | Ativar recurso de rastreamento.                                                                                               |
+| `exporter`    | `Object` or `Array<Object>` | `null`                                        | Configuração do gerador de rastreamento. [Mais informações](#Tracing-Exporters)                                               |
+| `sampling`    | `Object`                          |                                               | Configurações de amostragem. [Mais informações](#Sampling)                                                                    |
+| `actions`     | `Boolean`                         | `true`                                        | Rastreando as ações do serviço.                                                                                               |
+| `events`      | `Boolean`                         | `false`                                       | Rastreando os eventos do serviço.                                                                                             |
+| `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Campos de objetos de erro que foram adicionados em tags span.                                                                 |
+| `stackTrace`  | `Boolean`                         | `false`                                       | Adicione informações sobre rastreamento de pilha em span tags em caso de erro.                                                |
+| `tags`        | `Object`                          | `null`                                        | Adicione tags personalizadas de span para todas as ações e eventos de spam. [Mais informações](#Global-action-and-event-tags) |
+| `defaultTags` | `Objeto`                          | `null`                                        | Tags padrão. Será adicionado a todas as spans.                                                                                |
 
-## Sampling
-The Moleculer Tracer supports several sampling methods. The determination whether to sample or not is made on the root span and propagated to all child spans. This ensures that a complete trace is always exported regardless of the sample method or the rate selected.
+## Amostragem
+O módulo de rastreamento do Moleculer suporta vários métodos de amostragem. A determinação de amostrar ou não é feita no span raiz e propagada a todas as spans dependentes. Isso garante que um rastreamento completo seja sempre exportado, independentemente do método de amostra ou da taxa selecionada.
 
-### Constant sampling
-This sampling method uses a constant sampling rate value from `0` to `1`. The `1` means all spans will be sampled, the `0` means none of them.
+### Amostragem constante
+Este método de amostragem usa um valor de taxa de amostragem constante de `0` para `1`. O `1` significa que todos os spans serão amostrais, o `0` significa nenhum deles.
 
-**Samples all spans**
+**Amostras de todas as spans**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -56,7 +56,7 @@ module.exports = {
 };
 ```
 
-**Samples half of all spans**
+**Amostras de metade de todas as spans**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -69,10 +69,10 @@ module.exports = {
 };
 ```
 
-### Rate limiting sampling
-This sampling method uses a rate limiter. You can configure how many spans will be sampled in a second.
+### Taxa de limitação de amostragem
+Este método de amostragem usa uma taxa de limitação. Você pode configurar quantas spans serão distribuídas em um segundo.
 
-**Samples 2 spans per second**
+**Amostragem com 2 spans por segundo**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -85,7 +85,7 @@ module.exports = {
 };
 ```
 
-**Samples 1 span per 10 seconds**
+**Amostragem com 1 spans a cada 10 segundos**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -98,17 +98,17 @@ module.exports = {
 };
 ```
 
-## Tracing Exporters
+## Geradores de Rastreamento
 
-The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)).
+O módulo de rastreamento suporta vários geradores, spans personalizadas de rastreamento e integração com bibliotecas de instrumentação (como [`dd-trace`](https://github.com/DataDog/dd-trace-js)).
 
 ### Console
-This is a debugging exporter which prints full local trace to the console.
+Este é um gerador para debug que imprime o rastreamento local completo no console.
 
 ![Console Trace Graph](assets/tracing/console.png#zoomable)
 
 {% note warn %}
-Console exporter can't follow remote calls, only locals.
+O gerador do console não pode rastrear chamadas remotas, apenas locais.
 {% endnote %}
 
 ```js
@@ -134,7 +134,7 @@ module.exports = {
 ```
 
 ### Datadog
-Datadog exporter sends tracing data to [Datadog](https://www.datadoghq.com/) server via `dd-trace`. 
+O gerador para Datadog envia dados de rastreamento para o servidor [Datadog](https://www.datadoghq.com/) via `dd-trace`. 
 <!-- It is able to merge tracing spans of instrumented Node.js modules and Moleculer modules. -->
 
 ![Datadog Trace Graph](assets/tracing/datadog-trace-graph.png#zoomable)
@@ -163,12 +163,12 @@ module.exports = {
 };
 ```
 {% note info %}
-To use this exporter, install the `dd-trace` module with `npm install dd-trace --save` command.
+Para usar este gerador, instale o módulo `dd-trace` com o comando `npm install dd-trace --save`.
 {% endnote %}
 
 
 ### Event
-Event exporter sends Moleculer events (`$tracing.spans`) with tracing data.
+O gerador para eventos do Moleculer envia eventos (`$tracing.spans`) com dados de rastreamento.
 
 ```js
 // moleculer.config.js
