@@ -174,7 +174,7 @@ module.exports = {
 ### Pino
 Este logger usa o logger [Pino](https://github.com/pinojs/pino).
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -182,7 +182,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -205,15 +205,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `pino` module with `npm install pino --save` command.
+Para usar este logger por favor instale o módulo `pino` com o comando `npm install pino --save`.
 {% endnote %}
 
-**Preview** ![Pino](assets/logging/pino.png#zoomable)
+**Pré visualizar** ![Pino](assets/logging/pino.png#zoomable)
 
 ### Bunyan
-This logger uses the [Bunyan](https://github.com/trentm/node-bunyan) logger.
+Este logger usa o logger [Bunyan](https://github.com/trentm/node-bunyan).
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -221,7 +221,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -241,15 +241,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
+Para usar esse logger por favor instale o módulo `bunyan` com o comando `npm install bunyan --save`.
 {% endnote %}
 
-**Preview** ![Bunyan](assets/logging/bunyan.png#zoomable)
+**Pré visualizar** ![Bunyan](assets/logging/bunyan.png#zoomable)
 
 ### Winston
-This logger uses the [Winston](https://github.com/winstonjs/winston) logger.
+Este logger usa o logger [Winston](https://github.com/winstonjs/winston).
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -257,7 +257,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 const winston = require("winston");
@@ -282,10 +282,10 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `winston` module with `npm install winston --save` command.
+Para usar esse logger por favor instale o módulo `winston` com o comando `npm install winston --save`.
 {% endnote %}
 
-**Preview** ![Winston](assets/logging/winston.png#zoomable)
+**Pré visualizar** ![Winston](assets/logging/winston.png#zoomable)
 
 ### `debug`
 This logger uses the [debug](https://github.com/visionmedia/debug) logger. To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
