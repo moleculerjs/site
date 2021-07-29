@@ -201,7 +201,7 @@ module.exports = {
 ```
 
 ### Event (legacy)
-Legacy event exporter sends Moleculer legacy metric events ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) at every request. These events are also used to generate metrics in [legacy (`<= v0.13`) metrics solutions](/modules.html#metrics).
+O gerador para evento legado envia eventos métricos legados do Moleculer ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) a cada requisição. Esses eventos também são usados para gerar métricas na solução legada (`<= v0.13`) de [métricas](/modules.html#metrics).
 
 ```js
 // moleculer.config.js
