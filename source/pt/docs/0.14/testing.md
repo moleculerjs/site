@@ -286,7 +286,7 @@ module.exports = {
 };
 ```
 
-**Unit tests for the `helper` service local variables**
+**Testes unitários para as variáveis locais do serviço `helper`**
 
 ```js
 describe("Test 'helper' local variables", () => {
@@ -301,13 +301,13 @@ describe("Test 'helper' local variables", () => {
 });
 ```
 
-## Integration Tests
+## Testes de integração
 
-Integration tests involve testing two (or more) services to ensure that the interactions between them work properly.
+Testes de integração envolvem testes de dois (ou mais) serviços para garantir que as interações entre eles funcionem adequadamente.
 
 ### Serviços
 
-Situations when one service depends on another one are very common. The example bellow shows that `notify` action of `users` service depends on the `mail` service. This means that to test the `notify` action we need to mock the `send` action of `email` service.
+As situações em que um serviço depende de outro são muito comuns. O exemplo abaixo mostra que a ação `notify` do serviço `users` depende do serviço `mail`. Isso significa que para testar a ação `notify`, precisamos simular (mock, em inglês) a ação `send` do serviço `mail`.
 
 ```js
 // users.service.js
@@ -341,7 +341,7 @@ module.exports = {
 };
 ```
 
-**Integration tests for `users` service**
+**Testes de integração para o serviço `users`**
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -376,10 +376,10 @@ describe("Test 'users' service", () => {
 
 ### API Gateway
 
-The logic that our services implement is also usually available via [API gateway](moleculer-web.html). This means that we also need to write integration tests for the API gateway. The example bellows show to to it:
+A lógica que nossos serviços implementam geralmente também está disponível através do [API gateway](moleculer-web.html). Isto significa que também precisamos implementar testes de integração para o API gateway. O exemplo abaixo mostra como fazer isso:
 
 {% note info Testing Frameworks %}
-Please note that for the API gateway tests we use [supertest](https://github.com/visionmedia/supertest). Again, this is not mandatory and you can use any other tool that offers the same capabilities.
+Por favor, note que para os testes do API gateway nós usamos o [supertest](https://github.com/visionmedia/supertest). Mais uma vez, isto não é obrigatório e você pode usar qualquer outra ferramenta que ofereça as mesmas capacidades.
 {% endnote %}
 
 ```js
@@ -421,7 +421,7 @@ module.exports = {
 };
 ```
 
-**API integration tests**
+**Testes de integração da API**
 
 ```js
 process.env.PORT = 0; // Use random ports during tests
