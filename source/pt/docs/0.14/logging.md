@@ -288,9 +288,9 @@ Para usar esse logger por favor instale o módulo `winston` com o comando `npm i
 **Pré visualizar** ![Winston](assets/logging/winston.png#zoomable)
 
 ### `debug`
-This logger uses the [debug](https://github.com/visionmedia/debug) logger. To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
+Este logger usa o [debug](https://github.com/visionmedia/debug). Para ver mensagens você tem que definir a variável de ambiente `DEBUG` para `export DEBUG=moleculer:*`.
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -298,7 +298,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -313,15 +313,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `debug` module with `npm install debug --save` command.
+Para usar esse logger por favor instale o módulo `debug` com o comando `npm install debug --save`.
 {% endnote %}
 
-**Preview** ![debug](assets/logging/debug.png#zoomable)
+**Pré visualizar** ![debug](assets/logging/debug.png#zoomable)
 
 ### Log4js
-This logger uses the [Log4js](https://github.com/log4js-node/log4js-node) logger.
+Este logger usa o logger [Log4js](https://github.com/log4js-node/log4js-node).
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -329,7 +329,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -354,19 +354,19 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `log4js` module with `npm install log4js --save` command.
+Para usar esse logger por favor instale o módulo `log4js` com o comando `npm install log4js --save`.
 {% endnote %}
 
-**Preview** ![Log4js](assets/logging/log4js.png#zoomable)
+**Pré visualizar** ![Log4js](assets/logging/log4js.png#zoomable)
 
 ### Datadog
-This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) server.
+Este logger envia mensagens de log para o servidor do [Datadog](https://www.datadoghq.com/).
 
 {% note info %}
-Please note, this logger doesn't print any messages to the console, just collects & uploads. Use it beside another logger which also prints the messages.
+Por favor, note que este logger não imprime nenhuma mensagem para o console, apenas coleta & envia. Use junto com outro logger que também imprime as mensagens.
 {% endnote %}
 
-**Shorthand configuration with default options**
+**Configuração abreviada com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -374,7 +374,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Configuração completa**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -402,12 +402,12 @@ module.exports = {
 };
 ```
 
-**Preview** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
+**Pré visualizar** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
 
-## Multiple Loggers
-This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.
+## Vários loggers
+Esta nova configuração de logger admite o uso de vários loggers até do mesmo tipo de logger com níveis de log diferentes.
 
-**Define multiple loggers with different logging levels**
+**Define múltiplos loggers com diferentes níveis de logs**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -440,11 +440,11 @@ module.exports = {
 };
 ```
 
-This example shows a configuration of `Console` logger, a `File` logger that saves all log messages in formatted text file and another `File` logger that only saves error messages in JSON format.
+Este exemplo mostra uma configuração do logger `Console`, um logger `File` que salva todas as mensagens de log no arquivo de texto formatado e outro Logger `File` que só salva as mensagens de erro no formato JSON.
 
-### Filtering
+### Filtro
 
-You can configure your loggers to only log data of certain services or modules. **Example**
+Você pode configurar seus loggers para registrar apenas dados de certos serviços ou módulos. **Exemplo**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -479,10 +479,10 @@ module.exports = {
 };
 ```
 
-## Log Level Setting
-To configure logging levels, you can use the well-known `logLevel` broker option which can be a `String` or an `Object`. However, it is also possible to overwrite it in all logger `options` with the `level` property.
+## Configuração de Nível de Log
+Para configurar níveis de log, você pode usar a famosa opção `logLevel` que pode ser uma `String` ou um `Object`. No entanto, também é possível substituí-lo em `options` do logger com a propriedade `level`.
 
-**Complex logging level configuration**
+**Configuração complexa de nível de log**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -509,10 +509,10 @@ module.exports = {
 };
 ```
 
-## Custom logger
-If you have your custom logger you should wrap it into a `BaseLogger` class and implement at least the `getLogHandler` method.
+## Logger personalizado
+Se você tiver seu logger personalizado, deverá envolvê-lo em uma classe `BaseLogger` e implementar pelo menos o método `getLogHandler`.
 
-**Using a custom logger**
+**Usando um logger personalizado**
 ```js
 // moleculer.config.js
  const BaseLogger = require("moleculer").Loggers.Base;
