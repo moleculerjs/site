@@ -1,16 +1,16 @@
-title: Testing
+title: Testes
 
 ---
 
-Writing (unit) tests is a crucial part of software development as it ensures that all the components of an application work as expected. This page covers how to test a typical Moleculer-based application.
+A implementação de testes (unitários) é uma parte crucial do desenvolvimento de software, pois garante que todos os componentes de uma aplicação funcionem conforme o esperado. Esta página cobre como testar uma aplicação típica baseada em Moleculer.
 
-{% note info Testing Frameworks %}
-Please note that we use [Jest](https://jestjs.io/) for testing. However, you can also use any other testing framework that offers the same capabilities.
+{% note info Frameworks de Teste %}
+Por favor, note que usamos o [Jest](https://jestjs.io/) para testar. No entanto, você também pode usar qualquer outro framework de teste que ofereça as mesmas capacidades.
 {% endnote %}
 
-## Common File Structure
+## Estrutura de arquivo comum
 
-The snippet presented bellow is a skeleton structure for writing unit tests for a Moleculer service.
+O trecho apresentado abaixo é o esqueleto de uma estrutura para escrever testes unitários para um serviço Moleculer.
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -32,13 +32,13 @@ describe("Test '<SERVICE-NAME>'", () => {
 });
 ```
 
-To test the service two things are `required`: the `ServiceBroker` class and the schema of the service that is going to be tested. Next thing to do is to create an instance of `ServiceBroker` and, after that, create the actual instance of the service. Then Jest's `beforeAll()` helper function is used to start the service broker and, after all tests are complete the broker is stopped with the `afterAll()`.
+Para testar o serviço, duas coisas são `obrigatórias`: a classe `ServiceBroker` e o esquema do serviço que será testado. Em seguida, o que precisa ser feito é criar uma instância do `ServiceBroker` e, depois disso, criar a instância atual do serviço. Então a função auxiliar `beforeAll()` do Jest é usada para iniciar o broker e, depois que todos os testes forem concluídos, o broker é parado com o `afterAll()`.
 
-With this setup in place we are ready to write the actual tests.
+Com esta configuração posicionada, estamos prontos para escrever os testes de fato.
 
-> TIP: Disable the logs, by setting `logger` to `false` during `broker` creation, to avoid polluting the console.
+> DICA: Desative os logs, definindo `logger` como `false` durante a criação do `broker`, para evitar poluir o console.
 
-## Unit Tests
+## Testes unitários
 
 ### Ações
 
