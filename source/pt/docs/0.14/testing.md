@@ -44,7 +44,7 @@ Com esta configuração posicionada, estamos prontos para escrever os testes de 
 
 #### Simples
 
-A typical (yet very simplistic) [action](actions.html) looks like the one presented bellow:
+Uma [ação](actions.html) típica (porém muito simplista) se parece com a apresentada abaixo:
 
 ```js
 // services/helper.service.js
@@ -68,9 +68,9 @@ module.exports = {
 };
 ```
 
-The `toUpperCase` action of `helper` service receives a parameter `name` as input and, as a result, returns the uppercase `name`. This action also emits an (`name.uppercase`) event every time it's called. Moreover, the `toUpperCase` has some parameter validation, it only accepts `name` parameter if it's a string. So for the `toUpperCase` action there are three things that could be tested: the output value that it produces, if it emits an event and the parameter validation.
+A ação `toUpperCase` do serviço `helper` recebe um parâmetro `name` como entrada e, como um resultado, retorna o `name` maiúsculo. Essa ação também emite um evento (`name.uppercase`) toda vez que é chamado. Além disso, o `toUpperCase` tem uma validação de parâmetro, ele só aceita o parâmetro `name` se for uma string. Então para a ação `toUpperCase` há três coisas que podem ser testadas: o valor de saída que ela produz, se emite um evento e o parâmetro de validação.
 
-**Unit tests for the `helper` service actions**
+**Testes unitários para as ações do serviço `helper`**
 
 ```js
 const { ServiceBroker, Context } = require("moleculer");
@@ -125,7 +125,7 @@ describe("Test 'helper' actions", () => {
 
 #### Adaptadores DB
 
-Some actions persist the data that they receive. To test such actions it is necessary to mock the [DB adapter](moleculer-db.html). The example below shows how to do it:
+Algumas ações persistem os dados que elas recebem. Para testar tais ações é necessário simular (mock, em inglês) o [adaptador do banco](moleculer-db.html). O exemplo abaixo mostra como fazer isso:
 
 ```js
 const DbService = require("moleculer-db");
@@ -147,7 +147,7 @@ module.exports = {
 };
 ```
 
-**Unit tests for the `users` service actions with DB**
+**Testes unitários para as ações do serviço `users` com banco de dados**
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -186,7 +186,7 @@ describe("Test 'users' service", () => {
 
 ### Eventos
 
-[Events](events.html) are tricky to test as they are fire-and-forget, i.e., they don't return any values. However, it is possible to test the "internal" behavior of an event. For this kind of tests the `Service` class implements a helper function called `emitLocalEventHandler` that allows to call the event handler directly.
+[Eventos](events.html) são complicados para testar porque são chamados e esquecidos, ou seja, eles não retornam nenhum valor. No entanto, é possível testar o comportamento "interno" de um evento. Para esse tipo de testes a classe `Service` implementa uma função auxiliar chamada `emitLocalEventHandler` que permite chamar o manipulador de eventos diretamente.
 
 ```js
 module.exports = {
@@ -207,7 +207,7 @@ module.exports = {
 };
 ```
 
-**Unit tests for the `helper` service events**
+**Testes unitários para os eventos do serviço `helper`**
 
 ```js
 describe("Test 'helper' events", () => {
@@ -234,9 +234,9 @@ describe("Test 'helper' events", () => {
 });
 ```
 
-### Methods
+### Métodos
 
-[Methods](services.html#Methods) are private functions that are only available within the service scope. This means that it's not possible to call them from other services or use the broker to do it. So to test a certain method we need to call it directly from the service instance that implements it.
+Os [métodos](services.html#Methods) são funções privadas que estão disponíveis apenas no escopo do serviço. Isso significa que não é possível chamá-los de outros serviços ou usar o broker para fazer isso. Portanto, para testar um determinado método, precisamos de chamá-lo diretamente da instância de serviço que o implementa.
 
 ```js
 module.exports = {
@@ -250,7 +250,7 @@ module.exports = {
 };
 ```
 
-**Unit tests for the `helper` service methods**
+**Testes unitários para os métodos do serviço `helper`**
 
 ```js
 describe("Test 'helper' methods", () => {
@@ -270,9 +270,9 @@ describe("Test 'helper' methods", () => {
 });
 ```
 
-### Local Variables
+### Variáveis Locais
 
-Just as [methods](#Methods), [local variables](services.html#Local-Variables) are also only available within the service scope. This means that to test them we need to use the same strategy that is used in methods tests.
+Assim como os [métodos](#Methods), [variáveis locais](services.html#Local-Variables) também estão disponíveis somente no escopo do serviço. Isto significa que, para testá-los, temos de utilizar a mesma estratégia que é utilizada nos testes de método.
 
 ```js
 module.exports = {
