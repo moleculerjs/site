@@ -213,8 +213,8 @@ module.exports = {
 };
 ```
 
-#### Legacy Request Started Payload
-The broker emits an `metrics.trace.span.start` event when a new request is started. The payload looks like the following:
+#### Payload de início de Requisição legada
+O broker emite um evento `metrics.trace.span.start` quando uma nova requisição é iniciada. O payload se parece com o seguinte:
 ```js
 {
     // Context ID
@@ -250,8 +250,8 @@ The broker emits an `metrics.trace.span.start` event when a new request is start
 }
 ```
 
-#### Legacy Request Finished Payload
-The broker emits an `metrics.trace.span.finish` event when the call/request is finished. The payload looks like the following:
+#### Payload de conclusão de Requisição legada
+O broker emite um evento `metrics.trace.span.end` quando a chamada/requisição for finalizada. O payload se parece com o seguinte:
 ```js
 {
     // Context ID
