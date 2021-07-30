@@ -105,7 +105,7 @@ O módulo de rastreamento suporta vários geradores, spans personalizadas de ras
 ### Console
 Este é um gerador para debug que imprime o rastreamento local completo no console.
 
-![Console Trace Graph](assets/tracing/console.png#zoomable)
+![Gráfico de Console](assets/tracing/console.png#zoomable)
 
 {% note warn %}
 O gerador do console não pode rastrear chamadas remotas, apenas locais.
@@ -137,7 +137,7 @@ module.exports = {
 O gerador para Datadog envia dados de rastreamento para o servidor [Datadog](https://www.datadoghq.com/) via `dd-trace`. 
 <!-- It is able to merge tracing spans of instrumented Node.js modules and Moleculer modules. -->
 
-![Datadog Trace Graph](assets/tracing/datadog-trace-graph.png#zoomable)
+![Gráfico Datadog](assets/tracing/datadog-trace-graph.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -301,7 +301,7 @@ O broker emite um evento `metrics.trace.span.end` quando a chamada/requisição 
 ### Jaeger
 O gerador para Jaeger envia informações de rastreamento para um servidor [Jaeger](https://www.jaegertracing.io).
 
-![Jaeger Trace Graph](assets/tracing/jaeger.png#zoomable)
+![Gráfico Jaeger](assets/tracing/jaeger.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -341,7 +341,7 @@ Para usar esse gerador, instale o módulo `jaeger-client` com o comando `npm ins
 ### Zipkin
 O gerador Zipkin envia informações de rastreamento para um servidor [Zipkin](https://zipkin.apache.org/).
 
-![Zipkin Trace Graph](assets/tracing/zipkin.png#zoomable)
+![Gráfico Zipkin](assets/tracing/zipkin.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -624,7 +624,7 @@ Por favor, note que, quando usado com uma ação, a função será chamada duas 
 
 ## Ações globais e tags de eventos
 
-Tags de span personalizadas de ações e eventos podem ser definidas usando a propriedade `tags` nas [options](#Options) do gerador de rastreamento. Estas serão aplicadas a todas as ações e eventos a menos que sejam sobrescritas nas definições de eventos e ações no esquema do serviço. Todos os tipos de tags personalizados definidos [acima](#Customizing) são válidos. Any tags defined in the service schema's action and event definitions will take precendence but the merge of `params`, `meta`, and `response` tag definitions are shallow, meaning that it is possible to do things like define `meta` tags globally and `response` tags locally in each service.
+Tags de span personalizadas de ações e eventos podem ser definidas usando a propriedade `tags` nas [options](#Options) do gerador de rastreamento. Estas serão aplicadas a todas as ações e eventos a menos que sejam sobrescritas nas definições de eventos e ações no esquema do serviço. Todos os tipos de tags personalizados definidos [acima](#Customizing) são válidos. Quaisquer tags definidas na ação do esquema do serviço e as definições de eventos terão precedência, mas a mesclagem das definições de tags de `params`, `meta`, e `response` são superáveis, o que significa que é possível fazer coisas como definir tags com `meta` globalmente e com `response` localmente em cada serviço.
 
 ```js
 // moleculer.config.js
@@ -657,10 +657,10 @@ module.exports = {
 ```
 
 {% note info %}
-Custom tags defined using the `tags` property have access to `ctx` and if used with an action the `response`. The tags defined in `defaultTags` must either be a static object or a function that accepts the `tracer` instance and returns an object. It also has access to the `broker` instance via the `tracer` instance but does not have access to `ctx`.
+Tags personalizadas definidas usando a propriedade `tags` tem acesso a `ctx` e, se usado com uma ação, o `response`. As tags definidas em `defaultTags` devem ser um objeto estático ou uma função que aceita a instância do `tracer` e retorna um objeto. Ele também tem acesso à instância `broker` através da instância `tracer` mas não tem acesso a `ctx`.
 {% endnote %}
 
-**Example of Event tracing** You can tracing the events, as well. To enable it, set `events: true` in tracing broker options.
+**Exemplo de rastreamento de eventos** Você pode rastrear os eventos também. Para habilitar isso, defina `events: true` nas opções do broker.
 ```js
 // moleculer.config.js
 module.exports = {
