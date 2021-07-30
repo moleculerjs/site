@@ -299,7 +299,7 @@ O broker emite um evento `metrics.trace.span.end` quando a chamada/requisição 
 ```
 
 ### Jaeger
-Jaeger exporter sends tracing spans information to a [Jaeger](https://www.jaegertracing.io) server.
+O gerador para Jaeger envia informações de rastreamento para um servidor [Jaeger](https://www.jaegertracing.io).
 
 ![Jaeger Trace Graph](assets/tracing/jaeger.png#zoomable)
 
@@ -334,12 +334,12 @@ module.exports = {
 };
 ```
 {% note info %}
-To use this exporter, install the `jaeger-client` module with `npm install jaeger-client --save` command.
+Para usar esse gerador, instale o módulo `jaeger-client` com o comando `npm install jaeger-client --save`.
 {% endnote %}
 
 
 ### Zipkin
-Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.apache.org/) server.
+O gerador Zipkin envia informações de rastreamento para um servidor [Zipkin](https://zipkin.apache.org/).
 
 ![Zipkin Trace Graph](assets/tracing/zipkin.png#zoomable)
 
@@ -371,7 +371,7 @@ module.exports = {
 ```
 
 ### NewRelic
-NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewRelic](https://newrelic.com/) server.
+O exportador NewRelic envia informações de rastreamento no formato Zipkin v2 para um servidor [NewRelic](https://newrelic.com/).
 
 ```js
 // moleculer.config.js
@@ -405,8 +405,8 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
 }
 ```
 
-### Customer Exporter
-Custom tracing module can be created. We recommend to copy the source of [Console Exporter](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) and implement the `init`, `stop`, `spanStarted` and `spanFinished` methods.
+### Gerador personalizado
+Um módulo personalizado de rastreamento pode ser criado. Recomendamos copiar o código fonte do [Console](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) e implementar os métodos `init`, `stop`, `spanStarted` e `spanFinished`.
 
 **Criar métricas personalizadas**
 ```js
@@ -435,8 +435,8 @@ module.exports = {
 };
 ```
 
-## Multiple exporters
-You can define multiple tracing exporters.
+## Múltiplos geradores
+Você pode definir vários geradores de rastreamento.
 
 ```js
 // moleculer.config.js
@@ -462,8 +462,8 @@ module.exports = {
 };
 ```
 
-## User-defined tracing spans
-To add new spans inside an action or event handler, just call the `ctx.startSpan` and `ctx.finishSpan` methods.
+## Spans de rastreamento definidos pelo usuário
+Para adicionar novos spans dentro de uma ação ou manipulador de eventos, basta chamar os métodos `ctx.startSpan` e `ctx.finishSpan`.
 
 ```js
 // posts.service.js
@@ -489,8 +489,8 @@ module.exports = {
 };
 ```
 
-### Create span without context
-If `Context` is not available, you can create spans via `broker.tracer`.
+### Criar span sem context
+Se o `Context` não estiver disponível, você pode criar spans via `broker.tracer`.
 
 ```js
 // posts.service.js
@@ -521,10 +521,10 @@ module.exports = {
 ```
 
 ## Personalizando
-### Custom Span Names
-You can customize the span name of you traces. In this case, you must specify the `spanName` that must be a static `String` or a `Function`.
+### Nomes de Span Personalizados
+Você pode personalizar o nome do span de seu rastreamento. Nesse caso, você deve especificar o `spanName` que deve ser uma `String` estática ou uma `Function`.
 
-**Creating a custom name for a trace via Function**
+**Criando um nome personalizado para um rastreamento via Function**
 ```js
 // posts.service.js
 module.exports = {
@@ -542,10 +542,10 @@ module.exports = {
 };
 ```
 
-### Adding Tags from Context
-You can customize what context `params` or `meta` values are added to span tags.
+### Adicionando Tags do Context
+Você pode personalizar quais valores de `params` ou `meta` são adicionados às tags span.
 
-**Default** The default behaviour is that add all properties from `ctx.params` only.
+**Default** O comportamento padrão adiciona todas as propriedades de `ctx.params` apenas.
 ```js
 // posts.service.js
 module.exports = {
@@ -566,7 +566,7 @@ module.exports = {
 };
 ```
 
-**Custom params example**
+**Exemplo de parâmetros personalizados**
 ```js
 // posts.service.js
 module.exports = {
@@ -590,7 +590,7 @@ module.exports = {
 };
 ```
 
-**Example with custom function** You can define a custom `Function` to fill the span tags from the `Context`.
+**Exemplo com função personalizada** Você pode definir uma `function` personalizada para preencher as tags de span do `Context`.
 
 ```js
 // posts.service.js
@@ -619,12 +619,12 @@ module.exports = {
 ```
 
 {% note info %}
-Please note, when used with an action the function will be called two times in case of successful execution. First with `ctx` and the second time with `ctx` & `response` as the response of the action call.
+Por favor, note que, quando usado com uma ação, a função será chamada duas vezes no caso de execução bem-sucedida. Primeiro com `ctx` e segunda vez com `ctx` & `response` como resposta da chamada da ação.
 {% endnote %}
 
-## Global action and event tags
+## Ações globais e tags de eventos
 
-Custom action and event span tags can be defined using the `tags` property in the tracer [options](#Options). These will be applied to all action and event spans unless overridden in the service schema's action and event definitions. All custom tag types defined [above](#Customizing) are valid. Any tags defined in the service schema's action and event definitions will take precendence but the merge of `params`, `meta`, and `response` tag definitions are shallow, meaning that it is possible to do things like define `meta` tags globally and `response` tags locally in each service.
+Tags de span personalizadas de ações e eventos podem ser definidas usando a propriedade `tags` nas [options](#Options) do gerador de rastreamento. Estas serão aplicadas a todas as ações e eventos a menos que sejam sobrescritas nas definições de eventos e ações no esquema do serviço. Todos os tipos de tags personalizados definidos [acima](#Customizing) são válidos. Any tags defined in the service schema's action and event definitions will take precendence but the merge of `params`, `meta`, and `response` tag definitions are shallow, meaning that it is possible to do things like define `meta` tags globally and `response` tags locally in each service.
 
 ```js
 // moleculer.config.js
