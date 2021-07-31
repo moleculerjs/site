@@ -46,7 +46,7 @@ module.exports = {
 
 **Strategy options**
 
-| Name          | Type     | Default | Description                                                                                                |
+| Name          | Typ      | Default | Beschreibung                                                                                               |
 | ------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | `sampleCount` | `Number` | `3`     | The number of samples. _To turn of sampling, set to `0`._                                                  |
 | `lowCpuUsage` | `Number` | `10`    | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
@@ -80,7 +80,7 @@ module.exports = {
 
 **Strategy options**
 
-| Name           | Type     | Default | Description                                                                                                                           |
+| Name           | Typ      | Default | Beschreibung                                                                                                                          |
 | -------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `sampleCount`  | `Number` | `5`     | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
 | `lowLatency`   | `Number` | `10`    | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
@@ -137,7 +137,7 @@ If shard key is in context's `meta` it must be declared with a `#` at the beginn
 
 **Strategy options**
 
-| Name        | Type     | Default | Description             |
+| Name        | Typ      | Default | Beschreibung            |
 | ----------- | -------- | ------- | ----------------------- |
 | `shardKey`  | `String` | `null`  | Shard key               |
 | `vnodes`    | `Number` | `10`    | Number of virtual nodes |

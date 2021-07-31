@@ -9,7 +9,7 @@ To configure strategy, set `strategy` broker options under `registry` property. 
 ### RoundRobin strategy
 This strategy selects a node based on [round-robin](https://en.wikipedia.org/wiki/Round-robin_DNS) algorithm.
 
-**Usage**
+**使用**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
 ### Random strategy
 This strategy selects a node randomly.
 
-**Usage**
+**使用**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -34,7 +34,7 @@ module.exports = {
 ### CPU usage-based strategy
 This strategy selects a node that has the lowest CPU usage. Since the node list can be very long, it gets samples and selects the node with the lowest CPU usage only from a sample instead of the whole node list.
 
-**Usage**
+**使用**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -46,10 +46,10 @@ module.exports = {
 
 **Strategy options**
 
-| Name          | Type     | Default | Description                                                                                                |
-| ------------- | -------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `sampleCount` | `Number` | `3`     | The number of samples. _To turn of sampling, set to `0`._                                                  |
-| `lowCpuUsage` | `Number` | `10`    | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
+| Name          | Type     | 默认设置 | 说明                                                                                                         |
+| ------------- | -------- | ---- | ---------------------------------------------------------------------------------------------------------- |
+| `sampleCount` | `Number` | `3`  | The number of samples. _To turn of sampling, set to `0`._                                                  |
+| `lowCpuUsage` | `Number` | `10` | The low CPU usage percent (%). The node which has lower CPU usage than this value is selected immediately. |
 
 **Usage with custom options**
 ```js
@@ -68,7 +68,7 @@ module.exports = {
 ### Latency-based strategy
 This strategy selects a node that has the lowest latency, measured by periodic ping commands. Notice that the strategy only ping one node / host. Since the node list can be very long, it gets samples and selects the host with the lowest latency only from a sample instead of the whole node list.
 
-**Usage**
+**使用**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -80,12 +80,12 @@ module.exports = {
 
 **Strategy options**
 
-| Name           | Type     | Default | Description                                                                                                                           |
-| -------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `sampleCount`  | `Number` | `5`     | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
-| `lowLatency`   | `Number` | `10`    | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
-| `collectCount` | `Number` | `5`     | The number of measured latency per host to keep in order to calculate the average latency.                                            |
-| `pingInterval` | `Number` | `10`    | Ping interval in seconds. If you have a lot of host/nodes, it's recommended to *increase* the value.                                  |
+| 名称             | 类型       | 默认设置 | 说明                                                                                                                                    |
+| -------------- | -------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `sampleCount`  | `Number` | `5`  | The number of samples. If you have a lot of hosts/nodes, it's recommended to *increase* the value. _To turn of sampling, set to `0`._ |
+| `lowLatency`   | `Number` | `10` | The low latency (ms). The node which has lower latency than this value is selected immediately.                                       |
+| `collectCount` | `Number` | `5`  | The number of measured latency per host to keep in order to calculate the average latency.                                            |
+| `pingInterval` | `Number` | `10` | Ping interval in seconds. If you have a lot of host/nodes, it's recommended to *increase* the value.                                  |
 
 **Usage with custom options**
 ```js
@@ -137,12 +137,12 @@ If shard key is in context's `meta` it must be declared with a `#` at the beginn
 
 **Strategy options**
 
-| Name        | Type     | Default | Description             |
-| ----------- | -------- | ------- | ----------------------- |
-| `shardKey`  | `String` | `null`  | Shard key               |
-| `vnodes`    | `Number` | `10`    | Number of virtual nodes |
-| `ringSize`  | `Number` | `2^32`  | Size of the ring        |
-| `cacheSize` | `Number` | `1000`  | Size of the cache       |
+| 名称          | 类型       | 默认设置   | 说明                      |
+| ----------- | -------- | ------ | ----------------------- |
+| `shardKey`  | `String` | `null` | Shard key               |
+| `vnodes`    | `Number` | `10`   | Number of virtual nodes |
+| `ringSize`  | `Number` | `2^32` | Size of the ring        |
+| `cacheSize` | `Number` | `1000` | Size of the cache       |
 
 
 **All available options of Shard strategy**

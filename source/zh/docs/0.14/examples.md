@@ -16,7 +16,7 @@ title: Examples
 
 **Repo: https://github.com/moleculerjs/moleculer-examples/tree/master/conduit#readme**
 
-### Blog
+### 博客
 This is a simple blog example.
 
 **Key features**
@@ -24,7 +24,7 @@ This is a simple blog example.
 - ExpressJS www server with Pug template engine
 - MongoDB database with [moleculer-db](https://github.com/moleculerjs/moleculer-db) and [moleculer-db-adapter-mongoose](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose) modules
 - NATS transporter
-- Redis cacher
+- Redis 缓存
 - [Traefik](https://traefik.io/) reverse proxy (in micro arch)
 - static frontend
 
@@ -62,7 +62,7 @@ $ node examples/client-server/client
 
 [Source code is available on Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
 
-### Middlewares
+### 中间件
 This example demonstrates how the middleware system works.
 
 ```bash

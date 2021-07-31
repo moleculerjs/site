@@ -23,9 +23,9 @@ module.exports = {
 };
 ```
 
-## Options
+## Параметры
 
-| Название      | Type                              | Default                                       | Описание                                                                                         |
+| Название      | Тип                               | Значение по умолчанию                         | Описание                                                                                         |
 | ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                                                          |
 | `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                  |
@@ -403,6 +403,36 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
         ],
     },    
 }
+```
+
+### Customer Exporter
+Custom tracing module can be created. We recommend to copy the source of [Console Exporter](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) and implement the `init`, `stop`, `spanStarted` and `spanFinished` methods.
+
+**Create custom metrics**
+```js
+const TracerBase = require("moleculer").TracerExporters.Base;
+
+class MyTracingExporters extends TracerBase {
+    init() { /*...*/ }
+    stop() { /*...*/ }
+    spanStarted() { /*...*/ }
+    spanFinished() { /*...*/ }
+}
+```
+
+**Use custom metrics**
+```js
+// moleculer.config.js
+const MyMetricsReporter = require("./my-tracing-exporter");
+
+module.exports = {
+    tracing: {
+        enabled: true,
+        exporter: [
+            new MyTracingExporters(),
+        ]
+    }
+};
 ```
 
 ## Multiple exporters

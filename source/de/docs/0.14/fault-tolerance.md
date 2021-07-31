@@ -31,7 +31,7 @@ const broker = new ServiceBroker({
 
 ### Settings
 
-| Name              | Type       | Default                             | Description                                                          |
+| Name              | Typ        | Default                             | Beschreibung                                                         |
 | ----------------- | ---------- | ----------------------------------- | -------------------------------------------------------------------- |
 | `enabled`         | `Boolean`  | `false`                             | Enable feature                                                       |
 | `threshold`       | `Number`   | `0.5`                               | Threshold value. `0.5` means that 50% should be failed for tripping. |
@@ -79,7 +79,7 @@ const broker = new ServiceBroker({
 
 ### Settings
 
-| Name       | Type       | Default                          | Description                                              |
+| Name       | Typ        | Default                          | Beschreibung                                             |
 | ---------- | ---------- | -------------------------------- | -------------------------------------------------------- |
 | `enabled`  | `Boolean`  | `false`                          | Enable feature.                                          |
 | `retries`  | `Number`   | `5`                              | Count of retries.                                        |
@@ -152,7 +152,7 @@ const broker = new ServiceBroker({
 
 ### Global Settings
 
-| Name           | Type      | Default | Description                    |
+| Name           | Typ       | Default | Beschreibung                   |
 | -------------- | --------- | ------- | ------------------------------ |
 | `enabled`      | `Boolean` | `false` | Enable feature.                |
 | `concurrency`  | `Number`  | `3`     | Maximum concurrent executions. |

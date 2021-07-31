@@ -22,7 +22,7 @@ module.exports = {
 
 ## Options
 
-| Name                    | Type                              | Default | Description                                                                                                |
+| Name                    | Type                              | 默认设置    | 说明                                                                                                         |
 | ----------------------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | `enabled`               | `Boolean`                         | `false` | Enable tracing feature.                                                                                    |
 | `reporter`              | `Object` or `Array<Object>` | `null`  | Metric reporter configuration. [More info](#Metrics-Reporters)                                             |
@@ -37,14 +37,14 @@ module.exports = {
 ## Metrics Reporters
 Moleculer has several built-in reporters. All of them have the following options:
 
-| Name                  | Type                              | Default | Description                                                                               |
-| --------------------- | --------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `includes`            | `String` or `Array<String>` | `null`  | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `excludes`            | `String` or `Array<String>` | `null`  | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `metricNamePrefix`    | `String`                          | `null`  | Prefix to be added to metric names                                                        |
-| `metricNameSuffix`    | `String`                          | `null`  | Suffix to be added to metric names                                                        |
-| `metricNameFormatter` | `Function`                        | `null`  | Metric name formatter                                                                     |
-| `labelNameFormatter`  | `Function`                        | `null`  | Label name formatter                                                                      |
+| 名称                    | 类型                                | 默认设置   | 说明                                                                                        |
+| --------------------- | --------------------------------- | ------ | ----------------------------------------------------------------------------------------- |
+| `includes`            | `String` or `Array<String>` | `null` | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `excludes`            | `String` or `Array<String>` | `null` | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
+| `metricNamePrefix`    | `String`                          | `null` | Prefix to be added to metric names                                                        |
+| `metricNameSuffix`    | `String`                          | `null` | Suffix to be added to metric names                                                        |
+| `metricNameFormatter` | `Function`                        | `null` | Metric name formatter                                                                     |
+| `labelNameFormatter`  | `Function`                        | `null` | Label name formatter                                                                      |
 
 
 **Example of metrics options**
@@ -248,6 +248,35 @@ module.exports = {
                     maxPayloadSize: 1300
                 }
             }
+        ]
+    }
+};
+```
+
+### Customer Reporter
+Custom metrics module can be created. We recommend to copy the source of [Console Reporter](https://github.com/moleculerjs/moleculer/blob/master/src/metrics/reporters/console.js) and implement the `init`, `stop`, `metricChanged` methods.
+
+**Create custom metrics**
+```js
+const BaseReporter = require("moleculer").MetricReporters.Base;
+
+class MyMetricsReporter extends BaseReporter {
+    init() { /*...*/ }
+    stop() { /*...*/ }
+    metricChanged() { /*...*/ }
+}
+```
+
+**Use custom metrics**
+```js
+// moleculer.config.js
+const MyMetricsReporter = require("./my-metrics-reporter");
+
+module.exports = {
+    metrics: {
+        enabled: true,
+        reporter: [
+            new MyMetricsReporter(),
         ]
     }
 };

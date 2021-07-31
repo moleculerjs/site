@@ -82,7 +82,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**带选项的示例**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -169,7 +169,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**带选项的示例**
 ```js
 // moleculer.config.js
 module.exports = {

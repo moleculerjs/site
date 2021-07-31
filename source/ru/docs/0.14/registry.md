@@ -82,7 +82,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**Пример с параметрами**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -169,7 +169,7 @@ module.exports = {
 }
 ```
 
-**Example with options**
+**Пример с параметрами**
 ```js
 // moleculer.config.js
 module.exports = {

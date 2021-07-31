@@ -13,7 +13,7 @@ The event listeners are arranged to logical groups. It means that only one liste
 
 The group name comes from the service name, but it can be overwritten in event definition in services.
 
-**Example**
+**示例**
 ```js
 module.exports = {
     name: "payment",
@@ -158,7 +158,7 @@ The broker sends this event if the local node or a remote node loads or destroys
 
 **Payload**
 
-| Name           | Type      | Description                      |
+| Name           | Type      | 说明                               |
 | -------------- | --------- | -------------------------------- |
 | `localService` | `Boolean` | True if a local service changed. |
 
@@ -167,7 +167,7 @@ The broker sends this event when the circuit breaker module change its state to 
 
 **Payload**
 
-| Name       | Type     | Description       |
+| 名称         | 类型       | 说明                |
 | ---------- | -------- | ----------------- |
 | `nodeID`   | `String` | Node ID           |
 | `action`   | `String` | Action name       |
@@ -179,7 +179,7 @@ The broker sends this event when the circuit breaker module change its state to 
 
 **Payload**
 
-| Name     | Type     | Description |
+| 名称       | 类型       | 描述          |
 | -------- | -------- | ----------- |
 | `nodeID` | `String` | Node ID     |
 | `action` | `String` | Action name |
@@ -199,9 +199,9 @@ The broker sends this event when a node connected or reconnected.
 
 **Payload**
 
-| Name          | Type      | Description      |
+| Name          | Type      | 描述               |
 | ------------- | --------- | ---------------- |
-| `node`        | `Node`    | Node info object |
+| `node`        | `节点`      | Node info object |
 | `reconnected` | `Boolean` | Is reconnected?  |
 
 ## `$node.updated`
@@ -209,18 +209,18 @@ The broker sends this event when it has received an INFO message from a node, (i
 
 **Payload**
 
-| Name   | Type   | Description      |
-| ------ | ------ | ---------------- |
-| `node` | `Node` | Node info object |
+| 名字     | Type | 描述               |
+| ------ | ---- | ---------------- |
+| `node` | `节点` | Node info object |
 
 ## `$node.disconnected`
 The broker sends this event when a node disconnected (gracefully or unexpectedly).
 
 **Payload**
 
-| Name         | Type      | Description                                                                         |
+| 名字           | Type      | 描述                                                                                  |
 | ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `Node`    | Node info object                                                                    |
+| `node`       | `节点`      | Node info object                                                                    |
 | `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
 
 ## `$broker.started`

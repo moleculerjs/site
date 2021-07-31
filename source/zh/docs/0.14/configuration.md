@@ -39,6 +39,7 @@ title: 配置
 * **`internalMiddlewares`**: `Boolean` - Register [internal middlewares](middlewares.html#Internal-middlewares). _Default: `true`_
 * **`hotReload`**: `Boolean` - Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-Reloading-Services). _Default: `false`_
 * **`middlewares`**: `Array<Object>` - Register custom middlewares. _Default: `null`_
+* **`replDelimiter`**: `String` - Custom REPL commands delimiter. _Default: `mol $`_
 * **`replCommands`**: `Array<Object>` - Register custom REPL commands. _Default: `null`_
 * **`metadata`**: `Object` - Store custom values. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case, you have to register them manually. _Default: `false`_
@@ -140,6 +141,7 @@ title: 配置
 
     middlewares: ["MyMiddleware"],
 
+    replDelimiter: "mol $",
     replCommands: [],
 
     metadata: {

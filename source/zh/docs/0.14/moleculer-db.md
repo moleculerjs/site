@@ -6,7 +6,7 @@ Moleculer framework has an official set of [DB adapters](https://github.com/mole
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
-## Features
+## 特性概览
 * default CRUD actions
 * [cached](caching.html) actions
 * pagination support
@@ -29,13 +29,13 @@ Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/
 Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
 {% endnote %}
 
-### Install
+### 安装
 
 ```bash
 $ npm install moleculer-db --save
 ```
 
-### Usage
+### 使用
 
 ```js
 "use strict";
@@ -92,11 +92,11 @@ broker.start()
 
 > More examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
 
-## Settings
+## 设置
 
 All DB adapters share a common set of settings:
 
-| Property          | Type                   | Default      | Description                                                                                                               |
+| Property          | Type                   | 默认设置         | 说明                                                                                                                        |
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
 | `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
@@ -110,7 +110,7 @@ All DB adapters share a common set of settings:
 `idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
 {% endnote %}
 
-## Actions
+## 活动
 
 DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
 
@@ -119,7 +119,7 @@ DB adapters also implement CRUD operations. These [actions](actions.html) are [`
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | 类型                     | 默认设置         | 说明                               |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -139,7 +139,7 @@ Find entities by query.
 Get count of entities by query.
 
 #### Parameters
-| Property       | Type     | Default      | Description                      |
+| Property       | 类型       | 默认设置         | 说明                               |
 | -------------- | -------- | ------------ | -------------------------------- |
 | `search`       | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
@@ -154,7 +154,7 @@ Get count of entities by query.
 List entities by filters and pagination results.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | 默认设置         | 描述                               |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -188,10 +188,10 @@ Create a new entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Description       |
-| ---------- | ---------------------- | ------- | ----------------- |
-| `entity`   | `Object`               | -       | Entity to save.   |
-| `entities` | `Array.<Object>` | -       | Entities to save. |
+| Property   | Type                   | 默认设置 | 描述                |
+| ---------- | ---------------------- | ---- | ----------------- |
+| `entity`   | `Object`               | -    | Entity to save.   |
+| `entities` | `Array.<Object>` | -    | Entities to save. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>` - Saved entity(ies).
@@ -201,7 +201,7 @@ Create many new entities.
 Get entity by ID.
 
 ##### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+| Property   | Type                       | 默认设置         | 描述                                                                           |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -218,9 +218,9 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Type | 默认设置 | 描述 |
+| -------- | ---- | ---- | -- |
+| -        | -    | -    | -  |
 
 
 *No input parameters.*
@@ -234,7 +234,7 @@ Update an entity by ID.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Description   |
+| Property | Type  | 默认设置         | 描述            |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -250,7 +250,7 @@ DB adapters also has a set of helper [methods](services.html#Methods).
 Get entity(ies) by ID(s).
 
 #### Parameters
-| Property   | Type                        | Default      | Description         |
+| Property   | Type                        | 默认设置         | 描述                  |
 | ---------- | --------------------------- | ------------ | ------------------- |
 | `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
 | `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
@@ -264,9 +264,9 @@ Get entity(ies) by ID(s).
 Clear cached entities
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Type | 默认设置 | 描述 |
+| -------- | ---- | ---- | -- |
+| -        | -    | -    | -  |
 
 
 *No input parameters.*
@@ -280,9 +280,9 @@ Clear cached entities
 Encode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Type  | 默认设置         | 描述 |
+| -------- | ----- | ------------ | -- |
+| `id`     | `any` | **required** | -  |
 
 #### Results
 **Type:** `any`
@@ -293,9 +293,9 @@ Encode ID of entity.
 Decode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Type  | 默认设置         | 描述 |
+| -------- | ----- | ------------ | -- |
+| `id`     | `any` | **required** | -  |
 
 #### Results
 **Type:** `any`
@@ -305,7 +305,7 @@ Decode ID of entity.
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | 默认设置         | 描述                               |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -327,7 +327,7 @@ List of found entities.
 Get count of entities by query.
 
 #### Parameters
-| Property       | Type     | Default      | Description                      |
+| Property       | Type     | 默认设置         | 描述                               |
 | -------------- | -------- | ------------ | -------------------------------- |
 | `search`       | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
@@ -344,7 +344,7 @@ Count of found entities.
 List entities by filters and pagination results.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Type                   | 默认设置         | 描述                               |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -366,9 +366,9 @@ List of found entities and count.
 Create a new entity.
 
 #### Parameters
-| Property | Type     | Default | Description     |
-| -------- | -------- | ------- | --------------- |
-| `params` | `Object` | -       | Entity to save. |
+| Property | Type     | 默认设置 | 描述              |
+| -------- | -------- | ---- | --------------- |
+| `params` | `Object` | -    | Entity to save. |
 
 #### Results
 **Type:** `Object`
@@ -381,10 +381,10 @@ Saved entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Description       |
-| ---------- | ---------------------- | ------- | ----------------- |
-| `entity`   | `Object`               | -       | Entity to save.   |
-| `entities` | `Array.<Object>` | -       | Entities to save. |
+| Property   | Type                   | 默认设置 | 描述                |
+| ---------- | ---------------------- | ---- | ----------------- |
+| `entity`   | `Object`               | -    | Entity to save.   |
+| `entities` | `Array.<Object>` | -    | Entities to save. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>`
@@ -397,7 +397,7 @@ Saved entity(ies).
 Get entity by ID.
 
 #### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+| Property   | Type                       | 默认设置         | 描述                                                                           |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -416,9 +416,9 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type     | Default | Description       |
-| -------- | -------- | ------- | ----------------- |
-| `params` | `Object` | -       | Entity to update. |
+| Property | Type     | 默认设置 | 描述                |
+| -------- | -------- | ---- | ----------------- |
+| `params` | `Object` | -    | Entity to update. |
 
 #### Results
 **Type:** `Object`
@@ -431,7 +431,7 @@ Updated entity.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Description   |
+| Property | Type  | 默认设置         | 描述            |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -623,7 +623,7 @@ module.exports = {
 
 This adapter is based on [MongoDB](http://mongodb.github.io/node-mongodb-native/).
 
-### Install
+### 安装
 
 ```bash
 $ npm install moleculer-db moleculer-db-adapter-mongo --save
@@ -632,7 +632,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongo --save
 To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
-### Usage
+### 使用
 
 ```js
 "use strict";
@@ -686,7 +686,7 @@ new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
 
 This adapter is based on [Mongoose](https://mongoosejs.com/docs/).
 
-### Install
+### 安装
 
 ```bash
 $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
@@ -696,7 +696,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
 To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
-### Usage
+### 使用
 
 ```js
 "use strict";
@@ -759,7 +759,7 @@ If your services are running on separate nodes and you wish to connect to multip
 
 SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Sequelize](https://github.com/sequelize/sequelize).
 
-### Install
+### 安装
 
 ```bash
 $ npm install moleculer-db-adapter-sequelize --save
@@ -780,7 +780,7 @@ $ npm install pg pg-hstore --save
 $ npm install tedious --save
 ```
 
-### Usage
+### 使用
 
 ```js
 "use strict";

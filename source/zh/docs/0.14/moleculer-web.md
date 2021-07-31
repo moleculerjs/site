@@ -3,7 +3,7 @@ title: API Gateway
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
 The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
 
-## Features
+## 特性概览
 * support HTTP & HTTPS
 * serve static files
 * multiple routes
@@ -21,12 +21,12 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 [![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
 {% endnote %}
 
-## Install
+## 安装
 ```bash
 npm i moleculer-web
 ```
 
-## Usage
+## 使用
 
 ### Run with default settings
 This example uses API Gateway service with default settings. You can access all services (including internal `$node.`) via `http://localhost:3000/`
@@ -216,7 +216,7 @@ API Gateway has implemented file uploads. You can upload files as a multipart fo
 Please note, you have to disable other body parsers in order to accept files.
 {% endnote %}
 
-**Example**
+**示例**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -448,7 +448,7 @@ foo: {
 }
 ```
 
-## Middlewares
+## 中间件
 It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
 **示例**
@@ -1227,7 +1227,7 @@ This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = tr
 ### `removeRoute`
 Service method removes the route by path (`this.removeRoute("/admin")`).
 
-## Examples
+## 示例
 - [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
     - simple gateway with default settings.
 

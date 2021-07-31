@@ -6,7 +6,7 @@ Moleculer framework has an official set of [DB adapters](https://github.com/mole
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
-## Features
+## Funcionalidades
 * default CRUD actions
 * [cached](caching.html) actions
 * pagination support
@@ -17,7 +17,7 @@ Moleculer follows the *one database per service* pattern. To learn more about th
 * encode/decode IDs
 * entity lifecycle events for notifications
 
-{% note info Try it in your browser! %}
+{% note info Experimente em seu navegador! %}
 [![Edit moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
 {% endnote %}
 
@@ -29,13 +29,13 @@ Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/
 Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
 {% endnote %}
 
-### Install
+### Instalação
 
 ```bash
 $ npm install moleculer-db --save
 ```
 
-### Usage
+### Utilização
 
 ```js
 "use strict";
@@ -92,11 +92,11 @@ broker.start()
 
 > More examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
 
-## Settings
+## Confirgurações
 
 All DB adapters share a common set of settings:
 
-| Property          | Type                   | Default      | Description                                                                                                               |
+| Property          | Tipo                   | Padrão       | Descrição                                                                                                                 |
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
 | `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
@@ -110,7 +110,7 @@ All DB adapters share a common set of settings:
 `idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
 {% endnote %}
 
-## Actions
+## Ações
 
 DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
 
@@ -118,8 +118,8 @@ DB adapters also implement CRUD operations. These [actions](actions.html) are [`
 
 Find entities by query.
 
-#### Parameters
-| Property       | Type                   | Default      | Description                      |
+#### Parâmetros
+| Property       | Tipo                   | Valor padrão | Descrição                        |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -138,8 +138,8 @@ Find entities by query.
 
 Get count of entities by query.
 
-#### Parameters
-| Property       | Type     | Default      | Description                      |
+#### Parâmetros
+| Property       | Tipo     | Valor padrão | Descrição                        |
 | -------------- | -------- | ------------ | -------------------------------- |
 | `search`       | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
@@ -153,8 +153,8 @@ Get count of entities by query.
 
 List entities by filters and pagination results.
 
-#### Parameters
-| Property       | Type                   | Default      | Description                      |
+#### Parâmetros
+| Property       | Tipo                   | Padrão       | Descrição                        |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -172,10 +172,10 @@ List entities by filters and pagination results.
 
 Create a new entity.
 
-#### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+#### Parâmetros
+| Property | Tipo | Padrão | Descrição |
+| -------- | ---- | ------ | --------- |
+| -        | -    | -      | -         |
 
 
 *No input parameters.*
@@ -187,11 +187,11 @@ Create a new entity.
 
 Create many new entities.
 
-#### Parameters
-| Property   | Type                   | Default | Description       |
-| ---------- | ---------------------- | ------- | ----------------- |
-| `entity`   | `Object`               | -       | Entity to save.   |
-| `entities` | `Array.<Object>` | -       | Entities to save. |
+#### Parâmetros
+| Property   | Tipo                   | Padrão | Descrição         |
+| ---------- | ---------------------- | ------ | ----------------- |
+| `entity`   | `Object`               | -      | Entity to save.   |
+| `entities` | `Array.<Object>` | -      | Entities to save. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>` - Saved entity(ies).
@@ -200,8 +200,8 @@ Create many new entities.
 
 Get entity by ID.
 
-##### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+##### Parâmetros
+| Property   | Tipo                       | Padrão       | Descrição                                                                    |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -217,10 +217,10 @@ Get entity by ID.
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
-#### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+#### Parâmetros
+| Property | Tipo | Padrão | Descrição |
+| -------- | ---- | ------ | --------- |
+| -        | -    | -      | -         |
 
 
 *No input parameters.*
@@ -233,8 +233,8 @@ Update an entity by ID.
 
 Remove an entity by ID.
 
-#### Parameters
-| Property | Type  | Default      | Description   |
+#### Parâmetros
+| Property | Tipo  | Padrão       | Descrição     |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -249,8 +249,8 @@ DB adapters also has a set of helper [methods](services.html#Methods).
 
 Get entity(ies) by ID(s).
 
-#### Parameters
-| Property   | Type                        | Default      | Description         |
+#### Parâmetros
+| Property   | Tipo                        | Padrão       | Descrição           |
 | ---------- | --------------------------- | ------------ | ------------------- |
 | `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
 | `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
@@ -263,10 +263,10 @@ Get entity(ies) by ID(s).
 
 Clear cached entities
 
-#### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+#### Parâmetros
+| Property | Tipo | Padrão | Descrição |
+| -------- | ---- | ------ | --------- |
+| -        | -    | -      | -         |
 
 
 *No input parameters.*
@@ -279,10 +279,10 @@ Clear cached entities
 
 Encode ID of entity.
 
-#### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+#### Parâmetros
+| Property | Tipo  | Padrão       | Descrição |
+| -------- | ----- | ------------ | --------- |
+| `id`     | `any` | **required** | -         |
 
 #### Results
 **Type:** `any`
@@ -292,10 +292,10 @@ Encode ID of entity.
 
 Decode ID of entity.
 
-#### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+#### Parâmetros
+| Property | Tipo  | Padrão       | Descrição |
+| -------- | ----- | ------------ | --------- |
+| `id`     | `any` | **required** | -         |
 
 #### Results
 **Type:** `any`
@@ -304,8 +304,8 @@ Decode ID of entity.
 
 Find entities by query.
 
-#### Parameters
-| Property       | Type                   | Default      | Description                      |
+#### Parâmetros
+| Property       | Tipo                   | Padrão       | Descrição                        |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -326,8 +326,8 @@ List of found entities.
 
 Get count of entities by query.
 
-#### Parameters
-| Property       | Type     | Default      | Description                      |
+#### Parâmetros
+| Property       | Tipo     | Padrão       | Descrição                        |
 | -------------- | -------- | ------------ | -------------------------------- |
 | `search`       | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
@@ -343,8 +343,8 @@ Count of found entities.
 
 List entities by filters and pagination results.
 
-#### Parameters
-| Property       | Type                   | Default      | Description                      |
+#### Parâmetros
+| Property       | Tipo                   | Padrão       | Descrição                        |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -365,10 +365,10 @@ List of found entities and count.
 
 Create a new entity.
 
-#### Parameters
-| Property | Type     | Default | Description     |
-| -------- | -------- | ------- | --------------- |
-| `params` | `Object` | -       | Entity to save. |
+#### Parâmetros
+| Property | Tipo     | Padrão | Descrição       |
+| -------- | -------- | ------ | --------------- |
+| `params` | `Object` | -      | Entity to save. |
 
 #### Results
 **Type:** `Object`
@@ -380,11 +380,11 @@ Saved entity.
 
 Create many new entities.
 
-#### Parameters
-| Property   | Type                   | Default | Description       |
-| ---------- | ---------------------- | ------- | ----------------- |
-| `entity`   | `Object`               | -       | Entity to save.   |
-| `entities` | `Array.<Object>` | -       | Entities to save. |
+#### Parâmetros
+| Property   | Tipo                   | Padrão | Descrição         |
+| ---------- | ---------------------- | ------ | ----------------- |
+| `entity`   | `Object`               | -      | Entity to save.   |
+| `entities` | `Array.<Object>` | -      | Entities to save. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>`
@@ -396,8 +396,8 @@ Saved entity(ies).
 
 Get entity by ID.
 
-#### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+#### Parâmetros
+| Property   | Tipo                       | Padrão       | Descrição                                                                    |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -415,10 +415,10 @@ Found entity(ies).
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
-#### Parameters
-| Property | Type     | Default | Description       |
-| -------- | -------- | ------- | ----------------- |
-| `params` | `Object` | -       | Entity to update. |
+#### Parâmetros
+| Property | Tipo     | Padrão | Descrição         |
+| -------- | -------- | ------ | ----------------- |
+| `params` | `Object` | -      | Entity to update. |
 
 #### Results
 **Type:** `Object`
@@ -430,8 +430,8 @@ Updated entity.
 
 Remove an entity by ID.
 
-#### Parameters
-| Property | Type  | Default      | Description   |
+#### Parâmetros
+| Property | Tipo  | Padrão       | Descrição     |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -623,7 +623,7 @@ module.exports = {
 
 This adapter is based on [MongoDB](http://mongodb.github.io/node-mongodb-native/).
 
-### Install
+### Instalação
 
 ```bash
 $ npm install moleculer-db moleculer-db-adapter-mongo --save
@@ -632,7 +632,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongo --save
 To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
-### Usage
+### Utilização
 
 ```js
 "use strict";
@@ -664,7 +664,7 @@ broker.start()
 .then(() => broker.call("posts.find").then(console.log));
 ```
 
-### Options
+### Opções
 
 **Example with connection URI**
 ```js
@@ -686,7 +686,7 @@ new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
 
 This adapter is based on [Mongoose](https://mongoosejs.com/docs/).
 
-### Install
+### Instalação
 
 ```bash
 $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
@@ -696,7 +696,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
 To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
-### Usage
+### Utilização
 
 ```js
 "use strict";
@@ -733,7 +733,7 @@ broker.start()
 .then(() => broker.call("posts.find").then(console.log));
 ```
 
-### Options
+### Opções
 
 **Example with connection URI**
 ```js
@@ -759,7 +759,7 @@ If your services are running on separate nodes and you wish to connect to multip
 
 SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Sequelize](https://github.com/sequelize/sequelize).
 
-### Install
+### Instalação
 
 ```bash
 $ npm install moleculer-db-adapter-sequelize --save
@@ -780,7 +780,7 @@ $ npm install pg pg-hstore --save
 $ npm install tedious --save
 ```
 
-### Usage
+### Utilização
 
 ```js
 "use strict";
@@ -825,7 +825,7 @@ broker.start()
 .then(() => broker.call("posts.find").then(console.log));
 ```
 
-### Options
+### Opções
 Every constructor arguments are passed to the `Sequelize` constructor. Read more about [Sequelize connection](http://docs.sequelizejs.com/manual/installation/getting-started.html).
 
 **Example with connection URI**

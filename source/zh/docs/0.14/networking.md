@@ -138,7 +138,7 @@ module.exports = {
 To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
 {% endnote %}
 
-#### Examples
+#### 示例
 **Connect to 'nats://localhost:4222'**
 ```js
 // moleculer.config.js
@@ -203,7 +203,7 @@ module.exports = {
 To use this transporter install the `ioredis` module with `npm install ioredis --save` command.
 {% endnote %}
 
-#### Examples
+#### 示例
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -274,7 +274,7 @@ module.exports = {
 To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
 {% endnote %}
 
-#### Examples
+#### 示例
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -499,7 +499,7 @@ module.exports = {
 To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
 {% endnote %}
 
-#### Examples
+#### 示例
 **Connect with default settings**
 ```js
 // moleculer.config.js
@@ -666,7 +666,7 @@ To use this serializer install the `thrift` module with `npm install thrift --sa
 {% endnote %}
 
 ### CBOR serializer
-CBOR ((cbor-x)[https://github.com/kriszyp/cbor-x]) is the (fastest)[https://github.com/moleculerjs/moleculer/pull/905] than any other serializers.
+CBOR ([cbor-x](https://github.com/kriszyp/cbor-x)) is the [fastest](https://github.com/moleculerjs/moleculer/pull/905) than any other serializers.
 
 示例
 ```js

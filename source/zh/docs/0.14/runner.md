@@ -8,7 +8,7 @@ Moleculer Runner is a helper script that helps you running Moleculer projects. W
 Use the `moleculer.config.js` during development or store common options. In production, you can overwrite the values with the environment variables!
 {% endnote %}
 
-## Syntax
+## 语法
 ```
 $ moleculer-runner [options] [service files or directories or glob masks]
 ```
@@ -16,7 +16,7 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 
 ## Options
 
-| Option                         | Type      | Default | Description                                                                       |
+| Option                         | Type      | 默认设置    | 说明                                                                                |
 | ------------------------------ | --------- | ------- | --------------------------------------------------------------------------------- |
 | `-r`, `--repl`                 | `Boolean` | `false` | If true, it switches to [REPL](moleculer-repl.html) mode after broker started.    |
 | `-s`, `--silent`               | `Boolean` | `false` | Disable the broker logger. It prints nothing to the console.                      |
@@ -117,7 +117,7 @@ The runner loads service files or folders defined in CLI arguments. If you defin
 4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. If glob pattern found, it applies and load the found files.
 > Please note: shorthand names can also be used in `SERVICES` env var.
 
-**Example**
+**示例**
 ```
 SERVICEDIR=services
 SERVICES=math,post,user
@@ -163,7 +163,7 @@ Moleculer runner can load `.env` file at starting. There are two new cli options
 * `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
 * `-E, --envfile <filename>` - Load envorinment variables from the specified file.
 
-**Example**
+**示例**
 ```sh
 # Load the default .env file from current directory
 $ moleculer-runner --env

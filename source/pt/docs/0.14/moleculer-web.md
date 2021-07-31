@@ -3,7 +3,7 @@ title: API Gateway
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
 The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
 
-## Features
+## Funcionalidades
 * support HTTP & HTTPS
 * serve static files
 * multiple routes
@@ -17,16 +17,16 @@ The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the officia
 * Buffer & Stream handling
 * middleware mode (use as a middleware with Express)
 
-{% note info Try it in your browser! %}
+{% note info Experimente em seu navegador! %}
 [![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
 {% endnote %}
 
-## Install
+## Instalação
 ```bash
 npm i moleculer-web
 ```
 
-## Usage
+## Utilização
 
 ### Run with default settings
 This example uses API Gateway service with default settings. You can access all services (including internal `$node.`) via `http://localhost:3000/`
@@ -216,7 +216,7 @@ API Gateway has implemented file uploads. You can upload files as a multipart fo
 Please note, you have to disable other body parsers in order to accept files.
 {% endnote %}
 
-**Example**
+**Exemplo**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -283,7 +283,7 @@ Gateway will regenerate the routes every time a service joins or leaves the netw
 
 Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
 
-**Example**
+**Exemplo**
 ```js
 // api.service.js
 module.exports = {
@@ -391,13 +391,13 @@ module.exports = {
 ```
 
 
-## Parameters
+## Parâmetros
 API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
 
 ### Disable merging
 To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
 
-**Example**
+**Exemplo**
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -1227,8 +1227,8 @@ This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = tr
 ### `removeRoute`
 Service method removes the route by path (`this.removeRoute("/admin")`).
 
-## Examples
-- [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
+## Exemplos
+- [Simples](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
     - simple gateway with default settings.
 
 - [SSL server](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)

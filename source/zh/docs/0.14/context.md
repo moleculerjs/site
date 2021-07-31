@@ -5,10 +5,10 @@ When you call an action or emit an event, the broker creates a `Context` instanc
 
 ## Properties of Context
 
-| Name              | Type                  | Description                                                      |
+| Name              | Type                  | 说明                                                               |
 | ----------------- | --------------------- | ---------------------------------------------------------------- |
 | `ctx.id`          | `String`              | Context ID                                                       |
-| `ctx.broker`      | `ServiceBroker`       | Instance of the broker.                                          |
+| `ctx.broker`      | `服务管理者`               | Instance of the broker.                                          |
 | `ctx.nodeID`      | `String`              | The caller or target Node ID.                                    |
 | `ctx.action`      | `Object`              | Instance of action definition.                                   |
 | `ctx.event`       | `Object`              | Instance of event definition.                                    |
@@ -26,7 +26,7 @@ When you call an action or emit an event, the broker creates a `Context` instanc
 
 ## Methods of Context
 
-| Name                        | Response  | Description                                            |
+| 名称                          | 响应        | 说明                                                     |
 | --------------------------- | --------- | ------------------------------------------------------ |
 | `ctx.call()`                | `Promise` | Make nested-call. Same arguments like in `broker.call` |
 | `ctx.emit()`                | `void`    | Emit an event, same as `broker.emit`                   |

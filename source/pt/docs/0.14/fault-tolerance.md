@@ -1,21 +1,21 @@
-title: Fault tolerance
+title: Tolerância a falhas
 ---
 
-Moleculer has several built-in fault-tolerance features. They can be enabled or disabled in broker options.
+Moleculer tem vários recursos integrados de tolerância a falhas. Eles podem ser habilitados ou desabilitados nas opções de broker.
 
 ## Circuit Breaker
 
-Moleculer has a built-in circuit-breaker solution. It is a threshold-based implementation. It uses a time window to check the failed request rate. Once the threshold value is reached, it trips the circuit breaker.
+Moleculer tem uma solução integrada que aplica o padrão circuit-breaker. Trata-se de uma implementação baseada em limites. Ele usa uma janela do tempo para verificar a taxa de falha das requisições. Uma vez que o limite é atingido, ele aciona o disjuntor.
 
-{% note info What is the circuit breaker? %}
-The Circuit Breaker can prevent an application from repeatedly trying to execute an operation that's likely to fail. Allowing it to continue without waiting for the fault to be fixed or wasting CPU cycles while it determines that the fault is long lasting. The Circuit Breaker pattern also enables an application to detect whether the fault has been resolved. If the problem appears to have been fixed, the application can try to invoke the operation.
+{% note info O que é circuit breaker? %}
+O Circuit Breaker pode impedir que um aplicativo tente repetidamente executar uma operação que provavelmente falhará. Permitindo que continue sem esperar que a falha seja corrigida ou desperdiçando processamento enquanto determina que a falha ainda persiste. O padrão Circuit Breaker também permite que uma aplicação detecte se a falha foi resolvida. Se o problema parece ter sido corrigido, a aplicação pode tentar chamar a operação.
 
-Read more about circuit breaker on [Martin Fowler blog](https://martinfowler.com/bliki/CircuitBreaker.html) or on [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
+Leia mais sobre o circuit breaker no [blog Martin Fowler](https://martinfowler.com/bliki/CircuitBreaker.html) ou no [Microsoft Azure Docs](https://docs.microsoft.com/azure/architecture/patterns/circuit-breaker).
 {% endnote %}
 
-If you enable it, all service calls will be protected by the circuit breaker.
+Se ativá-lo, todas as chamadas de serviço serão protegidas pelo circuit breaker.
 
-**Enable it in the broker options**
+**Habilite-o nas opções do broker**
 ```js
 const broker = new ServiceBroker({
     circuitBreaker: {
@@ -29,20 +29,20 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Confirgurações
 
-| Name              | Type       | Default                             | Description                                                          |
-| ----------------- | ---------- | ----------------------------------- | -------------------------------------------------------------------- |
-| `enabled`         | `Boolean`  | `false`                             | Enable feature                                                       |
-| `threshold`       | `Number`   | `0.5`                               | Threshold value. `0.5` means that 50% should be failed for tripping. |
-| `minRequestCount` | `Number`   | `20`                                | Minimum request count. Below it, CB does not trip.                   |
-| `windowTime`      | `Number`   | `60`                                | Number of seconds for time window.                                   |
-| `halfOpenTime`    | `Number`   | `10000`                             | Number of milliseconds to switch from `open` to `half-open` state    |
-| `check`           | `Function` | `err && err.code >= 500` | A function to check failed requests.                                 |
+| Nome              | Tipo       | Valor padrão                        | Descrição                                                                    |
+| ----------------- | ---------- | ----------------------------------- | ---------------------------------------------------------------------------- |
+| `enabled`         | `Boolean`  | `false`                             | Ativar recurso                                                               |
+| `threshold`       | `Number`   | `0.5`                               | Valor limite. `0.5` significa que 50% deve falhar para ser acionado.         |
+| `minRequestCount` | `Number`   | `20`                                | Contagem mínima de requisições. Abaixo dele, Circuit Breaker não é acionado. |
+| `windowTime`      | `Number`   | `60`                                | Número de segundos para a janela de tempo.                                   |
+| `halfOpenTime`    | `Number`   | `10000`                             | Número de milissegundos para mudar de `aberto` para estado `semiaberto`      |
+| `check`           | `Function` | `err && err.code >= 500` | Uma função para verificar falhas de requisições.                             |
 
-> If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#circuit-breaker-opened).
+> Se o estado do circuit breaker for alterado, o ServiceBroker enviará [eventos internos](events.html#circuit-breaker-opened).
 
-These global options can be overridden in action definition, as well.
+Estas opções globais também podem ser substituídas nas definições de ações.
 ```js
 // users.service.js
 module.export = {
@@ -61,9 +61,9 @@ module.export = {
 ```
 
 ## Retry
-There is an exponential backoff retry solution. It can recall failed requests.
+Há uma solução de backoff exponencial. Ele pode chamar novamente solicitações que falharam.
 
-**Enable it in the broker options**
+**Habilite-o nas opções do broker**
 ```js
 const broker = new ServiceBroker({
     retryPolicy: {
@@ -77,23 +77,23 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Settings
+### Confirgurações
 
-| Name       | Type       | Default                          | Description                                              |
-| ---------- | ---------- | -------------------------------- | -------------------------------------------------------- |
-| `enabled`  | `Boolean`  | `false`                          | Enable feature.                                          |
-| `retries`  | `Number`   | `5`                              | Count of retries.                                        |
-| `delay`    | `Number`   | `100`                            | First delay in milliseconds.                             |
-| `maxDelay` | `Number`   | `2000`                           | Maximum delay in milliseconds.                           |
-| `factor`   | `Number`   | `2`                              | Backoff factor for delay. `2` means exponential backoff. |
-| `check`    | `Function` | `err && !!err.retryable` | A function to check failed requests.                     |
+| Nome       | Tipo       | Valor padrão                     | Descrição                                                        |
+| ---------- | ---------- | -------------------------------- | ---------------------------------------------------------------- |
+| `enabled`  | `Boolean`  | `false`                          | Ativar recurso.                                                  |
+| `retries`  | `Number`   | `5`                              | Contagem de tentativas.                                          |
+| `delay`    | `Number`   | `100`                            | Primeiro atraso em milissegundos.                                |
+| `maxDelay` | `Number`   | `2000`                           | Atraso máximo em milissegundos.                                  |
+| `fator`    | `Number`   | `2`                              | Fator retroativo para atraso. `2` significa backoff exponencial. |
+| `check`    | `Function` | `err && !!err.retryable` | Uma função para verificar falhas de requisições.                 |
 
-**Overwrite the retries value in calling option**
+**Substituir valor de retentativas na opções de chamada**
 ```js
 broker.call("posts.find", {}, { retries: 3 });
 ```
 
-**Overwrite the retry policy values in action definitions**
+**Sobrescrever os valores da política de repetição nas definições da ação**
 ```js
 // users.service.js
 module.export = {
@@ -119,27 +119,27 @@ module.export = {
 ```
 
 ## Timeout
-Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
+Um Timeout pode ser definido para chamadas de serviço. Ele pode ser definido globalmente nas opções do broker ou nas opções de chamada. Se o tempo limite for definido e a requisição for expirada, o broker irá lançar um erro `RequestTimeoutError`.
 
-**Enable it in the broker options**
+**Habilite-o nas opções do broker**
 ```js
 const broker = new ServiceBroker({
     requestTimeout: 5 * 1000 // in milliseconds
 });
 ```
 
-**Overwrite the timeout value in calling option**
+**Substituir o valor de timeout nas opções de chamada**
 ```js
 broker.call("posts.find", {}, { timeout: 3000 });
 ```
 
-### Distributed timeouts
-Moleculer uses [distributed timeouts](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). In case of nested calls, the timeout value is decremented with the elapsed time. If the timeout value is less or equal than 0, the next nested calls will be skipped (`RequestSkippedError`) because the first call has already been rejected with a `RequestTimeoutError` error.
+### Timeout distribuido
+Moleculer usa [timeout distribuido](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). Em caso de chamadas aninhadas, o valor do timeout é reduzido com o tempo decorrido. Se o valor do timeout for menor ou igual a 0, as próximas chamadas aninhadas serão ignoradas (`RequestippedError`) porque a primeira chamada já foi rejeitada com um erro `RequestTimeoutError` erro.
 
 ## Bulkhead
-Bulkhead feature is implemented in Moleculer framework to control the concurrent request handling of actions.
+O recurso Bulkhead está implementado no framework Moleculer para controlar a execução de requisições simultâneas.
 
-**Enable it in the broker options**
+**Habilite-o nas opções do broker**
 ```js
 const broker = new ServiceBroker({
     bulkhead: {
@@ -150,21 +150,21 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Global Settings
+### Configurações Globais
 
-| Name           | Type      | Default | Description                    |
-| -------------- | --------- | ------- | ------------------------------ |
-| `enabled`      | `Boolean` | `false` | Enable feature.                |
-| `concurrency`  | `Number`  | `3`     | Maximum concurrent executions. |
-| `maxQueueSize` | `Number`  | `10`    | Maximum size of queue          |
+| Nome           | Tipo      | Valor padrão | Descrição                        |
+| -------------- | --------- | ------------ | -------------------------------- |
+| `enabled`      | `Boolean` | `false`      | Ativar recurso.                  |
+| `concurrency`  | `Number`  | `3`          | Máximo de execuções simultâneas. |
+| `maxQueueSize` | `Number`  | `10`         | Tamanho máximo da fila           |
 
-The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit, broker will throw `QueueIsFull` exception for every addition requests.
+O valor de `concurrency` restringe as execuções simultâneas. Se o `maxQueueSize` for maior que `0`, o broker armazena as solicitações adicionais em uma fila se todos os slots estiverem ocupados. Se o tamanho da fila atingir o limite `maxQueueSize`, o broker lançará a exceção `QueueIsFull` para cada requisição adicional.
 
-### Action Settings
+### Configurações de ação
 
-[Global settings](#Global-Settings) can be overridden in action definition.
+[As configurações globais](#Global-Settings) podem ser substituídas nas definições da ação.
 
-**Overwrite the retry policy values in action definitions**
+**Sobrescrever os valores da política de repetição nas definições da ação**
 ```js
 // users.service.js
 module.export = {
@@ -189,10 +189,10 @@ module.export = {
 ```
 
 
-### Events Settings
-Event handlers also support [bulkhead](#Bulkhead) feature.
+### Configurações de eventos
+Os manipuladores de eventos também suportam o recurso [bulkhead](#Bulkhead).
 
-**Example**
+**Exemplo**
 ```js
 // my.service.js
 module.exports = {
@@ -212,9 +212,9 @@ module.exports = {
 ```
 
 ## Fallback
-Fallback feature is useful, when you don't want to give back errors to the users. Instead, call an other action or return some common content. Fallback response can be set in calling options or in action definition. It should be a `Function` which returns a `Promise` with any content. The broker passes the current `Context` & `Error` objects to this function as arguments.
+O Recurso de fallback é útil, quando você não quer devolver erros aos usuários. Em vez disso, chame uma outra ação ou retorne algum conteúdo padrão. A resposta de fallback pode ser definida nas opções de chamada ou nas definições da ação. Deve ser uma `Function` que retorna uma `Promise` com qualquer conteúdo. O broker passa os objetos `Context` & `Error` atuais para esta função como argumentos.
 
-**Fallback response setting in calling options**
+**Configuração de resposta de fallback em opções de chamada**
 ```js
 const result = await broker.call("users.recommendation", { userID: 5 }, {
     timeout: 500,
@@ -225,11 +225,11 @@ const result = await broker.call("users.recommendation", { userID: 5 }, {
 });
 ```
 
-### Fallback in action definition
-Fallback response can be also defined in receiver-side, in action definition.
-> Please note, this fallback response will only be used if the error occurs within action handler. If the request is called from a remote node and the request is timed out on the remote node, the fallback response is not be used. In this case, use the `fallbackResponse` in calling option.
+### Fallback nas definições da ação
+A resposta de fallback também pode ser definida no lado do destinatário, nas definições da ação.
+> Por favor, note que esta resposta de fallback só será usada se o erro ocorrer dentro do manipulador da ação. Se a requisição for chamada de um nó remoto e a requisição for expirada no nó remoto, a resposta de fallback não é usada. Neste caso, use o `fallbackResponse` nas opções da chamada.
 
-**Fallback as a function**
+**Fallback como função**
 ```js
 module.exports = {
     name: "recommends",
@@ -244,7 +244,7 @@ module.exports = {
 };
 ```
 
-**Fallback as method name string**
+**Fallback como nome de um método em formato string**
 ```js
 module.exports = {
     name: "recommends",

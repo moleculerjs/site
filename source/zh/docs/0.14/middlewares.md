@@ -3,7 +3,7 @@ title: Middlewares
 
 Moleculer supports middlewares. It's same as plugins in other frameworks. The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
 
-**Example**
+**示例**
 ```js
 // awesome.middleware.js
 module.exports = {
@@ -598,7 +598,7 @@ Many integrated features have been exposed as internal middlewares. These middle
 
 **Internal middlewares**
 
-| Class name                | Type     | Description                                                                |
+| Class name                | Type     | 说明                                                                         |
 | ------------------------- | -------- | -------------------------------------------------------------------------- |
 | `ActionHook`              | Optional | Action hooks handler. [Read more](actions.html#Action-hooks)               |
 | `Validator`               | Optional | Parameter validation. [Read more](validating.html)                         |
@@ -606,11 +606,11 @@ Many integrated features have been exposed as internal middlewares. These middle
 | `Cacher`                  | Optional | Cacher middleware. [Read more](caching.html)                               |
 | `ContextTracker`          | Optional | Context tracker feature. [Read more](actions.html#Context-tracking)        |
 | `CircuitBreaker`          | Optional | Circuit Breaker feature. [Read more](fault-tolerance.html#Circuit-Breaker) |
-| `Timeout`                 | Always   | Timeout feature. [Read more](fault-tolerance.html#Timeout)                 |
+| `超时`                      | Always   | Timeout feature. [Read more](fault-tolerance.html#Timeout)                 |
 | `Retry`                   | Always   | Retry feature. [Read more](fault-tolerance.html#Retry)                     |
 | `Fallback`                | Always   | Fallback feature. [Read more](fault-tolerance.html#Fallback)               |
 | `ErrorHandler`            | Always   | Error handling.                                                            |
-| `Metrics`                 | Optional | Metrics feature. [Read more](metrics.html)                                 |
+| `指标`                      | Optional | Metrics feature. [Read more](metrics.html)                                 |
 | `Debounce`                | Optional | Debounce feature. [Read more](#Debounce)                                   |
 | `Throttle`                | Optional | Throttle feature. [Read more](#Throttle)                                   |
 | `Transmit.Encryption`     | Optional | Transmission encryption middleware. [Read more](#Encryption)               |
@@ -682,10 +682,10 @@ module.exports = {
 
 **Complete option list**
 
-| Class name      | Type                   | Default     | Description                                                        |
+| Class name      | 类型                     | 默认设置        | 说明                                                                 |
 | --------------- | ---------------------- | ----------- | ------------------------------------------------------------------ |
-| `logger`        | `Object` or `Function` | `null`      | Logger class. [Read more](logging.html).                           |
-| `logLevel`      | `String`               | `info`      | Log level for built-in console logger. [Read more](logging.html).  |
+| `logger`        | `Object` or `Function` | `null`      | Logger class. [更多](logging.html).                                  |
+| `logLevel`      | `String`               | `info`      | Log level for built-in console logger. [更多](logging.html).         |
 | `logPacketData` | `Boolean`              | `false`     | Logs packet parameters                                             |
 | `folder`        | `Object`               | `null`      | Folder where logs will be written                                  |
 | `extension`     | `String`               | `.json`     | File extension of log file                                         |
@@ -720,10 +720,10 @@ module.exports = {
 
 **Complete option list**
 
-| Class name       | Type                   | Default  | Description                                                                                             |
+| Class name       | 类型                     | 默认设置     | 说明                                                                                                      |
 | ---------------- | ---------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| `logger`         | `Object` or `Function` | `null`   | Logger class. [Read more](logging.html).                                                                |
-| `logLevel`       | `String`               | `info`   | Log level for built-in console logger. [Read more](logging.html).                                       |
+| `logger`         | `Object` or `Function` | `null`   | Logger class. [更多](logging.html).                                                                       |
+| `logLevel`       | `String`               | `info`   | Log level for built-in console logger. [更多](logging.html).                                              |
 | `logParams`      | `Boolean`              | `false`  | Logs request parameters                                                                                 |
 | `logMeta`        | `Boolean`              | `false`  | Logs meta parameters                                                                                    |
 | `folder`         | `String`               | `null`   | Path do folder where logs will be written                                                               |

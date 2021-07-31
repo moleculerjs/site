@@ -96,7 +96,7 @@ broker.start()
 
 All DB adapters share a common set of settings:
 
-| Property          | Type                   | Default      | Description                                                                                                               |
+| Property          | Typ                    | Default      | Beschreibung                                                                                                              |
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
 | `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
@@ -119,7 +119,7 @@ DB adapters also implement CRUD operations. These [actions](actions.html) are [`
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Typ                    | Default      | Beschreibung                     |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -139,7 +139,7 @@ Find entities by query.
 Get count of entities by query.
 
 #### Parameters
-| Property       | Type     | Default      | Description                      |
+| Property       | Typ      | Default      | Beschreibung                     |
 | -------------- | -------- | ------------ | -------------------------------- |
 | `search`       | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
@@ -154,7 +154,7 @@ Get count of entities by query.
 List entities by filters and pagination results.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Typ                    | Default      | Beschreibung                     |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -173,9 +173,9 @@ List entities by filters and pagination results.
 Create a new entity.
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Typ | Default | Beschreibung |
+| -------- | --- | ------- | ------------ |
+| -        | -   | -       | -            |
 
 
 *No input parameters.*
@@ -188,7 +188,7 @@ Create a new entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Description       |
+| Property   | Typ                    | Default | Beschreibung      |
 | ---------- | ---------------------- | ------- | ----------------- |
 | `entity`   | `Object`               | -       | Entity to save.   |
 | `entities` | `Array.<Object>` | -       | Entities to save. |
@@ -201,7 +201,7 @@ Create many new entities.
 Get entity by ID.
 
 ##### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+| Property   | Typ                        | Default      | Beschreibung                                                                 |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -218,9 +218,9 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Typ | Default | Beschreibung |
+| -------- | --- | ------- | ------------ |
+| -        | -   | -       | -            |
 
 
 *No input parameters.*
@@ -234,7 +234,7 @@ Update an entity by ID.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Description   |
+| Property | Typ   | Default      | Beschreibung  |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 
@@ -250,7 +250,7 @@ DB adapters also has a set of helper [methods](services.html#Methods).
 Get entity(ies) by ID(s).
 
 #### Parameters
-| Property   | Type                        | Default      | Description         |
+| Property   | Typ                         | Default      | Beschreibung        |
 | ---------- | --------------------------- | ------------ | ------------------- |
 | `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
 | `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
@@ -264,9 +264,9 @@ Get entity(ies) by ID(s).
 Clear cached entities
 
 #### Parameters
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| -        | -    | -       | -           |
+| Property | Typ | Default | Beschreibung |
+| -------- | --- | ------- | ------------ |
+| -        | -   | -       | -            |
 
 
 *No input parameters.*
@@ -280,9 +280,9 @@ Clear cached entities
 Encode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Typ   | Default      | Beschreibung |
+| -------- | ----- | ------------ | ------------ |
+| `id`     | `any` | **required** | -            |
 
 #### Results
 **Type:** `any`
@@ -293,9 +293,9 @@ Encode ID of entity.
 Decode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Typ   | Default      | Beschreibung |
+| -------- | ----- | ------------ | ------------ |
+| `id`     | `any` | **required** | -            |
 
 #### Results
 **Type:** `any`
@@ -305,7 +305,7 @@ Decode ID of entity.
 Find entities by query.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Typ                    | Default      | Beschreibung                     |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -327,7 +327,7 @@ List of found entities.
 Get count of entities by query.
 
 #### Parameters
-| Property       | Type     | Default      | Description                      |
+| Property       | Typ      | Default      | Beschreibung                     |
 | -------------- | -------- | ------------ | -------------------------------- |
 | `search`       | `String` | **required** | Search text.                     |
 | `searchFields` | `String` | **required** | Fields list for searching.       |
@@ -344,7 +344,7 @@ Count of found entities.
 List entities by filters and pagination results.
 
 #### Parameters
-| Property       | Type                   | Default      | Description                      |
+| Property       | Typ                    | Default      | Beschreibung                     |
 | -------------- | ---------------------- | ------------ | -------------------------------- |
 | `populate`     | `Array.<String>` | -            | Populated fields.                |
 | `fields`       | `Array.<String>` | -            | Fields filter.                   |
@@ -366,7 +366,7 @@ List of found entities and count.
 Create a new entity.
 
 #### Parameters
-| Property | Type     | Default | Description     |
+| Property | Typ      | Default | Beschreibung    |
 | -------- | -------- | ------- | --------------- |
 | `params` | `Object` | -       | Entity to save. |
 
@@ -381,7 +381,7 @@ Saved entity.
 Create many new entities.
 
 #### Parameters
-| Property   | Type                   | Default | Description       |
+| Property   | Typ                    | Default | Beschreibung      |
 | ---------- | ---------------------- | ------- | ----------------- |
 | `entity`   | `Object`               | -       | Entity to save.   |
 | `entities` | `Array.<Object>` | -       | Entities to save. |
@@ -397,7 +397,7 @@ Saved entity(ies).
 Get entity by ID.
 
 #### Parameters
-| Property   | Type                       | Default      | Description                                                                  |
+| Property   | Typ                        | Default      | Beschreibung                                                                 |
 | ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
 | `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
 | `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
@@ -416,7 +416,7 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type     | Default | Description       |
+| Property | Typ      | Default | Beschreibung      |
 | -------- | -------- | ------- | ----------------- |
 | `params` | `Object` | -       | Entity to update. |
 
@@ -431,7 +431,7 @@ Updated entity.
 Remove an entity by ID.
 
 #### Parameters
-| Property | Type  | Default      | Description   |
+| Property | Typ   | Default      | Beschreibung  |
 | -------- | ----- | ------------ | ------------- |
 | `id`     | `any` | **required** | ID of entity. |
 

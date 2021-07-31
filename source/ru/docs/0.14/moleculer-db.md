@@ -6,7 +6,7 @@ Moleculer framework has an official set of [DB adapters](https://github.com/mole
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
-## Features
+## Возможности
 * default CRUD actions
 * [cached](caching.html) actions
 * pagination support
@@ -92,25 +92,25 @@ broker.start()
 
 > More examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
 
-## Settings
+## Настройки
 
 All DB adapters share a common set of settings:
 
-| Property          | Type                   | Default      | Описание                                                                                                                  |
-| ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
-| `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
-| `populates`       | `Array`                | `null`       | Schema for population. [Read more](#Populating).                                                                          |
-| `pageSize`        | `Number`               | **required** | Default page size in `list` action.                                                                                       |
-| `maxPageSize`     | `Number`               | **required** | Maximum page size in `list` action.                                                                                       |
-| `maxLimit`        | `Number`               | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit)                                                         |
-| `entityValidator` | `Object`, `function`   | `null`       | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions.                            |
+| Property          | Тип                    | Значение по умолчанию | Описание                                                                                                                  |
+| ----------------- | ---------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `idField`         | `String`               | **required**          | Name of ID field.                                                                                                         |
+| `fields`          | `Array.<String>` | `null`                | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
+| `populates`       | `Array`                | `null`                | Schema for population. [Read more](#Populating).                                                                          |
+| `pageSize`        | `Number`               | **required**          | Default page size in `list` action.                                                                                       |
+| `maxPageSize`     | `Number`               | **required**          | Maximum page size in `list` action.                                                                                       |
+| `maxLimit`        | `Number`               | **required**          | Maximum value of limit in `find` action. Default: `-1` (no limit)                                                         |
+| `entityValidator` | `Object`, `function`   | `null`                | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions.                            |
 
 {% note warn%}
 `idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
 {% endnote %}
 
-## Actions
+## Действия
 
 DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
 
@@ -118,17 +118,17 @@ DB adapters also implement CRUD operations. These [actions](actions.html) are [`
 
 Find entities by query.
 
-#### Parameters
-| Property       | Type                   | Default      | Описание                         |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `limit`        | `Number`               | **required** | Max count of rows.               |
-| `offset`       | `Number`               | **required** | Count of skipped rows.           |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `поиск`        | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+#### Параметры
+| Property       | Тип                    | Значение по умолчанию | Описание                         |
+| -------------- | ---------------------- | --------------------- | -------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
+| `limit`        | `Number`               | **required**          | Max count of rows.               |
+| `offset`       | `Number`               | **required**          | Count of skipped rows.           |
+| `sort`         | `String`               | **required**          | Sorted fields.                   |
+| `поиск`        | `String`               | **required**          | Search text.                     |
+| `searchFields` | `String`               | **required**          | Fields for searching.            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Array.<Object>` - List of found entities.
@@ -138,12 +138,12 @@ Find entities by query.
 
 Get count of entities by query.
 
-#### Parameters
-| Property       | Type     | Default      | Описание                         |
-| -------------- | -------- | ------------ | -------------------------------- |
-| `поиск`        | `String` | **required** | Search text.                     |
-| `searchFields` | `String` | **required** | Fields list for searching.       |
-| `query`        | `Object` | **required** | Query object. Passes to adapter. |
+#### Параметры
+| Property       | Тип      | Значение по умолчанию | Описание                         |
+| -------------- | -------- | --------------------- | -------------------------------- |
+| `поиск`        | `String` | **required**          | Search text.                     |
+| `searchFields` | `String` | **required**          | Fields list for searching.       |
+| `query`        | `Object` | **required**          | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Number` - Count of found entities.
@@ -153,17 +153,17 @@ Get count of entities by query.
 
 List entities by filters and pagination results.
 
-#### Parameters
-| Property       | Type                   | Default      | Описание                         |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `page`         | `Number`               | **required** | Page number.                     |
-| `pageSize`     | `Number`               | **required** | Size of a page.                  |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `поиск`        | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+#### Параметры
+| Property       | Тип                    | Значение по умолчанию | Описание                         |
+| -------------- | ---------------------- | --------------------- | -------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
+| `page`         | `Number`               | **required**          | Page number.                     |
+| `pageSize`     | `Number`               | **required**          | Size of a page.                  |
+| `sort`         | `String`               | **required**          | Sorted fields.                   |
+| `поиск`        | `String`               | **required**          | Search text.                     |
+| `searchFields` | `String`               | **required**          | Fields for searching.            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Object` - List of found entities and count.
@@ -172,10 +172,10 @@ List entities by filters and pagination results.
 
 Create a new entity.
 
-#### Parameters
-| Property | Тип | Default | Описание |
-| -------- | --- | ------- | -------- |
-| -        | -   | -       | -        |
+#### Параметры
+| Property | Тип | Значение по умолчанию | Описание |
+| -------- | --- | --------------------- | -------- |
+| -        | -   | -                     | -        |
 
 
 *No input parameters.*
@@ -187,11 +187,11 @@ Create a new entity.
 
 Create many new entities.
 
-#### Parameters
-| Property   | Тип                    | Default | Описание          |
-| ---------- | ---------------------- | ------- | ----------------- |
-| `entity`   | `Object`               | -       | Entity to save.   |
-| `entities` | `Array.<Object>` | -       | Entities to save. |
+#### Параметры
+| Property   | Тип                    | Значение по умолчанию | Описание          |
+| ---------- | ---------------------- | --------------------- | ----------------- |
+| `entity`   | `Object`               | -                     | Entity to save.   |
+| `entities` | `Array.<Object>` | -                     | Entities to save. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>` - Saved entity(ies).
@@ -200,13 +200,13 @@ Create many new entities.
 
 Get entity by ID.
 
-##### Parameters
-| Property   | Тип                        | Default      | Описание                                                                     |
-| ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
-| `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
-| `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
-| `fields`   | `Array.<String>`     | -            | Fields filter.                                                               |
-| `mapping`  | `Boolean`                  | -            | Convert the returned `Array` to `Object` where the key is the value of `id`. |
+##### Параметры
+| Property   | Тип                        | Значение по умолчанию | Описание                                                                     |
+| ---------- | -------------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| `id`       | `any`, `Array.<any>` | **required**          | ID(s) of entity.                                                             |
+| `populate` | `Array.<String>`     | -                     | Field list for populate.                                                     |
+| `fields`   | `Array.<String>`     | -                     | Fields filter.                                                               |
+| `mapping`  | `Boolean`                  | -                     | Convert the returned `Array` to `Object` where the key is the value of `id`. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>` - Found entity(ies).
@@ -217,10 +217,10 @@ Get entity by ID.
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
-#### Parameters
-| Property | Тип | Default | Описание |
-| -------- | --- | ------- | -------- |
-| -        | -   | -       | -        |
+#### Параметры
+| Property | Тип | Значение по умолчанию | Описание |
+| -------- | --- | --------------------- | -------- |
+| -        | -   | -                     | -        |
 
 
 *No input parameters.*
@@ -233,10 +233,10 @@ Update an entity by ID.
 
 Remove an entity by ID.
 
-#### Parameters
-| Property | Тип   | Default      | Описание      |
-| -------- | ----- | ------------ | ------------- |
-| `id`     | `any` | **required** | ID of entity. |
+#### Параметры
+| Property | Тип   | Значение по умолчанию | Описание      |
+| -------- | ----- | --------------------- | ------------- |
+| `id`     | `any` | **required**          | ID of entity. |
 
 #### Results
 **Type:** `Number` - Count of removed entities.
@@ -249,11 +249,11 @@ DB adapters also has a set of helper [methods](services.html#Methods).
 
 Get entity(ies) by ID(s).
 
-#### Parameters
-| Property   | Тип                         | Default      | Описание            |
-| ---------- | --------------------------- | ------------ | ------------------- |
-| `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
-| `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
+#### Параметры
+| Property   | Тип                         | Значение по умолчанию | Описание            |
+| ---------- | --------------------------- | --------------------- | ------------------- |
+| `id`       | `String`, `Number`, `Array` | **required**          | ID or IDs.          |
+| `decoding` | `Boolean`                   | **required**          | Need to decode IDs. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>` - Found entity(ies).
@@ -263,10 +263,10 @@ Get entity(ies) by ID(s).
 
 Clear cached entities
 
-#### Parameters
-| Property | Тип | Default | Описание |
-| -------- | --- | ------- | -------- |
-| -        | -   | -       | -        |
+#### Параметры
+| Property | Тип | Значение по умолчанию | Описание |
+| -------- | --- | --------------------- | -------- |
+| -        | -   | -                     | -        |
 
 
 *No input parameters.*
@@ -279,10 +279,10 @@ Clear cached entities
 
 Encode ID of entity.
 
-#### Parameters
-| Property | Тип   | Default      | Описание |
-| -------- | ----- | ------------ | -------- |
-| `id`     | `any` | **required** | -        |
+#### Параметры
+| Property | Тип   | Значение по умолчанию | Описание |
+| -------- | ----- | --------------------- | -------- |
+| `id`     | `any` | **required**          | -        |
 
 #### Results
 **Type:** `any`
@@ -292,10 +292,10 @@ Encode ID of entity.
 
 Decode ID of entity.
 
-#### Parameters
-| Property | Тип   | Default      | Описание |
-| -------- | ----- | ------------ | -------- |
-| `id`     | `any` | **required** | -        |
+#### Параметры
+| Property | Тип   | Значение по умолчанию | Описание |
+| -------- | ----- | --------------------- | -------- |
+| `id`     | `any` | **required**          | -        |
 
 #### Results
 **Type:** `any`
@@ -304,17 +304,17 @@ Decode ID of entity.
 
 Find entities by query.
 
-#### Parameters
-| Property       | Тип                    | Default      | Описание                         |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `limit`        | `Number`               | **required** | Max count of rows.               |
-| `offset`       | `Number`               | **required** | Count of skipped rows.           |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `поиск`        | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+#### Параметры
+| Property       | Тип                    | Значение по умолчанию | Описание                         |
+| -------------- | ---------------------- | --------------------- | -------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
+| `limit`        | `Number`               | **required**          | Max count of rows.               |
+| `offset`       | `Number`               | **required**          | Count of skipped rows.           |
+| `sort`         | `String`               | **required**          | Sorted fields.                   |
+| `поиск`        | `String`               | **required**          | Search text.                     |
+| `searchFields` | `String`               | **required**          | Fields for searching.            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Array.<Object>`
@@ -326,12 +326,12 @@ List of found entities.
 
 Get count of entities by query.
 
-#### Parameters
-| Property       | Type     | Default      | Описание                         |
-| -------------- | -------- | ------------ | -------------------------------- |
-| `поиск`        | `String` | **required** | Search text.                     |
-| `searchFields` | `String` | **required** | Fields list for searching.       |
-| `query`        | `Object` | **required** | Query object. Passes to adapter. |
+#### Параметры
+| Property       | Тип      | Значение по умолчанию | Описание                         |
+| -------------- | -------- | --------------------- | -------------------------------- |
+| `поиск`        | `String` | **required**          | Search text.                     |
+| `searchFields` | `String` | **required**          | Fields list for searching.       |
+| `query`        | `Object` | **required**          | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Number`
@@ -343,17 +343,17 @@ Count of found entities.
 
 List entities by filters and pagination results.
 
-#### Parameters
-| Property       | Type                   | Default      | Описание                         |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `page`         | `Number`               | **required** | Page number.                     |
-| `pageSize`     | `Number`               | **required** | Size of a page.                  |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `поиск`        | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+#### Параметры
+| Property       | Тип                    | Значение по умолчанию | Описание                         |
+| -------------- | ---------------------- | --------------------- | -------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
+| `page`         | `Number`               | **required**          | Page number.                     |
+| `pageSize`     | `Number`               | **required**          | Size of a page.                  |
+| `sort`         | `String`               | **required**          | Sorted fields.                   |
+| `поиск`        | `String`               | **required**          | Search text.                     |
+| `searchFields` | `String`               | **required**          | Fields for searching.            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Object`
@@ -365,10 +365,10 @@ List of found entities and count.
 
 Create a new entity.
 
-#### Parameters
-| Property | Type     | Default | Описание        |
-| -------- | -------- | ------- | --------------- |
-| `params` | `Object` | -       | Entity to save. |
+#### Параметры
+| Property | Тип      | Значение по умолчанию | Описание        |
+| -------- | -------- | --------------------- | --------------- |
+| `params` | `Object` | -                     | Entity to save. |
 
 #### Results
 **Type:** `Object`
@@ -380,11 +380,11 @@ Saved entity.
 
 Create many new entities.
 
-#### Parameters
-| Property   | Type                   | Default | Описание          |
-| ---------- | ---------------------- | ------- | ----------------- |
-| `entity`   | `Object`               | -       | Entity to save.   |
-| `entities` | `Array.<Object>` | -       | Entities to save. |
+#### Параметры
+| Property   | Тип                    | Значение по умолчанию | Описание          |
+| ---------- | ---------------------- | --------------------- | ----------------- |
+| `entity`   | `Object`               | -                     | Entity to save.   |
+| `entities` | `Array.<Object>` | -                     | Entities to save. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>`
@@ -396,13 +396,13 @@ Saved entity(ies).
 
 Get entity by ID.
 
-#### Parameters
-| Property   | Type                       | Default      | Описание                                                                     |
-| ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
-| `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
-| `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
-| `fields`   | `Array.<String>`     | -            | Fields filter.                                                               |
-| `mapping`  | `Boolean`                  | -            | Convert the returned `Array` to `Object` where the key is the value of `id`. |
+#### Параметры
+| Property   | Тип                        | Значение по умолчанию | Описание                                                                     |
+| ---------- | -------------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| `id`       | `any`, `Array.<any>` | **required**          | ID(s) of entity.                                                             |
+| `populate` | `Array.<String>`     | -                     | Field list for populate.                                                     |
+| `fields`   | `Array.<String>`     | -                     | Fields filter.                                                               |
+| `mapping`  | `Boolean`                  | -                     | Convert the returned `Array` to `Object` where the key is the value of `id`. |
 
 #### Results
 **Type:** `Object`, `Array.<Object>`
@@ -415,10 +415,10 @@ Found entity(ies).
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
-#### Parameters
-| Property | Type     | Default | Описание          |
-| -------- | -------- | ------- | ----------------- |
-| `params` | `Object` | -       | Entity to update. |
+#### Параметры
+| Property | Тип      | Значение по умолчанию | Описание          |
+| -------- | -------- | --------------------- | ----------------- |
+| `params` | `Object` | -                     | Entity to update. |
 
 #### Results
 **Type:** `Object`
@@ -430,10 +430,10 @@ Updated entity.
 
 Remove an entity by ID.
 
-#### Parameters
-| Property | Type  | Default      | Описание      |
-| -------- | ----- | ------------ | ------------- |
-| `id`     | `any` | **required** | ID of entity. |
+#### Параметры
+| Property | Тип   | Значение по умолчанию | Описание      |
+| -------- | ----- | --------------------- | ------------- |
+| `id`     | `any` | **required**          | ID of entity. |
 
 #### Results
 **Type:** `Number`
@@ -664,7 +664,7 @@ broker.start()
 .then(() => broker.call("posts.find").then(console.log));
 ```
 
-### Options
+### Параметры
 
 **Example with connection URI**
 ```js
@@ -733,7 +733,7 @@ broker.start()
 .then(() => broker.call("posts.find").then(console.log));
 ```
 
-### Options
+### Параметры
 
 **Example with connection URI**
 ```js
@@ -825,7 +825,7 @@ broker.start()
 .then(() => broker.call("posts.find").then(console.log));
 ```
 
-### Options
+### Параметры
 Every constructor arguments are passed to the `Sequelize` constructor. Read more about [Sequelize connection](http://docs.sequelizejs.com/manual/installation/getting-started.html).
 
 **Example with connection URI**

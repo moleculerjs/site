@@ -199,29 +199,29 @@ The broker sends this event when a node connected or reconnected.
 
 **Payload**
 
-| Név           | Type      | Leírás           |
-| ------------- | --------- | ---------------- |
-| `node`        | `Node`    | Node info object |
-| `reconnected` | `Boolean` | Is reconnected?  |
+| Név           | Type        | Leírás           |
+| ------------- | ----------- | ---------------- |
+| `node`        | `Csomópont` | Node info object |
+| `reconnected` | `Boolean`   | Is reconnected?  |
 
 ## `$node.updated`
 The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
 
 **Payload**
 
-| Név    | Type   | Leírás           |
-| ------ | ------ | ---------------- |
-| `node` | `Node` | Node info object |
+| Név    | Type        | Leírás           |
+| ------ | ----------- | ---------------- |
+| `node` | `Csomópont` | Node info object |
 
 ## `$node.disconnected`
 The broker sends this event when a node disconnected (gracefully or unexpectedly).
 
 **Payload**
 
-| Név          | Type      | Leírás                                                                              |
-| ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `Node`    | Node info object                                                                    |
-| `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
+| Név          | Type        | Leírás                                                                              |
+| ------------ | ----------- | ----------------------------------------------------------------------------------- |
+| `node`       | `Csomópont` | Node info object                                                                    |
+| `unexpected` | `Boolean`   | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
 
 ## `$broker.started`
 The broker sends this event once `broker.start()` is called and all local services are started.

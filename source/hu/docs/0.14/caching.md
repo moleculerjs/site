@@ -483,7 +483,7 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
+| Név               | Type                    | Default | Leírás                                      |
 | ----------------- | ----------------------- | ------- | ------------------------------------------- |
 | `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
 | `clone`           | `Boolean` or `Function` | `false` | Clone the cached data when return it.       |
@@ -534,7 +534,7 @@ let broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type                    | Default | Description                                 |
+| Név               | Type                    | Default | Leírás                                      |
 | ----------------- | ----------------------- | ------- | ------------------------------------------- |
 | `ttl`             | `Number`                | `null`  | Time-to-live in seconds.                    |
 | `max`             | `Number`                | `null`  | Maximum items in the cache.                 |
@@ -632,17 +632,18 @@ const broker = new ServiceBroker({
 
 **Options**
 
-| Name              | Type             | Default  | Description                                                                                                                                           |
-| ----------------- | ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`          | `String`         | `null`   | Prefix for generated keys.                                                                                                                            |
-| `ttl`             | `Number`         | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                                          |
-| `monitor`         | `Boolean`        | `false`  | Enable Redis client [monitoring feature](https://github.com/luin/ioredis#monitor). If enabled, every client operation will be logged (on debug level) |
-| `redis`           | `Object`         | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                 |
-| `keygen`          | `Function`       | `null`   | Custom cache key generator function.                                                                                                                  |
-| `maxParamsLength` | `Number`         | `null`   | Maximum length of params in generated keys.                                                                                                           |
-| `serializer`      | `String`         | `"JSON"` | Name of a built-in serializer.                                                                                                                        |
-| `cluster`         | `Object`         | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                                       |
-| `lock`            | `Boolean|Object` | `null`   | Enable lock feature.                                                                                                                                  |
+| Név               | Type                  | Default  | Leírás                                                                                                                                                |
+| ----------------- | --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prefix`          | `String`              | `null`   | Prefix for generated keys.                                                                                                                            |
+| `ttl`             | `Number`              | `null`   | Time-to-live in seconds. Disabled: 0 or null                                                                                                          |
+| `monitor`         | `Boolean`             | `false`  | Enable Redis client [monitoring feature](https://github.com/luin/ioredis#monitor). If enabled, every client operation will be logged (on debug level) |
+| `redis`           | `Object`              | `null`   | Custom Redis options. Will be passed to the `new Redis()` constructor. [Read more](https://github.com/luin/ioredis#connect-to-redis).                 |
+| `keygen`          | `Function`            | `null`   | Custom cache key generator function.                                                                                                                  |
+| `maxParamsLength` | `Number`              | `null`   | Maximum length of params in generated keys.                                                                                                           |
+| `serializer`      | `String`              | `"JSON"` | Name of a built-in serializer.                                                                                                                        |
+| `cluster`         | `Object`              | `null`   | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster)                                                       |
+| `lock`            | `Boolean` or `Object` | `null`   | Enable lock feature.                                                                                                                                  |
+| `pingInterval`    | `Number`              | `null`   | Emit a Redis PING command every `pingInterval` milliseconds. Can be used to keep connections alive which may have idle timeouts.                      |
 
 {% note info Dependencies %}
 To be able to use this cacher, install the `ioredis` module with the `npm install ioredis --save` command.

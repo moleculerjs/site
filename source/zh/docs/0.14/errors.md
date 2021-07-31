@@ -9,14 +9,14 @@ The base error class.
 
 **Parameters**
 
-| Name      | Type     | Default | Description       |
-| --------- | -------- | ------- | ----------------- |
-| `message` | `String` |         | Error message     |
-| `code`    | `Number` | `500`   | Error code        |
-| `type`    | `String` |         | Error type        |
-| `data`    | `any`    |         | Any relevant data |
+| Name      | Type     | 默认设置  | 说明                |
+| --------- | -------- | ----- | ----------------- |
+| `message` | `String` |       | Error message     |
+| `code`    | `Number` | `500` | Error code        |
+| `type`    | `String` |       | Error type        |
+| `data`    | `any`    |       | Any relevant data |
 
-**Example**
+**示例**
 ```js
 const { MoleculerError } = require("moleculer").Errors;
 
@@ -28,14 +28,14 @@ Error for retryable errors. It uses in `broker.call`. The broker retries request
 
 **Parameters**
 
-| Name      | Type     | Default | Description       |
-| --------- | -------- | ------- | ----------------- |
-| `message` | `String` |         | Error message     |
-| `code`    | `Number` | `500`   | Error code        |
-| `type`    | `String` |         | Error type        |
-| `data`    | `any`    |         | Any relevant data |
+| 名称        | 类型       | 默认设置  | 说明                |
+| --------- | -------- | ----- | ----------------- |
+| `message` | `String` |       | Error message     |
+| `code`    | `Number` | `500` | Error code        |
+| `type`    | `String` |       | Error type        |
+| `data`    | `any`    |       | Any relevant data |
 
-**Example**
+**示例**
 ```js
 const { MoleculerRetryableError } = require("moleculer").Errors;
 

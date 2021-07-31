@@ -666,7 +666,7 @@ To use this serializer install the `thrift` module with `npm install thrift --sa
 {% endnote %}
 
 ### CBOR serializer
-CBOR ((cbor-x)[https://github.com/kriszyp/cbor-x]) is the (fastest)[https://github.com/moleculerjs/moleculer/pull/905] than any other serializers.
+CBOR ([cbor-x](https://github.com/kriszyp/cbor-x)) is the [fastest](https://github.com/moleculerjs/moleculer/pull/905) than any other serializers.
 
 Example
 ```js

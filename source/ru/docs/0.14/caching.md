@@ -633,17 +633,18 @@ https://github.com/luin/ioredis#cluster */ }
 
 **Параметры**
 
-| Имя               | Тип              | По умолчанию | Описание                                                                                                                                                               |
-| ----------------- | ---------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `prefix`          | `String`         | `null`       | Префикс для сгенерированных ключей.                                                                                                                                    |
-| `ttl`             | `Number`         | `null`       | Время жизни в секундах. Отключить: 0 или null                                                                                                                          |
-| `monitor`         | `Boolean`        | `false`      | Включить [функцию мониторинга](https://github.com/luin/ioredis#monitor) клиента Redis. Если включено, каждая операция клиента будет записана в лог (на уровне отладки) |
-| `redis`           | `Object`         | `null`       | Пользовательские параметры Redis. Будут переданы в конструктор `new Redis()`. [Подробнее](https://github.com/luin/ioredis#connect-to-redis).                           |
-| `keygen`          | `Function`       | `null`       | Пользовательская функция генерации ключей кэша.                                                                                                                        |
-| `maxParamsLength` | `Number`         | `null`       | Максимальная длина параметров сгенерированных ключей.                                                                                                                  |
-| `serializer`      | `String`         | `"JSON"`     | Имя встроенного сериализатора.                                                                                                                                         |
-| `cluster`         | `Object`         | `null`       | Конфигурация кластера Redis. [Подробнее](https://github.com/luin/ioredis#cluster)                                                                                      |
-| `lock`            | `Boolean|Object` | `null`       | Включить функции блокировок.                                                                                                                                           |
+| Имя               | Тип                    | По умолчанию | Описание                                                                                                                                                               |
+| ----------------- | ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prefix`          | `String`               | `null`       | Префикс для сгенерированных ключей.                                                                                                                                    |
+| `ttl`             | `Number`               | `null`       | Время жизни в секундах. Отключить: 0 или null                                                                                                                          |
+| `monitor`         | `Boolean`              | `false`      | Включить [функцию мониторинга](https://github.com/luin/ioredis#monitor) клиента Redis. Если включено, каждая операция клиента будет записана в лог (на уровне отладки) |
+| `redis`           | `Object`               | `null`       | Пользовательские параметры Redis. Будут переданы в конструктор `new Redis()`. [Подробнее](https://github.com/luin/ioredis#connect-to-redis).                           |
+| `keygen`          | `Function`             | `null`       | Пользовательская функция генерации ключей кэша.                                                                                                                        |
+| `maxParamsLength` | `Number`               | `null`       | Максимальная длина параметров сгенерированных ключей.                                                                                                                  |
+| `serializer`      | `String`               | `"JSON"`     | Имя встроенного сериализатора.                                                                                                                                         |
+| `cluster`         | `Object`               | `null`       | Конфигурация кластера Redis. [Подробнее](https://github.com/luin/ioredis#cluster)                                                                                      |
+| `lock`            | `Boolean` или `Object` | `null`       | Включить функции блокировок.                                                                                                                                           |
+| `pingInterval`    | `Number`               | `null`       | Emit a Redis PING command every `pingInterval` milliseconds. Can be used to keep connections alive which may have idle timeouts.                                       |
 
 {% note info Dependencies %}
 Чтобы использовать этот тип кэша, необходимо установить модуль `ioredis` командой `npm install ioredis --save`.

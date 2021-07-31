@@ -62,7 +62,7 @@ $ node examples/client-server/client
 
 [Source code is available on Github](https://github.com/moleculerjs/moleculer/tree/master/examples/client-server)
 
-### Middlewares
+### Middleware-ek
 This example demonstrates how the middleware system works.
 
 ```bash

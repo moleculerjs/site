@@ -1,13 +1,13 @@
-title: Metrics
+title: Métricas
 ---
 
-Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer possui um módulo de métricas integrado que coleta muitos valores de métricas internos do Moleculer e de processos. Além disso, você pode definir facilmente suas métricas personalizadas. Existem vários geradores de métricas integrados como `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 {% note warn %}
-If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy` tracing exporter. [More info](tracing.html#Event-legacy).
+Se você deseja usar as métricas [legacy (<= v0.13)](/modules.html#metrics) use `EventLegacy` como exportador de rastreamento. [Mais informações](tracing.html#Event-legacy).
 {% endnote %}
 
-**Enable metrics & define console reporter**
+**Habilitar métricas & definir gerador para console**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -20,34 +20,34 @@ module.exports = {
 };
 ```
 
-## Options
+## Opções
 
-| Name                    | Type                              | Default | Description                                                                                                |
-| ----------------------- | --------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `enabled`               | `Boolean`                         | `false` | Enable tracing feature.                                                                                    |
-| `reporter`              | `Object` or `Array<Object>` | `null`  | Metric reporter configuration. [More info](#Metrics-Reporters)                                             |
-| `collectProcessMetrics` | `Boolean`                         |         | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"`                           |
-| `collectInterval`       | `Number`                          | `5`     | Collect time period in seconds.                                                                            |
-| `defaultBuckets`        | `Array<Number>`             |         | Default bucket values for histograms. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]` |
-| `defaultQuantiles`      | `Array<Number>`             |         | Default quantiles for histograms. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]`                                 |
-| `defaultMaxAgeSeconds`  | `Number`                          | `60`    | Max age seconds for quantile calculation.                                                                  |
-| `defaultAgeBuckets`     | `Number`                          | `10`    | Number of buckets for quantile calculation.                                                                |
-| `defaultAggregator`     | `String`                          | `sum`   | Value aggregator method.                                                                                   |
+| Nome                    | Tipo                              | Valor padrão | Descrição                                                                                                    |
+| ----------------------- | --------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `enabled`               | `Boolean`                         | `false`      | Ativar recurso de rastreamento.                                                                              |
+| `reporter`              | `Object` or `Array<Object>` | `null`       | Configuração de gerador métrico. [Mais informações](#Metrics-Reporters)                                      |
+| `collectProcessMetrics` | `Boolean`                         |              | Colete métricas relacionadas ao processo & ao sistema operacional. Padrão: `process.env.NODE_ENV !== "test"` |
+| `collectInterval`       | `Number`                          | `5`          | Período de tempo para coleta em segundos.                                                                    |
+| `defaultBuckets`        | `Array<Number>`             |              | Valores padrão para histogramas. Default: `[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]`        |
+| `defaultQuantiles`      | `Array<Number>`             |              | Valores padrão para histogramas. Default: `[0.5, 0.9, 0.95, 0.99, 0.999]`                                    |
+| `defaultMaxAgeSeconds`  | `Number`                          | `60`         | Tempo máximo para o cálculo da quantidade.                                                                   |
+| `defaultAgeBuckets`     | `Number`                          | `10`         | Número de buckets para cálculo da quantidade.                                                                |
+| `defaultAggregator`     | `String`                          | `sum`        | Método para agregador de valor.                                                                              |
 
-## Metrics Reporters
-Moleculer has several built-in reporters. All of them have the following options:
+## Geradores de Métricas
+Moleculer possui vários geradores integrados. Todos eles têm as seguintes opções:
 
-| Name                  | Type                              | Default | Description                                                                               |
-| --------------------- | --------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `includes`            | `String` or `Array<String>` | `null`  | List of metrics to be exported. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `excludes`            | `String` or `Array<String>` | `null`  | List of metrics to be excluded. [Default metrics](metrics.html#Built-in-Internal-Metrics) |
-| `metricNamePrefix`    | `String`                          | `null`  | Prefix to be added to metric names                                                        |
-| `metricNameSuffix`    | `String`                          | `null`  | Suffix to be added to metric names                                                        |
-| `metricNameFormatter` | `Function`                        | `null`  | Metric name formatter                                                                     |
-| `labelNameFormatter`  | `Function`                        | `null`  | Label name formatter                                                                      |
+| Nome                  | Tipo                              | Valor padrão | Descrição                                                                                       |
+| --------------------- | --------------------------------- | ------------ | ----------------------------------------------------------------------------------------------- |
+| `includes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem exportadas. [Métricas padrão](metrics.html#Built-in-Internal-Metrics) |
+| `excludes`            | `String` or `Array<String>` | `null`       | Lista de métricas a serem excluídas. [Métricas padrão](metrics.html#Built-in-Internal-Metrics)  |
+| `metricNamePrefix`    | `String`                          | `null`       | Prefixo a ser adicionado a nomes de métricas                                                    |
+| `metricNameSuffix`    | `String`                          | `null`       | Sufixo a ser adicionado aos nomes das métricas                                                  |
+| `metricNameFormatter` | `Function`                        | `null`       | Formatador para nome da métrica                                                                 |
+| `labelNameFormatter`  | `Function`                        | `null`       | Formatador para nome da tag                                                                     |
 
 
-**Example of metrics options**
+**Exemplo de opções métricas**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -73,7 +73,7 @@ module.exports = {
 ```
 
 ### Console
-This is a debugging reporter which periodically prints the metrics to the console.
+Este é um gerador para debug que exibe periodicamente as métricas no console.
 
 ```js
 // moleculer.config.js
@@ -100,7 +100,7 @@ module.exports = {
 ```
 
 ### CSV
-Comma-Separated Values (CSV) reporter saves changes to a CSV file.
+O gerador (CSV) salva as interações em um arquivo CSV.
 
 ```js
 // moleculer.config.js
@@ -122,21 +122,21 @@ module.exports = {
                     //   - "label" - save metrics by labels to individual files
                     mode: "metric",
                     // Saved metrics types.
-                    types: null,
-                    // Saving interval in seconds
-                    interval: 5,
-                    // Custom filename formatter
-                    filenameFormatter: null,
-                    // Custom CSV row formatter.
                     rowFormatter: null,
                 }
             }
         ]
     }
 };
+                    types: null,
+                    // Saving interval in seconds
+                    interval: 5,
+                    // Custom filename formatter
+                    filenameFormatter: null,
+                    // Custom CSV row formatter.
 ```
 ### Event
-Event reporter sends Moleculer events with metric values.
+O gerador Event envia eventos Moleculer com valores de métricas.
 
  ```js
 // moleculer.config.js
@@ -165,7 +165,7 @@ module.exports = {
 ```
 
 ### Datadog
-Datadog reporter sends metrics to the [Datadog server](https://www.datadoghq.com/).
+Gerador para Datadog envia métricas para o [Servidor Datadog](https://www.datadoghq.com/).
 
 ```js
 // moleculer.config.js
@@ -201,7 +201,7 @@ module.exports = {
 ```
 
 ### Prometheus
-Prometheus reporter publishes metrics in Prometheus format. The [Prometheus](https://prometheus.io/) server can collect them. Default port is `3030`.
+O gerador para Prometheus publica métricas em formato Prometheus. O servidor [Prometheus](https://prometheus.io/) pode coletá-los. A porta padrão é `3030`.
 
 ```js
 // moleculer.config.js
@@ -229,7 +229,7 @@ module.exports = {
 ```
 
 ### StatsD
-The StatsD reporter sends metric values to [StatsD](https://github.com/statsd/statsd) server via UDP.
+O gerador StatsD envia valores de métricas para o servidor [StatsD](https://github.com/statsd/statsd) via UDP.
 
 ```js
 // moleculer.config.js
@@ -253,23 +253,52 @@ module.exports = {
 };
 ```
 
-## Supported Metric Types
+### Gerador personalizado
+Um módulo de métricas personalizadas pode ser criado. Recomendamos copiar o código fonte do [Console Reporter](https://github.com/moleculerjs/moleculer/blob/master/src/metrics/reporters/console.js) e implementar os métodos `init`, `stop`, `metricChanged`.
+
+**Criar métricas personalizadas**
+```js
+const BaseReporter = require("moleculer").MetricReporters.Base;
+
+class MyMetricsReporter extends BaseReporter {
+    init() { /*...*/ }
+    stop() { /*...*/ }
+    metricChanged() { /*...*/ }
+}
+```
+
+**Usar métricas personalizadas**
+```js
+// moleculer.config.js
+const MyMetricsReporter = require("./my-metrics-reporter");
+
+module.exports = {
+    metrics: {
+        enabled: true,
+        reporter: [
+            new MyMetricsReporter(),
+        ]
+    }
+};
+```
+
+## Tipos de métricas suportados
 
 ### Counter
-A counter is a cumulative metric that represents a single monotonically increasing counter whose value can only increase or be reset to zero. For example, you can use a counter to represent the number of requests served, tasks completed, or errors. It can also provide 1-minute rate.
+Um contador é uma métrica acumulativa que representa um único contador aumentando sistematicamente cujo valor só pode aumentar ou ser reposto a zero. Por exemplo, você pode usar um contador para representar o número de requisições atendidas, tarefas concluídas ou erros. Pode também fornecer uma taxa de minuto.
 
 ### Gauge
-A gauge is a metric that represents a single numerical value that can arbitrarily go up and down. Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of concurrent requests. It can also provide 1-minute rate.
+Gauge é uma métrica que representa um único valor numérico que pode arbitrariamente subir e cair. Gauges são usados tipicamente para valores medidos como o uso de memória atual, mas também "contagens" que podem subir e baixar, como o número de requisições simultâneas. Pode também fornecer uma taxa de minuto.
 
 ### Histogram
-A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values and calculates configurable quantiles over a sliding time window. It can also provide 1-minute rate.
+Um histograma apresenta observações (geralmente coisas como durações de requisições ou tamanhos de resposta) e as agrupam em buckets configuráveis. Também fornece uma soma de todos os valores observados e calcula quantidades configuráveis ao longo de um período de tempo. Pode também fornecer uma taxa de minuto.
 
 ### Info
-An info is a single string or number value like process arguments, hostname or version numbers.
+Uma info é uma única string ou valor de número, como argumentos de processo, nome de host ou números de versão.
 
-## Built-in Internal Metrics
+## Métricas internas integradas
 
-### Process metrics
+### Métricas de processo
 - `process.arguments` (info)
 - `process.pid` (info)
 - `process.ppid` (info)
@@ -302,7 +331,7 @@ An info is a single string or number value like process arguments, hostname or v
 - `process.gc.total.time` (gauge)
 - `process.gc.executed.total` (gauge)
 
-### OS metrics
+### Métricas do Sistema Operacional
 - `os.memory.free` (gauge)
 - `os.memory.total` (gauge)
 - `os.memory.used` (gauge)
@@ -335,7 +364,7 @@ An info is a single string or number value like process arguments, hostname or v
 - `os.cpu.info.times.sys` (gauge)
 
 
-### Moleculer metrics
+### Métricas Moleculer
 - `moleculer.node.type` (info)
 - `moleculer.node.versions.moleculer` (info)
 - `moleculer.node.versions.protocol` (info)
@@ -381,13 +410,13 @@ An info is a single string or number value like process arguments, hostname or v
 
 
 
-## Customizing
+## Personalizando
 
-### New metric registration
+### Registro de novas métricas
 
-You can easily create custom metrics.
+Você pode facilmente criar novas métricas.
 
-**Create a counter**
+**Criar counter**
 ```js
 // posts.service.js
 module.exports = {
@@ -416,7 +445,7 @@ module.exports = {
 };
 ```
 
-**Create a gauge with labels**
+**Criar gauge com tags**
 ```js
 // posts.service.js
 module.exports = {
@@ -452,7 +481,7 @@ module.exports = {
 };
 ```
 
-**Create a histogram with buckets & quantiles**
+**Criar histogram com buckets & quantidades**
 ```js
 // posts.service.js
 module.exports = {

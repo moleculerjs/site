@@ -1,8 +1,8 @@
 title: Tracing
 ---
-Moleculer has a built-in tracing module that collects tracing information inside a Moleculer application. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
+O Moleculer possui um módulo de rastreamento integrado que coleta informações de rastreamento dentro de uma aplicação Moleculer. Além disso, você pode definir facilmente seus módulos de rastreamento personalizados. Existem vários geradores de rastreamento integrados como [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
 
-**Enable tracing**
+**Habilitar rastreamento**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
 };
 ```
 
-**Enable tracing with options**
+**Habilitar rastreamento com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -23,27 +23,27 @@ module.exports = {
 };
 ```
 
-## Options
+## Opções
 
-| Name          | Type                              | Default                                       | Description                                                                                             |
-| ------------- | --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `enabled`     | `Boolean`                         | `false`                                       | Enable tracing feature.                                                                                 |
-| `exporter`    | `Object` or `Array<Object>` | `null`                                        | Tracing exporter configuration. [More info](#Tracing-Exporters)                                         |
-| `sampling`    | `Object`                          |                                               | Sampling settings. [More info](#Sampling)                                                               |
-| `actions`     | `Boolean`                         | `true`                                        | Tracing the service actions.                                                                            |
-| `events`      | `Boolean`                         | `false`                                       | Tracing the service events.                                                                             |
-| `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Error object fields which are added into span tags.                                                     |
-| `stackTrace`  | `Boolean`                         | `false`                                       | Add stack trace info into span tags in case of error.                                                   |
-| `tags`        | `Object`                          | `null`                                        | Add custom span tags to all actions and events spans. [Mais informações](#Global-action-and-event-tags) |
-| `defaultTags` | `Objeto`                          | `null`                                        | Default tags. It will be added to all spans.                                                            |
+| Nome          | Tipo                              | Padrão                                        | Descrição                                                                                                                     |
+| ------------- | --------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`     | `Boolean`                         | `false`                                       | Ativar recurso de rastreamento.                                                                                               |
+| `exporter`    | `Object` or `Array<Object>` | `null`                                        | Configuração do gerador de rastreamento. [Mais informações](#Tracing-Exporters)                                               |
+| `sampling`    | `Object`                          |                                               | Configurações de amostragem. [Mais informações](#Sampling)                                                                    |
+| `actions`     | `Boolean`                         | `true`                                        | Rastreando as ações do serviço.                                                                                               |
+| `events`      | `Boolean`                         | `false`                                       | Rastreando os eventos do serviço.                                                                                             |
+| `errorFields` | `Array<String>`             | `["name", "message", "code", "type", "data"]` | Campos de objetos de erro que foram adicionados em tags span.                                                                 |
+| `stackTrace`  | `Boolean`                         | `false`                                       | Adicione informações sobre rastreamento de pilha em span tags em caso de erro.                                                |
+| `tags`        | `Object`                          | `null`                                        | Adicione tags personalizadas de span para todas as ações e eventos de spam. [Mais informações](#Global-action-and-event-tags) |
+| `defaultTags` | `Objeto`                          | `null`                                        | Tags padrão. Será adicionado a todas as spans.                                                                                |
 
-## Sampling
-The Moleculer Tracer supports several sampling methods. The determination whether to sample or not is made on the root span and propagated to all child spans. This ensures that a complete trace is always exported regardless of the sample method or the rate selected.
+## Amostragem
+O módulo de rastreamento do Moleculer suporta vários métodos de amostragem. A determinação de amostrar ou não é feita no span raiz e propagada a todas as spans dependentes. Isso garante que um rastreamento completo seja sempre exportado, independentemente do método de amostra ou da taxa selecionada.
 
-### Constant sampling
-This sampling method uses a constant sampling rate value from `0` to `1`. The `1` means all spans will be sampled, the `0` means none of them.
+### Amostragem constante
+Este método de amostragem usa um valor de taxa de amostragem constante de `0` para `1`. O `1` significa que todos os spans serão amostrais, o `0` significa nenhum deles.
 
-**Samples all spans**
+**Amostras de todas as spans**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -56,7 +56,7 @@ module.exports = {
 };
 ```
 
-**Samples half of all spans**
+**Amostras de metade de todas as spans**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -69,10 +69,10 @@ module.exports = {
 };
 ```
 
-### Rate limiting sampling
-This sampling method uses a rate limiter. You can configure how many spans will be sampled in a second.
+### Taxa de limitação de amostragem
+Este método de amostragem usa uma taxa de limitação. Você pode configurar quantas spans serão distribuídas em um segundo.
 
-**Samples 2 spans per second**
+**Amostragem com 2 spans por segundo**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -85,7 +85,7 @@ module.exports = {
 };
 ```
 
-**Samples 1 span per 10 seconds**
+**Amostragem com 1 spans a cada 10 segundos**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -98,17 +98,17 @@ module.exports = {
 };
 ```
 
-## Tracing Exporters
+## Geradores de Rastreamento
 
-The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)).
+O módulo de rastreamento suporta vários geradores, spans personalizadas de rastreamento e integração com bibliotecas de instrumentação (como [`dd-trace`](https://github.com/DataDog/dd-trace-js)).
 
 ### Console
-This is a debugging exporter which prints full local trace to the console.
+Este é um gerador para debug que imprime o rastreamento local completo no console.
 
-![Console Trace Graph](assets/tracing/console.png#zoomable)
+![Gráfico de Console](assets/tracing/console.png#zoomable)
 
 {% note warn %}
-Console exporter can't follow remote calls, only locals.
+O gerador do console não pode rastrear chamadas remotas, apenas locais.
 {% endnote %}
 
 ```js
@@ -134,10 +134,10 @@ module.exports = {
 ```
 
 ### Datadog
-Datadog exporter sends tracing data to [Datadog](https://www.datadoghq.com/) server via `dd-trace`. 
+O gerador para Datadog envia dados de rastreamento para o servidor [Datadog](https://www.datadoghq.com/) via `dd-trace`. 
 <!-- It is able to merge tracing spans of instrumented Node.js modules and Moleculer modules. -->
 
-![Datadog Trace Graph](assets/tracing/datadog-trace-graph.png#zoomable)
+![Gráfico Datadog](assets/tracing/datadog-trace-graph.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -163,12 +163,12 @@ module.exports = {
 };
 ```
 {% note info %}
-To use this exporter, install the `dd-trace` module with `npm install dd-trace --save` command.
+Para usar este gerador, instale o módulo `dd-trace` com o comando `npm install dd-trace --save`.
 {% endnote %}
 
 
 ### Event
-Event exporter sends Moleculer events (`$tracing.spans`) with tracing data.
+O gerador para eventos do Moleculer envia eventos (`$tracing.spans`) com dados de rastreamento.
 
 ```js
 // moleculer.config.js
@@ -201,7 +201,7 @@ module.exports = {
 ```
 
 ### Event (legacy)
-Legacy event exporter sends Moleculer legacy metric events ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) at every request. These events are also used to generate metrics in [legacy (`<= v0.13`) metrics solutions](/modules.html#metrics).
+O gerador para evento legado envia eventos métricos legados do Moleculer ([`metrics.trace.span.start`](#Legacy-Request-Started-Payload) & [`metrics.trace.span.finish`](#Legacy-Request-Finished-Payload)) a cada requisição. Esses eventos também são usados para gerar métricas na solução legada (`<= v0.13`) de [métricas](/modules.html#metrics).
 
 ```js
 // moleculer.config.js
@@ -213,8 +213,8 @@ module.exports = {
 };
 ```
 
-#### Legacy Request Started Payload
-The broker emits an `metrics.trace.span.start` event when a new request is started. The payload looks like the following:
+#### Payload de início de Requisição legada
+O broker emite um evento `metrics.trace.span.start` quando uma nova requisição é iniciada. O payload se parece com o seguinte:
 ```js
 {
     // Context ID
@@ -250,8 +250,8 @@ The broker emits an `metrics.trace.span.start` event when a new request is start
 }
 ```
 
-#### Legacy Request Finished Payload
-The broker emits an `metrics.trace.span.finish` event when the call/request is finished. The payload looks like the following:
+#### Payload de conclusão de Requisição legada
+O broker emite um evento `metrics.trace.span.end` quando a chamada/requisição for finalizada. O payload se parece com o seguinte:
 ```js
 {
     // Context ID
@@ -299,9 +299,9 @@ The broker emits an `metrics.trace.span.finish` event when the call/request is f
 ```
 
 ### Jaeger
-Jaeger exporter sends tracing spans information to a [Jaeger](https://www.jaegertracing.io) server.
+O gerador para Jaeger envia informações de rastreamento para um servidor [Jaeger](https://www.jaegertracing.io).
 
-![Jaeger Trace Graph](assets/tracing/jaeger.png#zoomable)
+![Gráfico Jaeger](assets/tracing/jaeger.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -334,14 +334,14 @@ module.exports = {
 };
 ```
 {% note info %}
-To use this exporter, install the `jaeger-client` module with `npm install jaeger-client --save` command.
+Para usar esse gerador, instale o módulo `jaeger-client` com o comando `npm install jaeger-client --save`.
 {% endnote %}
 
 
 ### Zipkin
-Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.apache.org/) server.
+O gerador Zipkin envia informações de rastreamento para um servidor [Zipkin](https://zipkin.apache.org/).
 
-![Zipkin Trace Graph](assets/tracing/zipkin.png#zoomable)
+![Gráfico Zipkin](assets/tracing/zipkin.png#zoomable)
 
 ```js
 // moleculer.config.js
@@ -371,7 +371,7 @@ module.exports = {
 ```
 
 ### NewRelic
-NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewRelic](https://newrelic.com/) server.
+O exportador NewRelic envia informações de rastreamento no formato Zipkin v2 para um servidor [NewRelic](https://newrelic.com/).
 
 ```js
 // moleculer.config.js
@@ -405,8 +405,38 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
 }
 ```
 
-## Multiple exporters
-You can define multiple tracing exporters.
+### Gerador personalizado
+Um módulo personalizado de rastreamento pode ser criado. Recomendamos copiar o código fonte do [Console](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) e implementar os métodos `init`, `stop`, `spanStarted` e `spanFinished`.
+
+**Criar métricas personalizadas**
+```js
+const TracerBase = require("moleculer").TracerExporters.Base;
+
+class MyTracingExporters extends TracerBase {
+    init() { /*...*/ }
+    stop() { /*...*/ }
+    spanStarted() { /*...*/ }
+    spanFinished() { /*...*/ }
+}
+```
+
+**Usar métricas personalizadas**
+```js
+// moleculer.config.js
+const MyMetricsReporter = require("./my-tracing-exporter");
+
+module.exports = {
+    tracing: {
+        enabled: true,
+        exporter: [
+            new MyTracingExporters(),
+        ]
+    }
+};
+```
+
+## Múltiplos geradores
+Você pode definir vários geradores de rastreamento.
 
 ```js
 // moleculer.config.js
@@ -432,8 +462,8 @@ module.exports = {
 };
 ```
 
-## User-defined tracing spans
-To add new spans inside an action or event handler, just call the `ctx.startSpan` and `ctx.finishSpan` methods.
+## Spans de rastreamento definidos pelo usuário
+Para adicionar novos spans dentro de uma ação ou manipulador de eventos, basta chamar os métodos `ctx.startSpan` e `ctx.finishSpan`.
 
 ```js
 // posts.service.js
@@ -459,8 +489,8 @@ module.exports = {
 };
 ```
 
-### Create span without context
-If `Context` is not available, you can create spans via `broker.tracer`.
+### Criar span sem context
+Se o `Context` não estiver disponível, você pode criar spans via `broker.tracer`.
 
 ```js
 // posts.service.js
@@ -490,11 +520,11 @@ module.exports = {
 };
 ```
 
-## Customizing
-### Custom Span Names
-You can customize the span name of you traces. In this case, you must specify the `spanName` that must be a static `String` or a `Function`.
+## Personalizando
+### Nomes de Span Personalizados
+Você pode personalizar o nome do span de seu rastreamento. Nesse caso, você deve especificar o `spanName` que deve ser uma `String` estática ou uma `Function`.
 
-**Creating a custom name for a trace via Function**
+**Criando um nome personalizado para um rastreamento via Function**
 ```js
 // posts.service.js
 module.exports = {
@@ -512,10 +542,10 @@ module.exports = {
 };
 ```
 
-### Adding Tags from Context
-You can customize what context `params` or `meta` values are added to span tags.
+### Adicionando Tags do Context
+Você pode personalizar quais valores de `params` ou `meta` são adicionados às tags span.
 
-**Default** The default behaviour is that add all properties from `ctx.params` only.
+**Default** O comportamento padrão adiciona todas as propriedades de `ctx.params` apenas.
 ```js
 // posts.service.js
 module.exports = {
@@ -536,7 +566,7 @@ module.exports = {
 };
 ```
 
-**Custom params example**
+**Exemplo de parâmetros personalizados**
 ```js
 // posts.service.js
 module.exports = {
@@ -560,7 +590,7 @@ module.exports = {
 };
 ```
 
-**Example with custom function** You can define a custom `Function` to fill the span tags from the `Context`.
+**Exemplo com função personalizada** Você pode definir uma `function` personalizada para preencher as tags de span do `Context`.
 
 ```js
 // posts.service.js
@@ -589,12 +619,12 @@ module.exports = {
 ```
 
 {% note info %}
-Please note, when used with an action the function will be called two times in case of successful execution. First with `ctx` and the second time with `ctx` & `response` as the response of the action call.
+Por favor, note que, quando usado com uma ação, a função será chamada duas vezes no caso de execução bem-sucedida. Primeiro com `ctx` e segunda vez com `ctx` & `response` como resposta da chamada da ação.
 {% endnote %}
 
-## Global action and event tags
+## Ações globais e tags de eventos
 
-Custom action and event span tags can be defined using the `tags` property in the tracer [options](#Options). These will be applied to all action and event spans unless overridden in the service schema's action and event definitions. All custom tag types defined [above](#Customizing) are valid. Any tags defined in the service schema's action and event definitions will take precendence but the merge of `params`, `meta`, and `response` tag definitions are shallow, meaning that it is possible to do things like define `meta` tags globally and `response` tags locally in each service.
+Tags de span personalizadas de ações e eventos podem ser definidas usando a propriedade `tags` nas [options](#Options) do gerador de rastreamento. Estas serão aplicadas a todas as ações e eventos a menos que sejam sobrescritas nas definições de eventos e ações no esquema do serviço. Todos os tipos de tags personalizados definidos [acima](#Customizing) são válidos. Quaisquer tags definidas na ação do esquema do serviço e as definições de eventos terão precedência, mas a mesclagem das definições de tags de `params`, `meta`, e `response` são superáveis, o que significa que é possível fazer coisas como definir tags com `meta` globalmente e com `response` localmente em cada serviço.
 
 ```js
 // moleculer.config.js
@@ -627,10 +657,10 @@ module.exports = {
 ```
 
 {% note info %}
-Custom tags defined using the `tags` property have access to `ctx` and if used with an action the `response`. The tags defined in `defaultTags` must either be a static object or a function that accepts the `tracer` instance and returns an object. It also has access to the `broker` instance via the `tracer` instance but does not have access to `ctx`.
+Tags personalizadas definidas usando a propriedade `tags` tem acesso a `ctx` e, se usado com uma ação, o `response`. As tags definidas em `defaultTags` devem ser um objeto estático ou uma função que aceita a instância do `tracer` e retorna um objeto. Ele também tem acesso à instância `broker` através da instância `tracer` mas não tem acesso a `ctx`.
 {% endnote %}
 
-**Example of Event tracing** You can tracing the events, as well. To enable it, set `events: true` in tracing broker options.
+**Exemplo de rastreamento de eventos** Você pode rastrear os eventos também. Para habilitar isso, defina `events: true` nas opções do broker.
 ```js
 // moleculer.config.js
 module.exports = {

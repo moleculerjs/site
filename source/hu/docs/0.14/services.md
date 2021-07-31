@@ -160,7 +160,7 @@ __Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, 
 {% endnote %}
 
 ## Akciók
-The actions are the callable/public methods of the service. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+Az action-ök a szolgáltatás hívható/nyilvános metódusai. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
 
 ```js
 // math.service.js

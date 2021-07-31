@@ -9,7 +9,7 @@ The base error class.
 
 **Parameters**
 
-| Name      | Type     | Default | Description       |
+| Name      | Typ      | Default | Beschreibung      |
 | --------- | -------- | ------- | ----------------- |
 | `message` | `String` |         | Error message     |
 | `code`    | `Number` | `500`   | Error code        |
@@ -28,7 +28,7 @@ Error for retryable errors. It uses in `broker.call`. The broker retries request
 
 **Parameters**
 
-| Name      | Type     | Default | Description       |
+| Name      | Typ      | Default | Beschreibung      |
 | --------- | -------- | ------- | ----------------- |
 | `message` | `String` |         | Error message     |
 | `code`    | `Number` | `500`   | Error code        |

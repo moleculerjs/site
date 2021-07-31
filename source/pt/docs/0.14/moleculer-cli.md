@@ -4,7 +4,7 @@ title: Command Line Tool
 ## moleculer-cli [![npm](https://img.shields.io/npm/v/moleculer-cli.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-cli)
 This is a [command-line tool](https://github.com/moleculerjs/moleculer-cli) for Moleculer to help developing & testing.
 
-## Install
+## Instalação
 
 ``` bash
 $ npm i -g moleculer-cli
@@ -117,7 +117,7 @@ This command starts a new `ServiceBroker` locally and switches to REPL mode.
 $ moleculer start
 ```
 
-**Options**
+**Opções**
 ```
   --version     Show version number                                    [boolean]
   --help        Show help                                              [boolean]
@@ -152,7 +152,7 @@ $ moleculer connect amqp://localhost:5672
 $ moleculer connect --config ./moleculer.config.js
 ```
 
-**Options**
+**Opções**
 ```
   --version     Show version number                                    [boolean]
   --help        Show help                                              [boolean]
@@ -169,7 +169,7 @@ $ moleculer connect --config ./moleculer.config.js
 ## Call
 The `call` command can be used establish a connection with a Moleculer project and call an action with parameters. The result (stringified JSON) will be printed to the console. This means that you can process the result with another tool. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
 
-**Options**
+**Opções**
 ```
   --version          Show version number                               [boolean]
   --help             Show help                                         [boolean]
@@ -206,7 +206,7 @@ TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
 ## Emit
 The `emit` command can be used establish a connection with a Moleculer project and emit an event with a payload. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
 
-**Options**
+**Opções**
 ```
   --version          Show version number                               [boolean]
   --help             Show help                                         [boolean]

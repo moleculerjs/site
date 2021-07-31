@@ -249,7 +249,7 @@ module.exports = {
 ### Winston
 This logger uses the [Winston](https://github.com/winstonjs/winston) logger.
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -257,7 +257,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
 // moleculer.config.js
 const winston = require("winston");
@@ -285,12 +285,12 @@ module.exports = {
 To use this logger please install the `winston` module with `npm install winston --save` command.
 {% endnote %}
 
-**Preview** ![Winston](assets/logging/winston.png#zoomable)
+**Предпросмотр** ![Winston](assets/logging/winston.png#zoomable)
 
 ### `debug`
 This logger uses the [debug](https://github.com/visionmedia/debug) logger. To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -298,7 +298,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -316,12 +316,12 @@ module.exports = {
 To use this logger please install the `debug` module with `npm install debug --save` command.
 {% endnote %}
 
-**Preview** ![debug](assets/logging/debug.png#zoomable)
+**Предпросмотр** ![debug](assets/logging/debug.png#zoomable)
 
 ### Log4js
 This logger uses the [Log4js](https://github.com/log4js-node/log4js-node) logger.
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -329,7 +329,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -357,7 +357,7 @@ module.exports = {
 To use this logger please install the `log4js` module with `npm install log4js --save` command.
 {% endnote %}
 
-**Preview** ![Log4js](assets/logging/log4js.png#zoomable)
+**Предпросмотр** ![Log4js](assets/logging/log4js.png#zoomable)
 
 ### Datadog
 This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) server.
@@ -366,7 +366,7 @@ This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) se
 Please note, this logger doesn't print any messages to the console, just collects & uploads. Use it beside another logger which also prints the messages.
 {% endnote %}
 
-**Shorthand configuration with default options**
+**Простая конфигурация с настройками по умолчанию**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -374,7 +374,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**Полная конфигурация**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -402,7 +402,7 @@ module.exports = {
 };
 ```
 
-**Preview** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
+**Предпросмотр** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
 
 ## Multiple Loggers
 This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.

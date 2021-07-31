@@ -632,17 +632,18 @@ const broker = new ServiceBroker({
 
 **Opções**
 
-| Nome              | Tipo             | Valor padrão | Descrição                                                                                                                                                                      |
-| ----------------- | ---------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `prefix`          | `String`         | `null`       | Prefixo para chaves geradas.                                                                                                                                                   |
-| `ttl`             | `Number`         | `null`       | Tempo de Vida em segundos. Desativado: 0 ou null                                                                                                                               |
-| `monitor`         | `Boolean`        | `false`      | Ativar o [recurso de monitoramento do cliente Redis](https://github.com/luin/ioredis#monitor). Se ativado, todas as operações do cliente serão registradas (no nível de debug) |
-| `redis`           | `Object`         | `null`       | Opções personalizadas de Redis. Serão transferidas ao construtor `new Redis()`. [Leia mais](https://github.com/luin/ioredis#connect-to-redis).                                 |
-| `keygen`          | `Function`       | `null`       | Função de gerador de chaves de cache personalizada.                                                                                                                            |
-| `maxParamsLength` | `Number`         | `null`       | Comprimento máximo de parâmetros nas chaves geradas.                                                                                                                           |
-| `serializer`      | `String`         | `"JSON"`     | Nome de um serializador integrado.                                                                                                                                             |
-| `cluster`         | `Object`         | `null`       | Configuração do cliente Redis Cluster. [Mais informações](https://github.com/luin/ioredis#cluster)                                                                             |
-| `lock`            | `Boolean|Object` | `null`       | Ativar recurso de bloqueio.                                                                                                                                                    |
+| Nome              | Tipo                  | Valor padrão | Descrição                                                                                                                                                                      |
+| ----------------- | --------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `prefix`          | `String`              | `null`       | Prefixo para chaves geradas.                                                                                                                                                   |
+| `ttl`             | `Number`              | `null`       | Tempo de Vida em segundos. Desativado: 0 ou null                                                                                                                               |
+| `monitor`         | `Boolean`             | `false`      | Ativar o [recurso de monitoramento do cliente Redis](https://github.com/luin/ioredis#monitor). Se ativado, todas as operações do cliente serão registradas (no nível de debug) |
+| `redis`           | `Object`              | `null`       | Opções personalizadas de Redis. Serão transferidas ao construtor `new Redis()`. [Leia mais](https://github.com/luin/ioredis#connect-to-redis).                                 |
+| `keygen`          | `Function`            | `null`       | Função de gerador de chaves de cache personalizada.                                                                                                                            |
+| `maxParamsLength` | `Number`              | `null`       | Comprimento máximo de parâmetros nas chaves geradas.                                                                                                                           |
+| `serializer`      | `String`              | `"JSON"`     | Nome de um serializador integrado.                                                                                                                                             |
+| `cluster`         | `Object`              | `null`       | Configuração do cliente Redis Cluster. [Mais informações](https://github.com/luin/ioredis#cluster)                                                                             |
+| `lock`            | `Boolean` ou `Object` | `null`       | Ativar recurso de bloqueio.                                                                                                                                                    |
+| `pingInterval`    | `Number`              | `null`       | Emitir um comando Redis PING a cada `pingInterval` milissegundos. Pode ser usado para manter as conexões ativas apesar do timeout.                                             |
 
 {% note info Dependencies %}
 Para poder usar esse cacher, instale o módulo `ioredis` com o comando `npm install ioredis --save`.
