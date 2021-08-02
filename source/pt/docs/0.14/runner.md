@@ -1,11 +1,11 @@
 title: Moleculer Runner
 ---
 
-Moleculer Runner is a helper script that helps you running Moleculer projects. With it you don't need to create a ServiceBroker instance with options. Instead you can create a `moleculer.config.js` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script and it will automatically load the configuration file, create the broker and load the services. Alternatively, you can declare your configuration as environment variables.
+Moleculer Runner é um script auxiliar que ajuda você a executar projetos do Moleculer. Com isso você não precisa criar uma instância do ServiceBroker preenchendo as opções. Em vez disso, você pode criar um arquivo `moleculer.config.js` na raiz do repositório com as opções do broker. Então simplesmente chame o `moleculer-runner` via NPM script e ele irá carregar automaticamente o arquivo de configuração, criar o broker e inicializar os serviços. Como alternativa, você pode declarar sua configuração como variáveis de ambiente.
 
 
 {% note info Production-ready %}
-Use the `moleculer.config.js` during development or store common options. In production, you can overwrite the values with the environment variables!
+Use o `moleculer.config.js` durante o desenvolvimento ou armazene opções comuns. Em produção, você pode substituir os valores com as variáveis de ambiente!
 {% endnote %}
 
 ## Sintaxe
