@@ -122,21 +122,21 @@ O runner carrega arquivos de serviço ou pastas definidas nos argumentos CLI. Se
 SERVICEDIR=services
 SERVICES=math,post,user
 ```
-It loads the `math.service.js`, `post.service.js` and `user.service.js` files from the `services` folder.
+Ele carrega os arquivos `math.service.js`, `post.service.js` e `user.service.js` da pasta `services`.
 
 ```
 SERVICEDIR=my-services
 ```
-It loads all `*.service.js` files from the `my-services` folder (including sub-folders too).
+Ele carrega todos os arquivos `*.service.js` da pasta `my-services` (incluindo subpastas também).
 
-### Glob patterns
-If you want to be more specific, use glob patterns. It is useful when loading all services except certain ones.
+### Padrões Glob
+Se você quiser ser mais específico, use os padrões glob. É útil para carregar todos os serviços, exceto alguns deles.
 
 ```bash
 $ moleculer-runner services !services/others/**/*.service.js services/others/mandatory/main.service.js
 ```
 
-**Explanations:**
+**Explicações:**
 - `services` - legacy mode. Load all services from the `services` folder with `**/*.service.js` file mask.
 - `!services/others/**/*.service.js` - skip all services in the `services/others` folder and sub-folders.
 - `services/others/mandatory/main.service.js` - load the exact service.
