@@ -107,11 +107,11 @@ CIRCUITBREAKER_ENABLED=true
 METRICS=true
 ```
 
-## Services loading logic
-The runner loads service files or folders defined in CLI arguments. If you define folder(s), the runner loads all services `**/*.service.js` from specified one(s) (including sub-folders too). Services & service folder can be loaded with `SERVICES` and `SERVICEDIR` environment variables.
+## Lógica de carregamento de serviços
+O runner carrega arquivos de serviço ou pastas definidas nos argumentos CLI. Se você definir pasta(s), o runner carrega todos os serviços `**/*.service.js` a partir da(s) especificada(s) (incluindo subpastas também). Os serviços & a pasta de serviços podem ser carregados com as variáveis de ambiente `SERVICES` e `SERVICEDIR`.
 
-**Loading steps:**
-1. If `SERVICEDIR` env found, but no `SERVICES` env, it loads all services from the `SERVICEDIR` directory.
+**Etapas do carregamento:**
+1. Se `SERVICEDIR` for encontrado no env, mas nenhum `SERVICES` existe no env, ele carrega todos os serviços do diretório `SERVICEDIR`.
 2. If `SERVICEDIR` & `SERVICES` env found, it loads the specified services from the `SERVICEDIR` directory.
 3. If no `SERVICEDIR`, but `SERVICES` env found, it loads the specified services from the current directory.
 4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. If glob pattern found, it applies and load the found files.
