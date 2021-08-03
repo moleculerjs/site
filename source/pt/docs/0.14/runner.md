@@ -47,14 +47,14 @@ O runner faz os seguintes passos para carregar & mesclar as configurações:
 2. Carrega o arquivo de configuração definido nas opções do CLI. Se não existe, retorna um erro. Observe que `MOLECULER_CONFIG` tem prioridade sobre CLI significando que se ambas forem definidas `MOLECULER_CONFIG` é a que será usada.
 3. Se não estiver definido, irá carregar o arquivo `moleculer.config.js` do diretório atual. Se ele não existir, carrega o arquivo `moleculer.config.json`.
 4. Uma vez que um arquivo de configuração foi carregado, ele mescla as opções com as opções padrão do ServiceBroker.
-5. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
+5. O runner observa as opções uma a uma e tenta substituí-las por variáveis de ambiente. Uma vez que o `logLevel: "warn"` é definido no arquivo de configuração, mas a variável de ambiente `LOGLEVEL=debug` é definida, o runner sobrescreve e o resultado é: `logLevel: "debug"`.
 
-> To overwrite broker's deeply nested default options, which are not present in `moleculer.config.js`, via environment variables, use the `MOL_` prefix and double underscore `__` for nested properties in `.env` file. For example, to set the [cacher prefix](caching.html#Built-in-cachers) to `MOL` you should declare as `MOL_CACHER__OPTIONS__PREFIX=MOL`.
+> Para sobrescrever as opções padrão profundamente aninhadas do broker, que não estão presentes no `moleculer.config.js`, através de variáveis de ambiente, use o prefixo `MOL_` e sublinhado duplo `__` para propriedades aninhadas no arquivo `.env`. Por exemplo, para definir o [prefixo de cache](caching.html#Built-in-cachers) para `MOL`, você deve declarar como `MOL_CACHER__OPTIONS__PREFIX=MOL`.
 
-### Configuration file
-The structure of the configuration file is the same as that of the [broker options](configuration.html#Broker-options). Every property has the same name.
+### Arquivo de configuração
+A estrutura do arquivo de configuração é a mesma que as [opções do broker](configuration.html#Broker-options). Todas as propriedades têm o mesmo nome.
 
-**Example config file**
+**Exemplo de arquivo de configuração**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -74,9 +74,9 @@ module.exports = {
 ```
 
 
-### Asynchronous Configuration file
+### Arquivo de configuração assíncrono
 
-Moleculer Runner also supports asynchronous configuration files. In this case `moleculer.config.js` must export a `Function` that returns a `Promise` (or you can use `async/await`).
+Moleculer Runner também suporta arquivos de configuração assíncronos. Neste caso `moleculer.config.js` deve exportar uma `Function` que retorne uma `Promise` (ou você pode usar `async/await`).
 
 ```js
 // moleculer.config.js
@@ -88,10 +88,10 @@ module.exports = async function() {
 };
 ```
 
-### Environment variables
-The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.
+### Variáveis de ambiente
+O runner transforma os nomes das propriedades em maiúsculas. Se aninhado, o runner concatena nomes com `_`.
 
-**Example environment variables**
+**Exemplos de variáveis de ambiente**
 ```bash
 NODEID=node-test
 LOGGER=true
