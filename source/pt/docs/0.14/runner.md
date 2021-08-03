@@ -137,31 +137,31 @@ $ moleculer-runner services !services/others/**/*.service.js services/others/man
 ```
 
 **Explicações:**
-- `services` - legacy mode. Load all services from the `services` folder with `**/*.service.js` file mask.
-- `!services/others/**/*.service.js` - skip all services in the `services/others` folder and sub-folders.
-- `services/others/mandatory/main.service.js` - load the exact service.
+- `services` - modo legado. Carrega todos os serviços da pasta `services` com uma máscara de arquivo `**/*.service.js`.
+- `!services/others/**/*.service.js` - ignora todos os serviços na pasta `services/others` e suas sub-pastas.
+- `services/others/mandatory/main.service.js` - carrega o serviço exato.
 
-> The glob patterns work in the `SERVICES` enviroment variables, as well.
+> Os padrões glob funcionam nas variáveis de ambiente `SERVICES`, também.
 
-## Built-in clustering
+## Cluster integrado
 
-Moleculer Runner has a built-in clustering function to start multiple instances from your broker.
+O Moleculer Runner possui uma função cluster integrado para iniciar várias instâncias do seu broker.
 
-Example to start all services from the `services` folder in 4 instances.
+Exemplo para iniciar todos os serviços da pasta `services` em 4 instâncias.
 ```bash
 $ moleculer-runner --instances 4 services
 ```
 
 {% note info Clustered Node ID %}
-The `nodeID` will be suffixed with the worker ID. E.g. if you define `my-node` nodeID in options, and starts 4 instances, the instance nodeIDs will be `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
+O `nodeID` será sufixo com o worker ID. Ex.: se você definir `my-node` como nodeID em opções, e inicia 4 instâncias, os nodeIDs de instância serão `my-node-1`, `my-node-2`, `my-node-3`, `my-node-4`.
 {% endnote %}
 
-## .env files
+## Arquivos env
 
-Moleculer runner can load `.env` file at starting. There are two new cli options to load env file:
+O Moleculer runner pode carregar o arquivo `.env` ao iniciar. Existem duas novas opções para carregar arquivo env:
 
-* `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
-* `-E, --envfile <filename>` - Load envorinment variables from the specified file.
+* `-e, --env` - Carrega variáveis de ambiente a partir do arquivo '.env' da pasta atual.
+* `-E, --envfile <filename>` Carrega variáveis de ambiente a partir do arquivo especificado.
 
 **Exemplo**
 ```sh
@@ -173,5 +173,5 @@ $ moleculer-runner --envfile .my-env
 ```
 
 {% note info Dependencies %}
-To use this feature install the `dotenv` module with `npm install dotenv --save` command.
+Para usar este recurso, instale o módulo `dotenv` usando o comando `npm install dotenv --save`.
 {% endnote %}
