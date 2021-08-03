@@ -112,10 +112,10 @@ O runner carrega arquivos de serviço ou pastas definidas nos argumentos CLI. Se
 
 **Etapas do carregamento:**
 1. Se `SERVICEDIR` for encontrado no env, mas nenhum `SERVICES` existe no env, ele carrega todos os serviços do diretório `SERVICEDIR`.
-2. If `SERVICEDIR` & `SERVICES` env found, it loads the specified services from the `SERVICEDIR` directory.
-3. If no `SERVICEDIR`, but `SERVICES` env found, it loads the specified services from the current directory.
-4. Check the CLI arguments. If filename found, it loads them. If directory found, it loads them. If glob pattern found, it applies and load the found files.
-> Please note: shorthand names can also be used in `SERVICES` env var.
+2. Se `SERVICEDIR` & `SERVICES` for encontrado no env, ele carrega todos os serviços do diretório `SERVICEDIR`.
+3. Se nenhum `SERVICEDIR` for encontrado no env, mas `SERVICES` for encontrado, ele carrega os serviços especificados do diretório atual.
+4. Verifica os argumentos do CLI. Se o nome do arquivo for encontrado, é carregado. Se o diretório for encontrado, é carregado. Se um padrão de máscara for encontrado, ele aplica e carrega os arquivos encontrados.
+> Por favor, note: nomes abreviados também podem ser usados nas variáveis de ambiente `SERVICES`.
 
 **Exemplo**
 ```
