@@ -82,6 +82,7 @@ broker.broadcastLocal("config.changed", config);
 Вам не нужно переписывать все существующие обработчики событий, так как Moleculer все еще поддерживает старую сигнатуру `"user.created"(payload) { ... }`. Он способен обнаружить различные сигнатуры обработчиков событий:
 - Если найдена сигнатура `"user.created"(ctx) { ... }`, то вызов выполнится с контекстом событий.
 - Если нет, вызов выполнится со старыми аргументами & 4-й аргумент будет контекст события, например `"user.created"(payload, отправитель, eventName, ctx) {...}`
+- You can also force the usage of the new signature by setting `context: true` in the event declaration
 
 {% endnote %}
 
@@ -97,6 +98,14 @@ module.exports = {
             console.log("The called event name:", ctx.eventName);
 
             ctx.emit("accounts.created", { user: ctx.params.user });
+        },
+
+        "user.removed": {
+            // Force to use context based signature
+            context: true,
+            handler(other) {
+                console.log(`${this.broker.nodeID}:${this.fullName}: Event '${other.eventName}' received. Payload:`, other.params, other.meta);
+            }
         }
     }
 };
