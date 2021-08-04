@@ -82,6 +82,7 @@ A versão `v0.14` suporta manipuladores de eventos baseados em Contextos. O cont
 Você não precisa reescrever todos os manipuladores de eventos existentes já que Moleculer ainda suporta assinatura legada `"user.created"(payload) { ... }`. Ele é capaz de detectar diferentes assinaturas de manipuladores de eventos:
 - Se a assinatura encontrada for `"user.created"(ctx) { ... }`, ele vai chamar com Context de eventos.
 - Se não, ele será chamado com argumentos antigos & o quarto argumento será o Context de Evento, como `"user.created"(payload, sender, eventName, ctx) {...}`
+- You can also force the usage of the new signature by setting `context: true` in the event declaration
 
 {% endnote %}
 
@@ -97,6 +98,14 @@ module.exports = {
             console.log("The called event name:", ctx.eventName);
 
             ctx.emit("accounts.created", { user: ctx.params.user });
+        },
+
+        "user.removed": {
+            // Force to use context based signature
+            context: true,
+            handler(other) {
+                console.log(`${this.broker.nodeID}:${this.fullName}: Event '${other.eventName}' received. Payload:`, other.params, other.meta);
+            }
         }
     }
 };
