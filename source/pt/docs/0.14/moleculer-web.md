@@ -1190,6 +1190,7 @@ settings: {
             // Call after `broker.call` and before send back the response
             onAfterCall(ctx, route, req, res, data) {
                 res.setHeader("X-Custom-Header", "123456");
+                return data;
             },
 
             // Route error handler
