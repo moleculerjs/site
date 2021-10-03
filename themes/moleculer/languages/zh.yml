@@ -57,6 +57,7 @@ sidebar:
     moleculer_repl: REPL 控制台
     moleculer_cli: CLI 工具
     moleculer_db: 数据库适配器
+    laboratory: Laboratory
     other_modules: 其他模块
     all_modules: 所有模块
     miscellaneous: 杂项

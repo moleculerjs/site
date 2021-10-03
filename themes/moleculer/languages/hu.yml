@@ -57,6 +57,7 @@ sidebar:
     moleculer_repl: REPL konzol
     moleculer_cli: CLI eszköz
     moleculer_db: DB Adapterek
+    laboratory: Laboratory
     other_modules: Egyéb modulok
     all_modules: Minden modul
     miscellaneous: Vegyes

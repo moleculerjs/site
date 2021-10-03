@@ -58,6 +58,7 @@ sidebar:
     moleculer_cli: CLI Tool
     moleculer_db: DB Adapters
     other_modules: Other modules
+    laboratory: Laboratory
     all_modules: All modules
     miscellaneous: Miscellaneous
     clustering: Clustering

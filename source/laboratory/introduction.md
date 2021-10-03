@@ -4,6 +4,10 @@ subtitle: Developer tool for Moleculer-based projects
 ---
 <img src="assets/laboratory-banner.png" style="box-shadow: 0 0 20px rgba(0,0,0,0.8); border-radius: 10px;" />
 
+{% note warn %}
+Moleculer's Laboratory is only available for Beta Testers. To join beta testing, [fill out this form](https://forms.gle/YYPWEbNbjL4pNAJ47).
+{% endnote %}
+
 ## What is Moleculer's Laboratory?
 Moleculer's Laboratory is a developer tool for Moleculer-based microservices projects. It's not a cloud-based [APM](https://en.wikipedia.org/wiki/Application_performance_management) service. Every collected data is stored in the Agent service local memory and in your browser. It does **NOT** upload your data to cloud storages in foreign countries, everything is in your hand. Your data is yours. 
 
