@@ -82,7 +82,7 @@ A versão `v0.14` suporta manipuladores de eventos baseados em Contextos. O cont
 Você não precisa reescrever todos os manipuladores de eventos existentes já que Moleculer ainda suporta assinatura legada `"user.created"(payload) { ... }`. Ele é capaz de detectar diferentes assinaturas de manipuladores de eventos:
 - Se a assinatura encontrada for `"user.created"(ctx) { ... }`, ele vai chamar com Context de eventos.
 - Se não, ele será chamado com argumentos antigos & o quarto argumento será o Context de Evento, como `"user.created"(payload, sender, eventName, ctx) {...}`
-- You can also force the usage of the new signature by setting `context: true` in the event declaration
+- Você também pode forçar o uso da nova assinatura definindo `context: true` na declaração do evento
 
 {% endnote %}
 
