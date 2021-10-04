@@ -1,7 +1,7 @@
-title: REPL console
+title: Console Interativo (REPL)
 ---
 ## moleculer repl [![npm](https://img.shields.io/npm/v/moleculer-repl.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-repl)
-The [moleculer-repl](https://github.com/moleculerjs/moleculer-repl) is an interactive developer console for Moleculer.
+O [moleculer-repl](https://github.com/moleculerjs/moleculer-repl) é um console interativo de desenvolvedor para Moleculer.
 
 ## Instalação
 ```bash
@@ -10,7 +10,7 @@ npm i moleculer-repl
 
 ## Utilização
 
-**Switch broker to REPL mode**
+**Alternar broker para modo REPL**
 ```js
 const broker = new ServiceBroker();
 
@@ -20,123 +20,123 @@ broker.start().then(() => {
 });
 ```
 
-## REPL Commands
+## Comandos REPL
 
 ```
-  Commands:
-    help [command...]                                   Provides help for a given command.
-    q                                                   Exit application
-    actions [options]                                   List of actions
-    bench [options] <action> [jsonParams]               Benchmark a service
-    broadcast <eventName>                               Broadcast an event
-    broadcastLocal <eventName>                          Broadcast an event locally
-    call [options] <actionName> [jsonParams]            Call an action
-    dcall [options] <nodeID> <actionName> [jsonParams]  Direct call an action
-    clear [pattern]                                     Clear cache entries
-    cls                                                 Clear console    
-    destroy <serviceName> [version]                     Destroy a locally running service
-    emit <eventName>                                    Emit an event
-    env                                                 List of environment variables
-    events [options]                                    List of event listeners
-    info                                                Information about broker
-    load <servicePath>                                  Load a service from file
-    loadFolder <serviceFolder> [fileMask]               Load all services from folder
-    metrics [options]                                   List metrics
-    nodes [options]                                     List of nodes
-    services [options]                                  List of services
+  Comandos:
+    help [command...]                                   Fornece ajuda para um determinado comando.
+    q                                                   Encerra aplicação
+    actions [options]                                   Lista de ações
+    bench [options] <action> [jsonParams]               Performance de um serviço
+    broadcast <eventName>                               Transmitir um evento
+    broadcastLocal <eventName>                          Transmitir um evento localmente
+    call [options] <actionName> [jsonParams]            Executar uma ação
+    dcall [options] <nodeID> <actionName> [jsonParams]  Executar uma ação direta
+    clear [pattern]                                     Limpar registro de cache
+    cls                                                 Limpar console   
+    destroy <serviceName> [version]                     Destruir um serviço executando localmente
+    emit <eventName>                                    Emitir um evento
+    env                                                 Listar as variáveis de ambiente
+    events [options]                                    Lista de ouvintes de eventos
+    info                                                Informações do broker
+    load <servicePath>                                  Carregar um serviço do arquivo
+    loadFolder <serviceFolder> [fileMask]               Carregar todos os serviços de um diretório
+    metrics [options]                                   Listar métricas
+    nodes [options]                                     Listar nós
+    services [options]                                  Listar serviços
 ```
 
-### List nodes
+### Listar nós
 ```bash
 mol $ nodes
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) nodes
-    -d, --details         detailed list
-    -f, --filter <match>  filter nodes (e.g.: 'node-*')
-    --raw                 print service registry to JSON
-    --save [filename]     save service registry to a JSON file
+    -a, --all             lista todos os nós (offline)
+    -d, --details         lista detalhada
+    -f, --filter <match>  filtra nós (ex.: 'node-*')
+    --raw                 converte o registro de serviço em JSON
+    --save [filename]     salva o registro de serviço para um arquivo JSON
 ```
 
-**Output** ![image](assets/repl/nodes.png)
+**Saída** ![image](assets/repl/nodes.png)
 
-**Detailed output** ![image](assets/repl/nodes-detailed.png)
+**Saída detalhada** ![image](assets/repl/nodes-detailed.png)
 
-### List services
+### Listar serviços
 ```bash
 mol $ services
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) services
-    -d, --details         print endpoints
-    -f, --filter <match>  filter services (e.g.: 'user*')
-    -i, --skipinternal    skip internal services
-    -l, --local           only local services
+    -a, --all             lista todos os serviços (offline)
+    -d, --details         exibe endpoints
+    -f, --filter <match>  filtra serviços (ex.: 'user*')
+    -i, --skipinternal    ignora serviços internos
+    -l, --local           só serviços locais
 ```
 
-**Output** ![image](assets/repl/services.png)
+**Saída** ![image](assets/repl/services.png)
 
-**Detailed output** ![image](assets/repl/services-detailed.png)
+**Saída detalhada** ![image](assets/repl/services-detailed.png)
 
-### List actions
+### Listar ações
 ```bash
 mol $ actions
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) actions
-    -d, --details         print endpoints
-    -f, --filter <match>  filter actions (e.g.: 'users.*')
-    -i, --skipinternal    skip internal actions
-    -l, --local           only local actions
+    -a, --all             listar todas as ações (offline)
+    -d, --details         exibir endpoints
+    -f, --filter <match>  filtrar ações (ex.: 'users.*')
+    -i, --skipinternal    ignorar ações internas
+    -l, --local           só ações locais
 ```
 
-**Output** ![image](assets/repl/actions.png)
+**Saída** ![image](assets/repl/actions.png)
 
-**Detailed output** ![image](assets/repl/actions-detailed.png)
+**Saída detalhada** ![image](assets/repl/actions-detailed.png)
 
-### List events
+### Listar eventos
 ```bash
 mol $ events
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) event listeners
-    -d, --details         print endpoints
-    -f, --filter <match>  filter event listeners (e.g.: 'user.*')
-    -i, --skipinternal    skip internal event listeners
-    -l, --local           only local event listeners
+    -a, --all             listar todos os ouvintes de eventos (offline)
+    -d, --details         exibir endpoints
+    -f, --filter <match>  filtrar ouvintes de eventos (ex.: 'user.*')
+    -i, --skipinternal    ignorar ouvintes de eventos internos
+    -l, --local           só ouvintes de eventos locais
 ```
 
-**Output** ![image](assets/repl/events.png)
+**Saída** ![image](assets/repl/events.png)
 
-**Detailed output** ![image](assets/repl/events-detailed.png)
+**Saída detalhada** ![image](assets/repl/events-detailed.png)
 
 
-### Show common information
+### Mostrar informações comuns
 ```bash
 mol $ info
 ```
 
-**Output** ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
+**Saída** ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
 
-### List environment variables
+### Listar variáveis de ambiente
 ```bash
 mol $ env
 ```
 
-### Call an action
+### Executar uma ação
 ```bash
 mol $ call "test.hello"
 ```
 
-**Output** ![image](assets/repl/call1.png)
+**Saída** ![image](assets/repl/call1.png)
 
 **Opções**
 ```
