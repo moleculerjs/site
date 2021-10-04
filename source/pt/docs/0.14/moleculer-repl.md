@@ -140,137 +140,137 @@ mol $ call "test.hello"
 
 **Opções**
 ```
-    --help               output usage information
-    --load [filename]    Load params from file
-    --stream [filename]  Send a file as stream
-    --save [filename]    Save response to file
+    --help               mostra informações de utilização
+    --load [filename]    Carrega parâmetros do arquivo
+    --stream [filename]  Envia um arquivo como stream
+    --save [filename]    Salva a resposta em arquivo
 ```
 
-#### Call an action with parameters
+#### Executa uma ação com parâmetros
 ```bash
 mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Call an action with params & meta
+#### Executa uma ação com parâmetros & metadados
 ```bash
 mol $ call "math.add" --a 5 --#b Bob
 ```
-Params will be `{ a: 5 }` and meta will be `{ b: 'Bob' }`
+Parâmetros serão `{ a: 5 }` e metadados será `{ b: 'Bob' }`
 
-#### Call with JSON string parameter
+#### Executar com uma string JSON como parâmetro
 ```bash
 mol $ call "math.add" '{"a": 5, "b": "Bob", "c": true, "d": false, "e": { "f": "hello" } }'
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Call with parameters from file
+#### Executar com parâmetros de arquivo
 ```bash
 mol $ call "math.add" --load
 ```
-It tries to load the `<current_dir>/math.add.params.json` file to params.
+Ele tenta carregar o arquivo `<current_dir>/math.add.params.json` para a variável params.
 
 ```bash
 mol $ call "math.add" --load my-params.json
 ```
-It tries to load the `my-params.jon` file to params.
+Tenta carregar o arquivo `my-params.json` para a variável params.
 
-#### Call with file stream
+#### Executa com stream de arquivo
 ```bash
 mol $ call "math.add" --stream my-picture.jpg
 ```
-It loads the `my-picture.png` file and send to the `math.add` action as a `Stream`.
+Carrega o arquivo `my-picture.png` e envia para a ação `math.add` como um `Stream`.
 
-#### Call and save response to file
+#### Executar e salvar a resposta em arquivo
 ```bash
 mol $ call "math.add" --save
 ```
-It saved the response to the `<current_dir>/posts.find.response.json` file. The extension is `.json` when the response is `object`. Otherwise it is `.txt`.
+Salva a resposta no arquivo `<current_dir>/posts.find.response.json`. A extensão é `.json` quando a resposta for `object`. Caso contrário é `.txt`.
 
 ```bash
 mol $ call "math.add" --save my-response.json
 ```
-It saved the response to the `my-response.json` file.
+Salva a resposta para o arquivo `my-response.json`.
 
-### Direct call
-Get health info from `node-12` node
+### Chamada direta
+Obter informações de saúde do nó `node-12`
 ```bash
 mol $ dcall "node-12" "$node.health"
 ```
-> Parameter passing is similar to `call` command.
+> Passagem de parâmetros é semelhante ao comando `call`.
 
-### Emit an event
+### Emitir um evento
 ```bash
 mol $ emit "user.created"
 ```
 
-#### Emit an event with parameters
+#### Emitir um evento com parâmetros
 ```bash
 mol $ emit "user.created" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Emit an event with params & meta
+#### Emitir um evento com parâmetros & metadados
 ```bash
 mol $ emit "user.created" --a 5 --#b Bob
 ```
-Params will be `{ a: 5 }` and meta will be `{ b: 'Bob' }`
+Parâmetros serão `{ a: 5 }` e metadados será `{ b: 'Bob' }`
 
-### Benchmark services
+### Performance de um serviço
 
-Moleculer REPL module has a new bench command to measure your services.
+O módulo Moleculer REPL possui um novo comando para medir a performance de seus serviços.
 
 ```bash
-# Call service until 5 seconds (default)
+# Executa um serviço até 5 segundos (padrão)
 mol $ bench math.add
 
-# Call service 5000 times
+# Execute um serviço 5000 vezes
 mol $ bench --num 5000 math.add
 
-# Call service until 30 seconds
+# Executa um serviço até 30 segundos
 mol $ bench --time 30 math.add
 ```
 
 **Opções**
 ```
-    --num <number>     Number of iterates
-    --time <seconds>   Time of bench
-    --nodeID <nodeID>  NodeID (direct call)
+    --num <number>     Número de iterações
+    --time <seconds>   Tempo de teste
+    --nodeID <nodeID>  NodeID (chamada direta)
 ```
 
-**Output** ![image](assets/repl/bench.gif)
+**Saída** ![image](assets/repl/bench.gif)
 
 
 #### Parâmetros
-Please note, parameters can be passed only as JSON string.
+Por favor, note que os parâmetros podem ser passados apenas como string JSON.
 ```bash
 mol $ bench math.add '{ "a": 50, "b": 32 }'
 ```
 
-### Load a service from file
+### Carregar um serviço de um arquivo
 ```bash
 mol $ load "./math.service.js"
 ```
 
-### Load all services from a folder
+### Carregar todos os serviços de uma pasta
 ```bash
 mol $ load "./services"
 ```
 
-### List metrics
+### Listar métricas
 ```bash
 mol $ metrics
 ```
 
 **Opções**
 ```
-    -f, --filter <match>  filter metrics (e.g.: 'moleculer.**')
+    -f, --filter <match>  filtra métricas (ex.: 'moleculer.**')
 ```
 
-**Output** ![image](assets/repl/metrics.png#zoomable)
+**Saída** ![image](assets/repl/metrics.png#zoomable)
 
-### Cache Keys
-You can list keys of cache entries with
+### Chaves de cache
+Você pode listar as chaves de entradas de cache com
 
 ```bash
 mol $ cache keys
@@ -278,27 +278,27 @@ mol $ cache keys
 
 **Opções**
 ```
--f, --filter <match>  filter keys
+-f, --filter <match>  filtra as chaves
 ```
 
 
-### Cache Clear
+### Limpar cache
 
-You clear the cache with:
+Você limpa o cache com:
 
 ```bash
 mol $ cache clear
 ```
 
-that by default removes all the entries. If you want to remove a subset of entries, you must add a `pattern`:
+isto por padrão remove todas as entradas. Se você quiser remover um subconjunto de entradas, deverá adicionar um `padrão`:
 
-**Clear with pattern**
+**Limpar com padrão**
 ```
 mol $ cache clear greeter.*
 ```
 
-### Custom commands
-Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.
+### Comandos personalizados
+Os comandos personalizados do REPL podem ser definidos nas opções do broker para estender os comandos Moleculer REPL.
 
 ```js
 // moleculer.config.js
