@@ -96,10 +96,25 @@ Encontre mais informações sobre o esquema de validação na [documentação da
 {% endnote %}
 
 #### Validador personalizado assíncrono
-FastestValidator (`>= v1.11.0`) suporta validadores customizados assíncronos e você pode [passar metadata para uma função de validação customizada](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). No Moleculer, o FastestValidator passa o `ctx` como metadados. Isso significa que você pode acessar o context atual, serviço, broker. Isso permite que você faça chamadas assíncronas (por exemplo, chamar outro serviço) em funções de validações personalizadas.
+FastestValidator (`>= v1.11.0`) supports async custom validators, meaning that you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). No Moleculer, o FastestValidator passa o `ctx` como metadados. Isso significa que você pode acessar o context atual, serviço, broker. Isso permite que você faça chamadas assíncronas (por exemplo, chamar outro serviço) em funções de validações personalizadas. To enable it you must set `useNewCustomCheckerFunction` to `true` in `moleculer.config.js`
 
-Exemplo
+**Enabling custom async validation**
+```js
+//moleculer.config.js
+module.exports = {
+    validator: {
+        type: "FastestValidator",
+        options: {
+            useNewCustomCheckerFunction: true,
+            defaults: { /*...*/ },
+            messages: { /*...*/ },
+            aliases: { /*...*/ }
+        }
+    }
+}
+```
 
+**Using custom async validation**
 ```js
 // posts.service.js
 module.exports = {
