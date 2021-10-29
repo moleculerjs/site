@@ -141,6 +141,7 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.services` | `Array<Service>` | Local services. |
 | `broker.metrics` | `MetricRegistry` | Built-in Metric Registry. |
 | `broker.tracer` | `Tracer` | Built-in Tracer instance. |
+| `broker.errorRegenerator` | `Regenerator` | Built-in Regenerator instance. |
 
 ## Methods of ServiceBroker
 
