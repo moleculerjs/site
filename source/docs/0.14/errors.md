@@ -125,7 +125,7 @@ Retryable: **false**
 Type: `PROTOCOL_VERSION_MISMATCH`
 
 ### `InvalidPacketDataError`
-Throw it if transporter receives unknow data.
+Throw it if transporter receives unknown data.
 Error code: **500**
 Retryable: **false**
 Type: `INVALID_PACKET_DATA`
