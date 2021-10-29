@@ -142,3 +142,57 @@ class MyBusinessError extends MoleculerError {
     }
 }
 ```
+
+## Preserve custom error classes while transferring between remote nodes
+For this purpose provide your own `Regenerator`. We recommend looking at the source code of [Errors.Regenerator](https://github.com/moleculerjs/moleculer/blob/master/src/errors.js) and implementing `restore`, `extractPlainError` or `restoreCustomError` methods.
+
+### Public interface of Regenerator
+
+| Method | Return |  Description |
+| ------- | ----- | ------- |
+| `restore(plainError, payload)` | `Error` | Restores an `Error` object |
+| `extractPlainError(err)` | `Object` | Extracts a plain error object from `Error` object |
+| `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook to restore a custom error in a child class. Prefer to use this method instead of the `restore` method. |
+
+```js
+const { Regenerator, MoleculerError } = require("./index").Errors;
+const { ServiceBroker } = require("./index");
+
+class TimestampedError extends MoleculerError {
+    constructor(message, code, type, data, timestamp) {
+        super(message, code, type, data);
+        this.timestamp = timestamp;
+    }
+}
+
+class CustomRegenerator extends Regenerator {
+    restoreCustomError(plainError, payload) {
+        const { name, message, code, type, data, timestamp } = plainError;
+        switch (name) {
+            case "TimestampedError":
+                return new TimestampedError(message, code, type, data, timestamp);
+        }
+    }
+
+    extractPlainError(err) {
+        return {
+            ...super.extractPlainError(err),
+            timestamp: err.timestamp
+        };
+    }
+}
+
+const broker = new ServiceBroker({
+    errorRegenerator: new CustomRegenerator()
+});
+
+broker.createService({
+    name: "service",
+    actions: {
+        getError() {
+            // Error will be transformed to the plain error object for a remote node
+            throw new TimestampedError("Error", 456, {}, new Date());
+        }
+    }
+});
+```
