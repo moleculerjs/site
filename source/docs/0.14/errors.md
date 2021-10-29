@@ -191,7 +191,7 @@ broker.createService({
     actions: {
         getError() {
             // Error will be transformed to the plain error object for a remote node and restored there
-            throw new TimestampedError("Error", 456, {}, new Date());
+            throw new TimestampedError("Error", 456, "TIMESTAMPED_ERROR", {}, new Date());
         }
     }
 });
