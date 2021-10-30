@@ -155,8 +155,8 @@ For this purpose provide your own `Regenerator`. We recommend looking at the sou
 | `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook to restore a custom error in a child class. Prefer to use this method instead of the `restore` method. |
 
 ```js
-const { Regenerator, MoleculerError } = require("./index").Errors;
-const { ServiceBroker } = require("./index");
+const { Regenerator, MoleculerError } = require("moleculer").Errors;
+const { ServiceBroker } = require("moleculer");
 
 class TimestampedError extends MoleculerError {
     constructor(message, code, type, data, timestamp) {
