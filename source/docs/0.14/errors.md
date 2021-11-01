@@ -154,6 +154,7 @@ For this purpose provide your own `Regenerator`. We recommend looking at the sou
 | `extractPlainError(err)` | `Object` | Extracts a plain error object from `Error` object |
 | `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook to restore a custom error in a child class. Prefer to use this method instead of the `restore` method. |
 
+#### Create custom regenerator
 ```js
 const { Regenerator, MoleculerError } = require("moleculer").Errors;
 const { ServiceBroker } = require("moleculer");
@@ -182,17 +183,15 @@ class CustomRegenerator extends Regenerator {
     }
 }
 
-const broker = new ServiceBroker({
-    errorRegenerator: new CustomRegenerator()
-});
+module.exports = CustomRegenerator;
+```
 
-broker.createService({
-    name: "service",
-    actions: {
-        getError() {
-            // Error will be transformed to the plain error object for a remote node and restored there
-            throw new TimestampedError("Error", 456, "TIMESTAMPED_ERROR", {}, new Date());
-        }
-    }
-});
+#### Use custom regenerator
+```js
+// moleculer.config.js
+const CustomRegenerator = require("./custom-regenerator");
+
+module.exports = {
+    errorRegenerator: new CustomRegenerator()
+}
 ```
