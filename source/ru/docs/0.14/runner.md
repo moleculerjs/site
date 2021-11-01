@@ -1,7 +1,7 @@
 title: Стартер Moleculer Runner
 ---
 
-Moleculer Runner - это вспомогательный скрипт, который помогает вам запускать проекты Moleculer. С ним не нужно создавать экземпляр ServiceBroker с опциями. Вместо этого вы можете создать файл `moleculer.config.js` в корне репозитория с опциями брокера. Затем просто запустите `moleculer-runner` в сценарии NPM и он автоматически загрузит конфигурационный файл, создаст брокера и загрузит сервисы. В качестве альтернативы, вы можете объявить задать конфигурацию с помощью переменных среды.
+Moleculer Runner is a helper script that helps you run Moleculer projects. With it, you don't need to create a ServiceBroker instance with options. Instead, you can create a `moleculer.config.js` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script, and it will automatically load the configuration file, create the broker and load the services. В качестве альтернативы, вы можете объявить задать конфигурацию с помощью переменных среды.
 
 
 {% note info Production-ready %}
@@ -87,6 +87,7 @@ module.exports = async function() {
     return await res.json();
 };
 ```
+> This function runs with the `MoleculerRunner` instance as the `this` context. Useful if you need to access the flags passed to the runner. Check the [MoleculerRunner](https://github.com/moleculerjs/moleculer/blob/master/src/runner.js) source more details.
 
 ### Переменные окружения
 Стартер преобразует имена свойств в верхний регистр. Имена вложенных параметров объединяются символом `_`.
@@ -141,7 +142,7 @@ $ moleculer-runner services !services/others/**/*.service.js services/others/man
 - `!services/others/**/*.service.js` - пропустить все сервисы в папке `services/others` и её подпапках.
 - `services/others/mandatory/main.service.js` - загрузите только указанный сервис.
 
-> Глобальные шаблоны можно указывать в переменных окружения `SERVICES`.
+> The glob patterns work in the `SERVICES` environment variables, as well.
 
 ## Встроенная кластеризация
 
@@ -160,8 +161,8 @@ $ moleculer-runner --instances 4 services
 
 Стартер может загрузить `.env` файл при запуске. Есть две новых CLI опции для загрузки env файла:
 
-* `-e, --env` - Загрузить переменные окружения из файла '.env' из текущей папки.
-* `-E, --envfile <filename>` - Загрузить переменные окружения из указанного файла.
+* `-e, --env` - Load environment variables from the '.env' file from the current folder.
+* `-E, --envfile <filename>` - Load environment variables from the specified file.
 
 **Пример**
 ```sh
@@ -173,5 +174,5 @@ $ moleculer-runner --envfile .my-env
 ```
 
 {% note info Зависимости %}
-Чтобы использовать эту функцию, установите модуль `dotenv` командой `npm install dotenv --save`.
+To use this feature, install the `dotenv` module with `npm install dotenv --save` command.
 {% endnote %}
