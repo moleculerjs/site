@@ -99,10 +99,10 @@ All DB adapters share a common set of settings:
 | Property          | Typ                    | Default      | Beschreibung                                                                                                              |
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
-| `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
-| `populates`       | `Array`                | `null`       | Schema for population. [Read more](#Populating).                                                                          |
-| `pageSize`        | `Number`               | **required** | Default page size in `list` action.                                                                                       |
-| `maxPageSize`     | `Number`               | **required** | Maximum page size in `list` action.                                                                                       |
+| `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities.       |
+| `populates`       | `Object`                | `null`       | Schema for population. [Read more](#Populating).                                                             |
+| `pageSize`        | `Number`               | **required** | Default page size in `list` action. Default: 10                                                                           |
+| `maxPageSize`     | `Number`               | **required** | Maximum page size in `list` action. Default: 100                                                                          |
 | `maxLimit`        | `Number`               | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit)                                                         |
 | `entityValidator` | `Object`, `function`   | `null`       | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions.                            |
 
