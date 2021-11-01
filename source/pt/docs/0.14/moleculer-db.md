@@ -100,7 +100,7 @@ All DB adapters share a common set of settings:
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
 | `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities.       |
-| `populates`       | `Object`, `function`                | `null`       | Schema for population. [Read more](#Populating).                                                             |
+| `populates`       | `Object`                | `null`       | Schema for population. [Read more](#Populating).                                                             |
 | `pageSize`        | `Number`               | **required** | Default page size in `list` action. Default: 10                                                                           |
 | `maxPageSize`     | `Number`               | **required** | Maximum page size in `list` action. Default: 100                                                                          |
 | `maxLimit`        | `Number`               | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit)                                                         |
