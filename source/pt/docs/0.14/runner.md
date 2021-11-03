@@ -1,7 +1,7 @@
 title: Moleculer Runner
 ---
 
-Moleculer Runner é um script auxiliar que ajuda você a executar projetos do Moleculer. Com isso, você não precisa criar uma instância do ServiceBroker com opções. Ao invés disso, você pode criar um arquivo `moleculer.config.js` na raiz do repositório com opções do broker. Then simply call the `moleculer-runner` in NPM script, and it will automatically load the configuration file, create the broker and load the services. Como alternativa, você pode declarar sua configuração como variáveis de ambiente.
+Moleculer Runner é um script auxiliar que ajuda você a executar projetos do Moleculer. Com isso, você não precisa criar uma instância do ServiceBroker com opções. Ao invés disso, você pode criar um arquivo `moleculer.config.js` na raiz do repositório com opções do broker. Então simplesmente chame o `moleculer-runner` via script NPM, e ele carregará automaticamente o arquivo de configuração, criará o broker e fará a inicialização dos serviços. Como alternativa, você pode declarar sua configuração como variáveis de ambiente.
 
 
 {% note info Production-ready %}
@@ -87,7 +87,7 @@ module.exports = async function() {
     return await res.json();
 };
 ```
-> This function runs with the `MoleculerRunner` instance as the `this` context. Useful if you need to access the flags passed to the runner. Check the [MoleculerRunner](https://github.com/moleculerjs/moleculer/blob/master/src/runner.js) source more details.
+> Esta função é executada com a instância `MoleculerRunner` como o context `this`. Útil se você precisa acessar as configurações passadas para o runner. Verifique o código fonte em [MoleculerRunner](https://github.com/moleculerjs/moleculer/blob/master/src/runner.js) para mais detalhes.
 
 ### Variáveis de ambiente
 O runner transforma os nomes das propriedades em maiúsculas. Se aninhado, o runner concatena nomes com `_`.
@@ -142,7 +142,7 @@ $ moleculer-runner services !services/others/**/*.service.js services/others/man
 - `!services/others/**/*.service.js` - ignora todos os serviços na pasta `services/others` e suas sub-pastas.
 - `services/others/mandatory/main.service.js` - carrega o serviço exato.
 
-> The glob patterns work in the `SERVICES` environment variables, as well.
+> Os padrões glob também funcionam na variável de ambiente `SERVICES`.
 
 ## Cluster integrado
 
@@ -161,8 +161,8 @@ O `nodeID` será sufixo com o worker ID. Ex.: se você definir `my-node` como no
 
 O Moleculer runner pode carregar o arquivo `.env` ao iniciar. Existem duas novas opções para carregar arquivo env:
 
-* `-e, --env` - Load environment variables from the '.env' file from the current folder.
-* `-E, --envfile <filename>` - Load environment variables from the specified file.
+* `-e, --env` - Carrega variáveis de ambiente do arquivo '.env' do diretório atual.
+* `-E, --envfile <filename>` - Carrega variáveis de ambiente do arquivo especificado.
 
 **Exemplo**
 ```sh
@@ -174,5 +174,5 @@ $ moleculer-runner --envfile .my-env
 ```
 
 {% note info Dependencies %}
-To use this feature, install the `dotenv` module with `npm install dotenv --save` command.
+Para usar este recurso, instale o módulo `dotenv` com o comando `npm install dotenv --save`.
 {% endnote %}
