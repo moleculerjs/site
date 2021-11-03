@@ -59,6 +59,7 @@ sidebar:
     moleculer_db: 数据库适配器
     laboratory: Laboratory
     other_modules: 其他模块
+    laboratory: Laboratory
     all_modules: 所有模块
     miscellaneous: 杂项
     clustering: 集群

@@ -59,6 +59,7 @@ sidebar:
     moleculer_db: DB Adapterek
     laboratory: Laboratory
     other_modules: Egyéb modulok
+    laboratory: Laboratory
     all_modules: Minden modul
     miscellaneous: Vegyes
     clustering: Kluszterezés

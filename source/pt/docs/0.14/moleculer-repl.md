@@ -1,7 +1,7 @@
-title: REPL console
+title: Console Interativo (REPL)
 ---
 ## moleculer repl [![npm](https://img.shields.io/npm/v/moleculer-repl.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-repl)
-The [moleculer-repl](https://github.com/moleculerjs/moleculer-repl) is an interactive developer console for Moleculer.
+O [moleculer-repl](https://github.com/moleculerjs/moleculer-repl) é um console interativo de desenvolvedor para Moleculer.
 
 ## Instalação
 ```bash
@@ -10,7 +10,7 @@ npm i moleculer-repl
 
 ## Utilização
 
-**Switch broker to REPL mode**
+**Alternar broker para modo REPL**
 ```js
 const broker = new ServiceBroker();
 
@@ -20,257 +20,257 @@ broker.start().then(() => {
 });
 ```
 
-## REPL Commands
+## Comandos REPL
 
 ```
-  Commands:
-    help [command...]                                   Provides help for a given command.
-    q                                                   Exit application
-    actions [options]                                   List of actions
-    bench [options] <action> [jsonParams]               Benchmark a service
-    broadcast <eventName>                               Broadcast an event
-    broadcastLocal <eventName>                          Broadcast an event locally
-    call [options] <actionName> [jsonParams]            Call an action
-    dcall [options] <nodeID> <actionName> [jsonParams]  Direct call an action
-    clear [pattern]                                     Clear cache entries
-    cls                                                 Clear console    
-    destroy <serviceName> [version]                     Destroy a locally running service
-    emit <eventName>                                    Emit an event
-    env                                                 List of environment variables
-    events [options]                                    List of event listeners
-    info                                                Information about broker
-    load <servicePath>                                  Load a service from file
-    loadFolder <serviceFolder> [fileMask]               Load all services from folder
-    metrics [options]                                   List metrics
-    nodes [options]                                     List of nodes
-    services [options]                                  List of services
+  Comandos:
+    help [command...]                                   Fornece ajuda para um determinado comando.
+    q                                                   Encerra aplicação
+    actions [options]                                   Lista de ações
+    bench [options] <action> [jsonParams]               Performance de um serviço
+    broadcast <eventName>                               Transmitir um evento
+    broadcastLocal <eventName>                          Transmitir um evento localmente
+    call [options] <actionName> [jsonParams]            Executar uma ação
+    dcall [options] <nodeID> <actionName> [jsonParams]  Executar uma ação direta
+    clear [pattern]                                     Limpar registro de cache
+    cls                                                 Limpar console   
+    destroy <serviceName> [version]                     Destruir um serviço executando localmente
+    emit <eventName>                                    Emitir um evento
+    env                                                 Listar as variáveis de ambiente
+    events [options]                                    Lista de ouvintes de eventos
+    info                                                Informações do broker
+    load <servicePath>                                  Carregar um serviço do arquivo
+    loadFolder <serviceFolder> [fileMask]               Carregar todos os serviços de um diretório
+    metrics [options]                                   Listar métricas
+    nodes [options]                                     Listar nós
+    services [options]                                  Listar serviços
 ```
 
-### List nodes
+### Listar nós
 ```bash
 mol $ nodes
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) nodes
-    -d, --details         detailed list
-    -f, --filter <match>  filter nodes (e.g.: 'node-*')
-    --raw                 print service registry to JSON
-    --save [filename]     save service registry to a JSON file
+    -a, --all             lista todos os nós (offline)
+    -d, --details         lista detalhada
+    -f, --filter <match>  filtra nós (ex.: 'node-*')
+    --raw                 converte o registro de serviço em JSON
+    --save [filename]     salva o registro de serviço para um arquivo JSON
 ```
 
-**Output** ![image](assets/repl/nodes.png)
+**Saída** ![image](assets/repl/nodes.png)
 
-**Detailed output** ![image](assets/repl/nodes-detailed.png)
+**Saída detalhada** ![image](assets/repl/nodes-detailed.png)
 
-### List services
+### Listar serviços
 ```bash
 mol $ services
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) services
-    -d, --details         print endpoints
-    -f, --filter <match>  filter services (e.g.: 'user*')
-    -i, --skipinternal    skip internal services
-    -l, --local           only local services
+    -a, --all             lista todos os serviços (offline)
+    -d, --details         exibe endpoints
+    -f, --filter <match>  filtra serviços (ex.: 'user*')
+    -i, --skipinternal    ignora serviços internos
+    -l, --local           só serviços locais
 ```
 
-**Output** ![image](assets/repl/services.png)
+**Saída** ![image](assets/repl/services.png)
 
-**Detailed output** ![image](assets/repl/services-detailed.png)
+**Saída detalhada** ![image](assets/repl/services-detailed.png)
 
-### List actions
+### Listar ações
 ```bash
 mol $ actions
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) actions
-    -d, --details         print endpoints
-    -f, --filter <match>  filter actions (e.g.: 'users.*')
-    -i, --skipinternal    skip internal actions
-    -l, --local           only local actions
+    -a, --all             listar todas as ações (offline)
+    -d, --details         exibir endpoints
+    -f, --filter <match>  filtrar ações (ex.: 'users.*')
+    -i, --skipinternal    ignorar ações internas
+    -l, --local           só ações locais
 ```
 
-**Output** ![image](assets/repl/actions.png)
+**Saída** ![image](assets/repl/actions.png)
 
-**Detailed output** ![image](assets/repl/actions-detailed.png)
+**Saída detalhada** ![image](assets/repl/actions-detailed.png)
 
-### List events
+### Listar eventos
 ```bash
 mol $ events
 ```
 
 **Opções**
 ```
-    -a, --all             list all (offline) event listeners
-    -d, --details         print endpoints
-    -f, --filter <match>  filter event listeners (e.g.: 'user.*')
-    -i, --skipinternal    skip internal event listeners
-    -l, --local           only local event listeners
+    -a, --all             listar todos os ouvintes de eventos (offline)
+    -d, --details         exibir endpoints
+    -f, --filter <match>  filtrar ouvintes de eventos (ex.: 'user.*')
+    -i, --skipinternal    ignorar ouvintes de eventos internos
+    -l, --local           só ouvintes de eventos locais
 ```
 
-**Output** ![image](assets/repl/events.png)
+**Saída** ![image](assets/repl/events.png)
 
-**Detailed output** ![image](assets/repl/events-detailed.png)
+**Saída detalhada** ![image](assets/repl/events-detailed.png)
 
 
-### Show common information
+### Mostrar informações comuns
 ```bash
 mol $ info
 ```
 
-**Output** ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
+**Saída** ![image](https://cloud.githubusercontent.com/assets/306521/26260974/aaea9b02-3ccf-11e7-9e1c-ec9150518791.png)
 
-### List environment variables
+### Listar variáveis de ambiente
 ```bash
 mol $ env
 ```
 
-### Call an action
+### Executar uma ação
 ```bash
 mol $ call "test.hello"
 ```
 
-**Output** ![image](assets/repl/call1.png)
+**Saída** ![image](assets/repl/call1.png)
 
 **Opções**
 ```
-    --help               output usage information
-    --load [filename]    Load params from file
-    --stream [filename]  Send a file as stream
-    --save [filename]    Save response to file
+    --help               mostra informações de utilização
+    --load [filename]    Carrega parâmetros do arquivo
+    --stream [filename]  Envia um arquivo como stream
+    --save [filename]    Salva a resposta em arquivo
 ```
 
-#### Call an action with parameters
+#### Executa uma ação com parâmetros
 ```bash
 mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Call an action with params & meta
+#### Executa uma ação com parâmetros & metadados
 ```bash
 mol $ call "math.add" --a 5 --#b Bob
 ```
-Params will be `{ a: 5 }` and meta will be `{ b: 'Bob' }`
+Parâmetros serão `{ a: 5 }` e metadados será `{ b: 'Bob' }`
 
-#### Call with JSON string parameter
+#### Executar com uma string JSON como parâmetro
 ```bash
 mol $ call "math.add" '{"a": 5, "b": "Bob", "c": true, "d": false, "e": { "f": "hello" } }'
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Call with parameters from file
+#### Executar com parâmetros de arquivo
 ```bash
 mol $ call "math.add" --load
 ```
-It tries to load the `<current_dir>/math.add.params.json` file to params.
+Ele tenta carregar o arquivo `<current_dir>/math.add.params.json` para a variável params.
 
 ```bash
 mol $ call "math.add" --load my-params.json
 ```
-It tries to load the `my-params.jon` file to params.
+Tenta carregar o arquivo `my-params.json` para a variável params.
 
-#### Call with file stream
+#### Executa com stream de arquivo
 ```bash
 mol $ call "math.add" --stream my-picture.jpg
 ```
-It loads the `my-picture.png` file and send to the `math.add` action as a `Stream`.
+Carrega o arquivo `my-picture.png` e envia para a ação `math.add` como um `Stream`.
 
-#### Call and save response to file
+#### Executar e salvar a resposta em arquivo
 ```bash
 mol $ call "math.add" --save
 ```
-It saved the response to the `<current_dir>/posts.find.response.json` file. The extension is `.json` when the response is `object`. Otherwise it is `.txt`.
+Salva a resposta no arquivo `<current_dir>/posts.find.response.json`. A extensão é `.json` quando a resposta for `object`. Caso contrário é `.txt`.
 
 ```bash
 mol $ call "math.add" --save my-response.json
 ```
-It saved the response to the `my-response.json` file.
+Salva a resposta para o arquivo `my-response.json`.
 
-### Direct call
-Get health info from `node-12` node
+### Chamada direta
+Obter informações de saúde do nó `node-12`
 ```bash
 mol $ dcall "node-12" "$node.health"
 ```
-> Parameter passing is similar to `call` command.
+> Passagem de parâmetros é semelhante ao comando `call`.
 
-### Emit an event
+### Emitir um evento
 ```bash
 mol $ emit "user.created"
 ```
 
-#### Emit an event with parameters
+#### Emitir um evento com parâmetros
 ```bash
 mol $ emit "user.created" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
-Params will be `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
+Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Emit an event with params & meta
+#### Emitir um evento com parâmetros & metadados
 ```bash
 mol $ emit "user.created" --a 5 --#b Bob
 ```
-Params will be `{ a: 5 }` and meta will be `{ b: 'Bob' }`
+Parâmetros serão `{ a: 5 }` e metadados será `{ b: 'Bob' }`
 
-### Benchmark services
+### Performance de um serviço
 
-Moleculer REPL module has a new bench command to measure your services.
+O módulo Moleculer REPL possui um novo comando para medir a performance de seus serviços.
 
 ```bash
-# Call service until 5 seconds (default)
+# Executa um serviço até 5 segundos (padrão)
 mol $ bench math.add
 
-# Call service 5000 times
+# Execute um serviço 5000 vezes
 mol $ bench --num 5000 math.add
 
-# Call service until 30 seconds
+# Executa um serviço até 30 segundos
 mol $ bench --time 30 math.add
 ```
 
 **Opções**
 ```
-    --num <number>     Number of iterates
-    --time <seconds>   Time of bench
-    --nodeID <nodeID>  NodeID (direct call)
+    --num <number>     Número de iterações
+    --time <seconds>   Tempo de teste
+    --nodeID <nodeID>  NodeID (chamada direta)
 ```
 
-**Output** ![image](assets/repl/bench.gif)
+**Saída** ![image](assets/repl/bench.gif)
 
 
 #### Parâmetros
-Please note, parameters can be passed only as JSON string.
+Por favor, note que os parâmetros podem ser passados apenas como string JSON.
 ```bash
 mol $ bench math.add '{ "a": 50, "b": 32 }'
 ```
 
-### Load a service from file
+### Carregar um serviço de um arquivo
 ```bash
 mol $ load "./math.service.js"
 ```
 
-### Load all services from a folder
+### Carregar todos os serviços de uma pasta
 ```bash
 mol $ load "./services"
 ```
 
-### List metrics
+### Listar métricas
 ```bash
 mol $ metrics
 ```
 
 **Opções**
 ```
-    -f, --filter <match>  filter metrics (e.g.: 'moleculer.**')
+    -f, --filter <match>  filtra métricas (ex.: 'moleculer.**')
 ```
 
-**Output** ![image](assets/repl/metrics.png#zoomable)
+**Saída** ![image](assets/repl/metrics.png#zoomable)
 
-### Cache Keys
-You can list keys of cache entries with
+### Chaves de cache
+Você pode listar as chaves de entradas de cache com
 
 ```bash
 mol $ cache keys
@@ -278,27 +278,27 @@ mol $ cache keys
 
 **Opções**
 ```
--f, --filter <match>  filter keys
+-f, --filter <match>  filtra as chaves
 ```
 
 
-### Cache Clear
+### Limpar cache
 
-You clear the cache with:
+Você limpa o cache com:
 
 ```bash
 mol $ cache clear
 ```
 
-that by default removes all the entries. If you want to remove a subset of entries, you must add a `pattern`:
+isto por padrão remove todas as entradas. Se você quiser remover um subconjunto de entradas, deverá adicionar um `padrão`:
 
-**Clear with pattern**
+**Limpar com padrão**
 ```
 mol $ cache clear greeter.*
 ```
 
-### Custom commands
-Custom REPL commands can be defined in broker options to extend Moleculer REPL commands.
+### Comandos personalizados
+Os comandos personalizados do REPL podem ser definidos nas opções do broker para estender os comandos Moleculer REPL.
 
 ```js
 // moleculer.config.js

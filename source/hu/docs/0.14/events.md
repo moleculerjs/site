@@ -82,6 +82,7 @@ The `v0.14` version supports Context-based event handlers. Event context is usef
 You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers:
 - If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context.
 - If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
+- You can also force the usage of the new signature by setting `context: true` in the event declaration
 
 {% endnote %}
 
@@ -97,6 +98,14 @@ module.exports = {
             console.log("The called event name:", ctx.eventName);
 
             ctx.emit("accounts.created", { user: ctx.params.user });
+        },
+
+        "user.removed": {
+            // Force to use context based signature
+            context: true,
+            handler(other) {
+                console.log(`${this.broker.nodeID}:${this.fullName}: Event '${other.eventName}' received. Payload:`, other.params, other.meta);
+            }
         }
     }
 };

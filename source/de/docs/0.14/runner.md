@@ -1,7 +1,7 @@
 title: Moleculer Runner
 ---
 
-Moleculer Runner is a helper script that helps you running Moleculer projects. With it you don't need to create a ServiceBroker instance with options. Instead you can create a `moleculer.config.js` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script and it will automatically load the configuration file, create the broker and load the services. Alternatively, you can declare your configuration as environment variables.
+Moleculer Runner is a helper script that helps you run Moleculer projects. With it, you don't need to create a ServiceBroker instance with options. Instead, you can create a `moleculer.config.js` file in the root of repo with broker options. Then simply call the `moleculer-runner` in NPM script, and it will automatically load the configuration file, create the broker and load the services. Alternatively, you can declare your configuration as environment variables.
 
 
 {% note info Production-ready %}
@@ -87,6 +87,7 @@ module.exports = async function() {
     return await res.json();
 };
 ```
+> This function runs with the `MoleculerRunner` instance as the `this` context. Useful if you need to access the flags passed to the runner. Check the [MoleculerRunner](https://github.com/moleculerjs/moleculer/blob/master/src/runner.js) source more details.
 
 ### Environment variables
 The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.
@@ -141,7 +142,7 @@ $ moleculer-runner services !services/others/**/*.service.js services/others/man
 - `!services/others/**/*.service.js` - skip all services in the `services/others` folder and sub-folders.
 - `services/others/mandatory/main.service.js` - load the exact service.
 
-> The glob patterns work in the `SERVICES` enviroment variables, as well.
+> The glob patterns work in the `SERVICES` environment variables, as well.
 
 ## Built-in clustering
 
@@ -160,8 +161,8 @@ The `nodeID` will be suffixed with the worker ID. E.g. if you define `my-node` n
 
 Moleculer runner can load `.env` file at starting. There are two new cli options to load env file:
 
-* `-e, --env` - Load envorinment variables from the '.env' file from the current folder.
-* `-E, --envfile <filename>` - Load envorinment variables from the specified file.
+* `-e, --env` - Load environment variables from the '.env' file from the current folder.
+* `-E, --envfile <filename>` - Load environment variables from the specified file.
 
 **Example**
 ```sh
@@ -173,5 +174,5 @@ $ moleculer-runner --envfile .my-env
 ```
 
 {% note info Dependencies %}
-To use this feature install the `dotenv` module with `npm install dotenv --save` command.
+To use this feature, install the `dotenv` module with `npm install dotenv --save` command.
 {% endnote %}
