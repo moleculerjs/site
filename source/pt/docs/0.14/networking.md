@@ -1,22 +1,22 @@
-title: Networking
+title: Comunicação de rede
 ---
-In order to communicate with other nodes (ServiceBrokers) you need to configure a transporter. Most of the supported transporters connect to a central message broker that provide a reliable way of exchanging messages among remote nodes. These message brokers mainly support publish/subscribe messaging pattern.
+Para se comunicar com outros nós (ServiceBrokers) você precisa configurar um módulo de transporte. A maioria dos módulos de transporte suportados conecta-se a um broker central de mensagens que fornece uma forma confiável de troca de mensagens entre nós remotos. Esses brokers de mensagens suportam principalmente o padrão de publicação/assinatura.
 
 <div align="center">
     <img src="assets/networking.svg" alt="Networking diagram" />
 </div>
 
 ## Transporte
-Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If multiple instances of a service are running on different nodes then the requests will be load-balanced among them.
+Transporter é um módulo importante se você estiver executando serviços em vários nós. O transporter se comunica com outros nós. Ele transfere eventos, chama requisições e processa respostas ... etc. Se várias instâncias de um serviço estiverem sendo executadas em diferentes nós, então as solicitações serão balanceadas entre elas.
 
-The whole communication logic is outside of transporter class. It means that you can switch between transporters without changing any line of code.
+Toda a lógica da comunicação está fora da classe do módulo de transporte. Significa que é possível alternar entre módulos de transporte sem alterar linhas de código.
 
-There are several built-in transporters in Moleculer framework.
+Existem vários módulos de transporte integrados no framework Moleculer.
 
 ### TCP transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) This is a no-dependency, zero-configuration TCP transporter. It uses [Gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol) to disseminate node statuses, service list and heartbeats. It contains an integrated UDP discovery feature to detect new and disconnected nodes on the network. If the UDP is prohibited on your network, use `urls` option. It is a list of remote endpoints (host/ip, port, nodeID). It can be a static list in your configuration or a file path which contains the list.
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Este é um módulo de transporte via TCP sem dependências e configuração zero. Ele usa o [Protocolo Gossip](https://en.wikipedia.org/wiki/Gossip_protocol) para disseminar status do nó, lista de serviço e sinais de vida. Contém um recurso integrado de descoberta UDP para detectar nós novos e nós desconectados na rede. Se o UDP for proibido na sua rede, use a opção `urls`. É uma lista de endpoints remotos (host/ip, port, nodeID). Pode ser uma lista estática na sua configuração ou um caminho de arquivo que contenha a lista.
 
-**Use TCP transporter with default options**
+**Use TCP transporter com opções padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
 };
 ```
 
-**All TCP transporter options with default values**
+**Todas as opções do TCP transporter com valores padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -70,7 +70,7 @@ module.exports = {
 };
 ```
 
-**TCP transporter with static endpoint list**
+**TCP transporter com lista de endpoint estática**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -89,9 +89,9 @@ module.exports = {
     }
 };
 ```
-_You don't need to set `port` because it find & parse the self TCP port from URL list._
+_Você não precisa definir o parâmetro `port` porque ele encontra & analisa a porta TCP na lista de URL._
 
-**TCP transporter with shorthand static endpoint list** It needs to start with `tcp://`.
+**TCP Transporter com lista de endpoint estática e abreviada** Precisa começar com `tcp://`.
 ```js
 // moleculer.config.js
 module.exports = {
@@ -100,7 +100,7 @@ module.exports = {
 };
 ```
 
-**TCP transporter with static endpoint list file**
+**TCP Transporter com arquivo de lista de endpoint estática**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -119,7 +119,7 @@ module.exports = {
 ```
 
 {% note info Serviceless node %}
-Please note, you don't need to list all remote nodes. It's enough at least one node which is online. For example, create a "serviceless" gossiper node, which does nothing, just shares other remote nodes addresses by gossip messages. So all nodes must know only the gossiper node address to be able to communicate with all other nodes.
+Por favor, note que você não precisa listar todos os nós remotos. É suficiente que pelo menos um nó esteja online. Por exemplo, crie um nó "sem serviço", que não faz nada, apenas compartilha outros nós remotos através de mensagens redirecionadas. So all nodes must know only the gossiper node address to be able to communicate with all other nodes.
 {% endnote %}
 
 ### NATS Transporter
