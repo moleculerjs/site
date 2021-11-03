@@ -4,6 +4,10 @@ subtitle: Developer tool for Moleculer-based projects
 ---
 <img src="assets/laboratory-banner.png" style="box-shadow: 0 0 20px rgba(0,0,0,0.8); border-radius: 10px;" />
 
+{% note warn %}
+Moleculer's Laboratory is only available for Beta Testers. To join beta testing, [fill out this form](https://forms.gle/YYPWEbNbjL4pNAJ47).
+{% endnote %}
+
 ## What is Moleculer's Laboratory?
 Moleculer's Laboratory is a developer tool for Moleculer-based microservices projects. It's not a cloud-based [APM](https://en.wikipedia.org/wiki/Application_performance_management) service. Every collected data is stored in the Agent service local memory and in your browser. It does **NOT** upload your data to cloud storages in foreign countries, everything is in your hand. Your data is yours. 
 
@@ -26,10 +30,10 @@ Agent Service needs at least Moleculer v0.14.8.
 ### Frontend App
 This is a visualization app that shows the collected data in your browser. It's a web application, which is hosted by us but it runs only in your browser. It connects directly to your local Agent service. It means that you don't have to expose the Agent service port (3210) to the internet! E.g.: if your project is running on your PC locally, you can use the http://localhost:3210 address in the frontend and it will work well.
 
-**The frontend app is available on [http://lab.moleculer.services](http://lab.moleculer.services).**
+**The frontend app is available on [https://lab.moleculer.services](https://lab.moleculer.services).**
 
 {% note info %}
-It's also available on HTTPS but it can cause problems due to connection a local non-HTTPS server (Mixed content issue in browsers).
+If you have connectivity problem due to connection a local non-HTTPS server (mixed-content issue), enable non-secure contents for Laboratory in your browser. [More information.](https://experienceleague.adobe.com/docs/target/using/experiences/vec/troubleshoot-composer/mixed-content.html?lang=en)
 {% endnote %}
 
 ## Use it in your project
