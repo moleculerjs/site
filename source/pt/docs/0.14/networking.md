@@ -545,7 +545,7 @@ class MyTransporter extends BaseTransporter {
 }
 ```
 
-#### Use custom transporter
+#### Usar transporter personalizado
 
 ```js
 // moleculer.config.js
@@ -556,8 +556,8 @@ module.exports = {
 };
 ```
 
-## Disabled balancer
-Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
+## Balanceador desativado
+Alguns servidores de módulos de transporte possuem uma solução de balanceamento integrada. Ex.: RabbitMQ, NATS, NATS-Streaming. Se você quiser usar o balanceador do transporter em vez do balanceador do Moleculer, defina a opção `disableBalancer` do broker como `true`.
 
 **Exemplo**
 ```js
@@ -569,14 +569,14 @@ module.exports = {
 ```
 
 {% note info Please note %}
-If you disable the built-in Moleculer balancer, all requests & events will be transferred via transporter (including local requests). E.g. you have a local math service and you call `math.add` locally, the request will be sent via transporter.
+Se você desativar o balanceamento interno do Moleculer, todas as requisições & eventos serão transferidos via transporter (incluindo requisições locais). Por exemplo, você possui um serviço de cálculo matemático local e você chama `math.add` localmente, a requisição será enviada pelo transporter.
 {% endnote %}
 
-## Serialization
-Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
+## Serialização
+O transporter precisa de um módulo serializador que serializa & desserializa os pacotes transferidos. O serializador padrão é o `JSONSerializer` mas há vários serializadores integrados.
 
 {% note warn %}
-Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with native JSON serializer. If you are working with this kind of data consider using [Avro](#Avro-serializer), [Notepack](#Notepack-serializer) or any other binary serializer.
+Note que certos tipos de dados (por exemplo, Date, Map, BigInt) não podem ser serializados com o serializador de JSON nativo. Se você está trabalhando com esse tipo de dados considere o uso do [Avro](#Avro-serializer), [Notepack](#Notepack-serializer) ou qualquer outro serializador binário.
 {% endnote %}
 
 
@@ -590,8 +590,8 @@ module.exports = {
 };
 ```
 
-### JSON serializer
-This is the default serializer. It serializes the packets to JSON string and deserializes the received data to packet.
+### Serializador JSON
+Este é o serializador padrão. Ele serializa os pacotes para a string JSON e desserializa os dados recebidos para o pacote.
 
 ```js
 // moleculer.config.js
@@ -600,8 +600,8 @@ module.exports = {
 };
 ```
 
-### Avro serializer
-Built-in [Avro](https://github.com/mtth/avsc) serializer.
+### Serializador Avro
+Serializador [Avro](https://github.com/mtth/avsc) integrado.
 
 ```js
 // moleculer.config.js
@@ -610,11 +610,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this serializer install the `avsc` module with `npm install avsc --save` command.
+Para usar este serializador instale o módulo `avsc` com o comando `npm install avsc --save`.
 {% endnote %}
 
-### MsgPack serializer
-Built-in [MsgPack](https://github.com/mcollina/msgpack5) serializer.
+### Serializador MsgPack
+Serializador [MsgPack](https://github.com/mcollina/msgpack5) integrado.
 
 ```js
 // moleculer.config.js
@@ -623,11 +623,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this serializer install the `msgpack5` module with `npm install msgpack5 --save` command.
+Para usar esse serializador instale o módulo `msgpack5` com o comando `npm install msgpack5 --save`.
 {% endnote %}
 
-### Notepack serializer
-Built-in [Notepack](https://github.com/darrachequesne/notepack) serializer.
+### Serializador Notepack
+Serializador [Notepack](https://github.com/darrachequesne/notepack) integrado.
 
 ```js
 // moleculer.config.js
@@ -636,11 +636,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this serializer install the `notepack` module with `npm install notepack.io --save` command.
+Para usar esse serializador instale o módulo `notepack` usando o comando `npm install notepack.io --save`.
 {% endnote %}
 
-### ProtoBuf serializer
-Built-in [Protocol Buffer](https://developers.google.com/protocol-buffers/) serializer.
+### Serializador ProtoBuf
+Serializador [Protocol Buffer](https://developers.google.com/protocol-buffers/) integrado.
 
 ```js
 // moleculer.config.js
@@ -649,11 +649,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
+Para usar este serializador instale o módulo `protobufjs` com o comando `npm install protobufjs --save`.
 {% endnote %}
 
-### Thrift serializer
-Built-in [Thrift](http://thrift.apache.org/) serializer.
+### Serializador Thrift
+Serializador [Thrift](http://thrift.apache.org/) integrado.
 
 ```js
 // moleculer.config.js
@@ -662,11 +662,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this serializer install the `thrift` module with `npm install thrift --save` command.
+Para usar esse serializador instale o módulo `thrift` usando o comando `npm install thrift --save`.
 {% endnote %}
 
-### CBOR serializer
-CBOR ([cbor-x](https://github.com/kriszyp/cbor-x)) is the [fastest](https://github.com/moleculerjs/moleculer/pull/905) than any other serializers.
+### Serializador CBOR
+CBOR ([cbor-x](https://github.com/kriszyp/cbor-x)) é [mais rápido](https://github.com/moleculerjs/moleculer/pull/905) que qualquer outro serializador.
 
 Exemplo
 ```js
@@ -677,10 +677,10 @@ module.exports = {
 };
 ```
 
-### Custom serializer
-Custom serializer module can be created. We recommend to copy the source of [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) and implement the `serialize` and `deserialize` methods.
+### Serializador personalizado
+Um módulo serializador personalizado pode ser criado. Recomendamos copiar a fonte do [JSONSerializer](https://github.com/moleculerjs/moleculer/blob/master/src/serializers/json.js) e implementar os métodos `serialize` e `deserialize`.
 
-#### Create custom serializer
+#### Criar serializador personalizado
 ```js
 const BaseSerializer = require("moleculer").Serializers.Base;
 
@@ -690,7 +690,7 @@ class MySerializer extends BaseSerializer {
 }
 ```
 
-#### Use custom serializer
+#### Usar serializador personalizado
 
 ```js
 // moleculer.config.js
