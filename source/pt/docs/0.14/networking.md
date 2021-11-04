@@ -119,12 +119,12 @@ module.exports = {
 ```
 
 {% note info Serviceless node %}
-Por favor, note que você não precisa listar todos os nós remotos. É suficiente que pelo menos um nó esteja online. Por exemplo, crie um nó "sem serviço", que não faz nada, apenas compartilha outros nós remotos através de mensagens redirecionadas. So all nodes must know only the gossiper node address to be able to communicate with all other nodes.
+Por favor, note que você não precisa listar todos os nós remotos. É suficiente que pelo menos um nó esteja online. Por exemplo, crie um nó "sem serviço", que não faz nada, apenas compartilha outros nós remotos através de mensagens redirecionadas. Portanto, todos os nós devem saber apenas o endereço do nó redirecionador para serem capazes de se comunicar com todos os outros nós.
 {% endnote %}
 
-### NATS Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [NATS](http://nats.io/).
-> NATS Server is a simple, high performance open source messaging system for cloud-native applications, IoT messaging, and microservices architectures.
+### NATS transporter
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Módulo de transporte integrado para [NATS](http://nats.io/).
+> O Servidor NATS é um sistema de mensagens de código aberto simples, de alto desempenho, para aplicativos nativos em nuvem, mensagens IoT e arquiteturas de microsserviços.
 
 ```js
 // moleculer.config.js
@@ -135,11 +135,11 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
+Para usar este transporter, instale o módulo `nats` com o comando `npm install nats@1.4.12 --save`.
 {% endnote %}
 
 #### Exemplos
-**Connect to 'nats://localhost:4222'**
+**Conecte em 'nats://localhost:4222'**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -147,7 +147,7 @@ module.exports = {
 };
 ```
 
-**Connect to a remote NATS server**
+**Conectar a um servidor NATS remoto**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -155,7 +155,7 @@ module.exports = {
 };
 ```
 
-**Connect with options**
+**Conectar com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -170,7 +170,7 @@ module.exports = {
 };
 ```
 
-**Connect with TLS**
+**Conectar com TLS**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -190,7 +190,7 @@ module.exports = {
 ```
 
 ### Redis Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [Redis](http://redis.io/).
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Transporte integrado para [Redis](http://redis.io/).
 
 ```js
 // moleculer.config.js
@@ -200,11 +200,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this transporter install the `ioredis` module with `npm install ioredis --save` command.
+Para usar este transporter, instale o módulo `ioredis` usando o comando `npm install ioredis --save`.
 {% endnote %}
 
 #### Exemplos
-**Connect with default settings**
+**Conecte com as configurações padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -212,7 +212,7 @@ module.exports = {
 };
 ```
 
-**Connect with connection string**
+**Conectar-se com string de conexão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -220,7 +220,7 @@ module.exports = {
 };
 ```
 
-**Connect to a secure Redis server**
+**Conectar a um servidor Redis seguro**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -228,7 +228,7 @@ module.exports = {
 };
 ```
 
-**Connect with options**
+**Conectar com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -242,7 +242,7 @@ module.exports = {
 };
 ```
 
-**Connect to Redis cluster**
+**Conectar ao cluster do Redis**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -261,7 +261,7 @@ module.exports = {
 ```
 
 ### MQTT Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [MQTT](http://mqtt.org/) protocol *(e.g.: [Mosquitto](https://mosquitto.org/))*.
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Módulo de transporte integrado para protocolo [MQTT](http://mqtt.org/) *(ex.: [Mosquitto](https://mosquitto.org/))*.
 
 ```js
 // moleculer.config.js
@@ -271,11 +271,11 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this transporter install the `mqtt` module with `npm install mqtt --save` command.
+Para usar este transporter, instale o módulo `mqtt` com o comando `npm install mqtt --save`.
 {% endnote %}
 
 #### Exemplos
-**Connect with default settings**
+**Conectar com as configurações padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -283,7 +283,7 @@ module.exports = {
 };
 ```
 
-**Connect with connection string**
+**Conectar-se com string de conexão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -291,7 +291,7 @@ module.exports = {
 };
 ```
 
-**Connect to secure MQTT server**
+**Conectar ao servidor MQTT seguro**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -299,7 +299,7 @@ module.exports = {
 };
 ```
 
-**Connect with options**
+**Conectar com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -316,7 +316,7 @@ module.exports = {
 ```
 
 ### AMQP (0.9) Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [AMQP](https://www.amqp.org/) 0.9 protocol *(e.g.: [RabbitMQ](https://www.rabbitmq.com/))*.
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Módulo de transporte integrado para o protocolo [AMQP 0.9](https://www.amqp.org/) *(ex.: [RabbitMQ](https://www.rabbitmq.com/))*.
 
 ```js
 // moleculer.config.js
@@ -326,13 +326,13 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this transporter install the `amqplib` module with `npm install amqplib --save` command.
+Para usar este transporter, instale o módulo `amqplib` com o comando `npm install amqplib --save`.
 {% endnote %}
 
-#### Transporter options
-Options can be passed to `amqp.connect()` method.
+#### Opções do transporter
+As opções podem ser passadas para o método `amqp.connect()`.
 
-**Connect to 'amqp://guest:guest@localhost:5672'**
+**Conectar a 'amqp://guest:guest@localhost:5672'**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -340,7 +340,7 @@ module.exports = {
 });
 ```
 
-**Connect to a remote server**
+**Conectar a um servidor remoto**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -348,7 +348,7 @@ module.exports = {
 });
 ```
 
-**Connect to a secure server**
+**Conecte-se a um servidor seguro**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -356,7 +356,7 @@ module.exports = {
 });
 ```
 
-**Connect to a remote server with options & credentials**
+**Conecte-se a um servidor remoto com opções & credenciais**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -377,8 +377,8 @@ module.exports = {
 ```
 
 ### AMQP 1.0 Transporter
-![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg) Built-in transporter for [AMQP 1.0](https://www.amqp.org/resources/specifications) protocol *(e.g.: [ActiveMq](https://activemq.apache.org/) or [RabbitMQ](https://www.rabbitmq.com/) + [rabbitmq-amqp1.0 plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0))*.
-> Please note, it is an **experimental** transporter. **Do not use it in production yet!**
+![Módulo de Transporte experimental](https://img.shields.io/badge/status-experimental-orange.svg) Módulo de transporte integrado para o protocolo [AMQP 1.0](https://www.amqp.org/resources/specifications) *(ex.: [ActiveMq](https://activemq.apache.org/) ou [RabbitMQ](https://www.rabbitmq.com/) + [rabbitmq-amqp1.0 plugin](https://github.com/rabbitmq/rabbitmq-amqp1.0))*.
+> Por favor note que é um transporter **experimental**. **Não use ainda em produção!**
 
 ```js
 // moleculer.config.js
@@ -387,13 +387,13 @@ module.exports = {
 };
 ```
 {% note info Dependencies %}
-To use this transporter install the `rhea-promise` module with `npm install rhea-promise --save` command.
+Para usar este transporter, instale o módulo `rhea-promise` usando o comando `npm install rhea-promise --save`.
 {% endnote %}
 
-#### Transporter options
-Options can be passed to `rhea.connection.open()` method, the topics, the queues, and the messages themselves.
+#### Opções do transporter
+As opções podem ser passadas para o método `rhea.connection.open()`, para os tópicos, as filas e as próprias mensagens.
 
-**Connect to 'amqp10://guest:guest@localhost:5672'**
+**Conectar a 'amqp10://guest:guest@localhost:5672'**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -401,7 +401,7 @@ module.exports = {
 };
 ```
 
-**Connect to a remote server**
+**Conectar a um servidor remoto**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -409,7 +409,7 @@ module.exports = {
 };
 ```
 
-**Connect to a remote server with options & credentials**
+**Conecte-se a um servidor remoto com opções & credenciais**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -433,14 +433,14 @@ module.exports = {
 ```
 
 ### Kafka Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [Kafka](https://kafka.apache.org/).
-> It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Módulo de transporte integrado para [Kafka](https://kafka.apache.org/).
+> Trata-se de uma implementação simples. Transfere pacotes Moleculer para consumidores através de pub/sub. Não há offset implementado, recursos de replay... etc.
 
 {% note info Dependencies %}
-To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
+Para usar este transporter, instale o módulo `kafka-node` com o comando `npm install kafka-node --save`.
 {% endnote %}
 
-**Connect to Zookeeper**
+**Conectar ao Zookeeper**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -448,7 +448,7 @@ module.exports = {
 };
 ```
 
-**Connect to Zookeeper with custom options**
+**Conectar ao Zookeeper com opções personalizadas**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -457,22 +457,22 @@ module.exports = {
         options: {
             host: "192.168.51.29:2181",
 
-            // KafkaClient options. More info: https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions-ssloptions
+            // KafkaClient options. Mais informações: https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions-ssloptions
             client: {
                 zkOptions: undefined,
                 noAckBatchOptions: undefined,
                 sslOptions: undefined
             },
 
-            // KafkaProducer options. More info: https://github.com/SOHU-Co/kafka-node#producerclient-options-custompartitioner
+            // KafkaProducer options. Mais informações: https://github.com/SOHU-Co/kafka-node#producerclient-options-custompartitioner
             producer: {},
             customPartitioner: undefined,
 
-            // ConsumerGroup options. More info: https://github.com/SOHU-Co/kafka-node#consumergroupoptions-topics
+            // ConsumerGroup options. Mais informações: https://github.com/SOHU-Co/kafka-node#consumergroupoptions-topics
             consumer: {
             },
 
-            // Advanced options for `send`. More info: https://github.com/SOHU-Co/kafka-node#sendpayloads-cb
+            // Advanced options for `send`. Mais informações: https://github.com/SOHU-Co/kafka-node#sendpayloads-cb
             publish: {
                 partition: 0,
                 attributes: 0
@@ -483,8 +483,8 @@ module.exports = {
 ```
 
 ### NATS Streaming (STAN) Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Built-in transporter for [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/).
-> It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
+![Stable transporter](https://img.shields.io/badge/status-stable-green.svg) Módulo de Transporte integrado para [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/).
+> Trata-se de uma implementação simples. Transfere pacotes Moleculer para consumidores através do pub/sub. Não há offset implementado, recursos de replay... etc.
 
 
 ```js
@@ -496,11 +496,11 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
+Para usar este transporter instale o módulo `node-nats-streaming` com o comando `npm install node-nats-streaming --save`.
 {% endnote %}
 
 #### Exemplos
-**Connect with default settings**
+**Conectar com as configurações padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -508,7 +508,7 @@ module.exports = {
 };
 ```
 
-**Connect with connection string**
+**Conectar-se com string de conexão**
 ```js
 // moleculer.config.js
 module.exports = {
