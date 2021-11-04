@@ -516,7 +516,7 @@ module.exports = {
 };
 ```
 
-**Connect with options**
+**Conectar com opções**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -530,8 +530,8 @@ module.exports = {
 };
 ```
 
-### Custom transporter
-Custom transporter module can be created. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `send` methods.
+### Módulo de Transporte personalizado
+Um módulo personalizado de transporte pode ser criado. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `send` methods.
 
 #### Create custom transporter
 ```js
