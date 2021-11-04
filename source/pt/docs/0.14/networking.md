@@ -531,9 +531,9 @@ module.exports = {
 ```
 
 ### Módulo de Transporte personalizado
-Um módulo personalizado de transporte pode ser criado. We recommend to copy the source of [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) and implement the `connect`, `disconnect`, `subscribe` and `send` methods.
+Um módulo personalizado de transporte pode ser criado. Recomendamos copiar a fonte do [NatsTransporter](https://github.com/moleculerjs/moleculer/blob/master/src/transporters/nats.js) e implementar os métodos de `connect`, `disconnect`, `subscribe` e ` send`.
 
-#### Create custom transporter
+#### Criar transporter personalizado
 ```js
 const BaseTransporter = require("moleculer").Transporters.Base;
 
