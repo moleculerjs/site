@@ -10,6 +10,9 @@
           <i class="fa fa-search"></i>
         </div>
         <input type="search" id="search-input" placeholder="{{ __('menu.search') }}">
+        <div class="search-input-keybind">
+          <pre>/</pre>
+        </div>
       </div>
     </nav>
     <div id="lang-select-wrap">
