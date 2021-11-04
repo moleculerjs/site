@@ -1,11 +1,11 @@
-title: Services
+title: Serviços
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+O `service` representa um microsserviço no framework Moleculer. Você pode definir ações e assinar eventos. Para criar um serviço você deve definir um esquema. O esquema de serviço é semelhante a um [componente do VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
-## Schema
-The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+## Esquema
+O esquema tem algumas partes principais: `name`, `version`, `settings`, `actions`, `methods`, `events`.
 
-### Simple service schema to define two actions
+### Esquema de serviço simples para definir duas ações
 ```js
 // math.service.js
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
 }
 ```
 
-## Base properties
-The Service has some base properties in the schema.
+## Propriedades básicas
+O Serviço tem algumas propriedades básicas no esquema.
 ```js
 // posts.v1.service.js
 module.exports = {
@@ -31,11 +31,11 @@ module.exports = {
     version: 1
 }
 ```
-The `name` is a mandatory property so it must be defined. It's the first part of action name when you call it.
+O `name` é uma propriedade obrigatória, então deve ser definida. É a primeira parte do nome da ação quando você a chama.
 
-> To disable service name prefixing set `$noServiceNamePrefix: true` in Service settings.
+> Para desativar o prefixo do nome do serviço, defina `$noServiceNamePrefix: true` nas configurações do serviço.
 
-The `version` is an optional property. Use it to run multiple version from the same service. It is a prefix in the action name. It can be a `Number` or a `String`.
+A propriedade `version` é opcional. Use-a para executar várias versões do mesmo serviço. É um prefixo no nome da ação. Pode ser `Number` ou `String`.
 ```js
 // posts.v2.service.js
 module.exports = {
@@ -46,19 +46,19 @@ module.exports = {
     }
 }
 ```
-To call this `find` action on version `2` service:
+Para chamar esta ação `find` na versão `2` do serviço:
 ```js
 broker.call("v2.posts.find");
 ```
 
 {% note info REST call %}
-Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
+Através do [API Gateway](moleculer-web.html), faça uma requisição para `GET /v2/posts/find`.
 {% endnote %}
 
-> To disable version prefixing set `$noVersionPrefix: true` in Service settings.
+> Para desativar o prefixo da versão defina `$noVersionPrefix: true` nas configurações do serviço.
 
 ## Confirgurações
-The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
+A propriedade `settings` é um store estático, onde você pode armazenar todas as configurações/opções para seu serviço. Você pode acessa-lo através de `this.settings` dentro do serviço.
 
 ```js
 // mailer.service.js
@@ -77,10 +77,10 @@ module.exports = {
     }
 }
 ```
-> The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
+> A propriedade `settings` também pode ser acessada em nós remotos. É repassado durante a descoberta de serviços.
 
-### Internal Settings
-There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
+### Configurações internas
+Existem algumas configurações internas que são utilizadas pelos módulos centrais. Nessas configurações os nomes começam com `$` _(sinal de dólar)_.
 
 | Nome                   | Tipo      | Padrão  | Descrição                                            |
 | ---------------------- | --------- | ------- | ---------------------------------------------------- |
