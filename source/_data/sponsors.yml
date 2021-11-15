@@ -7,17 +7,17 @@ patreon:
                 link: https://www.server-eye.de/
                 logo: https://www.server-eye.de/wp-content/uploads/server-eye_logo2019.png
                 company: true
-    gold:
+    #gold:
         name: Gold sponsors
-        users:
-            -
-                name: Toby de Havilland
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/30541478/f1bbed8c898b441b9ce9e6462697703a/1.jpeg?token-time=2145916800&token-hash=RUJHQuE-BWjAKPvwVc7x5BU3QDfFA0xDOIS-Ok8fikE%3D
-            -
-                name: Jason Grey (Astute Solutions, LLC)
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/36887092/2c8346d940d2486299efdd476ce698fb/1.jpeg?token-time=2145916800&token-hash=-Kpv7IcjhK9Ab3Z_WLVZyC2PNSC7yyMLHANBmTHhRY4%3D
+        users: []
+            #-
+            #    name: Toby de Havilland
+            #    link: null
+            #    logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/30541478/f1bbed8c898b441b9ce9e6462697703a/1.jpeg?token-time=2145916800&token-hash=RUJHQuE-BWjAKPvwVc7x5BU3QDfFA0xDOIS-Ok8fikE%3D
+            #-
+            #    name: Jason Grey (Astute Solutions, LLC)
+            #    link: null
+            #    logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/36887092/2c8346d940d2486299efdd476ce698fb/1.jpeg?token-time=2145916800&token-hash=-Kpv7IcjhK9Ab3Z_WLVZyC2PNSC7yyMLHANBmTHhRY4%3D
 
     silver:
         name: Silver backers
@@ -43,10 +43,6 @@ patreon:
                 link: null
                 logo: https://c8.patreon.com/2/200/16817468
             -
-                name: Frederik Granna
-                link: null
-                logo: https://c8.patreon.com/2/200/20690350
-            -
                 name: Marcel Zúbrik
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/20502856/b4c040fb32a94e06b315551f430f62d7/1.jpeg?token-time=2145916800&token-hash=vtnv5DPMxrdK47HKSOV8ZbKia3_evpwjIOEsnYwY_G0%3D
@@ -54,10 +50,6 @@ patreon:
                 name: Itamar
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/274758/15fd791893d24df2a2ed9c5417f7ed79/1.jpeg?token-time=2145916800&token-hash=yE0fa3cLU6cChnLo6t1fWC8ytEwS-3sUhn5Zc13e5mY%3D
-            -
-                name: David Børresen
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/35888818/6a072b45979447b8bc88583cb3c1b8cb/1.jpeg?token-time=2145916800&token-hash=YwPVgUwd_9gFjw9QjGdgoT2giytkbvF8tFZ-G7KFXc4%3D
             -
                 name: Imre Ujlaki
                 link: null
@@ -70,3 +62,7 @@ patreon:
                 name: Autodrop3d Mike
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/43821311/b5e543ccff6f4891841ad50427138db3/1.png?token-time=2145916800&token-hash=j4hqXBGcgOsf7-ZCwYefRLnslTMCVik6Z2OpmgaqjSM%3D
+            -
+                name: Adam McCormick
+                link: null
+                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/6047245/84f2080fccc94eeda6c38a44c0ec3f91/1.JPG?token-time=2145916800&token-hash=yxG-xu39PY0mITRa78sStoXS5B_fYumI8RDfr3U8huU%3D
