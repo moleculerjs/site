@@ -371,18 +371,18 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
+O manipulador de serviços `started` é chamado uma vez que os serviços `likes`, `v2.auth`, `v2.users`, `staging.comments` estiverem disponíveis (nós locais ou remotos).
 
-### Wait for services via ServiceBroker
-To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
+### Esperar por serviços via ServiceBroker
+Para esperar pelos serviços, você também pode usar o método `waitForServices` do `ServiceBroker`. Isto retorna uma `Promise` que será resolvida, quando todos os serviços definidos estiverem disponíveis & iniciados.
 
 **Parâmetros**
 
-| Parameter  | Tipo                | Valor padrão | Descrição                                                                                     |
-| ---------- | ------------------- | ------------ | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -            | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`          | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`       | Frequency of watches in milliseconds                                                          |
+| Parâmetro  | Tipo                | Valor padrão | Descrição                                                                                                            |
+| ---------- | ------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `services` | `String` ou `Array` | -            | Lista de serviços dependentes                                                                                        |
+| `timeout`  | `Number`            | `0`          | Timeout da espera. `0` significa que não há tempo limite. Se alcançado, um erro `MoleculerServerError` será lançado. |
+| `interval` | `Number`            | `1000`       | Frequência em milissegundos                                                                                          |
 
 **Exemplo**
 ```js
@@ -391,7 +391,7 @@ broker.waitForServices(["posts", "v2.users"]).then(() => {
 });
 ```
 
-**Set timeout & interval**
+**Definir tempo limite & intervalo**
 ```js
 broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
     // Called if `accounts` service becomes available in 10 seconds
