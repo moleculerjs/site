@@ -53,10 +53,10 @@ Neste exemplo, usamos a ferramenta oficial [Moleculer CLI](moleculer-cli.html) p
     ```
  <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
 
-    > Pressione `ENTER` para todas as perguntas _(aceite as respostas sugeridas)_    
+    > Press `ENTER` to all questions _(accept default answers)_    
     
     {% note warn %}
-    Não se esqueça de instalar e iniciar o [Servidor NATS](https://nats.io/download/nats-io/nats-server/). Caso contrário, você receberá o seguinte erro:
+    Don't forget to install and start [NATS Server](https://docs.nats.io/nats-server/installation). Caso contrário, você receberá o seguinte erro:
     `erro NATS. Não foi possível conectar ao servidor: Error: connect ECONNREFUSED 127.0.0.1:4222`
     {% endnote %}
 
