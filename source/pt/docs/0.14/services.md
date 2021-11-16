@@ -82,13 +82,13 @@ module.exports = {
 ### Configurações internas
 Existem algumas configurações internas que são utilizadas pelos módulos centrais. Nessas configurações os nomes começam com `$` _(sinal de dólar)_.
 
-| Nome                   | Tipo      | Padrão  | Descrição                                            |
-| ---------------------- | --------- | ------- | ---------------------------------------------------- |
-| `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
-| `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
-| `$dependencyTimeout`   | `Number`  | `0`     | Timeout for dependency waiting.                      |
-| `$shutdownTimeout`     | `Number`  | `0`     | Timeout for waiting for active requests at shutdown. |
-| `$secureSettings`      | `Array`   | `[]`    | List of secure settings.                             |
+| Nome                   | Tipo      | Padrão  | Descrição                                                         |
+| ---------------------- | --------- | ------- | ----------------------------------------------------------------- |
+| `$noVersionPrefix`     | `Boolean` | `false` | Desabilita o prefixo da versão nos nomes das ações.               |
+| `$noServiceNamePrefix` | `Boolean` | `false` | Desabilita o prefixo do nome do serviço nos nomes das ações.      |
+| `$dependencyTimeout`   | `Number`  | `0`     | Tempo limite para esperar pelas dependências.                     |
+| `$shutdownTimeout`     | `Number`  | `0`     | Tempo limite para esperar por requisições ativas no desligamento. |
+| `$secureSettings`      | `Array`   | `[]`    | Lista de configurações seguras.                                   |
 
 ### Secure service settings
 To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
