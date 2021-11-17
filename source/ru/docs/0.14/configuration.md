@@ -43,6 +43,7 @@ title: Конфигурация
 * **`replCommands`**: `Array<Object>` - Регистрировать пользовательские REPL команды. _По умолчанию: `null`_
 * **`metadata`**: `Object` - Хранить пользовательские значения. _По умолчанию: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Пропустить [по умолчанию](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) обработчики событий плавного завершения. В этом случае необходимо зарегистрировать их вручную. _По умолчанию: `false`_
+* **`maxSafeObjectSize`**: `Number` - Maximum size of objects that can be serialized. On serialization process, check each object property size (based on `length` or `size` property value) and trim it, if object size bigger than `maxSafeObjectSize` value. _По умолчанию: `null`_
 * **`created`**: `Function` - Выстреливает при создании брокера. _По умолчанию: `null`_
 * **`начал`**: `Функция` - Выстреливает при запуске брокера _(все локальные сервисы загружены & траснпорт подключен)_. _По умолчанию: `null`_
 * **`stopped`**: `Function` - Выстреливает при остановке брокера _(все локальные сервисы остановлены & транспорт отключен)_. _По умолчанию: `null`_
@@ -149,6 +150,7 @@ title: Конфигурация
     },
 
     skipProcessEventRegistration: false,
+    maxSafeObjectSize: null,
 
     ServiceFactory: null,
     ContextFactory: null,
