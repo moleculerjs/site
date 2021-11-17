@@ -43,6 +43,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`replCommands`**: `Array<Object>` - Registre comandos REPL personalizados. _Default: `null`_
 * **`metadata`**: `Object` - Armazene valores personalizados. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Ignore o manipulador [padrão](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) de eventos de desligamento elegante. Neste caso, você tem que registrá-los manualmente. _Default: `false`_
+* **`maxSafeObjectSize`**: `Number` - Maximum size of objects that can be serialized. On serialization process, check each object property size (based on `length` or `size` property value) and trim it, if object size bigger than `maxSafeObjectSize` value. _Default: `null`_
 * **`created`**: `Function` - Acionado quando o broker for criado. _Default: `null`_
 * **`started`**: `Function` - Acionado quando o broker for inicializado _(todos os serviços locais carregados & módulo de transporte conectado)_. _Default: `null`_
 * **`stopped`**: `Function` - Acionado quando o broker for parado _(todos os serviços locais parados & módulo de transporte está desconectado)_. _Default: `null`_
@@ -149,6 +150,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
     },
 
     skipProcessEventRegistration: false,
+    maxSafeObjectSize: null,
 
     ServiceFactory: null,
     ContextFactory: null,
