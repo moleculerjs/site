@@ -43,6 +43,7 @@ title: 配置
 * **`replCommands`**: `Array<Object>` - Register custom REPL commands. _Default: `null`_
 * **`metadata`**: `Object` - Store custom values. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case, you have to register them manually. _Default: `false`_
+* **`maxSafeObjectSize`**: `Number` - Maximum size of objects that can be serialized. On serialization process, check each object property size (based on `length` or `size` property value) and trim it, if object size bigger than `maxSafeObjectSize` value. _Default: `null`_
 * **`created`**: `Function` - Fired when the broker created. _Default: `null`_
 * **`started`**: `Function` - Fired when the broker started _(all local services loaded & transporter is connected)_. _Default: `null`_
 * **`stopped`**: `Function` - Fired when the broker stopped _(all local services stopped & transporter is disconnected)_. _Default: `null`_
@@ -149,6 +150,7 @@ title: 配置
     },
 
     skipProcessEventRegistration: false,
+    maxSafeObjectSize: null,
 
     ServiceFactory: null,
     ContextFactory: null,
