@@ -214,10 +214,16 @@ module.exports = MyStrategy;
 const { ServiceBroker } = require("moleculer");
 const MyStrategy = require("./my-strategy");
 
+const Strategies = require("moleculer").Strategies
+// Add custom strategy to the registry
+Strategies.register("myCustomStrategy", MyStrategy)
+
+
 // moleculer.config.js
 module.exports = {
     registry: {
-        strategy: MyStrategy
+        // Strategy is already registered. Call it by name
+        strategy: "myCustomStrategy"
     }
 };
 ```
