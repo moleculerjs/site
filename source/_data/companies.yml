@@ -343,3 +343,11 @@ companies:
         name: dyte
         link: https://www.dyte.io/
         logo: https://user-images.githubusercontent.com/42958812/134675630-0d1a76c7-066f-4a09-bde7-6a2df8ed39d9.png
+    -
+        name: Shodget
+        link: https://shodget.com/
+        logo: https://user-images.githubusercontent.com/3874575/143909179-6f36714a-7474-4cb2-b4c5-43a8b18ed40e.png
+    -
+        name: PRODLY
+        link: https://prodly.ru/
+        logo: https://prodly.ru/img/logo.svg
