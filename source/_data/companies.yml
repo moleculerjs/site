@@ -351,3 +351,7 @@ companies:
         name: PRODLY
         link: https://prodly.ru/
         logo: https://prodly.ru/img/logo.svg
+    -
+        name: startup flow
+        link: https://www.startupflow.io/
+        logo: https://website-admin.startupflow.io/wp-content/uploads/2019/11/logo.png
