@@ -2,6 +2,10 @@ title: Eventos
 ---
 O broker possui um barramento de eventos integrado para atender a uma [Arquitetura baseada em eventos](http://microservices.io/patterns/data/event-driven-architecture.html) e enviar eventos para serviços locais e remotos.
 
+{% note info %}
+Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
+{% endnote %}
+
 # Eventos balanceados
 Os assinantes de eventos são agrupados em grupos lógicos. Significa que apenas um assinante é acionado em cada grupo.
 
