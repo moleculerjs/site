@@ -53,10 +53,10 @@ broker.start()
     ```
  <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
 
-    > Нажмите `ENTER` на все вопросы _(используйте стандартные ответы)_    
+    > Press `ENTER` to all questions _(accept default answers)_    
     
     {% note warn %}
-    Не забудьте установить и запустить [NATS Server](https://nats.io/download/nats-io/nats-server/). Иначе вы получите следующую ошибку:
+    Don't forget to install and start [NATS Server](https://docs.nats.io/nats-server/installation). Иначе вы получите следующую ошибку:
     `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222`
     {% endnote %}
 

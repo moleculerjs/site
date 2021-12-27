@@ -1,11 +1,11 @@
-title: Services
+title: Serviços
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+O `service` representa um microsserviço no framework Moleculer. Você pode definir ações e assinar eventos. Para criar um serviço você deve definir um esquema. O esquema de serviço é semelhante a um [componente do VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
-## Schema
-The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+## Esquema
+O esquema tem algumas partes principais: `name`, `version`, `settings`, `actions`, `methods`, `events`.
 
-### Simple service schema to define two actions
+### Esquema de serviço simples para definir duas ações
 ```js
 // math.service.js
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
 }
 ```
 
-## Base properties
-The Service has some base properties in the schema.
+## Propriedades básicas
+O Serviço tem algumas propriedades básicas no esquema.
 ```js
 // posts.v1.service.js
 module.exports = {
@@ -31,11 +31,11 @@ module.exports = {
     version: 1
 }
 ```
-The `name` is a mandatory property so it must be defined. It's the first part of action name when you call it.
+O `name` é uma propriedade obrigatória, então deve ser definida. É a primeira parte do nome da ação quando você a chama.
 
-> To disable service name prefixing set `$noServiceNamePrefix: true` in Service settings.
+> Para desativar o prefixo do nome do serviço, defina `$noServiceNamePrefix: true` nas configurações do serviço.
 
-The `version` is an optional property. Use it to run multiple version from the same service. It is a prefix in the action name. It can be a `Number` or a `String`.
+A propriedade `version` é opcional. Use-a para executar várias versões do mesmo serviço. É um prefixo no nome da ação. Pode ser `Number` ou `String`.
 ```js
 // posts.v2.service.js
 module.exports = {
@@ -46,19 +46,19 @@ module.exports = {
     }
 }
 ```
-To call this `find` action on version `2` service:
+Para chamar esta ação `find` na versão `2` do serviço:
 ```js
 broker.call("v2.posts.find");
 ```
 
 {% note info REST call %}
-Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
+Através do [API Gateway](moleculer-web.html), faça uma requisição para `GET /v2/posts/find`.
 {% endnote %}
 
-> To disable version prefixing set `$noVersionPrefix: true` in Service settings.
+> Para desativar o prefixo da versão defina `$noVersionPrefix: true` nas configurações do serviço.
 
 ## Confirgurações
-The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
+A propriedade `settings` é um store estático, onde você pode armazenar todas as configurações/opções para seu serviço. Você pode acessa-lo através de `this.settings` dentro do serviço.
 
 ```js
 // mailer.service.js
@@ -77,21 +77,21 @@ module.exports = {
     }
 }
 ```
-> The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
+> A propriedade `settings` também pode ser acessada em nós remotos. É repassado durante a descoberta de serviços.
 
-### Internal Settings
-There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
+### Configurações internas
+Existem algumas configurações internas que são utilizadas pelos módulos centrais. Nessas configurações os nomes começam com `$` _(sinal de dólar)_.
 
-| Nome                   | Tipo      | Padrão  | Descrição                                            |
-| ---------------------- | --------- | ------- | ---------------------------------------------------- |
-| `$noVersionPrefix`     | `Boolean` | `false` | Disable version prefixing in action names.           |
-| `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names.      |
-| `$dependencyTimeout`   | `Number`  | `0`     | Timeout for dependency waiting.                      |
-| `$shutdownTimeout`     | `Number`  | `0`     | Timeout for waiting for active requests at shutdown. |
-| `$secureSettings`      | `Array`   | `[]`    | List of secure settings.                             |
+| Nome                   | Tipo      | Padrão  | Descrição                                                         |
+| ---------------------- | --------- | ------- | ----------------------------------------------------------------- |
+| `$noVersionPrefix`     | `Boolean` | `false` | Desabilita o prefixo da versão nos nomes das ações.               |
+| `$noServiceNamePrefix` | `Boolean` | `false` | Desabilita o prefixo do nome do serviço nos nomes das ações.      |
+| `$dependencyTimeout`   | `Number`  | `0`     | Tempo limite para esperar pelas dependências.                     |
+| `$shutdownTimeout`     | `Number`  | `0`     | Tempo limite para esperar por requisições ativas no desligamento. |
+| `$secureSettings`      | `Array`   | `[]`    | Lista de configurações protegidas.                                |
 
-### Secure service settings
-To protect your tokens & API keys, define a `$secureSettings: []` property in service settings and set the protected property keys. The protected settings won't be published to other nodes and it won't appear in Service Registry. These settings will only available under `this.settings` inside the service functions.
+### Configurações de serviço protegidas
+Para proteger seus tokens & chaves de API, defina uma propriedade `$secureSettings: []` nas configurações de serviço e defina as chaves de propriedade protegidas. As configurações protegidas não serão publicadas em outros nós e não aparecerão no Service Registry. Estas configurações só estarão disponíveis sob `this.settings` dentro das funções de serviço.
 
 ```js
 // mail.service.js
@@ -114,9 +114,9 @@ module.exports = {
 ```
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
+Os Mixins são uma maneira flexível de distribuir funcionalidades reutilizáveis para os serviços Moleculer. O construtor do serviço mescla esses mixins com o esquema atual. Quando um serviço usa mixins, todas as propriedades presentes no mixin serão "misturadas" no serviço atual.
 
-**Example how to extend `moleculer-web` service**
+**Exemplo de como estender o serviço `moleculer-web`**
 
 ```js
 // api.service.js
@@ -136,31 +136,31 @@ module.exports = {
     }
 }
 ```
-The above example creates an `api` service which inherits all properties from `ApiGwService` but overwrite the port setting and extend it with a new `myAction` action.
+O exemplo acima cria um serviço `api` que herda todas as propriedades do `ApiGwService`, mas substitui a configuração de porta e amplia com uma nova ação `myAction`.
 
-### Merge algorithm
-The merge algorithm depends on the property type.
+### Algoritmo de mesclagem
+O algoritmo de mesclagem depende do tipo da propriedade.
 
-| Property                        | Algorithm                                                                                                                                                   |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`, `version`               | Merge & overwrite.                                                                                                                                          |
-| `settings`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `metadata`                      | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `actions`                       | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _You can disable an action from mixin if you set to `false` in your service._ |
-| `hooks`                         | Deep extend with [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                               |
-| `methods`                       | Merge & overwrite.                                                                                                                                          |
-| `events`                        | Concatenate listeners.                                                                                                                                      |
-| `created`, `started`, `stopped` | Concatenate listeners.                                                                                                                                      |
-| `mixins`                        | Merge & overwrite.                                                                                                                                          |
-| `dependencies`                  | Merge & overwrite.                                                                                                                                          |
-| _any custom_                    | Merge & overwrite.                                                                                                                                          |
+| Propriedade                     | Algoritmo                                                                                                                                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`, `version`               | Mesclar & substituir.                                                                                                                                                       |
+| `settings`                      | Extensão profunda com [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                                          |
+| `metadata`                      | Extensão profunda com [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                                          |
+| `actions`                       | Extensão profunda com [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep). _Você pode desabilitar uma ação do mixin se você a definir como `false` em seu serviço._ |
+| `hooks`                         | Extensão profunda com [defaultsDeep](https://lodash.com/docs/4.17.4#defaultsDeep).                                                                                          |
+| `methods`                       | Mesclar & substituir.                                                                                                                                                       |
+| `events`                        | Concatenar assinantes.                                                                                                                                                      |
+| `created`, `started`, `stopped` | Concatenar assinantes.                                                                                                                                                      |
+| `mixins`                        | Mesclar & substituir.                                                                                                                                                       |
+| `dependencies`                  | Mesclar & substituir.                                                                                                                                                       |
+| _any custom_                    | Mesclar & substituir.                                                                                                                                                       |
 
 {% note info Merge algorithm examples %}
-__Merge & overwrite__: if serviceA has `a: 5`, `b: 8` and serviceB has `c: 10`, `b: 15`, the mixed service will have `a: 5`, `b: 15` and `c: 10`. __Concatenate__: if serviceA & serviceB subscribe to `users.created` event, both event handler will be called when the `users.created` event emitted.
+__Mesclar & substituir__: se o serviço tem `a: 5`, `b: 8` e o serviço B tem `c: 10`, `b: 15`, o serviço misto terá `a: 5`, `b: 15` e `c: 10`. __Concatenar__: se serviceA & serviceB se inscreverem para o evento `users.created`, ambos os manipuladores de eventos serão chamados quando o evento `users.created` for emitido.
 {% endnote %}
 
 ## Ações
-Ações são os métodos de um serviço que podem ser chamados externamente. They are callable with `broker.call` or `ctx.call`. The action could be a `Function` (shorthand for handler) or an object with some properties and `handler`. The actions should be placed under the `actions` key in the schema. For more information check the [actions documentation](actions.html).
+Ações são os métodos de um serviço que podem ser chamados externamente. Eles podem ser chamadas com `broker.call` ou `ctx.call`. A ação pode ser uma `função` (abreviação para manipulador) ou um objeto com algumas propriedades e o `manipulador`. As ações devem ser colocadas na chave `actions` do esquema. Para obter mais informações verifique a [documentação de ações](actions.html).
 
 ```js
 // math.service.js
@@ -189,13 +189,13 @@ module.exports = {
     }
 };
 ```
-You can call the above actions as
+Você pode chamar as ações acima dessa forma
 ```js
 const res = await broker.call("math.add", { a: 5, b: 7 });
 const res = await broker.call("math.mult", { a: 10, b: 31 });
 ```
 
-Inside actions, you can call other nested actions in other services with `ctx.call` method. It is an alias to `broker.call`, but it sets itself as parent context (due to correct tracing chains).
+Dentro das ações, você pode chamar outras ações aninhadas em outros serviços com o método `ctx.call`. É um atalho para `broker.call`, mas ele se define como contexto pai (devido ao encadeamento correto no rastreamento).
 ```js
 // posts.service.js
 module.exports = {
@@ -218,11 +218,11 @@ module.exports = {
     }
 };
 ```
-> In action handlers the `this` is always pointed to the Service instance.
+> Nos manipuladores de ação `this` sempre aponta para a instância do Serviço.
 
 
 ## Eventos
-You can subscribe to events under the `events` key. For more information check the [events documentation](events.html).
+Você pode assinar eventos com a chave `events`. Para obter mais informações, verifique a [documentação dos eventos](events.html).
 
 ```js
 // report.service.js
@@ -251,10 +251,10 @@ module.exports = {
     }
 };
 ```
-> In event handlers the `this` is always pointed to the Service instance.
+> Nos manipuladores de eventos `this` sempre aponta para a instância do Serviço.
 
-### Grouping
-The broker groups the event listeners by group name. By default, the group name is the service name. But you can overwrite it in the event definition.
+### Agrupamento
+O broker agrupa os assinantes do evento pelo nome do grupo. Por padrão, o nome do grupo é o nome do serviço. Mas você pode substituí-la na definição do evento.
 
 ```js
 // payment.service.js
@@ -272,8 +272,8 @@ module.exports = {
 }
 ```
 
-## Methods
-To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
+## Métodos
+Para criar métodos privados no serviço, coloque suas funções na chave `methods`. Essas funções são privadas, não podem ser chamadas com `broker.call`. Mas você pode chamá-las de dentro do serviço (de manipuladores de ações, manipuladores de eventos e manipuladores de eventos de ciclo de vida).
 
 **Utilização**
 ```js
@@ -297,7 +297,7 @@ module.exports = {
     }
 };
 ```
-If you want to wrap a method with a [middleware](middlewares.html#localMethod-next-method) use the following notation:
+Se você quer encapsular um método com um [middleware](middlewares.html#localMethod-next-method) use a seguinte notação:
 
 ```js
 // posts.service.js
@@ -316,12 +316,12 @@ module.exports = {
 ```
 
 
-> The method name can't be `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, because these words are reserved in the schema.
+> O nome do método não pode ser `name`, `version`, `settings`, `metadata`, `schema`, `broker`, `actions`, `logger`, porque essas palavras são reservadas no esquema.
 
-> In methods the `this` is always pointed to the Service instance.
+> Nos métodos `this` sempre aponta para a instância do Serviço.
 
-## Lifecycle Events
-There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
+## Eventos de Ciclo de vida
+Existem alguns eventos de ciclo de vida que serão acionados pelo broker. Estão na base do esquema.
 
 ```js
 // www.service.js
@@ -348,8 +348,8 @@ module.exports = {
     }
 };
 ```
-## Dependencies
-If your service depends on other services, use the `dependencies` property in the schema. The service waits for dependent services before calls the `started` lifecycle event handler.
+## Dependências
+Se o seu serviço depende de outros serviços, use a propriedade `dependencies` no esquema. O serviço aguarda pelos serviços dependentes antes de chamar o evento `started` do ciclo de vida.
 
 ```js
 // posts.service.js
@@ -371,18 +371,18 @@ module.exports = {
   ....
 }
 ```
-The `started` service handler is called once the `likes`, `v2.auth`, `v2.users`, `staging.comments` services are available (either the local or remote nodes).
+O manipulador de serviços `started` é chamado uma vez que os serviços `likes`, `v2.auth`, `v2.users`, `staging.comments` estiverem disponíveis (nós locais ou remotos).
 
-### Wait for services via ServiceBroker
-To wait for services, you can also use the `waitForServices` method of `ServiceBroker`. It returns a `Promise` which will be resolved, when all defined services are available & started.
+### Esperar por serviços via ServiceBroker
+Para esperar pelos serviços, você também pode usar o método `waitForServices` do `ServiceBroker`. Isto retorna uma `Promise` que será resolvida, quando todos os serviços definidos estiverem disponíveis & iniciados.
 
 **Parâmetros**
 
-| Parameter  | Tipo                | Valor padrão | Descrição                                                                                     |
-| ---------- | ------------------- | ------------ | --------------------------------------------------------------------------------------------- |
-| `services` | `String` or `Array` | -            | Service list to waiting                                                                       |
-| `timeout`  | `Number`            | `0`          | Waiting timeout. `0` means no timeout. If reached, a `MoleculerServerError` will be rejected. |
-| `interval` | `Number`            | `1000`       | Frequency of watches in milliseconds                                                          |
+| Parâmetro  | Tipo                | Valor padrão | Descrição                                                                                                            |
+| ---------- | ------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `services` | `String` ou `Array` | -            | Lista de serviços dependentes                                                                                        |
+| `timeout`  | `Number`            | `0`          | Timeout da espera. `0` significa que não há tempo limite. Se alcançado, um erro `MoleculerServerError` será lançado. |
+| `interval` | `Number`            | `1000`       | Frequência em milissegundos                                                                                          |
 
 **Exemplo**
 ```js
@@ -391,7 +391,7 @@ broker.waitForServices(["posts", "v2.users"]).then(() => {
 });
 ```
 
-**Set timeout & interval**
+**Definir tempo limite & intervalo**
 ```js
 broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
     // Called if `accounts` service becomes available in 10 seconds

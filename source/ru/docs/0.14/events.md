@@ -2,6 +2,10 @@ title: События
 ---
 У брокера есть встроенная шина событий для поддержки [управляемой событиями архитектуры](http://microservices.io/patterns/data/event-driven-architecture.html) и для отправки событий локальным и удаленным сервисам.
 
+{% note info %}
+Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
+{% endnote %}
+
 # Сбалансированные события
 Прослушиватели событий расположены в логических группах. Это означает, что в каждой группе вызывается только один слушатель.
 

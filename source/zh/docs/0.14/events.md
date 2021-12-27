@@ -2,6 +2,10 @@ title: Events
 ---
 Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services.
 
+{% note info %}
+Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
+{% endnote %}
+
 # Balanced events
 The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
 

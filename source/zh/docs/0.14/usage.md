@@ -53,10 +53,10 @@ broker.start()
     ```
  <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
 
-    > 按下 `ENTER` 来回答所有问题 _(接受默认答案)_    
+    > Press `ENTER` to all questions _(accept default answers)_    
     
     {% note warn %}
-    不要忘记安装并启动 [NATS 服务器](https://nats.io/download/nats-io/nats-server/). 否则，您将会遇到以下错误：
+    Don't forget to install and start [NATS Server](https://docs.nats.io/nats-server/installation). 否则，您将会遇到以下错误：
     `NATS error. Could not connect to server: Error: connect ECONNREFUSED 127.0.0.1:4222` {% endnote %}
 
 3. 打开项目文件夹
