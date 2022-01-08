@@ -125,22 +125,23 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## ServiceBroker 属性
 
-| 名称                  | 类型                     | 说明                   |
-| ------------------- | ---------------------- | -------------------- |
-| `broker.options`    | `Object`               | 服务管理器选项              |
-| `broker.Promise`    | `Promise`              | Bluebird Promise 类.  |
-| `broker.started`    | `Boolean`              | 服务管理器状态              |
-| `broker.namespace`  | `String`               | Namespace.           |
-| `broker.nodeID`     | `String`               | Node ID.             |
-| `broker.instanceID` | `String`               | Instance ID.         |
-| `broker.metadata`   | `Object`               | 来自服务管理器选项的 Metadata  |
-| `broker.logger`     | `Logger`               | ServiceBroker 的日志类.  |
-| `broker.cacher`     | `Cacher`               | Cacher 实例            |
-| `broker.serializer` | `Serializer`           | Serializer 实例.       |
-| `broker.validator`  | `Any`                  | 参数验证器实例。             |
-| `broker.services`   | `Array<Service>` | 本地服务.                |
-| `broker.metrics`    | `MetricRegistry`       | 内置的 Metric Registry. |
-| `broker.tracer`     | `Tracer`               | 内置 Tracer 实例。        |
+| 名称                        | 类型                     | 说明                             |
+| ------------------------- | ---------------------- | ------------------------------ |
+| `broker.options`          | `Object`               | 服务管理器选项                        |
+| `broker.Promise`          | `Promise`              | Bluebird Promise 类.            |
+| `broker.started`          | `Boolean`              | 服务管理器状态                        |
+| `broker.namespace`        | `String`               | Namespace.                     |
+| `broker.nodeID`           | `String`               | Node ID.                       |
+| `broker.instanceID`       | `String`               | Instance ID.                   |
+| `broker.metadata`         | `Object`               | 来自服务管理器选项的 Metadata            |
+| `broker.logger`           | `Logger`               | ServiceBroker 的日志类.            |
+| `broker.cacher`           | `Cacher`               | Cacher 实例                      |
+| `broker.serializer`       | `Serializer`           | Serializer 实例.                 |
+| `broker.validator`        | `Any`                  | 参数验证器实例。                       |
+| `broker.services`         | `Array<Service>` | 本地服务.                          |
+| `broker.metrics`          | `MetricRegistry`       | 内置的 Metric Registry.           |
+| `broker.tracer`           | `Tracer`               | 内置 Tracer 实例。                  |
+| `broker.errorRegenerator` | `Regenerator`          | Built-in Regenerator instance. |
 
 ## ServiceBroker 方法
 
