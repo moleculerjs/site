@@ -375,7 +375,7 @@ Os hooks de erro são chamados quando um `Erro` é lançado durante a chamada da
 - resposta de fallback
 
 ### Declaração de nível de serviço
-Hooks podem ser atribuídos a uma ação específica (especificando o `name` da ação) ou para todas as ações (`*`) de um serviço.
+Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`.
 
 {% note warn%}
 Note que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução dos hooks](#Execution-order).
@@ -395,7 +395,7 @@ module.exports = {
             // O hook chamará o método `resolveLoggedUser`.
             "*": "resolveLoggedUser",
 
-            // Define vários hooks para a ação `remove`
+            // Define multiple hooks for action `remove`
             remove: [
                 function isAuthenticated(ctx) {
                     if (!ctx.user)
@@ -405,7 +405,15 @@ module.exports = {
                     if (!this.checkOwner(ctx.params.id, ctx.user.id))
                         throw new Error("Only owner can remove it.");
                 }
-            ]
+            ],
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx){}
+            ],
         }
     },
 
@@ -428,29 +436,37 @@ module.exports = {
     mixins: [DbService]
     hooks: {
         after: {
-            // Define um hook global para todas ações para remover dados sensíveis
+            // Define a global hook for all actions to remove sensitive data
             "*": function(ctx, res) {
                 // Remove password
                 delete res.password;
 
-                // Observe que deve retornar result (seja o original ou um novo)
+                // Please note, must return result (either the original or a new)
                 return res;
             },
             get: [
-                // Adiciona um campo virtual à entidade
+                // Add a new virtual field to the entity
                 async function (ctx, res) {
                     res.friends = await ctx.call("friends.count", { query: { follower: res._id }});
 
                     return res;
                 },
-                // Popula o campo `referrer`
+                // Populate the `referrer` field
                 async function (ctx, res) {
                     if (res.referrer)
                         res.referrer = await ctx.call("users.get", { id: res._id });
 
                     return res;
                 }
-            ]
+            ],
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx, res){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx, res){}
+            ],
         },
         error: {
             // Global error handler
@@ -459,7 +475,15 @@ module.exports = {
 
                 // Throw further the error
                 throw err;
-            }
+            },
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx, err){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx, err){}
+            ],
         }
     }
 };
@@ -503,6 +527,10 @@ broker.createService({
 - `before` hooks: global (`*`) `->` nível de serviço `->` nível de ação.
 
 - `after` hooks: nível de ação `->` nível de serviço `->` global (`*`).
+
+{% note info%}
+When using several hooks it might be difficult visualize their execution order. However, you can set the [`logLevel` to `debug`](logging.html#Log-Level-Setting) to quickly check the execution order of global and service level hooks.
+{% endnote %}
 
 **Exemplo de uma cadeia de execução de hook global, a nível de serviço & de ação**
 ```js
