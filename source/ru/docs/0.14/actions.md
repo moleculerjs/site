@@ -375,7 +375,7 @@ The error hooks are called when an `Error` is thrown during action calling. It r
 - резервный ответ
 
 ### Декларация на уровне сервиса
-Hooks can be assigned to a specific action (by indicating action `name`) or all actions (`*`) in service.
+Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`.
 
 {% note warn%}
 Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
@@ -395,7 +395,7 @@ module.export = {
             // хук вызовет метод `resolveLoggedUser`.
             "*": "resolveLoggedUser",
 
-            // несколько хуков для действия `remove`
+            // Define multiple hooks for action `remove`
             remove: [
                 function isAuthenticated(ctx) {
                     if (!ctx.user)
@@ -405,7 +405,15 @@ module.export = {
                     if (!this.checkOwner(ctx.params.id, ctx.user.id))
                         throw new Error("Only owner can remove it.");
                 }
-            ]
+            ],
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx){}
+            ],
         }
     },
 
@@ -428,38 +436,54 @@ module.exports = {
     mixins: [DbService]
     hooks: {
         after: {
-            // глобальный хук для удаления чувствительных данных
+            // Define a global hook for all actions to remove sensitive data
             "*": function(ctx, res) {
-                // удаление пароля
+                // Remove password
                 delete res.password;
 
-                // важно вернуть результат (оригинальный или новый)
+                // Please note, must return result (either the original or a new)
                 return res;
             },
             get: [
-                // добавление нового виртуального поля в сущность
+                // Add a new virtual field to the entity
                 async function (ctx, res) {
                     res.friends = await ctx.call("friends.count", { query: { follower: res._id }});
 
                     return res;
                 },
-                // заполнение поля `referrer`
+                // Populate the `referrer` field
                 async function (ctx, res) {
                     if (res.referrer)
                         res.referrer = await ctx.call("users.get", { id: res._id });
 
                     return res;
                 }
-            ]
+            ],
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx, res){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx, res){}
+            ],
         },
         error: {
-            // глобальный обработчик ошибок
+            // Global error handler
             "*": function(ctx, err) {
                 this.logger.error(`Error occurred when '${ctx.action.name}' action was called`, err);
 
-                // передача ошибки дальше
+                // Throw further the error
                 throw err;
-            }
+            },
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx, err){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx, err){}
+            ],
         }
     }
 };
@@ -503,6 +527,10 @@ It is important to keep in mind that hooks have a specific execution order. This
 - `before` хуки: глобальные (`*`) `->` уровень сервиса `->` уровень действия.
 
 - `after` хуки: уровень действия `->` уровень сервиса `->` глобальные (`*`).
+
+{% note info%}
+When using several hooks it might be difficult visualize their execution order. However, you can set the [`logLevel` to `debug`](logging.html#Log-Level-Setting) to quickly check the execution order of global and service level hooks.
+{% endnote %}
 
 **Example of a global, service & action level hook execution chain**
 ```js
