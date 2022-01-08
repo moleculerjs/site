@@ -125,22 +125,23 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Свойства ServiceBroker
 
-| Название            | Тип                    | Описание                          |
-| ------------------- | ---------------------- | --------------------------------- |
-| `broker.options`    | `Object`               | Опции брокера.                    |
-| `broker.Promise`    | `Promise`              | Класс Bluebird Promise.           |
-| `broker.started`    | `Boolean`              | Состояние брокера.                |
-| `broker.namespace`  | `String`               | Пространство имён.                |
-| `broker.nodeID`     | `String`               | Идентификатор узла.               |
-| `broker.instanceID` | `String`               | Идентификатор экземпляра.         |
-| `broker.metadata`   | `Object`               | Метаданные из опций брокера.      |
-| `broker.logger`     | `Logger`               | Класс логгера из ServiceBroker.   |
-| `broker.cacher`     | `Cacher`               | Экземпляр кэша                    |
-| `broker.serializer` | `Serializer`           | Экземпляр сериализатора.          |
-| `broker.validator`  | `Any`                  | Экземпляр валидатора параметров.  |
-| `broker.services`   | `Array<Service>` | Локальные сервисы.                |
-| `broker.metrics`    | `MetricRegistry`       | Встроенный реестр метрик.         |
-| `broker.tracer`     | `Tracer`               | Встроенный экземпляр трассировки. |
+| Название                  | Тип                    | Описание                          |
+| ------------------------- | ---------------------- | --------------------------------- |
+| `broker.options`          | `Object`               | Опции брокера.                    |
+| `broker.Promise`          | `Promise`              | Класс Bluebird Promise.           |
+| `broker.started`          | `Boolean`              | Состояние брокера.                |
+| `broker.namespace`        | `String`               | Пространство имён.                |
+| `broker.nodeID`           | `String`               | Идентификатор узла.               |
+| `broker.instanceID`       | `String`               | Идентификатор экземпляра.         |
+| `broker.metadata`         | `Object`               | Метаданные из опций брокера.      |
+| `broker.logger`           | `Logger`               | Класс логгера из ServiceBroker.   |
+| `broker.cacher`           | `Cacher`               | Экземпляр кэша                    |
+| `broker.serializer`       | `Serializer`           | Экземпляр сериализатора.          |
+| `broker.validator`        | `Any`                  | Экземпляр валидатора параметров.  |
+| `broker.services`         | `Array<Service>` | Локальные сервисы.                |
+| `broker.metrics`          | `MetricRegistry`       | Встроенный реестр метрик.         |
+| `broker.tracer`           | `Tracer`               | Встроенный экземпляр трассировки. |
+| `broker.errorRegenerator` | `Regenerator`          | Built-in Regenerator instance.    |
 
 ## Методы ServiceBroker
 
