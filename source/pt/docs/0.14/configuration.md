@@ -32,6 +32,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`cacher`**: `String | Object | Cacher` - Configurações de cache. [Leia mais](caching.html). _Default: `null`_
 * **`serializer`**: `String | Serializer` - Instância do serializador. [Leia mais](networking.html). _Default: `JSONSerializer`_
 * **`validator`**: `Boolean | Validator` - Habilita o padrão ou cria [validação de parâmetros](validating.html) personalizada. _Default: `true`_
+* **`errorRegenerator`**: `Regenerator` - Instance of error regenerator. [Read more](errors.html#Preserve-custom-error-classes-while-transferring-between-remote-nodes). _Default: `null`_
 * **`metrics`**: `Boolean | Object` - Habilita & configura o recurso de [métricas](metrics.html). _Default: `false`_
 * **`tracing`**: `Boolean | Object` - Habilita & configura o recurso de [tracing](tracing.html). _Default: `false`_
 * **`internalServices`**: `Boolean | Object` - Registra [serviços internos](services.html#Internal-Services) ao inicializar. _Default: `true`_
@@ -120,6 +121,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
     serializer: "JSON",
 
     validator: true,
+    errorRegenerator: null,
 
     metrics: {
         enabled: true,
