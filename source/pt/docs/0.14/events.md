@@ -248,3 +248,54 @@ O módulo de transporte emite este evento assim que o transporter estiver conect
 ## `$transporter.disconnected`
 O módulo de transporte emite este evento assim que o transporter for desconectado.
 
+## `$broker.error`
+The broker emits this event when an error occurs in the [broker](broker.html). **Event payload**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "broker" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$transit.error`
+The broker emits this event when an error occurs in the transit module. **Event payload**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$transporter.error`
+The broker emits this event when an error occurs in the [transporter](networking.html#Transporters) module. **Event payload**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$cacher.error`
+The broker emits this event when an error occurs in the [cacher](caching.html) module. **Event payload**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$discoverer.error`
+The broker emits this event when an error occurs in the [discoverer](registry.html) module. **Event payload**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+
