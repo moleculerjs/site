@@ -32,12 +32,13 @@ title: Конфигурация
 * **`cacher`**: `String | Object | Cacher` - Настройки кэша. [Подробнее](caching.html). _По умолчанию: `null`_
 * **` serializer `**: ` String | Serializer ` - Экземпляр сериализатора. [Подробнее](networking.html). _По умолчанию: `JSONSerializer`_
 * **`validator`**: `Boolean | Validator` - Включить по умолчанию или создать пользовательскую [валидацию параметров](validating.html). _По умолчанию: `true`_
+* **`errorRegenerator`**: `Regenerator` - Instance of error regenerator. [Read more](errors.html#Preserve-custom-error-classes-while-transferring-between-remote-nodes). _По умолчанию: `null`_
 * **`metrics`**: `Boolean | Object` - Включить & сконфигурировать [metrics](metrics.html) функционал. _По умолчанию: `false`_
 * **`tracing`**: `Boolean | Object` - Включить & настроить [tracing](tracing.html) функционал. _По умолчанию: `false`_
 * **`internalServices`**: `Boolean | Object` - Регистрировать [внутренние сервисы](services.html#Internal-Services) при старте. _По умолчанию: `true`_
 * **`internalServices.$node`** - `Object` - Расширьте внутренние сервисы с [пользовательскими действиями](services.html#Extending). _По умолчанию: `null`_
 * **`internalMiddlewares`**: `Boolean` - Регистрация [внутренних промежуточных функций](middlewares.html#Internal-middlewares). _По умолчанию: `true`_
-* **`hotReload`**: `Boolean` - Отслеживать загруженные сервисы и перезагружать их при изменениях. [Подробнее](services.html#Hot-Reloading-Services). _По умолчанию: `false`_
+* **`hotReload`**: `Boolean` - Отслеживать загруженные сервисы и перезагружать их при изменениях. [Read more](services.html#Hot-Reloading-Services). _По умолчанию: `false`_
 * **`middlewares`**: `Array<Object>` - Регистрировать пользовательские промежуточные функции. _По умолчанию: `null`_
 * **`replDelimiter`**: `String` - Custom REPL commands delimiter. _Default: `mol $`_
 * **`replCommands`**: `Array<Object>` - Регистрировать пользовательские REPL команды. _По умолчанию: `null`_
@@ -120,6 +121,7 @@ title: Конфигурация
     serializer: "JSON",
 
     validator: true,
+    errorRegenerator: null,
 
     metrics: {
         enabled: true,
