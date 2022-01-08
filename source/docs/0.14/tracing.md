@@ -675,3 +675,48 @@ module.exports = {
     }
 };
 ```
+
+## safetyTags and Maximum call stack error
+
+In general, sending non-serializable parameters (e.g. http request, socket instance, stream instance, etc.) in `ctx.params` or `ctx.meta` is not recommended. If tracing is enabled, the tracer exporter will try to recursively flatten these params (with [`flattenTags` method](https://github.com/moleculerjs/moleculer/blob/c48d5a05a4f4a1656075faaabc64085ccccf7ef9/src/tracing/exporters/base.js#L87-L101)) which will cause the `Maximum call stack error`.
+
+To avoid this issue, you can use the `safetyTags` option in exporter options. If set to `true`, the exporters remove the cyclic properties before flattening the tags in the spans. This option is available in all built-in exporters.
+
+{% note warn Performance impact%}
+Please note, this option has a **significant** [impact in performance](https://github.com/moleculerjs/moleculer/issues/908#issuecomment-817806332). For this reason it's not enabled by default.
+{% endnote %}
+
+**Enabling globally the safetyTags**
+```js
+// moleculer.config.js
+{
+    tracing: {
+        exporter: [{
+            type: "Zipkin",
+            options: {
+                safetyTags: true,
+                baseURL: "http://127.0.0.1:9411"
+            }
+        }]
+    }
+}
+```
+
+
+To avoid affecting all actions, you can enable this function at action-level. In this case, the remaining actions will be unaffected.
+**Enabling safetyTags at action-level**
+```js
+broker.createService({
+    name: "greeter",
+    actions: {
+        hello: {
+            tracing: {
+                safetyTags: true
+            },
+            handler(ctx) {
+                return `Hello!`;
+            }
+        }
+    }
+});
+```
