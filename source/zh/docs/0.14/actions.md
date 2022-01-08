@@ -378,7 +378,7 @@ After hooks 会收到 `ctx` 和 `response`. 在这里可以修改响应信息。
 - 响应回退
 
 ### 声明在服务上
-可以把钩子设在服务的某个动作上(通过指派 `name`)，也可以应用到所有动作(通过指派`*`)。
+Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`.
 
 {% note warn%}
 请注意钩子注册顺序很重要，因为它定义了执行钩子的顺序。 欲了解更多信息，参见 [hook execution order](#Execution-order)。
@@ -408,7 +408,15 @@ module.exports = {
                     if (!this.checkOwner(ctx.params.id, ctx.user.id))
                         throw new Error("Only owner can remove it.");
                 }
-            ]
+            ],
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx){}
+            ],
         }
     },
 
@@ -453,7 +461,15 @@ module.exports = {
 
                     return res;
                 }
-            ]
+            ],
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx, res){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx, res){}
+            ],
         },
         error: {
             // Global error handler
@@ -462,7 +478,15 @@ module.exports = {
 
                 // Throw further the error
                 throw err;
-            }
+            },
+            // Applies to all actions that start with "create-"
+            "create-*": [
+                async function (ctx, err){}
+            ],
+            // Applies to all actions that end with "-user"
+            "*-user": [
+                async function (ctx, err){}
+            ],
         }
     }
 };
@@ -506,6 +530,10 @@ broker.createService({
 - `before` hooks: global (`*`) `->` service level `->` action level.
 
 - `after` hooks: action level `->` service level `->` global (`*`).
+
+{% note info%}
+When using several hooks it might be difficult visualize their execution order. However, you can set the [`logLevel` to `debug`](logging.html#Log-Level-Setting) to quickly check the execution order of global and service level hooks.
+{% endnote %}
 
 **以下示例 global, service & action 级别钩子的执行链**
 ```js
