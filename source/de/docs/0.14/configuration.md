@@ -32,6 +32,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`cacher`**: `String | Object | Cacher` - Cacher settings. [Read more](caching.html). _Default: `null`_
 * **`serializer`**: `String | Serializer` - Instance of serializer. [Read more](networking.html). _Default: `JSONSerializer`_
 * **`validator`**: `Boolean | Validator` - Enable the default or create custom [parameters validation](validating.html). _Default: `true`_
+* **`errorRegenerator`**: `Regenerator` - Instance of error regenerator. [Read more](errors.html#Preserve-custom-error-classes-while-transferring-between-remote-nodes). _Default: `null`_
 * **`metrics`**: `Boolean | Object` - Enable & configure [metrics](metrics.html) feature. _Default: `false`_
 * **`tracing`**: `Boolean | Object` - Enable & configure [tracing](tracing.html) feature. _Default: `false`_
 * **`internalServices`**: `Boolean | Object` - Register [internal services](services.html#Internal-Services) at start. _Default: `true`_
@@ -120,6 +121,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
     serializer: "JSON",
 
     validator: true,
+    errorRegenerator: null,
 
     metrics: {
         enabled: true,
