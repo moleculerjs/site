@@ -520,6 +520,44 @@ module.exports = {
 };
 ```
 
+
+## Connecting spans while using external communication module
+
+It is possible to connect the spans even while communicating via external queue (e.g., [moleculer-channels](https://github.com/moleculerjs/moleculer-channels)). To do it you just need to pass the `parentID` and `requestID` to the handler and then use those IDs to start a custom span.
+
+**Connecting spans**
+
+```js
+module.exports = {
+    name: "trace",
+    actions: {
+        async extractTraces(ctx) {
+            // Extract the parentID and the requestID from context
+            const { parentID, requestID: traceID } = ctx;
+
+            // Send parentID and traceID as payload via an external queue
+            await this.broker.sendToChannel("trace.setSpanID", {
+                // Send the IDs in the payload
+                parentID,
+                traceID,
+            });
+        },
+    },
+
+    // More info about channels here: https://github.com/moleculerjs/moleculer-channels
+    channels: {
+        "trace.setSpanID"(payload) {
+            // Init custom span with the original parentID and requestID
+            const span = this.broker.tracer.startSpan("my.span", payload);
+
+            // ... logic goes here
+
+            span.finish(); // Finish the custom span
+        },
+    },
+};
+```
+
 ## Personalizando
 ### Nomes de Span Personalizados
 Você pode personalizar o nome do span de seu rastreamento. Nesse caso, você deve especificar o `spanName` que deve ser uma `String` estática ou uma `Function`.
