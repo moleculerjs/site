@@ -89,7 +89,7 @@ Retorna se o desligamento atingir o timeout. Error code: **500** Retryable: **fa
 Retorna se um nodeID antigo estiver conectado com a versão do protocolo antigo. Error code: **500** Retryable: **false** Type: `PROTOCOL_VERSION_MISMATCH`
 
 ### `InvalidPacketDataError`
-Throw it if transporter receives unknown data. Error code: **500** Retryable: **false** Type: `INVALID_PACKET_DATA`
+Retorne caso o módulo de transporte receba dados desconhecidos. Error code: **500** Retryable: **false** Type: `INVALID_PACKET_DATA`
 
 ## Criar erros personalizados
 O exemplo a seguir mostra como criar uma classe personalizada de `erro` que é herdada de `MoleculerError`.
