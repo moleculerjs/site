@@ -402,7 +402,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 
 ## Metadados
 
-The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store in it whatever you want._
+O esquema do `Service` tem uma propriedade `metadata`. Você pode armazenar aqui qualquer informação sobre o serviço. Você pode acessá-lo com `this.metadata` dentro das funções do serviço. _Moleculer não os usa. Você pode armazenar o que você quiser._
 
 ```js
 module.exports = {
@@ -416,31 +416,31 @@ module.exports = {
     actions: { ... }
 };
 ```
-> The `metadata` is also obtainable on remote nodes. It is transferred during service discovering.
+> A propriedade `metadata` também pode ser obtida em nós remotos. É transferido durante a descoberta de serviços.
 
-## Properties of Service Instances
-In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
+## Propriedades das Instâncias de Serviços
+Nas funções do serviço, `this` sempre aponta para a instância do Serviço. Ele tem algumas propriedades & métodos que você pode usar em suas funções de serviço.
 
-| Nome                   | Tipo                 | Descrição                                                   |
-| ---------------------- | -------------------- | ----------------------------------------------------------- |
-| `this.name`            | `String`             | Name of service (from schema)                               |
-| `this.version`         | `Number` or `String` | Version of service (from schema)                            |
-| `this.fullName`        | `String`             | Name of version prefix                                      |
-| `this.settings`        | `Object`             | Settings of service (from schema)                           |
-| `this.metadata`        | `Object`             | Metadata of service (from schema)                           |
-| `this.schema`          | `Object`             | Schema definition of service                                |
-| `this.broker`          | `ServiceBroker`      | Instance of broker                                          |
-| `this.Promise`         | `Promise`            | Class of Promise (Bluebird)                                 |
-| `this.logger`          | `Log`                | Logger instance                                             |
-| `this.actions`         | `Object`             | Actions of service. _Service can call own actions directly_ |
-| `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
-| `this.currentContext`  | `Contexto`           | Get or set the current Context object.                      |
+| Nome                   | Tipo                 | Descrição                                                               |
+| ---------------------- | -------------------- | ----------------------------------------------------------------------- |
+| `this.name`            | `String`             | Nome do serviço (do esquema)                                            |
+| `this.version`         | `Number` ou `String` | Versão do serviço (do esquema)                                          |
+| `this.fullName`        | `String`             | Nome do prefixo da versão                                               |
+| `this.settings`        | `Object`             | Configurações do serviço (do esquema)                                   |
+| `this.metadata`        | `Object`             | Metadados do serviço (do esquema)                                       |
+| `this.schema`          | `Object`             | Definição do esquema de serviço                                         |
+| `this.broker`          | `ServiceBroker`      | Instância do broker                                                     |
+| `this.Promise`         | `Promise`            | Classe de Promessa (Bluebird)                                           |
+| `this.logger`          | `Log`                | Instância do logger                                                     |
+| `this.actions`         | `Object`             | Ações de serviço. _O serviço pode chamar as próprias ações diretamente_ |
+| `this.waitForServices` | `Function`           | Link para o método `broker.waitForServices`                             |
+| `this.currentContext`  | `Contexto`           | Obtém ou define o objeto de contexto atual.                             |
 
-## Service Creation
-There are several ways to create and load a service.
+## Criação de Serviço
+Existem várias maneiras de criar e carregar um serviço.
 
 ### broker.createService()
-For testing, developing or prototyping, use the `broker.createService` method to load & create a service by schema. It's simplest & fastest.
+Para testes, desenvolvimento ou protótipos use o método `broker.createService` para carregar & criar um serviço por esquema. É mais simples & mais rápido.
 
 ```js
 broker.createService({
@@ -453,8 +453,8 @@ broker.createService({
 });
 ```
 
-### Load service from file
-The recommended way is to place your service code into a single file and load it with the broker.
+### Carregar um serviço de um arquivo
+A maneira recomendada é colocar seu código de serviço em um único arquivo e carregá-lo com o broker.
 
 **math.service.js**
 ```js
@@ -472,7 +472,7 @@ module.exports = {
 }
 ```
 
-**Load it with broker:**
+**Carregar com o broker:**
 ```js
 // Create broker
 const broker = new ServiceBroker();
@@ -484,7 +484,7 @@ broker.loadService("./math.service");
 broker.start();
 ```
 
-In the service file you can also create the Service instance. In this case, you have to export a function which returns the instance of [Service](#service).
+No arquivo de serviço, você também pode criar a instância de serviço. Nesse caso, você tem que exportar uma função que retorne a instância do [Service](#service).
 ```js
 const { Service } = require("moleculer");
 
@@ -504,7 +504,7 @@ module.exports = function(broker) {
 }
 ```
 
-Or create a function which returns with the schema of service
+Ou crie uma função que retorne com o esquema de serviço
 ```js
 // Export a function, the `loadService` will call with the ServiceBroker instance.
 module.exports = function() {
@@ -521,8 +521,8 @@ module.exports = function() {
 }
 ```
 
-### Load multiple services from a folder
-If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
+### Carregar vários serviços de uma pasta
+Se você tem muitos serviços (e você terá), sugerimos colocá-los em uma pasta de `services` e carregá-los com método `broker.loadServices`.
 
 **Sintaxe**
 ```js
@@ -541,13 +541,13 @@ broker.loadServices("./");
 broker.loadServices("./svc", "user*.service.js");
 ```
 
-### Load with Moleculer Runner (recommended)
-We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Leia mais sobre o Moleculer Runner](runner.html). It is the easiest way to start a node.
+### Carregar com Moleculer Runner (recomendado)
+Recomendamos usar o [Moleculer Runner](runner.html) para iniciar um ServiceBroker e carregar serviços. [Leia mais sobre o Moleculer Runner](runner.html). Esta é a maneira mais fácil de começar um nó.
 
-## Hot Reloading Services
-Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
+## Recarregando serviços
+Moleculer possui uma função de hot-reloading integrada. Durante o desenvolvimento, pode ser muito útil porque recarrega seus serviços quando você modificá-los. Você pode habilitá-lo nas opções do broker ou no [Moleculer Runner](runner.html). [Vídeo demonstração de como funciona.](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
-**Enable in broker options**
+**Habilitar nas opções do broker**
 
 ```js
 const broker = new ServiceBroker({
@@ -557,7 +557,7 @@ const broker = new ServiceBroker({
 broker.loadService("./services/test.service.js");
 ```
 
-**Enable it in Moleculer Runner**
+**Ativar no Moleculer Runner**
 
 Turn it on with `--hot` or `-H` flags.
 
