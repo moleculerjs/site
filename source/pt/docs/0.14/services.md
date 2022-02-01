@@ -559,24 +559,24 @@ broker.loadService("./services/test.service.js");
 
 **Ativar no Moleculer Runner**
 
-Turn it on with `--hot` or `-H` flags.
+Ative-o com as flags `--hot` ou `-H`.
 
 ```bash
 $ moleculer-runner --hot ./services/test.service.js
 ```
 
 {% note info %}
-Hot reloading function is working only with Moleculer Runner or if you load your services with `broker.loadService` or `broker.loadServices`. It doesn't work with `broker.createService`.
+A função hot-reloading está funcionando somente com o Moleculer Runner ou se você carregar seus serviços com `broker.loadService` ou `broker.loadServices`. Ele não funciona com o `broker.createService`.
 {% endnote %}
 
 {% note info %}
-Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
+O mecanismo de hot-reloading observa os arquivos de serviço e suas dependências. Toda vez que uma alteração de arquivo é detectada o mecanismo de hot-reloading irá rastrear os serviços que dependem dela e reiniciá-los.
 {% endnote %}
 
-## Local Variables
-If you would like to use local properties/variables in your service, declare them in the `created` event handler.
+## Variáveis Locais
+Se você gostaria de usar propriedades/variáveis locais em seu serviço, declare-as no manipulador de eventos `created`.
 
-**Example for local variables**
+**Exemplo para variáveis locais**
 ```js
 const http = require("http");
 
@@ -611,15 +611,15 @@ module.exports = {
 }
 ```
 {% note warn Naming restriction %}
-It is important to be aware that you can't use variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.
+É importante estar ciente de que você não pode usar um nome de variável que é reservado para o serviço ou coincide com seus nomes de método! Ex.: `this.name`, `this.version`, `this.settings`, `this.schema`...etc.
 {% endnote %}
 
-## ES6 Classes
-If you prefer ES6 classes to Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
+## Classes ES6
+Se você preferir classes da ES6 para o esquema de serviço Moleculer, você pode escrever seus serviços em classes ES6. Há duas maneiras de fazer.
 
-### Native ES6 classes with schema parsing
+### Classes nativas ES6 com parse de esquema
 
-Define `actions` and `events` handlers as class methods and call the `parseServiceSchema` method in constructor with schema definition where the handlers pointed to these class methods.
+Defina manipuladores de `actions` e `events` como métodos de classe e chame o método `parseServiceSchema` no construtor com a definição de esquema e os manipuladores apontarão para esses métodos de classe.
 ```js
 const Service = require("moleculer").Service;
 
@@ -700,14 +700,14 @@ class GreeterService extends Service {
 module.exports = GreeterService;
 ```
 
-### Use decorators
-Thanks for [@ColonelBundy](https://github.com/ColonelBundy), you can use ES7/TS decorators as well: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
+### Usar decoradores
+Graças a [@ColonelBundy](https://github.com/ColonelBundy), você também pode usar decoradores ES7/TS: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
 
 {% note info Need a compiler %}
-Please note, you must use Typescript or Babel to compile decorators.
+Por favor, note que você deve usar Typescript ou Babel para compilar decoradores.
 {% endnote %}
 
-**Example service**
+**Serviço de exemplo**
 ```js
 const { ServiceBroker } = require('moleculer');
 const { Service, Action, Event, Method } = require('moleculer-decorators');
