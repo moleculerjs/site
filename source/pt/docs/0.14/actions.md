@@ -375,7 +375,7 @@ Os hooks de erro são chamados quando um `Erro` é lançado durante a chamada da
 - resposta de fallback
 
 ### Declaração de nível de serviço
-Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`.
+Hooks podem ser atribuídos a uma ação específica (indicando o `nome`) da ação, todas as ações (`*`) no serviço ou indicando um coringa (e.x., `create-*`). O último será aplicado a todas as ações cujo nome começa com `create-`.
 
 {% note warn%}
 Note que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução dos hooks](#Execution-order).
@@ -529,7 +529,7 @@ broker.createService({
 - `after` hooks: nível de ação `->` nível de serviço `->` global (`*`).
 
 {% note info%}
-When using several hooks it might be difficult visualize their execution order. However, you can set the [`logLevel` to `debug`](logging.html#Log-Level-Setting) to quickly check the execution order of global and service level hooks.
+Ao usar vários hooks pode ser difícil visualizar sua ordem de execução. No entanto você pode definir o [`logLevel` para `debug`](logging.html#Log-Level-Setting) para rapidamente verificar a ordem de execução dos hooks de nível global e de serviço.
 {% endnote %}
 
 **Exemplo de uma cadeia de execução de hook global, a nível de serviço & de ação**
