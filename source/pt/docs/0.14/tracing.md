@@ -521,11 +521,11 @@ module.exports = {
 ```
 
 
-## Connecting spans while using external communication module
+## Conectar spans durante o uso do módulo de comunicação externo
 
-It is possible to connect the spans even while communicating via external queue (e.g., [moleculer-channels](https://github.com/moleculerjs/moleculer-channels)). To do it you just need to pass the `parentID` and `requestID` to the handler and then use those IDs to start a custom span.
+É possível conectar os spans mesmo quando se comunica através de uma fila externa (por exemplo, [moleculer-channels](https://github.com/moleculerjs/moleculer-channels)). Para fazer isso, você só precisa passar o `parentID` e `requestID` para o manipulador e, em seguida, usar esses IDs para iniciar um span personalizado.
 
-**Connecting spans**
+**Conectando spans**
 
 ```js
 module.exports = {
