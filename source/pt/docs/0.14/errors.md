@@ -104,18 +104,18 @@ class MyBusinessError extends MoleculerError {
 }
 ```
 
-## Preserve custom error classes while transferring between remote nodes
-For this purpose provide your own `Regenerator`. We recommend looking at the source code of [Errors.Regenerator](https://github.com/moleculerjs/moleculer/blob/master/src/errors.js) and implementing `restore`, `extractPlainError` or `restoreCustomError` methods.
+## Preservar classes de erro personalizadas durante a transferência entre nós remotos
+Para esse propósito, forneça seu próprio `Regenerador`. Recomendamos ver o código fonte do [Errors.Regenerator](https://github.com/moleculerjs/moleculer/blob/master/src/errors.js) e implementar os métodos `restore`, `extractPlainError` ou `restoreCustomError`.
 
-### Public interface of Regenerator
+### Interface pública do Regenerador
 
-| Method                                    | Return                 | Descrição                                                                                                   |
-| ----------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `restore(plainError, payload)`            | `Error`                | Restores an `Error` object                                                                                  |
-| `extractPlainError(err)`                  | `Object`               | Extracts a plain error object from `Error` object                                                           |
-| `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook to restore a custom error in a child class. Prefer to use this method instead of the `restore` method. |
+| Método                                    | Retorno                | Descrição                                                                                                           |
+| ----------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `restore(plainError, payload)`            | `Error`                | Restaura um objeto `error`                                                                                          |
+| `extractPlainError(err)`                  | `Object`               | Extrai um objeto de erro simples do objeto `Error`                                                                  |
+| `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook para restaurar um erro personalizado em uma classe filha. Prefira usar esse método em vez do método `restore`. |
 
-#### Create custom regenerator
+#### Criar regenerador personalizado
 ```js
 const { Regenerator, MoleculerError } = require("moleculer").Errors;
 const { ServiceBroker } = require("moleculer");
@@ -147,7 +147,7 @@ class CustomRegenerator extends Regenerator {
 module.exports = CustomRegenerator;
 ```
 
-#### Use custom regenerator
+#### Usar regenerador personalizado
 ```js
 // moleculer.config.js
 const CustomRegenerator = require("./custom-regenerator");
