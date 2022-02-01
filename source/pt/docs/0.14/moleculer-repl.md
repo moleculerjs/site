@@ -24,28 +24,28 @@ broker.start().then(() => {
 
 ```
 Commands:
-  actions [options]                                          List of actions
-  bench [options] <action> [jsonParams] [meta]               Benchmark service action
-  broadcast <eventName>                                      Broadcast an event
-  broadcastLocal <eventName>                                 Broadcast an event locally
-  cache                                                      Manage cache
-  call [options] <actionName> [jsonParams] [meta]            Call an action
-  dcall [options] <nodeID> <actionName> [jsonParams] [meta]  Direct call an action
-  clear [pattern]                                            Clear cache entries
-  cls                                                        Clear console
-  destroy <serviceName>                                      Destroy a local service
-  emit <eventName>                                           Emit an event
-  env                                                        List of environment variables
-  events [options]                                           List of event listeners
-  info                                                       Information about broker
-  listener                                                   Adds or removes event listeners
-  load <servicePath>                                         Load a service from file
-  loadFolder <serviceFolder> [fileMask]                      Load all services from folder
-  metrics [options]                                          List metrics
-  nodes [options]                                            List of nodes
-  exit|q                                                     Exit application
-  services [options]                                         List of services
-  help [command]                                             display help for command
+  actions [options]                                          Lista de ações
+  bench [options] <action> [jsonParams] [meta]               Teste de carga da ação de um serviço
+  broadcast <eventName>                                      Transmitir um evento
+  broadcastLocal <eventName>                                 Transmitir um evento localmente
+  cache                                                      Administrar o cache
+  call [options] <actionName> [jsonParams] [meta]            Chamar uma ação
+  dcall [options] <nodeID> <actionName> [jsonParams] [meta]  Chamar uma ação diretamente
+  clear [pattern]                                            Limpar entradas do cache
+  cls                                                        Limpar o console
+  destroy <serviceName>                                      Destruir um serviço local
+  emit <eventName>                                           Emitir um evento
+  env                                                        Listar as variáveis de ambiente
+  events [options]                                           Listar os eventos
+  info                                                       Informações do broker
+  listener                                                   Adicionar ou remover eventos
+  load <servicePath>                                         Carregar um serviço de um arquivo
+  loadFolder <serviceFolder> [fileMask]                      Carregar todos os serviços de um diretório
+  metrics [options]                                          Listar métricas
+  nodes [options]                                            Listar nós
+  exit|q                                                     Saída da aplicação
+  services [options]                                         Lista de serviços
+  help [command]                                             exibir a ajuda para o comando
 ```
 
 ### Listar nós
@@ -154,11 +154,11 @@ mol $ call "math.add" --a 5 --b Bob --c --no-d --e.f "hello"
 ```
 Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 
-#### Call an action with params, meta & options
+#### Chamar uma ação com params, meta & options
 ```bash
 mol $ call "math.add" --a 5 --#b Bob --$timeout 1
 ```
-Params will be `{ a: 5 }`, meta will be `{ b: 'Bob' }` and options will be `{ timeout: 1 }`.
+Os parâmetros serão `{ a: 5 }`, meta será `{ b: 'Bob' }` e as opções serão `{ timeout: 1 }`.
 
 #### Executar com uma string JSON como parâmetro
 ```bash
@@ -216,7 +216,7 @@ Parâmetros serão `{ a: 5, b: 'Bob', c: true, d: false, e: { f: 'hello' } }`
 ```bash
 mol $ emit "user.created" --a 5 --#b Bob --$groups acb
 ```
-Params will be `{ a: 5 }`, meta will be `{ b: 'Bob' }` and options will be `{ groups: acb }`.
+Os parâmetros serão `{ a: 5 }`, meta será `{ b: 'Bob' }` e as opções serão `{ groups: acb }`.
 
 ### Performance de um serviço
 
@@ -299,24 +299,24 @@ isto por padrão remove todas as entradas. Se você quiser remover um subconjunt
 mol $ cache clear greeter.*
 ```
 
-### Event listener
+### Eventos
 
-REPL can subscribe and listen to events. To subscribe use:
+REPL pode assinar e ouvir eventos. Para assinar utilize:
 ```
 mol $ listener add user.created
 ```
 
-**Subscribe with group option**
+**Inscrever-se com a opção de grupo**
 ```
 mol $ listener add user.created --group abcd
 ```
 
-To unsubscribe use:
+Para cancelar a assinatura, use:
 ```
 mol $ listener remove user.created
 ```
 
-To list all events that REPL is listening to use
+Para listar todos os eventos que REPL está ouvindo usar
 ```
 mol $ listener list
 ```
