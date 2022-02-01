@@ -32,7 +32,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`cacher`**: `String | Object | Cacher` - Configurações de cache. [Leia mais](caching.html). _Default: `null`_
 * **`serializer`**: `String | Serializer` - Instância do serializador. [Leia mais](networking.html). _Default: `JSONSerializer`_
 * **`validator`**: `Boolean | Validator` - Habilita o padrão ou cria [validação de parâmetros](validating.html) personalizada. _Default: `true`_
-* **`errorRegenerator`**: `Regenerator` - Instance of error regenerator. [Read more](errors.html#Preserve-custom-error-classes-while-transferring-between-remote-nodes). _Default: `null`_
+* **`errorRegenerator`**: `Regenerador` - Instância do regenerador de erro. [Leia mais](errors.html#Preserve-custom-error-classes-while-transferring-between-remote-nodes). _Default: `null`_
 * **`metrics`**: `Boolean | Object` - Habilita & configura o recurso de [métricas](metrics.html). _Default: `false`_
 * **`tracing`**: `Boolean | Object` - Habilita & configura o recurso de [tracing](tracing.html). _Default: `false`_
 * **`internalServices`**: `Boolean | Object` - Registra [serviços internos](services.html#Internal-Services) ao inicializar. _Default: `true`_
@@ -44,7 +44,7 @@ Essas opções podem ser usadas no construtor do `ServiceBroker` ou no arquivo `
 * **`replCommands`**: `Array<Object>` - Registre comandos REPL personalizados. _Default: `null`_
 * **`metadata`**: `Object` - Armazene valores personalizados. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Ignore o manipulador [padrão](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) de eventos de desligamento elegante. Neste caso, você tem que registrá-los manualmente. _Default: `false`_
-* **`maxSafeObjectSize`**: `Number` - Maximum size of objects that can be serialized. On serialization process, check each object property size (based on `length` or `size` property value) and trim it, if object size bigger than `maxSafeObjectSize` value. _Default: `null`_
+* **`maxSafeObjectSize`**: `Number` - Tamanho máximo de objetos que podem ser serializados. No processo de serialização, checa a propriedade size de cada objeto (baseado no valor da propriedade `length` ou `size`) aparando as extremidades, se o tamanho do objeto for maior que o valor de `maxSafeObjectSize`. _Default: `null`_
 * **`created`**: `Function` - Acionado quando o broker for criado. _Default: `null`_
 * **`started`**: `Function` - Acionado quando o broker for inicializado _(todos os serviços locais carregados & módulo de transporte conectado)_. _Default: `null`_
 * **`stopped`**: `Function` - Acionado quando o broker for parado _(todos os serviços locais parados & módulo de transporte está desconectado)_. _Default: `null`_
