@@ -709,17 +709,17 @@ module.exports = {
 };
 ```
 
-## safetyTags and Maximum call stack error
+## safetyTags e o erro Maximum call stack
 
-In general, sending non-serializable parameters (e.g. http request, socket instance, stream instance, etc.) in `ctx.params` or `ctx.meta` is not recommended. If tracing is enabled, the tracer exporter will try to recursively flatten these params (with [`flattenTags` method](https://github.com/moleculerjs/moleculer/blob/c48d5a05a4f4a1656075faaabc64085ccccf7ef9/src/tracing/exporters/base.js#L87-L101)) which will cause the `Maximum call stack error`.
+Em geral, não é recomendado enviar parâmetros não serializáveis (por exemplo, http request, instância de socket, etc.) em `ctx.params` ou `ctx.meta`. Se o tracing estiver habilitado, o tracer tentará de forma recursiva achatar estes parâmetros (com o método [`flattenTags`](https://github.com/moleculerjs/moleculer/blob/c48d5a05a4f4a1656075faaabc64085ccccf7ef9/src/tracing/exporters/base.js#L87-L101)) que causará o erro `Maximum call stack`.
 
-To avoid this issue, you can use the `safetyTags` option in exporter options. If set to `true`, the exporters remove the cyclic properties before flattening the tags in the spans. This option is available in all built-in exporters.
+Para evitar esse problema, você pode usar a opção `safetyTags` nas opções do tracer. Se definido como `true`, os exportadores removem as propriedades cíclicas antes de achatar as tags nos spans. Esta opção está disponível em todos os exportadores integrados.
 
 {% note warn Performance impact%}
-Please note, this option has a **significant** [impact in performance](https://github.com/moleculerjs/moleculer/issues/908#issuecomment-817806332). For this reason it's not enabled by default.
+Por favor, note que esta opção tem um **significativo** [impacto no desempenho](https://github.com/moleculerjs/moleculer/issues/908#issuecomment-817806332). Por essa razão não é habilitado por padrão.
 {% endnote %}
 
-**Enabling globally the safetyTags**
+**Habilitando globalmente as Tags de Segurança**
 ```js
 // moleculer.config.js
 {
@@ -736,7 +736,7 @@ Please note, this option has a **significant** [impact in performance](https://g
 ```
 
 
-To avoid affecting all actions, you can enable this function at action-level. In this case, the remaining actions will be unaffected. **Enabling safetyTags at action-level**
+Para evitar afetar todas as ações, você pode habilitar essa função no nível de ação. Neste caso, as outras ações não serão afetadas. **Habilitando tags de segurança no nível da ação**
 ```js
 broker.createService({
     name: "greeter",
