@@ -27,57 +27,57 @@ Você pode colocar as respostas em um arquivo JSON e carrega-lo com o argumento 
 $ moleculer init project my-project --answers ./answers.json
 ```
 
-### Disable installing dependencies
-You can disable the automatic NPM dependency installation with `--no-install` argument. It can be useful to generate project programmatically.
+### Desativar a instalação de dependências
+Você pode desativar a instalação automática de dependências NPM com o argumento `--no-install`. Isto pode ser útil para gerar o projeto programaticamente.
 
 ```bash
 $ moleculer init project my-project --answers ./answers.json --no-install
 ```
 
-### [Official templates](https://github.com/topics/moleculer-template)
+### [Templates oficiais](https://github.com/topics/moleculer-template)
 
-* [**project**](https://github.com/moleculerjs/moleculer-template-project) - Generate a common Moleculer-based project. *Use it if you want to start a new project which is based on Moleculer framework*
-    * sample service (`greeter`)
-    * official [API Gateway](https://github.com/moleculerjs/moleculer-web) (optional)
-    * Docker & Docker Compose files
-    * tests & coverage with [Jest](http://facebook.github.io/jest/)
-    * lint with [ESLint](http://eslint.org/)
-
-
-* [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*
-    * sample service (`greeter`)
-    * Docker & Docker Compose files
-    * tests & coverage with [Jest](http://facebook.github.io/jest/)
-    * lint with [ESLint](http://eslint.org/)
-    * Minimal Docker file
+* [**project**](https://github.com/moleculerjs/moleculer-template-project) - Gera um projeto base Moleculer. *Use-o se você quiser iniciar um novo projeto que seja baseado no framework Moleculer*
+    * serviço de exemplo (`greeter`)
+    * [API Gateway](https://github.com/moleculerjs/moleculer-web) (opcional)
+    * Arquivos Docker & Docker Compose
+    * Testes & cobertura com [Jest](http://facebook.github.io/jest/)
+    * Lint com [ESLint](http://eslint.org/)
 
 
-* [**module**](https://github.com/moleculerjs/moleculer-template-module) - Generate a new Moleculer module project (e.g.: `moleculer-xyz`). *Use it if you want to create a module for Moleculer framework*
-    * empty service skeleton
-    * examples skeleton
-    * readme skeleton
-    * tests & coverage with [Jest](http://facebook.github.io/jest/)
-    * lint with [ESLint](http://eslint.org/)
+* [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Modelo mínimo de projeto para um microsserviço. *Use-o se desejar criar um microsserviço que se conecte aos outros através do módulo de transporte*
+    * serviço de exemplo (`greeter`)
+    * Arquivos Docker & Docker Compose
+    * Testes & cobertura com [Jest](http://facebook.github.io/jest/)
+    * Lint com [ESLint](http://eslint.org/)
+    * Arquivo Docker mínimo
 
-### Custom templates
+
+* [**module**](https://github.com/moleculerjs/moleculer-template-module) - Gerar um novo projeto de módulo de Moleculer (e.g.: `moleculer-xyz`). *Use-o se você deseja criar um módulo para o framework Moleculer*
+    * esqueleto vazio de serviço
+    * esqueleto de exemplos
+    * esqueleto de Read Me
+    * Testes & cobertura com [Jest](http://facebook.github.io/jest/)
+    * Lint com [ESLint](http://eslint.org/)
+
+### Templates personalizados
 
 ``` bash
 $ moleculer init username/repo my-project
 ```
-Where username/repo is the GitHub repo shorthand for your fork.
+Onde username/repo é o repositório do GitHub abreviado para seu diretório.
 
-The shorthand repo notation is passed to [download-git-repo](https://github.com/flipxfx/download-git-repo) so it can be `bitbucket:username/repo` for a Bitbucket repo and `username/repo#branch` for tags or branches.
+A notação curta de repositório é passada para [download-git-repo](https://github.com/flipxfx/download-git-repo) de modo que seja `bitbucket:username/repo` para um repositório do Bitbucket e `username/repo#branch` para tags ou branches.
 
-### Local Templates
+### Templates locais
 
-Instead of a GitHub repo, use a template from local filesystem:
+Em vez de um repositório GitHub, use um template do sistema de arquivos local:
 ``` bash
 $ moleculer init ./path/to-custom-template my-project
 ```
 
 ### Template aliases
 
-To simplify usage of custom templates (local and remote), it is possible to register an alias and use that afterwards instead of the whole repository url.
+Para simplificar o uso de templates personalizados (local e remoto), é possível registrar um alias e usá-lo depois em vez de todo o Url do repositório.
 ```bash
 $ moleculer alias-template myAlias somegithubuser/reponame
 $ moleculer alias-template otherAlias ./path/to/some-local/custom/template
@@ -85,17 +85,17 @@ $ moleculer alias-template otherAlias ./path/to/some-local/custom/template
 
 $ moleculer init myAlias my-project
 ```
-All registered template aliases are stored in the file `~/.moleculer-templates.json` and can also be edited manually.
+Todos os alias de template registrados são armazenados no arquivo `~/.moleculer-templates.json` e também podem ser editados manualmente.
 
-### Creating Custom Templates
+### Criando Templates Personalizados
 
-Moleculer templates consist of a `meta.js` file and a `template` directory.
+Templates do Moleculer consistem em um arquivo `meta.js` e um diretório `template`.
 
 ##### `meta.js`
 
-The `meta.js` file exports a function that returns an object defining the Moleculer CLI init interface. The function takes a parameter `values` that gives access to external values passed in from the CLI. The object has several keys which are explained below.
+O arquivo `meta.js` exporta uma função que retorna um objeto que define a interface init do Moleculer CLI. A função recebe um parâmetro `values` que dá acesso aos valores externos passados pelo CLI. O objeto possui várias chaves que são explicadas abaixo.
 
-The `questions` property is an array of objects defining the questions asked in the init process. These objects are [Inquirer.js objects](https://github.com/SBoudrias/Inquirer.js#objects). Data collected here is stored in the Metalsmith `metadata` object.
+A propriedade `questions` é uma matriz de objetos que definem as questões feitas no processo de iniciação. Esses objetos são objetos [Inquirer.js](https://github.com/SBoudrias/Inquirer.js#objects). Data collected here is stored in the Metalsmith `metadata` object.
 
 The `metalsmith` property allows custom code to be executed at different points in the transformation process. The `before` function executes before the transformation is run, the `after` function executes after the transformation is run, and the `complete` function executes after the transformation is run and the files are copied to the destination directory.
 
