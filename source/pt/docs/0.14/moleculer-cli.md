@@ -1,8 +1,8 @@
-title: Command Line Tool
+title: Ferramenta de Linha de Comando
 ---
 
 ## moleculer-cli [![npm](https://img.shields.io/npm/v/moleculer-cli.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-cli)
-This is a [command-line tool](https://github.com/moleculerjs/moleculer-cli) for Moleculer to help developing & testing.
+Esta é uma [ferramenta de linha de comando](https://github.com/moleculerjs/moleculer-cli) para o Moleculer ajudar no desenvolvimento & testes.
 
 ## Instalação
 
@@ -10,17 +10,17 @@ This is a [command-line tool](https://github.com/moleculerjs/moleculer-cli) for 
 $ npm i -g moleculer-cli
 ```
 
-## Commands
+## Comandos
 
 ## Init
-The `init` command is used to scaffold a new Moleculer project.
+O comando `init` é usado para fazer um novo projeto Moleculer.
 
 ``` bash
 $ moleculer init project my-project
 ```
-The above command downloads the template from [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), prompts some information and generates a new module to the `./my-project` folder.
+O comando acima baixa o modelo de [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), pede algumas informações e gera um novo módulo para a pasta `./my-project`.
 
-### Answers from file
+### Respostas a partir de um arquivo
 You can put the question answers into a JSON file and load it with the `--answers` argument. It can be useful to generate project programmatically.
 
 ```bash
