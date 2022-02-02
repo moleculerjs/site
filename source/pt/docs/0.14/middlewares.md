@@ -1,7 +1,7 @@
 title: Middlewares
 ---
 
-Moleculer supports middlewares. It's same as plugins in other frameworks. The middleware is an `Object` with hooks & wrapper functions. It allows to wrap action handlers, event handlers, broker methods and hook lifecycle events.
+Moleculer suporta middlewares. É o mesmo que plugins em outros frameworks. O middleware é um `Object` com funções wrapper & hook. Ele permite encapsular manipuladores de ação, manipuladores de eventos, métodos do broker e hook de eventos de ciclo de vida.
 
 **Exemplo**
 ```js
