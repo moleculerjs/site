@@ -772,8 +772,8 @@ broker.createService(MyService);
 broker.start();
 ```
 
-## Internal Services
-The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
+## Serviços internos
+O `ServiceBroker` contém alguns serviços internos para verificar o estado do nó ou obter algumas informações de registro. You can disable them by setting `internalServices: false` in broker options.
 
 ### List of nodes
 It lists all known nodes (including local node).
