@@ -21,7 +21,7 @@ $ moleculer init project my-project
 O comando acima baixa o modelo de [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), pede algumas informações e gera um novo módulo para a pasta `./my-project`.
 
 ### Respostas a partir de um arquivo
-You can put the question answers into a JSON file and load it with the `--answers` argument. It can be useful to generate project programmatically.
+Você pode colocar as respostas em um arquivo JSON e carrega-lo com o argumento `--answers`. Isto pode ser útil para gerar o projeto programaticamente.
 
 ```bash
 $ moleculer init project my-project --answers ./answers.json
