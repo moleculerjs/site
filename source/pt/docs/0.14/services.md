@@ -773,96 +773,96 @@ broker.start();
 ```
 
 ## Serviços internos
-O `ServiceBroker` contém alguns serviços internos para verificar o estado do nó ou obter algumas informações de registro. You can disable them by setting `internalServices: false` in broker options.
+O `ServiceBroker` contém alguns serviços internos para verificar o estado do nó ou obter algumas informações de registro. Você pode desabilitá-los configurando `internalServices: false` nas opções do broker.
 
-### List of nodes
-It lists all known nodes (including local node).
+### Lista de nós
+Lista todos os nós conhecidos (incluindo o nó local).
 ```js
 broker.call("$node.list").then(res => console.log(res));
 ```
 
 **Parâmetros**
 
-| Nome            | Tipo      | Padrão  | Descrição                  |
-| --------------- | --------- | ------- | -------------------------- |
-| `withServices`  | `Boolean` | `false` | List with services.        |
-| `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
+| Nome            | Tipo      | Padrão  | Descrição                      |
+| --------------- | --------- | ------- | ------------------------------ |
+| `withServices`  | `Boolean` | `false` | Lista com serviços.            |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas nós disponíveis. |
 
-### List of services
-It lists all registered services (local & remote).
+### Lista de serviços
+Lista todos os serviços registrados (local & remoto).
 ```js
 broker.call("$node.services").then(res => console.log(res));
 ```
 
 **Parâmetros**
 
-| Nome            | Tipo      | Padrão  | Descrição                             |
-| --------------- | --------- | ------- | ------------------------------------- |
-| `onlyLocal`     | `Boolean` | `false` | List only local services.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
-| `withActions`   | `Boolean` | `false` | List with actions.                    |
-| `onlyAvailable` | `Boolean` | `false` | List only available services.         |
+| Nome            | Tipo      | Padrão  | Descrição                              |
+| --------------- | --------- | ------- | -------------------------------------- |
+| `onlyLocal`     | `Boolean` | `false` | Listar apenas serviços locais.         |
+| `skipInternal`  | `Boolean` | `false` | Ignore os serviços internos (`$node`). |
+| `withActions`   | `Boolean` | `false` | Lista com ações.                       |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas serviços disponíveis.    |
 
-### List of local actions
-It lists all registered actions (local & remote).
+### Lista de ações locais
+Lista todas as ações registradas (local & remoto).
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+Tem algumas opções que você pode declarar dentro de `params`.
 
 **Opções**
 
-| Nome            | Tipo      | Padrão  | Descrição                            |
-| --------------- | --------- | ------- | ------------------------------------ |
-| `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
-| `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.       |
-| `onlyAvailable` | `Boolean` | `false` | List only available actions.         |
+| Nome            | Tipo      | Padrão  | Descrição                           |
+| --------------- | --------- | ------- | ----------------------------------- |
+| `onlyLocal`     | `Boolean` | `false` | Lista apenas ações locais.          |
+| `skipInternal`  | `Boolean` | `false` | Ignore as ações internas (`$node`). |
+| `withEndpoints` | `Boolean` | `false` | Lista com endpoints _(nodes)_.      |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas ações disponíveis.    |
 
-### List of local events
-It lists all event subscriptions.
+### Lista de eventos locais
+Lista todas as assinaturas de eventos.
 ```js
 broker.call("$node.events").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+Tem algumas opções que você pode declarar dentro de `params`.
 
 **Opções**
 
-| Nome            | Tipo      | Padrão  | Descrição                                  |
-| --------------- | --------- | ------- | ------------------------------------------ |
-| `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
-| `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.             |
-| `onlyAvailable` | `Boolean` | `false` | List only available subscriptions.         |
+| Nome            | Tipo      | Padrão  | Descrição                                       |
+| --------------- | --------- | ------- | ----------------------------------------------- |
+| `onlyLocal`     | `Boolean` | `false` | Listar apenas assinaturas locais.               |
+| `skipInternal`  | `Boolean` | `false` | Ignore as assinaturas internas dos eventos `$`. |
+| `withEndpoints` | `Boolean` | `false` | Lista com endpoints _(nodes)_.                  |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas assinaturas disponíveis.          |
 
-### List of metrics
-It lists all metrics.
+### Lista de métricas
+Lista todas as métricas.
 ```js
 broker.call("$node.metrics").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+Tem algumas opções que você pode declarar dentro de `params`.
 
 **Opções**
 
-| Nome       | Tipo                | Padrão | Descrição                                                                      |
-| ---------- | ------------------- | ------ | ------------------------------------------------------------------------------ |
-| `types`    | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
-| `includes` | `String` or `Array` | `null` | List of metrics to be included in response.                                    |
-| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response.                              |
+| Nome       | Tipo                | Padrão | Descrição                                                                         |
+| ---------- | ------------------- | ------ | --------------------------------------------------------------------------------- |
+| `types`    | `String` ou `Array` | `null` | [Tipo](metrics.html#Supported-Metric-Types) de métricas para incluir na resposta. |
+| `includes` | `String` ou `Array` | `null` | Lista de métricas a serem incluídas na resposta.                                  |
+| `excludes` | `String` ou `Array` | `null` | Lista de métricas a serem excluídas da resposta.                                  |
 
-### Get Broker options
-It returns the broker options.
+### Obter opções do broker
+Retorna as opções do broker.
 ```js
 broker.call("$node.options").then(res => console.log(res));
 ```
 
-### Health of node
-It returns the health info of local node (including process & OS information).
+### Saúde do nó
+Retorna as informações de saúde de um nó local (incluindo informações de processo & SO).
 ```js
 broker.call("$node.health").then(res => console.log(res));
 ```
 
-Example health info:
+Exemplo de Informações de saúde:
 ```js
 {
     "cpu": {
@@ -923,11 +923,11 @@ Example health info:
 }
 ```
 {% note info %}
-Please note, internal service actions are not traced.
+Por favor, note que ações internas do serviço não são rastreadas.
 {% endnote %}
 
-### Extending
-Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option.
+### Ampliando
+Um serviço interno pode ser facilmente ampliado com funcionalidades personalizadas. Para fazer isso, você deve definir um esquema de mixin na opção do broker `internalServices`.
 
 ```javascript
 // moleculer.config.js
