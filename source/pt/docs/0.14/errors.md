@@ -103,3 +103,56 @@ class MyBusinessError extends MoleculerError {
     }
 }
 ```
+
+## Preservar classes de erro personalizadas durante a transferência entre nós remotos
+Para esse propósito, forneça seu próprio `Regenerador`. Recomendamos ver o código fonte do [Errors.Regenerator](https://github.com/moleculerjs/moleculer/blob/master/src/errors.js) e implementar os métodos `restore`, `extractPlainError` ou `restoreCustomError`.
+
+### Interface pública do Regenerador
+
+| Método                                    | Retorno                | Descrição                                                                                                           |
+| ----------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `restore(plainError, payload)`            | `Error`                | Restaura um objeto `error`                                                                                          |
+| `extractPlainError(err)`                  | `Object`               | Extrai um objeto de erro simples do objeto `Error`                                                                  |
+| `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook para restaurar um erro personalizado em uma classe filha. Prefira usar esse método em vez do método `restore`. |
+
+#### Criar regenerador personalizado
+```js
+const { Regenerator, MoleculerError } = require("moleculer").Errors;
+const { ServiceBroker } = require("moleculer");
+
+class TimestampedError extends MoleculerError {
+    constructor(message, code, type, data, timestamp) {
+        super(message, code, type, data);
+        this.timestamp = timestamp;
+    }
+}
+
+class CustomRegenerator extends Regenerator {
+    restoreCustomError(plainError, payload) {
+        const { name, message, code, type, data, timestamp } = plainError;
+        switch (name) {
+            case "TimestampedError":
+                return new TimestampedError(message, code, type, data, timestamp);
+        }
+    }
+
+    extractPlainError(err) {
+        return {
+            ...super.extractPlainError(err),
+            timestamp: err.timestamp
+        };
+    }
+}
+
+module.exports = CustomRegenerator;
+```
+
+#### Usar regenerador personalizado
+```js
+// moleculer.config.js
+const CustomRegenerator = require("./custom-regenerator");
+
+module.exports = {
+    errorRegenerator: new CustomRegenerator()
+}
+```

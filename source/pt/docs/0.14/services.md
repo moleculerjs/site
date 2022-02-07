@@ -402,7 +402,7 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 
 ## Metadados
 
-The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions. _Moleculer core modules don't use it. You can store in it whatever you want._
+O esquema do `Service` tem uma propriedade `metadata`. Você pode armazenar aqui qualquer informação sobre o serviço. Você pode acessá-lo com `this.metadata` dentro das funções do serviço. _Moleculer não os usa. Você pode armazenar o que você quiser._
 
 ```js
 module.exports = {
@@ -416,31 +416,31 @@ module.exports = {
     actions: { ... }
 };
 ```
-> The `metadata` is also obtainable on remote nodes. It is transferred during service discovering.
+> A propriedade `metadata` também pode ser obtida em nós remotos. É transferido durante a descoberta de serviços.
 
-## Properties of Service Instances
-In service functions, `this` is always pointed to the Service instance. It has some properties & methods what you can use in your service functions.
+## Propriedades das Instâncias de Serviços
+Nas funções do serviço, `this` sempre aponta para a instância do Serviço. Ele tem algumas propriedades & métodos que você pode usar em suas funções de serviço.
 
-| Nome                   | Tipo                 | Descrição                                                   |
-| ---------------------- | -------------------- | ----------------------------------------------------------- |
-| `this.name`            | `String`             | Name of service (from schema)                               |
-| `this.version`         | `Number` or `String` | Version of service (from schema)                            |
-| `this.fullName`        | `String`             | Name of version prefix                                      |
-| `this.settings`        | `Object`             | Settings of service (from schema)                           |
-| `this.metadata`        | `Object`             | Metadata of service (from schema)                           |
-| `this.schema`          | `Object`             | Schema definition of service                                |
-| `this.broker`          | `ServiceBroker`      | Instance of broker                                          |
-| `this.Promise`         | `Promise`            | Class of Promise (Bluebird)                                 |
-| `this.logger`          | `Log`                | Logger instance                                             |
-| `this.actions`         | `Object`             | Actions of service. _Service can call own actions directly_ |
-| `this.waitForServices` | `Function`           | Link to `broker.waitForServices` method                     |
-| `this.currentContext`  | `Contexto`           | Get or set the current Context object.                      |
+| Nome                   | Tipo                 | Descrição                                                               |
+| ---------------------- | -------------------- | ----------------------------------------------------------------------- |
+| `this.name`            | `String`             | Nome do serviço (do esquema)                                            |
+| `this.version`         | `Number` ou `String` | Versão do serviço (do esquema)                                          |
+| `this.fullName`        | `String`             | Nome do prefixo da versão                                               |
+| `this.settings`        | `Object`             | Configurações do serviço (do esquema)                                   |
+| `this.metadata`        | `Object`             | Metadados do serviço (do esquema)                                       |
+| `this.schema`          | `Object`             | Definição do esquema de serviço                                         |
+| `this.broker`          | `ServiceBroker`      | Instância do broker                                                     |
+| `this.Promise`         | `Promise`            | Classe de Promessa (Bluebird)                                           |
+| `this.logger`          | `Log`                | Instância do logger                                                     |
+| `this.actions`         | `Object`             | Ações de serviço. _O serviço pode chamar as próprias ações diretamente_ |
+| `this.waitForServices` | `Function`           | Link para o método `broker.waitForServices`                             |
+| `this.currentContext`  | `Contexto`           | Obtém ou define o objeto de contexto atual.                             |
 
-## Service Creation
-There are several ways to create and load a service.
+## Criação de Serviço
+Existem várias maneiras de criar e carregar um serviço.
 
 ### broker.createService()
-For testing, developing or prototyping, use the `broker.createService` method to load & create a service by schema. It's simplest & fastest.
+Para testes, desenvolvimento ou protótipos use o método `broker.createService` para carregar & criar um serviço por esquema. É mais simples & mais rápido.
 
 ```js
 broker.createService({
@@ -453,8 +453,8 @@ broker.createService({
 });
 ```
 
-### Load service from file
-The recommended way is to place your service code into a single file and load it with the broker.
+### Carregar um serviço de um arquivo
+A maneira recomendada é colocar seu código de serviço em um único arquivo e carregá-lo com o broker.
 
 **math.service.js**
 ```js
@@ -472,7 +472,7 @@ module.exports = {
 }
 ```
 
-**Load it with broker:**
+**Carregar com o broker:**
 ```js
 // Create broker
 const broker = new ServiceBroker();
@@ -484,7 +484,7 @@ broker.loadService("./math.service");
 broker.start();
 ```
 
-In the service file you can also create the Service instance. In this case, you have to export a function which returns the instance of [Service](#service).
+No arquivo de serviço, você também pode criar a instância de serviço. Nesse caso, você tem que exportar uma função que retorne a instância do [Service](#service).
 ```js
 const { Service } = require("moleculer");
 
@@ -504,7 +504,7 @@ module.exports = function(broker) {
 }
 ```
 
-Or create a function which returns with the schema of service
+Ou crie uma função que retorne com o esquema de serviço
 ```js
 // Export a function, the `loadService` will call with the ServiceBroker instance.
 module.exports = function() {
@@ -521,8 +521,8 @@ module.exports = function() {
 }
 ```
 
-### Load multiple services from a folder
-If you have many services (and you will have) we suggest to put them to a `services` folder and load all of them with the `broker.loadServices` method.
+### Carregar vários serviços de uma pasta
+Se você tem muitos serviços (e você terá), sugerimos colocá-los em uma pasta de `services` e carregá-los com método `broker.loadServices`.
 
 **Sintaxe**
 ```js
@@ -541,13 +541,13 @@ broker.loadServices("./");
 broker.loadServices("./svc", "user*.service.js");
 ```
 
-### Load with Moleculer Runner (recommended)
-We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Leia mais sobre o Moleculer Runner](runner.html). It is the easiest way to start a node.
+### Carregar com Moleculer Runner (recomendado)
+Recomendamos usar o [Moleculer Runner](runner.html) para iniciar um ServiceBroker e carregar serviços. [Leia mais sobre o Moleculer Runner](runner.html). Esta é a maneira mais fácil de começar um nó.
 
-## Hot Reloading Services
-Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
+## Recarregando serviços
+Moleculer possui uma função de hot-reloading integrada. Durante o desenvolvimento, pode ser muito útil porque recarrega seus serviços quando você modificá-los. Você pode habilitá-lo nas opções do broker ou no [Moleculer Runner](runner.html). [Vídeo demonstração de como funciona.](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
-**Enable in broker options**
+**Habilitar nas opções do broker**
 
 ```js
 const broker = new ServiceBroker({
@@ -557,26 +557,26 @@ const broker = new ServiceBroker({
 broker.loadService("./services/test.service.js");
 ```
 
-**Enable it in Moleculer Runner**
+**Ativar no Moleculer Runner**
 
-Turn it on with `--hot` or `-H` flags.
+Ative-o com as flags `--hot` ou `-H`.
 
 ```bash
 $ moleculer-runner --hot ./services/test.service.js
 ```
 
 {% note info %}
-Hot reloading function is working only with Moleculer Runner or if you load your services with `broker.loadService` or `broker.loadServices`. It doesn't work with `broker.createService`.
+A função hot-reloading está funcionando somente com o Moleculer Runner ou se você carregar seus serviços com `broker.loadService` ou `broker.loadServices`. Ele não funciona com o `broker.createService`.
 {% endnote %}
 
 {% note info %}
-Hot reload mechanism watches the service files and their dependencies. Every time a file change is detected the hot-reload mechanism will track the services that depend on it and will restart them.
+O mecanismo de hot-reloading observa os arquivos de serviço e suas dependências. Toda vez que uma alteração de arquivo é detectada o mecanismo de hot-reloading irá rastrear os serviços que dependem dela e reiniciá-los.
 {% endnote %}
 
-## Local Variables
-If you would like to use local properties/variables in your service, declare them in the `created` event handler.
+## Variáveis Locais
+Se você gostaria de usar propriedades/variáveis locais em seu serviço, declare-as no manipulador de eventos `created`.
 
-**Example for local variables**
+**Exemplo para variáveis locais**
 ```js
 const http = require("http");
 
@@ -611,15 +611,15 @@ module.exports = {
 }
 ```
 {% note warn Naming restriction %}
-It is important to be aware that you can't use variable name which is reserved for service or coincides with your method names! E.g. `this.name`, `this.version`, `this.settings`, `this.schema`...etc.
+É importante estar ciente de que você não pode usar um nome de variável que é reservado para o serviço ou coincide com seus nomes de método! Ex.: `this.name`, `this.version`, `this.settings`, `this.schema`...etc.
 {% endnote %}
 
-## ES6 Classes
-If you prefer ES6 classes to Moleculer service schema, you can write your services in ES6 classes. There are two ways to do it.
+## Classes ES6
+Se você preferir classes da ES6 para o esquema de serviço Moleculer, você pode escrever seus serviços em classes ES6. Há duas maneiras de fazer.
 
-### Native ES6 classes with schema parsing
+### Classes nativas ES6 com parse de esquema
 
-Define `actions` and `events` handlers as class methods and call the `parseServiceSchema` method in constructor with schema definition where the handlers pointed to these class methods.
+Defina manipuladores de `actions` e `events` como métodos de classe e chame o método `parseServiceSchema` no construtor com a definição de esquema e os manipuladores apontarão para esses métodos de classe.
 ```js
 const Service = require("moleculer").Service;
 
@@ -700,14 +700,14 @@ class GreeterService extends Service {
 module.exports = GreeterService;
 ```
 
-### Use decorators
-Thanks for [@ColonelBundy](https://github.com/ColonelBundy), you can use ES7/TS decorators as well: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
+### Usar decoradores
+Graças a [@ColonelBundy](https://github.com/ColonelBundy), você também pode usar decoradores ES7/TS: [moleculer-decorators](https://github.com/ColonelBundy/moleculer-decorators)
 
 {% note info Need a compiler %}
-Please note, you must use Typescript or Babel to compile decorators.
+Por favor, note que você deve usar Typescript ou Babel para compilar decoradores.
 {% endnote %}
 
-**Example service**
+**Serviço de exemplo**
 ```js
 const { ServiceBroker } = require('moleculer');
 const { Service, Action, Event, Method } = require('moleculer-decorators');
@@ -772,97 +772,97 @@ broker.createService(MyService);
 broker.start();
 ```
 
-## Internal Services
-The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
+## Serviços internos
+O `ServiceBroker` contém alguns serviços internos para verificar o estado do nó ou obter algumas informações de registro. Você pode desabilitá-los configurando `internalServices: false` nas opções do broker.
 
-### List of nodes
-It lists all known nodes (including local node).
+### Lista de nós
+Lista todos os nós conhecidos (incluindo o nó local).
 ```js
 broker.call("$node.list").then(res => console.log(res));
 ```
 
 **Parâmetros**
 
-| Nome            | Tipo      | Padrão  | Descrição                  |
-| --------------- | --------- | ------- | -------------------------- |
-| `withServices`  | `Boolean` | `false` | List with services.        |
-| `onlyAvailable` | `Boolean` | `false` | List only available nodes. |
+| Nome            | Tipo      | Padrão  | Descrição                      |
+| --------------- | --------- | ------- | ------------------------------ |
+| `withServices`  | `Boolean` | `false` | Lista com serviços.            |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas nós disponíveis. |
 
-### List of services
-It lists all registered services (local & remote).
+### Lista de serviços
+Lista todos os serviços registrados (local & remoto).
 ```js
 broker.call("$node.services").then(res => console.log(res));
 ```
 
 **Parâmetros**
 
-| Nome            | Tipo      | Padrão  | Descrição                             |
-| --------------- | --------- | ------- | ------------------------------------- |
-| `onlyLocal`     | `Boolean` | `false` | List only local services.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal services (`$node`). |
-| `withActions`   | `Boolean` | `false` | List with actions.                    |
-| `onlyAvailable` | `Boolean` | `false` | List only available services.         |
+| Nome            | Tipo      | Padrão  | Descrição                              |
+| --------------- | --------- | ------- | -------------------------------------- |
+| `onlyLocal`     | `Boolean` | `false` | Listar apenas serviços locais.         |
+| `skipInternal`  | `Boolean` | `false` | Ignore os serviços internos (`$node`). |
+| `withActions`   | `Boolean` | `false` | Lista com ações.                       |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas serviços disponíveis.    |
 
-### List of local actions
-It lists all registered actions (local & remote).
+### Lista de ações locais
+Lista todas as ações registradas (local & remoto).
 ```js
 broker.call("$node.actions").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+Tem algumas opções que você pode declarar dentro de `params`.
 
 **Opções**
 
-| Nome            | Tipo      | Padrão  | Descrição                            |
-| --------------- | --------- | ------- | ------------------------------------ |
-| `onlyLocal`     | `Boolean` | `false` | List only local actions.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal actions (`$node`). |
-| `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.       |
-| `onlyAvailable` | `Boolean` | `false` | List only available actions.         |
+| Nome            | Tipo      | Padrão  | Descrição                           |
+| --------------- | --------- | ------- | ----------------------------------- |
+| `onlyLocal`     | `Boolean` | `false` | Lista apenas ações locais.          |
+| `skipInternal`  | `Boolean` | `false` | Ignore as ações internas (`$node`). |
+| `withEndpoints` | `Boolean` | `false` | Lista com endpoints _(nodes)_.      |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas ações disponíveis.    |
 
-### List of local events
-It lists all event subscriptions.
+### Lista de eventos locais
+Lista todas as assinaturas de eventos.
 ```js
 broker.call("$node.events").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+Tem algumas opções que você pode declarar dentro de `params`.
 
 **Opções**
 
-| Nome            | Tipo      | Padrão  | Descrição                                  |
-| --------------- | --------- | ------- | ------------------------------------------ |
-| `onlyLocal`     | `Boolean` | `false` | List only local subscriptions.             |
-| `skipInternal`  | `Boolean` | `false` | Skip the internal event subscriptions `$`. |
-| `withEndpoints` | `Boolean` | `false` | List with endpoints _(nodes)_.             |
-| `onlyAvailable` | `Boolean` | `false` | List only available subscriptions.         |
+| Nome            | Tipo      | Padrão  | Descrição                                       |
+| --------------- | --------- | ------- | ----------------------------------------------- |
+| `onlyLocal`     | `Boolean` | `false` | Listar apenas assinaturas locais.               |
+| `skipInternal`  | `Boolean` | `false` | Ignore as assinaturas internas dos eventos `$`. |
+| `withEndpoints` | `Boolean` | `false` | Lista com endpoints _(nodes)_.                  |
+| `onlyAvailable` | `Boolean` | `false` | Listar apenas assinaturas disponíveis.          |
 
-### List of metrics
-It lists all metrics.
+### Lista de métricas
+Lista todas as métricas.
 ```js
 broker.call("$node.metrics").then(res => console.log(res));
 ```
-It has some options which you can declare within `params`.
+Tem algumas opções que você pode declarar dentro de `params`.
 
 **Opções**
 
-| Nome       | Tipo                | Padrão | Descrição                                                                      |
-| ---------- | ------------------- | ------ | ------------------------------------------------------------------------------ |
-| `types`    | `String` or `Array` | `null` | [Type](metrics.html#Supported-Metric-Types) of metrics to include in response. |
-| `includes` | `String` or `Array` | `null` | List of metrics to be included in response.                                    |
-| `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response.                              |
+| Nome       | Tipo                | Padrão | Descrição                                                                         |
+| ---------- | ------------------- | ------ | --------------------------------------------------------------------------------- |
+| `types`    | `String` ou `Array` | `null` | [Tipo](metrics.html#Supported-Metric-Types) de métricas para incluir na resposta. |
+| `includes` | `String` ou `Array` | `null` | Lista de métricas a serem incluídas na resposta.                                  |
+| `excludes` | `String` ou `Array` | `null` | Lista de métricas a serem excluídas da resposta.                                  |
 
-### Get Broker options
-It returns the broker options.
+### Obter opções do broker
+Retorna as opções do broker.
 ```js
 broker.call("$node.options").then(res => console.log(res));
 ```
 
-### Health of node
-It returns the health info of local node (including process & OS information).
+### Saúde do nó
+Retorna as informações de saúde de um nó local (incluindo informações de processo & SO).
 ```js
 broker.call("$node.health").then(res => console.log(res));
 ```
 
-Example health info:
+Exemplo de Informações de saúde:
 ```js
 {
     "cpu": {
@@ -923,11 +923,11 @@ Example health info:
 }
 ```
 {% note info %}
-Please note, internal service actions are not traced.
+Por favor, note que ações internas do serviço não são rastreadas.
 {% endnote %}
 
-### Extending
-Internal service can be easily extended with custom functionalities. To do it you must define a mixin schema in broker´s `internalServices` option.
+### Ampliando
+Um serviço interno pode ser facilmente ampliado com funcionalidades personalizadas. Para fazer isso, você deve definir um esquema de mixin na opção do broker `internalServices`.
 
 ```javascript
 // moleculer.config.js

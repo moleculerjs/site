@@ -32,6 +32,7 @@ title: 配置
 * **`cacher`**: `String | Object | Cacher` - 缓存器设置。 [Read more](caching.html). _Default: `null`_
 * **`serializer`**: `String | Serializer` - serializer 实例。 [Read more](networking.html). _默认： `JSONSerializer`_
 * **`validator`**: `Boolean | Validator` - 启用默认或自定义的 [parameters validation](validating.html). _Default: `true`_
+* **`errorRegenerator`**: `Regenerator` - Instance of error regenerator. [Read more](errors.html#Preserve-custom-error-classes-while-transferring-between-remote-nodes). _Default: `null`_
 * **`metrics`**: `Boolean | Object` - 启用& 配置[metrics](metrics.html) 特性。 _Default: `false`_
 * **`tracing`**: `Boolean | Object` - Enable & configure [tracing](tracing.html) feature. _Default: `false`_
 * **`internalServices`**: `Boolean | Object` - Register [internal services](services.html#Internal-Services) at start. _Default: `true`_
@@ -120,6 +121,7 @@ title: 配置
     serializer: "JSON",
 
     validator: true,
+    errorRegenerator: null,
 
     metrics: {
         enabled: true,

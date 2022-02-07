@@ -89,7 +89,7 @@ throw new MoleculerRetryableError("Some retryable thing happened", 501, "ERR_SOM
 Бросьте эту ошибку, если старый идентификатор узла подключен к более старшей версии протокола. Error code: **500** Retryable: **false** Type: `PROTOCOL_VERSION_MISMATCH`
 
 ### `InvalidPacketDataError`
-Бросьте эту ошибку, если транспорт получает неизвестные данные. Error code: **500** Retryable: **false** Type: `INVALID_PACKET_DATA`
+Throw it if transporter receives unknown data. Error code: **500** Retryable: **false** Type: `INVALID_PACKET_DATA`
 
 ## Создание пользовательских ошибок
 Следующий пример показывает, как создать пользовательский класс `Error`, который унаследован от `MoleculerError`.
@@ -101,5 +101,58 @@ class MyBusinessError extends MoleculerError {
     constructor(msg, data) {
         super(msg || `This is my business error.`, 500, "MY_BUSINESS_ERROR", data);
     }
+}
+```
+
+## Preserve custom error classes while transferring between remote nodes
+For this purpose provide your own `Regenerator`. We recommend looking at the source code of [Errors.Regenerator](https://github.com/moleculerjs/moleculer/blob/master/src/errors.js) and implementing `restore`, `extractPlainError` or `restoreCustomError` methods.
+
+### Public interface of Regenerator
+
+| Method                                    | Return                 | Описание                                                                                                    |
+| ----------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `restore(plainError, payload)`            | `Error`                | Restores an `Error` object                                                                                  |
+| `extractPlainError(err)`                  | `Object`               | Extracts a plain error object from `Error` object                                                           |
+| `restoreCustomError(plainError, payload)` | `Error` or `undefined` | Hook to restore a custom error in a child class. Prefer to use this method instead of the `restore` method. |
+
+#### Create custom regenerator
+```js
+const { Regenerator, MoleculerError } = require("moleculer").Errors;
+const { ServiceBroker } = require("moleculer");
+
+class TimestampedError extends MoleculerError {
+    constructor(message, code, type, data, timestamp) {
+        super(message, code, type, data);
+        this.timestamp = timestamp;
+    }
+}
+
+class CustomRegenerator extends Regenerator {
+    restoreCustomError(plainError, payload) {
+        const { name, message, code, type, data, timestamp } = plainError;
+        switch (name) {
+            case "TimestampedError":
+                return new TimestampedError(message, code, type, data, timestamp);
+        }
+    }
+
+    extractPlainError(err) {
+        return {
+            ...super.extractPlainError(err),
+            timestamp: err.timestamp
+        };
+    }
+}
+
+module.exports = CustomRegenerator;
+```
+
+#### Use custom regenerator
+```js
+// moleculer.config.js
+const CustomRegenerator = require("./custom-regenerator");
+
+module.exports = {
+    errorRegenerator: new CustomRegenerator()
 }
 ```

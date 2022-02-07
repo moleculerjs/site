@@ -1,8 +1,8 @@
-title: Command Line Tool
+title: Ferramenta de Linha de Comando
 ---
 
 ## moleculer-cli [![npm](https://img.shields.io/npm/v/moleculer-cli.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-cli)
-This is a [command-line tool](https://github.com/moleculerjs/moleculer-cli) for Moleculer to help developing & testing.
+Esta é uma [ferramenta de linha de comando](https://github.com/moleculerjs/moleculer-cli) para o Moleculer ajudar no desenvolvimento & testes.
 
 ## Instalação
 
@@ -10,74 +10,74 @@ This is a [command-line tool](https://github.com/moleculerjs/moleculer-cli) for 
 $ npm i -g moleculer-cli
 ```
 
-## Commands
+## Comandos
 
 ## Init
-The `init` command is used to scaffold a new Moleculer project.
+O comando `init` é usado para fazer um novo projeto Moleculer.
 
 ``` bash
 $ moleculer init project my-project
 ```
-The above command downloads the template from [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), prompts some information and generates a new module to the `./my-project` folder.
+O comando acima baixa o modelo de [moleculerjs/moleculer-template-project](https://github.com/moleculerjs/moleculer-template-project), pede algumas informações e gera um novo módulo para a pasta `./my-project`.
 
-### Answers from file
-You can put the question answers into a JSON file and load it with the `--answers` argument. It can be useful to generate project programmatically.
+### Respostas a partir de um arquivo
+Você pode colocar as respostas em um arquivo JSON e carrega-lo com o argumento `--answers`. Isto pode ser útil para gerar o projeto programaticamente.
 
 ```bash
 $ moleculer init project my-project --answers ./answers.json
 ```
 
-### Disable installing dependencies
-You can disable the automatic NPM dependency installation with `--no-install` argument. It can be useful to generate project programmatically.
+### Desativar a instalação de dependências
+Você pode desativar a instalação automática de dependências NPM com o argumento `--no-install`. Isto pode ser útil para gerar o projeto programaticamente.
 
 ```bash
 $ moleculer init project my-project --answers ./answers.json --no-install
 ```
 
-### [Official templates](https://github.com/topics/moleculer-template)
+### [Templates oficiais](https://github.com/topics/moleculer-template)
 
-* [**project**](https://github.com/moleculerjs/moleculer-template-project) - Generate a common Moleculer-based project. *Use it if you want to start a new project which is based on Moleculer framework*
-    * sample service (`greeter`)
-    * official [API Gateway](https://github.com/moleculerjs/moleculer-web) (optional)
-    * Docker & Docker Compose files
-    * tests & coverage with [Jest](http://facebook.github.io/jest/)
-    * lint with [ESLint](http://eslint.org/)
-
-
-* [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*
-    * sample service (`greeter`)
-    * Docker & Docker Compose files
-    * tests & coverage with [Jest](http://facebook.github.io/jest/)
-    * lint with [ESLint](http://eslint.org/)
-    * Minimal Docker file
+* [**project**](https://github.com/moleculerjs/moleculer-template-project) - Gera um projeto base Moleculer. *Use-o se você quiser iniciar um novo projeto que seja baseado no framework Moleculer*
+    * serviço de exemplo (`greeter`)
+    * [API Gateway](https://github.com/moleculerjs/moleculer-web) (opcional)
+    * Arquivos Docker & Docker Compose
+    * Testes & cobertura com [Jest](http://facebook.github.io/jest/)
+    * Lint com [ESLint](http://eslint.org/)
 
 
-* [**module**](https://github.com/moleculerjs/moleculer-template-module) - Generate a new Moleculer module project (e.g.: `moleculer-xyz`). *Use it if you want to create a module for Moleculer framework*
-    * empty service skeleton
-    * examples skeleton
-    * readme skeleton
-    * tests & coverage with [Jest](http://facebook.github.io/jest/)
-    * lint with [ESLint](http://eslint.org/)
+* [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Modelo mínimo de projeto para um microsserviço. *Use-o se desejar criar um microsserviço que se conecte aos outros através do módulo de transporte*
+    * serviço de exemplo (`greeter`)
+    * Arquivos Docker & Docker Compose
+    * Testes & cobertura com [Jest](http://facebook.github.io/jest/)
+    * Lint com [ESLint](http://eslint.org/)
+    * Arquivo Docker mínimo
 
-### Custom templates
+
+* [**module**](https://github.com/moleculerjs/moleculer-template-module) - Gerar um novo projeto de módulo de Moleculer (e.g.: `moleculer-xyz`). *Use-o se você deseja criar um módulo para o framework Moleculer*
+    * esqueleto vazio de serviço
+    * esqueleto de exemplos
+    * esqueleto de Read Me
+    * Testes & cobertura com [Jest](http://facebook.github.io/jest/)
+    * Lint com [ESLint](http://eslint.org/)
+
+### Templates personalizados
 
 ``` bash
 $ moleculer init username/repo my-project
 ```
-Where username/repo is the GitHub repo shorthand for your fork.
+Onde username/repo é o repositório do GitHub abreviado para seu diretório.
 
-The shorthand repo notation is passed to [download-git-repo](https://github.com/flipxfx/download-git-repo) so it can be `bitbucket:username/repo` for a Bitbucket repo and `username/repo#branch` for tags or branches.
+A notação curta de repositório é passada para [download-git-repo](https://github.com/flipxfx/download-git-repo) de modo que seja `bitbucket:username/repo` para um repositório do Bitbucket e `username/repo#branch` para tags ou branches.
 
-### Local Templates
+### Templates locais
 
-Instead of a GitHub repo, use a template from local filesystem:
+Em vez de um repositório GitHub, use um template do sistema de arquivos local:
 ``` bash
 $ moleculer init ./path/to-custom-template my-project
 ```
 
-### Template aliases
+### Alias de Template
 
-To simplify usage of custom templates (local and remote), it is possible to register an alias and use that afterwards instead of the whole repository url.
+Para simplificar o uso de templates personalizados (local e remoto), é possível registrar um alias e usá-lo depois em vez de todo o Url do repositório.
 ```bash
 $ moleculer alias-template myAlias somegithubuser/reponame
 $ moleculer alias-template otherAlias ./path/to/some-local/custom/template
@@ -85,164 +85,164 @@ $ moleculer alias-template otherAlias ./path/to/some-local/custom/template
 
 $ moleculer init myAlias my-project
 ```
-All registered template aliases are stored in the file `~/.moleculer-templates.json` and can also be edited manually.
+Todos os alias de template registrados são armazenados no arquivo `~/.moleculer-templates.json` e também podem ser editados manualmente.
 
-### Creating Custom Templates
+### Criando Templates Personalizados
 
-Moleculer templates consist of a `meta.js` file and a `template` directory.
+Templates do Moleculer consistem em um arquivo `meta.js` e um diretório `template`.
 
 ##### `meta.js`
 
-The `meta.js` file exports a function that returns an object defining the Moleculer CLI init interface. The function takes a parameter `values` that gives access to external values passed in from the CLI. The object has several keys which are explained below.
+O arquivo `meta.js` exporta uma função que retorna um objeto que define a interface init do Moleculer CLI. A função recebe um parâmetro `values` que dá acesso aos valores externos passados pelo CLI. O objeto possui várias chaves que são explicadas abaixo.
 
-The `questions` property is an array of objects defining the questions asked in the init process. These objects are [Inquirer.js objects](https://github.com/SBoudrias/Inquirer.js#objects). Data collected here is stored in the Metalsmith `metadata` object.
+A propriedade `questions` é uma matriz de objetos que definem as questões feitas no processo de iniciação. Esses objetos são objetos [Inquirer.js](https://github.com/SBoudrias/Inquirer.js#objects). Dados coletados aqui são armazenados no objeto `metadata` do Metalsmith.
 
-The `metalsmith` property allows custom code to be executed at different points in the transformation process. The `before` function executes before the transformation is run, the `after` function executes after the transformation is run, and the `complete` function executes after the transformation is run and the files are copied to the destination directory.
+A propriedade `metalsmith` permite que código personalizado seja executado em diferentes pontos do processo de transformação. A função `before` será executada antes da execução da transformação, a função `after` é executada depois que a transformação é executada, e a função `complete` é executada depois que a transformação é executada e os arquivos são copiados para o diretório de destino.
 
-The `metalsmith` functions take an argument `metalsmith` which gives a reference to the [Metalsmith](https://github.com/segmentio/metalsmith#metalsmith) object. A common use is to get the Metalsmith metadata by calling `metalsmith.metadata()` and then adding or mutating properties on the metadata object so it will be available for the rest of the transformation.
+As funções `metalsmith` levam um argumento `metalsmith` que faz referência ao objeto [Metalsmith](https://github.com/segmentio/metalsmith#metalsmith). Um uso comum é obter os metadados do Metalsmith chamando `metalsmith.metadata()` e, em seguida, adicionar ou modificar propriedades no objeto de metadados, então ele estará disponível para o resto da transformação.
 
-The `filters` object takes a set of keys matching a path and a value matching the name of a question variable. If the question variable's value is `false`, the specified path will be ignored during the transformation and those files will not be added to the project being intialized.
+O objeto `filters` recebe um conjunto de chaves correspondentes a um caminho e um valor que corresponde ao nome de uma variável de pergunta. Se o valor da variável da questão é `false`, o caminho especificado será ignorado durante a transformação e esses arquivos não serão adicionados ao projeto que está sendo inicializado.
 
-The `completeMessage` property takes a multiline string that will be displayed after the initialization is completed.
+A propriedade `completeMessage` recebe uma string multi linha que será exibida após a inicialização ser concluída.
 
 ##### `template`
 
-The `template` directory contains files which will be transformed using [Handlebars](https://handlebarsjs.com/) and then copied to the destination directory. Handlebars is given the `metadata` object from Metalsmith to be the source for string replacement.
+O diretório `template` contém arquivos que serão transformados usando [Handlebars](https://handlebarsjs.com/) e copiados para o diretório de destino. Handlebars recebem o objeto `metadata` do Metalsmith para ser a fonte para substituição de string.
 
-Handlebars can also transform file names.
+Handlebars também podem transformar nomes de arquivos.
 
 ## Start
-This command starts a new `ServiceBroker` locally and switches to REPL mode.
+Este comando inicia um novo `ServiceBroker` localmente e alterna para o modo REPL.
 ```bash
 $ moleculer start
 ```
 
 **Opções**
 ```
-  --version     Show version number                                    [boolean]
-  --help        Show help                                              [boolean]
-  --config, -c  Load configuration from a file            [string] [default: ""]
+  --version     Exibe o número da versão                                    [boolean]
+  --help        Exibe a ajuda                                              [boolean]
+  --config, -c  Carrega configurações de um arquivo            [string] [default: ""]
   --ns          Namespace                                 [string] [default: ""]
-  --level       Logging level                         [string] [default: "info"]
+  --level       Nível de log                         [string] [default: "info"]
   --id          NodeID                                  [string] [default: null]
-  --hot, -h     Enable hot-reload                     [boolean] [default: false]
-  --commands    Custom REPL command file mask (e.g.: ./commands/*.js)
+  --hot, -h     Habilitar hot-reload                     [boolean] [default: false]
+  --commands    Máscara de arquivos com comandos REPL customizados (ex.: ./commands/*.js)
                                                         [string] [default: null]
 ```
 
 ## Connect
-This command starts a new `ServiceBroker`, connects to a transporter server and switches to REPL mode.
+Este comando inicia um novo `ServiceBroker`, conecta-se a um servidor de transporte e muda para o modo REPL.
 ```bash
-# Connect with TCP transporter
+# Conectar com TCP transporter
 $ moleculer connect
 
-# Connect to NATS
+# Conectar com NATS
 $ moleculer connect nats://localhost:4222
 
-# Connect to Redis
+# Conectar com Redis
 $ moleculer connect redis://localhost
 
-# Connect to MQTT
+# Conectar com MQTT
 $ moleculer connect mqtt://localhost
 
-# Connect to AMQP
+# Conectar com AMQP
 $ moleculer connect amqp://localhost:5672
 
-# Load all options from config file
+# Carregar todas as opções do arquivo de configuração
 $ moleculer connect --config ./moleculer.config.js
 ```
 
 **Opções**
 ```
-  --version     Show version number                                    [boolean]
-  --help        Show help                                              [boolean]
-  --config, -c  Load configuration from a file            [string] [default: ""]
+  --version     Exibe o número da versão                                    [boolean]
+  --help        Exibe a ajuda                                              [boolean]
+  --config, -c  Carrega configurações de um arquivo            [string] [default: ""]
   --ns          Namespace                                 [string] [default: ""]
-  --level       Logging level                         [string] [default: "info"]
+  --level       Nível de log                         [string] [default: "info"]
   --id          NodeID                                  [string] [default: null]
-  --hot, -h     Enable hot-reload                     [boolean] [default: false]
-  --serializer  Serializer                              [string] [default: null]
-  --commands    Custom REPL command file mask (e.g.: ./commands/*.js)
+  --hot, -h     Habilitar hot-reload                     [boolean] [default: false]
+  --serializer  Serializador                              [string] [default: null]
+  --commands    Máscara de arquivos com comandos REPL customizados (ex.: ./commands/*.js)
                                                         [string] [default: null]
 ```
 
 ## Call
-The `call` command can be used establish a connection with a Moleculer project and call an action with parameters. The result (stringified JSON) will be printed to the console. This means that you can process the result with another tool. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
+O comando `call` pode ser utilizado para estabelecer uma conexão com um projeto Moleculer e chamar uma ação com parâmetros. O resultado (JSON string) será impresso no console. Isto significa que você pode processar o resultado com outra ferramenta. Os parâmetros de chamada devem iniciar com prefixo `@` e os parâmetros meta devem iniciar com prefixo `#`.
 
 **Opções**
 ```
-  --version          Show version number                               [boolean]
-  --help             Show help                                         [boolean]
-  --config, -c       Load configuration from a file       [string] [default: ""]
-  --transporter, -t  Transporter connection string (NATS, nats://127.0.0.1:4222,
+  --version     Exibe o número da versão                                    [boolean]
+  --help        Exibe a ajuda                                              [boolean]
+  --config, -c  Carrega configurações de um arquivo            [string] [default: ""]
+  --transporter, -t  String de conexão do módulo de transporte (NATS, nats://127.0.0.1:4222,
                      ...etc)                            [string] [default: null]
   --ns               Namespace                            [string] [default: ""]
-  --level            Logging level                  [string] [default: "silent"]
+  --level            Nível de log                  [string] [default: "silent"]
   --id               NodeID                             [string] [default: null]
-  --serializer       Serializer                         [string] [default: null]
+  --serializer       Serializador                         [string] [default: null]
 ```
 
-**Example with params**
+**Exemplo com parâmetros**
 ```bash
 moleculer call math.add --transporter NATS --@a 5 --@b 3
 ```
 
-**Example with params & meta**
+**Exemplo com parâmetros & meta**
 ```bash
 moleculer call math.add --transporter NATS --@a 5 --@b 3 --#meta-key MyMetaValue
 ```
 
-**Example with post processing the result with [jq](https://stedolan.github.io/jq/)**
+**Exemplo com pós-processamento do resultado com [jq](https://stedolan.github.io/jq/)**
 ```bash
 moleculer call "\$node.health" | jq '.mem.free'
 ```
-> The transporter can be defined via `TRANSPORTER` environment variable, as well.
+> O módulo de transporte pode ser definido através de uma variável de ambiente `TRANSPORTER` também.
 
-**Example with transporter env var**
+**Exemplo com o módulo de transporte em variável de ambiente**
 ```bash
 TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
 ```
 
 ## Emit
-The `emit` command can be used establish a connection with a Moleculer project and emit an event with a payload. The calling parameters should start with `@` prefix and the meta parameters should start with `#` prefix.
+O comando `emit` pode ser utilizado para estabelecer uma conexão com um projeto Moleculer e emitir um evento com um payload. Os parâmetros de chamada devem iniciar com prefixo `@` e os parâmetros meta devem iniciar com prefixo `#`.
 
 **Opções**
 ```
-  --version          Show version number                               [boolean]
-  --help             Show help                                         [boolean]
-  --config, -c       Load configuration from a file       [string] [default: ""]
-  --transporter, -t  Transporter connection string (NATS, nats://127.0.0.1:4222,
+  --version     Exibe o número da versão                                    [boolean]
+  --help        Exibe a ajuda                                              [boolean]
+  --config, -c  Carrega configurações de um arquivo            [string] [default: ""]
+  --transporter, -t  String de conexão do módulo de transporte (NATS, nats://127.0.0.1:4222,
                      ...etc)                            [string] [default: null]
   --ns               Namespace                            [string] [default: ""]
-  --level            Logging level                  [string] [default: "silent"]
+  --level            Nível de log                  [string] [default: "silent"]
   --id               NodeID                             [string] [default: null]
-  --serializer       Serializer                         [string] [default: null]
-  --broadcast, -b    Send broadcast event             [boolean] [default: false]
-  --group, -g        Event groups                       [string] [default: null]
+  --serializer       Serializador                         [string] [default: null]
+  --broadcast, -b    Envia evento broadcast             [boolean] [default: false]
+  --group, -g        Grupo de eventos                       [string] [default: null]
 ```
 
-**Example with params**
+**Exemplo com parâmetros**
 ```bash
 moleculer emit user.created --transporter NATS --@id 3 --@name John
 ```
 
-**Example with params & meta**
+**Exemplo com parâmetros & meta**
 ```bash
 moleculer emit math.add --transporter NATS --@id 3 --@name John --#meta-key MyMetaValue
 ```
 
-**Example with broadcast & groups**
+**Exemplo com broadcast & grupos**
 ```bash
 moleculer emit math.add --transporter NATS --broadcast --@id 3 --@name John --group accounts
 ```
 
-**Example with multi groups**
+**Exemplo com vários grupos**
 ```bash
 moleculer emit math.add --transporter NATS --broadcast --@id 3 --@name John --group accounts --group mail
 ```
-> The transporter can be defined via `TRANSPORTER` environment variable, as well.
+> O módulo de transporte pode ser definido através de uma variável de ambiente `TRANSPORTER` também.
 
-**Example with transporter env var**
+**Exemplo com o módulo de transporte em variável de ambiente**
 ```bash
 TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
 ```

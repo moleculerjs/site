@@ -520,6 +520,44 @@ module.exports = {
 };
 ```
 
+
+## Conectar spans durante o uso do módulo de comunicação externo
+
+É possível conectar os spans mesmo quando se comunica através de uma fila externa (por exemplo, [moleculer-channels](https://github.com/moleculerjs/moleculer-channels)). Para fazer isso, você só precisa passar o `parentID` e `requestID` para o manipulador e, em seguida, usar esses IDs para iniciar um span personalizado.
+
+**Conectando spans**
+
+```js
+module.exports = {
+    name: "trace",
+    actions: {
+        async extractTraces(ctx) {
+            // Extract the parentID and the requestID from context
+            const { parentID, requestID: traceID } = ctx;
+
+            // Send parentID and traceID as payload via an external queue
+            await this.broker.sendToChannel("trace.setSpanID", {
+                // Send the IDs in the payload
+                parentID,
+                traceID,
+            });
+        },
+    },
+
+    // More info about channels here: https://github.com/moleculerjs/moleculer-channels
+    channels: {
+        "trace.setSpanID"(payload) {
+            // Init custom span with the original parentID and requestID
+            const span = this.broker.tracer.startSpan("my.span", payload);
+
+            // ... logic goes here
+
+            span.finish(); // Finish the custom span
+        },
+    },
+};
+```
+
 ## Personalizando
 ### Nomes de Span Personalizados
 Você pode personalizar o nome do span de seu rastreamento. Nesse caso, você deve especificar o `spanName` que deve ser uma `String` estática ou uma `Function`.
@@ -669,4 +707,48 @@ module.exports = {
         events: true
     }
 };
+```
+
+## safetyTags e o erro Maximum call stack
+
+Em geral, não é recomendado enviar parâmetros não serializáveis (por exemplo, http request, instância de socket, etc.) em `ctx.params` ou `ctx.meta`. Se o tracing estiver habilitado, o tracer tentará de forma recursiva achatar estes parâmetros (com o método [`flattenTags`](https://github.com/moleculerjs/moleculer/blob/c48d5a05a4f4a1656075faaabc64085ccccf7ef9/src/tracing/exporters/base.js#L87-L101)) que causará o erro `Maximum call stack`.
+
+Para evitar esse problema, você pode usar a opção `safetyTags` nas opções do tracer. Se definido como `true`, os exportadores removem as propriedades cíclicas antes de achatar as tags nos spans. Esta opção está disponível em todos os exportadores integrados.
+
+{% note warn Performance impact%}
+Por favor, note que esta opção tem um **significativo** [impacto no desempenho](https://github.com/moleculerjs/moleculer/issues/908#issuecomment-817806332). Por essa razão não é habilitado por padrão.
+{% endnote %}
+
+**Habilitando globalmente as Tags de Segurança**
+```js
+// moleculer.config.js
+{
+    tracing: {
+        exporter: [{
+            type: "Zipkin",
+            options: {
+                safetyTags: true,
+                baseURL: "http://127.0.0.1:9411"
+            }
+        }]
+    }
+}
+```
+
+
+Para evitar afetar todas as ações, você pode habilitar essa função no nível de ação. Neste caso, as outras ações não serão afetadas. **Habilitando tags de segurança no nível da ação**
+```js
+broker.createService({
+    name: "greeter",
+    actions: {
+        hello: {
+            tracing: {
+                safetyTags: true
+            },
+            handler(ctx) {
+                return `Hello!`;
+            }
+        }
+    }
+});
 ```

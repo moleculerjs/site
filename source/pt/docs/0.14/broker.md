@@ -125,22 +125,23 @@ broker.ping().then(res => broker.logger.info(res));
 
 ## Propriedades do ServiceBroker
 
-| Nome                | Tipo                   | Descrição                             |
-| ------------------- | ---------------------- | ------------------------------------- |
-| `broker.options`    | `Object`               | Opções do broker.                     |
-| `broker.Promise`    | `Promise`              | Promise da classe Bluebird.           |
-| `broker.started`    | `Boolean`              | Estado do broker.                     |
-| `broker.namespace`  | `String`               | Namespace.                            |
-| `broker.nodeID`     | `String`               | ID do nó.                             |
-| `broker.instanceID` | `String`               | ID da instância.                      |
-| `broker.metadata`   | `Object`               | Metadados das opções do broker.       |
-| `broker.logger`     | `Logger`               | Classe de Logger do ServiceBroker.    |
-| `broker.cacher`     | `Cacher`               | Instância do cache                    |
-| `broker.serializer` | `Serializer`           | Instância do serializador.            |
-| `broker.validator`  | `Any`                  | Instância do validador de parâmetros. |
-| `broker.services`   | `Array<Service>` | Serviços locais.                      |
-| `broker.metrics`    | `MetricRegistry`       | Registro de Métricas integrado.       |
-| `broker.tracer`     | `Tracer`               | Instância do Tracer.                  |
+| Nome                      | Tipo                   | Descrição                             |
+| ------------------------- | ---------------------- | ------------------------------------- |
+| `broker.options`          | `Object`               | Opções do broker.                     |
+| `broker.Promise`          | `Promise`              | Promise da classe Bluebird.           |
+| `broker.started`          | `Boolean`              | Estado do broker.                     |
+| `broker.namespace`        | `String`               | Namespace.                            |
+| `broker.nodeID`           | `String`               | ID do nó.                             |
+| `broker.instanceID`       | `String`               | ID da instância.                      |
+| `broker.metadata`         | `Object`               | Metadados das opções do broker.       |
+| `broker.logger`           | `Logger`               | Classe de Logger do ServiceBroker.    |
+| `broker.cacher`           | `Cacher`               | Instância do cache                    |
+| `broker.serializer`       | `Serializer`           | Instância do serializador.            |
+| `broker.validator`        | `Any`                  | Instância do validador de parâmetros. |
+| `broker.services`         | `Array<Service>` | Serviços locais.                      |
+| `broker.metrics`          | `MetricRegistry`       | Registro de Métricas integrado.       |
+| `broker.tracer`           | `Tracer`               | Instância do Tracer.                  |
+| `broker.errorRegenerator` | `Regenerador`          | Instância integrada do Regenerador.   |
 
 ## Métodos de ServiceBroker
 

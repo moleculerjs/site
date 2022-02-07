@@ -3,7 +3,7 @@ title: Eventos
 O broker possui um barramento de eventos integrado para atender a uma [Arquitetura baseada em eventos](http://microservices.io/patterns/data/event-driven-architecture.html) e enviar eventos para serviços locais e remotos.
 
 {% note info %}
-Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
+Por favor, note que eventos integrados são do tipo fire-and-forget, o que significa que, se o serviço estiver offline, o evento será perdido. Para eventos persistentes, duráveis e confiáveis, verifique o [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
 {% endnote %}
 
 # Eventos balanceados
@@ -86,7 +86,7 @@ A versão `v0.14` suporta manipuladores de eventos baseados em Contextos. O cont
 Você não precisa reescrever todos os manipuladores de eventos existentes já que Moleculer ainda suporta assinatura legada `"user.created"(payload) { ... }`. Ele é capaz de detectar diferentes assinaturas de manipuladores de eventos:
 - Se a assinatura encontrada for `"user.created"(ctx) { ... }`, ele vai chamar com Context de eventos.
 - Se não, ele será chamado com argumentos antigos & o quarto argumento será o Context de Evento, como `"user.created"(payload, sender, eventName, ctx) {...}`
-- Você também pode forçar o uso da nova assinatura definindo `context: true` na declaração do evento
+- Você também pode forçar o uso da nova assinatura definindo `context: true` na declaração de evento
 
 {% endnote %}
 
@@ -247,4 +247,55 @@ O módulo de transporte emite este evento assim que o transporter estiver conect
 
 ## `$transporter.disconnected`
 O módulo de transporte emite este evento assim que o transporter for desconectado.
+
+## `$broker.error`
+O broker emite esse evento quando um erro ocorre no [broker](broker.html). **Exemplo**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "broker" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Lista completa de erros: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$transit.error`
+O broker emite esse evento quando um erro ocorre no módulo transit. **Exemplo**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Lista completa de erros: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$transporter.error`
+O broker emite este evento quando ocorre um erro no módulo [transporte](networking.html#Transporters). **Exemplo**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Lista completa de erros: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$cacher.error`
+O broker emite esse evento quando ocorre um erro no módulo [cache](caching.html). **Exemplo**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Lista completa de erros: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
+## `$discoverer.error`
+O broker emite esse evento quando um erro ocorre no módulo [discovery](registry.html). **Exemplo**
+```js
+{
+  "error": "<the error object with all properties>"
+  "module": "transit" // Name of the module where the error happened
+  "type": "error-type" // Type of error. Lista completa de erros: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+}
+```
+
 
