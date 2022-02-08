@@ -227,3 +227,15 @@ module.exports = {
     }
 };
 ```
+
+## Preferring local services
+O ServiceBroker primeiro tenta chamar as instâncias locais do serviço (se existir) para reduzir as latências de rede. It means, if the given service is available on the local broker, the configured strategy will be skipped and the broker will call the local service always. This logic can be turned off in broker options with `preferLocal: false` property under the `registry` key.
+
+```js
+// moleculer.config.js
+module.exports = {
+    registry: {
+        preferLocal: false
+    }
+};
+```
