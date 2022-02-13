@@ -139,7 +139,7 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `nats` module with `npm install nats@1.4.12 --save` command.
+To use this transporter install the `nats` module with `npm install nats --save` command.
 {% endnote %}
 
 #### Examples
@@ -159,6 +159,14 @@ module.exports = {
 };
 ```
 
+**Connect to a remote NATS server with auth**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "nats://user:pass@nats-server:4222"
+};
+```
+
 **Connect with options**
 ```js
 // moleculer.config.js
@@ -166,7 +174,7 @@ module.exports = {
     transporter: {
         type: "NATS",
         options: {
-            url: "nats://localhost:4222",
+            servers: ["nats://localhost:4222"],
             user: "admin",
             pass: "1234"
         }
@@ -181,7 +189,7 @@ module.exports = {
     transporter: {
         type: "NATS",
         options: {
-            url: "nats://localhost:4222"
+            servers: ["nats://localhost:4222"]
             // More info: https://github.com/nats-io/node-nats#tls
             tls: {
                 key: fs.readFileSync('./client-key.pem'),
