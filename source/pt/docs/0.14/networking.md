@@ -135,7 +135,7 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-Para usar este transporter, instale o módulo `nats` com o comando `npm install nats@1.4.12 --save`.
+To use this transporter install the `nats` module with `npm install nats --save` command.
 {% endnote %}
 
 #### Exemplos
@@ -155,6 +155,14 @@ module.exports = {
 };
 ```
 
+**Connect to a remote NATS server with auth**
+```js
+// moleculer.config.js
+module.exports = {
+    transporter: "nats://user:pass@nats-server:4222"
+};
+```
+
 **Conectar com opções**
 ```js
 // moleculer.config.js
@@ -162,7 +170,7 @@ module.exports = {
     transporter: {
         type: "NATS",
         options: {
-            url: "nats://localhost:4222",
+            servers: ["nats://localhost:4222"],
             user: "admin",
             pass: "1234"
         }
@@ -177,7 +185,7 @@ module.exports = {
     transporter: {
         type: "NATS",
         options: {
-            url: "nats://localhost:4222"
+            servers: ["nats://localhost:4222"]
             // More info: https://github.com/nats-io/node-nats#tls
             tls: {
                 key: fs.readFileSync('./client-key.pem'),
@@ -275,7 +283,7 @@ Para usar este transporter, instale o módulo `mqtt` com o comando `npm install 
 {% endnote %}
 
 #### Exemplos
-**Conectar com as configurações padrão**
+**Conecte com as configurações padrão**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -500,7 +508,7 @@ Para usar este transporter instale o módulo `node-nats-streaming` com o comando
 {% endnote %}
 
 #### Exemplos
-**Conectar com as configurações padrão**
+**Conecte com as configurações padrão**
 ```js
 // moleculer.config.js
 module.exports = {
