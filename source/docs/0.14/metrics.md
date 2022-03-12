@@ -287,14 +287,37 @@ module.exports = {
 ### Counter
 A counter is a cumulative metric that represents a single monotonically increasing counter whose value can only increase or be reset to zero. For example, you can use a counter to represent the number of requests served, tasks completed, or errors. It can also provide 1-minute rate.
 
+Counter provides the following methods
+```ts
+increment(labels?: GenericObject, value?: number, timestamp?: number): void;
+set(value: number, labels?: GenericObject, timestamp?: number): void;
+```        
+
 ### Gauge
 A gauge is a metric that represents a single numerical value that can arbitrarily go up and down. Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of concurrent requests. It can also provide 1-minute rate.
+
+Gauge provides the following methods:
+```ts
+increment(labels?: GenericObject, value?: number, timestamp?: number): void;
+decrement(labels?: GenericObject, value?: number, timestamp?: number): void;
+set(value: number, labels?: GenericObject, timestamp?: number): void;
+```        
 
 ### Histogram
 A histogram samples observations (usually things like request durations or response sizes) and counts them in configurable buckets. It also provides a sum of all observed values and calculates configurable quantiles over a sliding time window. It can also provide 1-minute rate.
 
+Histogram provides the following methods:
+```ts
+observe(value: number, labels?: GenericObject, timestamp?: number): void;
+```
+
 ### Info
 An info is a single string or number value like process arguments, hostname or version numbers.
+
+Info provides the following methods:
+```ts
+set(value: any | null, labels?: GenericObject, timestamp?: number): void;
+```
 
 ## Built-in Internal Metrics
 
