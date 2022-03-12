@@ -287,14 +287,37 @@ module.exports = {
 ### Counter
 Um contador é uma métrica acumulativa que representa um único contador aumentando sistematicamente cujo valor só pode aumentar ou ser reposto a zero. Por exemplo, você pode usar um contador para representar o número de requisições atendidas, tarefas concluídas ou erros. Pode também fornecer uma taxa de minuto.
 
+Counter provides the following methods
+```ts
+increment(labels?: GenericObject, value?: number, timestamp?: number): void;
+set(value: number, labels?: GenericObject, timestamp?: number): void;
+```
+
 ### Gauge
 Gauge é uma métrica que representa um único valor numérico que pode arbitrariamente subir e cair. Gauges são usados tipicamente para valores medidos como o uso de memória atual, mas também "contagens" que podem subir e baixar, como o número de requisições simultâneas. Pode também fornecer uma taxa de minuto.
+
+Gauge provides the following methods:
+```ts
+increment(labels?: GenericObject, value?: number, timestamp?: number): void;
+decrement(labels?: GenericObject, value?: number, timestamp?: number): void;
+set(value: number, labels?: GenericObject, timestamp?: number): void;
+```
 
 ### Histogram
 Um histograma apresenta observações (geralmente coisas como durações de requisições ou tamanhos de resposta) e as agrupam em buckets configuráveis. Também fornece uma soma de todos os valores observados e calcula quantidades configuráveis ao longo de um período de tempo. Pode também fornecer uma taxa de minuto.
 
+Histogram provides the following methods:
+```ts
+observe(value: number, labels?: GenericObject, timestamp?: number): void;
+```
+
 ### Info
 Uma info é uma única string ou valor de número, como argumentos de processo, nome de host ou números de versão.
+
+Info provides the following methods:
+```ts
+set(value: any | null, labels?: GenericObject, timestamp?: number): void;
+```
 
 ## Métricas internas integradas
 
