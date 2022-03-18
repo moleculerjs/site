@@ -135,7 +135,7 @@ module.exports = {
 ```
 
 {% note info Dependencies %}
-To use this transporter install the `nats` module with `npm install nats --save` command.
+Para usar este transporter, instale o módulo `nats` com o comando `npm install nats --save`.
 {% endnote %}
 
 #### Exemplos
@@ -155,7 +155,7 @@ module.exports = {
 };
 ```
 
-**Connect to a remote NATS server with auth**
+**Conecte a um servidor remoto do NATS com autenticação**
 ```js
 // moleculer.config.js
 module.exports = {
