@@ -212,10 +212,6 @@ You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
 ### File upload aliases
 API Gateway has implemented file uploads. You can upload files as a multipart form data (thanks to [busboy](https://github.com/mscdex/busboy) library) or as a raw request body. In both cases, the file is transferred to an action as a `Stream`. In multipart form data mode you can upload multiple files, as well.
 
-{% note warn %}
-Please note, you have to disable other body parsers in order to accept files.
-{% endnote %}
-
 **Exemplo**
 ```js
 const ApiGateway = require("moleculer-web");
@@ -228,12 +224,6 @@ module.exports = {
         routes: [
             {
                 path: "",
-
-                // You should disable body parsers
-                bodyParsers: {
-                    json: false,
-                    urlencoded: false
-                },
 
                 aliases: {
                     // File upload from HTML multipart form
@@ -271,8 +261,8 @@ module.exports = {
 
 In order to access the files passed by multipart-form these specific fields can be used inside the action:
 - `ctx.params` is the Readable stream containing the file passed to the endpoint
-- `ctx.params.$params` parameters from URL querystring
-- `ctx.meta.$multipart` contains the additional text form-data fields passed _before other files fields_.
+- `ctx.meta.$params` parameters from URL querystring
+- `ctx.meta.$multipart` contains the additional text form-data fields _must be sent before other files fields_.
 
 ### Auto-alias
 The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
@@ -1009,7 +999,7 @@ module.exports = {
 ```
 
 ## HTTP2 Server
-API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings. **Example**
+API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings. **Exemplo**
 ```js
 const ApiGateway = require("moleculer-web");
 
