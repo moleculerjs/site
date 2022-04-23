@@ -10,7 +10,7 @@ Note que moleculer-runner é capaz de ler variáveis de ambiente, que são muito
 
 > Os arquivos Docker exibidos aqui são do projeto [moleculer-demo](usage.html#Create-a-Moleculer-project).
 
-> For mode detailed info about Docker and Kubernetes please check the [docker demo](https://github.com/moleculerjs/docker-demo) repository.
+> Para informações detalhadas sobre o modo Docker e Kubernetes por favor, verifique o repositório [docker demo](https://github.com/moleculerjs/docker-demo).
 
 ### Dockerfile
 Dockerfile para executar os serviços do Moleculer
