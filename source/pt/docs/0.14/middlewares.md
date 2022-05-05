@@ -598,35 +598,35 @@ Muitos recursos integrados foram expostos como middlewares internos. Estes middl
 
 **Middlewares internos**
 
-| Nome da classe            | Tipo     | Descrição                                                                  |
-| ------------------------- | -------- | -------------------------------------------------------------------------- |
-| `ActionHook`              | Opcional | Hook de ações. [Leia mais](actions.html#Action-hooks)                      |
-| `Validator`               | Opcional | Validações de parâmetros. [Leia mais](validating.html)                     |
-| `Bulkhead`                | Opcional | Funcionalidade Bulkhead. [Leia mais](fault-tolerance.html#Bulkhead)        |
-| `Cacher`                  | Opcional | Cacher middleware. [Read more](caching.html)                               |
-| `ContextTracker`          | Optional | Context tracker feature. [Read more](actions.html#Context-tracking)        |
-| `CircuitBreaker`          | Optional | Circuit Breaker feature. [Read more](fault-tolerance.html#Circuit-Breaker) |
-| `Timeout`                 | Always   | Timeout feature. [Read more](fault-tolerance.html#Timeout)                 |
-| `Retry`                   | Always   | Retry feature. [Read more](fault-tolerance.html#Retry)                     |
-| `Fallback`                | Always   | Fallback feature. [Read more](fault-tolerance.html#Fallback)               |
-| `ErrorHandler`            | Always   | Error handling.                                                            |
-| `Métricas`                | Optional | Metrics feature. [Read more](metrics.html)                                 |
-| `Debounce`                | Optional | Debounce feature. [Read more](#Debounce)                                   |
-| `Throttle`                | Optional | Throttle feature. [Read more](#Throttle)                                   |
-| `Transmit.Encryption`     | Optional | Transmission encryption middleware. [Read more](#Encryption)               |
-| `Transmit.Compression`    | Optional | Transmission compression middleware. [Read more](#Compression)             |
-| `Debugging.TransitLogger` | Optional | Transit Logger. [Read more](#Transit-Logger)                               |
-| `Debugging.ActionLogger`  | Optional | Action logger. [Read more](#Action-Logger)                                 |
+| Nome da classe            | Tipo     | Descrição                                                                            |
+| ------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `ActionHook`              | Opcional | Hook de ações. [Leia mais](actions.html#Action-hooks)                                |
+| `Validator`               | Opcional | Validações de parâmetros. [Leia mais](validating.html)                               |
+| `Bulkhead`                | Opcional | Funcionalidade Bulkhead. [Leia mais](fault-tolerance.html#Bulkhead)                  |
+| `Cacher`                  | Opcional | Middleware de cacher. [Leia mais](caching.html)                                      |
+| `ContextTracker`          | Opcional | Funcionalidade de rasteamento do Context. [Leia mais](actions.html#Context-tracking) |
+| `CircuitBreaker`          | Opcional | Funcionalidade Disjuntor. [Leia mais](fault-tolerance.html#Circuit-Breaker)          |
+| `Timeout`                 | Sempre   | Funcionalidade Timeout. [Leia mais](fault-tolerance.html#Timeout)                    |
+| `Retry`                   | Sempre   | Funcionaidade Retentativa. [Leia mais](fault-tolerance.html#Retry)                   |
+| `Fallback`                | Sempre   | Funcionalidade Fallback. [Leia mais](fault-tolerance.html#Fallback)                  |
+| `ErrorHandler`            | Sempre   | Manipulação de erros.                                                                |
+| `Métricas`                | Opcional | Funcionalidade de métricas. [Leia mais](metrics.html)                                |
+| `Debounce`                | Opcional | Funcionalidade debounce. [Leia mais](#Debounce)                                      |
+| `Throttle`                | Opcional | Funcionalidade Throttle. [Leia mais](#Throttle)                                      |
+| `Transmit.Encryption`     | Opcional | Middleware de transmissão criptografada. [Leia mais](#Encryption)                    |
+| `Transmit.Compression`    | Opcional | Middleware de transmissão comprimida. [Leia mais](#Compression)                      |
+| `Debugging.TransitLogger` | Opcional | Logs de transporte. [Leia mais](#Transit-Logger)                                     |
+| `Debugging.ActionLogger`  | Opcional | Logs de Ações. [Leia mais](#Action-Logger)                                           |
 
-**Access to internal middlewares**
+**Acesso a middlewares internos**
 ```js
 const { Bulkhead, Retry } = require("moleculer").Middlewares;
 ```
 
-### Transmission Middleware
+### Middlewares de Transmissão
 
-#### Encryption
-AES encryption middleware protects all inter-services communications that use the transporter module. This middleware uses built-in Node [`crypto`](https://nodejs.org/api/crypto.html) lib.
+#### Encriptação
+O middleware de encriptação AES protege todas as comunicações interserviços que usam o módulo de transporte. Esse middleware usa a biblioteca interna [`cripto`](https://nodejs.org/api/crypto.html).
 
 ```js
 // moleculer.config.js
@@ -640,8 +640,8 @@ module.exports = {
   ]
 };
 ```
-#### Compression
-Compression middleware reduces the size of the messages that go through the transporter module. This middleware uses built-in Node [`zlib`](https://nodejs.org/api/zlib.html) lib.
+#### Compactação
+O middleware de compactação reduz o tamanho das mensagens que passam pelo módulo de transporte. Este middleware usa a biblioteca interna [`zlib`](https://nodejs.org/api/zlib.html).
 
 ```js
 // moleculer.config.js
@@ -655,10 +655,10 @@ module.exports = {
 };
 ```
 
-### Debug Middlewares
+### Depurar Middlewares
 
 #### Transit Logger
-Transit logger middleware allows to easily track the messages that are exchanged between services.
+O middleware de transporte permite rastrear facilmente as mensagens trocadas entre serviços.
 
 ```js
 // moleculer.config.js
@@ -680,21 +680,21 @@ module.exports = {
 };
 ```
 
-**Complete option list**
+**Lista de opções completa**
 
-| Class name      | Tipo                   | Valor padrão | Descrição                                                          |
-| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------ |
-| `logger`        | `Object` or `Function` | `null`       | Logger class. [Leia mais](logging.html).                           |
-| `logLevel`      | `String`               | `info`       | Log level for built-in console logger. [Leia mais](logging.html).  |
-| `logPacketData` | `Boolean`              | `false`      | Logs packet parameters                                             |
-| `folder`        | `Object`               | `null`       | Folder where logs will be written                                  |
-| `extension`     | `String`               | `.json`      | File extension of log file                                         |
-| `color.receive` | `String`               | `grey`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `color.send`    | `String`               | `grey`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Type of [packets](protocol.html#Packets) to skip                   |
+| Nome da classe  | Tipo                   | Valor padrão | Descrição                                                                |
+| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------------ |
+| `logger`        | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                             |
+| `logLevel`      | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).        |
+| `logPacketData` | `Boolean`              | `false`      | Loga parâmetros do pacote                                                |
+| `folder`        | `Object`               | `null`       | Pasta onde os logs serão escritos                                        |
+| `extension`     | `String`               | `.json`      | Extensão do arquivo de log                                               |
+| `color.receive` | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors) |
+| `color.send`    | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors) |
+| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Tipo de [pacotes](protocol.html#Packets) para ignorar                    |
 
 #### Action Logger
-Action Logger middleware tracks "how" service actions were executed.
+O middleware Action Logger registra "como" os serviços são executados.
 
 ```js
 // moleculer.config.js
@@ -718,25 +718,25 @@ module.exports = {
 
 ```
 
-**Complete option list**
+**Lista de opções completa**
 
-| Class name       | Tipo                   | Valor padrão | Descrição                                                                                               |
-| ---------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
-| `logger`         | `Object` or `Function` | `null`       | Logger class. [Leia mais](logging.html).                                                                |
-| `logLevel`       | `String`               | `info`       | Log level for built-in console logger. [Leia mais](logging.html).                                       |
-| `logParams`      | `Boolean`              | `false`      | Logs request parameters                                                                                 |
-| `logMeta`        | `Boolean`              | `false`      | Logs meta parameters                                                                                    |
-| `folder`         | `String`               | `null`       | Path do folder where logs will be written                                                               |
-| `extension`      | `String`               | `.json`      | File extension of log file                                                                              |
-| `color.request`  | `String`               | `yellow`     | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `color.response` | `String`               | `cyan`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `colors.error`   | `String`               | `red`        | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `whitelist`      | `Array<String>`  | `["**"]`     | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
+| Nome da classe   | Tipo                   | Valor padrão | Descrição                                                                                                          |
+| ---------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `logger`         | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                                                                       |
+| `logLevel`       | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).                                                  |
+| `logParams`      | `Boolean`              | `false`      | Loga parâmetros da requisição                                                                                      |
+| `logMeta`        | `Boolean`              | `false`      | Loga parâmetros de metadados                                                                                       |
+| `folder`         | `String`               | `null`       | Local da pasta onde os logs serão escritos                                                                         |
+| `extension`      | `String`               | `.json`      | Extensão do arquivo de log                                                                                         |
+| `color.request`  | `String`               | `yellow`     | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                           |
+| `color.response` | `String`               | `cyan`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                           |
+| `colors.error`   | `String`               | `red`        | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                           |
+| `whitelist`      | `Array<String>`  | `["**"]`     | Ações para logar. Usa o mesmo mecanismo de listagem permitida como no [API Gateway](moleculer-web.html#Whitelist). |
 
-### Event Execution Rate
+### Taxa de Execução de Evento
 
 #### Throttle
-Throttling is a straightforward reduction of the trigger rate. It will cause the event listener to ignore some portion of the events while still firing the listeners at a constant (but reduced) rate. Same functionality as [lodash's `_.throttle`](https://lodash.com/docs/4.17.14#throttle). For more info about throttling check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
+É uma redução pura e simples da taxa de acionamento. Fará com que o ouvinte do evento ignore uma parte dos eventos enquanto continua disparando aos ouvintes a uma taxa constante (mas reduzida). Mesma funcionalidade que o [lodash's `_.throttle`](https://lodash.com/docs/4.17.14#throttle). Para mais informações sobre a limitação verifique [este artigo](https://css-tricks.com/debouncing-throttling-explained-examples).
 
 ```js
 //my.service.js
@@ -753,7 +753,7 @@ module.exports = {
 ```
 
 #### Debounce
-Unlike throttling, debouncing is a technique of keeping the trigger rate at exactly 0 until a period of calm, and then triggering the listener exactly once. Same functionality as [lodash's `_.debounce`](https://lodash.com/docs/4.17.14#debounce). For more info about debouncing check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
+Ao contrário da desaceleração, o debounce é uma técnica de manter a taxa de ativação exatamente 0 até um período de calma, e, em seguida, acionando o ouvinte exatamente uma vez. Mesma funcionalidade que o [lodash's `_.debounce`](https://lodash.com/docs/4.17.14#debounce). Para mais informações sobre como usar o debounce, cheque [este artigo](https://css-tricks.com/debouncing-throttling-explained-examples).
 
 ```js
 //my.service.js
@@ -769,10 +769,10 @@ module.exports = {
 };
 ```
 
-## Loading & Extending
-If you want to use the built-in middlewares use their names in `middlewares[]` broker option. Also, the `Middlewares` can be easily extended with custom functions.
+## Carregando & Ampliando
+Se você quiser usar os middlewares incorporados, use seus nomes na opção de broker `middlewares[] `. Além disso, os `Middlewares` podem ser facilmente estendidos com funções personalizadas.
 
-**Load middleware by name**
+**Carregar o middleware pelo nome**
 ```js
 // moleculer.config.js
 const { Middlewares } = require("moleculer");
@@ -793,9 +793,9 @@ module.exports = {
 };  
 ```
 
-## Global view
+## Visualização global
 
 <div align="center">
-    <img src="assets/middlewares.svg" alt="Middlewares diagram" />
+    <img src="assets/middlewares.svg" alt="Diagrama de Middlewares" />
 </div>
 
