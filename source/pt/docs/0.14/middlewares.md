@@ -19,9 +19,9 @@ module.exports = {
 ```
 
 ## Encapsulando Manipuladores
-Alguns hooks podem ser envolvidos. Significa que você pode encapsular o manipulador original e retornar uma nova Função. Hooks encapsuláveis são os quais o primeiro parâmetro é `next`.
+Alguns hooks podem ser encapsulados. Significa que você pode encapsular o manipulador original e retornar uma nova Função. Hooks encapsuláveis são os quais o primeiro parâmetro é `next`.
 
-**Wrap local action handler**
+**Encapsular manipulador de ação local**
 ```js
 const MyDoSomethingMiddleware = {
     localAction(next, action) {
@@ -52,7 +52,7 @@ const MyDoSomethingMiddleware = {
 };
 ```
 
-**Example validator middleware**
+**Exemplo do middleware validador**
 ```js
 const MyValidator = {
     localAction(next, action) {
@@ -68,10 +68,10 @@ const MyValidator = {
 };
 ```
 
-The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, the middleware checks whether the action has a `params` property. If yes, it will return a wrapped handler which calls the validator module before calling the original `handler`. If the `params` property is not defined, it simply returns the original `handler` (skip wrapping).
-> If you don't call the original `next` in the middleware it will break the request. It can be used in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `next`.
+O `next` é o manipulador original ou o seguinte manipulador encapsulado. O middleware deve retornar o `handler` original ou um novo manipulador encapsulado. Como você pode ver acima, o middleware verifica se a ação tem uma propriedade `params`. Se sim, ele retornará um manipulador encapsulado que chama o módulo do validador antes de chamar o `handler` original. Se a propriedade `params` não for definida, simplesmente retorna o `handler` original (ignorando o encapsulamento).
+> Se você não chamar o original `next` no middleware ele quebrará a requisição. Isto pode ser usado em cachers. Por exemplo, se ele encontrar os dados solicitados no cache, retornará os dados em cache ao invés de chamar o `next`.
 
-**Example cacher middleware**
+**Exemplo de middleware cacher**
 ```js
 const MyCacher = {
     localAction(next, action) {
@@ -95,12 +95,12 @@ const MyCacher = {
     }
 };
 ```
-> The `next()` always returns a `Promise`. So you can access to responses and manipulate them, as well.
+> O `next()` sempre retorna uma `Promise`. Então você também pode ter acesso a respostas e manipulá-las.
 
-## Decorate core modules (extend functionality)
-Middleware functions can be used to add new features to `ServiceBroker` or `Service` classes.
+## Decorar módulos centrais (estender funcionalidade)
+As funções Middleware podem ser usadas para adicionar novos recursos às classes `ServiceBroker` ou `Service`.
 
-**Decorate broker with a new `allCall` method**
+**Decore o broker com um novo método `allCall`**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -124,7 +124,7 @@ module.exports = {
 };
 ```
 
-Call the new method in order to call `$node.health` on every nodes:
+Chame o novo método para chamar `$node.health` em cada um dos nós:
 ```js
 const res = await broker.allCall("$node.health");
 ```
@@ -132,7 +132,7 @@ const res = await broker.allCall("$node.health");
 ## Hooks
 
 ### `localAction(next, action)`
-This hook wraps the local action handlers.
+Este hook encapsula os manipuladores de ações locais.
 
 ```js
 // my.middleware.js
@@ -157,7 +157,7 @@ module.export = {
 ```
 
 ### `remoteAction(next, action)`
-This hook wraps the remote action handlers.
+Este hook encapsula os manipuladores de ações remotas.
 
 ```js
 // my.middleware.js
@@ -182,7 +182,7 @@ module.export = {
 ```
 
 ### `localEvent(next, event)`
-This hook wraps the local event handlers.
+Este hook encapsula os manipuladores de eventos locais.
 
 ```js
 // my.middleware.js
@@ -199,7 +199,7 @@ module.export = {
 
 ### `localMethod(next, method)`
 
-This hook wraps service methods.
+Este hook encapsula métodos de serviços locais.
 
 ```js
 // my.middleware.js
@@ -217,7 +217,7 @@ module.exports = {
 
 
 ### `createService(next)`
-This hook wraps the `broker.createService` method.
+Este hook encapsula o método `broker.createService`.
 
 ```js
 // my.middleware.js
@@ -234,7 +234,7 @@ module.export = {
 ```
 
 ### `destroyService(next)`
-This hook wraps the `broker.destroyService` method
+Este hook encapsula o método `broker.destroyService`
 
 ```js
 // my.middleware.js
@@ -251,7 +251,7 @@ module.export = {
 ```
 
 ### `call(next)`
-This hook wraps the `broker.call` method.
+Este hook encapsula o método `broker.call`.
 
 ```js
 // my.middleware.js
@@ -271,7 +271,7 @@ module.export = {
 ```
 
 ### `mcall(next)`
-This hook wraps the `broker.mcall` method.
+Este hook encapsula o método `broker.mcall`.
 
 ```js
 // my.middleware.js
@@ -291,7 +291,7 @@ module.export = {
 ```
 
 ### `emit(next)`
-This hook wraps the `broker.emit` method.
+Este hook encapsula o método `broker.emit`.
 
 ```js
 // my.middleware.js
@@ -308,7 +308,7 @@ module.export = {
 ```
 
 ### `broadcast(next)`
-This hook wraps the `broker.broadcast` method.
+Este hook encapsula o método `broker.broadcast`.
 
 ```js
 // my.middleware.js
@@ -325,7 +325,7 @@ module.export = {
 ```
 
 ### `broadcastLocal(next)`
-This hook wraps the `broker.broadcastLocal` method.
+Este hook encapsula o método `broker.broadcastLocal`.
 
 ```js
 // my.middleware.js
@@ -342,7 +342,7 @@ module.export = {
 ```
 
 ### `serviceCreated(service)` _(sync)_
-This hook is called after local service creating.
+Este hook é chamado após a criação de um serviço local.
 
 ```js
 // my.middleware.js
@@ -356,7 +356,7 @@ module.export = {
 ```
 
 ### `serviceStarting(service)` _(async)_
-This hook is called before service starting.
+Este hook é chamado antes do início do serviço.
 
 ```js
 // my.middleware.js
@@ -370,7 +370,7 @@ module.export = {
 ```
 
 ### `serviceStarted(service)` _(async)_
-This hook is called after service starting.
+Este hook é chamado após o início do serviço.
 
 ```js
 // my.middleware.js
@@ -384,7 +384,7 @@ module.export = {
 ```
 
 ### `serviceStopping(service)` _(async)_
-This hook is called before service stopping.
+Este hook é chamado antes da parada do serviço.
 
 ```js
 // my.middleware.js
@@ -398,7 +398,7 @@ module.export = {
 ```
 
 ### `serviceStopped(service)` _(async)_
-This hook is called after service stopping.
+Este hook é chamado após a parada do serviço.
 
 ```js
 // my.middleware.js
@@ -412,7 +412,7 @@ module.export = {
 ```
 
 ### `registerLocalService(next)`
-This hook wraps broker's local service registering method.
+Este hook encapsula o método de registro de serviços locais.
 
 ```js
 // my.middleware.js
@@ -429,7 +429,7 @@ module.export = {
 ```
 
 ### `serviceCreating(service, schema)`
-This hook is called during local service creation (after mixins are applied, so service schema is merged completely).
+Este hook é chamado durante a criação de serviço local (depois que os mixins são aplicados, portanto o esquema de serviço está mesclado completamente).
 
 ```js
 // my.middleware.js
@@ -444,7 +444,7 @@ module.export = {
 ```
 
 ### `transitPublish(next)`
-This hook is called before sending a communication packet.
+Este hook é chamado antes de enviar um pacote de comunicação.
 
 ```js
 // my.middleware.js
@@ -460,7 +460,7 @@ module.export = {
 ```
 
 ### `transitMessageHandler(next)`
-This hook is called before transit receives & parses an incoming message.
+Este gancho é chamado antes que o módulo de trânsito receba & analise uma mensagem recebida.
 
 ```js
 // my.middleware.js
@@ -476,7 +476,7 @@ module.export = {
 ```
 
 ### `transporterSend(next)`
-This hook is called after serialization but before the transporter sends a communication packet.
+Este hook é chamado após a serialização, mas antes do transportador enviar um pacote de comunicação.
 
 ```js
 // my.middleware.js
@@ -493,7 +493,7 @@ module.export = {
 ```
 
 ### `transporterReceive(next)`
-This hook is called after transporter received a communication packet but before serialization.
+Este hook é chamado depois que o transportador recebeu um pacote de comunicação, mas antes da serialização.
 
 ```js
 // my.middleware.js
@@ -510,7 +510,7 @@ module.export = {
 ```
 
 ### `newLogEntry(type, args, bindings)` _(sync)_
-This hook is called when a new log messages iscreated.
+Este hook é chamado quando um novo log de mensagens é criado.
 
 ```js
 // my.middleware.js
@@ -524,7 +524,7 @@ module.export = {
 ```
 
 ### `created(broker)` _(async)_
-This hook is called when broker created.
+Este hook é chamado quando o broker é criado.
 
 ```js
 // my.middleware.js
@@ -538,7 +538,7 @@ module.export = {
 ```
 
 ### `starting(broker)` _(async)_
-This hook is called before broker starting.
+Este hook é chamado antes do broker iniciar.
 
 ```js
 // my.middleware.js
@@ -552,7 +552,7 @@ module.export = {
 ```
 
 ### `started(broker)` _(async)_
-This hook is called after broker starting.
+Este hook é chamado após o broker iniciar.
 
 ```js
 // my.middleware.js
@@ -566,7 +566,7 @@ module.export = {
 ```
 
 ### `stopping(broker)` _(async)_
-This hook is called before broker stopping.
+Este hook é chamado antes do broker parar.
 
 ```js
 // my.middleware.js
@@ -580,7 +580,7 @@ module.export = {
 ```
 
 ### `stopped(broker)` _(async)_
-This hook is called after broker stopped.
+Este hook é chamado após o broker parar.
 
 ```js
 // my.middleware.js
@@ -593,17 +593,17 @@ module.export = {
 }
 ```
 
-## Internal middlewares
-Many integrated features have been exposed as internal middlewares. These middlewares are loaded by default when broker is created. However, they can be turned off by setting the `internalMiddlewares: false` in broker option. In this case you must explicitly specify the required middlewares in the `middlewares: []` broker option.
+## Middlewares internos
+Muitos recursos integrados foram expostos como middlewares internos. Estes middlewares são carregados por padrão quando o broker é criado. No entanto, eles podem ser desativados definindo `internalMiddlewares: false` nas opções do broker. Neste caso, você deve especificar explicitamente os middlewares necessários na opção `middlewares: []` do broker.
 
-**Internal middlewares**
+**Middlewares internos**
 
-| Class name                | Tipo     | Descrição                                                                  |
+| Nome da classe            | Tipo     | Descrição                                                                  |
 | ------------------------- | -------- | -------------------------------------------------------------------------- |
-| `ActionHook`              | Optional | Action hooks handler. [Read more](actions.html#Action-hooks)               |
-| `Validator`               | Optional | Parameter validation. [Read more](validating.html)                         |
-| `Bulkhead`                | Optional | Bulkhead feature. [Read more](fault-tolerance.html#Bulkhead)               |
-| `Cacher`                  | Optional | Cacher middleware. [Read more](caching.html)                               |
+| `ActionHook`              | Opcional | Hook de ações. [Leia mais](actions.html#Action-hooks)                      |
+| `Validator`               | Opcional | Validações de parâmetros. [Leia mais](validating.html)                     |
+| `Bulkhead`                | Opcional | Funcionalidade Bulkhead. [Leia mais](fault-tolerance.html#Bulkhead)        |
+| `Cacher`                  | Opcional | Cacher middleware. [Read more](caching.html)                               |
 | `ContextTracker`          | Optional | Context tracker feature. [Read more](actions.html#Context-tracking)        |
 | `CircuitBreaker`          | Optional | Circuit Breaker feature. [Read more](fault-tolerance.html#Circuit-Breaker) |
 | `Timeout`                 | Always   | Timeout feature. [Read more](fault-tolerance.html#Timeout)                 |
