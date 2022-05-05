@@ -18,8 +18,8 @@ module.exports = {
 };
 ```
 
-## Wrapping handlers
-Some hooks are wrappers. It means that you can wrap the original handler and return a new Function. Wrap hooks are which the first parameter is `next`.
+## Encapsulando Manipuladores
+Alguns hooks podem ser envolvidos. Significa que você pode encapsular o manipulador original e retornar uma nova Função. Hooks encapsuláveis são os quais o primeiro parâmetro é `next`.
 
 **Wrap local action handler**
 ```js
