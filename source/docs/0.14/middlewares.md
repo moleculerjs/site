@@ -262,7 +262,7 @@ module.export = {
 
     call(next) {
         return function(actionName, params, opts) {
-            console.log("The 'call' is called.", eventName);
+            console.log("The 'call' is called.", actionName);
             return next(actionName, params, opts).then(res => {
                 console.log("Response:", res);
                 return res;
