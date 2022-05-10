@@ -480,9 +480,9 @@ module.exports = {
 ```
 
 ## 日志级别设置
-配置日志级别 您可以使用 broker 易知的 `loglevel` 选项，该选项可以是 `String` 或 `Object`。 However, it is also possible to overwrite it in all logger `options` with the `level` property.
+配置日志级别 您可以使用 broker 易知的 `logLevel` 选项，该选项可以是 `String` 或 `Object`。 然而，也可以用 `options` 选项的 `level` 属性覆盖全局日志级别。
 
-**Complex logging level configuration**
+**复杂日志级别配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -509,10 +509,10 @@ module.exports = {
 };
 ```
 
-## Custom logger
-If you have your custom logger you should wrap it into a `BaseLogger` class and implement at least the `getLogHandler` method.
+## 自定义日志记录器
+如果你需要自定义日志记录器，你应该把它包装成 `BaseLogger` 类，并至少实现 `getLogHandler` 方法。
 
-**Using a custom logger**
+**使用自定义记录器**
 ```js
 // moleculer.config.js
  const BaseLogger = require("moleculer").Loggers.Base;
