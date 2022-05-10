@@ -1,18 +1,18 @@
-title: Logging
+标题：日志记录
 ---
-All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
+所有Moleculer的核心模块都有一个自定义日志记录器实例。 这些记录器是从服务管理器实例继承而来，可以在 [ broker options ](configuration.html#Broker-options) 中进行配置。
 
 {% note warn %}
-The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+`v0.14` 版本包含了不兼容的更新。 你不能直接使用旧版本的配置方式了。 如果你使用的是内置的默认控制台日志记录器，本次更改不受影响。 更新信息参见 [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md)。
 {% endnote %}
 
 
-## Built-in Loggers
+## 内置日志记录器
 
-### Console (default)
-This logger prints all log messages to the `console`. It supports several built-in formatters or you can use your custom formatter, as well.
+### Console (默认)
+这个记录器将所有日志消息打印到 `console`。 它支持几个内置的格式化器或者您也可以使用您的自定义格式化器。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
