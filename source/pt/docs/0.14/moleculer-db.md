@@ -18,10 +18,10 @@ Moleculer segue o padrão de * um banco de dados por serviço*. Para saber mais 
 * eventos de ciclo de vida da entidade para notificações
 
 {% note info Experimente em seu navegador! %}
-[![Edit moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
+[![Editar moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
 {% endnote %}
 
-## Adaptador Base [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
+## Adaptador Base [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
 
 O adaptador padrão do Moleculer é baseado no [NeDB](https://github.com/louischatriot/nedb). Use-o para configurar rapidamente e testar seu protótipo.
 
@@ -114,7 +114,7 @@ Todos os adaptadores de banco de dados compartilham um conjunto comum de configu
 
 Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.html) são [`métodos públicos`](actions.html#Action-visibility) e podem ser chamadas por outros serviços.
 
-### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `find` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Encontrar entidades por consulta.
 
@@ -134,7 +134,7 @@ Encontrar entidades por consulta.
 **Tipo:** `Matriz.<Object>` - Lista de entidades encontradas.
 
 
-### `count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `count` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Obter contagem de entidades por consulta.
 
@@ -149,7 +149,7 @@ Obter contagem de entidades por consulta.
 **Tipo:** `Number` - Contagem de entidades encontradas.
 
 
-### `list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `list` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Lista entidades com filtros e paginação de resultados.
 
@@ -196,7 +196,7 @@ Criar muitas entidades novas.
 #### Resultados
 **Tipo:** `Object`, `Array.<Object>` - Entidade(s) gravada(s).
 
-### `get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `get` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Obter entidade por ID.
 
@@ -300,7 +300,7 @@ Decodificar ID da entidade.
 #### Resultados
 **Tipo:** `any`
 
-### `_find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_find` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Encontrar entidades por consulta.
 
@@ -322,7 +322,7 @@ Encontrar entidades por consulta.
 Lista de entidades encontradas.
 
 
-### `_count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_count` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Obter contagem de entidades por consulta.
 
@@ -339,7 +339,7 @@ Obter contagem de entidades por consulta.
 Contagem de entidades encontradas.
 
 
-### `_list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_list` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Lista entidades com filtros e paginação de resultados.
 
@@ -392,7 +392,7 @@ Criar muitas entidades novas.
 Entidade(s) gravada(s).
 
 
-### `_get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_get` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
 Obter entidade por ID.
 
@@ -619,7 +619,7 @@ module.exports = {
 ```
 
 
-## Adaptador Mongo [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
+## Adaptador Mongo [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
 
 Este adaptador é baseado no [MongoDB](http://mongodb.github.io/node-mongodb-native/).
 
@@ -680,11 +680,11 @@ new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
 
 ```
 
-> More MongoDB examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo/examples)
+> Mais exemplos MongoDB podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo/examples)
 
-## Mongoose Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
+## Adaptador Mongoose [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
 
-This adapter is based on [Mongoose](https://mongoosejs.com/docs/).
+Este adaptador é baseado em [Mongoose](https://mongoosejs.com/docs/).
 
 ### Instalação
 
@@ -693,7 +693,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
 ```
 
 {% note info Dependencies%}
-To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
+Para usar este adaptador, você precisa instalar o [MongoDB](https://www.mongodb.com/) no seu sistema.
 {% endnote %}
 
 ### Utilização
@@ -735,12 +735,12 @@ broker.start()
 
 ### Opções
 
-**Example with connection URI**
+**Exemplo com URI de conexão**
 ```js
 new MongooseAdapter("mongodb://localhost/moleculer-db")
 ```
 
-**Example with URI and options**
+**Exemplo com URI e opções**
 ```js
 new MongooseAdapter("mongodb://db-server-hostname/my-db", {
     user: process.env.MONGO_USERNAME,
@@ -749,15 +749,15 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
 })
 ```
 
-### Connect to multiple DBs
+### Conectar a vários DBs
 
-If your services are running on separate nodes and you wish to connect to multiple databases then you can use `model` in your service definition. On the other hand, if your services are running on a single node and you wish to connect to multiple databases, you should define the `schema` that will make multiple connections for you.
+Se seus serviços estão sendo executados em nós separados e você deseja conectar-se a vários bancos de dados, então você pode usar o `model` na sua definição de serviço. Por outro lado, se os seus serviços estão rodando em um único nó e você deseja conectar-se a vários bancos de dados, você deve definir o `schema` que fará várias conexões para você.
 
-> More Mongoose examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
+> Mais exemplos de Mongoose podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
 
-## Sequelize Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
+## Adaptador Sequelize [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
 
-SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Sequelize](https://github.com/sequelize/sequelize).
+Adapter SQL (Postgres, MySQL, SQLite & MSSQL) para o serviço de BD Moleculer com [Sequelize](https://github.com/sequelize/sequelize).
 
 ### Instalação
 
@@ -765,18 +765,18 @@ SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Seq
 $ npm install moleculer-db-adapter-sequelize --save
 ```
 
-You have to install additional packages for your database server:
+Você tem que instalar pacotes adicionais para o servidor de banco de dados:
 ```bash
-# For SQLite
+# Para SQLite
 $ npm install sqlite3 --save
 
-# For MySQL
+# Para MySQL
 $ npm install mysql2 --save
 
-# For PostgreSQL
+# Para PostgreSQL
 $ npm install pg pg-hstore --save
 
-# For MSSQL
+# Para MSSQL
 $ npm install tedious --save
 ```
 
@@ -826,14 +826,14 @@ broker.start()
 ```
 
 ### Opções
-Every constructor arguments are passed to the `Sequelize` constructor. Read more about [Sequelize connection](http://docs.sequelizejs.com/manual/installation/getting-started.html).
+Todos os argumentos de construtor são passados para o construtor `Sequelize`. Leia mais sobre a [conexão Sequelize](http://docs.sequelizejs.com/manual/installation/getting-started.html).
 
-**Example with connection URI**
+**Exemplo com URI de conexão**
 ```js
 new SqlAdapter("postgres://user:pass@example.com:5432/dbname");
 ```
 
-**Example with connection options**
+**Exemplo com as opções de conexão**
 ```js
 new SqlAdapter('database', 'username', 'password', {
     host: 'localhost',
@@ -852,4 +852,4 @@ new SqlAdapter('database', 'username', 'password', {
 });
 ```
 
-> More Sequelize examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-sequelize/examples)
+> Mais exemplos de Sequelize podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-sequelize/examples)
