@@ -1,7 +1,7 @@
 title: API Gateway
 ---
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
-The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
+O [moleculer-web](https://github.com/moleculerjs/moleculer-web) é o serviço oficial de API gateway para o framework Moleculer. Use-o para publicar seus serviços como APIs RESTful.
 
 ## Funcionalidades
 * support HTTP & HTTPS
