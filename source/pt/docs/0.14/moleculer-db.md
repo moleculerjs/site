@@ -119,170 +119,170 @@ Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.
 Encontrar entidades por consulta.
 
 #### Parâmetros
-| Propriedade    | Tipo                   | Valor padrão    | Descrição                        |
-| -------------- | ---------------------- | --------------- | -------------------------------- |
-| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.     |
-| `fields`       | `Array.<String>` | -               | Filtro de campos.                |
-| `limit`        | `Number`               | **obrigatório** | Max count of rows.               |
-| `offset`       | `Number`               | **obrigatório** | Count of skipped rows.           |
-| `sort`         | `String`               | **obrigatório** | Sorted fields.                   |
-| `search`       | `String`               | **obrigatório** | Search text.                     |
-| `searchFields` | `String`               | **obrigatório** | Fields for searching.            |
-| `query`        | `Object`               | **obrigatório** | Query object. Passes to adapter. |
+| Propriedade    | Tipo                   | Valor padrão    | Descrição                                       |
+| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
+| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                    |
+| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                 |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Array.<Object>` - List of found entities.
+#### Resultados
+**Tipo:** `Matriz.<Object>` - Lista de entidades encontradas.
 
 
 ### `count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
 
-Get count of entities by query.
+Obter contagem de entidades por consulta.
 
 #### Parâmetros
-| Property       | Tipo     | Valor padrão | Descrição                        |
-| -------------- | -------- | ------------ | -------------------------------- |
-| `search`       | `String` | **required** | Search text.                     |
-| `searchFields` | `String` | **required** | Fields list for searching.       |
-| `query`        | `Object` | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo     | Valor padrão    | Descrição                                       |
+| -------------- | -------- | --------------- | ----------------------------------------------- |
+| `search`       | `String` | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String` | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Number` - Count of found entities.
+#### Resultados
+**Tipo:** `Number` - Contagem de entidades encontradas.
 
 
 ### `list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
 
-List entities by filters and pagination results.
+Lista entidades com filtros e paginação de resultados.
 
 #### Parâmetros
-| Property       | Tipo                   | Padrão       | Descrição                        |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `page`         | `Number`               | **required** | Page number.                     |
-| `pageSize`     | `Number`               | **required** | Size of a page.                  |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
+| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
+| `page`         | `Number`               | **obrigatório** | Número da página.                               |
+| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                          |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Object` - List of found entities and count.
+#### Resultados
+**Type:** `Object` - Lista e contagem de entidades encontradas.
 
 ### `create`
 
-Create a new entity.
+Criar uma nova entidade.
 
 #### Parâmetros
-| Property | Tipo | Padrão | Descrição |
-| -------- | ---- | ------ | --------- |
-| -        | -    | -      | -         |
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| -           | -    | -      | -         |
 
 
-*No input parameters.*
+*Nenhum parâmetro de entrada.*
 
-#### Results
-**Type:** `Object` - Saved entity.
+#### Resultados
+**Tipo:** `Object` - Entidade gravada.
 
 ### `insert`
 
-Create many new entities.
+Criar muitas entidades novas.
 
 #### Parâmetros
-| Property   | Tipo                   | Padrão | Descrição         |
-| ---------- | ---------------------- | ------ | ----------------- |
-| `entity`   | `Object`               | -      | Entity to save.   |
-| `entities` | `Array.<Object>` | -      | Entities to save. |
+| Propriedade | Tipo                   | Padrão | Descrição              |
+| ----------- | ---------------------- | ------ | ---------------------- |
+| `entity`    | `Object`               | -      | Entidade para salvar.  |
+| `entities`  | `Array.<Object>` | -      | Entidades para salvar. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>` - Saved entity(ies).
+#### Resultados
+**Tipo:** `Object`, `Array.<Object>` - Entidade(s) gravada(s).
 
 ### `get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
 
-Get entity by ID.
+Obter entidade por ID.
 
 ##### Parâmetros
-| Property   | Tipo                       | Padrão       | Descrição                                                                    |
-| ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
-| `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
-| `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
-| `fields`   | `Array.<String>`     | -            | Fields filter.                                                               |
-| `mapping`  | `Boolean`                  | -            | Convert the returned `Array` to `Object` where the key is the value of `id`. |
+| Propriedade | Tipo                       | Padrão          | Descrição                                                                 |
+| ----------- | -------------------------- | --------------- | ------------------------------------------------------------------------- |
+| `id`        | `any`, `Array.<any>` | **obrigatório** | ID(s) de entidade(s).                                                     |
+| `populate`  | `Array.<String>`     | -               | Lista de campos para preenchimento.                                       |
+| `fields`    | `Array.<String>`     | -               | Filtro de campos.                                                         |
+| `mapping`   | `Boolean`                  | -               | Converta o `Array` retornado para `Objet` onde a chave é o valor de `id`. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>` - Found entity(ies).
+#### Resultados
+**Tipo:** `Object`, `Array.<Object>` - Entidade(s) encontrada(s).
 
 
 ### `update`
 
-Update an entity by ID.
-> After update, clear the cache & call lifecycle events.
+Atualizar a entidade por ID.
+> Após a atualização, limpa o cache & chama os eventos de ciclo de vida.
 
 #### Parâmetros
-| Property | Tipo | Padrão | Descrição |
-| -------- | ---- | ------ | --------- |
-| -        | -    | -      | -         |
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| -           | -    | -      | -         |
 
 
-*No input parameters.*
+*Nenhum parâmetro de entrada.*
 
-#### Results
-**Type:** `Object` - Updated entity.
+#### Resultados
+**Tipo:** `Object` - Entidade atualizada.
 
 
 ### `remove`
 
-Remove an entity by ID.
+Remove uma entidade por ID.
 
 #### Parâmetros
-| Property | Tipo  | Padrão       | Descrição     |
-| -------- | ----- | ------------ | ------------- |
-| `id`     | `any` | **required** | ID of entity. |
+| Property | Tipo  | Padrão          | Descrição       |
+| -------- | ----- | --------------- | --------------- |
+| `id`     | `any` | **obrigatório** | ID da entidade. |
 
-#### Results
-**Type:** `Number` - Count of removed entities.
+#### Resultados
+**Tipo:** `Number` - Contagem de entidades removidas.
 
-## Methods
+## Métodos
 
-DB adapters also has a set of helper [methods](services.html#Methods).
+Adaptadores de BD também tem um conjunto de [métodos](services.html#Methods) auxiliares.
 
 ### `getById`
 
-Get entity(ies) by ID(s).
+Obter entidade(es) pelo(s) ID(s).
 
 #### Parâmetros
-| Property   | Tipo                        | Padrão       | Descrição           |
-| ---------- | --------------------------- | ------------ | ------------------- |
-| `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
-| `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
+| Propriedade | Tipo                        | Padrão          | Descrição                     |
+| ----------- | --------------------------- | --------------- | ----------------------------- |
+| `id`        | `String`, `Number`, `Array` | **obrigatório** | ID ou IDs.                    |
+| `decoding`  | `Boolean`                   | **obrigatório** | É necessário decodificar IDs. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>` - Found entity(ies).
+#### Resultados
+**Tipo:** `Objet`, `Array.<Object>` - Entidade(s) encontrada(s).
 
 
 ### `clearCache`
 
-Clear cached entities
+Limpar entidades em cache
 
 #### Parâmetros
-| Property | Tipo | Padrão | Descrição |
-| -------- | ---- | ------ | --------- |
-| -        | -    | -      | -         |
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| -           | -    | -      | -         |
 
 
-*No input parameters.*
+*Nenhum parâmetro de entrada.*
 
-#### Results
-**Type:** `Promise`
+#### Resultados
+**Tipo:** `Promise`
 
 
 ### `encodeID`
 
-Encode ID of entity.
+Codificar ID da entidade.
 
 #### Parâmetros
-| Property | Tipo  | Padrão       | Descrição |
-| -------- | ----- | ------------ | --------- |
-| `id`     | `any` | **required** | -         |
+| Propriedade | Tipo  | Padrão       | Descrição |
+| ----------- | ----- | ------------ | --------- |
+| `id`        | `any` | **required** | -         |
 
 #### Results
 **Type:** `any`
