@@ -7,26 +7,26 @@ Moleculer segue o padrão de * um banco de dados por serviço*. Para saber mais 
 {% endnote %}
 
 ## Funcionalidades
-* default CRUD actions
-* [cached](caching.html) actions
-* pagination support
-* pluggable adapter ([NeDB](https://github.com/louischatriot/nedb) is the default memory adapter for testing & prototyping)
-* official adapters for MongoDB, PostgreSQL, SQLite, MySQL, MSSQL.
-* fields filtering
-* populating
-* encode/decode IDs
-* entity lifecycle events for notifications
+* ações CRUD padrão
+* ações em [cache](caching.html)
+* suporte a paginação
+* adaptador padrão ([NeDB](https://github.com/louischatriot/nedb) é o adaptador em memória padrão para testes & protótipos)
+* adaptadores oficiais para MongoDB, PostgreSQL, SQLite, MySQL, MSSQL.
+* filtragem de campos
+* popular dados de tabelas relacionadas
+* codificar/decodificar IDs
+* eventos de ciclo de vida da entidade para notificações
 
 {% note info Experimente em seu navegador! %}
 [![Edit moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
 {% endnote %}
 
-## Base Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
+## Adaptador Base [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
 
-Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/nedb). Use it to quickly set up and test you prototype.
+O adaptador padrão do Moleculer é baseado no [NeDB](https://github.com/louischatriot/nedb). Use-o para configurar rapidamente e testar seu protótipo.
 
 {% note warn%}
-Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
+Use este adaptador somente para prototipagem e teste. Quando você estiver pronto para entrar em produção, simplesmente troque o adaptador para [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) ou [Sequelize](moleculer-db.html#Sequelize-Adapter) já que todos implementam as [Configurações](moleculer-db.html#Settings), [Ações](moleculer-db.html#Actions) e [Métodos](moleculer-db.html#Methods) em comum.
 {% endnote %}
 
 ### Instalação
@@ -90,45 +90,45 @@ broker.start()
 
 ```
 
-> More examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
+> Mais exemplos podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
 
 ## Confirgurações
 
-All DB adapters share a common set of settings:
+Todos os adaptadores de banco de dados compartilham um conjunto comum de configurações:
 
-| Property          | Tipo                   | Padrão       | Descrição                                                                                                                 |
-| ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
-| `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
-| `populates`       | `Array`                | `null`       | Schema for population. [Read more](#Populating).                                                                          |
-| `pageSize`        | `Number`               | **required** | Default page size in `list` action.                                                                                       |
-| `maxPageSize`     | `Number`               | **required** | Maximum page size in `list` action.                                                                                       |
-| `maxLimit`        | `Number`               | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit)                                                         |
-| `entityValidator` | `Object`, `function`   | `null`       | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions.                            |
+| Propriedade       | Tipo                   | Padrão          | Descrição                                                                                                                       |
+| ----------------- | ---------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `idField`         | `String`               | **obrigatório** | Nome do campo ID.                                                                                                               |
+| `fields`          | `Array.<String>` | `null`          | Lista com os campos a serem filtrados. Deve ser um `Array`. Se o valor é `null` ou `undefined` não filtra campos das entidades. |
+| `populates`       | `Array`                | `null`          | Esquema para o preenchimento. [Leia mais](#Populating).                                                                         |
+| `pageSize`        | `Number`               | **obrigatório** | Tamanho padrão da página em uma ação `list`.                                                                                    |
+| `maxPageSize`     | `Number`               | **obrigatório** | Tamanho máximo da página em uma ação `list`.                                                                                    |
+| `maxLimit`        | `Number`               | **obrigatório** | Valor máximo do limite na ação `find`. Padrão: `-1` (sem limite)                                                                |
+| `entityValidator` | `Object`, `function`   | `null`          | Esquema do validador ou uma função para validar a entrada da entidade nas ações `create` & ações de 'inserir'.                  |
 
 {% note warn%}
-`idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
+`idField` não funciona com o adaptador de Sequelize, pois você pode definir livremente seu próprio ID durante a criação do modelo.
 {% endnote %}
 
 ## Ações
 
-DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
+Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.html) são [`métodos públicos`](actions.html#Action-visibility) e podem ser chamadas por outros serviços.
 
 ### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
 
-Find entities by query.
+Encontrar entidades por consulta.
 
 #### Parâmetros
-| Property       | Tipo                   | Valor padrão | Descrição                        |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `limit`        | `Number`               | **required** | Max count of rows.               |
-| `offset`       | `Number`               | **required** | Count of skipped rows.           |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo                   | Valor padrão    | Descrição                        |
+| -------------- | ---------------------- | --------------- | -------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.     |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                |
+| `limit`        | `Number`               | **obrigatório** | Max count of rows.               |
+| `offset`       | `Number`               | **obrigatório** | Count of skipped rows.           |
+| `sort`         | `String`               | **obrigatório** | Sorted fields.                   |
+| `search`       | `String`               | **obrigatório** | Search text.                     |
+| `searchFields` | `String`               | **obrigatório** | Fields for searching.            |
+| `query`        | `Object`               | **obrigatório** | Query object. Passes to adapter. |
 
 #### Results
 **Type:** `Array.<Object>` - List of found entities.
