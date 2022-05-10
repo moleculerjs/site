@@ -1,9 +1,9 @@
-title: Database Adapters
+title: Adaptadores de Banco de Dados
 ---
-Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to persist your data in a database.
+O framework Moleculer possui um conjunto oficial de [Adaptadores de Banco de Dados](https://github.com/moleculerjs/moleculer-db). Use-os para persistir dados em um banco de dados.
 
 {% note info Database per service%}
-Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
+Moleculer segue o padrão de * um banco de dados por serviço*. Para saber mais sobre esse padrão de desenvolvimento e suas implicações, confira este [artigo](https://microservices.io/patterns/data/database-per-service.html). Para uma abordagem de *múltiplas entidades/tabelas por serviço* verifique [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
 ## Funcionalidades
