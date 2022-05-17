@@ -10,12 +10,12 @@ O [moleculer-web](https://github.com/moleculerjs/moleculer-web) é o serviço of
 * suporta middlewares, do tipo Connect, a nível global, a nível de rotas e a nível de alias.
 * nomes de alias (com parâmetros nomeados & rotas REST)
 * lista de permissões (allowlist)
-* multiple body parsers (json, urlencoded)
-* CORS headers
-* Rate limiter
-* before & after call hooks
-* Buffer & Stream handling
-* middleware mode (use as a middleware with Express)
+* múltiplos body parsers (json, urlencoded)
+* cabeçalhos CORS
+* Limitador de taxa
+* hooks antes & depois de chamadas
+* Manipulação de buffer & fluxo
+* modo middleware (use como um middleware com Express)
 
 {% note info Experimente em seu navegador! %}
 [![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
@@ -28,8 +28,8 @@ npm i moleculer-web
 
 ## Utilização
 
-### Run with default settings
-This example uses API Gateway service with default settings. You can access all services (including internal `$node.`) via `http://localhost:3000/`
+### Execute com configurações padrão
+Este exemplo usa o serviço de API Gateway com configurações padrão. Você pode acessar todos os serviços (incluindo o interno `$node.`) através de `http://localhost:3000/`
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -44,15 +44,15 @@ broker.createService(ApiService);
 broker.start();
 ```
 
-**Example URLs:**
-- Call `test.hello` action: `http://localhost:3000/test/hello`
-- Call `math.add` action with params: `http://localhost:3000/math/add?a=25&b=13`
+**Modelos de URLs:**
+- Chame a ação `test.hello`: `http://localhost:3000/test/hello`
+- Chama a ação `math.add` com parâmetros: `http://localhost:3000/math/add?a=25&b=13`
 
-- Get health info of node: `http://localhost:3000/~node/health`
-- List all actions: `http://localhost:3000/~node/actions`
+- Obter informação de saúde do nó: `http://localhost:3000/~node/health`
+- Listar todas as ações: `http://localhost:3000/~node/actions`
 
-## Whitelist
-If you don't want to publish all actions, you can filter them with whitelist option. Use match strings or regexp in list. _To enable all actions, use `"**"` item._
+## Lista de permissões (allowlist)
+Se você não quiser publicar todas as ações, você pode filtrá-las com a opção allowlist. Use sequências de caracteres ou expressão regular na lista. _Para ativar todas as ações, use `"**"` item._
 
 ```js
 broker.createService({
