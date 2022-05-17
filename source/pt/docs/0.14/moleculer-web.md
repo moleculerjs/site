@@ -4,12 +4,12 @@ title: API Gateway
 O [moleculer-web](https://github.com/moleculerjs/moleculer-web) é o serviço oficial de API gateway para o framework Moleculer. Use-o para publicar seus serviços como APIs RESTful.
 
 ## Funcionalidades
-* support HTTP & HTTPS
-* serve static files
-* multiple routes
-* support Connect-like middlewares in global-level, route-level and alias-level.
-* alias names (with named parameters & REST routes)
-* whitelist
+* suporta HTTP & HTTPS
+* servidor de arquivos estáticos
+* múltiplas rotas
+* suporta middlewares, do tipo Connect, a nível global, a nível de rotas e a nível de alias.
+* nomes de alias (com parâmetros nomeados & rotas REST)
+* lista de permissões (allowlist)
 * multiple body parsers (json, urlencoded)
 * CORS headers
 * Rate limiter
