@@ -76,9 +76,9 @@ broker.createService({
 ```
 
 ## Aliases
-You can use alias names instead of action names. You can also specify the method. Otherwise it will handle every method types.
+Você pode usar nomes de alias ao invés de nomes de ação. Você também pode especificar o método. Caso contrário, irá lidar com todos os tipos de métodos.
 
-Using named parameters in aliases is possible. Named parameters are defined by prefixing a colon to the parameter name (`:name`).
+Usar parâmetros nomeados em aliases é possível. Parâmetros nomeados são definidos prefixando dois pontos ao nome do parâmetro (`:name`).
 
 ```js
 broker.createService({
@@ -103,14 +103,14 @@ broker.createService({
 ```
 
 {% note info %}
-The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters, as well.
+O parâmetro nomeado é manipulado com o módulo [path-to-regexp](https://github.com/pillarjs/path-to-regexp). Portanto, você também pode usar parâmetros [opcionais](https://github.com/pillarjs/path-to-regexp#optional) e [repetidos](https://github.com/pillarjs/path-to-regexp#zero-or-more).
 {% endnote %}
 
 {% note info Aliases Action%}
-The API gateway implements `listAliases` [action](actions.html) that lists the HTTP endpoints to actions mappings.
+O API gateway implementa a [ação](actions.html) `listAliases` que lista os endpoints HTTP para mapeamentos de ações.
 {% endnote %}
 
-You can also create RESTful APIs.
+Você também pode criar APIs RESTful.
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -129,7 +129,7 @@ broker.createService({
 });
 ```
 
-For REST routes you can also use this simple shorthand alias:
+Para rotas REST você também pode usar este atalho simples:
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -144,10 +144,10 @@ broker.createService({
 });
 ```
 {% note warn %}
-To use this shorthand alias, create a service which has `list`, `get`, `create`, `update` and `remove` actions.
+Para usar esse atalho abreviado, crie um serviço que tem as ações `list`, `get`, `create`, `update` e `remove`.
 {% endnote %}
 
-You can make use of custom functions within the declaration of aliases. In this case, the handler's signature is `function (req, res) {...}`.
+Você pode usar funções personalizadas dentro da declaração de aliases. In this case, the handler's signature is `function (req, res) {...}`.
 
 {% note info %}
 Please note that Moleculer uses native Node.js [HTTP server](https://nodejs.org/api/http.html)
