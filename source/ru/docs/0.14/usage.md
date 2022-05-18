@@ -51,7 +51,8 @@ broker.start()
     ```bash
     $ moleculer init project moleculer-demo
     ```
- <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
+
+    <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
 
     > Press `ENTER` to all questions _(accept default answers)_    
     
@@ -81,8 +82,8 @@ broker.start()
 Вы только что создали свой первый проект на основе микросервисов Moleculer! Далее посмотрите страницу [основы работы](concepts.html) Moleculer, чтобы познакомиться с ними и посмотреть, как они взаимодействуют друг с другом. Или изучите наши [примеры](examples.html) и [демо проекты](https://github.com/moleculerjs/moleculer-examples).
 {% endnote %}
 
-Вы также можете посмотреть видео ниже, в котором объясняются устройство только что созданного проекта. <iframe width="730" height="410" src="https://www.youtube.com/embed/t4YR6MWrugw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
+Вы также можете посмотреть видео ниже, в котором объясняются устройство только что созданного проекта. <iframe width="730" height="410" src="https://www.youtube.com/embed/t4YR6MWrugw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 # Moleculer демонстрационная площадка
-Если вы не хотите устанавливать на свой компьютер [moleculer-demo](usage.html#Create-a-Moleculer-project), то вы можете использовать интерактивную игровую площадку. <iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-project/tree/master/?fontsize=14" title="moleculer-project" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" mark="crwd-mark"></iframe>
+Если вы не хотите устанавливать на свой компьютер [moleculer-demo](usage.html#Create-a-Moleculer-project), то вы можете использовать интерактивную игровую площадку. <iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-project/tree/master/?fontsize=14" title="moleculer-project" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>

@@ -51,7 +51,8 @@ Neste exemplo, usamos a ferramenta oficial [Moleculer CLI](moleculer-cli.html) p
     ```bash
     $ moleculer init project moleculer-demo
     ```
- <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
+
+    <div align="center"><img src="assets/usage/usage-demo-1.gif" /></div>
 
     > Pressione `ENTER` para todas as perguntas _(aceite as respostas sugeridas)_    
     
@@ -81,8 +82,8 @@ Neste exemplo, usamos a ferramenta oficial [Moleculer CLI](moleculer-cli.html) p
 Você acabou de criar seu primeiro projeto de microsserviços baseado em Moleculer! Em seguida, confira a página de [conceitos básicos do Moleculer](concepts.html) para se familiarizar com eles e ver como eles se encaixam juntos. Caso contrário, confira nossos [exemplos](examples.html) ou [projetos de demonstração](https://github.com/moleculerjs/moleculer-examples).
 {% endnote %}
 
-Você também pode verificar o vídeo abaixo que explica o funcionamento do projeto que você acabou de criar. <iframe width="730" height="410" src="https://www.youtube.com/embed/t4YR6MWrugw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
+Você também pode verificar o vídeo abaixo que explica o funcionamento do projeto que você acabou de criar. <iframe width="730" height="410" src="https://www.youtube.com/embed/t4YR6MWrugw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 # Moleculer Demo Playground
-Se você não deseja instalar [moleculer-demo](usage.html#Create-a-Moleculer-project) em seu computador, você pode usar o playground. <iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-project/tree/master/?fontsize=14" title="moleculer-project" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin" mark="crwd-mark"></iframe>
+Se você não deseja instalar [moleculer-demo](usage.html#Create-a-Moleculer-project) em seu computador, você pode usar o playground. <iframe src="https://codesandbox.io/embed/github/moleculerjs/sandbox-moleculer-project/tree/master/?fontsize=14" title="moleculer-project" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>

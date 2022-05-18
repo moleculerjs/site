@@ -18,10 +18,10 @@ module.exports = {
 };
 ```
 
-## Wrapping handlers
-Some hooks are wrappers. It means that you can wrap the original handler and return a new Function. Wrap hooks are which the first parameter is `next`.
+## Encapsulando Manipuladores
+Alguns hooks podem ser encapsulados. Significa que você pode encapsular o manipulador original e retornar uma nova Função. Hooks encapsuláveis são os quais o primeiro parâmetro é `next`.
 
-**Wrap local action handler**
+**Encapsular manipulador de ação local**
 ```js
 const MyDoSomethingMiddleware = {
     localAction(next, action) {
@@ -52,7 +52,7 @@ const MyDoSomethingMiddleware = {
 };
 ```
 
-**Example validator middleware**
+**Exemplo do middleware validador**
 ```js
 const MyValidator = {
     localAction(next, action) {
@@ -68,10 +68,10 @@ const MyValidator = {
 };
 ```
 
-The `next` is the original handler or the following wrapped handler. The middleware should return either the original `handler` or a new wrapped handler. As you can see above, the middleware checks whether the action has a `params` property. If yes, it will return a wrapped handler which calls the validator module before calling the original `handler`. If the `params` property is not defined, it simply returns the original `handler` (skip wrapping).
-> If you don't call the original `next` in the middleware it will break the request. It can be used in cachers. For example, if it finds the requested data in the cache, it'll return the cached data instead of calling the `next`.
+O `next` é o manipulador original ou o seguinte manipulador encapsulado. O middleware deve retornar o `handler` original ou um novo manipulador encapsulado. Como você pode ver acima, o middleware verifica se a ação tem uma propriedade `params`. Se sim, ele retornará um manipulador encapsulado que chama o módulo do validador antes de chamar o `handler` original. Se a propriedade `params` não for definida, simplesmente retorna o `handler` original (ignorando o encapsulamento).
+> Se você não chamar o original `next` no middleware ele quebrará a requisição. Isto pode ser usado em cachers. Por exemplo, se ele encontrar os dados solicitados no cache, retornará os dados em cache ao invés de chamar o `next`.
 
-**Example cacher middleware**
+**Exemplo de middleware cacher**
 ```js
 const MyCacher = {
     localAction(next, action) {
@@ -95,12 +95,12 @@ const MyCacher = {
     }
 };
 ```
-> The `next()` always returns a `Promise`. So you can access to responses and manipulate them, as well.
+> O `next()` sempre retorna uma `Promise`. Então você também pode ter acesso a respostas e manipulá-las.
 
-## Decorate core modules (extend functionality)
-Middleware functions can be used to add new features to `ServiceBroker` or `Service` classes.
+## Decorar módulos centrais (estender funcionalidade)
+As funções Middleware podem ser usadas para adicionar novos recursos às classes `ServiceBroker` ou `Service`.
 
-**Decorate broker with a new `allCall` method**
+**Decore o broker com um novo método `allCall`**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -124,7 +124,7 @@ module.exports = {
 };
 ```
 
-Call the new method in order to call `$node.health` on every nodes:
+Chame o novo método para chamar `$node.health` em cada um dos nós:
 ```js
 const res = await broker.allCall("$node.health");
 ```
@@ -132,7 +132,7 @@ const res = await broker.allCall("$node.health");
 ## Hooks
 
 ### `localAction(next, action)`
-This hook wraps the local action handlers.
+Este hook encapsula os manipuladores de ações locais.
 
 ```js
 // my.middleware.js
@@ -157,7 +157,7 @@ module.export = {
 ```
 
 ### `remoteAction(next, action)`
-This hook wraps the remote action handlers.
+Este hook encapsula os manipuladores de ações remotas.
 
 ```js
 // my.middleware.js
@@ -182,7 +182,7 @@ module.export = {
 ```
 
 ### `localEvent(next, event)`
-This hook wraps the local event handlers.
+Este hook encapsula os manipuladores de eventos locais.
 
 ```js
 // my.middleware.js
@@ -199,7 +199,7 @@ module.export = {
 
 ### `localMethod(next, method)`
 
-This hook wraps service methods.
+Este hook encapsula métodos de serviços locais.
 
 ```js
 // my.middleware.js
@@ -217,7 +217,7 @@ module.exports = {
 
 
 ### `createService(next)`
-This hook wraps the `broker.createService` method.
+Este hook encapsula o método `broker.createService`.
 
 ```js
 // my.middleware.js
@@ -234,7 +234,7 @@ module.export = {
 ```
 
 ### `destroyService(next)`
-This hook wraps the `broker.destroyService` method
+Este hook encapsula o método `broker.destroyService`
 
 ```js
 // my.middleware.js
@@ -251,7 +251,7 @@ module.export = {
 ```
 
 ### `call(next)`
-This hook wraps the `broker.call` method.
+Este hook encapsula o método `broker.call`.
 
 ```js
 // my.middleware.js
@@ -260,7 +260,7 @@ module.export = {
 
     call(next) {
         return function(actionName, params, opts) {
-            console.log("The 'call' is called.", eventName);
+            console.log("The 'call' is called.", actionName);
             return next(actionName, params, opts).then(res => {
                 console.log("Response:", res);
                 return res;
@@ -271,7 +271,7 @@ module.export = {
 ```
 
 ### `mcall(next)`
-This hook wraps the `broker.mcall` method.
+Este hook encapsula o método `broker.mcall`.
 
 ```js
 // my.middleware.js
@@ -291,7 +291,7 @@ module.export = {
 ```
 
 ### `emit(next)`
-This hook wraps the `broker.emit` method.
+Este hook encapsula o método `broker.emit`.
 
 ```js
 // my.middleware.js
@@ -308,7 +308,7 @@ module.export = {
 ```
 
 ### `broadcast(next)`
-This hook wraps the `broker.broadcast` method.
+Este hook encapsula o método `broker.broadcast`.
 
 ```js
 // my.middleware.js
@@ -325,7 +325,7 @@ module.export = {
 ```
 
 ### `broadcastLocal(next)`
-This hook wraps the `broker.broadcastLocal` method.
+Este hook encapsula o método `broker.broadcastLocal`.
 
 ```js
 // my.middleware.js
@@ -342,7 +342,7 @@ module.export = {
 ```
 
 ### `serviceCreated(service)` _(sync)_
-This hook is called after local service creating.
+Este hook é chamado após a criação de um serviço local.
 
 ```js
 // my.middleware.js
@@ -356,7 +356,7 @@ module.export = {
 ```
 
 ### `serviceStarting(service)` _(async)_
-This hook is called before service starting.
+Este hook é chamado antes do início do serviço.
 
 ```js
 // my.middleware.js
@@ -370,7 +370,7 @@ module.export = {
 ```
 
 ### `serviceStarted(service)` _(async)_
-This hook is called after service starting.
+Este hook é chamado após o início do serviço.
 
 ```js
 // my.middleware.js
@@ -384,7 +384,7 @@ module.export = {
 ```
 
 ### `serviceStopping(service)` _(async)_
-This hook is called before service stopping.
+Este hook é chamado antes da parada do serviço.
 
 ```js
 // my.middleware.js
@@ -398,7 +398,7 @@ module.export = {
 ```
 
 ### `serviceStopped(service)` _(async)_
-This hook is called after service stopping.
+Este hook é chamado após a parada do serviço.
 
 ```js
 // my.middleware.js
@@ -412,7 +412,7 @@ module.export = {
 ```
 
 ### `registerLocalService(next)`
-This hook wraps broker's local service registering method.
+Este hook encapsula o método de registro de serviços locais.
 
 ```js
 // my.middleware.js
@@ -429,7 +429,7 @@ module.export = {
 ```
 
 ### `serviceCreating(service, schema)`
-This hook is called during local service creation (after mixins are applied, so service schema is merged completely).
+Este hook é chamado durante a criação de serviço local (depois que os mixins são aplicados, portanto o esquema de serviço está mesclado completamente).
 
 ```js
 // my.middleware.js
@@ -444,7 +444,7 @@ module.export = {
 ```
 
 ### `transitPublish(next)`
-This hook is called before sending a communication packet.
+Este hook é chamado antes de enviar um pacote de comunicação.
 
 ```js
 // my.middleware.js
@@ -460,7 +460,7 @@ module.export = {
 ```
 
 ### `transitMessageHandler(next)`
-This hook is called before transit receives & parses an incoming message.
+Este gancho é chamado antes que o módulo de trânsito receba & analise uma mensagem recebida.
 
 ```js
 // my.middleware.js
@@ -476,7 +476,7 @@ module.export = {
 ```
 
 ### `transporterSend(next)`
-This hook is called after serialization but before the transporter sends a communication packet.
+Este hook é chamado após a serialização, mas antes do transportador enviar um pacote de comunicação.
 
 ```js
 // my.middleware.js
@@ -493,7 +493,7 @@ module.export = {
 ```
 
 ### `transporterReceive(next)`
-This hook is called after transporter received a communication packet but before serialization.
+Este hook é chamado depois que o transportador recebeu um pacote de comunicação, mas antes da serialização.
 
 ```js
 // my.middleware.js
@@ -510,7 +510,7 @@ module.export = {
 ```
 
 ### `newLogEntry(type, args, bindings)` _(sync)_
-This hook is called when a new log messages iscreated.
+Este hook é chamado quando um novo log de mensagens é criado.
 
 ```js
 // my.middleware.js
@@ -524,7 +524,7 @@ module.export = {
 ```
 
 ### `created(broker)` _(async)_
-This hook is called when broker created.
+Este hook é chamado quando o broker é criado.
 
 ```js
 // my.middleware.js
@@ -538,7 +538,7 @@ module.export = {
 ```
 
 ### `starting(broker)` _(async)_
-This hook is called before broker starting.
+Este hook é chamado antes do broker iniciar.
 
 ```js
 // my.middleware.js
@@ -552,7 +552,7 @@ module.export = {
 ```
 
 ### `started(broker)` _(async)_
-This hook is called after broker starting.
+Este hook é chamado após o broker iniciar.
 
 ```js
 // my.middleware.js
@@ -566,7 +566,7 @@ module.export = {
 ```
 
 ### `stopping(broker)` _(async)_
-This hook is called before broker stopping.
+Este hook é chamado antes do broker parar.
 
 ```js
 // my.middleware.js
@@ -580,7 +580,7 @@ module.export = {
 ```
 
 ### `stopped(broker)` _(async)_
-This hook is called after broker stopped.
+Este hook é chamado após o broker parar.
 
 ```js
 // my.middleware.js
@@ -593,40 +593,40 @@ module.export = {
 }
 ```
 
-## Internal middlewares
-Many integrated features have been exposed as internal middlewares. These middlewares are loaded by default when broker is created. However, they can be turned off by setting the `internalMiddlewares: false` in broker option. In this case you must explicitly specify the required middlewares in the `middlewares: []` broker option.
+## Middlewares internos
+Muitos recursos integrados foram expostos como middlewares internos. Estes middlewares são carregados por padrão quando o broker é criado. No entanto, eles podem ser desativados definindo `internalMiddlewares: false` nas opções do broker. Neste caso, você deve especificar explicitamente os middlewares necessários na opção `middlewares: []` do broker.
 
-**Internal middlewares**
+**Middlewares internos**
 
-| Class name                | Tipo     | Descrição                                                                  |
-| ------------------------- | -------- | -------------------------------------------------------------------------- |
-| `ActionHook`              | Optional | Action hooks handler. [Read more](actions.html#Action-hooks)               |
-| `Validator`               | Optional | Parameter validation. [Read more](validating.html)                         |
-| `Bulkhead`                | Optional | Bulkhead feature. [Read more](fault-tolerance.html#Bulkhead)               |
-| `Cacher`                  | Optional | Cacher middleware. [Read more](caching.html)                               |
-| `ContextTracker`          | Optional | Context tracker feature. [Read more](actions.html#Context-tracking)        |
-| `CircuitBreaker`          | Optional | Circuit Breaker feature. [Read more](fault-tolerance.html#Circuit-Breaker) |
-| `Timeout`                 | Always   | Timeout feature. [Read more](fault-tolerance.html#Timeout)                 |
-| `Retry`                   | Always   | Retry feature. [Read more](fault-tolerance.html#Retry)                     |
-| `Fallback`                | Always   | Fallback feature. [Read more](fault-tolerance.html#Fallback)               |
-| `ErrorHandler`            | Always   | Error handling.                                                            |
-| `Métricas`                | Optional | Metrics feature. [Read more](metrics.html)                                 |
-| `Debounce`                | Optional | Debounce feature. [Read more](#Debounce)                                   |
-| `Throttle`                | Optional | Throttle feature. [Read more](#Throttle)                                   |
-| `Transmit.Encryption`     | Optional | Transmission encryption middleware. [Read more](#Encryption)               |
-| `Transmit.Compression`    | Optional | Transmission compression middleware. [Read more](#Compression)             |
-| `Debugging.TransitLogger` | Optional | Transit Logger. [Read more](#Transit-Logger)                               |
-| `Debugging.ActionLogger`  | Optional | Action logger. [Read more](#Action-Logger)                                 |
+| Nome da classe            | Tipo     | Descrição                                                                            |
+| ------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `ActionHook`              | Opcional | Hook de ações. [Leia mais](actions.html#Action-hooks)                                |
+| `Validator`               | Opcional | Validações de parâmetros. [Leia mais](validating.html)                               |
+| `Bulkhead`                | Opcional | Funcionalidade Bulkhead. [Leia mais](fault-tolerance.html#Bulkhead)                  |
+| `Cacher`                  | Opcional | Middleware de cacher. [Leia mais](caching.html)                                      |
+| `ContextTracker`          | Opcional | Funcionalidade de rasteamento do Context. [Leia mais](actions.html#Context-tracking) |
+| `CircuitBreaker`          | Opcional | Funcionalidade Disjuntor. [Leia mais](fault-tolerance.html#Circuit-Breaker)          |
+| `Timeout`                 | Sempre   | Funcionalidade Timeout. [Leia mais](fault-tolerance.html#Timeout)                    |
+| `Retry`                   | Sempre   | Funcionaidade Retentativa. [Leia mais](fault-tolerance.html#Retry)                   |
+| `Fallback`                | Sempre   | Funcionalidade Fallback. [Leia mais](fault-tolerance.html#Fallback)                  |
+| `ErrorHandler`            | Sempre   | Manipulação de erros.                                                                |
+| `Métricas`                | Opcional | Funcionalidade de métricas. [Leia mais](metrics.html)                                |
+| `Debounce`                | Opcional | Funcionalidade debounce. [Leia mais](#Debounce)                                      |
+| `Throttle`                | Opcional | Funcionalidade Throttle. [Leia mais](#Throttle)                                      |
+| `Transmit.Encryption`     | Opcional | Middleware de transmissão criptografada. [Leia mais](#Encryption)                    |
+| `Transmit.Compression`    | Opcional | Middleware de transmissão comprimida. [Leia mais](#Compression)                      |
+| `Debugging.TransitLogger` | Opcional | Logs de transporte. [Leia mais](#Transit-Logger)                                     |
+| `Debugging.ActionLogger`  | Opcional | Logs de Ações. [Leia mais](#Action-Logger)                                           |
 
-**Access to internal middlewares**
+**Acesso a middlewares internos**
 ```js
 const { Bulkhead, Retry } = require("moleculer").Middlewares;
 ```
 
-### Transmission Middleware
+### Middlewares de Transmissão
 
-#### Encryption
-AES encryption middleware protects all inter-services communications that use the transporter module. This middleware uses built-in Node [`crypto`](https://nodejs.org/api/crypto.html) lib.
+#### Encriptação
+O middleware de encriptação AES protege todas as comunicações interserviços que usam o módulo de transporte. Esse middleware usa a biblioteca interna [`cripto`](https://nodejs.org/api/crypto.html).
 
 ```js
 // moleculer.config.js
@@ -640,8 +640,8 @@ module.exports = {
   ]
 };
 ```
-#### Compression
-Compression middleware reduces the size of the messages that go through the transporter module. This middleware uses built-in Node [`zlib`](https://nodejs.org/api/zlib.html) lib.
+#### Compactação
+O middleware de compactação reduz o tamanho das mensagens que passam pelo módulo de transporte. Este middleware usa a biblioteca interna [`zlib`](https://nodejs.org/api/zlib.html).
 
 ```js
 // moleculer.config.js
@@ -655,10 +655,10 @@ module.exports = {
 };
 ```
 
-### Debug Middlewares
+### Depurar Middlewares
 
 #### Transit Logger
-Transit logger middleware allows to easily track the messages that are exchanged between services.
+O middleware de transporte permite rastrear facilmente as mensagens trocadas entre serviços.
 
 ```js
 // moleculer.config.js
@@ -680,21 +680,21 @@ module.exports = {
 };
 ```
 
-**Complete option list**
+**Lista de opções completa**
 
-| Class name      | Tipo                   | Valor padrão | Descrição                                                          |
-| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------ |
-| `logger`        | `Object` or `Function` | `null`       | Logger class. [Leia mais](logging.html).                           |
-| `logLevel`      | `String`               | `info`       | Log level for built-in console logger. [Leia mais](logging.html).  |
-| `logPacketData` | `Boolean`              | `false`      | Logs packet parameters                                             |
-| `folder`        | `Object`               | `null`       | Folder where logs will be written                                  |
-| `extension`     | `String`               | `.json`      | File extension of log file                                         |
-| `color.receive` | `String`               | `grey`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `color.send`    | `String`               | `grey`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Type of [packets](protocol.html#Packets) to skip                   |
+| Nome da classe  | Tipo                   | Valor padrão | Descrição                                                                |
+| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------------ |
+| `logger`        | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                             |
+| `logLevel`      | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).        |
+| `logPacketData` | `Boolean`              | `false`      | Loga parâmetros do pacote                                                |
+| `folder`        | `Object`               | `null`       | Pasta onde os logs serão escritos                                        |
+| `extension`     | `String`               | `.json`      | Extensão do arquivo de log                                               |
+| `color.receive` | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors) |
+| `color.send`    | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors) |
+| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Tipo de [pacotes](protocol.html#Packets) para ignorar                    |
 
 #### Action Logger
-Action Logger middleware tracks "how" service actions were executed.
+O middleware Action Logger registra "como" os serviços são executados.
 
 ```js
 // moleculer.config.js
@@ -718,25 +718,25 @@ module.exports = {
 
 ```
 
-**Complete option list**
+**Lista de opções completa**
 
-| Class name       | Tipo                   | Valor padrão | Descrição                                                                                               |
-| ---------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------- |
-| `logger`         | `Object` or `Function` | `null`       | Logger class. [Leia mais](logging.html).                                                                |
-| `logLevel`       | `String`               | `info`       | Log level for built-in console logger. [Leia mais](logging.html).                                       |
-| `logParams`      | `Boolean`              | `false`      | Logs request parameters                                                                                 |
-| `logMeta`        | `Boolean`              | `false`      | Logs meta parameters                                                                                    |
-| `folder`         | `String`               | `null`       | Path do folder where logs will be written                                                               |
-| `extension`      | `String`               | `.json`      | File extension of log file                                                                              |
-| `color.request`  | `String`               | `yellow`     | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `color.response` | `String`               | `cyan`       | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `colors.error`   | `String`               | `red`        | Supports all [Chalk colors](https://github.com/chalk/chalk#colors)                                      |
-| `whitelist`      | `Array<String>`  | `["**"]`     | Actions to log. Uses the same whitelisting mechanism as in [API Gateway](moleculer-web.html#Whitelist). |
+| Nome da classe   | Tipo                   | Valor padrão | Descrição                                                                                                          |
+| ---------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `logger`         | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                                                                       |
+| `logLevel`       | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).                                                  |
+| `logParams`      | `Boolean`              | `false`      | Loga parâmetros da requisição                                                                                      |
+| `logMeta`        | `Boolean`              | `false`      | Loga parâmetros de metadados                                                                                       |
+| `folder`         | `String`               | `null`       | Local da pasta onde os logs serão escritos                                                                         |
+| `extension`      | `String`               | `.json`      | Extensão do arquivo de log                                                                                         |
+| `color.request`  | `String`               | `yellow`     | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                           |
+| `color.response` | `String`               | `cyan`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                           |
+| `colors.error`   | `String`               | `red`        | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                           |
+| `whitelist`      | `Array<String>`  | `["**"]`     | Ações para logar. Usa o mesmo mecanismo de listagem permitida como no [API Gateway](moleculer-web.html#Whitelist). |
 
-### Event Execution Rate
+### Taxa de Execução de Evento
 
 #### Throttle
-Throttling is a straightforward reduction of the trigger rate. It will cause the event listener to ignore some portion of the events while still firing the listeners at a constant (but reduced) rate. Same functionality as [lodash's `_.throttle`](https://lodash.com/docs/4.17.14#throttle). For more info about throttling check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
+É uma redução pura e simples da taxa de acionamento. Fará com que o ouvinte do evento ignore uma parte dos eventos enquanto continua disparando aos ouvintes a uma taxa constante (mas reduzida). Mesma funcionalidade que o [lodash's `_.throttle`](https://lodash.com/docs/4.17.14#throttle). Para mais informações sobre a limitação verifique [este artigo](https://css-tricks.com/debouncing-throttling-explained-examples).
 
 ```js
 //my.service.js
@@ -753,7 +753,7 @@ module.exports = {
 ```
 
 #### Debounce
-Unlike throttling, debouncing is a technique of keeping the trigger rate at exactly 0 until a period of calm, and then triggering the listener exactly once. Same functionality as [lodash's `_.debounce`](https://lodash.com/docs/4.17.14#debounce). For more info about debouncing check [this article](https://css-tricks.com/debouncing-throttling-explained-examples).
+Ao contrário da desaceleração, o debounce é uma técnica de manter a taxa de ativação exatamente 0 até um período de calma, e, em seguida, acionando o ouvinte exatamente uma vez. Mesma funcionalidade que o [lodash's `_.debounce`](https://lodash.com/docs/4.17.14#debounce). Para mais informações sobre como usar o debounce, cheque [este artigo](https://css-tricks.com/debouncing-throttling-explained-examples).
 
 ```js
 //my.service.js
@@ -769,10 +769,10 @@ module.exports = {
 };
 ```
 
-## Loading & Extending
-If you want to use the built-in middlewares use their names in `middlewares[]` broker option. Also, the `Middlewares` can be easily extended with custom functions.
+## Carregando & Ampliando
+Se você quiser usar os middlewares incorporados, use seus nomes na opção de broker `middlewares[] `. Além disso, os `Middlewares` podem ser facilmente estendidos com funções personalizadas.
 
-**Load middleware by name**
+**Carregar o middleware pelo nome**
 ```js
 // moleculer.config.js
 const { Middlewares } = require("moleculer");
@@ -793,9 +793,9 @@ module.exports = {
 };  
 ```
 
-## Global view
+## Visualização global
 
 <div align="center">
-    <img src="assets/middlewares.svg" alt="Middlewares diagram" />
+    <img src="assets/middlewares.svg" alt="Diagrama de Middlewares" />
 </div>
 
