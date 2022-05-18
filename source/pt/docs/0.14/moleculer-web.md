@@ -439,14 +439,14 @@ foo: {
 ```
 
 ## Middlewares
-It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
+Suporta middlewares, do tipo Connect, a nível global, a nível de rotas & a nível de alias. Assinatura: `function(req, res, next) {...}`. Para mais informações verifique [middleware express](https://expressjs.com/en/guide/using-middleware.html)
 
 **Exemplos**
 ```js
 broker.createService({
     mixins: [ApiService],
     settings: {
-        // Global middlewares. Applied to all routes.
+        // Global middlewares. Aplicado a todas as rotas.
         use: [
             cookieParser(),
             helmet()
@@ -479,7 +479,7 @@ broker.createService({
     }
 });
 ```
-Use [swagger-stats UI](https://swaggerstats.io/) for quick look on the "health" of your API (TypeScript)
+Use [swagger-stats](https://swaggerstats.io/) para visualizar rapidamente a "saúde" da sua API (TypeScript)
 ```ts
 import { Service, ServiceSchema } from "moleculer";
 import ApiGatewayService from "moleculer-web";
@@ -513,14 +513,14 @@ broker.createService({
 } as ServiceSchema);
 ```
 
-### Error-handler middleware
-There is support to use error-handler middlewares in the API Gateway. So if you pass an `Error` to the `next(err)` function, it will call error handler middlewares which have signature as `(err, req, res, next)`.
+### Middleware para tratamento de erros
+Existe suporte para usar middlewares manipuladores de erro no gateway. Então, se você passar um `Error` para a função `next(err)`, ele chamará middlewares com a assinatura `(err, req, res, next)`.
 
 ```js
 broker.createService({
     mixins: [ApiService],
     settings: {
-        // Global middlewares. Applied to all routes.
+        // Global middlewares. Aplicado a todas as rotas.
         use: [
             cookieParser(),
             helmet()
@@ -544,8 +544,8 @@ broker.createService({
                 ],
 ```
 
-## Serve static files
-It serves assets with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
+## Servidor de arquivos estáticos
+Ele serve conteúdo com o módulo [serve-static](https://github.com/expressjs/serve-static) como o ExpressJS.
 
 ```js
 broker.createService({
