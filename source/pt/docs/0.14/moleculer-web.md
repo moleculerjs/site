@@ -147,10 +147,10 @@ broker.createService({
 Para usar esse atalho abreviado, crie um serviço que tem as ações `list`, `get`, `create`, `update` e `remove`.
 {% endnote %}
 
-Você pode usar funções personalizadas dentro da declaração de aliases. In this case, the handler's signature is `function (req, res) {...}`.
+Você pode usar funções personalizadas dentro da declaração de aliases. Neste caso, a assinatura é a função `(req, res) {...}`.
 
 {% note info %}
-Please note that Moleculer uses native Node.js [HTTP server](https://nodejs.org/api/http.html)
+Por favor, note que Moleculer usa o [servidor HTTP](https://nodejs.org/api/http.html) nativo do Node.js
 {% endnote %}
 
 ```js
@@ -173,25 +173,25 @@ broker.createService({
 ```
 
 {% note info %}
-There are some internal pointer in `req` & `res` objects:
-* `req.$ctx` are pointed to request context.
-* `req.$service` & `res.$service` are pointed to this service instance.
-* `req.$route` & `res.$route` are pointed to the resolved route definition.
-* `req.$params` is pointed to the resolved parameters (from query string & post body)
-* `req.$alias` is pointed to the resolved alias definition.
-* `req.$action` is pointed to the resolved action.
-* `req.$endpoint` is pointed to the resolved action endpoint.
-* `req.$next` is pointed to the `next()` handler if the request comes from ExpressJS.
+Há alguns ponteiros internos nos objetos `req` & `res`:
+* `req.$ctx` estão apontadas para o context da requisição.
+* `req.$service` & `res.$service` apontam para esta instância do serviço.
+* `req.$route` & `res.$route` estão apontados para a definição da rota resolvida.
+* `req.$params` é apontado para os parâmetros resolvidos (da string de consulta & corpo do post)
+* `req.$alias` está apontado para a definição de alias resolvido.
+* `req.$action` está apontado para a ação resolvida.
+* `req.$endpoint` foi apontado para o endpoint da ação resolvida.
+* `req.$next` é apontado para o manipulador `next()` se a solicitação vem do ExpressJS.
 
-E.g.: To access the broker, use `req.$service.broker`.
+Ex.: Para acessar o broker, use `req.$service.broker`.
 {% endnote %}
 
-### Mapping policy
-The `route` has a `mappingPolicy` property to handle routes without aliases.
+### Política de mapeamento
+A `rota` possui uma propriedade `mappingPolicy` para manipular rotas sem aliases.
 
-**Available options:**
-- `all` - enable to request all routes with or without aliases (default)
-- `restrict` - enable to request only the routes with aliases.
+**Opções disponíveis:**
+- `all` - habilitar para requisitar todas as rotas com ou sem aliases (padrão)
+- `restrict` - ativar para solicitar apenas as rotas com aliases.
 
 ```js
 broker.createService({
@@ -207,10 +207,10 @@ broker.createService({
     }
 });
 ```
-You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
+Você não pode solicitar `/math.add` ou `/math/add` URLs, apenas `POST /add`.
 
-### File upload aliases
-API Gateway has implemented file uploads. You can upload files as a multipart form data (thanks to [busboy](https://github.com/mscdex/busboy) library) or as a raw request body. In both cases, the file is transferred to an action as a `Stream`. In multipart form data mode you can upload multiple files, as well.
+### Aliases para carregamento de arquivo
+Api Gateway implementa upload de arquivos. Você pode fazer upload de arquivos como dados de um formulário (graças à biblioteca [busboy](https://github.com/mscdex/busboy)) ou como corpo de requisição no formato raw. Em ambos os casos, o arquivo é transferido para uma ação como um `Stream`. No modo de dados mutipart você pode fazer upload de vários arquivos também.
 
 **Exemplo**
 ```js
@@ -257,21 +257,21 @@ module.exports = {
     }
 });
 ```
-**Multipart parameters**
+**Parâmetros multipart**
 
-In order to access the files passed by multipart-form these specific fields can be used inside the action:
-- `ctx.params` is the Readable stream containing the file passed to the endpoint
-- `ctx.meta.$params` parameters from URL querystring
-- `ctx.meta.$multipart` contains the additional text form-data fields _must be sent before other files fields_.
+Para acessar os arquivos passados em formato multipart-form, esses campos específicos podem ser usados dentro da ação:
+- `ctx.params` é a transmissão que contém o arquivo passado para o endpoint
+- `ctx.meta.$params` parâmetros da URL querystring
+- `ctx.meta.$multipart` contém os campos de formulário adicional _deve ser enviado antes de outros campos de arquivos_.
 
 ### Auto-alias
-The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
+O auto-alias permite que você declare o alias de rota diretamente nos seus serviços. O gateway irá dinamicamente construir as rotas completas do esquema de serviço.
 
 {% note info %}
-Gateway will regenerate the routes every time a service joins or leaves the network.
+Gateway irá regerar as rotas sempre que um serviço entrar ou sair da rede.
 {% endnote %}
 
-Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
+Use o parâmetro `whitelist` para especificar os serviços que o Gateway deve rastrear e construir as rotas.
 
 **Exemplo**
 ```js
@@ -344,7 +344,7 @@ module.exports = {
 };
 ```
 
-**The generated aliases**
+**Aliases gerados**
 
 ```bash
     GET     /api/hi             => test.hello
@@ -355,7 +355,7 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Example to define full path alias**
+**Exemplo para definir caminho completo de alias**
 ```js
 // posts.service.js
 module.exports = {
@@ -382,10 +382,10 @@ module.exports = {
 
 
 ## Parâmetros
-API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
+O gateway API coleta parâmetros pela URL, parâmetros de requisição & corpo da requisição e os mescla. Os resultados são colocados na `req.$params`.
 
-### Disable merging
-To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
+### Desativar mesclagem
+Para desativar o mapeamento de parâmetros atribua `mergeParams: false` nas configurações de rota. Neste caso, os parâmetros estarão separados.
 
 **Exemplo**
 ```js
@@ -400,7 +400,7 @@ broker.createService({
 });
 ```
 
-**Un-merged `req.$params`:**
+**`req.$params` não mesclada:**
 ```js
 {
     // Querystring params
@@ -422,15 +422,15 @@ broker.createService({
 }
 ```
 
-### Query string parameters
-More information: https://github.com/ljharb/qs
+### Parâmetros via URL
+Mais informações: https://github.com/ljharb/qs
 
 **Array parameters** URL: `GET /api/opt-test?a=1&a=2`
 ```js
 a: ["1", "2"]
 ```
 
-**Nested objects & arrays** URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
+**Objetos aninhados & arrays** URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
 ```js
 foo: { 
     bar: ["a", "b"], 
