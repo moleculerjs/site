@@ -18,7 +18,7 @@ O [moleculer-web](https://github.com/moleculerjs/moleculer-web) é o serviço of
 * modo middleware (use como um middleware com Express)
 
 {% note info Experimente em seu navegador! %}
-[![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
+[![Editar moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
 {% endnote %}
 
 ## Instalação
@@ -1211,65 +1211,65 @@ settings: {
 ```
 ## Métodos do Serviço
 ### `addRoute`
-This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = true)`) add/replace a route. For example, you can call it from your mixins to define new routes (e.g. swagger route, graphql route, etc.).
+Este [método](services.html#Methods) de serviço (`this.addRoute(opts, toBottom = true)`) adiciona/substitui uma rota. Por exemplo, você pode chamá-lo de seus mixins para definir novas rotas (por exemplo, rota swager, rota graphql, etc.).
 
-> Please note that if a route already exists this method will replace previous route configuration with a new one.
+> Por favor, note que se já existir uma rota este método irá substituir a configuração anterior da rota por uma nova.
 
 ### `removeRoute`
-Service method removes the route by path (`this.removeRoute("/admin")`).
+O método de serviço remove a rota pelo caminho (`this.removeRoute("/admin")`).
 
 ## Exemplos
 - [Simples](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
-    - simple gateway with default settings.
+    - gateway simples com configurações padrão.
 
-- [SSL server](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
-    - open HTTPS server
-    - whitelist handling
+- [Servidor SSL](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
+    - servidor open HTTPS
+    - manipulação de allowlist
 
-- [WWW with assets](https://github.com/moleculerjs/moleculer-web/blob/master/examples/www/index.js)
-    - serve static files from the `assets` folder
-    - whitelist
+- [WWW com conteúdo publicado](https://github.com/moleculerjs/moleculer-web/blob/master/examples/www/index.js)
+    - serve arquivos estáticos da pasta `assets`
+    - allowlist
     - aliases
-    - multiple body-parsers
+    - múltiplos body-parsers
 
-- [Authorization](https://github.com/moleculerjs/moleculer-web/blob/master/examples/authorization/index.js)
-    - simple authorization demo
-    - set the authorized user to `Context.meta`
+- [Autorização](https://github.com/moleculerjs/moleculer-web/blob/master/examples/authorization/index.js)
+    - demonstração de autorização simples
+    - definir o usuário autorizado para `Context.meta`
 
 - [REST](https://github.com/moleculerjs/moleculer-web/blob/master/examples/rest/index.js)
-    - simple server with RESTful aliases
-    - example `posts` service with CRUD actions
+    - servidor simples com aliases RESTful
+    - exemplo de `posts` com ações CRUD
 
 - [Express](https://github.com/moleculerjs/moleculer-web/blob/master/examples/express/index.js)
-    - webserver with Express
-    - use moleculer-web as a middleware
+    - servidor web com Express
+    - use moleculer-web como um middleware
 
 - [Socket.io](https://github.com/moleculerjs/moleculer-web/blob/master/examples/socket.io/index.js)
-    - start socket.io websocket server
-    - call action and send back the response via websocket
-    - send Moleculer events to the browser via websocket
+    - iniciar servidor de websocket socket.io
+    - chama a ação e envia de volta a resposta via websocket
+    - enviar eventos Moleculer para o navegador via websocket
 
-- [Full](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
+- [Completo](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
     - SSL
-    - static files
+    - arquivos estáticos
     - middlewares
-    - multiple routes with different roles
-    - role-based authorization with JWT
-    - whitelist
-    - aliases with named params
-    - multiple body-parsers
-    - before & after hooks
-    - metrics, statistics & validation from Moleculer
-    - custom error handlers
+    - várias rotas com diferentes funções
+    - autorização baseada em JWT
+    - allowlist
+    - aliases com parâmetros nomeados
+    - múltiplos body-parsers
+    - hooks antes & depois
+    - métricas, estatísticas & validação com Moleculer
+    - manipuladores de erros personalizados
 
 - [Webpack](https://github.com/moleculerjs/moleculer-web/blob/master/examples/webpack)
-    - Webpack development environment for client-side developing
-    - webpack config file
-    - compression
-    - static file serving
+    - Ambiente de desenvolvimento Webpack para desenvolvimento do lado do cliente
+    - arquivo de configuração webpack
+    - compactação
+    - servir de arquivo estático
 
 - [Webpack-Vue](https://github.com/moleculerjs/moleculer-web/blob/master/examples/webpack-vue)
-    - Webpack+Vue development environment for VueJS client developing
-    - webpack config file
+    - Ambiente de desenvolvimento Webpack+Vue para desenvolvimento VueJS no lado do cliente
+    - arquivo de configuração webpack
     - Hot-replacement
     - Babel, SASS, SCSS, Vue SFC
