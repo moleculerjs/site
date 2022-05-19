@@ -563,11 +563,11 @@ broker.createService({
 });
 ```
 
-## Calling options
-The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retries` or `fallbackResponse` options for routes. [Read more about calling options](actions.html#Call-services)
+## Opções de chamada
+O objeto `route` possui uma propriedade `callOptions` que é passada para `broker.call`. Então você pode definir `timeout`, `retries` ou `opções de fallbackResponse` para rotas. [Leia mais sobre as opções de chamadas](actions.html#Call-services)
 
 {% note info %}
-Please note that you can also set the timeout for an action directly in its [definition](actions.html#Timeout)
+Note que você também pode definir o tempo limite para uma ação diretamente na sua [definição](actions.html#Timeout)
 {% endnote %}
 
 ```js
@@ -588,11 +588,11 @@ broker.createService({
 });
 ```
 
-## Multiple routes
-You can create multiple routes with different prefix, whitelist, alias, calling options & authorization.
+## Múltiplas rotas
+Você pode criar várias rotas com um prefixo diferente, allowlist, alias, opções de chamadas & autorização.
 
 {% note info %}
-When using multiple routes you should explicitly set the body parser(s) for each route.
+Ao usar várias rotas você deve definir explicitamente os body parsers para cada rota.
 {% endnote %}
 
 ```js
@@ -632,17 +632,17 @@ broker.createService({
 });
 ```
 
-## Response type & status code
-When the response is received from an action handler, the API gateway detects the type of response and set the `Content-Type` in the `res` headers. The status code is `200` by default. Of course you can overwrite these values, moreover, you can define custom response headers, too.
+## Tipo de resposta & código de estado
+Quando a resposta é recebida de um manipulador de ação, o gateway API detecta o tipo de resposta e define o `Content-Type` nos cabeçalhos `res`. O código de status é `200` por padrão. É claro que você pode substituir esses valores, além disso, você também pode definir cabeçalhos de resposta personalizados.
 
-To define response headers & status code use `ctx.meta` fields:
+Para definir cabeçalhos de resposta & status código use os campos `ctx.meta`:
 
-**Available meta fields:**
-* `ctx.meta.$statusCode` - set `res.statusCode`.
-* `ctx.meta.$statusMessage` - set `res.statusMessage`.
-* `ctx.meta.$responseType` - set `Content-Type` in header.
-* `ctx.meta.$responseHeaders` - set all keys in header.
-* `ctx.meta.$location` - set `Location` key in header for redirects.
+**Campos meta disponíveis:**
+* `ctx.meta.$statusCode` - atribui `res.statusCode`.
+* `ctx.meta.$statusMessage` - atribui `res.statusMessage`.
+* `ctx.meta.$responseType` - atribui `Content-Type` no cabeçalho.
+* `ctx.meta.$responseHeaders` - atribui chaves no cabeçalho.
+* `ctx.meta.$location` - atribui `Location` no cabeçalho para redirecionamentos.
 
 **Exemplo**
 ```js
@@ -670,12 +670,12 @@ module.exports = {
 }
 ```
 
-## Authorization
-You can implement authorization. Do 2 things to enable it.
-1. Set `authorization: true` in your routes
-2. Define the `authorize` method in service.
+## Autorização
+Você pode implementar a autorização. Faça duas coisas para ativá-lo.
+1. Defina `authorization: true` em suas rotas
+2. Defina o método `authorize` no serviço.
 
-**Example authorization**
+**Exemplo de autorização**
 ```js
 const E = require("moleculer-web").Errors;
 
@@ -719,17 +719,17 @@ broker.createService({
 ```
 
 {% note info %}
-You can find a more detailed role-based JWT authorization example in [full example](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js#L239).
+Você pode encontrar um exemplo de autorização JWT mais detalhado com base nesse [exemplo completo](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js#L239).
 {% endnote %}
 
-## Authentication
-To enable the support for authentication, you need to do something similar to what is describe in the Authorization paragraph. Also in this case you have to:
-1. Set `authentication: true` in your routes
-2. Define your custom `authenticate` method in your service
+## Autenticação
+Para habilitar o suporte para a autenticação, você precisa fazer algo semelhante ao que é descrito no parágrafo de autorização. Também neste caso você precisa:
+1. Defina `authentication: true` em suas rotas
+2. Defina o seu método personalizado `authenticate` no seu serviço
 
-The returned value will be set to the `ctx.meta.user` property. You can use it in your actions to get the logged in user entity.
+O valor retornado será atribuído para a propriedade `ctx.meta.user`. Você pode usá-lo em suas ações para obter a entidade de usuário logada.
 
-**Example authentication**
+**Exemplo de autenticação**
 ```js
 broker.createService({
     mixins: ApiGatewayService,
@@ -761,8 +761,8 @@ broker.createService({
 });
 ```
 
-## Route hooks
-The `route` has before & after call hooks. You can use it to set `ctx.meta`, access `req.headers` or modify the response `data`.
+## Hooks de rotas
+O objeto `rote` tem hooks antes de & após chamadas. Você pode usá-lo para definir `ctx.meta`, acessar `req.headers` ou modificar os `dados ` de resposta.
 
 ```js
 broker.createService({
@@ -788,12 +788,12 @@ broker.createService({
 });
 ```
 
-> In previous versions of Moleculer Web, you couldn't manipulate the `data` in `onAfterCall`. Now you can, but you must always return the new or original `data`.
+> Nas versões anteriores do Moleculer Web, você não pode manipular os `dados` em `onAfterCall`. Agora você pode, mas você deve sempre retornar os `dados` novos ou originais.
 
 
-## Error handlers
-You can add route-level & global-level custom error handlers.
-> In handlers, you must call the `res.end`. Otherwise, the request is unhandled.
+## Manipuladores de erros
+Você pode adicionar manipuladores de erros personalizados a nível de rota & a nível global.
+> Nos manipuladores, você deve chamar `res.end`. Caso contrário, a requisição não será concluída.
 
 ```js
 broker.createService({
@@ -821,8 +821,8 @@ broker.createService({
 }
 ```
 
-### Error formatter
-API gateway implements a helper function that formats the error. You can use it to filter out the unnecessary data.
+### Formatador de erro
+O gateway API implementa uma função auxiliar que formata o erro. Você pode usá-lo para filtrar os dados desnecessários.
 
 ```js
 broker.createService({
@@ -836,8 +836,8 @@ broker.createService({
 }
 ```
 
-## CORS headers
-You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
+## Cabeçalhos CORS
+Você pode usar os cabeçalhos [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) no serviço Moleculer-Web.
 
 **Utilização**
 ```js
@@ -876,8 +876,8 @@ const svc = broker.createService({
 });
 ```
 
-## Rate limiter
-The Moleculer-Web has a built-in rate limiter with a memory store.
+## Limitador de taxa
+O Moleculer-Web tem um limitador de taxa integrado com armazenamento em memória.
 
 **Utilização**
 ```js
@@ -909,7 +909,7 @@ const svc = broker.createService({
 });
 ```
 
-### Custom Store example
+### Exemplo de armazenamento personalizado
 ```js
 class CustomStore {
     constructor(clearPeriod, opts) {
@@ -946,7 +946,7 @@ class CustomStore {
 
 ## ETag
 
-The `etag` option value can be `false`, `true`, `weak`, `strong`, or a custom `Function`. For full details check the [code](https://github.com/moleculerjs/moleculer-web/pull/92).
+O valor da opção `etag`pode ser `false`, `true`, `weak`, `strong`, ou uma `Function` personalizada. Para obter detalhes verifique o [código](https://github.com/moleculerjs/moleculer-web/pull/92).
 
 ```js
 const ApiGateway = require("moleculer-web");
@@ -967,7 +967,7 @@ module.exports = {
 }
 ```
 
-**Custom `etag` Function**
+**Função personalizada `etag`**
 ```js
 module.exports = {
     mixins: [ApiGateway],
@@ -978,9 +978,9 @@ module.exports = {
 }
 ```
 
-Please note, it doesn't work with stream responses. In this case, you should generate the `etag` by yourself.
+Por favor, note que isso não funciona com respostas stream. Nesse caso, você deve gerar a tag `etag` por si mesmo.
 
-**Custom `etag` for streaming**
+**`etag` personalizada para streaming**
 ```js
 module.exports = {
     name: "export",
@@ -998,8 +998,8 @@ module.exports = {
 }
 ```
 
-## HTTP2 Server
-API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings. **Exemplo**
+## Servidor HTTP2
+Gateway API fornece um suporte experimental para HTTP2. Você pode ativá-lo com `http2: true` nas configurações do serviço. **Exemplo**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -1020,8 +1020,8 @@ module.exports = {
 });
 ```
 
-## ExpressJS middleware usage
-You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
+## Uso de middleware ExpressJS
+Você pode usar Moleculer-Web como um middleware em uma aplicação [ExpressJS](http://expressjs.com/).
 
 **Utilização**
 ```js
@@ -1047,8 +1047,8 @@ broker.start();
 ```
 
 
-## Full service settings
-List of all settings of Moleculer Web service:
+## Configurações de serviço completo
+Lista de todas as configurações de serviço Moleculer Web:
 
 ```js
 settings: {
@@ -1209,7 +1209,7 @@ settings: {
     }    
 }
 ```
-## Service Methods
+## Métodos do Serviço
 ### `addRoute`
 This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = true)`) add/replace a route. For example, you can call it from your mixins to define new routes (e.g. swagger route, graphql route, etc.).
 
