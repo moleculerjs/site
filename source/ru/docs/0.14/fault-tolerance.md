@@ -134,7 +134,7 @@ broker.call("posts.find", {}, { timeout: 3000 });
 ```
 
 ### Распределённые таймауты
-Moleculer использует [распределенные таймауты](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). В случае вложенных вызовов значение таймаута определяется с задержкой выполнения. Если значение таймаута меньше или равно 0, следующие вложенные вызовы будут пропущены (`RequestSkippedError`), потому что первый вызов уже был отклонен с ошибкой `RequestTimeoutError`.
+Moleculer uses [distributed timeouts](https://www.getambassador.io/learn/service-mesh/resilience-for-distributed-systems/#:~:text=too%20many%20times.-,Deadlines,-In%20addition%20to). В случае вложенных вызовов значение таймаута определяется с задержкой выполнения. Если значение таймаута меньше или равно 0, следующие вложенные вызовы будут пропущены (`RequestSkippedError`), потому что первый вызов уже был отклонен с ошибкой `RequestTimeoutError`.
 
 ## Ограничение конкурентных запросов (Bulkhead)
 Функция Bulkhead реализована в фреймворке Moleculer для управления обработкой конкуретных запросов.
