@@ -140,7 +140,7 @@ module.exports = {
 ```
 
 ## Validação de parâmetros do evento
-Semelhante à validação do parâmetro de ação, a validação do parâmetro de evento é suportada. Como na definição de ação, você deve definir `params` na mesma definição e o `Validator` integrado valida os parâmetros nos eventos.
+Semelhante à validação do parâmetro de ação, a validação do parâmetro de evento é suportada. Like in action definition, you should define `params` in event definition and the built-in `Validator` validates the parameters in events.
 
 ```js
 // mailer.service.js
