@@ -610,6 +610,7 @@ Many integrated features have been exposed as internal middlewares. These middle
 | `Повтор`                                       | Always   | Retry feature. [Read more](fault-tolerance.html#Retry)                     |
 | `Подстраховка`                                 | Always   | Fallback feature. [Read more](fault-tolerance.html#Fallback)               |
 | `ErrorHandler`                                 | Always   | Error handling.                                                            |
+| `Трассировка`                                  | Optional | Tracing feature. [Read more](tracing.html)                                 |
 | `Метрики`                                      | Optional | Metrics feature. [Read more](metrics.html)                                 |
 | `Debounce`                                     | Optional | Debounce feature. [Read more](#Debounce)                                   |
 | `Throttle`                                     | Optional | Throttle feature. [Read more](#Throttle)                                   |
