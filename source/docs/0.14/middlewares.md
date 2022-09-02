@@ -153,7 +153,7 @@ module.export = {
                     // Handle error or throw further
                     throw err;
                 });
-        }
+        };
     }
 }
 ```
@@ -178,7 +178,7 @@ module.export = {
                     // Handle error or throw further
                     throw err;
                 });
-        }
+        };
     }
 }
 ```
@@ -211,8 +211,8 @@ module.exports = {
     localMethod(next, method) {
         return (...args) => {
             console.log(`The '${method.name}' method is called in '${method.service.fullName}' service.`, args);
-            return handler(...args);
-        }
+            return method.handler(...args);
+        };
     }
 }
 ```
@@ -282,7 +282,7 @@ module.export = {
 
     mcall(next) {
         return function() {
-            console.log("The 'call' is called.", eventName);
+            console.log("The 'mcall' is called.");
             return next(...arguments).then(res => {
                 console.log("Response:", res);
                 return res;
