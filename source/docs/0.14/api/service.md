@@ -40,6 +40,47 @@ Parse Service schema & register as local service
 
 
 
+### applyMixins
+
+
+
+`applyMixins(schema: Schema): Schema`
+
+Apply 
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `schema` | Schema | - | - |
+
+
+
+
+
+
+
+
+### mergeSchemas
+
+
+
+`mergeSchemas(mixinSchema: Object, svcSchema: Object): Object`
+
+Merge two Service schema
+
+
+#### Parameters
+
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| `mixinSchema` | Object | - | Mixin schema |
+| `svcSchema` | Object | - | Service schema |
+
+
+
+
 
 
 
@@ -93,47 +134,6 @@ Wait for other services
 
 
 
-
-
-
-
-### applyMixins
-
-
-
-`applyMixins(schema: Schema): Schema`
-
-Apply 
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `schema` | Schema | - | - |
-
-
-
-
-
-
-
-
-### mergeSchemas
-
-
-
-`mergeSchemas(mixinSchema: Object, svcSchema: Object): Object`
-
-Merge two Service schema
-
-
-#### Parameters
-
-| Property | Type | Default | Description |
-| -------- | ---- | ------- | ----------- |
-| `mixinSchema` | Object | - | Mixin schema |
-| `svcSchema` | Object | - | Service schema |
 
 
 
