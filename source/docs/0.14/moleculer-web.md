@@ -560,7 +560,7 @@ broker.createService({
             // Root folder of assets
             folder: "./assets",
 
-            // Further options to `server-static` module
+            // Further options to `serve-static` module
             options: {}
         }		
     }
