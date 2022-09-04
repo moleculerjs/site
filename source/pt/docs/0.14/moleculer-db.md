@@ -1,32 +1,32 @@
-title: Database Adapters
+title: Adaptadores de Banco de Dados
 ---
-Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to persist your data in a database.
+O framework Moleculer possui um conjunto oficial de [Adaptadores de Banco de Dados](https://github.com/moleculerjs/moleculer-db). Use-os para persistir dados em um banco de dados.
 
 {% note info Database per service%}
-Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
+Moleculer segue o padrão de * um banco de dados por serviço*. Para saber mais sobre esse padrão de desenvolvimento e suas implicações, confira este [artigo](https://microservices.io/patterns/data/database-per-service.html). Para uma abordagem de *múltiplas entidades/tabelas por serviço* verifique [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
 ## Funcionalidades
-* default CRUD actions
-* [cached](caching.html) actions
-* pagination support
-* pluggable adapter ([NeDB](https://github.com/louischatriot/nedb) is the default memory adapter for testing & prototyping)
-* official adapters for MongoDB, PostgreSQL, SQLite, MySQL, MSSQL.
-* fields filtering
-* populating
-* encode/decode IDs
-* entity lifecycle events for notifications
+* ações CRUD padrão
+* ações em [cache](caching.html)
+* suporte a paginação
+* adaptador padrão ([NeDB](https://github.com/louischatriot/nedb) é o adaptador em memória padrão para testes & protótipos)
+* adaptadores oficiais para MongoDB, PostgreSQL, SQLite, MySQL, MSSQL.
+* filtragem de campos
+* popular dados de tabelas relacionadas
+* codificar/decodificar IDs
+* eventos de ciclo de vida da entidade para notificações
 
 {% note info Experimente em seu navegador! %}
-[![Edit moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
+[![Editar moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
 {% endnote %}
 
-## Base Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
+## Adaptador Base [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
 
-Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/nedb). Use it to quickly set up and test you prototype.
+O adaptador padrão do Moleculer é baseado no [NeDB](https://github.com/louischatriot/nedb). Use-o para configurar rapidamente e testar seu protótipo.
 
 {% note warn%}
-Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
+Use este adaptador somente para prototipagem e teste. Quando você estiver pronto para entrar em produção, simplesmente troque o adaptador para [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) ou [Sequelize](moleculer-db.html#Sequelize-Adapter) já que todos implementam as [Configurações](moleculer-db.html#Settings), [Ações](moleculer-db.html#Actions) e [Métodos](moleculer-db.html#Methods) em comum.
 {% endnote %}
 
 ### Instalação
@@ -90,361 +90,361 @@ broker.start()
 
 ```
 
-> More examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
+> Mais exemplos podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db/examples)
 
 ## Confirgurações
 
-All DB adapters share a common set of settings:
+Todos os adaptadores de banco de dados compartilham um conjunto comum de configurações:
 
-| Property          | Tipo                   | Padrão       | Descrição                                                                                                                 |
-| ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `idField`         | `String`               | **required** | Name of ID field.                                                                                                         |
-| `fields`          | `Array.<String>` | `null`       | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
-| `populates`       | `Array`                | `null`       | Schema for population. [Read more](#Populating).                                                                          |
-| `pageSize`        | `Number`               | **required** | Default page size in `list` action.                                                                                       |
-| `maxPageSize`     | `Number`               | **required** | Maximum page size in `list` action.                                                                                       |
-| `maxLimit`        | `Number`               | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit)                                                         |
-| `entityValidator` | `Object`, `function`   | `null`       | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions.                            |
+| Propriedade       | Tipo                   | Padrão          | Descrição                                                                                                                       |
+| ----------------- | ---------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `idField`         | `String`               | **obrigatório** | Nome do campo ID.                                                                                                               |
+| `fields`          | `Array.<String>` | `null`          | Lista com os campos a serem filtrados. Deve ser um `Array`. Se o valor é `null` ou `undefined` não filtra campos das entidades. |
+| `populates`       | `Array`                | `null`          | Esquema para o preenchimento. [Leia mais](#Populating).                                                                         |
+| `pageSize`        | `Number`               | **obrigatório** | Tamanho padrão da página em uma ação `list`.                                                                                    |
+| `maxPageSize`     | `Number`               | **obrigatório** | Tamanho máximo da página em uma ação `list`.                                                                                    |
+| `maxLimit`        | `Number`               | **obrigatório** | Valor máximo do limite na ação `find`. Padrão: `-1` (sem limite)                                                                |
+| `entityValidator` | `Object`, `function`   | `null`          | Esquema do validador ou uma função para validar a entrada da entidade nas ações `create` & ações de 'inserir'.                  |
 
 {% note warn%}
-`idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
+`idField` não funciona com o adaptador de Sequelize, pois você pode definir livremente seu próprio ID durante a criação do modelo.
 {% endnote %}
 
 ## Ações
 
-DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
+Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.html) são [`métodos públicos`](actions.html#Action-visibility) e podem ser chamadas por outros serviços.
 
-### `find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `find` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
-Find entities by query.
-
-#### Parâmetros
-| Property       | Tipo                   | Valor padrão | Descrição                        |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `limit`        | `Number`               | **required** | Max count of rows.               |
-| `offset`       | `Number`               | **required** | Count of skipped rows.           |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
-
-#### Results
-**Type:** `Array.<Object>` - List of found entities.
-
-
-### `count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
-
-Get count of entities by query.
+Encontrar entidades por consulta.
 
 #### Parâmetros
-| Property       | Tipo     | Valor padrão | Descrição                        |
-| -------------- | -------- | ------------ | -------------------------------- |
-| `search`       | `String` | **required** | Search text.                     |
-| `searchFields` | `String` | **required** | Fields list for searching.       |
-| `query`        | `Object` | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo                   | Valor padrão    | Descrição                                       |
+| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
+| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                    |
+| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                 |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Number` - Count of found entities.
+#### Resultados
+**Tipo:** `Matriz.<Object>` - Lista de entidades encontradas.
 
 
-### `list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `count` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
-List entities by filters and pagination results.
+Obter contagem de entidades por consulta.
 
 #### Parâmetros
-| Property       | Tipo                   | Padrão       | Descrição                        |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `page`         | `Number`               | **required** | Page number.                     |
-| `pageSize`     | `Number`               | **required** | Size of a page.                  |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo     | Valor padrão    | Descrição                                       |
+| -------------- | -------- | --------------- | ----------------------------------------------- |
+| `search`       | `String` | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String` | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Object` - List of found entities and count.
+#### Resultados
+**Tipo:** `Number` - Contagem de entidades encontradas.
+
+
+### `list` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
+
+Lista entidades com filtros e paginação de resultados.
+
+#### Parâmetros
+| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
+| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
+| `page`         | `Number`               | **obrigatório** | Número da página.                               |
+| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                          |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+
+#### Resultados
+**Type:** `Object` - Lista e contagem de entidades encontradas.
 
 ### `create`
 
-Create a new entity.
+Criar uma nova entidade.
 
 #### Parâmetros
-| Property | Tipo | Padrão | Descrição |
-| -------- | ---- | ------ | --------- |
-| -        | -    | -      | -         |
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| -           | -    | -      | -         |
 
 
-*No input parameters.*
+*Nenhum parâmetro de entrada.*
 
-#### Results
-**Type:** `Object` - Saved entity.
+#### Resultados
+**Tipo:** `Object` - Entidade gravada.
 
 ### `insert`
 
-Create many new entities.
+Criar muitas entidades novas.
 
 #### Parâmetros
-| Property   | Tipo                   | Padrão | Descrição         |
-| ---------- | ---------------------- | ------ | ----------------- |
-| `entity`   | `Object`               | -      | Entity to save.   |
-| `entities` | `Array.<Object>` | -      | Entities to save. |
+| Propriedade | Tipo                   | Padrão | Descrição              |
+| ----------- | ---------------------- | ------ | ---------------------- |
+| `entity`    | `Object`               | -      | Entidade para salvar.  |
+| `entities`  | `Array.<Object>` | -      | Entidades para salvar. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>` - Saved entity(ies).
+#### Resultados
+**Tipo:** `Object`, `Array.<Object>` - Entidade(s) gravada(s).
 
-### `get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `get` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
-Get entity by ID.
+Obter entidade por ID.
 
 ##### Parâmetros
-| Property   | Tipo                       | Padrão       | Descrição                                                                    |
-| ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
-| `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
-| `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
-| `fields`   | `Array.<String>`     | -            | Fields filter.                                                               |
-| `mapping`  | `Boolean`                  | -            | Convert the returned `Array` to `Object` where the key is the value of `id`. |
+| Propriedade | Tipo                       | Padrão          | Descrição                                                                 |
+| ----------- | -------------------------- | --------------- | ------------------------------------------------------------------------- |
+| `id`        | `any`, `Array.<any>` | **obrigatório** | ID(s) de entidade(s).                                                     |
+| `populate`  | `Array.<String>`     | -               | Lista de campos para preenchimento.                                       |
+| `fields`    | `Array.<String>`     | -               | Filtro de campos.                                                         |
+| `mapping`   | `Boolean`                  | -               | Converta o `Array` retornado para `Objet` onde a chave é o valor de `id`. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>` - Found entity(ies).
+#### Resultados
+**Tipo:** `Object`, `Array.<Object>` - Entidade(s) encontrada(s).
 
 
 ### `update`
 
-Update an entity by ID.
-> After update, clear the cache & call lifecycle events.
+Atualizar a entidade por ID.
+> Após a atualização, limpa o cache & chama os eventos de ciclo de vida.
 
 #### Parâmetros
-| Property | Tipo | Padrão | Descrição |
-| -------- | ---- | ------ | --------- |
-| -        | -    | -      | -         |
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| -           | -    | -      | -         |
 
 
-*No input parameters.*
+*Nenhum parâmetro de entrada.*
 
-#### Results
-**Type:** `Object` - Updated entity.
+#### Resultados
+**Tipo:** `Object` - Entidade atualizada.
 
 
 ### `remove`
 
-Remove an entity by ID.
+Remove uma entidade por ID.
 
 #### Parâmetros
-| Property | Tipo  | Padrão       | Descrição     |
-| -------- | ----- | ------------ | ------------- |
-| `id`     | `any` | **required** | ID of entity. |
+| Property | Tipo  | Padrão          | Descrição       |
+| -------- | ----- | --------------- | --------------- |
+| `id`     | `any` | **obrigatório** | ID da entidade. |
 
-#### Results
-**Type:** `Number` - Count of removed entities.
+#### Resultados
+**Tipo:** `Number` - Contagem de entidades removidas.
 
-## Methods
+## Métodos
 
-DB adapters also has a set of helper [methods](services.html#Methods).
+Adaptadores de BD também tem um conjunto de [métodos](services.html#Methods) auxiliares.
 
 ### `getById`
 
-Get entity(ies) by ID(s).
+Obter entidade(es) pelo(s) ID(s).
 
 #### Parâmetros
-| Property   | Tipo                        | Padrão       | Descrição           |
-| ---------- | --------------------------- | ------------ | ------------------- |
-| `id`       | `String`, `Number`, `Array` | **required** | ID or IDs.          |
-| `decoding` | `Boolean`                   | **required** | Need to decode IDs. |
+| Propriedade | Tipo                        | Padrão          | Descrição                     |
+| ----------- | --------------------------- | --------------- | ----------------------------- |
+| `id`        | `String`, `Number`, `Array` | **obrigatório** | ID ou IDs.                    |
+| `decoding`  | `Boolean`                   | **obrigatório** | É necessário decodificar IDs. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>` - Found entity(ies).
+#### Resultados
+**Tipo:** `Objet`, `Array.<Object>` - Entidade(s) encontrada(s).
 
 
 ### `clearCache`
 
-Clear cached entities
+Limpar entidades em cache
 
 #### Parâmetros
-| Property | Tipo | Padrão | Descrição |
-| -------- | ---- | ------ | --------- |
-| -        | -    | -      | -         |
+| Propriedade | Tipo | Padrão | Descrição |
+| ----------- | ---- | ------ | --------- |
+| -           | -    | -      | -         |
 
 
-*No input parameters.*
+*Nenhum parâmetro de entrada.*
 
-#### Results
-**Type:** `Promise`
+#### Resultados
+**Tipo:** `Promise`
 
 
 ### `encodeID`
 
-Encode ID of entity.
+Codificar ID da entidade.
 
 #### Parâmetros
-| Property | Tipo  | Padrão       | Descrição |
-| -------- | ----- | ------------ | --------- |
-| `id`     | `any` | **required** | -         |
+| Propriedade | Tipo  | Padrão          | Descrição |
+| ----------- | ----- | --------------- | --------- |
+| `id`        | `any` | **obrigatório** | -         |
 
-#### Results
-**Type:** `any`
+#### Resultados
+**Tipo:** `any`
 
 
 ### `decodeID`
 
-Decode ID of entity.
+Decodificar ID da entidade.
 
 #### Parâmetros
-| Property | Tipo  | Padrão       | Descrição |
-| -------- | ----- | ------------ | --------- |
-| `id`     | `any` | **required** | -         |
+| Propriedade | Tipo  | Padrão          | Descrição |
+| ----------- | ----- | --------------- | --------- |
+| `id`        | `any` | **obrigatório** | -         |
 
-#### Results
-**Type:** `any`
+#### Resultados
+**Tipo:** `any`
 
-### `_find` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_find` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
-Find entities by query.
-
-#### Parâmetros
-| Property       | Tipo                   | Padrão       | Descrição                        |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `limit`        | `Number`               | **required** | Max count of rows.               |
-| `offset`       | `Number`               | **required** | Count of skipped rows.           |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
-
-#### Results
-**Type:** `Array.<Object>`
-
-List of found entities.
-
-
-### `_count` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
-
-Get count of entities by query.
+Encontrar entidades por consulta.
 
 #### Parâmetros
-| Property       | Tipo     | Padrão       | Descrição                        |
-| -------------- | -------- | ------------ | -------------------------------- |
-| `search`       | `String` | **required** | Search text.                     |
-| `searchFields` | `String` | **required** | Fields list for searching.       |
-| `query`        | `Object` | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
+| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
+| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                    |
+| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                 |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Number`
+#### Resultados
+**Tipo:** `Array.<Object>`
 
-Count of found entities.
+Lista de entidades encontradas.
 
 
-### `_list` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_count` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
-List entities by filters and pagination results.
+Obter contagem de entidades por consulta.
 
 #### Parâmetros
-| Property       | Tipo                   | Padrão       | Descrição                        |
-| -------------- | ---------------------- | ------------ | -------------------------------- |
-| `populate`     | `Array.<String>` | -            | Populated fields.                |
-| `fields`       | `Array.<String>` | -            | Fields filter.                   |
-| `page`         | `Number`               | **required** | Page number.                     |
-| `pageSize`     | `Number`               | **required** | Size of a page.                  |
-| `sort`         | `String`               | **required** | Sorted fields.                   |
-| `search`       | `String`               | **required** | Search text.                     |
-| `searchFields` | `String`               | **required** | Fields for searching.            |
-| `query`        | `Object`               | **required** | Query object. Passes to adapter. |
+| Propriedade    | Tipo     | Padrão          | Descrição                                       |
+| -------------- | -------- | --------------- | ----------------------------------------------- |
+| `search`       | `String` | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String` | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
 
-#### Results
-**Type:** `Object`
+#### Resultados
+**Tipo:** `Number`
 
-List of found entities and count.
+Contagem de entidades encontradas.
+
+
+### `_list` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
+
+Lista entidades com filtros e paginação de resultados.
+
+#### Parâmetros
+| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
+| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
+| `page`         | `Number`               | **obrigatório** | Número da página.                               |
+| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                          |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+
+#### Resultados
+**Tipo:** `Object`
+
+Lista e contagem de entidades encontradas.
 
 
 ### `_create`
 
-Create a new entity.
+Criar uma nova entidade.
 
 #### Parâmetros
-| Property | Tipo     | Padrão | Descrição       |
-| -------- | -------- | ------ | --------------- |
-| `params` | `Object` | -      | Entity to save. |
+| Propriedade | Tipo     | Padrão | Descrição             |
+| ----------- | -------- | ------ | --------------------- |
+| `params`    | `Object` | -      | Entidade para salvar. |
 
-#### Results
-**Type:** `Object`
+#### Resultados
+**Tipo:** `Object`
 
-Saved entity.
+Entidade salva.
 
 
 ### `_insert`
 
-Create many new entities.
+Criar muitas entidades novas.
 
 #### Parâmetros
-| Property   | Tipo                   | Padrão | Descrição         |
-| ---------- | ---------------------- | ------ | ----------------- |
-| `entity`   | `Object`               | -      | Entity to save.   |
-| `entities` | `Array.<Object>` | -      | Entities to save. |
+| Propriedade | Tipo                   | Padrão | Descrição              |
+| ----------- | ---------------------- | ------ | ---------------------- |
+| `entity`    | `Object`               | -      | Entidade para salvar.  |
+| `entities`  | `Array.<Object>` | -      | Entidades para salvar. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>`
+#### Resultados
+**Tipo:** `Object`, `Array.<Object>`
 
-Saved entity(ies).
+Entidade(s) gravada(s).
 
 
-### `_get` ![Cached action](https://img.shields.io/badge/cache-true-blue.svg)
+### `_get` ![Ação em cache](https://img.shields.io/badge/cache-true-blue.svg)
 
-Get entity by ID.
+Obter entidade por ID.
 
 #### Parâmetros
-| Property   | Tipo                       | Padrão       | Descrição                                                                    |
-| ---------- | -------------------------- | ------------ | ---------------------------------------------------------------------------- |
-| `id`       | `any`, `Array.<any>` | **required** | ID(s) of entity.                                                             |
-| `populate` | `Array.<String>`     | -            | Field list for populate.                                                     |
-| `fields`   | `Array.<String>`     | -            | Fields filter.                                                               |
-| `mapping`  | `Boolean`                  | -            | Convert the returned `Array` to `Object` where the key is the value of `id`. |
+| Propriedade | Tipo                       | Padrão          | Descrição                                                                 |
+| ----------- | -------------------------- | --------------- | ------------------------------------------------------------------------- |
+| `id`        | `any`, `Array.<any>` | **obrigatório** | ID(s) de entidade(s).                                                     |
+| `populate`  | `Array.<String>`     | -               | Lista de campos para preenchimento.                                       |
+| `fields`    | `Array.<String>`     | -               | Filtro de campos.                                                         |
+| `mapping`   | `Boolean`                  | -               | Converta o `Array` retornado para `Objet` onde a chave é o valor de `id`. |
 
-#### Results
-**Type:** `Object`, `Array.<Object>`
+#### Resultados
+**Tipo:** `Object`, `Array.<Object>`
 
-Found entity(ies).
+Entidade(s) encontrada(s).
 
 
 ### `_update`
 
-Update an entity by ID.
-> After update, clear the cache & call lifecycle events.
+Atualizar a entidade por ID.
+> Após a atualização, limpa o cache & chama os eventos de ciclo de vida.
 
 #### Parâmetros
-| Property | Tipo     | Padrão | Descrição         |
-| -------- | -------- | ------ | ----------------- |
-| `params` | `Object` | -      | Entity to update. |
+| Propriedade | Tipo     | Padrão | Descrição                |
+| ----------- | -------- | ------ | ------------------------ |
+| `params`    | `Object` | -      | Entidade para atualizar. |
 
-#### Results
-**Type:** `Object`
+#### Resultados
+**Tipo:** `Object`
 
-Updated entity.
+Entidade atualizada.
 
 
 ### `_remove`
 
-Remove an entity by ID.
+Remove uma entidade por ID.
 
 #### Parâmetros
-| Property | Tipo  | Padrão       | Descrição     |
-| -------- | ----- | ------------ | ------------- |
-| `id`     | `any` | **required** | ID of entity. |
+| Propriedade | Tipo  | Padrão          | Descrição       |
+| ----------- | ----- | --------------- | --------------- |
+| `id`        | `any` | **obrigatório** | ID da entidade. |
 
-#### Results
-**Type:** `Number`
+#### Resultados
+**Tipo:** `Number`
 
-Count of removed entities.
+Contagem de entidades removidas.
 
-## Data Manipulation
+## Manipulação de dados
 
-You can easily use [Action hooks](actions.html#Action-hooks) to modify (e.g. add timestamps, hash user's passwords or remove sensitive info) before or after saving the data in DB.
+Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados.
 
-**Example of hooks adding a timestamp and removing sensitive data**
+**Exemplo de hooks adicionando um timestamp e removendo dados confidenciais**
 ```js
 "use strict";
 const { ServiceBroker } = require("moleculer");
@@ -502,30 +502,30 @@ broker.start()
 
 ```
 
-## Populating
-The service allows you to easily populate fields from other services. For example: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
+## Popular dados de tabelas relacionadas
+O serviço permite preencher facilmente os campos de outros serviços. Por exemplo: se você tem um campo `autor` na entidade `post`, você pode preencher com o serviço `usuários` usando o ID do autor. Se o campo é um `Array` de IDs, ele irá preencher todas as entidades através de apenas uma solicitação
 
 
-**Example of populate schema**
+**Exemplo de esquema de preenchimento**
 ```js
 broker.createService({
     name: "posts",
     mixins: [DbService],
     settings: {
         populates: {
-            // Shorthand populate rule. Resolve the `voters` values with `users.get` action.
+            // Regra de preenchimento abreviada. Resolva os valores `voters` com a ação `users.get`.
             "voters": "users.get",
 
-            // Define the params of action call. It will receive only with username & full name of author.
+            // Define os parâmetros da chamada da ação. Ele só receberá o nome de usuário & nome completo do autor.
             "author": {
                 action: "users.get",
                 params: {
                     fields: "username fullName"
                 }
             },
-            // In case the original field shouldn't be overwritten with the populated values.  
-            // The reviewer field will be added to the result containing the values 
-            // resolved by the "users.get" action based on the reviewerId field.
+            // Caso o campo original não deva ser substituído pelos valores populados.  
+            // O campo reviewer será adicionado ao resultado contendo os valores 
+            // resolvidos pela ação "users.get" com base no campo reviewerId.
             "reviewer": {
                 field: "reviewerId",
                 action: "users.get",
@@ -547,15 +547,15 @@ broker.createService({
     }
 });
 
-// List posts with populated authors
+// Lista posts com autores populados
 broker.call("posts.find", { populate: ["author"]}).then(console.log);
 ```
 
-> The `populate` parameter is available in `find`, `list` and `get` actions.
+> O parâmetro `populate` está disponível nas ações `find`, `list` e `get`.
 
 
-## Lifecycle entity events
-There are 3 lifecycle entity events which are called when entities are manipulated.
+## Ciclo de vida de uma entidade
+Há 3 eventos do ciclo de vida que são chamados quando as entidades são manipuladas.
 
 ```js
 broker.createService({
@@ -582,10 +582,10 @@ broker.createService({
 });
 ```
 
-> Please note! If you manipulate multiple entities (updateMany, removeMany), the `json` parameter will be a `Number` instead of entities!
+> Por favor, note! Se você manipular várias entidades (updateMany, removeMany), o parâmetro `json` será um `number` em vez de entidades!
 
-## Extend with custom actions
-Naturally you can extend this service with your custom actions.
+## Estender com ações personalizadas
+Naturalmente você pode estender este serviço com suas ações personalizadas.
 
 ```js
 const DbService = require("moleculer-db");
@@ -619,9 +619,9 @@ module.exports = {
 ```
 
 
-## Mongo Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
+## Adaptador Mongo [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
 
-This adapter is based on [MongoDB](http://mongodb.github.io/node-mongodb-native/).
+Este adaptador é baseado no [MongoDB](http://mongodb.github.io/node-mongodb-native/).
 
 ### Instalação
 
@@ -629,7 +629,7 @@ This adapter is based on [MongoDB](http://mongodb.github.io/node-mongodb-native/
 $ npm install moleculer-db moleculer-db-adapter-mongo --save
 ```
 {% note info Dependencies%}
-To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
+Para usar este adaptador, você precisa instalar o [MongoDB](https://www.mongodb.com/) no seu sistema.
 {% endnote %}
 
 ### Utilização
@@ -666,13 +666,13 @@ broker.start()
 
 ### Opções
 
-**Example with connection URI**
+**Exemplo com URI de conexão**
 ```js
 new MongoDBAdapter("mongodb://localhost/moleculer-db")
 ```
 
 
-**Example with connection URI & options**
+**Exemplo com URI de conexão & opções**
 ```js
 new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
     keepAlive: 1
@@ -680,11 +680,11 @@ new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
 
 ```
 
-> More MongoDB examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo/examples)
+> Mais exemplos MongoDB podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo/examples)
 
-## Mongoose Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
+## Adaptador Mongoose [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
 
-This adapter is based on [Mongoose](https://mongoosejs.com/docs/).
+Este adaptador é baseado em [Mongoose](https://mongoosejs.com/docs/).
 
 ### Instalação
 
@@ -693,7 +693,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
 ```
 
 {% note info Dependencies%}
-To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
+Para usar este adaptador, você precisa instalar o [MongoDB](https://www.mongodb.com/) no seu sistema.
 {% endnote %}
 
 ### Utilização
@@ -735,12 +735,12 @@ broker.start()
 
 ### Opções
 
-**Example with connection URI**
+**Exemplo com URI de conexão**
 ```js
 new MongooseAdapter("mongodb://localhost/moleculer-db")
 ```
 
-**Example with URI and options**
+**Exemplo com URI e opções**
 ```js
 new MongooseAdapter("mongodb://db-server-hostname/my-db", {
     user: process.env.MONGO_USERNAME,
@@ -749,15 +749,15 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
 })
 ```
 
-### Connect to multiple DBs
+### Conectar a vários DBs
 
-If your services are running on separate nodes and you wish to connect to multiple databases then you can use `model` in your service definition. On the other hand, if your services are running on a single node and you wish to connect to multiple databases, you should define the `schema` that will make multiple connections for you.
+Se seus serviços estão sendo executados em nós separados e você deseja conectar-se a vários bancos de dados, então você pode usar o `model` na sua definição de serviço. Por outro lado, se os seus serviços estão rodando em um único nó e você deseja conectar-se a vários bancos de dados, você deve definir o `schema` que fará várias conexões para você.
 
-> More Mongoose examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
+> Mais exemplos de Mongoose podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
 
-## Sequelize Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
+## Adaptador Sequelize [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
 
-SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Sequelize](https://github.com/sequelize/sequelize).
+Adapter SQL (Postgres, MySQL, SQLite & MSSQL) para o serviço de BD Moleculer com [Sequelize](https://github.com/sequelize/sequelize).
 
 ### Instalação
 
@@ -765,18 +765,18 @@ SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Seq
 $ npm install moleculer-db-adapter-sequelize --save
 ```
 
-You have to install additional packages for your database server:
+Você tem que instalar pacotes adicionais para o servidor de banco de dados:
 ```bash
-# For SQLite
+# Para SQLite
 $ npm install sqlite3 --save
 
-# For MySQL
+# Para MySQL
 $ npm install mysql2 --save
 
-# For PostgreSQL
+# Para PostgreSQL
 $ npm install pg pg-hstore --save
 
-# For MSSQL
+# Para MSSQL
 $ npm install tedious --save
 ```
 
@@ -826,14 +826,14 @@ broker.start()
 ```
 
 ### Opções
-Every constructor arguments are passed to the `Sequelize` constructor. Read more about [Sequelize connection](http://docs.sequelizejs.com/manual/installation/getting-started.html).
+Todos os argumentos de construtor são passados para o construtor `Sequelize`. Leia mais sobre a [conexão Sequelize](http://docs.sequelizejs.com/manual/installation/getting-started.html).
 
-**Example with connection URI**
+**Exemplo com URI de conexão**
 ```js
 new SqlAdapter("postgres://user:pass@example.com:5432/dbname");
 ```
 
-**Example with connection options**
+**Exemplo com as opções de conexão**
 ```js
 new SqlAdapter('database', 'username', 'password', {
     host: 'localhost',
@@ -852,4 +852,4 @@ new SqlAdapter('database', 'username', 'password', {
 });
 ```
 
-> More Sequelize examples can be found on [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-sequelize/examples)
+> Mais exemplos de Sequelize podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-sequelize/examples)

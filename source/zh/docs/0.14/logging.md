@@ -1,18 +1,18 @@
-title: Logging
+标题：日志记录
 ---
-All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
+所有Moleculer的核心模块都有一个自定义日志记录器实例。 这些记录器是从服务管理器实例继承而来，可以在 [ broker options ](configuration.html#Broker-options) 中进行配置。
 
 {% note warn %}
-The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+`v0.14` 版本包含了不兼容的更新。 你不能直接使用旧版本的配置方式了。 如果你使用的是内置的默认控制台日志记录器，本次更改不受影响。 更新信息参见 [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md)。
 {% endnote %}
 
 
-## Built-in Loggers
+## 内置日志记录器
 
-### Console (default)
-This logger prints all log messages to the `console`. It supports several built-in formatters or you can use your custom formatter, as well.
+### Console (默认)
+这个记录器将所有日志消息打印到 `console`。 它支持几个内置的格式化器或者您也可以使用您的自定义格式化器。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -50,9 +50,9 @@ module.exports = {
 };
 ```
 
-#### Formatters
+#### 格式化器
 
-##### `full` formatter (default)
+##### `完整的` 格式化器 (默认)
 ```js
 // moleculer.config.js
 module.exports = {
@@ -65,10 +65,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-full.png#zoomable)
+**预览** ![Console](assets/logging/console-full.png#zoomable)
 
 
-##### `short` formatter
+##### `简短` 格式化器
 ```js
 // moleculer.config.js
 module.exports = {
@@ -81,10 +81,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-short.png#zoomable)
+**预览** ![Console](assets/logging/console-short.png#zoomable)
 
 
-##### `simple` formatter
+##### `简单的` 格式化器
 ```js
 // moleculer.config.js
 module.exports = {
@@ -97,10 +97,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-simple.png#zoomable)
+**预览** ![Console](assets/logging/console-simple.png#zoomable)
 
 
-##### `json` formatter
+##### `json` 格式化器
 ```js
 // moleculer.config.js
 module.exports = {
@@ -113,10 +113,10 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-json.png#zoomable)
+**预览** ![Console](assets/logging/console-json.png#zoomable)
 
 
-##### Custom formatter
+##### 自定义格式化器
 ```js
 // moleculer.config.js
 module.exports = {
@@ -129,22 +129,22 @@ module.exports = {
 };
 ```
 
-**Preview** ![Console](assets/logging/console-custom.png#zoomable)
+**预览** ![Console](assets/logging/console-custom.png#zoomable)
 
 
 ### File
-This logger saves all log messages to file(s). It supports JSON & formatted text files or you can use your custom formatter, as well.
+这个记录器将所有日志消息保存到文件 。 它支持 JSON & 已经格式化的文本文件或您也可以使用您的自定义格式的文件。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
     logger: "File",
 };
 ```
-_It will save the log messages to the `logs` folder in the current directory with `moleculer-{date}.log` filename._
+_它将把日志消息保存到当前目录中的 `logs` 文件夹中，使用 `moleculer-{date}.log` 作为日志文件名。_
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -169,12 +169,12 @@ module.exports = {
     }
 };
 ```
-## External Loggers
+## 外部日志记录器
 
 ### Pino
-This logger uses the [Pino](https://github.com/pinojs/pino) logger.
+这个记录器使用 [Pino](https://github.com/pinojs/pino) 记录器。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -182,7 +182,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -205,15 +205,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `pino` module with `npm install pino --save` command.
+若要使用此记录器，请使用 `npm install pino --save` 命令安装 `pino` 模块。
 {% endnote %}
 
-**Preview** ![Pino](assets/logging/pino.png#zoomable)
+**预览** ![Pino](assets/logging/pino.png#zoomable)
 
 ### Bunyan
-This logger uses the [Bunyan](https://github.com/trentm/node-bunyan) logger.
+这个记录器使用 [Bunyan](https://github.com/trentm/node-bunyan) 记录器。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -221,7 +221,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -241,15 +241,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `bunyan` module with `npm install bunyan --save` command.
+若要使用此记录器，请使用 `npm install bunyan --save` 命令安装 `bunyan` 模块。
 {% endnote %}
 
-**Preview** ![Bunyan](assets/logging/bunyan.png#zoomable)
+**预览** ![Bunyan](assets/logging/bunyan.png#zoomable)
 
 ### Winston
-This logger uses the [Winston](https://github.com/winstonjs/winston) logger.
+这个记录器使用 [Winston](https://github.com/winstonjs/winston) 记录器。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -257,7 +257,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 const winston = require("winston");
@@ -282,15 +282,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `winston` module with `npm install winston --save` command.
+若要使用此记录器，请使用 `npm install winston --save` 命令安装 `winston ` 模块。
 {% endnote %}
 
-**Preview** ![Winston](assets/logging/winston.png#zoomable)
+**预览** ![Winston](assets/logging/winston.png#zoomable)
 
 ### `debug`
-This logger uses the [debug](https://github.com/visionmedia/debug) logger. To see messages you have to set the `DEBUG` environment variable to `export DEBUG=moleculer:*`.
+这个记录器使用 [debug](https://github.com/visionmedia/debug) 记录器。 要查看消息，您必须将 `DEBUG` 环境变量设置为 `export DEBUG=molecule:*`。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -298,7 +298,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -313,15 +313,15 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `debug` module with `npm install debug --save` command.
+若要使用此记录器，请使用 `npm install debug --save` 命令安装 `debug` 模块。
 {% endnote %}
 
-**Preview** ![debug](assets/logging/debug.png#zoomable)
+**预览** ![debug](assets/logging/debug.png#zoomable)
 
 ### Log4js
-This logger uses the [Log4js](https://github.com/log4js-node/log4js-node) logger.
+这个记录器使用 [Log4js](https://github.com/log4js-node/log4js-node) 记录器。
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -329,7 +329,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -354,19 +354,19 @@ module.exports = {
 ```
 
 {% note info %}
-To use this logger please install the `log4js` module with `npm install log4js --save` command.
+若要使用此记录器，请使用 `npm install log4js --save` 命令安装 `log4js` 模块。
 {% endnote %}
 
-**Preview** ![Log4js](assets/logging/log4js.png#zoomable)
+**预览** ![Log4js](assets/logging/log4js.png#zoomable)
 
 ### Datadog
-This logger uploads log messages to the [Datadog](https://www.datadoghq.com/) server.
+这个记录器上传日志消息到 [Datadog](https://www.datadoghq.com/) 服务器。
 
 {% note info %}
-Please note, this logger doesn't print any messages to the console, just collects & uploads. Use it beside another logger which also prints the messages.
+请注意，这个记录器不会将任何消息打印到控制台，仅收集 & 上传。 在另一个同时打印消息的记录器侧使用它。
 {% endnote %}
 
-**Shorthand configuration with default options**
+**使用默认选项的简短配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -374,7 +374,7 @@ module.exports = {
 };
 ```
 
-**Full configuration**
+**完整配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -402,12 +402,12 @@ module.exports = {
 };
 ```
 
-**Preview** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
+**预览** ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
 
-## Multiple Loggers
-This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.
+## 使用多个日志记录器
+这个新的日志记录器配置类型管理多个记录器的使用，即使是来自相同的记录器类型和不同的日志级别。
 
-**Define multiple loggers with different logging levels**
+**定义不同日志级别的多个日志记录器**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -440,11 +440,11 @@ module.exports = {
 };
 ```
 
-This example shows a configuration of `Console` logger, a `File` logger that saves all log messages in formatted text file and another `File` logger that only saves error messages in JSON format.
+此示例展示 `Console` 保存到 `File` 记录器配置成将所有日志信息保存到格式化文本文件中， `File` 只保存错误信息的 JSON 格式。
 
 ### Filtering
 
-You can configure your loggers to only log data of certain services or modules. **Example**
+你可以配置你的日志记录器为只记录某些服务或模块的数据。 **示例**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -479,10 +479,10 @@ module.exports = {
 };
 ```
 
-## Log Level Setting
-To configure logging levels, you can use the well-known `logLevel` broker option which can be a `String` or an `Object`. However, it is also possible to overwrite it in all logger `options` with the `level` property.
+## 日志级别设置
+配置日志级别 您可以使用 broker 易知的 `logLevel` 选项，该选项可以是 `String` 或 `Object`。 然而，也可以用 `options` 选项的 `level` 属性覆盖全局日志级别。
 
-**Complex logging level configuration**
+**复杂日志级别配置**
 ```js
 // moleculer.config.js
 module.exports = {
@@ -509,10 +509,10 @@ module.exports = {
 };
 ```
 
-## Custom logger
-If you have your custom logger you should wrap it into a `BaseLogger` class and implement at least the `getLogHandler` method.
+## 自定义日志记录器
+如果你需要自定义日志记录器，你应该把它包装成 `BaseLogger` 类，并至少实现 `getLogHandler` 方法。
 
-**Using a custom logger**
+**使用自定义记录器**
 ```js
 // moleculer.config.js
  const BaseLogger = require("moleculer").Loggers.Base;
