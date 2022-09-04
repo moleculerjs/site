@@ -1,0 +1,29 @@
+name: Site CI
+
+on:
+    push: {}
+    pull_request: {}
+    workflow_dispatch: {}
+
+jobs:
+    build:
+        runs-on: node-latest
+        steps:
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - name: Install dependencies
+              run: npm install
+            - name: Build
+              run: npm run modules
+            - name: GIT commit and push all changed files
+              env:
+                  CI_COMMIT_MESSAGE: Deploy moleculerjs/site to github.com/moleculerjs/site.git:master
+                  CI_COMMIT_AUTHOR: Continuous Integration
+              run: |
+                  git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+                  git config --global user.email "ci@noreply.github.com"
+                  git pull
+                  git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+                  git push
