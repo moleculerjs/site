@@ -35,10 +35,10 @@ companies:
     #    name: AMRetail
     #    link: http://amretail.ru
     #    logo: https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png
-    -
-        name: SmartTones Media
-        link: http://www.smarttonesmedia.com/
-        logo: https://user-images.githubusercontent.com/12611390/39895710-379afa6c-5479-11e8-8c93-08ff306315a0.png
+    #-
+    #    name: SmartTones Media
+    #    link: http://www.smarttonesmedia.com/
+    #    logo: https://user-images.githubusercontent.com/12611390/39895710-379afa6c-5479-11e8-8c93-08ff306315a0.png
     -
         name: Textalk
         link: https://www.textalk.com/
@@ -219,10 +219,10 @@ companies:
         name: FINFORT
         link: https://finfort.ru/
         logo: https://user-images.githubusercontent.com/2254768/87274715-16f60c00-c4e5-11ea-9fc8-a5952b8df1e9.png
-    -
-        name: Zimpligital
-        link: https://zimpligital.com
-        logo: https://user-images.githubusercontent.com/54945357/90171812-42159900-ddcc-11ea-8e7b-c64ea4f120e8.png
+    #-
+    #    name: Zimpligital
+    #    link: https://zimpligital.com
+    #    logo: https://user-images.githubusercontent.com/54945357/90171812-42159900-ddcc-11ea-8e7b-c64ea4f120e8.png
     -
         name: Gurucan
         link: https://www.gurucan.com/
@@ -263,10 +263,10 @@ companies:
         name: seabex
         link: https://www.seabex.com/
         logo: https://user-images.githubusercontent.com/38496646/98556659-93d2a000-22a3-11eb-97eb-cac363004c9d.png
-    -
-        name: Genesys
-        link: https://genesysoftwares.com/
-        logo: https://user-images.githubusercontent.com/11829081/98687977-8a753080-2394-11eb-86bd-1dedf8e5ce21.png
+    #-
+    #    name: Genesys
+    #    link: https://genesysoftwares.com/
+    #    logo: https://user-images.githubusercontent.com/11829081/98687977-8a753080-2394-11eb-86bd-1dedf8e5ce21.png
     -
         name: servereye
         link: https://www.server-eye.de/
