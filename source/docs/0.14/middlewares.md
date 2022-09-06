@@ -211,7 +211,7 @@ module.exports = {
     localMethod(next, method) {
         return (...args) => {
             console.log(`The '${method.name}' method is called in '${method.service.fullName}' service.`, args);
-            return method.handler(...args);
+            return next(...args);
         };
     }
 }
