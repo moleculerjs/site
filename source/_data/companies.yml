@@ -31,10 +31,10 @@ companies:
         name: Distopik
         link: https://www.mixanalog.com/?utm_medium=partner&utm_source=moleculer&utm_campaign=moleculer_footer_logo&utm_content=logo
         logo: https://files.gitter.im/baadc0de/ugWV/m_logo_cutout_with_text.svg
-    #-
-    #    name: AMRetail
-    #    link: http://amretail.ru
-    #    logo: https://user-images.githubusercontent.com/451306/39246653-e08631cc-489f-11e8-99a4-5c05840a05f3.png
+    -
+        name: Tokenplace
+        link: https://tokenplace.com
+        logo: https://user-images.githubusercontent.com/451306/188697105-3e9781bb-fe43-4ec1-8560-1d77421fb5ed.svg
     #-
     #    name: SmartTones Media
     #    link: http://www.smarttonesmedia.com/
