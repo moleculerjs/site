@@ -29,7 +29,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Confirgurações
+### Configurações
 
 | Nome              | Tipo       | Valor padrão                        | Descrição                                                                    |
 | ----------------- | ---------- | ----------------------------------- | ---------------------------------------------------------------------------- |
@@ -77,7 +77,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-### Confirgurações
+### Configurações
 
 | Nome       | Tipo       | Valor padrão                     | Descrição                                                        |
 | ---------- | ---------- | -------------------------------- | ---------------------------------------------------------------- |
@@ -134,7 +134,7 @@ broker.call("posts.find", {}, { timeout: 3000 });
 ```
 
 ### Timeout distribuido
-Moleculer usa [timeout distribuido](https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/). Em caso de chamadas aninhadas, o valor do timeout é reduzido com o tempo decorrido. Se o valor do timeout for menor ou igual a 0, as próximas chamadas aninhadas serão ignoradas (`RequestippedError`) porque a primeira chamada já foi rejeitada com um erro `RequestTimeoutError` erro.
+Moleculer usa [timeouts distribuídos](https://www.getambassador.io/learn/service-mesh/resilience-for-distributed-systems/#:~:text=too%20many%20times.-,Deadlines,-In%20addition%20to). Em caso de chamadas aninhadas, o valor do timeout é reduzido com o tempo decorrido. Se o valor do timeout for menor ou igual a 0, as próximas chamadas aninhadas serão ignoradas (`RequestippedError`) porque a primeira chamada já foi rejeitada com um erro `RequestTimeoutError` erro.
 
 ## Bulkhead
 O recurso Bulkhead está implementado no framework Moleculer para controlar a execução de requisições simultâneas.

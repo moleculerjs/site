@@ -610,6 +610,7 @@ Muitos recursos integrados foram expostos como middlewares internos. Estes middl
 | `Retry`                   | Sempre   | Funcionaidade Retentativa. [Leia mais](fault-tolerance.html#Retry)                   |
 | `Fallback`                | Sempre   | Funcionalidade Fallback. [Leia mais](fault-tolerance.html#Fallback)                  |
 | `ErrorHandler`            | Sempre   | Manipulação de erros.                                                                |
+| `Rastreamento`            | Opcional | Tracing feature. [Read more](tracing.html)                                           |
 | `Métricas`                | Opcional | Funcionalidade de métricas. [Leia mais](metrics.html)                                |
 | `Debounce`                | Opcional | Funcionalidade debounce. [Leia mais](#Debounce)                                      |
 | `Throttle`                | Opcional | Funcionalidade Throttle. [Leia mais](#Throttle)                                      |
