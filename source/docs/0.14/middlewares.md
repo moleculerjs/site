@@ -153,7 +153,7 @@ module.export = {
                     // Handle error or throw further
                     throw err;
                 });
-        }
+        };
     }
 }
 ```
@@ -178,7 +178,7 @@ module.export = {
                     // Handle error or throw further
                     throw err;
                 });
-        }
+        };
     }
 }
 ```
@@ -211,8 +211,8 @@ module.exports = {
     localMethod(next, method) {
         return (...args) => {
             console.log(`The '${method.name}' method is called in '${method.service.fullName}' service.`, args);
-            return handler(...args);
-        }
+            return next(...args);
+        };
     }
 }
 ```
@@ -282,7 +282,7 @@ module.export = {
 
     mcall(next) {
         return function() {
-            console.log("The 'call' is called.", eventName);
+            console.log("The 'mcall' is called.");
             return next(...arguments).then(res => {
                 console.log("Response:", res);
                 return res;
@@ -696,7 +696,7 @@ module.exports = {
 | `extension` |`String`| `.json` | File extension of log file |
 | `color.receive` |`String`| `grey` | Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
 | `color.send` |`String`| `grey` |  Supports all [Chalk colors](https://github.com/chalk/chalk#colors) |
-| `packetFilter` |`Array<String>`| `HEARTBEAT` | Type of [packets](protocol.html#Packets) to skip |
+| `packetFilter` |`Array<String>`| `HEARTBEAT` | Type of [packets](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md) to skip |
 
 #### Action Logger
 Action Logger middleware tracks "how" service actions were executed.
