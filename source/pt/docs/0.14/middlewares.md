@@ -151,7 +151,7 @@ module.export = {
                     // Handle error or throw further
                     throw err;
                 });
-        }
+        };
     }
 }
 ```
@@ -176,7 +176,7 @@ module.export = {
                     // Handle error or throw further
                     throw err;
                 });
-        }
+        };
     }
 }
 ```
@@ -209,8 +209,8 @@ module.exports = {
     localMethod(next, method) {
         return (...args) => {
             console.log(`The '${method.name}' method is called in '${method.service.fullName}' service.`, args);
-            return handler(...args);
-        }
+            return next(...args);
+        };
     }
 }
 ```
@@ -280,7 +280,7 @@ module.export = {
 
     mcall(next) {
         return function() {
-            console.log("The 'call' is called.", eventName);
+            console.log("The 'mcall' is called.");
             return next(...arguments).then(res => {
                 console.log("Response:", res);
                 return res;
@@ -683,16 +683,16 @@ module.exports = {
 
 **Lista de opções completa**
 
-| Nome da classe  | Tipo                   | Valor padrão | Descrição                                                                |
-| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------------ |
-| `logger`        | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                             |
-| `logLevel`      | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).        |
-| `logPacketData` | `Boolean`              | `false`      | Loga parâmetros do pacote                                                |
-| `folder`        | `Object`               | `null`       | Pasta onde os logs serão escritos                                        |
-| `extension`     | `String`               | `.json`      | Extensão do arquivo de log                                               |
-| `color.receive` | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors) |
-| `color.send`    | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors) |
-| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Tipo de [pacotes](protocol.html#Packets) para ignorar                    |
+| Nome da classe  | Tipo                   | Valor padrão | Descrição                                                                                              |
+| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| `logger`        | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                                                           |
+| `logLevel`      | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).                                      |
+| `logPacketData` | `Boolean`              | `false`      | Loga parâmetros do pacote                                                                              |
+| `folder`        | `Object`               | `null`       | Pasta onde os logs serão escritos                                                                      |
+| `extension`     | `String`               | `.json`      | Extensão do arquivo de log                                                                             |
+| `color.receive` | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                               |
+| `color.send`    | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                               |
+| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Type of [packets](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md) to skip |
 
 #### Action Logger
 O middleware Action Logger registra "como" os serviços são executados.
