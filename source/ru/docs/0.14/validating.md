@@ -184,11 +184,10 @@ const BaseValidator = require("moleculer").Validators.Base;
 const { ValidationError } = require("moleculer").Errors;
 const Joi = require("joi");
 
-// --- КЛАСС JOI ВАЛИДАТОРА ---
+// --- JOI VALIDATOR CLASS ---
 class JoiValidator extends BaseValidator {
     constructor() {
         super();
-        this.validator = require("joi");
     }
 
     compile(schema) {
@@ -196,7 +195,7 @@ class JoiValidator extends BaseValidator {
     }
 
     validate(params, schema) {
-        const res = this.validator.validate(params, schema);
+        const res = schema.validate(params);
         if (res.error)
             throw new ValidationError(res.error.message, null, res.error.details);
 
@@ -206,10 +205,10 @@ class JoiValidator extends BaseValidator {
 
 let broker = new ServiceBroker({
     logger: true,
-    validator: new JoiValidator // Использование Joi валидатора
+    validator: new JoiValidator // Use Joi validator
 });
 
-// --- ТЕСТОВЫЙ БРОКЕР ---
+// --- TEST BROKER ---
 
 broker.createService({
     name: "greeter",
@@ -231,10 +230,13 @@ broker.createService({
 broker.start()
     .then(() => broker.call("greeter.hello").then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
+    // -> "name" is required ...
     .then(() => broker.call("greeter.hello", { name: 100 }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
+    // -> "name" must be a string ...
     .then(() => broker.call("greeter.hello", { name: "Joe" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data))
+    // -> "name" length must be at least 4 characters long ...
     .then(() => broker.call("greeter.hello", { name: "John" }).then(res => broker.logger.info(res)))
     .catch(err => broker.logger.error(err.message, err.data));
 ```
