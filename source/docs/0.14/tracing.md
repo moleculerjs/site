@@ -341,7 +341,7 @@ To use this exporter, install the `jaeger-client` module with `npm install jaege
 
 
 ### Zipkin
-Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.apache.org/) server.
+Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.io/) server.
 
 ![Zipkin Trace Graph](assets/tracing/zipkin.png#zoomable)
 
@@ -410,7 +410,7 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
 ### Customer Exporter
 Custom tracing module can be created. We recommend to copy the source of [Console Exporter](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) and implement the `init`, `stop`, `spanStarted` and `spanFinished` methods.
 
-**Create custom metrics**
+**Create custom tracing**
 ```js
 const TracerBase = require("moleculer").TracerExporters.Base;
 
@@ -422,10 +422,10 @@ class MyTracingExporters extends TracerBase {
 }
 ```
 
-**Use custom metrics**
+**Use custom tracing**
 ```js
 // moleculer.config.js
-const MyMetricsReporter = require("./my-tracing-exporter");
+const MyTracingExporters = require("./my-tracing-exporter");
 
 module.exports = {
     tracing: {
@@ -598,6 +598,7 @@ module.exports = {
                 tags: {
                     params: true,
                     meta: false,
+                }
             },
             async handler(ctx) {
                 // ...
@@ -622,6 +623,7 @@ module.exports = {
                     meta: ["loggedIn.username"],
                     // add tags from the action response.
                     response: ["id", "title"]
+                }
             },
             async handler(ctx) {
                 // ...
