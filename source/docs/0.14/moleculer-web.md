@@ -587,7 +587,7 @@ broker.createService({
                 fallbackResponse(ctx, err) { ... }
             }
 
-        }]		
+        }]
     }
 });
 ```
@@ -613,7 +613,7 @@ broker.createService({
                 whitelist: [
                     "$node.*",
                     "users.*",
-                ]
+                ],
 
                 bodyParsers: {
                     json: true
@@ -625,7 +625,7 @@ broker.createService({
                 whitelist: [
                     "posts.*",
                     "math.*",
-                ]
+                ],
 
                 bodyParsers: {
                     json: true
@@ -661,7 +661,7 @@ module.exports = {
             };
             
             return csvFileStream;
-        }
+        },
 
         // Redirect the request
         redirectSample(ctx) {
