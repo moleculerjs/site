@@ -66,7 +66,7 @@ $ moleculer init username/repo my-project
 ```
 Onde username/repo é o repositório do GitHub abreviado para seu diretório.
 
-A notação curta de repositório é passada para [download-git-repo](https://github.com/flipxfx/download-git-repo) de modo que seja `bitbucket:username/repo` para um repositório do Bitbucket e `username/repo#branch` para tags ou branches.
+The shorthand repo notation is passed to [download-git-repo](https://gitlab.com/flippidippi/download-git-repo) so it can be `bitbucket:username/repo` for a Bitbucket repo and `username/repo#branch` for tags or branches.
 
 ### Templates locais
 
