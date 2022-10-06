@@ -807,7 +807,7 @@ broker.createService({
             status: Sequelize.BOOLEAN
         },
         options: {
-            // Options from http://docs.sequelizejs.com/manual/tutorial/models-definition.html
+            // Options from https://sequelize.org/docs/v6/moved/models-definition/
         }
     },
 });
