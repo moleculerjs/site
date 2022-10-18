@@ -170,7 +170,7 @@ module.exports = {
     registry: {
         strategy: "RoundRobin"
     }
-});
+};
 
 // greeter.service.js
 module.exports = {
@@ -183,7 +183,7 @@ module.exports = {
             strategy: "Shard",
             strategyOptions: {
                 shardKey: "name"
-            }            
+            },
             handler(ctx) {
                 return `Hello ${ctx.params.name}`;
             }

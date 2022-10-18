@@ -268,7 +268,7 @@ When you create a new model in your service, you have to clear the old cached mo
 ```
 
 ### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+The best practice to clear cache entries among multiple service instances is to use broadcast events. Note this is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
 
 **Example**
 ```js
@@ -291,7 +291,7 @@ module.exports = {
             // Broadcast the event, so all service instances receive it (including this instance). 
             this.broker.broadcast("cache.clean.users");
         }
-    }
+    },
 
     events: {
         "cache.clean.users"() {
@@ -300,7 +300,7 @@ module.exports = {
             }
         }
     }
-}
+};
 ```
 
 ### Clear cache among different services

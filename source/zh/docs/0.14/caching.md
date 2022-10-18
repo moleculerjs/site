@@ -268,7 +268,7 @@ pipeline.exec();
 ```
 
 ### 清除多个服务实例中的缓存
-清除多个服务实例中的缓存条目的最佳做法是使用广播事件。 请注意，这仅适用于非集中缓存，如 `Memory` 或 `MemoryLRU`。
+清除多个服务实例中的缓存条目的最佳做法是使用广播事件。 Note this is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
 
 **示例**
 ```js
@@ -291,7 +291,7 @@ module.exports = {
             // Broadcast the event, so all service instances receive it (including this instance). 
             this.broker.broadcast("cache.clean.users");
         }
-    }
+    },
 
     events: {
         "cache.clean.users"() {
@@ -300,7 +300,7 @@ module.exports = {
             }
         }
     }
-}
+};
 ```
 
 ### 清除不同服务之间的缓存

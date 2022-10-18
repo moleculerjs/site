@@ -268,7 +268,7 @@ Ao criar um novo registro em seu serviço, você deve limpar as entradas em cach
 ```
 
 ### Limpar cache entre várias instâncias de serviço
-A melhor prática para limpar entradas de cache entre várias instâncias de serviço é usar eventos do tipo broadcast. Note que isso é necessário apenas para cachers não centralizados como `Memória` ou `MemoryLRU`.
+A melhor prática para limpar entradas de cache entre várias instâncias de serviço é usar eventos do tipo broadcast. Note this is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
 
 **Exemplo**
 ```js
@@ -291,7 +291,7 @@ module.exports = {
             // Broadcast the event, so all service instances receive it (including this instance). 
             this.broker.broadcast("cache.clean.users");
         }
-    }
+    },
 
     events: {
         "cache.clean.users"() {
@@ -300,7 +300,7 @@ module.exports = {
             }
         }
     }
-}
+};
 ```
 
 ### Limpar cache entre diferentes serviços
