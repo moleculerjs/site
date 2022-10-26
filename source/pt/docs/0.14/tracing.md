@@ -339,7 +339,7 @@ Para usar esse gerador, instale o módulo `jaeger-client` com o comando `npm ins
 
 
 ### Zipkin
-Zipkin exporter sends tracing spans information to a [Zipkin](https://zipkin.io/) server.
+O exportador Zipkin envia informações de rastreamento para um servidor [Zipkin](https://zipkin.io/).
 
 ![Gráfico Zipkin](assets/tracing/zipkin.png#zoomable)
 
@@ -408,7 +408,7 @@ O exportador NewRelic envia informações de rastreamento no formato Zipkin v2 p
 ### Gerador personalizado
 Um módulo personalizado de rastreamento pode ser criado. Recomendamos copiar o código fonte do [Console](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) e implementar os métodos `init`, `stop`, `spanStarted` e `spanFinished`.
 
-**Create custom tracing**
+**Criar rastreamento personalizado**
 ```js
 const TracerBase = require("moleculer").TracerExporters.Base;
 
@@ -420,7 +420,7 @@ class MyTracingExporters extends TracerBase {
 }
 ```
 
-**Use custom tracing**
+**Usar rastreamento personalizado**
 ```js
 // moleculer.config.js
 const MyTracingExporters = require("./my-tracing-exporter");
