@@ -610,7 +610,7 @@ Muitos recursos integrados foram expostos como middlewares internos. Estes middl
 | `Retry`                   | Sempre   | Funcionaidade Retentativa. [Leia mais](fault-tolerance.html#Retry)                   |
 | `Fallback`                | Sempre   | Funcionalidade Fallback. [Leia mais](fault-tolerance.html#Fallback)                  |
 | `ErrorHandler`            | Sempre   | Manipulação de erros.                                                                |
-| `Rastreamento`            | Opcional | Tracing feature. [Read more](tracing.html)                                           |
+| `Rastreamento`            | Opcional | Funcionalidade de rastreamento. [Leia mais](tracing.html)                            |
 | `Métricas`                | Opcional | Funcionalidade de métricas. [Leia mais](metrics.html)                                |
 | `Debounce`                | Opcional | Funcionalidade debounce. [Leia mais](#Debounce)                                      |
 | `Throttle`                | Opcional | Funcionalidade Throttle. [Leia mais](#Throttle)                                      |
@@ -683,16 +683,16 @@ module.exports = {
 
 **Lista de opções completa**
 
-| Nome da classe  | Tipo                   | Valor padrão | Descrição                                                                                              |
-| --------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------ |
-| `logger`        | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                                                           |
-| `logLevel`      | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).                                      |
-| `logPacketData` | `Boolean`              | `false`      | Loga parâmetros do pacote                                                                              |
-| `folder`        | `Object`               | `null`       | Pasta onde os logs serão escritos                                                                      |
-| `extension`     | `String`               | `.json`      | Extensão do arquivo de log                                                                             |
-| `color.receive` | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                               |
-| `color.send`    | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                               |
-| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Type of [packets](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md) to skip |
+| Nome da classe  | Tipo                   | Valor padrão | Descrição                                                                                                   |
+| --------------- | ---------------------- | ------------ | ----------------------------------------------------------------------------------------------------------- |
+| `logger`        | `Object` ou `Function` | `null`       | Classe de logger. [Leia mais](logging.html).                                                                |
+| `logLevel`      | `String`               | `info`       | Nível de log para o logger de console. [Leia mais](logging.html).                                           |
+| `logPacketData` | `Boolean`              | `false`      | Loga parâmetros do pacote                                                                                   |
+| `folder`        | `Object`               | `null`       | Pasta onde os logs serão escritos                                                                           |
+| `extension`     | `String`               | `.json`      | Extensão do arquivo de log                                                                                  |
+| `color.receive` | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                    |
+| `color.send`    | `String`               | `grey`       | Suporta todas as [Cores de Chalk](https://github.com/chalk/chalk#colors)                                    |
+| `packetFilter`  | `Array<String>`  | `HEARTBEAT`  | Tipo de [pacotes](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md) para ignorar |
 
 #### Action Logger
 O middleware Action Logger registra "como" os serviços são executados.
