@@ -355,7 +355,15 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Example to define full path alias**
+**Service level rest parameters**
+
+- **fullPath**, override all the path generated with a new custom one
+- **basePath**, path to the service, by default is the one declared in `settings.rest`
+- **path**, path to the action
+- **method**, method used to access the action
+
+path is appended after the basePath The combination path+basePath it's not the same as using fullPath. For example:
+
 ```js
 // posts.service.js
 module.exports = {
@@ -370,16 +378,59 @@ module.exports = {
     actions: {
         tags: {
             // Expose as "/tags" instead of "/api/v2/posts/tags"
-            rest: {
+            rest: [{
                 method: "GET",
                 fullPath: "/tags"
-            },
+            }, {
+                method: "GET",
+                basePath: "/my/awesome"
+            }],
             handler(ctx) {}
         }
     }
 };
 ```
 
+Will create those endpoints:
+
+```bash
+    GET     /tags
+    GET     /api/my/awesome/tags
+```
+
+fullPath ignores that prefix applied in the API gateway!
+
+The *rest* param can be also be an array with elements with same structure discussed before. The can be applied both on settings and action level. For example:
+
+```js
+// posts.service.js
+module.exports = {
+  name: "posts",
+  settings: {
+    rest: 'my/awesome/posts'
+  },
+  actions: {
+    get: {
+      rest: [
+        "GET /:id",
+        { method: 'GET', fullPath: '/posts' }
+        { method: 'GET', path: '/' }, 
+        { method: 'GET', path: '/:id', basePath: 'demo_posts' }
+    ],
+      handler(ctx) {}
+    },
+  }
+};
+```
+
+Produce those endpoints
+
+```bash
+    GET     /api/my/awesome/posts/:id/  => posts.get
+    GET     /posts                      => posts.get
+    GET     /api/my/awesome/posts/      => posts.get
+    POST    /api/demo_posts/:id         => posts.get
+```
 
 ## Parameters
 API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
@@ -839,7 +890,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**使用**
+**用例**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -879,7 +930,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**使用**
+**用例**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -999,7 +1050,7 @@ module.exports = {
 ```
 
 ## HTTP2 Server
-API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings. **Example**
+API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings. **示例**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -1023,7 +1074,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**使用**
+**用例**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1252,7 +1303,7 @@ Service method removes the route by path (`this.removeRoute("/admin")`).
 - [Full](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
     - SSL
     - static files
-    - 中间件
+    - middlewares
     - multiple routes with different roles
     - role-based authorization with JWT
     - whitelist
