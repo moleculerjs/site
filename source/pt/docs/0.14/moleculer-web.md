@@ -355,7 +355,15 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Exemplo para definir caminho completo de alias**
+**Service level rest parameters**
+
+- **fullPath**, override all the path generated with a new custom one
+- **basePath**, path to the service, by default is the one declared in `settings.rest`
+- **path**, path to the action
+- **method**, method used to access the action
+
+path is appended after the basePath The combination path+basePath it's not the same as using fullPath. For example:
+
 ```js
 // posts.service.js
 module.exports = {
@@ -370,19 +378,62 @@ module.exports = {
     actions: {
         tags: {
             // Expose as "/tags" instead of "/api/v2/posts/tags"
-            rest: {
+            rest: [{
                 method: "GET",
                 fullPath: "/tags"
-            },
+            }, {
+                method: "GET",
+                basePath: "/my/awesome"
+            }],
             handler(ctx) {}
         }
     }
 };
 ```
 
+Will create those endpoints:
+
+```bash
+    GET     /tags
+    GET     /api/my/awesome/tags
+```
+
+fullPath ignores that prefix applied in the API gateway!
+
+The *rest* param can be also be an array with elements with same structure discussed before. The can be applied both on settings and action level. For example:
+
+```js
+// posts.service.js
+module.exports = {
+  name: "posts",
+  settings: {
+    rest: 'my/awesome/posts'
+  },
+  actions: {
+    get: {
+      rest: [
+        "GET /:id",
+        { method: 'GET', fullPath: '/posts' }
+        { method: 'GET', path: '/' }, 
+        { method: 'GET', path: '/:id', basePath: 'demo_posts' }
+    ],
+      handler(ctx) {}
+    },
+  }
+};
+```
+
+Produce those endpoints
+
+```bash
+    GET     /api/my/awesome/posts/:id/  => posts.get
+    GET     /posts                      => posts.get
+    GET     /api/my/awesome/posts/      => posts.get
+    POST    /api/demo_posts/:id         => posts.get
+```
 
 ## Parâmetros
-O gateway API coleta parâmetros pela URL, parâmetros de requisição & corpo da requisição e os mescla. Os resultados são colocados na `req.$params`.
+O gateway API coleta parâmetros pela URL, parâmetros de requisição & corpo da requisição e os mescla. The results is placed to the `req.$params`.
 
 ### Desativar mesclagem
 Para desativar o mapeamento de parâmetros atribua `mergeParams: false` nas configurações de rota. Neste caso, os parâmetros estarão separados.
@@ -430,7 +481,7 @@ Mais informações: https://github.com/ljharb/qs
 a: ["1", "2"]
 ```
 
-**Objetos aninhados & arrays** URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
+**Nested objects & arrays** URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
 ```js
 foo: { 
     bar: ["a", "b"], 
@@ -439,14 +490,14 @@ foo: {
 ```
 
 ## Middlewares
-Suporta middlewares, do tipo Connect, a nível global, a nível de rotas & a nível de alias. Assinatura: `function(req, res, next) {...}`. Para mais informações verifique [middleware express](https://expressjs.com/en/guide/using-middleware.html)
+It supports Connect-like middlewares in global-level, route-level & alias-level. Signature: `function(req, res, next) {...}`. For more info check [express middleware](https://expressjs.com/en/guide/using-middleware.html)
 
 **Exemplos**
 ```js
 broker.createService({
     mixins: [ApiService],
     settings: {
-        // Global middlewares. Aplicado a todas as rotas.
+        // Global middlewares. Applied to all routes.
         use: [
             cookieParser(),
             helmet()
@@ -514,7 +565,7 @@ broker.createService({
 ```
 
 ### Middleware para tratamento de erros
-Existe suporte para usar middlewares manipuladores de erro no gateway. Então, se você passar um `Error` para a função `next(err)`, ele chamará middlewares com a assinatura `(err, req, res, next)`.
+There is support to use error-handler middlewares in the API Gateway. So if you pass an `Error` to the `next(err)` function, it will call error handler middlewares which have signature as `(err, req, res, next)`.
 
 ```js
 broker.createService({
@@ -545,7 +596,7 @@ broker.createService({
 ```
 
 ## Servidor de arquivos estáticos
-Ele serve conteúdo com o módulo [serve-static](https://github.com/expressjs/serve-static) como o ExpressJS.
+It serves assets with the [serve-static](https://github.com/expressjs/serve-static) module like ExpressJS.
 
 ```js
 broker.createService({
@@ -564,10 +615,10 @@ broker.createService({
 ```
 
 ## Opções de chamada
-O objeto `route` possui uma propriedade `callOptions` que é passada para `broker.call`. Então você pode definir `timeout`, `retries` ou `opções de fallbackResponse` para rotas. [Leia mais sobre as opções de chamadas](actions.html#Call-services)
+The `route` has a `callOptions` property which is passed to `broker.call`. So you can set `timeout`, `retries` or `fallbackResponse` options for routes. [Read more about calling options](actions.html#Call-services)
 
 {% note info %}
-Note que você também pode definir o tempo limite para uma ação diretamente na sua [definição](actions.html#Timeout)
+Please note that you can also set the timeout for an action directly in its [definition](actions.html#Timeout)
 {% endnote %}
 
 ```js
@@ -589,10 +640,10 @@ broker.createService({
 ```
 
 ## Múltiplas rotas
-Você pode criar várias rotas com um prefixo diferente, allowlist, alias, opções de chamadas & autorização.
+You can create multiple routes with different prefix, whitelist, alias, calling options & authorization.
 
 {% note info %}
-Ao usar várias rotas você deve definir explicitamente os body parsers para cada rota.
+When using multiple routes you should explicitly set the body parser(s) for each route.
 {% endnote %}
 
 ```js
@@ -633,18 +684,18 @@ broker.createService({
 ```
 
 ## Tipo de resposta & código de estado
-Quando a resposta é recebida de um manipulador de ação, o gateway API detecta o tipo de resposta e define o `Content-Type` nos cabeçalhos `res`. O código de status é `200` por padrão. É claro que você pode substituir esses valores, além disso, você também pode definir cabeçalhos de resposta personalizados.
+When the response is received from an action handler, the API gateway detects the type of response and set the `Content-Type` in the `res` headers. The status code is `200` by default. Of course you can overwrite these values, moreover, you can define custom response headers, too.
 
-Para definir cabeçalhos de resposta & status código use os campos `ctx.meta`:
+To define response headers & status code use `ctx.meta` fields:
 
-**Campos meta disponíveis:**
-* `ctx.meta.$statusCode` - atribui `res.statusCode`.
-* `ctx.meta.$statusMessage` - atribui `res.statusMessage`.
-* `ctx.meta.$responseType` - atribui `Content-Type` no cabeçalho.
-* `ctx.meta.$responseHeaders` - atribui chaves no cabeçalho.
-* `ctx.meta.$location` - atribui `Location` no cabeçalho para redirecionamentos.
+**Available meta fields:**
+* `ctx.meta.$statusCode` - set `res.statusCode`.
+* `ctx.meta.$statusMessage` - set `res.statusMessage`.
+* `ctx.meta.$responseType` - set `Content-Type` in header.
+* `ctx.meta.$responseHeaders` - set all keys in header.
+* `ctx.meta.$location` - set `Location` key in header for redirects.
 
-**Exemplo**
+**Example**
 ```js
 module.exports = {
     name: "export",
@@ -671,11 +722,11 @@ module.exports = {
 ```
 
 ## Autorização
-Você pode implementar a autorização. Faça duas coisas para ativá-lo.
+You can implement authorization. Do 2 things to enable it.
 1. Defina `authorization: true` em suas rotas
 2. Defina o método `authorize` no serviço.
 
-**Exemplo de autorização**
+**Example authorization**
 ```js
 const E = require("moleculer-web").Errors;
 
@@ -719,17 +770,17 @@ broker.createService({
 ```
 
 {% note info %}
-Você pode encontrar um exemplo de autorização JWT mais detalhado com base nesse [exemplo completo](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js#L239).
+You can find a more detailed role-based JWT authorization example in [full example](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js#L239).
 {% endnote %}
 
 ## Autenticação
-Para habilitar o suporte para a autenticação, você precisa fazer algo semelhante ao que é descrito no parágrafo de autorização. Também neste caso você precisa:
+To enable the support for authentication, you need to do something similar to what is describe in the Authorization paragraph. Also in this case you have to:
 1. Defina `authentication: true` em suas rotas
 2. Defina o seu método personalizado `authenticate` no seu serviço
 
-O valor retornado será atribuído para a propriedade `ctx.meta.user`. Você pode usá-lo em suas ações para obter a entidade de usuário logada.
+The returned value will be set to the `ctx.meta.user` property. You can use it in your actions to get the logged in user entity.
 
-**Exemplo de autenticação**
+**Example authentication**
 ```js
 broker.createService({
     mixins: ApiGatewayService,
@@ -762,7 +813,7 @@ broker.createService({
 ```
 
 ## Hooks de rotas
-O objeto `rote` tem hooks antes de & após chamadas. Você pode usá-lo para definir `ctx.meta`, acessar `req.headers` ou modificar os `dados ` de resposta.
+The `route` has before & after call hooks. You can use it to set `ctx.meta`, access `req.headers` or modify the response `data`.
 
 ```js
 broker.createService({
@@ -792,7 +843,7 @@ broker.createService({
 
 
 ## Manipuladores de erros
-Você pode adicionar manipuladores de erros personalizados a nível de rota & a nível global.
+You can add route-level & global-level custom error handlers.
 > Nos manipuladores, você deve chamar `res.end`. Caso contrário, a requisição não será concluída.
 
 ```js
@@ -822,7 +873,7 @@ broker.createService({
 ```
 
 ### Formatador de erro
-O gateway API implementa uma função auxiliar que formata o erro. Você pode usá-lo para filtrar os dados desnecessários.
+API gateway implements a helper function that formats the error. You can use it to filter out the unnecessary data.
 
 ```js
 broker.createService({
@@ -837,9 +888,9 @@ broker.createService({
 ```
 
 ## Cabeçalhos CORS
-Você pode usar os cabeçalhos [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) no serviço Moleculer-Web.
+You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Utilização**
+**Usage**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -877,9 +928,9 @@ const svc = broker.createService({
 ```
 
 ## Limitador de taxa
-O Moleculer-Web tem um limitador de taxa integrado com armazenamento em memória.
+The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Utilização**
+**Usage**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -946,7 +997,7 @@ class CustomStore {
 
 ## ETag
 
-O valor da opção `etag`pode ser `false`, `true`, `weak`, `strong`, ou uma `Function` personalizada. Para obter detalhes verifique o [código](https://github.com/moleculerjs/moleculer-web/pull/92).
+The `etag` option value can be `false`, `true`, `weak`, `strong`, or a custom `Function`. For full details check the [code](https://github.com/moleculerjs/moleculer-web/pull/92).
 
 ```js
 const ApiGateway = require("moleculer-web");
@@ -967,7 +1018,7 @@ module.exports = {
 }
 ```
 
-**Função personalizada `etag`**
+**Custom `etag` Function**
 ```js
 module.exports = {
     mixins: [ApiGateway],
@@ -978,9 +1029,9 @@ module.exports = {
 }
 ```
 
-Por favor, note que isso não funciona com respostas stream. Nesse caso, você deve gerar a tag `etag` por si mesmo.
+Please note, it doesn't work with stream responses. In this case, you should generate the `etag` by yourself.
 
-**`etag` personalizada para streaming**
+**Custom `etag` for streaming**
 ```js
 module.exports = {
     name: "export",
@@ -999,7 +1050,7 @@ module.exports = {
 ```
 
 ## Servidor HTTP2
-Gateway API fornece um suporte experimental para HTTP2. Você pode ativá-lo com `http2: true` nas configurações do serviço. **Exemplo**
+API Gateway provides an experimental support for HTTP2. You can turn it on with `http2: true` in service settings. **Example**
 ```js
 const ApiGateway = require("moleculer-web");
 
@@ -1021,9 +1072,9 @@ module.exports = {
 ```
 
 ## Uso de middleware ExpressJS
-Você pode usar Moleculer-Web como um middleware em uma aplicação [ExpressJS](http://expressjs.com/).
+You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Utilização**
+**Usage**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1048,7 +1099,7 @@ broker.start();
 
 
 ## Configurações de serviço completo
-Lista de todas as configurações de serviço Moleculer Web:
+List of all settings of Moleculer Web service:
 
 ```js
 settings: {
@@ -1211,65 +1262,65 @@ settings: {
 ```
 ## Métodos do Serviço
 ### `addRoute`
-Este [método](services.html#Methods) de serviço (`this.addRoute(opts, toBottom = true)`) adiciona/substitui uma rota. Por exemplo, você pode chamá-lo de seus mixins para definir novas rotas (por exemplo, rota swager, rota graphql, etc.).
+This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = true)`) add/replace a route. For example, you can call it from your mixins to define new routes (e.g. swagger route, graphql route, etc.).
 
 > Por favor, note que se já existir uma rota este método irá substituir a configuração anterior da rota por uma nova.
 
 ### `removeRoute`
-O método de serviço remove a rota pelo caminho (`this.removeRoute("/admin")`).
+Service method removes the route by path (`this.removeRoute("/admin")`).
 
 ## Exemplos
-- [Simples](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
-    - gateway simples com configurações padrão.
+- [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
+    - simple gateway with default settings.
 
-- [Servidor SSL](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
-    - servidor open HTTPS
-    - manipulação de allowlist
+- [SSL server](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
+    - open HTTPS server
+    - whitelist handling
 
-- [WWW com conteúdo publicado](https://github.com/moleculerjs/moleculer-web/blob/master/examples/www/index.js)
-    - serve arquivos estáticos da pasta `assets`
-    - allowlist
+- [WWW with assets](https://github.com/moleculerjs/moleculer-web/blob/master/examples/www/index.js)
+    - serve static files from the `assets` folder
+    - whitelist
     - aliases
-    - múltiplos body-parsers
+    - multiple body-parsers
 
-- [Autorização](https://github.com/moleculerjs/moleculer-web/blob/master/examples/authorization/index.js)
-    - demonstração de autorização simples
-    - definir o usuário autorizado para `Context.meta`
+- [Authorization](https://github.com/moleculerjs/moleculer-web/blob/master/examples/authorization/index.js)
+    - simple authorization demo
+    - set the authorized user to `Context.meta`
 
 - [REST](https://github.com/moleculerjs/moleculer-web/blob/master/examples/rest/index.js)
-    - servidor simples com aliases RESTful
-    - exemplo de `posts` com ações CRUD
+    - simple server with RESTful aliases
+    - example `posts` service with CRUD actions
 
 - [Express](https://github.com/moleculerjs/moleculer-web/blob/master/examples/express/index.js)
-    - servidor web com Express
-    - use moleculer-web como um middleware
+    - webserver with Express
+    - use moleculer-web as a middleware
 
 - [Socket.io](https://github.com/moleculerjs/moleculer-web/blob/master/examples/socket.io/index.js)
-    - iniciar servidor de websocket socket.io
-    - chama a ação e envia de volta a resposta via websocket
-    - enviar eventos Moleculer para o navegador via websocket
+    - start socket.io websocket server
+    - call action and send back the response via websocket
+    - send Moleculer events to the browser via websocket
 
-- [Completo](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
+- [Full](https://github.com/moleculerjs/moleculer-web/blob/master/examples/full/index.js)
     - SSL
-    - arquivos estáticos
+    - static files
     - middlewares
-    - várias rotas com diferentes funções
-    - autorização baseada em JWT
-    - allowlist
-    - aliases com parâmetros nomeados
-    - múltiplos body-parsers
-    - hooks antes & depois
-    - métricas, estatísticas & validação com Moleculer
-    - manipuladores de erros personalizados
+    - multiple routes with different roles
+    - role-based authorization with JWT
+    - whitelist
+    - aliases with named params
+    - multiple body-parsers
+    - before & after hooks
+    - metrics, statistics & validation from Moleculer
+    - custom error handlers
 
 - [Webpack](https://github.com/moleculerjs/moleculer-web/blob/master/examples/webpack)
-    - Ambiente de desenvolvimento Webpack para desenvolvimento do lado do cliente
-    - arquivo de configuração webpack
-    - compactação
-    - servir de arquivo estático
+    - Webpack development environment for client-side developing
+    - webpack config file
+    - compression
+    - static file serving
 
 - [Webpack-Vue](https://github.com/moleculerjs/moleculer-web/blob/master/examples/webpack-vue)
-    - Ambiente de desenvolvimento Webpack+Vue para desenvolvimento VueJS no lado do cliente
-    - arquivo de configuração webpack
+    - Webpack+Vue development environment for VueJS client developing
+    - webpack config file
     - Hot-replacement
     - Babel, SASS, SCSS, Vue SFC
