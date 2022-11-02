@@ -890,7 +890,7 @@ broker.createService({
 ## CORS headers
 You can use [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers in Moleculer-Web service.
 
-**Usage**
+**Használat**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -930,7 +930,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Usage**
+**Használat**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1074,7 +1074,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Usage**
+**Használat**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
