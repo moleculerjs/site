@@ -357,7 +357,16 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Example to define full path alias**
+**Service level rest parameters**
+
+- **fullPath**, override all the path generated with a new custom one
+- **basePath**, path to the service, by default is the one declared in ``settings.rest``
+- **path**, path to the action
+- **method**, method used to access the action
+
+path is appended after the basePath
+The combination path+basePath it's not the same as using fullPath. For example:
+
 ```js
 // posts.service.js
 module.exports = {
@@ -372,16 +381,60 @@ module.exports = {
     actions: {
         tags: {
             // Expose as "/tags" instead of "/api/v2/posts/tags"
-            rest: {
+            rest: [{
                 method: "GET",
                 fullPath: "/tags"
-            },
+            }, {
+                method: "GET",
+                basePath: "/my/awesome"
+            }],
             handler(ctx) {}
         }
     }
 };
 ```
 
+Will create those endpoints:
+
+```bash
+    GET     /tags
+    GET     /api/my/awesome/tags
+```
+
+fullPath ignores that prefix applied in the API gateway!
+
+The *rest* param can be also be an array with elements with same structure discussed before. The can be applied both on settings and action level.
+For example:
+
+```js
+// posts.service.js
+module.exports = {
+  name: "posts",
+  settings: {
+    rest: 'my/awesome/posts'
+  },
+  actions: {
+    get: {
+      rest: [
+        "GET /:id",
+        { method: 'GET', fullPath: '/posts' }
+        { method: 'GET', path: '/' }, 
+        { method: 'GET', path: '/:id', basePath: 'demo_posts' }
+    ],
+      handler(ctx) {}
+    },
+  }
+};
+```
+
+Produce those endpoints
+
+```bash
+    GET     /api/my/awesome/posts/:id/  => posts.get
+    GET     /posts                      => posts.get
+    GET     /api/my/awesome/posts/      => posts.get
+    POST    /api/demo_posts/:id         => posts.get
+```
 
 ## Parameters
 API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
