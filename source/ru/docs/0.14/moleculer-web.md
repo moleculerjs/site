@@ -930,7 +930,7 @@ const svc = broker.createService({
 ## Rate limiter
 The Moleculer-Web has a built-in rate limiter with a memory store.
 
-**Usage**
+**Использование**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1074,7 +1074,7 @@ module.exports = {
 ## ExpressJS middleware usage
 You can use Moleculer-Web as a middleware in an [ExpressJS](http://expressjs.com/) application.
 
-**Usage**
+**Использование**
 ```js
 const svc = broker.createService({
     mixins: [ApiService],
@@ -1270,7 +1270,7 @@ This service [method](services.html#Methods) (`this.addRoute(opts, toBottom = tr
 Service method removes the route by path (`this.removeRoute("/admin")`).
 
 ## Примеры
-- [Simple](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
+- [Простой пример](https://github.com/moleculerjs/moleculer-web/blob/master/examples/simple/index.js)
     - simple gateway with default settings.
 
 - [SSL server](https://github.com/moleculerjs/moleculer-web/blob/master/examples/ssl/index.js)
