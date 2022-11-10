@@ -378,7 +378,7 @@ The error hooks are called when an `Error` is thrown during action calling. It r
 - fallback response
 
 ### Service level declaration
-Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`.
+Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`. Action names can also be combined using a pipe symbol (e.g., `create|update`)
 
 {% note warn%}
 Please notice that hook registration order matter as it defines sequence by which hooks are executed. For more information take a look at [hook execution order](#Execution-order).
@@ -415,6 +415,10 @@ module.exports = {
             ],
             // Applies to all actions that end with "-user"
             "*-user": [
+                async function (ctx){}
+            ],
+            // Applies to all actions that start with "create-" or end with "-user"
+            "create-*|*-user": [
                 async function (ctx){}
             ],
         }
