@@ -355,14 +355,14 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Service level rest parameters**
+**Parâmetros rest a nível de serviço**
 
-- **fullPath**, override all the path generated with a new custom one
-- **basePath**, path to the service, by default is the one declared in `settings.rest`
-- **path**, path to the action
-- **method**, method used to access the action
+- **fullPath**, substitui todo o caminho gerado com um novo personalizado
+- **basePath**, caminho para o serviço, por padrão, é aquele declarado em `settings.rest`
+- **path**, caminho para a ação
+- **method**, método usado para acessar a ação
 
-path is appended after the basePath The combination path+basePath it's not the same as using fullPath. For example:
+path é adicionado após o basePath A combinação path+basePath não é o mesmo que usar fullPath. Por exemplo:
 
 ```js
 // posts.service.js
@@ -391,16 +391,16 @@ module.exports = {
 };
 ```
 
-Will create those endpoints:
+Irá criar esses endpoints:
 
 ```bash
     GET     /tags
     GET     /api/my/awesome/tags
 ```
 
-fullPath ignores that prefix applied in the API gateway!
+fullPath ignora o prefixo aplicado no API gateway!
 
-The *rest* param can be also be an array with elements with same structure discussed before. The can be applied both on settings and action level. For example:
+O parâmetro *rest* pode ser também um array com elementos com a mesma estrutura discutida anteriormente. Isto pode ser aplicado tanto em configurações quanto no nível de ação. Por exemplo:
 
 ```js
 // posts.service.js
@@ -423,7 +423,7 @@ module.exports = {
 };
 ```
 
-Produce those endpoints
+Produz esses endpoints
 
 ```bash
     GET     /api/my/awesome/posts/:id/  => posts.get
