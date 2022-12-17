@@ -509,6 +509,9 @@ broker.createService({
         populates: {
             // Shorthand populate rule. Resolve the `voters` values with `users.get` action.
             "voters": "users.get",
+            
+            // If the ID to populate is deep within the object, you can simply provide a dot-separated path to the ID to populate it.
+            "liked.by": "users.get"
 
             // Define the params of action call. It will receive only with username & full name of author.
             "author": {
@@ -543,7 +546,34 @@ broker.createService({
 
 // List posts with populated authors
 broker.call("posts.find", { populate: ["author"]}).then(console.log);
+// Deep population
+broker.call("posts.find", { populate: ["liked.by"]}).then(console.log);
 ```
+
+Recursive population is also supported. For example, if the users service populates a group field:
+
+```js
+broker.createService({
+    name: "users",
+    mixins: [DbService],
+    settings: {
+        populates: {
+            "group": "groups.get"
+        }
+    }
+});
+```
+
+Then you can populate the group of a post author or liker like this:
+
+```js
+//Recursive population
+broker.call("posts.find", { populate: ["author.group"]}).then(console.log);
+//Recursive deep population
+broker.call("posts.find", { populate: ["liked.by.group"]}).then(console.log);
+```
+
+
 
 > The `populate` parameter is available in `find`, `list` and `get` actions.
 
