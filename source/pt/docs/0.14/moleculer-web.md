@@ -355,7 +355,15 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Exemplo para definir caminho completo de alias**
+**Parâmetros rest a nível de serviço**
+
+- **fullPath**, substitui todo o caminho gerado com um novo personalizado
+- **basePath**, caminho para o serviço, por padrão, é aquele declarado em `settings.rest`
+- **path**, caminho para a ação
+- **method**, método usado para acessar a ação
+
+path é adicionado após o basePath A combinação path+basePath não é o mesmo que usar fullPath. Por exemplo:
+
 ```js
 // posts.service.js
 module.exports = {
@@ -370,16 +378,59 @@ module.exports = {
     actions: {
         tags: {
             // Expose as "/tags" instead of "/api/v2/posts/tags"
-            rest: {
+            rest: [{
                 method: "GET",
                 fullPath: "/tags"
-            },
+            }, {
+                method: "GET",
+                basePath: "/my/awesome"
+            }],
             handler(ctx) {}
         }
     }
 };
 ```
 
+Irá criar esses endpoints:
+
+```bash
+    GET     /tags
+    GET     /api/my/awesome/tags
+```
+
+fullPath ignora o prefixo aplicado no API gateway!
+
+O parâmetro *rest* pode ser também um array com elementos com a mesma estrutura discutida anteriormente. Isto pode ser aplicado tanto em configurações quanto no nível de ação. Por exemplo:
+
+```js
+// posts.service.js
+module.exports = {
+  name: "posts",
+  settings: {
+    rest: 'my/awesome/posts'
+  },
+  actions: {
+    get: {
+      rest: [
+        "GET /:id",
+        { method: 'GET', fullPath: '/posts' }
+        { method: 'GET', path: '/' }, 
+        { method: 'GET', path: '/:id', basePath: 'demo_posts' }
+    ],
+      handler(ctx) {}
+    },
+  }
+};
+```
+
+Produz esses endpoints
+
+```bash
+    GET     /api/my/awesome/posts/:id/  => posts.get
+    GET     /posts                      => posts.get
+    GET     /api/my/awesome/posts/      => posts.get
+    POST    /api/demo_posts/:id         => posts.get
+```
 
 ## Parâmetros
 O gateway API coleta parâmetros pela URL, parâmetros de requisição & corpo da requisição e os mescla. Os resultados são colocados na `req.$params`.

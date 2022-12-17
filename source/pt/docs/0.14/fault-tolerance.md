@@ -61,7 +61,7 @@ module.export = {
 ```
 
 ## Retry
-Há uma solução de backoff exponencial. Ele pode chamar novamente solicitações que falharam.
+Há uma solução de backoff exponencial. Pode retornar requisições que falharam com [`MoleculerRetryableError`](https://moleculer.services/docs/0.14/errors.html#MoleculerRetryableError).
 
 **Habilite-o nas opções do broker**
 ```js

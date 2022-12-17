@@ -378,7 +378,7 @@ After hooks 会收到 `ctx` 和 `response`. 在这里可以修改响应信息。
 - 响应回退
 
 ### 声明在服务上
-Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`.
+Hooks can be assigned to a specific action (by indicating action `name`), all actions (`*`) in service or by indicating a wildcard (e.g., `create-*`). The latter will be applied to all actions whose name starts with `create-`. Action names can also be combined using a pipe symbol (e.g., `create|update`)
 
 {% note warn%}
 请注意钩子注册顺序很重要，因为它定义了执行钩子的顺序。 欲了解更多信息，参见 [hook execution order](#Execution-order)。
@@ -415,6 +415,10 @@ module.exports = {
             ],
             // Applies to all actions that end with "-user"
             "*-user": [
+                async function (ctx){}
+            ],
+            // Applies to all actions that start with "create-" or end with "-user"
+            "create-*|*-user": [
                 async function (ctx){}
             ],
         }

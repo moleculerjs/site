@@ -375,7 +375,7 @@ Os hooks de erro são chamados quando um `Erro` é lançado durante a chamada da
 - resposta de fallback
 
 ### Declaração de nível de serviço
-Hooks podem ser atribuídos a uma ação específica (indicando o `nome`) da ação, todas as ações (`*`) no serviço ou indicando um coringa (e.x., `create-*`). O último será aplicado a todas as ações cujo nome começa com `create-`.
+Hooks podem ser atribuídos a uma ação específica (indicando o `nome`) da ação, todas as ações (`*`) no serviço ou indicando um coringa (e.x., `create-*`). O último será aplicado a todas as ações cujo nome começa com `create-`. Nomes de ação também podem ser combinados usando um símbolo pipe (por exemplo, `create|update`)
 
 {% note warn%}
 Note que a ordem de registro do hook importa, pois define a sequência pela qual os hooks são executados. Para obter mais informações, dê uma olhada em [ordem de execução dos hooks](#Execution-order).
@@ -412,6 +412,10 @@ module.exports = {
             ],
             // Applies to all actions that end with "-user"
             "*-user": [
+                async function (ctx){}
+            ],
+            // Applies to all actions that start with "create-" or end with "-user"
+            "create-*|*-user": [
                 async function (ctx){}
             ],
         }

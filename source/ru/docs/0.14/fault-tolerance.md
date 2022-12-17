@@ -61,7 +61,7 @@ module.export = {
 ```
 
 ## Повтор
-Для выполнения повторных попыток применяется решение на базе экспоненциального отката. Оно может повторно вызвать неудачные запросы.
+Для выполнения повторных попыток применяется решение на базе экспоненциального отката. It can recall failed requests with response [`MoleculerRetryableError`](https://moleculer.services/docs/0.14/errors.html#MoleculerRetryableError).
 
 **Включить можно в параметрах брокера**
 ```js
