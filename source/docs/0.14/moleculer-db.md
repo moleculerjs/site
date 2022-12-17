@@ -436,7 +436,7 @@ Count of removed entities.
 
 ## Data Manipulation
 
-You can easily use [Action hooks](actions.html#Action-hooks) to modify (e.g. add timestamps, hash user's passwords or remove sensitive info) before or after saving the data in DB. 
+You can easily use [Action hooks](actions.html#Action-hooks) to modify (e.g. add timestamps, hash user's passwords or remove sensitive info) before or after saving the data in DB. Hooks will only run before or after actions. If you need to run your data manipulations before or after the this._create(), this._update() or this._remove() methods, you can use the [Lifecycle events](moleculer-db.html#Lifecycle-entity-events)
 
 **Example of hooks adding a timestamp and removing sensitive data**
 ```js
@@ -549,7 +549,7 @@ broker.call("posts.find", { populate: ["author"]}).then(console.log);
 
 
 ## Lifecycle entity events
-There are 3 lifecycle entity events which are called when entities are manipulated.
+There are 6 lifecycle entity events which are called when entities are manipulated.
 
 ```js
 broker.createService({
@@ -559,6 +559,24 @@ broker.createService({
 
     afterConnected() {
         this.logger.info("Connected successfully");
+    },
+    
+    beforeEntityCreate(json, ctx) {
+        this.logger.info("New entity will be created");
+        json.createdAt = new Date()
+        json.updatedAt = new Date()
+        return json; // You must return the modified entity here
+    },
+    
+    beforeEntityUpdate(json, ctx) {
+        this.logger.info("Entity will be updated");
+        json.updatedAt = new Date()
+        return json;
+    },
+    
+    beforeEntityRemove(json, ctx) {
+        this.logger.info("Entity will be removed");
+        return json;
     },
 
     entityCreated(json, ctx) {
