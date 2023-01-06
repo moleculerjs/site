@@ -442,7 +442,7 @@ Contagem de entidades removidas.
 
 ## Manipulação de dados
 
-Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados. Hooks will only run before or after actions. If you need to run your data manipulations before or after the this._create(), this._update() or this._remove() methods, you can use the [Lifecycle events](moleculer-db.html#Lifecycle-entity-events)
+Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados. Hooks só serão executados antes ou após ações. Se você precisar executar suas manipulações de dados antes ou após os métodos this._create(), this._update() ou this._remove(), você pode usar os [Eventos do ciclo de vida](moleculer-db.html#Lifecycle-entity-events)
 
 **Exemplo de hooks adicionando um timestamp e removendo dados confidenciais**
 ```js
@@ -516,10 +516,10 @@ broker.createService({
             // Regra de preenchimento abreviada. Resolva os valores `voters` com a ação `users.get`.
             "voters": "users.get",
 
-            // If the ID to populate is deep within the object, you can simply provide a dot-separated path to the ID to populate it.
+            // Se o ID a ser preenchido estiver aninhado dentro do objeto, você pode simplesmente fornecer um caminho separado por pontos para preencher o ID.
             "liked.by": "users.get"
 
-            // Define the params of action call. Ele só receberá o nome de usuário & nome completo do autor.
+            // Define os parâmetros da chamada da ação. Ele só receberá o nome de usuário & nome completo do autor.
             "author": {
                 action: "users.get",
                 params: {
@@ -556,7 +556,7 @@ broker.call("posts.find", { populate: ["author"]}).then(console.log);
 broker.call("posts.find", { populate: ["liked.by"]}).then(console.log);
 ```
 
-Recursive population is also supported. For example, if the users service populates a group field:
+A população recursiva também é suportada. Por exemplo, se o serviço de usuários preencher um campo grupo:
 
 ```js
 broker.createService({
@@ -570,7 +570,7 @@ broker.createService({
 });
 ```
 
-Then you can populate the group of a post author or liker like this:
+Então você pode preencher o grupo de um autor de publicação ou quem curtiu dessa forma:
 
 ```js
 //Recursive population
