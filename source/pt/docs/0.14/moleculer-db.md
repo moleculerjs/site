@@ -585,7 +585,7 @@ broker.call("posts.find", { populate: ["liked.by.group"]}).then(console.log);
 
 
 ## Ciclo de vida de uma entidade
-There are 6 lifecycle entity events which are called when entities are manipulated.
+Há 6 eventos do ciclo de vida que são chamados quando as entidades são manipuladas.
 
 ```js
 broker.createService({
