@@ -84,6 +84,7 @@ sidebar:
     api_service: 服务
     api_context: 上下文
     api_protocol: 协议
+    take_survey: ✨参加我们的调查
 modules:
   name: 名字
   description: 描述
