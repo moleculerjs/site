@@ -62,6 +62,13 @@ gateway:
     official: false
     author: jimmielovell
     display: unset
+  -name: moleculer-tcp
+   link: 'https://github.com/fugufish/moleculer-tcp'
+   desc: |
+      A generic TCP Server gateway
+   official: false
+   author: fugufish
+   display: unset
 databases:
   - name: moleculer-db
     link: 'https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db#readme'
