@@ -62,7 +62,7 @@ gateway:
     official: false
     author: jimmielovell
     display: unset
-  -name: moleculer-tcp
+  - name: moleculer-tcp
    link: 'https://github.com/fugufish/moleculer-tcp'
    desc: |
       A generic TCP Server gateway
