@@ -395,3 +395,7 @@ companies:
         name: r-ulybka
         link: https://www.r-ulybka.ru/
         logo: https://user-images.githubusercontent.com/122616717/212331319-ff110b51-10a1-4be4-a443-61838bd220d0.png
+    -
+        name: rocket.chat
+        link: https://rocket.chat/
+        logo: https://user-images.githubusercontent.com/1000217/216819279-8064499a-6546-4a42-b03e-d5004ce8b472.svg
