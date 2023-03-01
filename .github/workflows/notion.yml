@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Update Notion
         uses: Eomm/notion-board@v0
+        timeout-minutes: 15
         with:
           github-repository-query: user:moleculerjs is:public
           notion-token: ${{ secrets.NOTION_TOKEN }}
