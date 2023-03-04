@@ -1,32 +1,32 @@
 标题：数据库适配器
 ---
-Moleculer 框架有一组官方的 [DB 适配器](https://github.com/moleculerjs/moleculer-db)。 可以使用它们在数据库中保存您的数据。
+Moleculer 框架有一组官方 [DB 适配器](https://github.com/moleculerjs/moleculer-db)。 可以使用它们在数据库中保存您的数据。
 
 {% note info Database per service%}
-Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
+Moleculer遵循* 一个数据库就是一个服务 *的模式。 要了解更多关于这种设计模式及其影响的信息，请参考 [这篇文章](https://microservices.io/patterns/data/database-per-service.html)。 至于 *每个服务对应多个实体/表格* 的方式请参考 [常见问题](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
 
 ## 特性概览
-* default CRUD actions
-* [cached](caching.html) actions
-* pagination support
-* pluggable adapter ([NeDB](https://github.com/louischatriot/nedb) is the default memory adapter for testing & prototyping)
-* official adapters for MongoDB, PostgreSQL, SQLite, MySQL, MSSQL.
-* fields filtering
-* populating
-* encode/decode IDs
-* entity lifecycle events for notifications
+* 默认 CRUD 操作
+* [cached](caching.html)活动
+* 分页支持
+* 插件式 adapter ([NeDB](https://github.com/louischatriot/nedb) is the default memory adapter for testing & prototyping)
+* 官方提供 MongoDB, PostgreSQL, SQLite, MySQL, MSSQL 等适配器。
+* 字段过滤
+* 联合查询
+* ID 编码/解码
+* entity 生命周期事件通知
 
 {% note info Try it in your browser! %}
 [![Edit moleculer-db](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-db/tree/master/?fontsize=14)
 {% endnote %}
 
-## Base Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
+## 基础适配器 [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
 
-Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/nedb). Use it to quickly set up and test you prototype.
+Moleculer 的默认适配器基于 [NeDB](https://github.com/louischatriot/nedb)。 可以用它来快速设置和测试您的原型。
 
 {% note warn%}
-Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
+请仅使用此适配器进行原型输入和测试。 当你准备好用于生产环境时，简单地切换到 [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) 或 [Sequelize](moleculer-db.html#Sequelize-Adapter) 适配器就实现了常见的 [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) 和 [Methods](moleculer-db.html#Methods)
 {% endnote %}
 
 ### 安装
@@ -94,7 +94,7 @@ broker.start()
 
 ## 设置
 
-All DB adapters share a common set of settings:
+所有数据库适配器共享一组常见的设置：
 
 | Property          | Type                   | 默认设置         | 说明                                                                                                                        |
 | ----------------- | ---------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
