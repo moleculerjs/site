@@ -1,6 +1,6 @@
-title: Database Adapters
+标题：数据库适配器
 ---
-Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to persist your data in a database.
+Moleculer 框架有一组官方的 [DB 适配器](https://github.com/moleculerjs/moleculer-db)。 可以使用它们在数据库中保存您的数据。
 
 {% note info Database per service%}
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
