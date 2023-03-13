@@ -4,7 +4,7 @@ docs:
     usage: usage.html
     concepts: concepts.html
     examples: examples.html
-    take_survey: https://forms.gle/PnXfVHn3wRTajELCA
+    # take_survey: https://forms.gle/PnXfVHn3wRTajELCA
 
   overview:
     broker: broker.html
