@@ -442,7 +442,7 @@ Contagem de entidades removidas.
 
 ## Manipulação de dados
 
-Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados.
+Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados. Hooks só serão executados antes ou após ações. Se você precisar executar suas manipulações de dados antes ou após os métodos this._create(), this._update() ou this._remove(), você pode usar os [Eventos do ciclo de vida](moleculer-db.html#Lifecycle-entity-events)
 
 **Exemplo de hooks adicionando um timestamp e removendo dados confidenciais**
 ```js
@@ -516,6 +516,9 @@ broker.createService({
             // Regra de preenchimento abreviada. Resolva os valores `voters` com a ação `users.get`.
             "voters": "users.get",
 
+            // Se o ID a ser preenchido estiver aninhado dentro do objeto, você pode simplesmente fornecer um caminho separado por pontos para preencher o ID.
+            "liked.by": "users.get"
+
             // Define os parâmetros da chamada da ação. Ele só receberá o nome de usuário & nome completo do autor.
             "author": {
                 action: "users.get",
@@ -547,15 +550,42 @@ broker.createService({
     }
 });
 
-// Lista posts com autores populados
+// List posts with populated authors
 broker.call("posts.find", { populate: ["author"]}).then(console.log);
+// Deep population
+broker.call("posts.find", { populate: ["liked.by"]}).then(console.log);
 ```
+
+A população recursiva também é suportada. Por exemplo, se o serviço de usuários preencher um campo grupo:
+
+```js
+broker.createService({
+    name: "users",
+    mixins: [DbService],
+    settings: {
+        populates: {
+            "group": "groups.get"
+        }
+    }
+});
+```
+
+Então você pode preencher o grupo de um autor de publicação ou quem curtiu dessa forma:
+
+```js
+//Recursive population
+broker.call("posts.find", { populate: ["author.group"]}).then(console.log);
+//Recursive deep population
+broker.call("posts.find", { populate: ["liked.by.group"]}).then(console.log);
+```
+
+
 
 > O parâmetro `populate` está disponível nas ações `find`, `list` e `get`.
 
 
 ## Ciclo de vida de uma entidade
-Há 3 eventos do ciclo de vida que são chamados quando as entidades são manipuladas.
+Há 6 eventos do ciclo de vida que são chamados quando as entidades são manipuladas.
 
 ```js
 broker.createService({
@@ -565,6 +595,24 @@ broker.createService({
 
     afterConnected() {
         this.logger.info("Connected successfully");
+    },
+
+    beforeEntityCreate(json, ctx) {
+        this.logger.info("New entity will be created");
+        json.createdAt = new Date()
+        json.updatedAt = new Date()
+        return json; // You must return the modified entity here
+    },
+
+    beforeEntityUpdate(json, ctx) {
+        this.logger.info("Entity will be updated");
+        json.updatedAt = new Date()
+        return json;
+    },
+
+    beforeEntityRemove(json, ctx) {
+        this.logger.info("Entity will be removed");
+        return json;
     },
 
     entityCreated(json, ctx) {
