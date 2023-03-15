@@ -1,6 +1,6 @@
 title: Events
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services.
+Broker内置事件总线，支持[事件驱动架构](http://microservices.io/patterns/data/event-driven-architecture.html)，可将事件发送到本地和远程服务。
 
 {% note info %}
 Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
