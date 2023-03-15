@@ -1,21 +1,21 @@
-title: Events
+标题：事件
 ---
 Broker内置事件总线，支持[事件驱动架构](http://microservices.io/patterns/data/event-driven-architecture.html)，可将事件发送到本地和远程服务。
 
 {% note info %}
-Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
+需要注意的是，这些内建事件是即发即弃（发送出去就没了）的，假设给一个离线的服务发送事件，这个事件发送出去就会丢失。 关于持久化，想要实现耐用且可靠（不会丢失）的事件可以查看[moleculer-channels](https://github.com/moleculerjs/moleculer-channels)。
 {% endnote %}
 
-# Balanced events
-The event listeners are arranged to logical groups. It means that only one listener is triggered in every group.
+# 均衡事件
+事件监听器被排列到逻辑组。 这意味着在每个组中只触发一个监听器。
 
-> **Example:** you have 2 main services: `users` & `payments`. Both subscribe to the `user.created` event. You start 3 instances of `users` service and 2 instances of `payments` service. When you emit the `user.created` event, only one `users` and one `payments` service instance will receive the event.
+> **示例：** 假设你拥有两个主要服务。 `用户` & `支付`。 两个服务都订阅了`user.created`事件。 你启动了3个`用户`服务的实例和2个`支付`服务的实例。 当你发送一个`user.created`事件给这两个服务时，不论是`用户`服务还是`支付`服务，都只会有一个实例会接收到这个事件。
 
 <div align="center">
     <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
 </div>
 
-The group name comes from the service name, but it can be overwritten in event definition in services.
+组名默认是服务名，但是你可以在服务中的事件定义里覆盖它。
 
 **示例**
 ```js
@@ -23,63 +23,63 @@ module.exports = {
     name: "payment",
     events: {
         "order.created": {
-            // Register handler to the "other" group instead of "payment" group.
+            // 用“other”组替代默认的服务名“payment”组
             group: "other",
             handler(ctx) {
                 console.log("Payload:", ctx.params);
                 console.log("Sender:", ctx.nodeID);
                 console.log("Metadata:", ctx.meta);
-                console.log("The called event name:", ctx.eventName);
+                console.log("被调用的事件名:", ctx.eventName);
             }
         }
     }
 }
 ```
 
-## Emit balanced events
-Send balanced events with `broker.emit` function. The first parameter is the name of the event, the second parameter is the payload. _To send multiple values, wrap them into an `Object`._
+## 发送均衡事件
+你可以使用`broker.emit` 方法发送均衡事件。 第一个参数是事件名，第二个参数是要发送的数据。 _如果要发送多个数据，可以把它们放进一个`Object`（对象）里。_
 
 ```js
-// The `user` will be serialized to transportation.
+// `user` 会被序列化成字符串后再传过去。
 broker.emit("user.created", user);
 ```
 
-Specify which groups/services shall receive the event:
+指定接收事件的组或服务：
 ```js
-// Only the `mail` & `payments` services receives it
+// 只有`mail` 和 `payments` 服务能接收这个事件。
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-# Broadcast event
-The broadcast event is sent to all available local & remote services. It is not balanced, all service instances will receive it.
+# 广播事件
+与均衡事件不同的是，广播事件会发送到所有可以用的本地或者远程服务。 这些服务的每个实例都会接收到这个广播事件。
 
 <div align="center">
     <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
 </div>
 
-Send broadcast events with `broker.broadcast` method.
+你可以使用`broker.broadcast`方法去发送一个广播事件。
 ```js
 broker.broadcast("config.changed", config);
 ```
 
-Specify which groups/services shall receive the event:
+指定接收事件的组或服务：
 ```js
-// Send to all "mail" service instances
+// 发送给 "mail" 服务的所有实例。
 broker.broadcast("user.created", { user }, "mail");
 
-// Send to all "user" & "purchase" service instances.
+// 发送给"user" 和 "purchase" 服务的所有实例。
 broker.broadcast("user.created", { user }, ["user", "purchase"]);
 ```
 
-## Local broadcast event
-Send broadcast events only to all local services with `broker.broadcastLocal` method.
+## 本地广播事件
+你可以使用`broker.broadcastLocal`方法将广播事件只发送给本地的所有服务。
 ```js
 broker.broadcastLocal("config.changed", config);
 ```
 
-# Subscribe to events
+# 订阅事件
 
-The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
+`v0.14`版本支持基于上下文的事件处理器。 如果你想在使用事件驱动架构的时候追踪你的事件，事件上下文会非常有用。 你要是熟悉[行为上下文](context.html)（Action Context）你会觉得很容易上手。 The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
 
 {% note info Legacy event handlers %}
 
