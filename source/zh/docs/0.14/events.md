@@ -12,7 +12,7 @@
 > **示例：** 假设你拥有两个主要服务。 `用户` （users）& `支付`（payments）。 两个服务都订阅（subscribe）了`user.created`事件。 你启动了3个`用户`服务的实例和2个`支付`服务的实例。 当你发送一个`user.created`事件给这两个服务时，不论是`用户`服务还是`支付`服务，都只会有一个实例会接收到这个事件。
 
 <div align="center">
-    <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
+    <img src="assets/balanced-events.gif" alt="均衡事件图" />
 </div>
 
 组名默认是服务名，但是你可以在服务中的事件定义里覆盖它。
@@ -54,7 +54,7 @@ broker.emit("user.created", user, ["mail", "payments"]);
 与均衡事件不同的是，广播事件会发送到所有可以用的本地或者远程服务。 这些服务的每个实例都会接收到这个广播事件。
 
 <div align="center">
-    <img src="assets/broadcast-events.gif" alt="Broadcast events diagram" />
+    <img src="assets/broadcast-events.gif" alt="广播事件图" />
 </div>
 
 你可以使用`broker.broadcast`方法去发送一个广播事件。
@@ -243,58 +243,58 @@ module.exports = {
 中介会在所有本地服务停止（stopped）并且调用`broker.stop()`时，只发送一次这个事件。
 
 ## `$transporter.connected`
-The transporter sends this event once the transporter is connected.
+推送系统（Transporter）连接成功时会发送一次这个事件。
 
 ## `$transporter.disconnected`
-The transporter sends this event once the transporter is disconnected.
+推送系统（Transporter）断开连接后时会发送一次这个事件。
 
 ## `$broker.error`
-The broker emits this event when an error occurs in the [broker](broker.html). **Event payload**
+当[broker](broker.html)发生错误时中介会发送这个事件。 **事件参数**（Event payload）
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "broker" // Name of the module where the error happened
-  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+  "module": "broker" // 发生错误的模块名称。
+  "type": "error-type" // 错误类型。 完整的错误类型： https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
 
 ## `$transit.error`
-The broker emits this event when an error occurs in the transit module. **Event payload**
+当传输模块（Transit Module）发生错误时，中介会发送这个事件。 **事件参数**（Event payload）
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
-  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+  "module": "transit" // 发生错误的模块名称。
+  "type": "error-type" // 错误类型。 完整的错误类型： https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
 
 ## `$transporter.error`
-The broker emits this event when an error occurs in the [transporter](networking.html#Transporters) module. **Event payload**
+当[推送系统](networking.html#Transporters)（Transporter）模块发生错误时中介会发送这个事件。 **事件参数**（Event payload）
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
-  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+  "module": "transit" // 发生错误的模块名称。
+  "type": "error-type" // 错误类型。 完整的错误类型： https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
 
 ## `$cacher.error`
-The broker emits this event when an error occurs in the [cacher](caching.html) module. **Event payload**
+当[缓存器](caching.html)（Cacher）模块发生错误时中介会发送这个事件。 **事件参数**（Event payload）
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
-  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+  "module": "transit" // 发生错误的模块名称。
+  "type": "error-type" // 错误类型。 完整的错误类型： https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
 
 ## `$discoverer.error`
-The broker emits this event when an error occurs in the [discoverer](registry.html) module. **Event payload**
+当[服务发现](registry.html)（Discoverer）模块发生错误时中介会发送这个事件。 **事件参数**（Event payload）
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
-  "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
+  "module": "transit" // 发生错误的模块名称。
+  "type": "error-type" // 错误类型。 完整的错误类型： https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
 
