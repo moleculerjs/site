@@ -79,18 +79,18 @@ broker.broadcastLocal("config.changed", config);
 
 # 订阅事件
 
-`v0.14`版本支持基于上下文（Context）的事件处理器（Event handlers）。 如果你想在使用事件驱动架构的时候追踪你的事件，事件上下文会非常有用。 你要是熟悉[行为上下文](context.html)（Action Context）你会觉得很容易上手。 事件上下文和行为上下文非常相似，除了一些只有事件具有的相关属性（Properties）。 [Check the complete list of properties](context.html)
+`v0.14`版本支持基于上下文（Context）的事件处理器（Event handlers）。 如果你想在使用事件驱动架构的时候追踪你的事件，事件上下文会非常有用。 你要是熟悉[行为上下文](context.html)（Action Context）你会觉得很容易上手。 事件上下文和行为上下文非常相似，除了一些只有事件具有的相关属性（Properties）。 [查看事件属性的完整列表](context.html)
 
-{% note info Legacy event handlers %}
+{% note info Legacy event handlers %} 过时的事件处理器
 
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers:
-- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context.
-- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
-- You can also force the usage of the new signature by setting `context: true` in the event declaration
+你没必要去重写所有已有的事件处理器，因为Moleculer仍然支持过时的事件处理写法`"user.created"(payload) { ... }`. Moleculer 能够识别事件处理器不同的写法：
+- 如果它发现是`"user.created"(ctx) { ... }`这样的写法, 它将会使用事件上下文调用它。
+- 相反，如果是`"user.created"(payload, sender, eventName, ctx) {...}`这样的写法，它会使用旧的参数形式调用它，旧的参数里第4个参数会变成事件上下文。
+- 你也可以在事件声明的地方，通过设置`context: true`强制使用新的写法。
 
 {% endnote %}
 
-**Context-based event handler & emit a nested event**
+**基于上下文的事件处理器& 发送一个嵌套事件**
 ```js
 module.exports = {
     name: "accounts",
@@ -99,13 +99,13 @@ module.exports = {
             console.log("Payload:", ctx.params);
             console.log("Sender:", ctx.nodeID);
             console.log("Metadata:", ctx.meta);
-            console.log("The called event name:", ctx.eventName);
+            console.log("被调用的事件名:", ctx.eventName);
 
             ctx.emit("accounts.created", { user: ctx.params.user });
         },
 
         "user.removed": {
-            // Force to use context based signature
+            // 强制使用基于上下文的写法
             context: true,
             handler(other) {
                 console.log(`${this.broker.nodeID}:${this.fullName}: Event '${other.eventName}' received. Payload:`, other.params, other.meta);
@@ -116,22 +116,22 @@ module.exports = {
 ```
 
 
-Subscribe to events in ['events' property of services](services.html#events). Use of wildcards (`?`, `*`, `**`) is available in event names.
+在[服务的'events'属性](services.html#events)里订阅事件。 事件名可以使用通配符(`?`, `*`, `**`)。
 
 ```js
 module.exports = {
     events: {
-        // Subscribe to `user.created` event
+        // 订阅 `user.created` 事件
         "user.created"(ctx) {
             console.log("User created:", ctx.params);
         },
 
-        // Subscribe to all `user` events, e.g. "user.created", or "user.removed"
+        // 订阅所有`user`事件，例如"user.created"或者"user.removed"
         "user.*"(ctx) {
             console.log("User event:", ctx.params);
         }
-        // Subscribe to every events
-        // Legacy event handler signature with context
+        // 订阅所有事件
+        // 带有上下文的过时写法
         "**"(payload, sender, event, ctx) {
             console.log(`Event '${event}' received from ${sender} node:`, payload);
         }
@@ -139,8 +139,8 @@ module.exports = {
 }
 ```
 
-## Event parameter validation
-Similar to action parameter validation, the event parameter validation is supported. Like in action definition, you should define `params` in event definition and the built-in `Validator` validates the parameters in events.
+## 事件参数验证（Event parameter validation）
+与操作参数验证相似，事件也支持参数验证。 如同行为定义一样，你应该在事件定义中定义`params`，并且通过内置的`Validator`在事件中验证参数。
 
 ```js
 // mailer.service.js
@@ -148,7 +148,7 @@ module.exports = {
     name: "mailer",
     events: {
         "send.mail": {
-            // Validation schema
+            // 验证 schema
             params: {
                 from: "string|optional",
                 to: "email",
@@ -161,86 +161,86 @@ module.exports = {
     }
 };
 ```
-> The validation errors are not sent back to the caller, they are logged or you can catch them with the new [global error handler](broker.html#Global-error-handler).
+> 验证错误不会发送给调用者，它们会被写进日志，或者你也可以通过[全局错误处理器](broker.html#Global-error-handler)（global error handler）捕获这些错误。
 
-# Internal events
-The broker broadcasts some internal events. These events always starts with `$` prefix.
+# 内置事件（Internal events）
+中介可以广播一些内置事件。 这些内置事件都以`$`前缀开头。
 
 ## `$services.changed`
-The broker sends this event if the local node or a remote node loads or destroys services.
+中介会在本地或远程节点销毁和加载服务的时候发送这个事件。
 
-**Payload**
+**参数**
 
-| Name           | Type      | 说明                               |
-| -------------- | --------- | -------------------------------- |
-| `localService` | `Boolean` | True if a local service changed. |
+| Name           | Type      | 说明               |
+| -------------- | --------- | ---------------- |
+| `localService` | `Boolean` | 当本地服务改变的时候为True。 |
 
 ## `$circuit-breaker.opened`
-The broker sends this event when the circuit breaker module change its state to `open`.
+中介会在熔断器（Circuit Breaker）模块状态变成`open`的时候发送这个事件。
 
-**Payload**
+**参数**
 
-| 名称         | 类型       | 说明                |
-| ---------- | -------- | ----------------- |
-| `nodeID`   | `String` | Node ID           |
-| `action`   | `String` | Action name       |
-| `failures` | `Number` | Count of failures |
+| 名称         | 类型       | 说明        |
+| ---------- | -------- | --------- |
+| `nodeID`   | `String` | Node ID   |
+| `action`   | `String` | Action 名称 |
+| `failures` | `Number` | 失败次数      |
 
 
 ## `$circuit-breaker.half-opened`
-The broker sends this event when the circuit breaker module change its state to `half-open`.
+中介会在熔断器（Circuit Breaker）模块状态变成`half-open`的时候发送这个事件。
 
-**Payload**
+**参数**
 
-| 名称       | 类型       | 描述          |
-| -------- | -------- | ----------- |
-| `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| 名称       | 类型       | 描述        |
+| -------- | -------- | --------- |
+| `nodeID` | `String` | Node ID   |
+| `action` | `String` | Action 名称 |
 
 ## `$circuit-breaker.closed`
-The broker sends this event when the circuit breaker module change its state to `closed`.
+中介会在熔断器（Circuit Breaker）模块状态变成`closed`的时候发送这个事件。
 
-**Payload**
+**参数**
 
 | Name     | Type     | Description |
 | -------- | -------- | ----------- |
 | `nodeID` | `String` | Node ID     |
-| `action` | `String` | Action name |
+| `action` | `String` | Action 名称   |
 
 ## `$node.connected`
-The broker sends this event when a node connected or reconnected.
+中介会在节点连接成功和重连成功的时候发送这个事件。
 
-**Payload**
+**参数**
 
-| Name          | Type      | 描述               |
-| ------------- | --------- | ---------------- |
-| `node`        | `节点`      | Node info object |
-| `reconnected` | `Boolean` | Is reconnected?  |
+| Name          | Type      | 描述          |
+| ------------- | --------- | ----------- |
+| `node`        | `节点`      | 节点信息的Object |
+| `reconnected` | `Boolean` | 是不是重连？      |
 
 ## `$node.updated`
-The broker sends this event when it has received an INFO message from a node, (i.e. a service is loaded or destroyed).
+当经纪收到来自节点的 INFO 消息时(即服务已加载或销毁)，它会发送此事件。
 
-**Payload**
+**参数**
 
-| 名字     | Type | 描述               |
-| ------ | ---- | ---------------- |
-| `node` | `节点` | Node info object |
+| 名字     | Type | 描述          |
+| ------ | ---- | ----------- |
+| `node` | `节点` | 节点信息的Object |
 
 ## `$node.disconnected`
-The broker sends this event when a node disconnected (gracefully or unexpectedly).
+中介会在节点断开连接时（不论正常或者异常）发送这个事件。
 
-**Payload**
+**参数**
 
-| 名字           | Type      | 描述                                                                                  |
-| ------------ | --------- | ----------------------------------------------------------------------------------- |
-| `node`       | `节点`      | Node info object                                                                    |
-| `unexpected` | `Boolean` | `true` - Not received heartbeat, `false` - Received `DISCONNECT` message from node. |
+| 名字           | Type      | 描述                                                               |
+| ------------ | --------- | ---------------------------------------------------------------- |
+| `node`       | `节点`      | 节点信息的Object                                                      |
+| `unexpected` | `Boolean` | `true` - 没有接收到心跳（Heartbeat）, `false` - 接收到从节点发出的`DISCONNECT` 消息。 |
 
 ## `$broker.started`
-The broker sends this event once `broker.start()` is called and all local services are started.
+中介会在所有本地服务启动（started）并且调用`broker.start()`时，只发送一次这个事件。
 
 ## `$broker.stopped`
-The broker sends this event once `broker.stop()` is called and all local services are stopped.
+中介会在所有本地服务停止（stopped）并且调用`broker.stop()`时，只发送一次这个事件。
 
 ## `$transporter.connected`
 The transporter sends this event once the transporter is connected.
