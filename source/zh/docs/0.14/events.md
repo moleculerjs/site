@@ -1,15 +1,15 @@
-标题：事件
+标题：事件（Events）
 ---
-Broker内置事件总线，支持[事件驱动架构](http://microservices.io/patterns/data/event-driven-architecture.html)，可将事件发送到本地和远程服务。
+中介（Broker）内置事件总线，支持[事件驱动架构](http://microservices.io/patterns/data/event-driven-architecture.html)（Event-driven architecture），可将事件发送到本地和远程服务。
 
 {% note info %}
 需要注意的是，这些内建事件是即发即弃（发送出去就没了）的，假设给一个离线的服务发送事件，这个事件发送出去就会丢失。 关于持久化，想要实现耐用且可靠（不会丢失）的事件可以查看[moleculer-channels](https://github.com/moleculerjs/moleculer-channels)。
 {% endnote %}
 
-# 均衡事件
-事件监听器被排列到逻辑组。 这意味着在每个组中只触发一个监听器。
+# 均衡事件（Balanced events）
+事件监听器被分成了逻辑组（Groups）。 这意味着在每个组中只触发一个监听器。
 
-> **示例：** 假设你拥有两个主要服务。 `用户` & `支付`。 两个服务都订阅了`user.created`事件。 你启动了3个`用户`服务的实例和2个`支付`服务的实例。 当你发送一个`user.created`事件给这两个服务时，不论是`用户`服务还是`支付`服务，都只会有一个实例会接收到这个事件。
+> **示例：** 假设你拥有两个主要服务。 `用户` （users）& `支付`（payments）。 两个服务都订阅（subscribe）了`user.created`事件。 你启动了3个`用户`服务的实例和2个`支付`服务的实例。 当你发送一个`user.created`事件给这两个服务时，不论是`用户`服务还是`支付`服务，都只会有一个实例会接收到这个事件。
 
 <div align="center">
     <img src="assets/balanced-events.gif" alt="Balanced events diagram" />
@@ -50,7 +50,7 @@ broker.emit("user.created", user);
 broker.emit("user.created", user, ["mail", "payments"]);
 ```
 
-# 广播事件
+# 广播事件（Broadcast event）
 与均衡事件不同的是，广播事件会发送到所有可以用的本地或者远程服务。 这些服务的每个实例都会接收到这个广播事件。
 
 <div align="center">
@@ -79,7 +79,7 @@ broker.broadcastLocal("config.changed", config);
 
 # 订阅事件
 
-`v0.14`版本支持基于上下文的事件处理器。 如果你想在使用事件驱动架构的时候追踪你的事件，事件上下文会非常有用。 你要是熟悉[行为上下文](context.html)（Action Context）你会觉得很容易上手。 The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
+`v0.14`版本支持基于上下文（Context）的事件处理器（Event handlers）。 如果你想在使用事件驱动架构的时候追踪你的事件，事件上下文会非常有用。 你要是熟悉[行为上下文](context.html)（Action Context）你会觉得很容易上手。 事件上下文和行为上下文非常相似，除了一些只有事件具有的相关属性（Properties）。 [Check the complete list of properties](context.html)
 
 {% note info Legacy event handlers %}
 
