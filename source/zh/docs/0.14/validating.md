@@ -96,9 +96,9 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 {% endnote %}
 
 #### 异步自定义验证器 （Async custom validator）
-FastestValidator（`>= v1.11.0`）支持自定义异步验证器，这意味着您可以[为自定义验证器函数传递元数据（Metadata）](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators)。 在Moleculer里，FastestValidator将`ctx`作为元数据（Metadata）传递。 这意味着您可以访问当前上下文（Context）、服务（service）、中介（broker）。 这允许您在自定义检查器函数中进行异步调用（例如调用另一个服务）。 To enable it you must set `useNewCustomCheckerFunction` to `true` in `moleculer.config.js`
+FastestValidator（`>= v1.11.0`）支持自定义异步验证器，这意味着您可以[为自定义验证器函数传递元数据（Metadata）](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators)。 在Moleculer里，FastestValidator将`ctx`作为元数据（Metadata）传递。 这意味着您可以访问当前上下文（Context）、服务（service）、中介（broker）。 这允许您在自定义检查器函数中进行异步调用（例如调用另一个服务）。 要启用它，您必须在`moleculer.config.js`中将`useNewCustomCheckerFunction`设置为`true`。
 
-**Enabling custom async validation**
+**启用自定义异步验证**
 ```js
 //moleculer.config.js
 module.exports = {
@@ -114,7 +114,7 @@ module.exports = {
 }
 ```
 
-**Using custom async validation**
+**使用自定义异步验证**
 ```js
 // posts.service.js
 module.exports = {
