@@ -1,9 +1,9 @@
-title: Clustering
+title: 集群化（Clustering）
 ---
-Moleculer framework supports several software architectures.
+Moleculer框架支持多种软件架构。
 
-## Monolith architecture
-In this version, all services are running on the same node like a monolith. There is no network latency and no transporter module. _The local calls are the fastest._
+## 单体架构（Monolith Architecture）
+在这个版本中，所有服务都在同一个节点上运行，就像单个个体一样。 There is no network latency and no transporter module. _The local calls are the fastest._
 
 ![Monolith architecture](assets/architectures/monolith.svg)
 
