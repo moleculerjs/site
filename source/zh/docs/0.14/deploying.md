@@ -1,19 +1,19 @@
-title: Deploying
+title: 部署（Deploying）
 ---
 
-## Docker deployment
-The example below shows how to use [moleculer-runner](runner.html) and Docker to deploy Moleculer services across multiple containers.
+## Docker 部署
+下面的示例展示了如何使用[moleculer-runner](runner.html)和Docker在多个容器中部署Moleculer服务。
 
 {% note info %}
-Note that moleculer-runner is capable of reading environment variables, which are heavily used in Docker deployments. [More info about runner's configuration loading logic](runner.html#Configuration-loading-logic).
+请注意，moleculer-runner能够读取环境变量，这些变量在Docker部署中被大量使用。 [有关Runner配置加载逻辑的更多信息。](runner.html#Configuration-loading-logic)
 {% endnote %}
 
-> The Docker files shown here are from [moleculer-demo](usage.html#Create-a-Moleculer-project) project.
+> 这里显示的Docker文件来自[moleculer-demo](usage.html#Create-a-Moleculer-project)项目。
 
-> For mode detailed info about Docker and Kubernetes please check the [docker demo](https://github.com/moleculerjs/docker-demo) repository.
+> 有关Docker和Kubernetes的更详细信息，请查看[docker demo](https://github.com/moleculerjs/docker-demo)仓库。
 
 ### Dockerfile
-Dockerfile to run Moleculer services
+使用Dockerfile运行Moleculer服务
 
 ```docker
 FROM node:current-alpine
@@ -33,21 +33,21 @@ CMD ["npm", "start"]
 ```
 
 ### Docker Compose
-Docker compose files to run Moleculer services with NATS & Traefik (load balancing the API Gateway)
+使用NATS和Traefik（负载平衡API网关）运行Moleculer服务的Docker compose文件
 
-Set the necessary environment variables. **docker-compose.env**
+设置必要的环境变量 **docker-compose.env**
 ```bash
 NAMESPACE=
 LOGGER=true
 LOGLEVEL=info
-SERVICEDIR=services # Inform moleculer runner about the location of service files
+SERVICEDIR=services # 通知moleculer runner服务文件的位置
 
-TRANSPORTER=nats://nats:4222 # Set transporter in all containers
-MONGO_URI=mongodb://mongo/project-demo # Set MongoDB URI
+TRANSPORTER=nats://nats:4222 # 在所有容器中设置transporter 
+MONGO_URI=mongodb://mongo/project-demo # 设置MongoDB URI
 
 ```
 
-Configure the containers. **docker-compose.yml**
+配置容器。 **docker-compose.yml**
 ```yaml
 version: "3.3"
 
@@ -59,7 +59,7 @@ services:
     image: project-demo
     env_file: docker-compose.env
     environment:
-      SERVICES: api # Moleculer Runner will start only the 'api' service in this container
+      SERVICES: api # Moleculer Runner在此容器中只会启动’api’服务
       PORT: 3000    # Port of API gateway
     depends_on:
       - nats
@@ -76,7 +76,7 @@ services:
     image: project-demo
     env_file: docker-compose.env
     environment:
-      SERVICES: greeter # Moleculer Runner will start only the 'greeter' service in this container
+      SERVICES: greeter # Moleculer Runner在此容器中只会启动’greeter’服务
     depends_on:
       - nats
     networks:
@@ -88,7 +88,7 @@ services:
     image: project-demo
     env_file: docker-compose.env
     environment:
-      SERVICES: products # Moleculer Runner will start only the 'products' service in this container
+      SERVICES: products # Moleculer Runner在此容器中只会启动’products’服务
     depends_on:
       - mongo
       - nats
@@ -110,7 +110,7 @@ services:
   traefik:
     image: traefik:v2.1
     command:
-      - "--api.insecure=true" # Don't do that in production!
+      - "--api.insecure=true" # 请勿在生产环境中设置
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
     ports:
@@ -134,7 +134,7 @@ volumes:
 $ docker-compose up -d
 ```
 
-Access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
+使用`http://<docker-host>:3000/`访问你的应用。 打开Traefik仪表盘页面`http://<docker-host>:3001/`
 
-## Kubernetes deployment
-Moleculer community members are [working on](https://github.com/moleculerjs/moleculer/issues/512) Kubernetes integration. You can check [dkuida](https://github.com/dkuida)'s [step by step tutorial](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07), [lehno](https://github.com/lehno)'s [code samples](https://github.com/lehno/moleculer-k8s-examples) and [tobydeh](https://github.com/tobydeh)'s [deployment guide](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5).
+## Kubernetes 部署
+Moleculer社区成员[正在开展](https://github.com/moleculerjs/moleculer/issues/512)Kubernetes集成的工作。 您可以查看[dkuida](https://github.com/dkuida)的[分步教程](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07)，[lehno](https://github.com/lehno)的[代码示例](https://github.com/lehno/moleculer-k8s-examples)和[tobydeh](https://github.com/tobydeh)的[部署指南](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5)。
