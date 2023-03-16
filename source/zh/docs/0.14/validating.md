@@ -95,8 +95,8 @@ broker.call("say.hello", { name: "Walter" }).then(console.log)
 在[库文档](https://github.com/icebob/fastest-validator#readme)中查找更多关于验证模型的信息
 {% endnote %}
 
-#### Async custom validator
-FastestValidator (`>= v1.11.0`) supports async custom validators, meaning that you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). In Moleculer, the FastestValidator passes the `ctx` as metadata. It means you can access the current context, service, broker. This allows you to make async calls (e.g calling another service) in custom checker functions. To enable it you must set `useNewCustomCheckerFunction` to `true` in `moleculer.config.js`
+#### 异步自定义验证器 （Async custom validator）
+FastestValidator（`>= v1.11.0`）支持自定义异步验证器，这意味着您可以[为自定义验证器函数传递元数据（Metadata）](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators)。 在Moleculer里，FastestValidator将`ctx`作为元数据（Metadata）传递。 这意味着您可以访问当前上下文（Context）、服务（service）、中介（broker）。 这允许您在自定义检查器函数中进行异步调用（例如调用另一个服务）。 To enable it you must set `useNewCustomCheckerFunction` to `true` in `moleculer.config.js`
 
 **Enabling custom async validation**
 ```js
