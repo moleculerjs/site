@@ -85,7 +85,6 @@ sidebar:
     api_service: Сервис
     api_context: Контекст
     api_protocol: Протокол
-    take_survey: ✨Пройдите наш опрос
 modules:
   name: Название
   description: Описание
