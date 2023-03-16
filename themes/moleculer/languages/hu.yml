@@ -85,7 +85,6 @@ sidebar:
     api_service: Szolgáltatás
     api_context: Kontextus
     api_protocol: Protocol
-    take_survey: ✨Töltsd ki kérdőívünket
 modules:
   name: Név
   description: Leírás
