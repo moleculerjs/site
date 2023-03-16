@@ -85,7 +85,6 @@ sidebar:
     api_service: Serviço
     api_context: Context
     api_protocol: Protocolo
-    take_survey: ✨Faça nossa pesquisa
 modules:
   name: Nome
   description: Descrição
