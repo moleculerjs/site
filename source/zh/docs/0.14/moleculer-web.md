@@ -1,21 +1,21 @@
 title: API Gateway
 ---
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
-The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
+[Moleculer-web](https://github.com/moleculerjs/moleculer-web)是Moleculer框架的官方API网关服务。 使用它将您的服务发布为RESTful API。
 
 ## 特性概览
-* support HTTP & HTTPS
-* serve static files
-* multiple routes
-* support Connect-like middlewares in global-level, route-level and alias-level.
-* alias names (with named parameters & REST routes)
-* whitelist
-* multiple body parsers (json, urlencoded)
-* CORS headers
-* Rate limiter
-* before & after call hooks
-* Buffer & Stream handling
-* middleware mode (use as a middleware with Express)
+* 支持 HTTP & HTTPS
+* 提供静态文件服务
+* 多样的路由
+* 支持在全局级别、路由级别和别名级别使用类似于Connect的中间件。
+* 路由别名（支持命名参数和REST路由）
+* 白名单
+* 多种Body Parsers （Json，Urlencoded）
+* 跨域（CORS headers）
+* 访问频率限制
+* before & after 钩子（Hook）方法
+* Buffer & Stream 处理
+* 中间件（Middleware）模式（类似Express中间件）
 
 {% note info Try it in your browser! %}
 [![Edit moleculer-web](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/moleculerjs/sandbox-moleculer-api-routing/tree/master/?fontsize=14)
@@ -28,8 +28,8 @@ npm i moleculer-web
 
 ## 使用
 
-### Run with default settings
-This example uses API Gateway service with default settings. You can access all services (including internal `$node.`) via `http://localhost:3000/`
+### 运行默认设置
+这个示例使用默认设置的API Gateway服务。 您可以通过`http://localhost:3000/`访问所有服务（包括内部的`$node.`）。
 
 ```js
 const { ServiceBroker } = require("moleculer");
@@ -37,22 +37,22 @@ const ApiService = require("moleculer-web");
 
 const broker = new ServiceBroker();
 
-// Load API Gateway
+// 加载 API 网关服务
 broker.createService(ApiService);
 
-// Start server
+// 启动服务器
 broker.start();
 ```
 
-**Example URLs:**
-- Call `test.hello` action: `http://localhost:3000/test/hello`
-- Call `math.add` action with params: `http://localhost:3000/math/add?a=25&b=13`
+**URLs 示例:**
+- 调用`test.hello` action: `http://localhost:3000/test/hello`
+- 使用参数调用`math.add` action: `http://localhost:3000/math/add?a=25&b=13`
 
-- Get health info of node: `http://localhost:3000/~node/health`
-- List all actions: `http://localhost:3000/~node/actions`
+- 获取节点的健康信息：`http://localhost:3000/~node/health`
+- 列出所有Action：`http://localhost:3000/~node/actions`
 
-## Whitelist
-If you don't want to publish all actions, you can filter them with whitelist option. Use match strings or regexp in list. _To enable all actions, use `"**"` item._
+## 白名单（Whitelist）
+如果您不想发布所有的action，可以使用白名单选项进行过滤。 在列表中使用匹配字符串或正则表达式。 _要启用所有action，请使用` "**" `。_
 
 ```js
 broker.createService({
