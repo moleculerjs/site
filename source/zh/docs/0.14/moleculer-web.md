@@ -1,4 +1,4 @@
-title: API Gateway
+title: API网关（API Gateway）
 ---
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
 [Moleculer-web](https://github.com/moleculerjs/moleculer-web)是Moleculer框架的官方API网关服务。 使用它将您的服务发布为RESTful API。
@@ -78,7 +78,7 @@ broker.createService({
 ## 别名（Aliases）
 你可以使用别名代替动作名称。 你也可以指定方法。 否则它将处理每一个方法类型。
 
-可以在别名中使用命名参数。 Named parameters are defined by prefixing a colon to the parameter name (`:name`).
+可以在别名中使用命名参数。 命名参数是通过在参数名称前加冒号 (`:name`).来定义的。
 
 ```js
 broker.createService({
@@ -87,14 +87,14 @@ broker.createService({
     settings: {
         routes: [{
             aliases: {
-                // Call `auth.login` action with `GET /login` or `POST /login`
+                // 使用 `GET /login` 或 `POST /login` 调用 `auth.login` 动作
                 "login": "auth.login",
 
-                // Restrict the request method
+                // 限制请求方法
                 "POST users": "users.create",
 
-                // The `name` comes from named param. 
-                // You can access it with `ctx.params.name` in action
+                // `name` 来自命名参数。 
+                // 您可以在动作中使用 `ctx.params.name` 访问它。
                 "GET greeter/:name": "test.greeter",
             }
         }]
@@ -103,14 +103,14 @@ broker.createService({
 ```
 
 {% note info %}
-The named parameter is handled with [path-to-regexp](https://github.com/pillarjs/path-to-regexp) module. Therefore you can use [optional](https://github.com/pillarjs/path-to-regexp#optional) and [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) parameters, as well.
+命名参数使用[path-to-regexp](https://github.com/pillarjs/path-to-regexp) 模块来处理。 因此，您可以使用 [optional](https://github.com/pillarjs/path-to-regexp#optional) 和 [repeated](https://github.com/pillarjs/path-to-regexp#zero-or-more) 参数。
 {% endnote %}
 
 {% note info Aliases Action%}
-The API gateway implements `listAliases` [action](actions.html) that lists the HTTP endpoints to actions mappings.
+API网关实现了 `listAliases` [action](actions.html) ，可以列出HTTP端点（如“GET users”）到动作映射。
 {% endnote %}
 
-You can also create RESTful APIs.
+你也可以创建RESTful API。
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -129,7 +129,7 @@ broker.createService({
 });
 ```
 
-For REST routes you can also use this simple shorthand alias:
+对于REST路由，您还可以使用这个简单的简写别名：
 ```js
 broker.createService({
     mixins: [ApiService],
@@ -144,13 +144,13 @@ broker.createService({
 });
 ```
 {% note warn %}
-To use this shorthand alias, create a service which has `list`, `get`, `create`, `update` and `remove` actions.
+要使用这个简写别名，需要创建一个具有 `list`, `get`, `create`, `update` 和`remove` 操作的服务。
 {% endnote %}
 
-You can make use of custom functions within the declaration of aliases. In this case, the handler's signature is `function (req, res) {...}`.
+您可以在别名声明中使用自定义函数。 在这种情况下，处理程序的写法是 `function (req, res) {...}`。
 
 {% note info %}
-Please note that Moleculer uses native Node.js [HTTP server](https://nodejs.org/api/http.html)
+请注意，Moleculer使用原生的Node.js [HTTP server](https://nodejs.org/api/http.html)。
 {% endnote %}
 
 ```js
@@ -173,25 +173,25 @@ broker.createService({
 ```
 
 {% note info %}
-There are some internal pointer in `req` & `res` objects:
-* `req.$ctx` are pointed to request context.
-* `req.$service` & `res.$service` are pointed to this service instance.
-* `req.$route` & `res.$route` are pointed to the resolved route definition.
-* `req.$params` is pointed to the resolved parameters (from query string & post body)
-* `req.$alias` is pointed to the resolved alias definition.
-* `req.$action` is pointed to the resolved action.
-* `req.$endpoint` is pointed to the resolved action endpoint.
-* `req.$next` is pointed to the `next()` handler if the request comes from ExpressJS.
+`req` & `res` 对象中有一些内部引用：
+* `req.$ctx` 指向请求上下文。
+* `req.$service` 和 `res.$service` 指向此服务实例。
+* `req.$route` 和 `res.$route` 指向已解析的路由定义。
+* `req.$params` 指向已解析的参数（来自Query String和POST Body）。
+* `req.$alias` 指向已解析的别名定义。
+* `req.$action` 指向已解析的动作。
+* `req.$endpoint` 指向已解析的动作端点。
+* 如果请求来自ExpressJS，则`req.$next` 指向`next()`处理程序。
 
-E.g.: To access the broker, use `req.$service.broker`.
+例如：要访问broker，请使用`req.$service.broker`。
 {% endnote %}
 
-### Mapping policy
-The `route` has a `mappingPolicy` property to handle routes without aliases.
+### 映射策略（Mapping policy）
+`route`有一个 `mappingPolicy` 属性，用于处理没有别名的路由。
 
-**Available options:**
-- `all` - enable to request all routes with or without aliases (default)
-- `restrict` - enable to request only the routes with aliases.
+**可用选项：**
+- `all` - 允许请求所有带或不带别名的路由（默认值）
+- `restrict` - 仅允许请求带有别名的路由。
 
 ```js
 broker.createService({
@@ -207,10 +207,10 @@ broker.createService({
     }
 });
 ```
-You can't request the `/math.add` or `/math/add` URLs, only `POST /add`.
+你无法请求`/math.add` 或 `/math/add` URL，只能请求`POST /add`。
 
-### File upload aliases
-API Gateway has implemented file uploads. You can upload files as a multipart form data (thanks to [busboy](https://github.com/mscdex/busboy) library) or as a raw request body. In both cases, the file is transferred to an action as a `Stream`. In multipart form data mode you can upload multiple files, as well.
+### 文件上传别名
+API 网关已实现文件上传功能。 您可以将文件上传为多重表单（Multipart Form）数据（感谢[busboy](https://github.com/mscdex/busboy) 库）或原始请求体（request body）。 在两种情况下，文件都作为`Stream`传输到action中。 在多重表单数据模式下，您也可以上传多个文件。
 
 **示例**
 ```js
@@ -226,16 +226,16 @@ module.exports = {
                 path: "",
 
                 aliases: {
-                    // File upload from HTML multipart form
+                    // 从 HTML 多重表单上传文件
                     "POST /": "multipart:file.save",
 
-                    // File upload from AJAX or cURL
+                    // 从 AJAX 或 cURL 上传文件
                     "PUT /:id": "stream:file.save",
 
-                    // File upload from HTML form and overwrite busboy config
+                    // 从 HTML 表单上传文件并覆盖 busboy 配置
                     "POST /multi": {
                         type: "multipart",
-                        // Action level busboy config
+                        // action级别的 busboy 配置
                         busboyConfig: {
                             limits: { files: 3 }
                         },
@@ -243,12 +243,12 @@ module.exports = {
                     }
                 },
 
-                // Route level busboy config.
-                // More info: https://github.com/mscdex/busboy#busboy-methods
+                // 路由级别的 busboy 配置。
+                // 更多信息：https://github.com/mscdex/busboy#busboy-methods
                 busboyConfig: {
                     limits: { files: 1 }
-                    // Can be defined limit event handlers
-                    // `onPartsLimit`, `onFilesLimit` or `onFieldsLimit`
+                    // 可以定义 limit 事件处理程序
+                    // `onPartsLimit`, `onFilesLimit` 或 `onFieldsLimit`
                 },
 
                 mappingPolicy: "restrict"
@@ -257,21 +257,21 @@ module.exports = {
     }
 });
 ```
-**Multipart parameters**
+**多重参数（Multipart parameters）**
 
-In order to access the files passed by multipart-form these specific fields can be used inside the action:
-- `ctx.params` is the Readable stream containing the file passed to the endpoint
-- `ctx.meta.$params` parameters from URL querystring
-- `ctx.meta.$multipart` contains the additional text form-data fields _must be sent before other files fields_.
+关于多重参数，为了访问通过多重表单传递的文件，可以在操作内部使用以下特定字段：
+- `ctx.params` 是包含传递到端点的文件的可读流。
+- `ctx.meta.$params` 包含 URL 查询字符串（querystring）的参数。
+- `ctx.meta.$multipart` 包含在_其他文件字段_之前必须发送的附加文本表单数据字段。
 
-### Auto-alias
-The auto-alias feature allows you to declare your route alias directly in your services. The gateway will dynamically build the full routes from service schema.
+### 自动别名（Auto-alias）
+自动别名功能允许您直接在服务中声明路由别名。 网关将从服务架构动态构建完整的路由。
 
 {% note info %}
-Gateway will regenerate the routes every time a service joins or leaves the network.
+网关将在每次服务加入或离开网络时重新生成路由。
 {% endnote %}
 
-Use `whitelist` parameter to specify services that the Gateway should track and build the routes.
+使用`whitelist` 参数来指定网关应追踪和构建路由的服务。
 
 **示例**
 ```js
@@ -307,21 +307,21 @@ module.exports = {
     version: 2,
 
     settings: {
-        // Base path
-        // rest: "posts/" // If you want to change the base 
-        // path with /api/posts instead 
-        // of /api/v2/posts, you can uncomment this line.
+        // 基础路径
+        // rest: "posts/" // 如果您想更改基础路径
+        // 例如更改为“/api/posts”
+        // 可以取消注释rest: "posts/"行。
     },
 
     actions: {
         list: {
-            // Expose as "/api/v2/posts/"
+            // 暴露为 "/api/v2/posts/"
             rest: "GET /",
             handler(ctx) {}
         },
 
         get: {
-            // Expose as "/api/v2/posts/:id"
+            // 暴露为 "/api/v2/posts/:id"
             rest: "GET /:id",
             handler(ctx) {}
         },
@@ -344,7 +344,7 @@ module.exports = {
 };
 ```
 
-**The generated aliases**
+**最终生成的别名**
 
 ```bash
     GET     /api/hi             => test.hello
@@ -355,14 +355,14 @@ module.exports = {
     DELETE  /api/v2/posts/:id   => v2.posts.remove
 ```
 
-**Service level rest parameters**
+**服务层次Rest参数**
 
-- **fullPath**, override all the path generated with a new custom one
-- **basePath**, path to the service, by default is the one declared in `settings.rest`
-- **path**, path to the action
-- **method**, method used to access the action
+- **fullPath**, 用一个新的自定义路径覆盖所有生成的路径
+- **basePath**, 服务的路径， 默认是在 `settings.rest`中声明的路径。
+- **path**, action的路径
+- **method**, 访问action的方法
 
-path is appended after the basePath The combination path+basePath it's not the same as using fullPath. For example:
+path被附加到basePath之后 path+basePath的组合与使用fullPath不同。 例如：
 
 ```js
 // posts.service.js
@@ -377,7 +377,7 @@ module.exports = {
 
     actions: {
         tags: {
-            // Expose as "/tags" instead of "/api/v2/posts/tags"
+            // 作为“/tags”公开，而不是“/api/v2/posts/tags”
             rest: [{
                 method: "GET",
                 fullPath: "/tags"
@@ -391,16 +391,16 @@ module.exports = {
 };
 ```
 
-Will create those endpoints:
+这将创建这些端点：
 
 ```bash
     GET     /tags
     GET     /api/my/awesome/tags
 ```
 
-fullPath ignores that prefix applied in the API gateway!
+fullPath忽略了API网关中应用的前缀！
 
-The *rest* param can be also be an array with elements with same structure discussed before. The can be applied both on settings and action level. For example:
+*rest* 参数也可以是一个数组，其中包含与之前讨论的结构相同的元素。 它们可以应用于settings和action级别。 例如：
 
 ```js
 // posts.service.js
@@ -423,7 +423,7 @@ module.exports = {
 };
 ```
 
-Produce those endpoints
+这将生成下列端点：
 
 ```bash
     GET     /api/my/awesome/posts/:id/  => posts.get
@@ -433,10 +433,10 @@ Produce those endpoints
 ```
 
 ## Parameters
-API gateway collects parameters from URL querystring, request params & request body and merges them. The results is placed to the `req.$params`.
+API网关从URL查询字符串（querystring）、请求参数（params）和请求正文（body ）中收集参数并合并它们。 结果放在`req.$params`种。
 
-### Disable merging
-To disable parameter merging set `mergeParams: false` in route settings. In this case the parameters is separated.
+### 禁用合并
+在路由setting中设置 `mergeParams: false` 来禁用参数合并。 In this case the parameters is separated.
 
 **示例**
 ```js
@@ -454,19 +454,19 @@ broker.createService({
 **Un-merged `req.$params`:**
 ```js
 {
-    // Querystring params
+    // 查询字符串参数（Querystring ）
     query: {
         category: "general",
     }
 
-    // Request body content
+    // 请求正文内容（Request body）
     body: {
         title: "Hello",
         content: "...",
         createdAt: 1530796920203
     },
 
-    // Request params
+    // 请求参数（params）
     params: {
         id: 5
     }
