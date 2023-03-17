@@ -63,11 +63,11 @@ broker.createService({
             path: "/api",
 
             whitelist: [
-                // Access any actions in 'posts' service
+                // 访问 'posts' 服务中的任何操作
                 "posts.*",
-                // Access call only the `users.list` action
+                // 仅访问 `users.list` 操作
                 "users.list",
-                // Access any actions in 'math' service
+                // 访问 'math' 服务中的任何操作
                 /^math\.\w+$/
             ]
         }]
@@ -75,10 +75,10 @@ broker.createService({
 });
 ```
 
-## Aliases
-You can use alias names instead of action names. You can also specify the method. Otherwise it will handle every method types.
+## 别名（Aliases）
+你可以使用别名代替动作名称。 你也可以指定方法。 否则它将处理每一个方法类型。
 
-Using named parameters in aliases is possible. Named parameters are defined by prefixing a colon to the parameter name (`:name`).
+可以在别名中使用命名参数。 Named parameters are defined by prefixing a colon to the parameter name (`:name`).
 
 ```js
 broker.createService({
