@@ -436,7 +436,7 @@ module.exports = {
 API网关从URL查询字符串（querystring）、请求参数（params）和请求正文（body ）中收集参数并合并它们。 结果放在`req.$params`种。
 
 ### 禁用合并
-在路由setting中设置 `mergeParams: false` 来禁用参数合并。 In this case the parameters is separated.
+在路由setting中设置 `mergeParams: false` 来禁用参数合并。 在这种情况下参数会被分开。
 
 **示例**
 ```js
@@ -451,7 +451,7 @@ broker.createService({
 });
 ```
 
-**Un-merged `req.$params`:**
+**未被合并到`req.$params`:**
 ```js
 {
     // 查询字符串参数（Querystring ）
@@ -473,15 +473,15 @@ broker.createService({
 }
 ```
 
-### Query string parameters
+### 查询字符串参数（Query string parameters）
 More information: https://github.com/ljharb/qs
 
-**Array parameters** URL: `GET /api/opt-test?a=1&a=2`
+**数组形式的参数** URL: `GET /api/opt-test?a=1&a=2`
 ```js
 a: ["1", "2"]
 ```
 
-**Nested objects & arrays** URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
+**嵌套对象和数组** URL: `GET /api/opt-test?foo[bar]=a&foo[bar]=b&foo[baz]=c`
 ```js
 foo: { 
     bar: ["a", "b"], 
