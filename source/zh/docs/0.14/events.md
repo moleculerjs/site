@@ -81,7 +81,7 @@ broker.broadcastLocal("config.changed", config);
 
 `v0.14`版本支持基于上下文（Context）的事件处理器（Event handlers）。 如果你想在使用事件驱动架构的时候追踪你的事件，事件上下文会非常有用。 你要是熟悉[行为上下文](context.html)（Action Context）你会觉得很容易上手。 事件上下文和行为上下文非常相似，除了一些只有事件具有的相关属性（Properties）。 [查看事件属性的完整列表](context.html)
 
-{% note info Legacy event handlers %} 过时的事件处理器
+{% note info Legacy event handlers %}
 
 你没必要去重写所有已有的事件处理器，因为Moleculer仍然支持过时的事件处理写法`"user.created"(payload) { ... }`. Moleculer 能够识别事件处理器不同的写法：
 - 如果它发现是`"user.created"(ctx) { ... }`这样的写法, 它将会使用事件上下文调用它。
