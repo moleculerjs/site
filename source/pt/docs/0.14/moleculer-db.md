@@ -110,6 +110,39 @@ Todos os adaptadores de banco de dados compartilham um conjunto comum de configu
 `idField` não funciona com o adaptador de Sequelize, pois você pode definir livremente seu próprio ID durante a criação do modelo.
 {% endnote %}
 
+## Personalização
+
+As with all mixins, the standard [merge algorithm](services.html#Merge-algorithm) allows you to override the defaults applied by this mixin. For example to disable an action you can set the action to `false` in your service.
+
+**Exemplo**
+```js
+"use strict";
+const { ServiceBroker } = require("moleculer");
+const DbService = require("moleculer-db");
+
+const broker = new ServiceBroker();
+
+broker.createService({
+    name: "db-with-hooks",
+
+    // Load DB actions
+    mixins: [DbService],
+
+    actions: {
+        // Disable remove action
+        remove: false,
+        // Make create and insert public instead of published
+        create: {
+            visibility: "public",
+        },
+        insert: {
+            visibility: "public",
+        }
+
+    }
+});
+```
+
 ## Ações
 
 Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.html) são [`métodos públicos`](actions.html#Action-visibility) e podem ser chamadas por outros serviços.
@@ -209,7 +242,7 @@ Obter entidade por ID.
 | `mapping`   | `Boolean`                  | -               | Converta o `Array` retornado para `Objet` onde a chave é o valor de `id`. |
 
 #### Resultados
-**Tipo:** `Object`, `Array.<Object>` - Entidade(s) encontrada(s).
+**Tipo:** `Objet`, `Array.<Object>` - Entidade(s) encontrada(s).
 
 
 ### `update`
@@ -442,9 +475,9 @@ Contagem de entidades removidas.
 
 ## Manipulação de dados
 
-Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados. Hooks só serão executados antes ou após ações. Se você precisar executar suas manipulações de dados antes ou após os métodos this._create(), this._update() ou this._remove(), você pode usar os [Eventos do ciclo de vida](moleculer-db.html#Lifecycle-entity-events)
+Você pode usar facilmente [hooks de ação](actions.html#Action-hooks) para modificar (por exemplo, adicionar timestamps, codificar senhas do usuário ou remover informações confidenciais) antes ou depois de salvar os dados no banco de dados. Hooks will only run before or after actions. If you need to run your data manipulations before or after the this._create(), this._update() or this._remove() methods, you can use the [Lifecycle events](moleculer-db.html#Lifecycle-entity-events)
 
-**Exemplo de hooks adicionando um timestamp e removendo dados confidenciais**
+**Example of hooks adding a timestamp and removing sensitive data**
 ```js
 "use strict";
 const { ServiceBroker } = require("moleculer");
@@ -502,33 +535,33 @@ broker.start()
 
 ```
 
-## Popular dados de tabelas relacionadas
-O serviço permite preencher facilmente os campos de outros serviços. Por exemplo: se você tem um campo `autor` na entidade `post`, você pode preencher com o serviço `usuários` usando o ID do autor. Se o campo é um `Array` de IDs, ele irá preencher todas as entidades através de apenas uma solicitação
+## Populating
+The service allows you to easily populate fields from other services. For example: If you have an `author` field in `post` entity, you can populate it with `users` service by ID of author. If the field is an `Array` of IDs, it will populate all entities via only one request
 
 
-**Exemplo de esquema de preenchimento**
+**Example of populate schema**
 ```js
 broker.createService({
     name: "posts",
     mixins: [DbService],
     settings: {
         populates: {
-            // Regra de preenchimento abreviada. Resolva os valores `voters` com a ação `users.get`.
+            // Shorthand populate rule. Resolve the `voters` values with `users.get` action.
             "voters": "users.get",
 
-            // Se o ID a ser preenchido estiver aninhado dentro do objeto, você pode simplesmente fornecer um caminho separado por pontos para preencher o ID.
+            // If the ID to populate is deep within the object, you can simply provide a dot-separated path to the ID to populate it.
             "liked.by": "users.get"
 
-            // Define os parâmetros da chamada da ação. Ele só receberá o nome de usuário & nome completo do autor.
+            // Define the params of action call. It will receive only with username & full name of author.
             "author": {
                 action: "users.get",
                 params: {
                     fields: "username fullName"
                 }
             },
-            // Caso o campo original não deva ser substituído pelos valores populados.  
-            // O campo reviewer será adicionado ao resultado contendo os valores 
-            // resolvidos pela ação "users.get" com base no campo reviewerId.
+            // In case the original field shouldn't be overwritten with the populated values.  
+            // The reviewer field will be added to the result containing the values 
+            // resolved by the "users.get" action based on the reviewerId field.
             "reviewer": {
                 field: "reviewerId",
                 action: "users.get",
@@ -556,7 +589,7 @@ broker.call("posts.find", { populate: ["author"]}).then(console.log);
 broker.call("posts.find", { populate: ["liked.by"]}).then(console.log);
 ```
 
-A população recursiva também é suportada. Por exemplo, se o serviço de usuários preencher um campo grupo:
+Recursive population is also supported. For example, if the users service populates a group field:
 
 ```js
 broker.createService({
@@ -570,7 +603,7 @@ broker.createService({
 });
 ```
 
-Então você pode preencher o grupo de um autor de publicação ou quem curtiu dessa forma:
+Then you can populate the group of a post author or liker like this:
 
 ```js
 //Recursive population
@@ -584,8 +617,8 @@ broker.call("posts.find", { populate: ["liked.by.group"]}).then(console.log);
 > O parâmetro `populate` está disponível nas ações `find`, `list` e `get`.
 
 
-## Ciclo de vida de uma entidade
-Há 6 eventos do ciclo de vida que são chamados quando as entidades são manipuladas.
+## Lifecycle entity events
+There are 6 lifecycle entity events which are called when entities are manipulated.
 
 ```js
 broker.createService({
@@ -632,8 +665,8 @@ broker.createService({
 
 > Por favor, note! Se você manipular várias entidades (updateMany, removeMany), o parâmetro `json` será um `number` em vez de entidades!
 
-## Estender com ações personalizadas
-Naturalmente você pode estender este serviço com suas ações personalizadas.
+## Extend with custom actions
+Naturally you can extend this service with your custom actions.
 
 ```js
 const DbService = require("moleculer-db");
@@ -667,9 +700,9 @@ module.exports = {
 ```
 
 
-## Adaptador Mongo [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
+## Mongo Adapter [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongo.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongo)
 
-Este adaptador é baseado no [MongoDB](http://mongodb.github.io/node-mongodb-native/).
+This adapter is based on [MongoDB](http://mongodb.github.io/node-mongodb-native/).
 
 ### Instalação
 
@@ -677,7 +710,7 @@ Este adaptador é baseado no [MongoDB](http://mongodb.github.io/node-mongodb-nat
 $ npm install moleculer-db moleculer-db-adapter-mongo --save
 ```
 {% note info Dependencies%}
-Para usar este adaptador, você precisa instalar o [MongoDB](https://www.mongodb.com/) no seu sistema.
+To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
 ### Utilização
@@ -714,13 +747,13 @@ broker.start()
 
 ### Opções
 
-**Exemplo com URI de conexão**
+**Example with connection URI**
 ```js
 new MongoDBAdapter("mongodb://localhost/moleculer-db")
 ```
 
 
-**Exemplo com URI de conexão & opções**
+**Example with connection URI & options**
 ```js
 new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
     keepAlive: 1
@@ -730,9 +763,9 @@ new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
 
 > Mais exemplos MongoDB podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongo/examples)
 
-## Adaptador Mongoose [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
+## Mongoose Adapter [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-mongoose.svg)](https://www.npmjs.com/package/moleculer-db-adapter-mongoose)
 
-Este adaptador é baseado em [Mongoose](https://mongoosejs.com/docs/).
+This adapter is based on [Mongoose](https://mongoosejs.com/docs/).
 
 ### Instalação
 
@@ -741,7 +774,7 @@ $ npm install moleculer-db moleculer-db-adapter-mongoose mongoose --save
 ```
 
 {% note info Dependencies%}
-Para usar este adaptador, você precisa instalar o [MongoDB](https://www.mongodb.com/) no seu sistema.
+To use this adapter you need to install [MongoDB](https://www.mongodb.com/) on you system.
 {% endnote %}
 
 ### Utilização
@@ -783,12 +816,12 @@ broker.start()
 
 ### Opções
 
-**Exemplo com URI de conexão**
+**Example with connection URI**
 ```js
 new MongooseAdapter("mongodb://localhost/moleculer-db")
 ```
 
-**Exemplo com URI e opções**
+**Example with URI and options**
 ```js
 new MongooseAdapter("mongodb://db-server-hostname/my-db", {
     user: process.env.MONGO_USERNAME,
@@ -799,13 +832,13 @@ new MongooseAdapter("mongodb://db-server-hostname/my-db", {
 
 ### Conectar a vários DBs
 
-Se seus serviços estão sendo executados em nós separados e você deseja conectar-se a vários bancos de dados, então você pode usar o `model` na sua definição de serviço. Por outro lado, se os seus serviços estão rodando em um único nó e você deseja conectar-se a vários bancos de dados, você deve definir o `schema` que fará várias conexões para você.
+If your services are running on separate nodes and you wish to connect to multiple databases then you can use `model` in your service definition. On the other hand, if your services are running on a single node and you wish to connect to multiple databases, you should define the `schema` that will make multiple connections for you.
 
 > Mais exemplos de Mongoose podem ser encontrados no [GitHub](https://github.com/moleculerjs/moleculer-db/tree/master/packages/moleculer-db-adapter-mongoose/examples)
 
-## Adaptador Sequelize [![Versão do NPM](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
+## Sequelize Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db-adapter-sequelize.svg)](https://www.npmjs.com/package/moleculer-db-adapter-sequelize)
 
-Adapter SQL (Postgres, MySQL, SQLite & MSSQL) para o serviço de BD Moleculer com [Sequelize](https://github.com/sequelize/sequelize).
+SQL adapter (Postgres, MySQL, SQLite & MSSQL) for Moleculer DB service with [Sequelize](https://github.com/sequelize/sequelize).
 
 ### Instalação
 
@@ -813,18 +846,18 @@ Adapter SQL (Postgres, MySQL, SQLite & MSSQL) para o serviço de BD Moleculer co
 $ npm install moleculer-db-adapter-sequelize --save
 ```
 
-Você tem que instalar pacotes adicionais para o servidor de banco de dados:
+You have to install additional packages for your database server:
 ```bash
-# Para SQLite
+# For SQLite
 $ npm install sqlite3 --save
 
-# Para MySQL
+# For MySQL
 $ npm install mysql2 --save
 
-# Para PostgreSQL
+# For PostgreSQL
 $ npm install pg pg-hstore --save
 
-# Para MSSQL
+# For MSSQL
 $ npm install tedious --save
 ```
 
@@ -874,14 +907,14 @@ broker.start()
 ```
 
 ### Opções
-Todos os argumentos de construtor são passados para o construtor `Sequelize`. Leia mais sobre a [conexão Sequelize](http://docs.sequelizejs.com/manual/installation/getting-started.html).
+Every constructor arguments are passed to the `Sequelize` constructor. Read more about [Sequelize connection](http://docs.sequelizejs.com/manual/installation/getting-started.html).
 
-**Exemplo com URI de conexão**
+**Example with connection URI**
 ```js
 new SqlAdapter("postgres://user:pass@example.com:5432/dbname");
 ```
 
-**Exemplo com as opções de conexão**
+**Example with connection options**
 ```js
 new SqlAdapter('database', 'username', 'password', {
     host: 'localhost',
