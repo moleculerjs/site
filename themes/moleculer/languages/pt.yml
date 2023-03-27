@@ -29,7 +29,6 @@ sidebar:
     examples: Exemplos
     concepts: Conceitos Principais
     support: Contribua
-    take_survey: '✨Responda à nossa pesquisa'
     introduction: Introdução
     core: Principal
     configuration: Configuração
@@ -85,7 +84,6 @@ sidebar:
     api_service: Serviço
     api_context: Context
     api_protocol: Protocolo
-    take_survey: ✨Faça nossa pesquisa
 modules:
   name: Nome
   description: Descrição

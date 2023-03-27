@@ -29,7 +29,6 @@ sidebar:
     examples: Példák
     concepts: Alap koncepció
     support: Támogatás
-    take_survey: '✨Take our survey'
     introduction: Bemutatás
     core: Mag
     configuration: Konfiguráció
@@ -85,7 +84,6 @@ sidebar:
     api_service: Szolgáltatás
     api_context: Kontextus
     api_protocol: Protocol
-    take_survey: ✨Töltsd ki kérdőívünket
 modules:
   name: Név
   description: Leírás

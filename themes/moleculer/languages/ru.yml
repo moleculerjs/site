@@ -29,7 +29,6 @@ sidebar:
     examples: Примеры
     concepts: Основные концепции
     support: Поддержка
-    take_survey: '✨Take our survey'
     introduction: Введение
     core: Ядро
     configuration: Конфигурация
@@ -85,7 +84,6 @@ sidebar:
     api_service: Сервис
     api_context: Контекст
     api_protocol: Протокол
-    take_survey: ✨Пройдите наш опрос
 modules:
   name: Название
   description: Описание
