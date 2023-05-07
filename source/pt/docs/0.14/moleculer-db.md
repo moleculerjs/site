@@ -112,7 +112,7 @@ Todos os adaptadores de banco de dados compartilham um conjunto comum de configu
 
 ## Personalização
 
-As with all mixins, the standard [merge algorithm](services.html#Merge-algorithm) allows you to override the defaults applied by this mixin. For example to disable an action you can set the action to `false` in your service.
+Como em todos os mixins, o algoritmo de mesclagem padrão [](services.html#Merge-algorithm) permite que você substitua os padrões aplicados por este mixin. Por exemplo, para desativar uma ação, você pode definir a ação para `false` em seu serviço.
 
 **Exemplo**
 ```js
