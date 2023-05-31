@@ -26,7 +26,7 @@
                                 title="Diamond sponsors"></a>Diamond sponsors<a class="article-anchor" href="#Diamond-sponsors" aria-hidden="true"></a>
                         </h3>
                         <p><a href="https://opencollective.com/moleculer" target="_blank" rel="noopener"><img
-                                    src="https://opencollective.com/moleculer/tiers/diamond-sponsor.svg?avatarHeight=100&width=600"
+                                    src="https://opencollective.com/moleculer/tiers/diamond-backer.svg?avatarHeight=100&width=600"
                                     alt="Become a sponsor"></a></p>
 
                         <h3 id="Gold-sponsors" class="article-heading"><a href="#Gold-sponsors" class="headerlink"
