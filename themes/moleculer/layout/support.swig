@@ -21,6 +21,14 @@
                             <a href="#Open-Collective-backers-amp-sponsors" class="headerlink"
                                 title="Open Collective backers &amp; sponsors"></a>Open Collective backers &amp; sponsors<a
                                 class="article-anchor" href="#Open-Collective-backers-amp-sponsors" aria-hidden="true"></a></h2>
+
+                        <h3 id="Diamond-sponsors" class="article-heading"><a href="#Diamond-sponsors" class="headerlink"
+                                title="Diamond sponsors"></a>Diamond sponsors<a class="article-anchor" href="#Diamond-sponsors" aria-hidden="true"></a>
+                        </h3>
+                        <p><a href="https://opencollective.com/moleculer" target="_blank" rel="noopener"><img
+                                    src="https://opencollective.com/moleculer/tiers/diamond-sponsor.svg?avatarHeight=100&width=600"
+                                    alt="Become a sponsor"></a></p>
+
                         <h3 id="Gold-sponsors" class="article-heading"><a href="#Gold-sponsors" class="headerlink"
                                 title="Gold sponsors"></a>Gold sponsors<a class="article-anchor" href="#Gold-sponsors" aria-hidden="true"></a>
                         </h3>
