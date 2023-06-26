@@ -45,7 +45,7 @@
 我们刚刚看到的所有细节似乎都复杂地令人生畏，但是您不必担心。 Moleculer为您完成所有繁重的工作！ 您（开发人员）只需要关注应用程序逻辑。 去看看我们在线商店的实现 [implementation](#Implementation)。
 
 ### 实现
-现在我们已经定义了我们商店的架构，让我们来实现它。 我们将使用一个开源的推送系统 NATS，作为通信总线。 请先着手获取最新版本的[NATS Server](https://nats.io/download/nats-io/nats-server/)。 使用默认设置运行它。 您应该收到以下消息：
+现在我们已经定义了我们商店的架构，让我们来实现它。 我们将使用一个开源的推送系统 NATS，作为通信总线。 So go ahead and get the latest version of [NATS Server](https://docs.nats.io/running-a-nats-service/introduction/installation). 使用默认设置运行它。 您应该收到以下消息：
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4
