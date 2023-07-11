@@ -576,8 +576,8 @@ const broker = new ServiceBroker({
             // установить время жизни равное 30 сек.
             ttl: 30, 
             // Включает мониторинг Redis клиента.
-            monitor: false 
-            // настройки Redis
+            monitor: false,
+            // Redis settings
             redis: {
                 host: "redis-server",
                 port: 6379,

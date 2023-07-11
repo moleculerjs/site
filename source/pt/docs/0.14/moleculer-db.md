@@ -110,6 +110,39 @@ Todos os adaptadores de banco de dados compartilham um conjunto comum de configu
 `idField` não funciona com o adaptador de Sequelize, pois você pode definir livremente seu próprio ID durante a criação do modelo.
 {% endnote %}
 
+## Personalização
+
+Como em todos os mixins, o algoritmo de mesclagem padrão [](services.html#Merge-algorithm) permite que você substitua os padrões aplicados por este mixin. Por exemplo, para desativar uma ação, você pode definir a ação para `false` em seu serviço.
+
+**Exemplo**
+```js
+"use strict";
+const { ServiceBroker } = require("moleculer");
+const DbService = require("moleculer-db");
+
+const broker = new ServiceBroker();
+
+broker.createService({
+    name: "db-with-hooks",
+
+    // Load DB actions
+    mixins: [DbService],
+
+    actions: {
+        // Disable remove action
+        remove: false,
+        // Make create and insert public instead of published
+        create: {
+            visibility: "public",
+        },
+        insert: {
+            visibility: "public",
+        }
+
+    }
+});
+```
+
 ## Ações
 
 Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.html) são [`métodos públicos`](actions.html#Action-visibility) e podem ser chamadas por outros serviços.
@@ -209,7 +242,7 @@ Obter entidade por ID.
 | `mapping`   | `Boolean`                  | -               | Converta o `Array` retornado para `Objet` onde a chave é o valor de `id`. |
 
 #### Resultados
-**Tipo:** `Object`, `Array.<Object>` - Entidade(s) encontrada(s).
+**Tipo:** `Objet`, `Array.<Object>` - Entidade(s) encontrada(s).
 
 
 ### `update`

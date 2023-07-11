@@ -72,7 +72,7 @@ $ npm run demo middlewares
 [Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/blob/master/examples/middlewares/index.js)
 
 ### Runner
-Этот пример показывает, как запустить брокер и загрузить сервисы с помощью [Moleculer Runner](moleculer-runner.html).
+This example shows how you can start a broker and load services with [Moleculer Runner](./runner.html)
 
 ```bash
 $ node ./bin/moleculer-runner.js -c examples/runner/moleculer.config.js -r examples/user.service.js
@@ -95,4 +95,3 @@ $ node examples/loadtest/clients
 ```
 
 [Исходный код доступен на Github](https://github.com/moleculerjs/moleculer/blob/master/examples/loadtest)
-

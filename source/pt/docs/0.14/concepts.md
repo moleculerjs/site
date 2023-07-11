@@ -45,7 +45,7 @@ Agora, assumindo que nossos serviços estão prontos e funcionando, a loja on-li
 Todos os detalhes que acabamos de ver podem parecer assustadores e complicados, mas você não precisa ter medo. Moleculer faz todo o trabalho pesado para você! Você (o desenvolvedor) só precisa se concentrar na regra de negócio. Dê uma olhada na implementação real da nossa [loja online](#Implementation).
 
 ### Implementação
-Agora que definimos a arquitetura da nossa loja, vamos implementá-la. Vamos usar o NATS, um sistema de mensagens de código aberto, como protocolo de comunicação. Então vá em frente e obtenha a última versão do [Servidor NATS](https://nats.io/download/nats-io/nats-server/). Execute-o com as configurações padrão. Você deve receber a seguinte mensagem:
+Agora que definimos a arquitetura da nossa loja, vamos implementá-la. Vamos usar o NATS, um sistema de mensagens de código aberto, como protocolo de comunicação. So go ahead and get the latest version of [NATS Server](https://docs.nats.io/running-a-nats-service/introduction/installation). Execute-o com as configurações padrão. Você deve receber a seguinte mensagem:
 
 ```
 [18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4

@@ -576,7 +576,7 @@ const broker = new ServiceBroker({
             // set Time-to-live to 30sec.
             ttl: 30, 
             // Turns Redis client monitoring on.
-            monitor: false 
+            monitor: false,
             // Redis settings
             redis: {
                 host: "redis-server",

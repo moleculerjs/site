@@ -110,6 +110,39 @@ All DB adapters share a common set of settings:
 `idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
 {% endnote %}
 
+## Customization
+
+As with all mixins, the standard [merge algorithm](services.html#Merge-algorithm) allows you to override the defaults applied by this mixin. For example to disable an action you can set the action to `false` in your service.
+
+**Пример**
+```js
+"use strict";
+const { ServiceBroker } = require("moleculer");
+const DbService = require("moleculer-db");
+
+const broker = new ServiceBroker();
+
+broker.createService({
+    name: "db-with-hooks",
+
+    // Load DB actions
+    mixins: [DbService],
+
+    actions: {
+        // Disable remove action
+        remove: false,
+        // Make create and insert public instead of published
+        create: {
+            visibility: "public",
+        },
+        insert: {
+            visibility: "public",
+        }
+
+    }
+});
+```
+
 ## Действия
 
 DB adapters also implement CRUD operations. These [actions](actions.html) are [`published`](actions.html#Action-visibility) methods and can be called by other services.
