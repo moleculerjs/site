@@ -37,9 +37,9 @@ Para garantir que o nosso sistema seja resistente a falhas, executaremos os serv
 
 Agora, assumindo que nossos serviços estão prontos e funcionando, a loja on-line pode atender a requisições do usuário. Então vamos ver o que acontece de verdade com uma requisição para listar todos os produtos disponíveis. Primeiro, a requisição (`GET /products`) é recebida pelo servidor HTTP em execução no `node-1`. A requisição recebida é simplesmente encaminhada do servidor HTTP para o [serviço de gateway](#Gateway) que faz todo o processamento e direcionamento. Neste caso, em particular, a requisição do usuário é direcionada para uma ação `listProducts` do serviço de `products`.  Em seguida, a requisição é passada para o [broker](#Service-Broker), que verifica se o serviço de `products` é um [serviço local](#Local-Services) ou um [ serviço remoto](#Remote-Services). Neste caso, o serviço de `products` é remoto, então o broker precisa usar o [módulo de transporte](#Transporter) para entregar a requisição. O módulo de transporte simplesmente recebe a requisição e o encaminha via protocolo de comunicação. Uma vez que ambos os nós (`node-1` e `node-2`) estão conectados ao mesmo protocolo de comunicação (broker de mensagens), a requisição será entregue com sucesso ao `node-2`. Após a recepção, o broker do `node-2` analisará a requisição recebida e encaminhará para o serviço `products`. Finalmente, o serviço `products` invoca a ação `listProducts` e retorna a lista de todos os produtos disponíveis. A resposta é simplesmente enviada de volta para o usuário final.
 
-**Fluxo de requisições do usuário**
+****
 <div align="center">
-    <img src="assets/overview.svg" alt="Visão Geral da Arquitetura" />
+    <img src="" alt="" />
 </div>
 
 Todos os detalhes que acabamos de ver podem parecer assustadores e complicados, mas você não precisa ter medo. Moleculer faz todo o trabalho pesado para você! Você (o desenvolvedor) só precisa se concentrar na regra de negócio. Dê uma olhada na implementação real da nossa [loja online](#Implementation).
