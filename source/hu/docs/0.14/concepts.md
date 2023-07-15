@@ -37,9 +37,9 @@ Annak érdekében, hogy rendszerünk ellenálló legyen a hibákkal szemben, a `
 
 Feltételezve, hogy a szolgáltatásaink működnek, az online áruház kiszolgálhatja a felhasználók kéréseit. Lássuk tehát, mi történik valójában egy olyan kérés esetén, amely az összes elérhető termék listázására irányul. Először is, a kérést (`GET /products`) a `node-1` csomóponton futó HTTP-kiszolgáló fogadja. A beérkező kérést a HTTP-kiszolgáló egyszerűen továbbítja a [gateway](#Gateway) szolgáltatásnak, amely elvégzi az összes feldolgozást és leképezést. Ebben az esetben a felhasználó kérését a `products` szolgáltatás `listProducts` műveletére képezi le.  Ezután a kérés átkerül a [brókerhez](#Service-Broker), amely ellenőrzi, hogy a `products` szolgáltatás [helyi](#Local-Services) vagy [távoli](#Remote-Services) szolgáltatás-e. Ebben az esetben a `products` szolgáltatás távoli, így a brókernek a kérés továbbításához a [transzporter](#Transporter) modult kell használnia. A transzporter egyszerűen elkapja a kérést, és elküldi a kommunikációs buszon keresztül. Mivel mindkét csomópont (`node-1` and `node-2`) ugyanahhoz a kommunikációs buszhoz (üzenetközvetítő) csatlakozik, a kérés sikeresen kézbesítésre kerül a `node-2` számára. A fogadás után a `node-2` csomópont brókere elemzi a beérkező kérést, és továbbítja azt a `products` szolgáltatáshoz. Végül a `products` szolgáltatás meghívja a `listProducts` műveletet, és visszaküldi az összes elérhető termék listáját. A választ egyszerűen továbbítja vissza a végfelhasználónak. A választ egyszerűen továbbítja vissza a végfelhasználónak.
 
-**Flow of user's request**
+****
 <div align="center">
-    <img src="assets/overview.svg" alt="Architecture Overview" />
+    <img src="" alt="" />
 </div>
 
 All the details that we've just seen might seem scary and complicated but you don't need to be afraid. Moleculer does all the heavy lifting for you! You (the developer) only need to focus on the application logic. Take a look at the actual [implementation](#Implementation) of our online store.
