@@ -2,8 +2,8 @@ name: Notion Board
 
 on:
   workflow_dispatch: {}
-  schedule:
-    - cron: "0 22 * * *"
+  #schedule:
+  #  - cron: "0 22 * * *"
 
 jobs:
   update-notion-board:
