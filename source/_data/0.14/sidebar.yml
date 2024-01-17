@@ -1,49 +1,49 @@
 docs:
-  introduction:
-    what_is_it: index.html
-    usage: usage.html
-    concepts: concepts.html
-    examples: examples.html
-    # take_survey: https://forms.gle/PnXfVHn3wRTajELCA
+    introduction:
+        what_is_it: index.html
+        usage: usage.html
+        concepts: concepts.html
+        examples: examples.html
+        # take_survey: https://forms.gle/PnXfVHn3wRTajELCA
 
-  overview:
-    broker: broker.html
-    configuration: configuration.html
-    services: services.html
-    actions: actions.html
-    events: events.html
-    context: context.html
-    lifecycle: lifecycle.html
-    logging: logging.html
-    middlewares: middlewares.html
-    networking: networking.html
-    registry:  registry.html
-    balancing: balancing.html
-    fault_tolerance: fault-tolerance.html
-    caching: caching.html
-    validating: validating.html
-    metrics: metrics.html
-    tracing: tracing.html
-    errors: errors.html
-    runner: runner.html
-  modules:
-    moleculer_web: moleculer-web.html
-    moleculer_repl: moleculer-repl.html
-    moleculer_cli: moleculer-cli.html
-    moleculer_db: moleculer-db.html
-    laboratory: /laboratory/introduction.html
-    all_modules: /modules.html
+    overview:
+        broker: broker.html
+        configuration: configuration.html
+        services: services.html
+        actions: actions.html
+        events: events.html
+        context: context.html
+        lifecycle: lifecycle.html
+        logging: logging.html
+        middlewares: middlewares.html
+        networking: networking.html
+        registry: registry.html
+        balancing: balancing.html
+        fault_tolerance: fault-tolerance.html
+        caching: caching.html
+        validating: validating.html
+        metrics: metrics.html
+        tracing: tracing.html
+        errors: errors.html
+        runner: runner.html
+    modules:
+        moleculer_web: moleculer-web.html
+        moleculer_repl: moleculer-repl.html
+        moleculer_cli: moleculer-cli.html
+        moleculer_db: moleculer-db.html
+        laboratory: /laboratory/introduction.html
+        all_modules: /modules.html
 
-  miscellaneous:
-    clustering: clustering.html
-    deploying: deploying.html
-    benchmark: benchmark.html
-    testing: testing.html
-    faq: faq.html
-    contributing: contributing.html
+    miscellaneous:
+        clustering: clustering.html
+        deploying: deploying.html
+        benchmark: benchmark.html
+        testing: testing.html
+        faq: faq.html
+        contributing: contributing.html
 
-  api:
-    api_servicebroker: api/service-broker.html
-    api_service: api/service.html
-    api_context: api/context.html
-    api_protocol: https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md
+    api:
+        api_servicebroker: api/service-broker.html
+        api_service: api/service.html
+        api_context: api/context.html
+        api_protocol: https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md
