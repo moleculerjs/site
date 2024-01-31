@@ -37,9 +37,9 @@
 
 现在，假定我们的服务已经启动和运行，在线商店可以满足用户的要求。 所以让我们看看请求列出所有可用产品的实际情况。 首先，运行 `node-1`的 HTTP 服务器收到请求 (`GET /products`) 。 传入请求只是简单地从 HTTP 服务器映射到 [gateway](#Gateway) 服务来完成所有操作。 特别是在这种情况下，用户的请求将映射到 `products` 服务的 `listProducts` 操作中。  接下来，该请求会被传递到[broker](#Service-Broker), 由它检查 `products` 服务是 [local](#Local-Services) 或 [remote](#Remote-Services) 服务。 这里，`products` 服务是远程服务，因此服务管理器需要使用 [transportter](#Transporter) 模块来传递请求。 Transporter 仅简单地抓取请求并通过通信总线发送出去。 由于两个节点(`node-1`和`node-2`) 都与同一通信总线连接(message broker)，请求已成功送达`node-2`。 `node-2` 的服务管理器将解析收到的请求并将其转发到`products` 服务上。 最后，`products` 服务会执行 `listProducts` 动作并返回所有可用产品列表。 响应仅简单地转发给最终用户。
 
-**用户请求流程**
+****
 <div align="center">
-    <img src="assets/overview.svg" alt="Architecture Overview" />
+    <img src="" alt="" />
 </div>
 
 我们刚刚看到的所有细节似乎都复杂地令人生畏，但是您不必担心。 Moleculer为您完成所有繁重的工作！ 您（开发人员）只需要关注应用程序逻辑。 去看看我们在线商店的实现 [implementation](#Implementation)。

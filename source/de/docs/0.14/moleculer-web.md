@@ -1144,6 +1144,9 @@ settings: {
     // Optimize route & alias paths (deeper first).
     optimizeOrder: true,
 
+    // Options passed on to qs
+    qsOptions: {},
+
     // Routes
     routes: [
         {
