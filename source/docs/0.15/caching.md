@@ -53,7 +53,7 @@ As you can see, the `Handler called` message appears only once because the respo
 > [Try it on Runkit](https://runkit.com/icebob/moleculer-cacher-example2)
 
 ## Cache keys
-The cacher generates key from service name, action name and the params of context.
+The cacher generates keys from service name, action name and the params of context.
 The syntax of key is:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
@@ -68,7 +68,7 @@ posts.find:limit|5|offset|20
 The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property.
 To use meta keys in cache `keys` use the `#` prefix.
 
-**Strict the list of `params`, `meta`, `headers` properties for key generation**
+**Strict the list of `params`, `meta`, `headers` properties used for generating keys**
 ```js
 // posts.service.js
 module.exports = {
@@ -126,9 +126,7 @@ cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be
 ```
 
 ## Conditional caching
-
-Conditional caching allows to bypass the cached response and execute an action in order to obtain "fresh" data.
-To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
+Conditional caching allows you to bypass cached responses and execute an action to obtain fresh data based on specific conditions or criteria. To bypass the cache set `ctx.meta.$cache` to `false` before calling an action.
 
 **Example of turning off the caching for the `greeter.hello` action**
 ```js
@@ -243,7 +241,7 @@ pipeline.exec();
 ```
 
 ## Clear cache
-When you create a new model in your service, you have to clear the old cached model entries.
+Clearing the cache is a necessary operation to ensure data consistency and accuracy within your application. It allows you to remove outdated or stale cached entries, providing a clean slate for storing updated information
 
 **Example to clean the cache inside actions**
 ```js
@@ -274,7 +272,10 @@ When you create a new model in your service, you have to clear the old cached mo
 ```
 
 ### Clear cache among multiple service instances
-The best practice to clear cache entries among multiple service instances is to use broadcast events. Note this is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
+
+Clearing the cache among multiple service instances is essential to synchronize data across distributed systems and maintain consistency in a microservices architecture.
+
+The best practice to clear cache entries among multiple service instances is to use broadcast events. Note that this is only required for non-centralized cachers like `Memory` or `MemoryLRU`.
 
 **Example**
 ```js
@@ -370,6 +371,8 @@ module.exports = {
 With this solution if the `users` service emits a `cache.clean.users` event, the `posts` service will also clear its own cache entries.
 
 ## Cache locking
+Cache locking is a mechanism used to prevent race conditions and ensure data integrity by temporarily preventing concurrent access to cached resources.
+
 Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
 
 **Enable Lock**
@@ -456,7 +459,7 @@ const broker = new ServiceBroker({
 });
 ```
 
-## Built-in cachers
+## Built-in Caching Modules
 
 ### Memory cacher
 `MemoryCacher` is a built-in memory cache module. It stores entries in the heap memory.
@@ -658,7 +661,7 @@ To be able to use this cacher, install the `ioredis` module with the `npm instal
 {% endnote %}
 
 
-## Custom cacher
+## Creating a Custom Caching Module
 Custom cache module can be created. We recommend to copy the source of [MemoryCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/memory.js) or [RedisCacher](https://github.com/moleculerjs/moleculer/blob/master/src/cachers/redis.js) and implement the `get`, `set`, `del` and `clean` methods.
 
 ### Create custom cacher
@@ -686,7 +689,7 @@ const broker = new ServiceBroker({
 
 
 ### Handling missing cache entries
-To be able to distinguish between a cache miss and a cache with a `null` value you can use the `missingResponse` option. This option allows you to define a custom response for cache misses.
+To be able to distinguish between a cache miss and a cache with a `null` value you can use the `missingResponse` option what allows you to define a custom response for cache misses.
 
 By default, the cache miss response is `undefined`.
 

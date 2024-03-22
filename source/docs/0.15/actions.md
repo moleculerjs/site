@@ -24,6 +24,8 @@ The `opts` is an object to set/override some request parameters, e.g.: `timeout`
 
 **Available calling options:**
 
+Moleculer provides various calling options to customize the behavior of service calls. These options include timeout, retries, fallback response, target nodeID, metadata, parent context, and request ID.
+
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
 | `timeout` | `Number` | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
@@ -46,7 +48,7 @@ const res = await broker.call("user.list");
 const res = await broker.call("user.get", { id: 3 });
 ```
 
-**Call with calling options**
+**Call with params and options**
 ```js
 const res = await broker.call("user.recommendation", { limit: 5 }, {
     timeout: 500,
@@ -68,7 +70,9 @@ const res = await broker.call("$node.health", null, { nodeID: "node-21" })
 ```
 
 ### Metadata
-Send meta information to services with `meta` property. Access it via `ctx.meta` in action handlers. Please note that in nested calls the `meta` is merged.
+Metadata in Moleculer allows you to send additional information along with service calls. This metadata can be accessed in action handlers via `ctx.meta` and is useful for passing context-specific details or configuration parameters. Please note that in nested calls the `meta` is merged.
+
+
 ```js
 broker.createService({
     name: "test",
@@ -138,9 +142,8 @@ broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
 ### Headers
-Use `headers` property in calling options and Context class to store meta information for an action calling or an event emitting. 
+Headers in Moleculer serve a similar purpose to HTTP headers, allowing you to attach additional information to service calls.
 
-The difference between `headers` and `meta` is that the `meta` is always passed to all action calls in a chain and merged, the `headers` is transferred only to the actual action call and not passed to the nested calls.
 
 {% note info %}
 Please note, header keys start with `$` means internal header keys (e.g. `$streamObjectMode`). We recommend to don't use this prefix for your keys to avoid conflicts.
@@ -171,16 +174,47 @@ module.exports = {
 };
 ```
 
+### Metadata vs Headers
+#### Metadata
+- Purpose: Provides additional context or configuration parameters for service calls.
+- Scope: Global within Moleculer, passed to all subsequent actions.
+- Access: Accessed via `ctx.meta` within action handlers.
+
+**Usage**:
+- Sending context-specific details like authentication tokens.
+- Propagating information across nested service calls.
+
+#### Headers
+- Purpose: Attaches metadata to individual service calls.
+- Scope: Specific to each service call, not automatically propagated.
+- Access: Accessed via `ctx.headers` within action handlers.
+
+**Usage**
+
+- Adding request-specific metadata like content type.
+- Passing transient information for a single call.
+
+#### Key Differences
+- Scope: Metadata is global and passed to all subsequent actions, while headers are specific to each call.
+- Propagation: Metadata is automatically propagated, headers need explicit passing.
+- Merge: Metadata is merged in nested calls, headers are not.
+- Accessibility: Metadata accessed via `ctx.meta`, headers via `ctx.headers`.
+
 ### Timeout
 
-Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
+Timeouts define the maximum time a service call waits for a response from another service. This helps prevent applications from hanging indefinitely while waiting for unresponsive services.
+
+Timeout Levels:
+- **Global Broker Timeout**: This default timeout applies to all service calls unless overridden at lower levels. It's set using the [`requestTimeout`](fault-tolerance.html#Timeout) option in the broker configuration.
+- **Action-Specific Timeout**: You can define a specific timeout for an individual action within its definition. This overrides the global broker timeout for that particular action.
+- **Call-Level Timeout**: When calling a service, you can provide a `timeout` option directly within the call parameters. This overrides both the global and action-specific timeouts for that specific call.
 
 **Example**
  ```js
 // moleculer.config.js
 module.exports = {
     nodeID: "node-1",
-    requestTimeout: 3000
+    requestTimeout: 3000 // Global timeout setting in milliseconds
 };
 
  // greeter.service.js
@@ -193,7 +227,7 @@ module.exports = {
             }
         },
          slow: {
-            timeout: 5000, // 5 secs
+            timeout: 5000, // Action-specific timeout setting (5 seconds)
             handler(ctx) {
                 return "Slow";
             }
@@ -202,16 +236,30 @@ module.exports = {
 ```
 **Calling examples**
 ```js
-// It uses the global 3000 timeout
+// Using global timeout (3 seconds)
 await broker.call("greeter.normal");
- // It uses the 5000 timeout from action definition
+
+// Using action-specific timeout (5 seconds)
 await broker.call("greeter.slow");
- // It uses 1000 timeout from calling option
+
+// Using call-level timeout (1 second)
 await broker.call("greeter.slow", null, { timeout: 1000 });
 ```
+
 ### Multiple calls
 
-Calling multiple actions at the same time is also possible. To do it use `broker.mcall` or `ctx.mcall`.
+#### Calling multiple actions
+Moleculer.js allows you to execute multiple service calls simultaneously using the `broker.mcall` or `ctx.mcall` methods. This is useful for scenarios where you need data from different services to build a final response or perform actions in parallel.
+
+**Call Definition formats**:
+- `Array` of Objects: Each object in the array represents a single call with the following properties:
+    - `action`: (Required) The name of the service action to be called.
+    - `params`: (Optional) An object containing parameters to be passed to the action.
+    - `options`: (Optional) An object containing additional options for the specific call (e.g., timeout).
+- `Object` with Nested Properties: Here, the object itself acts as a container for multiple calls. Each key represents the service name, and the value is another object defining the action and parameters for that service.
+
+**Common Options**:
+You can optionally provide a second argument to `mcall` to specify common options that apply to all calls within the request. This object can include properties like `meta` or `timeout`.
 
 **`mcall` with Array \<Object\>**
 
@@ -242,11 +290,10 @@ await broker.mcall(
 );
 ```
 
-**`settled` option in `broker.mcall`**
+#### Response handling
+The `mcall` method offers a `settled` option that allows you to receive detailed information about the results of each call, including their success or failure status. With `settled: true`, `mcall` always resolves as a `Promise`, and the response contains an array with objects for each call. Each object has a status property ("fulfilled" for success, "rejected" for failure) and a `value` property containing the response data (for successful calls) or the error reason (for failed calls). Note that, without this option you won't know how many (and which) calls were rejected.
 
-The `mcall` method has a new `settled` option to receive all Promise results. If `settled: true`, the `mcall` returns a resolved Promise in any case and the response contains the statuses and responses of all calls. Note that, without this option you won't know how many (and which) calls were rejected.
-
-Example
+**Example**
 ```js
 const res = await broker.mcall([
     { action: "posts.find", params: { limit: 2, offset: 0 },
@@ -267,8 +314,7 @@ The `res` will be something similar to
 ```
 
 ## Streaming
-Moleculer supports Node.js streams as request and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
-The stream instance is passed as a calling options, so you can use `params` as a normal action call.
+Stream handling enables efficient transfer of data streams between services. This feature is particularly useful for processing large files, encoding/decoding streams, or compressing/decompressing data on the fly. The stream instance is passed as a calling options, so you can use `params` as a normal action call.
 
 ### Examples
 
@@ -329,13 +375,13 @@ broker.call("storage.get", { filename })
 ```
 
 ## Action visibility
-The action has a `visibility` property to control the visibility & callability of service actions.
+Action `visibility` determines the accessibility and invocation permissions of service actions. By defining visibility levels, developers can control who can invoke actions and under what circumstances.
 
-**Available values:**
-- `published` or `null`: public action. It can be called locally, remotely and can be published via API Gateway
-- `public`: public action, can be called locally & remotely but not published via API GW
-- `protected`: can be called only locally (from local services)
-- `private`: can be called only internally (via `this.actions.xy()` inside service)
+**Functionality**
+- **Public Access**: Actions with `published` or `null` visibility are considered public and can be invoked locally, remotely, and published via API Gateway.
+- **Remote Invocation**: `public` actions can be called both locally and remotely but are not exposed via API Gateway publication.
+- **Local Access Only**: Actions with `protected` visibility are restricted to services located on the same node, ensuring they cannot be called remotely.
+- **Internal Use Only**: `private` actions are exclusively callable internally within the service, via `this.actions.xy()` syntax.
 
 **Change visibility**
 ```js
@@ -362,7 +408,7 @@ module.exports = {
 > The default values is `null` (means `published`) due to backward compatibility.
 
 ## Action hooks
-Action hooks are pluggable and reusable middleware functions that can be registered `before`, `after` or on `errors` of service actions. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
+Action hooks allow you to inject middleware functions into the request-response lifecycle of service actions. These hooks can execute `before`, `after`, or on `errors` during action invocation, enabling tasks like parameter validation, response manipulation, and error handling. A hook is either a `Function` or a `String`. In case of a `String` it must be equal to service's [method](services.html#Methods) name.
 
 ### Before hooks
 In before hooks, it receives the `ctx`, it can manipulate the `ctx.params`, `ctx.meta`, or add custom variables into `ctx.locals` what you can use in the action handlers.
@@ -611,7 +657,8 @@ INFO  - After all hook
 ```
 
 ### Reusability
-The most efficient way of reusing hooks is by declaring them as service methods in a separate file and import them with the [mixin](services.html#Mixins) mechanism. This way a single hook can be easily shared across multiple actions.
+
+Ensuring hook reusability is crucial for maintaining clean and modular code. By defining hooks as standalone functions or [mixins](services.html#Mixins), you can easily share them across multiple actions and services, ensuring code efficiency and consistency.
 
 ```js
 // authorize.mixin.js
@@ -665,7 +712,8 @@ module.exports = {
 };
 ```
 ### Local Storage
-The `locals` property of `Context` object is a simple storage that can be used to store some additional data and pass it to the action handler. `locals` property and hooks are a powerful combo:
+
+Local storage in Moleculer provides a lightweight mechanism for storing temporary data within the context of a service action. This storage, accessible via `ctx.locals`, allows you to pass additional information to action handlers and maintain state across hook executions.
 
 **Setting `ctx.locals` in before hook**
 ```js

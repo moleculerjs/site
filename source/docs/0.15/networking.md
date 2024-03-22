@@ -1,17 +1,18 @@
 title: Networking
 ---
-In order to communicate with other nodes (ServiceBrokers) you need to configure a transporter. Most of the supported transporters connect to a central message broker that provide a reliable way of exchanging messages among remote nodes. These message brokers mainly support publish/subscribe messaging pattern.
+To enable communication between nodes (ServiceBrokers), you must configure a transporter. The available transporters typically connect to a central message broker, facilitating reliable message exchange among remote nodes. These message brokers primarily support the publish/subscribe messaging pattern.
+
 
 <div align="center">
     <img src="assets/networking.svg" alt="Networking diagram" />
 </div>
 
 ## Transporters
-Transporter is an important module if you are running services on multiple nodes. Transporter communicates with other nodes. It transfers events, calls requests and processes responses ...etc. If multiple instances of a service are running on different nodes then the requests will be load-balanced among them.
+The transporter module in Moleculer plays a critical role in facilitating communication between services running on multiple nodes. It manages the transmission of events, request calls, and processing responses among nodes in the network. A key feature is its ability to evenly distribute requests among multiple instances of a service running on different nodes, which enhances scalability and efficiency.
 
-The whole communication logic is outside of transporter class. It means that you can switch between transporters without changing any line of code.
+**Abstraction for Seamless Switching**
 
-There are several built-in transporters in Moleculer framework.
+The communication logic is abstracted away from the transporter class itself. This allows for seamless switching between different transporters without requiring any modifications to your service code. You can choose the most suitable transporter for your needs (e.g., TCP, NATS, Redis) without impacting your service logic, offering flexibility and future-proofing for your application.
 
 ### TCP transporter
 ![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)

@@ -3,9 +3,9 @@ title: Services
 The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
 ## Schema
-The schema has some main parts: `name`, `version`, `settings`, `actions`, `methods`, `events`.
+The schema has some main parts `name`, `version`, `settings`, `actions`, `methods`, `events` that are described below.
 
-### Simple service schema to define two actions
+**Simple service schema to define two actions**
 ```js
 // math.service.js
 module.exports = {
@@ -22,30 +22,30 @@ module.exports = {
 }
 ```
 
-## Base properties
-The Service has some base properties in the schema.
-```js
-// posts.v1.service.js
-module.exports = {
-    name: "posts",
-    version: 1
-}
-```
-The `name` is a mandatory property so it must be defined. It's the first part of action name when you call it.
+## Name & Version
+Services are defined using a schema-based approach. This section explores the two mandatory properties that form the foundation of a service definition:
 
-> To disable service name prefixing set `$noServiceNamePrefix: true` in Service settings.
+### `name`
 
-The `version` is an optional property. Use it to run multiple version from the same service. It is a prefix in the action name. It can be a `Number` or a `String`.
+- This property represents a unique identifier for your service within the Moleculer application.
+- It serves as the first part of the action name when invoking actions provided by the service.
+
+### `version`
+
+- This optional property allows you to define multiple versions of the same service within your application. 
+- When specified, it acts as a prefix to the action name, enabling versioning for your service's functionality. The version can be either a number or a string.
+
 ```js
 // posts.v2.service.js
 module.exports = {
-    name: "posts",
-    version: 2,
-    actions: {
-        find() {...}
-    }
-}
+  name: "posts",
+  version: 2, // Service version prefix
+  actions: {
+    find() { ... } // Action definition
+  },
+};
 ```
+
 To call this `find` action on version `2` service:
 ```js
 broker.call("v2.posts.find");
@@ -55,7 +55,14 @@ broker.call("v2.posts.find");
 Via [API Gateway](moleculer-web.html), make a request to `GET /v2/posts/find`.
 {% endnote %}
 
-> To disable version prefixing set `$noVersionPrefix: true` in Service settings.
+#### Disabling Prefixes
+
+Moleculer.js provides a way to disable both service name and version prefixing within service settings using the `$noServiceNamePrefix` and `$noVersionPrefix` properties, respectively. However, it's generally recommended to maintain these prefixes for better organization and clarity within your microservices architecture.
+
+**Additional Considerations**
+
+- Consider utilizing versioning for services that undergo significant changes over time, allowing for a smooth transition between versions.
+- Remember that disabling prefixes can lead to naming conflicts if multiple services have the same action names.
 
 ## Settings
 The `settings` property is a static store, where you can store every settings/options to your service. You can reach it via `this.settings` inside the service.
@@ -77,7 +84,7 @@ module.exports = {
     }
 }
 ```
-> The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
+> Note: The `settings` is also obtainable on remote nodes. It is transferred during service discovering.
 
 ### Internal Settings
 There are some internal settings which are used by core modules. These setting names start with `$` _(dollar sign)_.
@@ -276,7 +283,7 @@ module.exports = {
 ```
 
 ## Methods
-To create private methods in the service, put your functions under the `methods` key. These functions are private, can't be called with `broker.call`. But you can call it inside service (from action handlers, event handlers and lifecycle event handlers).
+To define private methods within a service, place your functions under the `methods` key in the schema. These methods are not directly callable with `broker.call`, but can be invoked internally within the service, such as from action handlers, event handlers, and lifecycle event handlers.
 
 **Usage**
 ```js
@@ -324,7 +331,8 @@ module.exports = {
 > In methods the `this` is always pointed to the Service instance.
 
 ## Lifecycle Events
-There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema.
+There are some lifecycle service events, that will be triggered by broker. They are placed in the root of schema. 
+For more information check the [lifecycle events documentation](lifecycle.html).
 
 ```js
 // www.service.js
@@ -406,7 +414,8 @@ broker.waitForServices("accounts", 10 * 1000, 500).then(() => {
 ## Metadata
 
 The `Service` schema has a `metadata` property. You can store here any meta information about service. You can access it as `this.metadata` inside service functions.
-_Moleculer core modules don't use it. You can store in it whatever you want._
+
+> Core modules don't use it. You can store in it whatever you want.
 
 ```js
 module.exports = {
@@ -440,7 +449,7 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | `this.waitForServices` | `Function` | Link to `broker.waitForServices` method |
 | `this.currentContext` | `Context` | Get or set the current Context object. |
 
-## Service Creation
+## Service creation
 There are several ways to create and load a service.
 
 ### broker.createService()
@@ -549,8 +558,7 @@ broker.loadServices("./svc", "user*.service.js");
 We recommend to use the [Moleculer Runner](runner.html) to start a ServiceBroker and load services. [Read more about Moleculer Runner](runner.html). It is the easiest way to start a node.
 
 ## Hot Reloading Services
-Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html).
-[Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
+Moleculer has a built-in hot-reloading function. During development, it can be very useful because it reloads your services when you modify it. You can enable it in broker options or in [Moleculer Runner](runner.html). [Demo video how it works.](https://www.youtube.com/watch?v=l9FsAvje4F4)
 
 **Enable in broker options**
 
@@ -855,7 +863,7 @@ It has some options which you can declare within `params`.
 | `includes` | `String` or `Array` | `null` | List of metrics to be included in response. |
 | `excludes` | `String` or `Array` | `null` | List of metrics to be excluded from the response. |
 
-### Get Broker options
+### Retrieving broker options
 It returns the broker options.
 ```js
 broker.call("$node.options").then(res => console.log(res));

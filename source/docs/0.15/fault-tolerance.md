@@ -1,7 +1,8 @@
 title: Fault tolerance
 ---
 
-Moleculer has several built-in fault-tolerance features. They can be enabled or disabled in broker options.
+MoleculerJS incorporates a range of built-in fault-tolerance mechanisms designed to enhance the reliability and resilience of your microservices architecture. These features are configurable within the broker options, allowing you to enable or disable them based on your specific requirements and use cases.
+
 
 ## Circuit Breaker
 

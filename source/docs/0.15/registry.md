@@ -2,7 +2,9 @@ title: Registry & Discovery
 ---
 
 ## Dynamic service discovery
-Moleculer framework has a built-in module responsible for node discovery and periodic heartbeat verification. The discovery is dynamic meaning that a node don't need to know anything about other nodes during start time. When it starts, it will announce it's presence to all the other nodes so that each one can build its own local service registry. In case of a node crash (or stop) other nodes will detect it and remove the affected services from their registry. This way the following requests will be routed to live nodes.
+Within the Moleculer framework, a dedicated module handles node discovery and performs periodic heartbeat verification. This discovery mechanism operates dynamically, eliminating the need for nodes to possess prior knowledge of one another during startup. Upon initialization, each node broadcasts its presence to all others, enabling each node to construct its own local service registry.
+
+In the event of a node crash or shutdown, neighboring nodes will detect detect the absence and consequently update their respective registries by removing the affected services. This dynamic behavior ensures that subsequent requests are only routed to live, operational nodes, thereby maintaining system resilience and continuity of service.
 
 ### Local
 Local discovery (default option) uses the [transporter](networking.html#Transporters) module to exchange node info and heartbeat packets (for more info about packet structure check [Moleculer protocol](https://github.com/moleculer-framework/protocol/blob/master/4.0/PROTOCOL.md)). It's the simplest and the fastest among the available discovery mechanisms as it doesn't require any external solutions. However, this discovery method also has some drawbacks, especially for large scale deployments with `>100` nodes. The heartbeat packets can generate large amount traffic that can saturate the communication bus and, therefore, deteriorate the performance of actions and events, i.e., slow down the delivery of request/response and event packets.
