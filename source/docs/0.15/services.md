@@ -747,7 +747,7 @@ class MyService {
     }
 
     @Event
-    'event.name'(payload, sender, eventName) {
+    'event.name'(ctx) {
         //...
     }
 

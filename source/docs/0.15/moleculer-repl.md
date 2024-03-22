@@ -339,28 +339,33 @@ Custom REPL commands can be defined in broker options to extend Moleculer REPL c
 ```js
 // moleculer.config.js
 module.exports = {
-    replCommands: [
-        {
-            command: "hello <name>",
-            description: "Call the greeter.hello service with name",
-            alias: "hi",
-            options: [
-                { option: "-u, --uppercase", description: "Uppercase the name" }
-            ],
-            types: {
-                string: ["name"],
-                boolean: ["u", "uppercase"]
-            },
-            //parse(command, args) {},
-            //validate(args) {},
-            //help(args) {},
-            allowUnknownOptions: true,
-            action(broker, args/*, helpers*/) {
-                const name = args.options.uppercase ? args.name.toUpperCase() : args.name;
-                return broker.call("greeter.hello", { name }).then(console.log);
-            }
-        }
-    ]
+  replOptions: {
+    delimiter: "mol # ",
+    customCommands: [
+      {
+        command: "hello <name>",
+        description: "Call the greeter.hello service with name",
+        alias: "hi",
+        options: [
+          { option: "-u, --uppercase", description: "Uppercase the name" },
+        ],
+        types: {
+          string: ["name"],
+          boolean: ["u", "uppercase"],
+        },
+        //parse(command, args) {},
+        //validate(args) {},
+        //help(args) {},
+        allowUnknownOptions: true,
+        action(broker, args /*, helpers*/) {
+          const name = args.options.uppercase
+            ? args.name.toUpperCase()
+            : args.name;
+          return broker.call("greeter.hello", { name }).then(console.log);
+        },
+      },
+    ],
+  },
 };
 ```
 

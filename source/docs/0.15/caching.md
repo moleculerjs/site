@@ -68,26 +68,29 @@ posts.find:limit|5|offset|20
 The params object can contain properties that are not relevant for the cache key. Also, it can cause performance issues if the key is too long. Therefore it is recommended to set an object for `cache` property which contains a list of essential parameter names under the `keys` property.
 To use meta keys in cache `keys` use the `#` prefix.
 
-**Strict the list of `params` & `meta` properties for key generation**
+**Strict the list of `params`, `meta`, `headers` properties for key generation**
 ```js
-{
-    name: "posts",
-    actions: {
-        list: {
-            cache: {
-                //  generate cache key from "limit", "offset" params and "user.id" meta
-                keys: ["limit", "offset","#user.id"]
-            },
-            handler(ctx) {
-                return this.getList(ctx.params.limit, ctx.params.offset);
-            }
-        }
-    }
-}
+// posts.service.js
+module.exports = {
+  name: "posts",
+  actions: {
+    list: {
+      cache: {
+        keys: [
+          "limit", // value from `ctx.params`
+          "#tenant", // value from `ctx.meta`
+          "@customProp", // value from `ctx.headers`
+        ],
+      },
+      handler(ctx) {
+        const tenant = ctx.meta.tenant;
+        const limit = ctx.params.limit;
+        const customProp = ctx.headers.customProp;        
+      },
+    },
+  },
+};
 
-// If params is { limit: 10, offset: 30 } and meta is { user: { id: 123 } }, 
-// the cache key will be:
-//   posts.list:10|30|123
 ```
 
 {% note info Performance tip %}
@@ -679,4 +682,33 @@ const MyCacher = require("./my-cacher");
 const broker = new ServiceBroker({
     cacher: new MyCacher()
 });
+```
+
+
+### Handling missing cache entries
+To be able to distinguish between a cache miss and a cache with a `null` value you can use the `missingResponse` option. This option allows you to define a custom response for cache misses.
+
+By default, the cache miss response is `undefined`.
+
+**Example: using a custom symbol to detect missing entries**
+
+```js
+const missingSymbol = Symbol("MISSING");
+
+// moleculer.config.js
+module.exports = {
+    cacher: {
+        type: "Memory",
+        options: {
+            missingResponse: missingSymbol
+        }
+    }
+}
+
+// Get data from cache
+
+const res = await cacher.get("not-existing-key");
+if (res === cacher.opts.missingSymbol) {
+    console.log("It's not cached.");
+}
 ```

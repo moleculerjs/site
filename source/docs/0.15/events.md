@@ -48,7 +48,7 @@ broker.emit("user.created", user);
 Specify which groups/services shall receive the event:
 ```js
 // Only the `mail` & `payments` services receives it
-broker.emit("user.created", user, ["mail", "payments"]);
+broker.emit("user.created", user, { groups: ["mail", "payments"] });
 ```
 
 # Broadcast event
@@ -80,16 +80,7 @@ broker.broadcastLocal("config.changed", config);
 
 # Subscribe to events
 
-The `v0.14` version supports Context-based event handlers. Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. The Event Context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
-
-{% note info Legacy event handlers %}
-
-You don't have to rewrite all existing event handlers as Moleculer still supports legacy signature `"user.created"(payload) { ... }`. It is capable to detect different signatures of event handlers: 
-- If it finds that the signature is `"user.created"(ctx) { ... }`, it will call it with Event Context. 
-- If not, it will call with old arguments & the 4th argument will be the Event Context, like `"user.created"(payload, sender, eventName, ctx) {...}`
-- You can also force the usage of the new signature by setting `context: true` in the event declaration
-
-{% endnote %}
+Event context is useful if you are using event-driven architecture and want to trace your events. If you are familiar with [Action Context](context.html) you will feel at home. Event context is very similar to Action Context, except for a few new event related properties. [Check the complete list of properties](context.html)
 
 **Context-based event handler & emit a nested event**
 ```js
@@ -103,14 +94,6 @@ module.exports = {
             console.log("The called event name:", ctx.eventName);
 
             ctx.emit("accounts.created", { user: ctx.params.user });
-        },
-
-        "user.removed": {
-            // Force to use context based signature
-            context: true,
-            handler(other) {
-                console.log(`${this.broker.nodeID}:${this.fullName}: Event '${other.eventName}' received. Payload:`, other.params, other.meta);
-            }
         }
     }
 };

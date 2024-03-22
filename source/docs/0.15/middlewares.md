@@ -78,7 +78,7 @@ The `next` is the original handler or the following wrapped handler. The middlew
 const MyCacher = {
     localAction(next, action) {
         return async function cacherMiddleware(ctx) {
-            const cacheKey = this.getCacheKey(action.name, ctx.params, action.cache.keys);
+            const cacheKey = this.getCacheKey(action.name, ctx.params, ctx);
             const content = await this.get(cacheKey);
             if (content != null) {
                 // Found in the cache! Don't call next, return with the cached content

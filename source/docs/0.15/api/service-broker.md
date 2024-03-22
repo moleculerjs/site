@@ -262,7 +262,7 @@ Watch a service file and hot reload if it's changed.
 
 
 
-`createService(schema: any, schemaMods): Service`
+`createService(schema: any): Service`
 
 Create a new service by schema
 
@@ -272,7 +272,6 @@ Create a new service by schema
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `schema` | any | - | Schema of service or a Service class |
-| `schemaMods` |  | - | Modified schema |
 
 
 
@@ -389,17 +388,16 @@ Register internal services
 
 
 
-`getLocalService(name: String, version): Service`
+`getLocalService(name|obj): Service`
 
-Get a local service by name
+Get a local service by name (e.g. `posts` or `v2.posts`) or by object (e.g. `{ name: "posts", version: 2 }`)
 
 
 #### Parameters
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `name` | String | - | - |
-| `version` |  | - | - |
+| `name` | String\|Object | - | - |
 
 
 

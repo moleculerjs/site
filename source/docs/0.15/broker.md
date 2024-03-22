@@ -155,7 +155,7 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.fatal(message, err, needExit)` | - | Throw an error and exit the process. |
 | `broker.loadServices(folder, fileMask)` | `Number` | Load services from a folder. |
 | `broker.loadService(filePath)` | `Service` | Load a service from file. |
-| `broker.createService(schema, schemaMods)` | `Service` | Create a service from schema. |
+| `broker.createService(schema)` | `Service` | Create a service from schema. |
 | `broker.destroyService(service)` | `Promise` | Destroy a loaded local service. |
 | `broker.getLocalService(name)` | `Service` | Get a local service instance by full name (e.g. `v2.posts`) |
 | `broker.waitForServices(serviceNames, timeout, interval)` | `Promise` | Wait for services. |

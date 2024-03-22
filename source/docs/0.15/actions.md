@@ -137,6 +137,40 @@ broker.createService({
 broker.call("mod.hello", { param: 1 }, { meta: { user: "John" } });
 ```
 
+### Headers
+Use `headers` property in calling options and Context class to store meta information for an action calling or an event emitting. 
+
+The difference between `headers` and `meta` is that the `meta` is always passed to all action calls in a chain and merged, the `headers` is transferred only to the actual action call and not passed to the nested calls.
+
+{% note info %}
+Please note, header keys start with `$` means internal header keys (e.g. `$streamObjectMode`). We recommend to don't use this prefix for your keys to avoid conflicts.
+{% endnote %}
+
+**Setting headers in action calls**
+```js
+broker.call("posts.list", { limit: 100 }, {
+  headers: {
+    customProp: "customValue"
+  }
+});
+```
+{% note info %}
+You can also set header when emitting or boradcasting events.
+{% endnote %}
+
+**Read headers inside action handler**
+```js
+// posts.service.js
+module.exports = {
+  name: "posts",
+  actions: {
+    list(ctx) {
+      const customProp = ctx.headers.customProp;
+    },
+  },
+};
+```
+
 ### Timeout
 
 Timeout can be set in action definition, as well. It overwrites the global broker [`requestTimeout` option](fault-tolerance.html#Timeout), but not the `timeout` in calling options.
@@ -233,15 +267,15 @@ The `res` will be something similar to
 ```
 
 ## Streaming
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+Moleculer supports Node.js streams as request and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+The stream instance is passed as a calling options, so you can use `params` as a normal action call.
 
 ### Examples
 
 **Send a file to a service as a stream**
 ```js
 const stream = fs.createReadStream(fileName);
-
-broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
+ctx.call("file.save", { filename: "as.txt" }, { stream: fs.createReadStream() });
 ```
 
 {% note info Object Mode Streaming%}
@@ -252,13 +286,15 @@ Please note, the `params` should be a stream, you cannot add any additional vari
 
 **Receiving a stream in a service**
 ```js
+// file.service.js
 module.exports = {
-    name: "storage",
+    name: "file",
     actions: {
         save(ctx) {
-            // Save the received stream to a file
-            const s = fs.createWriteStream(`/tmp/${ctx.meta.filename}`);
-            ctx.params.pipe(s);
+            // The stream is in Context directly
+            const stream = ctx.stream;
+            const s = fs.createWriteStream(ctx.params.filename);
+            stream.pipe(s);
         }
     }
 };
@@ -290,27 +326,6 @@ broker.call("storage.get", { filename })
         stream.pipe(s);
         s.on("close", () => broker.logger.info("File has been received"));
     })
-```
-
-**AES encode/decode example service**
-```js
-const crypto = require("crypto");
-const password = "moleculer";
-
-module.exports = {
-    name: "aes",
-    actions: {
-        encrypt(ctx) {
-            const encrypt = crypto.createCipher("aes-256-ctr", password);
-            return ctx.params.pipe(encrypt);
-        },
-
-        decrypt(ctx) {
-            const decrypt = crypto.createDecipher("aes-256-ctr", password);
-            return ctx.params.pipe(decrypt);
-        }
-    }
-};
 ```
 
 ## Action visibility

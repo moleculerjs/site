@@ -40,8 +40,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`internalMiddlewares`**: `Boolean` - Register [internal middlewares](middlewares.html#Internal-middlewares). _Default: `true`_
 * **`hotReload`**: `Boolean` - Watch the loaded services and hot reload if they changed. [Read more](services.html#Hot-Reloading-Services). _Default: `false`_
 * **`middlewares`**: `Array<Object>` - Register custom middlewares. _Default: `null`_
-* **`replDelimiter`**: `String` - Custom REPL commands delimiter. _Default: `mol $`_
-* **`replCommands`**: `Array<Object>` - Register custom REPL commands. _Default: `null`_
+* **`replOptions`**: `Object` - Custom REPL options. _Default: `null`_
 * **`metadata`**: `Object` - Store custom values. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case, you have to register them manually. _Default: `false`_
 * **`maxSafeObjectSize`**: `Number` - Maximum size of objects that can be serialized. On serialization process, check each object property size (based on `length` or `size` property value) and trim it, if object size bigger than `maxSafeObjectSize` value. _Default: `null`_
@@ -144,8 +143,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 
     middlewares: ["MyMiddleware"],
 
-    replDelimiter: "mol $",
-    replCommands: [],
+    replOptions: null,
 
     metadata: {
         region: "eu-west1"

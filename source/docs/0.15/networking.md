@@ -455,7 +455,7 @@ Built-in transporter for [Kafka](https://kafka.apache.org/).
 >It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 {% note info Dependencies %}
-To use this transporter install the `kafka-node` module with `npm install kafka-node --save` command.
+To use this transporter install the `kafkajs` module with `npm install kafkajs --save` command.
 {% endnote %}
 
 **Connect to Zookeeper**
@@ -471,79 +471,26 @@ module.exports = {
 // moleculer.config.js
 module.exports = {
     transporter: {
-        type: "kafka",
+        type: "Kafka",
         options: {
-            host: "192.168.51.29:2181",
-
-            // KafkaClient options. More info: https://github.com/SOHU-Co/kafka-node#clientconnectionstring-clientid-zkoptions-noackbatchoptions-ssloptions
+            // KafkaClient options. More info: https://kafka.js.org/docs/configuration
             client: {
-                zkOptions: undefined,
-                noAckBatchOptions: undefined,
-                sslOptions: undefined
+                brokers: [/*...*/]
             },
 
-            // KafkaProducer options. More info: https://github.com/SOHU-Co/kafka-node#producerclient-options-custompartitioner
+            // KafkaProducer options. More info: https://kafka.js.org/docs/producing#options
             producer: {},
-            customPartitioner: undefined,
 
-            // ConsumerGroup options. More info: https://github.com/SOHU-Co/kafka-node#consumergroupoptions-topics
-            consumer: {
-            },
+            // ConsumerGroup options. More info: https://kafka.js.org/docs/consuming#a-name-options-a-options
+            consumer: {},
 
-            // Advanced options for `send`. More info: https://github.com/SOHU-Co/kafka-node#sendpayloads-cb
-            publish: {
-                partition: 0,
-                attributes: 0
-            }               
-        }
-    }
-};
-```
+            // Advanced options for `send`. More info: https://kafka.js.org/docs/producing#producing-messages
+            publish: {},
 
-### NATS Streaming (STAN) Transporter
-![Stable transporter](https://img.shields.io/badge/status-stable-green.svg)
-Built-in transporter for [NATS Streaming](https://nats.io/documentation/streaming/nats-streaming-intro/). 
->It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
-
-
-```js
-// moleculer.config.js
-module.exports = {
-    nodeID: "server-1",
-    transporter: "stan://nats-streaming-server:4222"
-};
-```
-
-{% note info Dependencies %}
-To use this transporter install the `node-nats-streaming` module with `npm install node-nats-streaming --save` command.
-{% endnote %}
-
-#### Examples
-**Connect with default settings**
-```js
-// moleculer.config.js
-module.exports = {
-    transporter: "STAN"
-};
-```
-
-**Connect with connection string**
-```js
-// moleculer.config.js
-module.exports = {
-    transporter: "stan://nats-streaming-server:4222"
-};
-```
-
-**Connect with options**
-```js
-// moleculer.config.js
-module.exports = {
-    transporter: {
-        type: "STAN",
-        options: {
-            url: "stan://127.0.0.1:4222",
-            clusterID: "my-cluster"
+            // Advanced message options for `send`. More info: https://kafka.js.org/docs/producing#message-structure
+            publishMessage: {
+                partition: 0
+            }
         }
     }
 };
@@ -576,7 +523,7 @@ module.exports = {
 ```
 
 ## Disabled balancer
-Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS, NATS-Streaming. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
+Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
 
 **Example**
 ```js
@@ -595,7 +542,7 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
 {% note warn %}
-Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with native JSON serializer. If you are working with this kind of data consider using [Avro](#Avro-serializer), [Notepack](#Notepack-serializer) or any other binary serializer.
+Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with native JSON serializer. If you are working with this kind of data consider using [Notepack](#Notepack-serializer) or any other binary serializer.
 {% endnote %}
 
 
@@ -605,7 +552,6 @@ Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with
 module.exports = {
     nodeID: "server-1",
     transporter: "NATS",
-    serializer: "ProtoBuf"
 };
 ```
 
@@ -619,18 +565,63 @@ module.exports = {
 };
 ```
 
-### Avro serializer
-Built-in [Avro](https://github.com/mtth/avsc) serializer.
+### JSON Extended serializer
+We implemented a new JSON serializer which unlike the native JSON serializer, `Buffer`, `BigInt`, `Date`, `Map`, `Set` and `RegExp` classes.
+
+
+**Example**
 
 ```js
 // moleculer.config.js
 module.exports = {
-    serializer: "Avro"
-};
+    serializer: "JSONExt"
+}
 ```
-{% note info Dependencies %}
-To use this serializer install the `avsc` module with `npm install avsc --save` command.
-{% endnote %}
+
+#### Custom extensions
+
+You can extend the serializer with custom types.
+
+##### Example to extend with a custom class serializing/deserializing
+
+```js
+class MyClass {
+  constructor(a, b) {
+    this.a = a;
+    this.b = b;
+  }
+}
+```
+
+```js
+// moleculer.config.js
+module.exports = {
+  serializer: {
+    type: "JSONExt",
+    options: {
+      customs: [
+        {
+          // This is the identifier of the custom type
+          prefix: "AB",
+
+          // This function checks the type of JSON value
+          check: (v) => v instanceof MyClass,
+
+          // Serialize the custom class properties to a String
+          serialize: (v) => v.a + "|" + v.b,
+
+          // Deserialize the JSON string to custom class instance and set properties
+          deserialize: (v) => {
+            const [a, b] = v.split("|");
+            return new MyClass(parseInt(a), b);
+          },
+        },
+      ],
+    },
+  },
+};
+
+```
 
 ### MsgPack serializer
 Built-in [MsgPack](https://github.com/mcollina/msgpack5) serializer.
@@ -658,31 +649,6 @@ module.exports = {
 To use this serializer install the `notepack` module with `npm install notepack.io --save` command.
 {% endnote %}
 
-### ProtoBuf serializer
-Built-in [Protocol Buffer](https://developers.google.com/protocol-buffers/) serializer.
-
-```js
-// moleculer.config.js
-module.exports = {
-    serializer: "ProtoBuf"
-};
-```
-{% note info Dependencies %}
-To use this serializer install the `protobufjs` module with `npm install protobufjs --save` command.
-{% endnote %}
-
-### Thrift serializer
-Built-in [Thrift](http://thrift.apache.org/) serializer.
-
-```js
-// moleculer.config.js
-module.exports = {
-    serializer: "Thrift"
-};
-```
-{% note info Dependencies %}
-To use this serializer install the `thrift` module with `npm install thrift --save` command.
-{% endnote %}
 
 ### CBOR serializer
 CBOR ([cbor-x](https://github.com/kriszyp/cbor-x)) is the [fastest](https://github.com/moleculerjs/moleculer/pull/905) than any other serializers.
