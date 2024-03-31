@@ -543,7 +543,7 @@ If you disable the built-in Moleculer balancer, all requests & events will be tr
 Transporter needs a serializer module which serializes & deserializes the transferred packets. The default serializer is the `JSONSerializer` but there are several built-in serializer.
 
 {% note warn %}
-Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with native JSON serializer. If you are working with this kind of data consider using [Notepack](#Notepack-serializer) or any other binary serializer.
+Note that certain data types (e.g., Date, Map, BigInt) cannot be serialized with native JSON serializer. If you are working with this kind of data consider using [JSONExt](#json-extended-serializer) or [Notepack](#Notepack-serializer) serializers.
 {% endnote %}
 
 
@@ -567,8 +567,7 @@ module.exports = {
 ```
 
 ### JSON Extended serializer
-We implemented a new JSON serializer which unlike the native JSON serializer, `Buffer`, `BigInt`, `Date`, `Map`, `Set` and `RegExp` classes.
-
+We implemented a new JSON serializer which (unlike the native JSON serializer) is able to serializer `Buffer`, `BigInt`, `Date`, `Map`, `Set` and `RegExp` classes.
 
 **Example**
 
