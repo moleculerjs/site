@@ -328,8 +328,6 @@ ctx.call("file.save", { filename: "as.txt" }, { stream: fs.createReadStream() })
 [Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. In order to enable it set `$streamObjectMode: true` in [`meta`](actions.html#Metadata).
 {% endnote %}
 
-Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
-
 **Receiving a stream in a service**
 ```js
 // file.service.js
