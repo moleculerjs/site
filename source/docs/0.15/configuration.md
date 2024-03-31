@@ -143,7 +143,17 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 
     middlewares: ["MyMiddleware"],
 
-    replOptions: null,
+    replOptions: {
+        delimiter: "mol # ",
+        customCommands: [
+            {
+                command: "hello <name>",			
+                action(broker, args) {
+                    // ...
+                }
+            }
+        ]        
+    },
 
     metadata: {
         region: "eu-west1"
