@@ -431,3 +431,7 @@ companies:
         name: Balinex
         link: https://www.balinex.com/
         logo: https://statics.balinex.com/icons/LogoBalinex.svg
+    -
+        name: SnippetSentry
+        link: https://snippetsentry.com/
+        logo: https://snippetsentry.com/wp-content/uploads/2025/01/SnippetSentry_Mobile_Message_Capture.png
