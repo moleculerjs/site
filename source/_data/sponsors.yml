@@ -21,7 +21,11 @@ patreon:
 
     silver:
         name: Silver backers
-        users: []
+        users:
+            -
+                name: Imre Ujlaki
+                link: https://github.com/iujlaki
+                logo: https://avatars.githubusercontent.com/u/429180?v=4
 
     bronze:
         name: Bronze backers
@@ -51,10 +55,6 @@ patreon:
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/274758/15fd791893d24df2a2ed9c5417f7ed79/1.jpeg?token-time=2145916800&token-hash=yE0fa3cLU6cChnLo6t1fWC8ytEwS-3sUhn5Zc13e5mY%3D
             -
-                name: Imre Ujlaki
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/37051208/a63b15daea6841e1b50fa2191fe5583c/1.jpeg?token-time=2145916800&token-hash=RN_RXhuiIDE5gLEIsfzVwdYMWocKTaYDF7Z7QPscat4%3D
-            -
                 name: Albert Baldassarre
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/284528/9a679fabd2e1407eaa2272b1afc3ce32/1.jpeg?token-time=2145916800&token-hash=QBhHy3s8LGcNgYfonlkZfySmmpTK4uPcHuvRVJjDLCQ%3D
@@ -66,3 +66,7 @@ patreon:
                 name: Adam McCormick
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/6047245/84f2080fccc94eeda6c38a44c0ec3f91/1.JPG?token-time=2145916800&token-hash=yxG-xu39PY0mITRa78sStoXS5B_fYumI8RDfr3U8huU%3D
+            -
+                name: Nico Freezystem
+                link: https://github.com/Freezystem
+                logo: https://avatars.githubusercontent.com/u/1469878?v=4
