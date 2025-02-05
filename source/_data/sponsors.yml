@@ -1,6 +1,10 @@
 patreon:
+    gold:
+        name: Diamond sponsors ($1000)
+        users: []
+
     platinum:
-        name: Platinum sponsors
+        name: Platinum sponsors ($500)
         users:
             -
                 name: Server-Eye
@@ -8,19 +12,19 @@ patreon:
                 logo: https://www.servereye.de/wp-content/uploads/server-eye_logo2019.png
                 company: true
     gold:
-        name: Gold sponsors
-        users: []
-            #-
-            #    name: Toby de Havilland
-            #    link: null
-            #    logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/30541478/f1bbed8c898b441b9ce9e6462697703a/1.jpeg?token-time=2145916800&token-hash=RUJHQuE-BWjAKPvwVc7x5BU3QDfFA0xDOIS-Ok8fikE%3D
-            #-
-            #    name: Jason Grey (Astute Solutions, LLC)
-            #    link: null
-            #    logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/36887092/2c8346d940d2486299efdd476ce698fb/1.jpeg?token-time=2145916800&token-hash=-Kpv7IcjhK9Ab3Z_WLVZyC2PNSC7yyMLHANBmTHhRY4%3D
+        name: Gold sponsors ($100)
+        users:
+            -
+               name: Dyte
+               link: https://github.com/dyte-in
+               logo: https://avatars.githubusercontent.com/u/68553451?s=200&v=4
+            -
+               name: Middleware New Zealand
+               link: https://github.com/MiddlewareNewZealand
+               logo: https://avatars.githubusercontent.com/u/69873989?s=200&v=4
 
     silver:
-        name: Silver backers
+        name: Silver backers ($50)
         users:
             -
                 name: Imre Ujlaki
@@ -28,15 +32,19 @@ patreon:
                 logo: https://avatars.githubusercontent.com/u/429180?v=4
 
     bronze:
-        name: Bronze backers
+        name: Bronze backers ($20)
         users:
+            # -
+            #     name: Ivan Petrovic
+            #     link: null
+            #     logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D
             -
-                name: Ivan Petrovic
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/19800075/47df31c3c8e3444d8ffc29c4223429cd/2.jpeg?token-time=2145916800&token-hash=JovmJsLIzKQvBbW8S15YwEJvSCdnwzUfHYCd6oBSRFA%3D
+                name: Conscia Corporation
+                link: https://github.com/conscia
+                logo: https://avatars.githubusercontent.com/u/11866962?s=200&v=4
 
     copper:
-        name: Copper backers
+        name: Copper backers ($10)
         users:
             -
                 name: Andreas Leinen
@@ -46,22 +54,22 @@ patreon:
                 name: Tejas Bhatt
                 link: null
                 logo: https://c8.patreon.com/2/200/16817468
-            -
-                name: Marcel Zúbrik
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/20502856/b4c040fb32a94e06b315551f430f62d7/1.jpeg?token-time=2145916800&token-hash=vtnv5DPMxrdK47HKSOV8ZbKia3_evpwjIOEsnYwY_G0%3D
-            -
-                name: Itamar
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/274758/15fd791893d24df2a2ed9c5417f7ed79/1.jpeg?token-time=2145916800&token-hash=yE0fa3cLU6cChnLo6t1fWC8ytEwS-3sUhn5Zc13e5mY%3D
+            # -
+            #     name: Marcel Zúbrik
+            #     link: https://github.com/Wradgio
+            #     logo: https://avatars.githubusercontent.com/u/1776976?v=4
+            # -
+            #     name: Itamar
+            #     link: null
+            #     logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/274758/15fd791893d24df2a2ed9c5417f7ed79/1.jpeg?token-time=2145916800&token-hash=yE0fa3cLU6cChnLo6t1fWC8ytEwS-3sUhn5Zc13e5mY%3D
             -
                 name: Albert Baldassarre
                 link: null
                 logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/284528/9a679fabd2e1407eaa2272b1afc3ce32/1.jpeg?token-time=2145916800&token-hash=QBhHy3s8LGcNgYfonlkZfySmmpTK4uPcHuvRVJjDLCQ%3D
-            -
-                name: Autodrop3d Mike
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/43821311/b5e543ccff6f4891841ad50427138db3/1.png?token-time=2145916800&token-hash=j4hqXBGcgOsf7-ZCwYefRLnslTMCVik6Z2OpmgaqjSM%3D
+            # -
+            #     name: Autodrop3d Mike
+            #     link: null
+            #     logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/43821311/b5e543ccff6f4891841ad50427138db3/1.png?token-time=2145916800&token-hash=j4hqXBGcgOsf7-ZCwYefRLnslTMCVik6Z2OpmgaqjSM%3D
             -
                 name: Adam McCormick
                 link: null
@@ -70,3 +78,15 @@ patreon:
                 name: Nico Freezystem
                 link: https://github.com/Freezystem
                 logo: https://avatars.githubusercontent.com/u/1469878?v=4
+            -
+                name: Thibaut SEVERAC
+                link: https://github.com/thib3113
+                logo: https://avatars.githubusercontent.com/u/5489218?v=4
+            -
+                name: Luc
+                link: https://github.com/lucwj
+                logo: https://avatars.githubusercontent.com/u/2667418?v=4
+            -
+                name: Marc-Antoine
+                link: https://github.com/Embraser01
+                logo: https://avatars.githubusercontent.com/u/8802277?v=4

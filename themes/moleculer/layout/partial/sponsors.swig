@@ -1,5 +1,5 @@
 {% if site.data.sponsors.patreon %}
-    <h2 class="section-title">Patreon backers &amp; sponsors</h2>
+    <h2 class="section-title">Github & Patreon sponsors</h2>
     {% for level in site.data.sponsors.patreon %}
         <h3 class="section-title">{{ level.name }}</h3>
         <div class="support-backers {{ loop.key }}">
