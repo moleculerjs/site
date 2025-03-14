@@ -46,6 +46,10 @@ patreon:
                 name: Inuk
                 link: https://inuk.co//EN
                 logo: https://avatars.githubusercontent.com/u/198085477?s=200&v=4
+            -
+                name: Abdulkarim Itani
+                link: null
+                logo: https://c10.patreonusercontent.com/4/patreon-media/p/user/164308691/e297da1ae9b24e85a8f9ca7783229ca5/eyJ3IjoyMDB9/1.jpeg?token-time=2145916800&token-hash=4VIqH_I1_yjl7kZ-GYYbknu5ZZYeB0hDbC9bAoyjUH4%3D
 
     copper:
         name: Copper backers ($10)
@@ -74,10 +78,10 @@ patreon:
             #     name: Autodrop3d Mike
             #     link: null
             #     logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/43821311/b5e543ccff6f4891841ad50427138db3/1.png?token-time=2145916800&token-hash=j4hqXBGcgOsf7-ZCwYefRLnslTMCVik6Z2OpmgaqjSM%3D
-            -
-                name: Adam McCormick
-                link: null
-                logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/6047245/84f2080fccc94eeda6c38a44c0ec3f91/1.JPG?token-time=2145916800&token-hash=yxG-xu39PY0mITRa78sStoXS5B_fYumI8RDfr3U8huU%3D
+            # -
+            #     name: Adam McCormick
+            #     link: null
+            #     logo: https://c10.patreonusercontent.com/3/eyJ3IjoyMDB9/patreon-media/p/user/6047245/84f2080fccc94eeda6c38a44c0ec3f91/1.JPG?token-time=2145916800&token-hash=yxG-xu39PY0mITRa78sStoXS5B_fYumI8RDfr3U8huU%3D
             -
                 name: Nico Freezystem
                 link: https://github.com/Freezystem
