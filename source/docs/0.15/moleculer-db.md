@@ -160,6 +160,7 @@ Find entities by query.
 | `offset` | `Number` | **required** | Count of skipped rows. |
 | `sort` | `String` | **required** | Sorted fields. |
 | `search` | `String` | **required** | Search text. |
+| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
 | `searchFields` | `String` | **required** | Fields for searching. |
 | `query` | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -175,6 +176,7 @@ Get count of entities by query.
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `search` | `String` | **required** | Search text. |
+| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
 | `searchFields` | `String` | **required** | Fields list for searching. |
 | `query` | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -195,6 +197,7 @@ List entities by filters and pagination results.
 | `pageSize` | `Number` | **required** | Size of a page. |
 | `sort` | `String` | **required** | Sorted fields. |
 | `search` | `String` | **required** | Search text. |
+| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
 | `searchFields` | `String` | **required** | Fields for searching. |
 | `query` | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -340,6 +343,7 @@ Find entities by query.
 | `offset` | `Number` | **required** | Count of skipped rows. |
 | `sort` | `String` | **required** | Sorted fields. |
 | `search` | `String` | **required** | Search text. |
+| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
 | `searchFields` | `String` | **required** | Fields for searching. |
 | `query` | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -357,6 +361,7 @@ Get count of entities by query.
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | `search` | `String` | **required** | Search text. |
+| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
 | `searchFields` | `String` | **required** | Fields list for searching. |
 | `query` | `Object` | **required** | Query object. Passes to adapter. |
 
@@ -379,6 +384,7 @@ List entities by filters and pagination results.
 | `pageSize` | `Number` | **required** | Size of a page. |
 | `sort` | `String` | **required** | Sorted fields. |
 | `search` | `String` | **required** | Search text. |
+| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
 | `searchFields` | `String` | **required** | Fields for searching. |
 | `query` | `Object` | **required** | Query object. Passes to adapter. |
 
