@@ -25,11 +25,7 @@ patreon:
 
     silver:
         name: Silver backers ($50)
-        users:
-            -
-                name: Imre Ujlaki
-                link: https://github.com/iujlaki
-                logo: https://avatars.githubusercontent.com/u/429180?v=4
+        users: []
 
     bronze:
         name: Bronze backers ($20)
@@ -98,3 +94,7 @@ patreon:
                 name: Marc-Antoine
                 link: https://github.com/Embraser01
                 logo: https://avatars.githubusercontent.com/u/8802277?v=4
+            -
+                name: Imre Ujlaki
+                link: https://github.com/iujlaki
+                logo: https://avatars.githubusercontent.com/u/429180?v=4
