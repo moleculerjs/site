@@ -329,9 +329,9 @@ Encode ID of entity.
 Decode ID of entity.
 
 #### Parameters
-| Property | Type  | Default      | Description |
-| -------- | ----- | ------------ | ----------- |
-| `id`     | `any` | **required** | -           |
+| Property | Type  | Default      | Leírás |
+| -------- | ----- | ------------ | ------ |
+| `id`     | `any` | **required** | -      |
 
 #### Results
 **Type:** `any`
@@ -455,7 +455,7 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type     | Default | Description       |
+| Property | Type     | Default | Leírás            |
 | -------- | -------- | ------- | ----------------- |
 | `params` | `Object` | -       | Entity to update. |
 
