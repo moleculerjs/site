@@ -455,9 +455,9 @@ Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
 #### Parameters
-| Property | Type     | Default | Description       |
-| -------- | -------- | ------- | ----------------- |
-| `params` | `Object` | -       | Entity to update. |
+| Property | 类型       | 默认设置 | Description       |
+| -------- | -------- | ---- | ----------------- |
+| `params` | `Object` | -    | Entity to update. |
 
 #### Results
 **Type:** `Object`
