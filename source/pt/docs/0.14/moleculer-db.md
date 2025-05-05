@@ -455,9 +455,9 @@ Atualizar a entidade por ID.
 > Após a atualização, limpa o cache & chama os eventos de ciclo de vida.
 
 #### Parâmetros
-| Propriedade | Tipo     | Default | Description              |
-| ----------- | -------- | ------- | ------------------------ |
-| `params`    | `Object` | -       | Entidade para atualizar. |
+| Propriedade | Tipo     | Padrão | Descrição                |
+| ----------- | -------- | ------ | ------------------------ |
+| `params`    | `Object` | -      | Entidade para atualizar. |
 
 #### Resultados
 **Tipo:** `Object`
@@ -470,9 +470,9 @@ Entidade atualizada.
 Remove uma entidade por ID.
 
 #### Parâmetros
-| Propriedade | Tipo  | Padrão       | Descrição       |
-| ----------- | ----- | ------------ | --------------- |
-| `id`        | `any` | **required** | ID da entidade. |
+| Propriedade | Tipo  | Padrão          | Descrição       |
+| ----------- | ----- | --------------- | --------------- |
+| `id`        | `any` | **obrigatório** | ID da entidade. |
 
 #### Resultados
 **Tipo:** `Number`
