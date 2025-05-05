@@ -454,10 +454,10 @@ Found entity(ies).
 Update an entity by ID.
 > After update, clear the cache & call lifecycle events.
 
-#### Parameters
-| Property | Type     | Default | Description       |
-| -------- | -------- | ------- | ----------------- |
-| `params` | `Object` | -       | Entity to update. |
+#### Параметры
+| Property | Тип      | Значение по умолчанию | Описание          |
+| -------- | -------- | --------------------- | ----------------- |
+| `params` | `Object` | -                     | Entity to update. |
 
 #### Results
 **Type:** `Object`
