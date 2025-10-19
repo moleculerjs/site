@@ -152,16 +152,17 @@ Adaptadores de BD também implementam operações CRUD. Essas [ações](actions.
 Encontrar entidades por consulta.
 
 #### Parâmetros
-| Propriedade    | Tipo                   | Valor padrão    | Descrição                                       |
-| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
-| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
-| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
-| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                    |
-| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                 |
-| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
-| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
-| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
-| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+| Propriedade    | Tipo                   | Valor padrão    | Descrição                                                        |
+| -------------- | ---------------------- | --------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                                     |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                                                |
+| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                                     |
+| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                                  |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                                           |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                                 |
+| `iSearch`      | `String`               | **obrigatório** | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                                               |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador.                  |
 
 #### Resultados
 **Tipo:** `Matriz.<Object>` - Lista de entidades encontradas.
@@ -172,11 +173,12 @@ Encontrar entidades por consulta.
 Obter contagem de entidades por consulta.
 
 #### Parâmetros
-| Propriedade    | Tipo     | Valor padrão    | Descrição                                       |
-| -------------- | -------- | --------------- | ----------------------------------------------- |
-| `search`       | `String` | **obrigatório** | Pesquisar texto.                                |
-| `searchFields` | `String` | **obrigatório** | Campos para busca.                              |
-| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+| Propriedade    | Tipo     | Valor padrão    | Descrição                                                        |
+| -------------- | -------- | --------------- | ---------------------------------------------------------------- |
+| `search`       | `String` | **obrigatório** | Pesquisar texto.                                                 |
+| `iSearch`      | `String` | **obrigatório** | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String` | **obrigatório** | Campos para busca.                                               |
+| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador.                  |
 
 #### Resultados
 **Tipo:** `Number` - Contagem de entidades encontradas.
@@ -187,16 +189,17 @@ Obter contagem de entidades por consulta.
 Lista entidades com filtros e paginação de resultados.
 
 #### Parâmetros
-| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
-| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
-| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
-| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
-| `page`         | `Number`               | **obrigatório** | Número da página.                               |
-| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                          |
-| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
-| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
-| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
-| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+| Propriedade    | Tipo                   | Padrão          | Descrição                                                        |
+| -------------- | ---------------------- | --------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                                     |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                                                |
+| `page`         | `Number`               | **obrigatório** | Número da página.                                                |
+| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                                           |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                                           |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                                 |
+| `iSearch`      | `String`               | **obrigatório** | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                                               |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador.                  |
 
 #### Resultados
 **Type:** `Object` - Lista e contagem de entidades encontradas.
@@ -338,16 +341,17 @@ Decodificar ID da entidade.
 Encontrar entidades por consulta.
 
 #### Parâmetros
-| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
-| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
-| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
-| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
-| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                    |
-| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                 |
-| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
-| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
-| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
-| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+| Propriedade    | Tipo                   | Padrão          | Descrição                                                        |
+| -------------- | ---------------------- | --------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                                     |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                                                |
+| `limit`        | `Number`               | **obrigatório** | Quantidade máxima de linhas.                                     |
+| `offset`       | `Number`               | **obrigatório** | Quantidade de linhas ignoradas.                                  |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                                           |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                                 |
+| `iSearch`      | `String`               | **obrigatório** | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                                               |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador.                  |
 
 #### Resultados
 **Tipo:** `Array.<Object>`
@@ -360,11 +364,12 @@ Lista de entidades encontradas.
 Obter contagem de entidades por consulta.
 
 #### Parâmetros
-| Propriedade    | Tipo     | Padrão          | Descrição                                       |
-| -------------- | -------- | --------------- | ----------------------------------------------- |
-| `search`       | `String` | **obrigatório** | Pesquisar texto.                                |
-| `searchFields` | `String` | **obrigatório** | Campos para busca.                              |
-| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+| Propriedade    | Tipo     | Padrão          | Descrição                                                        |
+| -------------- | -------- | --------------- | ---------------------------------------------------------------- |
+| `search`       | `String` | **obrigatório** | Pesquisar texto.                                                 |
+| `iSearch`      | `String` | **obrigatório** | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String` | **obrigatório** | Campos para busca.                                               |
+| `query`        | `Object` | **obrigatório** | Objeto de consulta. Transfere para o adaptador.                  |
 
 #### Resultados
 **Tipo:** `Number`
@@ -377,16 +382,17 @@ Contagem de entidades encontradas.
 Lista entidades com filtros e paginação de resultados.
 
 #### Parâmetros
-| Propriedade    | Tipo                   | Padrão          | Descrição                                       |
-| -------------- | ---------------------- | --------------- | ----------------------------------------------- |
-| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                    |
-| `fields`       | `Array.<String>` | -               | Filtro de campos.                               |
-| `page`         | `Number`               | **obrigatório** | Número da página.                               |
-| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                          |
-| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                          |
-| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                |
-| `searchFields` | `String`               | **obrigatório** | Campos para busca.                              |
-| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador. |
+| Propriedade    | Tipo                   | Padrão          | Descrição                                                        |
+| -------------- | ---------------------- | --------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -               | Preenche dados relacionados.                                     |
+| `fields`       | `Array.<String>` | -               | Filtro de campos.                                                |
+| `page`         | `Number`               | **obrigatório** | Número da página.                                                |
+| `pageSize`     | `Number`               | **obrigatório** | Tamanho de uma página.                                           |
+| `sort`         | `String`               | **obrigatório** | Campos para ordenação.                                           |
+| `search`       | `String`               | **obrigatório** | Pesquisar texto.                                                 |
+| `iSearch`      | `String`               | **obrigatório** | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **obrigatório** | Campos para busca.                                               |
+| `query`        | `Object`               | **obrigatório** | Objeto de consulta. Transfere para o adaptador.                  |
 
 #### Resultados
 **Tipo:** `Object`
