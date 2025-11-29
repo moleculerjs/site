@@ -232,11 +232,11 @@ console.log(res);
 ```
 
 ## Потоки
-Moleculer supports Node.js streams as request `params` and as response. Use it to transfer an incoming file from a gateway, encode/decode or compress/decompress streams.
+Moleculer supports Node.js streams as request `params` and as response. Используйте их для передачи входящего файла от шлюза, а также для кодирования/декодирования или сжатия/распаковки потоков.
 
 ### Примеры
 
-**Send a file to a service as a stream**
+**Отправить файл сервису как поток**
 ```js
 const stream = fs.createReadStream(fileName);
 
@@ -247,7 +247,7 @@ broker.call("storage.save", stream, { meta: { filename: "avatar-123.jpg" }});
 Режим [Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) так же поддерживается. Чтобы его задействовать, установите `$streamObjectMode: true` в [`meta`](actions.html#Metadata).
 {% endnote %}
 
-Please note, the `params` should be a stream, you cannot add any additional variables to the `params`. Use the `meta` property to transfer additional data.
+Обратите внимание: значение в `params` должно быть стримом, и вы не можете добавлять в `params` никакие дополнительные переменные. Use the `meta` property to transfer additional data.
 
 **Receiving a stream in a service**
 ```js
