@@ -152,16 +152,17 @@ DB adapters also implement CRUD operations. These [actions](actions.html) are [`
 Find entities by query.
 
 #### Параметры
-| Property       | Тип                    | Значение по умолчанию | Описание                         |
-| -------------- | ---------------------- | --------------------- | -------------------------------- |
-| `populate`     | `Array.<String>` | -                     | Populated fields.                |
-| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
-| `limit`        | `Number`               | **required**          | Max count of rows.               |
-| `offset`       | `Number`               | **required**          | Count of skipped rows.           |
-| `sort`         | `String`               | **required**          | Sorted fields.                   |
-| `поиск`        | `String`               | **required**          | Search text.                     |
-| `searchFields` | `String`               | **required**          | Fields for searching.            |
-| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
+| Property       | Тип                    | Значение по умолчанию | Описание                                                         |
+| -------------- | ---------------------- | --------------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                                                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                                                   |
+| `limit`        | `Number`               | **required**          | Max count of rows.                                               |
+| `offset`       | `Number`               | **required**          | Count of skipped rows.                                           |
+| `sort`         | `String`               | **required**          | Sorted fields.                                                   |
+| `поиск`        | `String`               | **required**          | Search text.                                                     |
+| `iSearch`      | `String`               | **required**          | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **required**          | Fields for searching.                                            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter.                                 |
 
 #### Results
 **Type:** `Array.<Object>` - List of found entities.
@@ -172,11 +173,12 @@ Find entities by query.
 Get count of entities by query.
 
 #### Параметры
-| Property       | Тип      | Значение по умолчанию | Описание                         |
-| -------------- | -------- | --------------------- | -------------------------------- |
-| `поиск`        | `String` | **required**          | Search text.                     |
-| `searchFields` | `String` | **required**          | Fields list for searching.       |
-| `query`        | `Object` | **required**          | Query object. Passes to adapter. |
+| Property       | Тип      | Значение по умолчанию | Описание                                                         |
+| -------------- | -------- | --------------------- | ---------------------------------------------------------------- |
+| `поиск`        | `String` | **required**          | Search text.                                                     |
+| `iSearch`      | `String` | **required**          | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String` | **required**          | Fields list for searching.                                       |
+| `query`        | `Object` | **required**          | Query object. Passes to adapter.                                 |
 
 #### Results
 **Type:** `Number` - Count of found entities.
@@ -187,16 +189,17 @@ Get count of entities by query.
 List entities by filters and pagination results.
 
 #### Параметры
-| Property       | Тип                    | Значение по умолчанию | Описание                         |
-| -------------- | ---------------------- | --------------------- | -------------------------------- |
-| `populate`     | `Array.<String>` | -                     | Populated fields.                |
-| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
-| `page`         | `Number`               | **required**          | Page number.                     |
-| `pageSize`     | `Number`               | **required**          | Size of a page.                  |
-| `sort`         | `String`               | **required**          | Sorted fields.                   |
-| `поиск`        | `String`               | **required**          | Search text.                     |
-| `searchFields` | `String`               | **required**          | Fields for searching.            |
-| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
+| Property       | Тип                    | Значение по умолчанию | Описание                                                         |
+| -------------- | ---------------------- | --------------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                                                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                                                   |
+| `page`         | `Number`               | **required**          | Page number.                                                     |
+| `pageSize`     | `Number`               | **required**          | Size of a page.                                                  |
+| `sort`         | `String`               | **required**          | Sorted fields.                                                   |
+| `поиск`        | `String`               | **required**          | Search text.                                                     |
+| `iSearch`      | `String`               | **required**          | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **required**          | Fields for searching.                                            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter.                                 |
 
 #### Results
 **Type:** `Object` - List of found entities and count.
@@ -338,16 +341,17 @@ Decode ID of entity.
 Find entities by query.
 
 #### Параметры
-| Property       | Тип                    | Значение по умолчанию | Описание                         |
-| -------------- | ---------------------- | --------------------- | -------------------------------- |
-| `populate`     | `Array.<String>` | -                     | Populated fields.                |
-| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
-| `limit`        | `Number`               | **required**          | Max count of rows.               |
-| `offset`       | `Number`               | **required**          | Count of skipped rows.           |
-| `sort`         | `String`               | **required**          | Sorted fields.                   |
-| `поиск`        | `String`               | **required**          | Search text.                     |
-| `searchFields` | `String`               | **required**          | Fields for searching.            |
-| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
+| Property       | Тип                    | Значение по умолчанию | Описание                                                         |
+| -------------- | ---------------------- | --------------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                                                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                                                   |
+| `limit`        | `Number`               | **required**          | Max count of rows.                                               |
+| `offset`       | `Number`               | **required**          | Count of skipped rows.                                           |
+| `sort`         | `String`               | **required**          | Sorted fields.                                                   |
+| `поиск`        | `String`               | **required**          | Search text.                                                     |
+| `iSearch`      | `String`               | **required**          | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **required**          | Fields for searching.                                            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter.                                 |
 
 #### Results
 **Type:** `Array.<Object>`
@@ -360,11 +364,12 @@ List of found entities.
 Get count of entities by query.
 
 #### Параметры
-| Property       | Тип      | Значение по умолчанию | Описание                         |
-| -------------- | -------- | --------------------- | -------------------------------- |
-| `поиск`        | `String` | **required**          | Search text.                     |
-| `searchFields` | `String` | **required**          | Fields list for searching.       |
-| `query`        | `Object` | **required**          | Query object. Passes to adapter. |
+| Property       | Тип      | Значение по умолчанию | Описание                                                         |
+| -------------- | -------- | --------------------- | ---------------------------------------------------------------- |
+| `поиск`        | `String` | **required**          | Search text.                                                     |
+| `iSearch`      | `String` | **required**          | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String` | **required**          | Fields list for searching.                                       |
+| `query`        | `Object` | **required**          | Query object. Passes to adapter.                                 |
 
 #### Results
 **Type:** `Number`
@@ -377,16 +382,17 @@ Count of found entities.
 List entities by filters and pagination results.
 
 #### Параметры
-| Property       | Тип                    | Значение по умолчанию | Описание                         |
-| -------------- | ---------------------- | --------------------- | -------------------------------- |
-| `populate`     | `Array.<String>` | -                     | Populated fields.                |
-| `fields`       | `Array.<String>` | -                     | Fields filter.                   |
-| `page`         | `Number`               | **required**          | Page number.                     |
-| `pageSize`     | `Number`               | **required**          | Size of a page.                  |
-| `sort`         | `String`               | **required**          | Sorted fields.                   |
-| `поиск`        | `String`               | **required**          | Search text.                     |
-| `searchFields` | `String`               | **required**          | Fields for searching.            |
-| `query`        | `Object`               | **required**          | Query object. Passes to adapter. |
+| Property       | Тип                    | Значение по умолчанию | Описание                                                         |
+| -------------- | ---------------------- | --------------------- | ---------------------------------------------------------------- |
+| `populate`     | `Array.<String>` | -                     | Populated fields.                                                |
+| `fields`       | `Array.<String>` | -                     | Fields filter.                                                   |
+| `page`         | `Number`               | **required**          | Page number.                                                     |
+| `pageSize`     | `Number`               | **required**          | Size of a page.                                                  |
+| `sort`         | `String`               | **required**          | Sorted fields.                                                   |
+| `поиск`        | `String`               | **required**          | Search text.                                                     |
+| `iSearch`      | `String`               | **required**          | Search text (case insensitive) *Available only using Sequelize*. |
+| `searchFields` | `String`               | **required**          | Fields for searching.                                            |
+| `query`        | `Object`               | **required**          | Query object. Passes to adapter.                                 |
 
 #### Results
 **Type:** `Object`
