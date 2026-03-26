@@ -1,0 +1,70 @@
+# Moleculer
+
+> Moleculer is a fast, modern, and powerful microservices framework for Node.js. It provides built-in service discovery, load balancing, fault tolerance, caching, event-driven architecture, and multi-transport networking out of the box.
+
+## Getting Started
+
+- [What is Moleculer?](https://moleculer.services/docs/0.15/): Overview of features, architecture, and supported Node.js versions
+- [Installation & Usage](https://moleculer.services/docs/0.15/usage): Install Moleculer, create your first microservice, scaffold a project with moleculer-cli
+- [Core Concepts](https://moleculer.services/docs/0.15/concepts): Architecture overview — Service, Node, ServiceBroker, Transporter, Gateway
+- [Configuration](https://moleculer.services/docs/0.15/configuration): Full ServiceBroker options reference (namespace, logger, transporter, cacher, serializer, metrics, tracing, etc.)
+- [Examples](https://moleculer.services/docs/0.15/examples): Example projects — Conduit (RealWorld), Blog, and short samples
+
+## Core
+
+- [ServiceBroker](https://moleculer.services/docs/0.15/broker): Broker creation, properties, methods, metadata, ping, global error handler
+- [Services](https://moleculer.services/docs/0.15/services): Service schema, versioning, settings, mixins, actions, events, methods, lifecycle, dependencies, ES6 classes, decorators, internal services ($node.*), hot reloading
+- [Actions](https://moleculer.services/docs/0.15/actions): Calling services (broker.call), metadata, headers, timeout, multiple calls (mcall), streaming (send/receive), visibility, action hooks, local storage
+- [Events](https://moleculer.services/docs/0.15/events): Balanced events, broadcast, wildcards, event parameter validation, internal events
+- [Context](https://moleculer.services/docs/0.15/context): Context object (ctx) properties and methods, context tracking
+- [Lifecycle](https://moleculer.services/docs/0.15/lifecycle): Broker and service lifecycle events (created, started, stopped, merged)
+
+## Networking & Scaling
+
+- [Networking](https://moleculer.services/docs/0.15/networking): Transporters (TCP, NATS, Redis, MQTT, AMQP, Kafka), serializers (JSON, JSONExt, MsgPack, CBOR), custom transporter
+- [Load Balancing](https://moleculer.services/docs/0.15/balancing): Strategies — RoundRobin, Random, CpuUsage, Latency, Shard (consistent hashing), custom strategy
+- [Service Registry](https://moleculer.services/docs/0.15/registry): Service discovery — Local, Redis, and Etcd3 discoverers, custom discoverer
+- [Fault Tolerance](https://moleculer.services/docs/0.15/fault-tolerance): Circuit Breaker, Retry (exponential backoff), Timeout, Bulkhead, Fallback
+- [Clustering](https://moleculer.services/docs/0.15/clustering): Monolith, microservices, and mixed architecture patterns
+- [Deploying](https://moleculer.services/docs/0.15/deploying): Docker and Kubernetes deployment guides
+
+## Features
+
+- [Caching](https://moleculer.services/docs/0.15/caching): Cache keys, TTL, conditional caching, manual caching, cache locking — Memory, MemoryLRU, Redis cachers
+- [Middlewares](https://moleculer.services/docs/0.15/middlewares): Middleware system for wrapping handlers — encryption, compression, throttle, debounce, transit/action logging
+- [Validation](https://moleculer.services/docs/0.15/validating): Parameter validation with fastest-validator, custom validators (Joi), async validation
+- [Errors](https://moleculer.services/docs/0.15/errors): Error classes, custom errors, error preservation across remote nodes
+
+## Observability
+
+- [Logging](https://moleculer.services/docs/0.15/logging): Built-in loggers (Console, File), external loggers (Pino, Bunyan, Winston, Datadog), multiple loggers, log level filtering
+- [Metrics](https://moleculer.services/docs/0.15/metrics): Reporters (Console, CSV, Datadog, Prometheus, StatsD), metric types (Counter, Gauge, Histogram), built-in and custom metrics
+- [Tracing](https://moleculer.services/docs/0.15/tracing): Distributed tracing — sampling, exporters (Console, Datadog, Jaeger, Zipkin, NewRelic), custom spans, tags
+
+## Official Modules
+
+- [API Gateway (moleculer-web)](https://moleculer.services/docs/0.15/moleculer-web): HTTP/REST gateway — aliases, whitelist, authentication, authorization, CORS, rate limiter, file upload, Express compatibility
+- [Database (moleculer-db)](https://moleculer.services/docs/0.15/moleculer-db): CRUD operations, populating, lifecycle hooks — adapters for MongoDB, Mongoose, Sequelize (PostgreSQL, MySQL, SQLite)
+- [REPL Console (moleculer-repl)](https://moleculer.services/docs/0.15/moleculer-repl): Interactive developer console for inspecting services, calling actions, benchmarking
+- [CLI (moleculer-cli)](https://moleculer.services/docs/0.15/moleculer-cli): Project scaffolding, service generation, connecting to running brokers
+
+## Tools & Reference
+
+- [Moleculer Runner](https://moleculer.services/docs/0.15/runner): Load configuration and start services without boilerplate — CLI options, env vars, clustering, .env files
+- [Testing](https://moleculer.services/docs/0.15/testing): Unit and integration testing guide with examples
+- [Benchmark](https://moleculer.services/docs/0.15/benchmark): Performance benchmarks — local/remote calls, transporters, serializers, cachers
+- [FAQ](https://moleculer.services/docs/0.15/faq): Frequently asked questions and troubleshooting
+- [Contributing](https://moleculer.services/docs/0.15/contributing): Contribution guidelines, coding style, PR workflow
+
+## API Reference
+
+- [ServiceBroker API](https://moleculer.services/docs/0.15/api/service-broker): Full API reference for the ServiceBroker class
+- [Service API](https://moleculer.services/docs/0.15/api/service): Full API reference for the Service class
+- [Context API](https://moleculer.services/docs/0.15/api/context): Full API reference for the Context class
+
+## Links
+
+- [GitHub Repository](https://github.com/moleculerjs/moleculer)
+- [npm Package](https://www.npmjs.com/package/moleculer)
+- [Discord Community](https://discord.gg/TSEcDRP)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/moleculer)
