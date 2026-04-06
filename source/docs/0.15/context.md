@@ -20,6 +20,9 @@ When you call an action or emit an event, the broker creates a `Context` instanc
 | `ctx.parentID` | `String` | Parent context ID (in nested-calls). |
 | `ctx.params` | `Any` | Request params. *Second argument from `broker.call`.* |
 | `ctx.meta` | `Any` | Request metadata. *It will be also transferred to nested-calls.* |
+| `ctx.headers` | `Object` | Request headers. *Unlike `meta`, headers are NOT transferred to nested-calls.* |
+| `ctx.responseHeaders` | `Object` | Response headers. *Can be used by middlewares.* |
+| `ctx.stream` | `Stream` | Incoming stream instance (when the caller sends a stream). |
 | `ctx.locals` | `Any` | Local data. |
 | `ctx.level` | `Number` | Request level (in nested-calls). The first level is `1`. |
 | `ctx.span` | `Span` | Current active span. |

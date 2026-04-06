@@ -195,12 +195,11 @@ const broker = new ServiceBroker({
     cacher: {
         type: "memory",
         options: {
-            keygen(name, params, meta, keys) {
+            keygen(action, opts, ctx) {
                 // Generate a cache key
-                // name - action name
-                // params - ctx.params
-                // meta - ctx.meta
-                // keys - cache keys defined in action
+                // action - action definition object
+                // opts - calling options
+                // ctx - Context instance (contains params, meta, headers)
                 return "";
             }
         }

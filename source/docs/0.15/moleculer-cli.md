@@ -27,6 +27,13 @@ You can put the question answers into a JSON file and load it with the `--answer
 $ moleculer init project my-project --answers ./answers.json
 ```
 
+### Answers from CLI parameters
+You can also pass answers directly as CLI parameters using the `--@key=value` syntax.
+
+```bash
+$ moleculer init project my-project --@projectName=my-project --@needTransporter=true
+```
+
 ### Disable installing dependencies
 You can disable the automatic NPM dependency installation with `--no-install` argument. It can be useful to generate project programmatically.
 
@@ -40,14 +47,14 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 	* sample service (`greeter`)
 	* official [API Gateway](https://github.com/moleculerjs/moleculer-web) (optional)
 	* Docker & Docker Compose files
-	* tests & coverage with [Jest](http://facebook.github.io/jest/)
+	* tests & coverage with [Vitest](https://vitest.dev/)
 	* lint with [ESLint](http://eslint.org/)
 
 
 * [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*
 	* sample service (`greeter`)
 	* Docker & Docker Compose files
-	* tests & coverage with [Jest](http://facebook.github.io/jest/)
+	* tests & coverage with [Vitest](https://vitest.dev/)
 	* lint with [ESLint](http://eslint.org/)
 	* Minimal Docker file
 
@@ -56,7 +63,7 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 	* empty service skeleton
 	* examples skeleton
 	* readme skeleton
-	* tests & coverage with [Jest](http://facebook.github.io/jest/)
+	* tests & coverage with [Vitest](https://vitest.dev/)
 	* lint with [ESLint](http://eslint.org/)
 
 ### Custom templates
@@ -66,7 +73,7 @@ $ moleculer init username/repo my-project
 ```
 Where username/repo is the GitHub repo shorthand for your fork.
 
-The shorthand repo notation is passed to [download-git-repo](https://gitlab.com/flippidippi/download-git-repo) so it can be `bitbucket:username/repo` for a Bitbucket repo and `username/repo#branch` for tags or branches.
+The shorthand repo notation is passed to [giget](https://github.com/unjs/giget) so it can be `bitbucket:username/repo` for a Bitbucket repo and `username/repo#branch` for tags or branches.
 
 ### Local Templates
 

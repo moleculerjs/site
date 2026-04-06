@@ -20,6 +20,8 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`tracking`**: `Object` - Tracking requests and waiting for running requests before shutdowning. _(Graceful shutdown)_ [Read more](context.html#Context-tracking).
 * **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
 * **`registry`**: `Object` - Settings of [Service Registry](registry.html).
+* **`registry.stopDelay`**: `Number` - Delay (in milliseconds) before the broker deregisters local services during stop. Allows in-flight requests to complete. _Default: `0`_
+* **`registry.serviceChangedDebounceTime`**: `Number` - Debounce time (in milliseconds) for service change notifications. Reduces registry churn when multiple services start/stop quickly. _Default: `0`_
 * **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
 * **`bulkhead`**: `Object` - Settings of [bulkhead](fault-tolerance.html#Bulkhead).
 * **`transit.maxQueueSize`**: `Number` - A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
@@ -89,7 +91,9 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 
     registry: {
         strategy: "RoundRobin",
-        preferLocal: true
+        preferLocal: true,
+        stopDelay: 0,
+        serviceChangedDebounceTime: 0
     },
 
     circuitBreaker: {

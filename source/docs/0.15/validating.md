@@ -32,7 +32,7 @@ module.exports = {
     validator: {
         type: "Fastest",
         options: {
-            useNewCustomCheckerFunction: true,
+            useNewCustomCheckerFunction: true, // Default: true in 0.15
             defaults: { /*...*/ },
             messages: { /*...*/ },
             aliases: { /*...*/ }
@@ -40,6 +40,10 @@ module.exports = {
     }
 }
 ```
+
+{% note warn %}
+In Moleculer 0.15, the `useNewCustomCheckerFunction` option defaults to `true` (previously `false` in 0.14). If you have old-style custom checker functions, you need to migrate them to the [new custom check function form](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#new-custom-function-signature).
+{% endnote %}
 
 ### Actions Validation
 In order to perform parameter validation you need to define `params` property in action definition and create validation schema for the incoming `ctx.params`.

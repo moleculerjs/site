@@ -128,7 +128,6 @@ broker.ping().then(res => broker.logger.info(res));
 | Name | Type |  Description |
 | ------- | ----- | ------- |
 | `broker.options` | `Object` | Broker options. |
-| `broker.Promise` | `Promise` | Bluebird Promise class. |
 | `broker.started` | `Boolean` | Broker state. |
 | `broker.namespace` | `String` | Namespace. |
 | `broker.nodeID` | `String` | Node ID. |

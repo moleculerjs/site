@@ -3,10 +3,6 @@ title: Metrics
 
 Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
-{% note warn %}
-If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy` tracing exporter. [More info](tracing.html#Event-legacy).
-{% endnote %}
-
 **Enable metrics & define console reporter**
 ```js
 // moleculer.config.js

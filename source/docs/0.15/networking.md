@@ -456,39 +456,43 @@ Built-in transporter for [Kafka](https://kafka.apache.org/).
 >It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 {% note info Dependencies %}
-To use this transporter install the `kafkajs` module with `npm install kafkajs --save` command.
+To use this transporter install the `@platformatic/kafka` module with `npm install @platformatic/kafka --save` command.
 {% endnote %}
 
-**Connect to Zookeeper**
+**Connect to Kafka broker**
 ```js
 // moleculer.config.js
 module.exports = {
-    transporter: "kafka://192.168.51.29:2181"
+    transporter: "kafka://localhost:9092"
 };
 ```
 
-**Connect to Zookeeper with custom options**
+**Connect to Kafka with custom options**
 ```js
 // moleculer.config.js
 module.exports = {
     transporter: {
         type: "Kafka",
         options: {
-            // KafkaClient options. More info: https://kafka.js.org/docs/configuration
-            client: {
-                brokers: [/*...*/]
-            },
+            // Client ID for all clients
+            clientId: "moleculer-kafka",
 
-            // KafkaProducer options. More info: https://kafka.js.org/docs/producing#options
+            // Bootstrap brokers for connection
+            bootstrapBrokers: ["localhost:9092"],
+
+            // Producer options
             producer: {},
 
-            // ConsumerGroup options. More info: https://kafka.js.org/docs/consuming#a-name-options-a-options
+            // Consumer options
             consumer: {},
 
-            // Advanced options for `send`. More info: https://kafka.js.org/docs/producing#producing-messages
+            // Admin options
+            admin: {},
+
+            // Advanced options for `send`
             publish: {},
 
-            // Advanced message options for `send`. More info: https://kafka.js.org/docs/producing#message-structure
+            // Advanced message options for `send`
             publishMessage: {
                 partition: 0
             }
