@@ -24,8 +24,8 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 - service mixins
 - built-in caching solution (Memory, MemoryLRU, Redis)
 - pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
-- pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
-- pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
+- pluggable transporters (TCP, NATS, MQTT, Redis, Kafka, AMQP 0.9, AMQP 1.0)
+- pluggable serializers (JSON, JSONExt, MsgPack, Notepack, CBOR)
 - pluggable parameter validator
 - multiple services on a node/server
 - master-less architecture, all nodes are equal
@@ -51,7 +51,7 @@ Until Moleculer reaches a `1.0` release, breaking changes will be released with 
 
 
 {% note info Node.js support %}
-Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required node version is `18`.
+Moleculer follows Node.js [release cycles](https://nodejs.org/en/about/releases/) meaning that the minimum required node version is `22`.
 {% endnote %}
 
 ---
@@ -3372,39 +3372,43 @@ Built-in transporter for [Kafka](https://kafka.apache.org/).
 >It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 {% note info Dependencies %}
-To use this transporter install the `kafkajs` module with `npm install kafkajs --save` command.
+To use this transporter install the `@platformatic/kafka` module with `npm install @platformatic/kafka --save` command.
 {% endnote %}
 
-**Connect to Zookeeper**
+**Connect to Kafka broker**
 ```js
 // moleculer.config.js
 module.exports = {
-    transporter: "kafka://192.168.51.29:2181"
+    transporter: "kafka://localhost:9092"
 };
 ```
 
-**Connect to Zookeeper with custom options**
+**Connect to Kafka with custom options**
 ```js
 // moleculer.config.js
 module.exports = {
     transporter: {
         type: "Kafka",
         options: {
-            // KafkaClient options. More info: https://kafka.js.org/docs/configuration
-            client: {
-                brokers: [/*...*/]
-            },
+            // Client ID for all clients
+            clientId: "moleculer-kafka",
 
-            // KafkaProducer options. More info: https://kafka.js.org/docs/producing#options
+            // Bootstrap brokers for connection
+            bootstrapBrokers: ["localhost:9092"],
+
+            // Producer options
             producer: {},
 
-            // ConsumerGroup options. More info: https://kafka.js.org/docs/consuming#a-name-options-a-options
+            // Consumer options
             consumer: {},
 
-            // Advanced options for `send`. More info: https://kafka.js.org/docs/producing#producing-messages
+            // Admin options
+            admin: {},
+
+            // Advanced options for `send`
             publish: {},
 
-            // Advanced message options for `send`. More info: https://kafka.js.org/docs/producing#message-structure
+            // Advanced message options for `send`
             publishMessage: {
                 partition: 0
             }
