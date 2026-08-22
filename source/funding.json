@@ -1,0 +1,97 @@
+{
+    "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+    "version": "v1.1.0",
+    "entity": {
+        "type": "group",
+        "role": "owner",
+        "name": "MoleculerJS",
+        "email": "hello@moleculer.services",
+        "description": "MoleculerJS is the organisation behind the Moleculer progressive microservices framework for Node.js. The framework is MIT licensed, free for personal and commercial use, and has been developed and maintained since 2017.",
+        "webpageUrl": {
+            "url": "https://moleculer.services"
+        }
+    },
+    "projects": [
+        {
+            "guid": "moleculer",
+            "name": "Moleculer",
+            "description": "Moleculer is a fast, modern and powerful progressive microservices framework for Node.js. It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices: service registry, load balancing, fault tolerance, caching, validation, metrics, tracing and more.",
+            "webpageUrl": {
+                "url": "https://moleculer.services"
+            },
+            "repositoryUrl": {
+                "url": "https://github.com/moleculerjs/moleculer",
+                "wellKnown": "https://github.com/moleculerjs/moleculer/blob/master/.well-known/funding-manifest-urls"
+            },
+            "licenses": [
+                "spdx:MIT"
+            ],
+            "tags": [
+                "microservices",
+                "nodejs",
+                "javascript",
+                "framework",
+                "distributed-systems",
+                "service-broker",
+                "fault-tolerance"
+            ]
+        }
+    ],
+    "funding": {
+        "channels": [
+            {
+                "guid": "github-sponsors",
+                "type": "payment-provider",
+                "address": "https://github.com/sponsors/moleculerjs",
+                "description": "Recurring monthly sponsorship via GitHub Sponsors."
+            },
+            {
+                "guid": "opencollective",
+                "type": "payment-provider",
+                "address": "https://opencollective.com/moleculer",
+                "description": "Recurring or one-time donation via Open Collective."
+            },
+            {
+                "guid": "patreon",
+                "type": "payment-provider",
+                "address": "https://www.patreon.com/moleculer",
+                "description": "Recurring monthly donation via Patreon."
+            },
+            {
+                "guid": "paypal",
+                "type": "payment-provider",
+                "address": "https://paypal.me/meregnorbert",
+                "description": "One-time donation via PayPal."
+            }
+        ],
+        "plans": [
+            {
+                "guid": "monthly-sponsorship",
+                "status": "active",
+                "name": "Monthly sponsorship",
+                "description": "Support the ongoing development and maintenance of the Moleculer framework with a recurring monthly donation of any amount.",
+                "amount": 0,
+                "currency": "USD",
+                "frequency": "monthly",
+                "channels": [
+                    "github-sponsors",
+                    "opencollective",
+                    "patreon"
+                ]
+            },
+            {
+                "guid": "one-time-donation",
+                "status": "active",
+                "name": "One-time donation",
+                "description": "Make a one-time donation of any amount to support the development of the Moleculer framework.",
+                "amount": 0,
+                "currency": "USD",
+                "frequency": "one-time",
+                "channels": [
+                    "paypal",
+                    "opencollective"
+                ]
+            }
+        ]
+    }
+}
