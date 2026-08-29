@@ -456,7 +456,7 @@ Built-in transporter for [Kafka](https://kafka.apache.org/).
 >It is a simple implementation. It transfers Moleculer packets to consumers via pub/sub. There are not implemented offset, replay...etc features.
 
 {% note info Dependencies %}
-To use this transporter install the `@platformatic/kafka` module with `npm install @platformatic/kafka --save` command.
+To use this transporter install the `@platformatic/kafka` module with `npm install @platformatic/kafka --save` command. Both `@platformatic/kafka` 1.x (`>=1.18.0`) and 2.x are supported (2.x requires Moleculer >=0.15.2).
 {% endnote %}
 
 **Connect to Kafka broker**
