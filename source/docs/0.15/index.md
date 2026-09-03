@@ -1,15 +1,19 @@
 title: What is Moleculer?
 ---
-Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/) and TypeScript. It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+
+If you need to split a Node.js backend into services that call each other, you normally have to assemble the distributed-systems layer yourself: a service registry and service discovery (Consul, etcd, Kubernetes DNS), client-side load balancing, a message broker for RPC and pub/sub, resilience patterns (circuit breaker, retry, timeout, bulkhead), and observability (metrics, distributed tracing). Moleculer ships all of these in one framework. Services talk to each other through a pluggable transport layer (NATS, Redis, Kafka, MQTT, AMQP or plain TCP), and the framework handles discovery, balancing and fault tolerance itself — no Kubernetes, Consul, Istio or service mesh is required, although Moleculer runs fine inside Kubernetes when you want it to.
+
+The same code also runs as a **modular monolith**: keep every service in a single process (in-process calls, no transporter, no network latency) while the codebase is small, then move services into separate processes or containers later without changing your service code. See [Clustering](clustering.html) for the architecture options.
 
 ## Features
 
 - Promise-based solution (async/await compatible)
-- request-reply concept
-- support event driven architecture with balancing
-- built-in service registry & dynamic service discovery
+- request-reply concept (RPC between services)
+- support event driven architecture with balancing (load-balanced and broadcast pub/sub)
+- built-in service registry & dynamic service discovery (no Consul, etcd or Kubernetes needed)
 - load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
-- many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
+- many fault tolerance / resilience features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
 - plugin/middleware system
 - support versioned services
 - support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
@@ -23,8 +27,25 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 - master-less architecture, all nodes are equal
 - parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
 - built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
-- built-in tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin)
+- built-in distributed tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin, NewRelic)
+- TypeScript support: bundled type definitions, an official [TypeScript project template](https://github.com/moleculerjs/moleculer-template-project-typescript) (`moleculer init project-typescript my-project`) and [class/decorator based services](services.html#Use-decorators)
 - official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](https://github.com/moleculerjs/moleculer-db) and many other modules...
+
+## When to choose Moleculer
+
+Moleculer is a good fit when:
+
+- you are building a Node.js (or TypeScript) backend from several services that need to call each other, and you want service discovery, load balancing, retries and circuit breakers without operating Consul, etcd, Istio or a service mesh;
+- you want to start as a modular monolith and move to distributed services later, without rewriting your service code;
+- you need both request/response (RPC) and event-driven (pub/sub) communication between services, over a message broker such as NATS, Redis, Kafka, MQTT or AMQP;
+- you want metrics and distributed tracing to be part of the framework rather than a separate integration project.
+
+Moleculer is probably **not** the right choice when:
+
+- your application is a single service or a plain REST API — a web framework (Express, Fastify, NestJS) is simpler;
+- your team is fully committed to the NestJS ecosystem and its module/DI conventions — NestJS has a larger ecosystem and more TypeScript-first tooling, and Moleculer would be a second framework to learn;
+- most of your services are not written in Node.js — Moleculer's [protocol](https://github.com/moleculer-framework/protocol) is open and there are third-party implementations, but the first-class ecosystem is Node.js;
+- you need guaranteed, persistent message delivery from the core event bus — built-in events are fire-and-forget; use [moleculer-channels](https://github.com/moleculerjs/moleculer-channels) for durable queues.
 
 ## How fast?
 

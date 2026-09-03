@@ -1,7 +1,7 @@
 title: Caching
 ---
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer has a built-in caching layer (the *cacher*) to cache responses of service actions, either in-process (Memory, MemoryLRU) or in a shared Redis cache that all nodes see. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
 
 **Cached action example**
 ```js

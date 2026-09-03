@@ -1,6 +1,6 @@
-title: Moleculer - Progressive microservices framework for Node.js
-subtitle: "Progressive microservices framework for Node.js"
-description: "Moleculer is a progressive microservices framework powered by Node.js"
+title: Moleculer - Microservices framework for Node.js and TypeScript
+subtitle: "Microservices framework for Node.js and TypeScript"
+description: "Moleculer is a microservices framework for Node.js and TypeScript with built-in service discovery, load balancing, circuit breakers, distributed tracing and an event bus — no Kubernetes, Consul or service mesh required."
 author: MoleculerJS
 language: en
 timezone: UTC

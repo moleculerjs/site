@@ -1,7 +1,7 @@
 title: Load balancing
 ---
 
-Moleculer has several built-in load balancing strategies. If a service is running on multiple node instances, ServiceRegistry uses these strategies to select a single node from the available ones.
+Moleculer has several built-in load balancing strategies. If a service is running on multiple node instances, ServiceRegistry uses these strategies to select a single node from the available ones. This is client-side load balancing: the calling node picks the target from its own service registry, so no external load balancer, proxy or service mesh sits between the services.
 
 ## Built-in strategies
 To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).

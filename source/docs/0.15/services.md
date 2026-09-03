@@ -1,6 +1,6 @@
 title: Services
 ---
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+The `Service` represents a microservice in the Moleculer framework. You can define actions (RPC endpoints) and subscribe to events (pub/sub messages). To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
 ## Schema
 The schema has some main parts `name`, `version`, `settings`, `actions`, `methods`, `events` that are described below.
@@ -121,7 +121,7 @@ module.exports = {
 ```
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services — they are the plugin / composition mechanism of the framework, comparable to mixins in Vue or traits in other languages. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
 
 **Example how to extend `moleculer-web` service**
 
@@ -786,7 +786,7 @@ broker.start();
 ```
 
 ## Internal Services
-The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
+The `ServiceBroker` contains some internal services for introspection: health checks, node and service catalogue, and registry information (the `$node.*` actions below). You can disable them by setting `internalServices: false` in broker options.
 
 ### List of nodes
 It lists all known nodes (including local node).

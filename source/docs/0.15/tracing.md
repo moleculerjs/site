@@ -1,6 +1,6 @@
 title: Tracing
 ---
-Moleculer has a built-in tracing module that collects tracing information inside a Moleculer application. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer has a built-in distributed tracing module that collects tracing information inside a Moleculer application: every action call and event gets a span, and spans are propagated across nodes, so a request that passes through several services shows up as one trace. Together with [metrics](metrics.html) this is Moleculer's built-in observability layer. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 **Enable tracing**
 ```js

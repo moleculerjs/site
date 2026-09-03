@@ -3,8 +3,8 @@
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ config.title }}</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="microservices, nodejs, node.js, javascript, github, opensource, framework, moleculer, github, scaling">
-  <meta name="description" content="Moleculer is a fast, scalable and powerful microservices framework for Node.js.">
+  <meta name="keywords" content="microservices, nodejs, node.js, typescript, javascript, microservices framework, service discovery, load balancing, circuit breaker, message broker, event-driven, distributed tracing, api gateway, nats, redis, kafka, opensource, moleculer, scaling">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}">
   <meta name="robots" content="index, follow">
   <meta name="docsearch:language" content="{{ config.language }}" />
   <meta name="docsearch:version" content="{{ get_version() }}" />
@@ -57,7 +57,7 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Moleculer",
-    "description": "Moleculer team is responsible for creation of a progressive microservices framework called MoleculerJS.",
+    "description": "Moleculer team maintains MoleculerJS, an open source microservices framework for Node.js and TypeScript.",
     "url": "https://moleculer.services",
     "logo": "https://raw.githubusercontent.com/moleculerjs/branding/master/logo/logo.png",
     "contactPoint": [{
@@ -82,7 +82,7 @@
       "@type": "SoftwareApplication",
       "name": "MoleculerJS",
       "author": "Moleculer",
-      "description": "Progressive microservices framework powered by Node.js",
+      "description": "Microservices framework for Node.js and TypeScript with built-in service discovery, load balancing, circuit breakers, distributed tracing and an event bus. Works over NATS, Redis, Kafka, MQTT, AMQP or TCP without Kubernetes, Consul or a service mesh.",
       "url": "https://moleculer.services",
       "sameAs": [
         "https://github.com/moleculerjs",
@@ -94,7 +94,7 @@
       "thumbnailUrl": "https://raw.githubusercontent.com/moleculerjs/site/master/source/icon/ms-icon-310x310.png",
       "license": "https://github.com/moleculerjs/moleculer/blob/master/LICENSE",
       "operatingSystem": "Windows, Linux, OSX",
-      "keywords": "Node.JS, nodejs, microservices, microservice, microservices framework, distributed systems, moleculer, moleculerjs, moleculer.js",
+      "keywords": "Node.JS, nodejs, TypeScript, microservices, microservice, microservices framework, distributed systems, service discovery, load balancing, circuit breaker, message broker, event-driven architecture, distributed tracing, API gateway, moleculer, moleculerjs, moleculer.js",
       "applicationCategory": "DeveloperApplication",
         "offers": {
           "@type": "Offer",

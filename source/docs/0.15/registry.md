@@ -1,6 +1,8 @@
 title: Registry & Discovery
 ---
 
+Every ServiceBroker keeps a **service registry**: a catalogue of all known nodes, services, actions and events in the cluster. The registry is filled by **service discovery**, so nodes find each other automatically at runtime. This is the part of a microservices stack that is usually delegated to Consul, etcd, Eureka or Kubernetes DNS; in Moleculer it is built into the framework and needs no extra infrastructure by default.
+
 ## Dynamic service discovery
 Within the Moleculer framework, a dedicated module handles node discovery and performs periodic heartbeat verification. This discovery mechanism operates dynamically, eliminating the need for nodes to possess prior knowledge of one another during startup. Upon initialization, each node broadcasts its presence to all others, enabling each node to construct its own local service registry.
 

@@ -1,12 +1,50 @@
 # Moleculer
 
-> Moleculer is a fast, modern, and powerful microservices framework for Node.js. It provides built-in service discovery, load balancing, fault tolerance, caching, event-driven architecture, and multi-transport networking out of the box.
+> Moleculer is a fast, modern, and powerful microservices framework for Node.js and TypeScript. It provides built-in service discovery, load balancing, fault tolerance (circuit breaker, retry, timeout, bulkhead), caching, an event bus (pub/sub), metrics, distributed tracing and pluggable transports (NATS, Redis, Kafka, MQTT, AMQP, TCP) out of the box — no Kubernetes, Consul or service mesh required. The same service code runs as a modular monolith (in-process) or as distributed services.
+
+## Vocabulary
+
+Moleculer uses its own names for a few standard building blocks. When reading the docs, map them as follows:
+
+- **ServiceBroker** — the runtime / service container on each node; holds the local service registry and performs discovery, load balancing and fault tolerance
+- **Node** — one process (instance, replica, container or pod) hosting one or more services
+- **Service** — a microservice / module; exposes **actions** and listens to **events**
+- **Action** — an RPC method / service endpoint, called with `broker.call("service.action", params)` or `ctx.call(...)`
+- **Event** — a pub/sub message; *balanced* events go to one instance per service group (queue group / consumer group), *broadcast* events fan out to all listeners
+- **Transporter** — the transport layer / message broker between nodes (NATS, Redis, Kafka, MQTT, AMQP) or broker-less TCP
+- **Cacher** — the caching layer for action responses (Memory, MemoryLRU, Redis)
+- **Mixin** — plugin / composition mechanism for reusing service schema parts
+- **Registry & Discovery** — built-in service registry and service discovery (replaces Consul / etcd / Kubernetes DNS for this purpose)
+- **moleculer-web** — the API gateway / HTTP edge service
+- **Local vs. remote services** — in-process calls (modular monolith) vs. cross-process calls over the transporter; the calling code is identical
+
+## When to choose Moleculer
+
+Good fit:
+
+- A Node.js or TypeScript backend split into several services that call each other, when you want service discovery, load balancing, retries and circuit breakers without operating Consul, etcd, Istio or a service mesh
+- Starting as a modular monolith and moving to distributed services later without rewriting service code
+- Both request/response (RPC) and event-driven (pub/sub) communication over NATS, Redis, Kafka, MQTT or AMQP
+- Metrics and distributed tracing as part of the framework rather than a separate integration
+
+Not the right choice:
+
+- A single service or a plain REST API — use a web framework (Express, Fastify, NestJS) directly
+- Teams fully committed to the NestJS ecosystem and its module/DI conventions — NestJS has a larger ecosystem and more TypeScript-first tooling
+- Polyglot systems where most services are not Node.js — the protocol is open, but the first-class ecosystem is Node.js
+- Guaranteed, persistent delivery from the core event bus — built-in events are fire-and-forget; use moleculer-channels for durable queues
+
+## TypeScript
+
+- Type definitions ship with the `moleculer` package (no separate `@types` package)
+- Official TypeScript project template: `moleculer init project-typescript my-project` with moleculer-cli installed (https://github.com/moleculerjs/moleculer-template-project-typescript)
+- Class-based services with decorators via moleculer-decorators: https://moleculer.services/docs/0.15/services#Use-decorators
 
 ## Getting Started
 
-- [What is Moleculer?](https://moleculer.services/docs/0.15/): Overview of features, architecture, and supported Node.js versions
+- [What is Moleculer?](https://moleculer.services/docs/0.15/): Overview of features, when to choose Moleculer (and when not to), and supported Node.js versions
 - [Installation & Usage](https://moleculer.services/docs/0.15/usage): Install Moleculer, create your first microservice, scaffold a project with moleculer-cli
-- [Core Concepts](https://moleculer.services/docs/0.15/concepts): Architecture overview — Service, Node, ServiceBroker, Transporter, Gateway
+- [Core Concepts](https://moleculer.services/docs/0.15/concepts): Architecture overview — Service, Node, ServiceBroker, Transporter, Gateway, each mapped to the industry term (service registry, message broker, RPC, pub/sub, API gateway)
 - [Configuration](https://moleculer.services/docs/0.15/configuration): Full ServiceBroker options reference (namespace, logger, transporter, cacher, serializer, metrics, tracing, etc.)
 - [Examples](https://moleculer.services/docs/0.15/examples): Example projects — Conduit (RealWorld), Blog, and short samples
 
@@ -15,17 +53,17 @@
 - [ServiceBroker](https://moleculer.services/docs/0.15/broker): Broker creation, properties, methods, metadata, ping, global error handler
 - [Services](https://moleculer.services/docs/0.15/services): Service schema, versioning, settings, mixins, actions, events, methods, lifecycle, dependencies, ES6 classes, decorators, internal services ($node.*), hot reloading
 - [Actions](https://moleculer.services/docs/0.15/actions): Calling services (broker.call), metadata, headers, timeout, multiple calls (mcall), streaming (send/receive), visibility, action hooks, local storage
-- [Events](https://moleculer.services/docs/0.15/events): Balanced events, broadcast, wildcards, event parameter validation, internal events
+- [Events](https://moleculer.services/docs/0.15/events): Pub/sub event bus — balanced events (queue-group style), broadcast (fan-out), wildcards, event parameter validation, internal events
 - [Context](https://moleculer.services/docs/0.15/context): Context object (ctx) properties and methods, context tracking
 - [Lifecycle](https://moleculer.services/docs/0.15/lifecycle): Broker and service lifecycle events (created, started, stopped, merged)
 
 ## Networking & Scaling
 
-- [Networking](https://moleculer.services/docs/0.15/networking): Transporters (TCP, NATS, Redis, MQTT, AMQP, Kafka), serializers (JSON, JSONExt, MsgPack, CBOR), custom transporter
+- [Networking](https://moleculer.services/docs/0.15/networking): Transporters — the pluggable message broker / transport layer (TCP, NATS, Redis, MQTT, AMQP, Kafka), serializers (JSON, JSONExt, MsgPack, CBOR), custom transporter
 - [Load Balancing](https://moleculer.services/docs/0.15/balancing): Strategies — RoundRobin, Random, CpuUsage, Latency, Shard (consistent hashing), custom strategy
-- [Service Registry](https://moleculer.services/docs/0.15/registry): Service discovery — Local, Redis, and Etcd3 discoverers, custom discoverer
-- [Fault Tolerance](https://moleculer.services/docs/0.15/fault-tolerance): Circuit Breaker, Retry (exponential backoff), Timeout, Bulkhead, Fallback
-- [Clustering](https://moleculer.services/docs/0.15/clustering): Monolith, microservices, and mixed architecture patterns
+- [Service Registry](https://moleculer.services/docs/0.15/registry): Built-in service registry and service discovery (no Consul/etcd/Kubernetes needed) — Local, Redis, and Etcd3 discoverers, custom discoverer
+- [Fault Tolerance](https://moleculer.services/docs/0.15/fault-tolerance): Resilience patterns — Circuit Breaker, Retry (exponential backoff), Timeout, Bulkhead, Fallback
+- [Clustering](https://moleculer.services/docs/0.15/clustering): Modular monolith, microservices, and mixed architecture patterns — same service code in all of them
 - [Deploying](https://moleculer.services/docs/0.15/deploying): Docker and Kubernetes deployment guides
 
 ## Features
@@ -35,7 +73,7 @@
 - [Validation](https://moleculer.services/docs/0.15/validating): Parameter validation with fastest-validator, custom validators (Joi), async validation
 - [Errors](https://moleculer.services/docs/0.15/errors): Error classes, custom errors, error preservation across remote nodes
 
-## Observability
+## Observability (metrics, distributed tracing, logging)
 
 - [Logging](https://moleculer.services/docs/0.15/logging): Built-in loggers (Console, File), external loggers (Pino, Bunyan, Winston, Datadog), multiple loggers, log level filtering
 - [Metrics](https://moleculer.services/docs/0.15/metrics): Reporters (Console, CSV, Datadog, Prometheus, StatsD), metric types (Counter, Gauge, Histogram), built-in and custom metrics

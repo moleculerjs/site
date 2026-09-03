@@ -1,37 +1,56 @@
 layout: index
 headline: Moleculer
-description: Moleculer is a progressive microservices framework powered by Node.js.
-subtitle: Progressive microservices framework for Node.js.
+description: Moleculer is a microservices framework for Node.js and TypeScript with built-in service discovery, load balancing, circuit breakers, distributed tracing and an event bus — no Kubernetes, Consul or service mesh required.
+subtitle: Microservices framework for Node.js and TypeScript.
+tagline: Service discovery, load balancing, circuit breakers, distributed tracing and a built-in event bus — without Kubernetes, Consul, Istio or a service mesh. Start as a modular monolith, split into distributed services later without changing your code.
 comments: false
 ---
 ul#intro-feature-list
     li.intro-feature-wrap
         .intro-feature
             .intro-feature-icon
-                i.fa.fa-bolt
-            h3.intro-feature-title Blazing fast
+                i.fa.fa-server
+            h3.intro-feature-title No infrastructure to run
             p.intro-feature-desc
-                | High-performance microservices framework. Check the 
-                a(href='/docs/benchmark.html') benchmark results!
+                | Service registry, service discovery, load balancing and health checks are built into the framework — not into Consul, etcd or a Kubernetes control plane.
+                a(href='/docs/0.15/registry.html') Read about discovery.
     li.intro-feature-wrap
         .intro-feature
             .intro-feature-icon
-                i.fa.fa-gem
-            h3.intro-feature-title Extensible
+                i.fa.fa-heartbeat
+            h3.intro-feature-title Resilient by default
             p.intro-feature-desc
-                | All built-in modules (caching, serializer, transporter) are pluggable. Create your own solutions or 
-                a(href='/modules.html') find all modules.
+                | Circuit breaker, bulkhead, retry, timeout and fallback are part of the framework, not bolted on with extra libraries.
+                a(href='/docs/0.15/fault-tolerance.html') See fault tolerance.
+    li.intro-feature-wrap
+        .intro-feature
+            .intro-feature-icon
+                i.fa.fa-exchange-alt
+            h3.intro-feature-title Pluggable transport
+            p.intro-feature-desc
+                | The same service code runs over TCP, NATS, Redis, Kafka, MQTT or AMQP. Swap the message broker without touching a service.
+                a(href='/docs/0.15/networking.html') Compare transporters.
+    li.intro-feature-wrap
+        .intro-feature
+            .intro-feature-icon
+                i.fa.fa-chart-line
+            h3.intro-feature-title Observable
+            p.intro-feature-desc
+                | Built-in metrics (Prometheus, StatsD, Datadog) and distributed tracing (Jaeger, Zipkin, Datadog, New Relic) — no sidecar, no agent.
+                a(href='/docs/0.15/tracing.html') Learn about tracing.
+    li.intro-feature-wrap
+        .intro-feature
+            .intro-feature-icon
+                i.fa.fa-bolt
+            h3.intro-feature-title Blazing fast
+            p.intro-feature-desc
+                | High-performance microservices framework. Check the
+                a(href='/docs/benchmark.html') benchmark results!
     li.intro-feature-wrap
         .intro-feature
             .intro-feature-icon
                 i.fa.fa-code
             h3.intro-feature-title Open source
             p.intro-feature-desc
-                | Moleculer is a 100% open source and free of charge project. All source code is available under the MIT License on GitHub.
-    li.intro-feature-wrap
-        .intro-feature
-            .intro-feature-icon
-                i.fa.fa-heartbeat
-            h3.intro-feature-title Fault tolerance
-            p.intro-feature-desc
-                | Moleculer is a fault tolerant framework. It has built-in load balancer, circuit breaker, retries, timeout and bulkhead features.
+                | Moleculer is a 100% open source and free of charge project. All source code is available under the MIT License on GitHub. All built-in modules (caching, serializer, transporter) are pluggable —
+                a(href='/modules.html') find all modules.
