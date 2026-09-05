@@ -2,8 +2,8 @@ title: Logging
 ---
 All Moleculer's core modules have a custom logger instance. They are inherited from the broker logger instance which can be configured in the [broker options](configuration.html#Broker-options).
 
-{% note warn %}
-The `v0.14` version contains breaking changes. This means that you can't use the old way of configuring the logger. If you are using the built-in default console logger, this breaking change doesn't affect you. For more info check the [Migration Guide](https://github.com/moleculerjs/moleculer/blob/next/docs/MIGRATION_GUIDE_0.14.md).
+{% note info %}
+The logger configuration described here was introduced in `v0.14` and is unchanged in `v0.15`. If you are upgrading from `v0.13` or earlier, the old way of configuring the logger no longer works (unless you only use the built-in default console logger); see the [0.14 Migration Guide](https://github.com/moleculerjs/moleculer/blob/master/docs/MIGRATION_GUIDE_0.14.md). For the `v0.15` changes check the [0.15 Migration Guide](https://github.com/moleculerjs/moleculer/blob/master/docs/MIGRATION_GUIDE_0.15.md).
 {% endnote %}
 
 
@@ -417,7 +417,7 @@ module.exports = {
 ![Datadog Log Explorer](assets/logging/datadog-log-explorer.png#zoomable)
 
 ## Multiple Loggers
-This new logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.
+This logger configuration admits usage of multiple loggers even from the same logger type and different logging levels.
 
 **Define multiple loggers with different logging levels**
 ```js

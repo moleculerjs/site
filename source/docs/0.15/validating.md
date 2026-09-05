@@ -100,16 +100,16 @@ Find more information about validation schema in the [documentation of the libra
 {% endnote %}
 
 #### Async custom validator
-FastestValidator (`>= v1.11.0`) supports async custom validators, meaning that you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). In Moleculer, the FastestValidator passes the `ctx` as metadata. It means you can access the current context, service, broker. This allows you to make async calls (e.g calling another service) in custom checker functions. To enable it you must set `useNewCustomCheckerFunction` to `true` in `moleculer.config.js`
+FastestValidator (`>= v1.11.0`) supports async custom validators, meaning that you can [pass metadata for custom validator functions](https://github.com/icebob/fastest-validator/blob/master/CHANGELOG.md#meta-information-for-custom-validators). In Moleculer, the FastestValidator passes the `ctx` as metadata. It means you can access the current context, service, broker. This allows you to make async calls (e.g calling another service) in custom checker functions. It requires the `useNewCustomCheckerFunction` option, which is enabled by default in Moleculer 0.15 (it was `false` in 0.14). You only need to set it explicitly if you have turned it off in `moleculer.config.js`.
 
-**Enabling custom async validation**
+**Custom async validation configuration**
 ```js
 //moleculer.config.js
 module.exports = {
     validator: {
-        type: "FastestValidator",
+        type: "Fastest",
         options: {
-            useNewCustomCheckerFunction: true,
+            useNewCustomCheckerFunction: true, // Default: true in 0.15
             defaults: { /*...*/ },
             messages: { /*...*/ },
             aliases: { /*...*/ }

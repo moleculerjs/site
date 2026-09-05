@@ -20,19 +20,19 @@ Moleculer uses its own names for a few standard building blocks. When reading th
 
 ## When to choose Moleculer
 
-Good fit:
+Moleculer is a good fit when:
 
-- A Node.js or TypeScript backend split into several services that call each other, when you want service discovery, load balancing, retries and circuit breakers without operating Consul, etcd, Istio or a service mesh
-- Starting as a modular monolith and moving to distributed services later without rewriting service code
-- Both request/response (RPC) and event-driven (pub/sub) communication over NATS, Redis, Kafka, MQTT or AMQP
-- Metrics and distributed tracing as part of the framework rather than a separate integration
-- A single service or REST API that may be split later — Moleculer works as a regular web framework too (moleculer-web as the HTTP layer), and the built-in timeout, retry, circuit breaker, caching and validation are useful even with one service
+- you are building a Node.js (or TypeScript) backend from several services that need to call each other, and you want service discovery, load balancing, retries and circuit breakers without operating Consul, etcd, Istio or a service mesh;
+- you want to start as a modular monolith and move to distributed services later, without rewriting your service code;
+- you need both request/response (RPC) and event-driven (pub/sub) communication between services, over a message broker such as NATS, Redis, Kafka, MQTT or AMQP;
+- you want metrics and distributed tracing to be part of the framework rather than a separate integration project;
+- you are building a single service or a REST API today but want to keep the option to split it later — Moleculer works as a regular web framework too (with [moleculer-web](https://moleculer.services/docs/0.15/moleculer-web.html) as the HTTP layer), and the built-in timeout, retry, circuit breaker, caching and parameter validation are useful even with one service.
 
-Not the right choice:
+Moleculer is probably **not** the right choice when:
 
-- Teams fully committed to the NestJS ecosystem and its module/DI conventions — NestJS has a larger ecosystem and more TypeScript-first tooling
-- Polyglot systems where most services are not Node.js — the protocol is open, but the first-class ecosystem is Node.js
-- Guaranteed, persistent delivery from the core event bus — built-in events are fire-and-forget; use moleculer-channels for durable queues
+- your team is fully committed to the NestJS ecosystem and its module/DI conventions — NestJS has a larger ecosystem and more TypeScript-first tooling, and Moleculer would be a second framework to learn;
+- most of your services are not written in Node.js — Moleculer's [protocol](https://github.com/moleculer-framework/protocol) is open and there are third-party implementations, but the first-class ecosystem is Node.js;
+- you need guaranteed, persistent message delivery from the core event bus — built-in events are fire-and-forget; use [moleculer-channels](https://github.com/moleculerjs/moleculer-channels) for durable queues.
 
 ## TypeScript
 
@@ -64,7 +64,7 @@ Not the right choice:
 - [Service Registry](https://moleculer.services/docs/0.15/registry): Built-in service registry and service discovery (no Consul/etcd/Kubernetes needed) — Local, Redis, and Etcd3 discoverers, custom discoverer
 - [Fault Tolerance](https://moleculer.services/docs/0.15/fault-tolerance): Resilience patterns — Circuit Breaker, Retry (exponential backoff), Timeout, Bulkhead, Fallback
 - [Clustering](https://moleculer.services/docs/0.15/clustering): Modular monolith, microservices, and mixed architecture patterns — same service code in all of them
-- [Deploying](https://moleculer.services/docs/0.15/deploying): Docker and Kubernetes deployment guides
+- [Deploying](https://moleculer.services/docs/0.15/deploying): Docker / Docker Compose deployment guide; Kubernetes needs no special integration (community examples linked)
 
 ## Features
 
@@ -106,3 +106,4 @@ Not the right choice:
 - [npm Package](https://www.npmjs.com/package/moleculer)
 - [Discord Community](https://discord.gg/TSEcDRP)
 - [Stack Overflow](https://stackoverflow.com/questions/tagged/moleculer)
+- [Full documentation in one file](https://moleculer.services/llms-full.txt)

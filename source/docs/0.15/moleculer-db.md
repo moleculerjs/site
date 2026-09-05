@@ -2,6 +2,10 @@ title: Database Adapters
 ---
 Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to persist your data in a database.
 
+{% note info Status %}
+`moleculer-db` is the stable, mixin-based data layer with adapters for NeDB, MongoDB, Mongoose and Sequelize. [`@moleculer/database`](https://github.com/moleculerjs/database) is the newer, more advanced database service (field definitions, validation, hooks, permissions, soft delete, multi-tenancy, etc.). New projects may prefer it.
+{% endnote %}
+
 {% note info Database per service%}
 Moleculer follows the *one database per service* pattern. To learn more about this design pattern and its implications check this [article](https://microservices.io/patterns/data/database-per-service.html). For *multiple entities/tables per service* approach check [FAQ](faq.html#DB-Adapters-moleculer-db).
 {% endnote %}
@@ -10,7 +14,7 @@ Moleculer follows the *one database per service* pattern. To learn more about th
 * default CRUD actions
 * [cached](caching.html) actions
 * pagination support
-* pluggable adapter ([NeDB](https://github.com/louischatriot/nedb) is the default memory adapter for testing & prototyping)
+* pluggable adapter ([NeDB](https://github.com/seald/nedb) is the default memory adapter for testing & prototyping)
 * official adapters for MongoDB, PostgreSQL, SQLite, MySQL, MSSQL.
 * fields filtering
 * populating
@@ -23,7 +27,7 @@ Moleculer follows the *one database per service* pattern. To learn more about th
 
 ## Base Adapter [![NPM version](https://img.shields.io/npm/v/moleculer-db.svg)](https://www.npmjs.com/package/moleculer-db)
 
-Moleculer's default adapter is based on [NeDB](https://github.com/louischatriot/nedb). Use it to quickly set up and test you prototype.
+Moleculer's default adapter is based on [NeDB](https://github.com/seald/nedb) (the maintained `@seald-io/nedb` fork). Use it to quickly set up and test you prototype.
 
 {% note warn%}
 Only use this adapter for prototyping and testing. When you are ready to go into production simply swap to [Mongo](moleculer-db.html#Mongo-Adapter), [Mongoose](moleculer-db.html#Mongoose-Adapter) or [Sequelize](moleculer-db.html#Sequelize-Adapter) adapters as they all implement common [Settings](moleculer-db.html#Settings), [Actions](moleculer-db.html#Actions) and [Methods](moleculer-db.html#Methods).
@@ -98,13 +102,16 @@ All DB adapters share a common set of settings:
 
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `idField` | `String` | **required** | Name of ID field. |
+| `idField` | `String` | `"_id"` | Name of ID field. |
 | `fields` | `Array.<String>` | `null` | Field filtering list. It must be an `Array`. If the value is `null` or `undefined` doesn't filter the fields of entities. |
+| `excludeFields` | `Array.<String>` | `null` | List of excluded fields. It must be an `Array`. If the value is `null` or `undefined` it is ignored. |
 | `populates` | `Array` | `null` | Schema for population. [Read more](#Populating). |
-| `pageSize` | `Number` | **required** | Default page size in `list` action. |
-| `maxPageSize` | `Number` | **required** | Maximum page size in `list` action. |
-| `maxLimit` | `Number` | **required** | Maximum value of limit in `find` action. Default: `-1` (no limit) |
+| `pageSize` | `Number` | `10` | Default page size in `list` action. |
+| `maxPageSize` | `Number` | `100` | Maximum page size in `list` action. |
+| `maxLimit` | `Number` | `-1` | Maximum value of limit in `find` action. `-1` means no limit. |
 | `entityValidator` | `Object`, `function` | `null` | Validator schema or a function to validate the incoming entity in `create` & 'insert' actions. |
+| `useDotNotation` | `Boolean` | `false` | Whether to use dot notation when updating an entity. It does **not** convert arrays to dot notation. |
+| `cacheCleanEventType` | `String` | `"broadcast"` | How the cache clean event is sent. Values: `"broadcast"` or `"emit"`. |
 
 {% note warn%}
 `idField` does not work with Sequelize adapter as you can freely set your own ID while creating the model.
@@ -154,15 +161,16 @@ Find entities by query.
 #### Parameters
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `populate` | `Array.<String>` | - | Populated fields. |
-| `fields` | `Array.<String>` | - | Fields filter. |
-| `limit` | `Number` | **required** | Max count of rows. |
-| `offset` | `Number` | **required** | Count of skipped rows. |
-| `sort` | `String` | **required** | Sorted fields. |
-| `search` | `String` | **required** | Search text. |
-| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
-| `searchFields` | `String` | **required** | Fields for searching. |
-| `query` | `Object` | **required** | Query object. Passes to adapter. |
+| `populate` | `String`, `Array.<String>` | - | Populated fields. _(optional)_ |
+| `fields` | `String`, `Array.<String>` | - | Fields filter. _(optional)_ |
+| `excludeFields` | `String`, `Array.<String>` | - | List of excluded fields. _(optional)_ |
+| `limit` | `Number` | - | Max count of rows. _(optional)_ |
+| `offset` | `Number` | - | Count of skipped rows. _(optional)_ |
+| `sort` | `String` | - | Sorted fields. _(optional)_ |
+| `search` | `String` | - | Search text. _(optional)_ |
+| `iSearch` | `String` | - | Search text (case insensitive) *Available only using Sequelize*. _(optional)_ |
+| `searchFields` | `String`, `Array.<String>` | - | Fields for searching. _(optional)_ |
+| `query` | `Object` | - | Query object. Passes to adapter. _(optional)_ |
 
 #### Results
 **Type:** `Array.<Object>` - List of found entities.
@@ -175,10 +183,10 @@ Get count of entities by query.
 #### Parameters
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `search` | `String` | **required** | Search text. |
-| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
-| `searchFields` | `String` | **required** | Fields list for searching. |
-| `query` | `Object` | **required** | Query object. Passes to adapter. |
+| `search` | `String` | - | Search text. _(optional)_ |
+| `iSearch` | `String` | - | Search text (case insensitive) *Available only using Sequelize*. _(optional)_ |
+| `searchFields` | `String`, `Array.<String>` | - | Fields list for searching. _(optional)_ |
+| `query` | `Object` | - | Query object. Passes to adapter. _(optional)_ |
 
 #### Results
 **Type:** `Number` - Count of found entities.
@@ -191,15 +199,16 @@ List entities by filters and pagination results.
 #### Parameters
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `populate` | `Array.<String>` | - | Populated fields. |
-| `fields` | `Array.<String>` | - | Fields filter. |
-| `page` | `Number` | **required** | Page number. |
-| `pageSize` | `Number` | **required** | Size of a page. |
-| `sort` | `String` | **required** | Sorted fields. |
-| `search` | `String` | **required** | Search text. |
-| `iSearch` | `String` | **required** | Search text (case insensitive) *Available only using Sequelize*. |
-| `searchFields` | `String` | **required** | Fields for searching. |
-| `query` | `Object` | **required** | Query object. Passes to adapter. |
+| `populate` | `String`, `Array.<String>` | - | Populated fields. _(optional)_ |
+| `fields` | `String`, `Array.<String>` | - | Fields filter. _(optional)_ |
+| `excludeFields` | `String`, `Array.<String>` | - | List of excluded fields. _(optional)_ |
+| `page` | `Number` | `1` | Page number. _(optional)_ |
+| `pageSize` | `Number` | `settings.pageSize` | Size of a page. _(optional)_ |
+| `sort` | `String` | - | Sorted fields. _(optional)_ |
+| `search` | `String` | - | Search text. _(optional)_ |
+| `iSearch` | `String` | - | Search text (case insensitive) *Available only using Sequelize*. _(optional)_ |
+| `searchFields` | `String`, `Array.<String>` | - | Fields for searching. _(optional)_ |
+| `query` | `Object` | - | Query object. Passes to adapter. _(optional)_ |
 
 #### Results
 **Type:** `Object` - List of found entities and count.
@@ -212,7 +221,7 @@ Create a new entity.
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
 | - | - | - | - |
-*No input parameters.*
+*The whole `ctx.params` object is the entity to save (its fields are the entity fields). No fixed parameter schema; use `entityValidator` to validate it.*
 
 #### Results
 **Type:** `Object` - Saved entity.
@@ -254,8 +263,8 @@ Update an entity by ID.
 #### Parameters
 | Property | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| - | - | - | - |
-*No input parameters.*
+| `id` | `any` | **required** | ID of the entity. |
+*The other fields of `ctx.params` are the entity fields to update.*
 
 #### Results
 **Type:** `Object` - Updated entity.
@@ -756,7 +765,8 @@ new MongoDBAdapter("mongodb://localhost/moleculer-db")
 **Example with connection URI & options**
 ```js
 new MongoDBAdapter("mongodb://db-server-hostname/my-db", {
-    keepAlive: 1
+    // any MongoClient option, e.g.
+    connectTimeoutMS: 5000
 })
 
 ```

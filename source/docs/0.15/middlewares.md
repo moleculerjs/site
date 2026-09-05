@@ -11,7 +11,7 @@ module.exports = {
 
     localAction(next, action) {
         return function(ctx) {
-            console.log(`My middleware is called before the `${ctx.action.name}` action executed.`);
+            console.log(`My middleware is called before the '${ctx.action.name}' action executed.`);
             return next(ctx);
         }
     }
@@ -138,7 +138,7 @@ This hook wraps the local action handlers.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     localAction(next, action) {
@@ -163,7 +163,7 @@ This hook wraps the remote action handlers.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     remoteAction(next, action) {
@@ -188,7 +188,7 @@ This hook wraps the local event handlers.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     localEvent(next, event) {
@@ -223,7 +223,7 @@ This hook wraps the `broker.createService` method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     createService(next) {
@@ -240,7 +240,7 @@ This hook wraps the `broker.destroyService` method
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     destroyService(next) {
@@ -257,7 +257,7 @@ This hook wraps the `broker.call` method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     call(next) {
@@ -277,7 +277,7 @@ This hook wraps the `broker.mcall` method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     mcall(next) {
@@ -297,7 +297,7 @@ This hook wraps the `broker.emit` method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     emit(next) {
@@ -314,7 +314,7 @@ This hook wraps the `broker.broadcast` method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     broadcast(next) {
@@ -331,7 +331,7 @@ This hook wraps the `broker.broadcastLocal` method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     broadcastLocal(next) {
@@ -348,7 +348,7 @@ This hook is called after local service creating.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     serviceCreated(service) {
@@ -362,7 +362,7 @@ This hook is called before service starting.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     serviceStarting(service) {
@@ -376,7 +376,7 @@ This hook is called after service starting.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     serviceStarted(service) {
@@ -390,7 +390,7 @@ This hook is called before service stopping.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     serviceStopping(service) {
@@ -404,7 +404,7 @@ This hook is called after service stopping.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     serviceStopped(service) {
@@ -418,7 +418,7 @@ This hook wraps broker's local service registering method.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     registerLocalService(next) {
@@ -435,7 +435,7 @@ This hook is called during local service creation (after mixins are applied, so 
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     serviceCreating(service, schema) {
@@ -450,7 +450,7 @@ This hook is called before sending a communication packet.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     transitPublish(next) {
@@ -466,7 +466,7 @@ This hook is called before transit receives & parses an incoming message.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     transitMessageHandler(next) {
@@ -482,7 +482,7 @@ This hook is called after serialization but before the transporter sends a commu
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     transporterSend(next) {
@@ -499,7 +499,7 @@ This hook is called after transporter received a communication packet but before
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     transporterReceive(next) {
@@ -516,7 +516,7 @@ This hook is called when a new log messages iscreated.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     newLogEntry(type, args, bindings) {
@@ -525,12 +525,12 @@ module.export = {
 }
 ```
 
-### `created(broker)` _(async)_
-This hook is called when broker created.
+### `created(broker)` _(sync)_
+This hook is called when broker created. Unlike `starting`, `started`, `stopping` and `stopped`, it is called synchronously, so it can't return a Promise.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     created(broker) {
@@ -544,7 +544,7 @@ This hook is called before broker starting.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     starting(broker) {
@@ -558,7 +558,7 @@ This hook is called after broker starting.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     started(broker) {
@@ -572,7 +572,7 @@ This hook is called before broker stopping.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     stopping(broker) {
@@ -586,7 +586,7 @@ This hook is called after broker stopped.
 
 ```js
 // my.middleware.js
-module.export = {
+module.exports = {
     name: "MyMiddleware",
 
     stopped(broker) {
@@ -655,10 +655,17 @@ const { Middlewares } = require("moleculer");
 // Create broker
 module.exports = {
   middlewares: [
-    Middlewares.Transmit.Compression("deflate") // or "deflateRaw" or "gzip"
+    Middlewares.Transmit.Compression({ method: "gzip", threshold: "1kb" })
   ]
 };
 ```
+
+**Options**
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `method` | `String` | `"deflate"` | Compression method. Available values: `"deflate"`, `"deflateRaw"`, `"gzip"`. |
+| `threshold` | `String` or `Number` | `"1kb"` | Packets smaller than this size are not compressed. Accepts a byte-string with unit (e.g. `"1kb"`, `"2mb"`) or a number of bytes. Set to `null` to compress every packet. |
 
 ### Debug Middlewares
 

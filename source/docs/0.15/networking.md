@@ -2,6 +2,10 @@ title: Networking
 ---
 To enable communication between nodes (ServiceBrokers), you must configure a transporter. A transporter is Moleculer's transport layer / messaging backend: it carries requests, responses and events between processes over a message broker (NATS, Redis, Kafka, MQTT, AMQP) or, with the TCP transporter, directly between nodes without any broker. The available transporters typically connect to a central message broker, facilitating reliable message exchange among remote nodes. These message brokers primarily support the publish/subscribe messaging pattern.
 
+{% note info Terminology %}
+In these docs *ServiceBroker* / *the broker* (as in `broker.call()` or "broker option") means Moleculer's `ServiceBroker` instance running in your process; *message broker* means the external messaging server such as NATS or RabbitMQ that a transporter connects to.
+{% endnote %}
+
 Because the transporter is an abstraction, the same service code runs unchanged over any of them — you choose the broker for operational reasons (what you already run, throughput, persistence), not because your code depends on it.
 
 
@@ -10,7 +14,7 @@ Because the transporter is an abstraction, the same service code runs unchanged 
 </div>
 
 ## Transporters
-The transporter module in Moleculer plays a critical role in facilitating communication between services running on multiple nodes. It manages the transmission of events, request calls, and processing responses among nodes in the network. A key feature is its ability to evenly distribute requests among multiple instances of a service running on different nodes, which enhances scalability and efficiency.
+The transporter module in Moleculer plays a critical role in facilitating communication between services running on multiple nodes. It manages the transmission of events, request calls, and processing responses among nodes in the network. Note that the transporter only carries the packets; deciding *which* node receives a request is done by the ServiceBroker's registry (client-side [load balancing](balancing.html)) before the packet is handed to the transporter. The exception is the [disabled balancer](#Disabled-balancer) mode, where the message broker's own queue-group balancing is used.
 
 **Abstraction for Seamless Switching**
 
@@ -111,7 +115,13 @@ module.exports = {
 // moleculer.config.js
 module.exports = {
     nodeID: "node-1",
-    transporter: "file://./nodes.json"
+    transporter: {
+        type: "TCP",
+        options: {
+            udpDiscovery: false,
+            urls: "file://./nodes.json"
+        }
+    }
 };
 ```
 
@@ -355,7 +365,7 @@ Options can be passed to `amqp.connect()` method.
 // moleculer.config.js
 module.exports = {
     transporter: "AMQP"
-});
+};
 ```
 
 **Connect to a remote server**
@@ -363,7 +373,7 @@ module.exports = {
 // moleculer.config.js
 module.exports = {
     transporter: "amqp://rabbitmq-server:5672"
-});
+};
 ```
 
 **Connect to a secure server**
@@ -371,7 +381,7 @@ module.exports = {
 // moleculer.config.js
 module.exports = {
     transporter: "amqps://rabbitmq-server:5672"
-});
+};
 ```
 
 **Connect to a remote server with options & credentials**
@@ -434,20 +444,23 @@ module.exports = {
 // moleculer.config.js
 module.exports = {
     transporter: {
-        url: "amqp10://user:pass@activemq-server:5672",
-        eventTimeToLive: 5000,
-        heartbeatTimeToLive: 5000,
-        connectionOptions: { // rhea connection options https://github.com/amqp/rhea#connectoptions, example:
-            ca: "", // (if using tls)
-            servername: "", // (if using tls)
-            key: "", // (if using tls with client auth)
-            cert: "" // (if using tls with client auth)
-        },
-        queueOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
-        topicOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
-        messageOptions: {}, // rhea message specific options https://github.com/amqp/rhea#message
-        topicPrefix: "topic://", // RabbitMq uses '/topic/' instead, 'topic://' is more common
-        prefetch: 1
+        type: "AMQP10",
+        options: {
+            url: "amqp10://user:pass@activemq-server:5672",
+            eventTimeToLive: 5000,
+            heartbeatTimeToLive: 5000,
+            connectionOptions: { // rhea connection options https://github.com/amqp/rhea#connectoptions, example:
+                ca: "", // (if using tls)
+                servername: "", // (if using tls)
+                key: "", // (if using tls with client auth)
+                cert: "" // (if using tls with client auth)
+            },
+            queueOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
+            topicOptions: {}, // rhea queue options https://github.com/amqp/rhea#open_receiveraddressoptions
+            messageOptions: {}, // rhea message specific options https://github.com/amqp/rhea#message
+            topicPrefix: "topic://", // RabbitMq uses '/topic/' instead, 'topic://' is more common
+            prefetch: 1
+        }
     }
 };
 ```
@@ -531,6 +544,10 @@ module.exports = {
 
 ## Disabled balancer
 Some transporter servers have built-in balancer solution. E.g.: RabbitMQ, NATS. If you want to use the transporter balancer instead of Moleculer balancer, set the `disableBalancer` broker option to `true`.
+
+Only the **NATS**, **AMQP** (0.9) and **AMQP 1.0** transporters have a built-in balancer (`hasBuiltInBalancer`). If you set `disableBalancer: true` with any other transporter (TCP, Redis, MQTT, Kafka), the broker logs a warning (`The ... has no built-in balancer. Broker balancer is ENABLED.`) and forces `disableBalancer` back to `false`.
+
+When the balancer is disabled, the broker no longer selects the target node: the registry [strategies](balancing.html) and the `preferLocal` option are not applied, the request is published to the message broker and its queue-group mechanism picks a consumer.
 
 **Example**
 ```js

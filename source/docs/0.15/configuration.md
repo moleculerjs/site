@@ -14,21 +14,21 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`retryPolicy`**: `Object` - Retry policy configuration. [Read more](fault-tolerance.html#Retry).
 * **`contextParamsCloning`**: `Boolean` - Cloning the `params` of context if enabled. _High performance impact. Use it with caution!_ _Default: `false`_
 * **`dependencyInterval`**: Configurable interval (defined in `ms`) that's used by the services while waiting for dependency services. _Default: `1000`_
+* **`dependencyTimeout`**: `Number` - Default timeout (in `ms`) for waiting for dependency services (`waitForServices` / service `dependencies`). `0` means wait forever. _Default: `0`_
 * **`maxCallLevel`**: `Number` - Limit of calling level. If it reaches the limit, broker will throw an `MaxCallLevelError` error. _(Infinite loop protection)_ _Default: `0`_
-* **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `5`_
-* **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `15`_
+* **`heartbeatInterval`**: `Number` - Number of seconds to send heartbeat packet to other nodes. _Default: `10`_
+* **`heartbeatTimeout`**: `Number` - Number of seconds to wait before setting remote nodes to unavailable status in Registry. _Default: `30`_
 * **`tracking`**: `Object` - Tracking requests and waiting for running requests before shutdowning. _(Graceful shutdown)_ [Read more](context.html#Context-tracking).
 * **`disableBalancer`**: Boolean - Disable built-in request & emit balancer. _Transporter must support it, as well._ [Read more](networking.html#Disabled-balancer). _Default: `false`_
 * **`registry`**: `Object` - Settings of [Service Registry](registry.html).
-* **`registry.stopDelay`**: `Number` - Delay (in milliseconds) before the broker deregisters local services during stop. Allows in-flight requests to complete. _Default: `0`_
-* **`registry.serviceChangedDebounceTime`**: `Number` - Debounce time (in milliseconds) for service change notifications. Reduces registry churn when multiple services start/stop quickly. _Default: `0`_
+* **`registry.stopDelay`**: `Number` - Delay (in milliseconds) before the broker deregisters local services during stop. Allows in-flight requests to complete. _Default: `100`_
 * **`circuitBreaker`**: `Object` - Settings of [Circuit Breaker](fault-tolerance.html#Circuit-Breaker).
 * **`bulkhead`**: `Object` - Settings of [bulkhead](fault-tolerance.html#Bulkhead).
 * **`transit.maxQueueSize`**: `Number` - A protection against inordinate memory usages when there are too many outgoing requests. If there are more than _stated_ outgoing live requests, the new requests will be rejected with `QueueIsFullError` error. _Default: `50000`_
 * **`transit.maxChunkSize`** `Number` - Maximum chunk size while streaming.  _Default: `256KB`_ 
 * **`transit.disableReconnect`**: `Boolean` - Disables the reconnection logic while starting a broker. _Default: `false`_
 * **`transit.disableVersionCheck`**: `Boolean` - Disable protocol version checking logic in Transit. _Default: `false`_
-* **`transit.packetLogFilter`**: `Array` - Filters out the packets in debug log messages. It can be useful to filter out the `HEARTBEAT` packets while debugging. _Default: `[]`_
+* **`transit.serviceChangedDebounceTime`**: `Number` - Debounce time (in milliseconds) for sending the local service list (INFO packet) to other nodes when local services change. Reduces registry churn when multiple services start/stop quickly. `0` disables debouncing. _Default: `1000`_
 * **`uidGenerator`**: `Function` - Custom UID generator function for Context ID.
 * **`errorHandler`**: `Function` - [Global error handler](broker.html#Global-error-handler) function.
 * **`cacher`**: `String | Object | Cacher` - Cacher settings. [Read more](caching.html). _Default: `null`_
@@ -44,7 +44,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 * **`middlewares`**: `Array<Object>` - Register custom middlewares. _Default: `null`_
 * **`replOptions`**: `Object` - Custom REPL options. _Default: `null`_
 * **`replOptions.delimiter`**: `String` - REPL delimiter. _Default: `null`_
-* **`replOptions.customCommands`**: `String` - REPL custom commands. _Default: `null`_
+* **`replOptions.customCommands`**: `Array<Object>` - REPL custom commands. _Default: `null`_
 * **`metadata`**: `Object` - Store custom values. _Default: `null`_
 * **`skipProcessEventRegistration`**: Boolean - Skip the [default](https://github.com/moleculerjs/moleculer/blob/master/src/service-broker.js#L234) graceful shutdown event handlers. In this case, you have to register them manually. _Default: `false`_
 * **`maxSafeObjectSize`**: `Number` - Maximum size of objects that can be serialized. On serialization process, check each object property size (based on `length` or `size` property value) and trim it, if object size bigger than `maxSafeObjectSize` value. _Default: `null`_
@@ -62,8 +62,6 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 
     logger: true,
     logLevel: "info",
-    logFormatter: "default",
-    logObjectPrinter: null,
 
     transporter: "nats://localhost:4222",
 
@@ -78,9 +76,11 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
     },
 
     contextParamsCloning: false,
+    dependencyInterval: 1000,
+    dependencyTimeout: 0,
     maxCallLevel: 100,
-    heartbeatInterval: 5,
-    heartbeatTimeout: 15,
+    heartbeatInterval: 10,
+    heartbeatTimeout: 30,
     
     tracking: {
         enabled: true,
@@ -92,8 +92,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
     registry: {
         strategy: "RoundRobin",
         preferLocal: true,
-        stopDelay: 0,
-        serviceChangedDebounceTime: 0
+        stopDelay: 100
     },
 
     circuitBreaker: {
@@ -113,9 +112,10 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 
     transit: {
         maxQueueSize: 50 * 1000,
+        maxChunkSize: 256 * 1024,
         disableReconnect: false,
         disableVersionCheck: false,
-        packetLogFilter: ["HEARTBEAT"]
+        serviceChangedDebounceTime: 1000
     },
 
     uidGenerator: null,

@@ -60,7 +60,9 @@ Send balanced events with `broker.emit` function.
 **Using `broker.emit` for Balanced Events**:
 - **Event Name**: The first parameter to `broker.emit` is the event name (string). This name should clearly describe the event and its purpose.
 - **Payload (Optional)**: The second parameter is the event payload, an object containing data relevant to the event. If you don't need to send any data, you can omit this parameter.
-- **Target Groups (Optional)**: By default, the event is delivered to the group named after the service that emits it. However, you can specify which groups should receive the event using the groups property within a third optional object. This object takes an array of service group names as its value.
+- **Target Groups (Optional)**: By default, the event is delivered to one instance of *every* group that subscribes to it. You can restrict the target groups using the `groups` property within a third optional object. This object takes an array of service group names as its value.
+
+If no service subscribes to the event, `broker.emit` (and `broker.broadcast`) simply resolves and the event is dropped — no error is thrown and nothing is logged.
 
 
 ```js
@@ -182,11 +184,11 @@ module.exports = {
         // Subscribe to all `user` events, e.g. "user.created", or "user.removed"
         "user.*"(ctx) {
             console.log("User event:", ctx.params);
-        }
-        // Subscribe to every events
-        // Legacy event handler signature with context
+        },
+
+        // Subscribe to every event
         "**"(ctx) {
-            console.log(`Event '${event}' received from ${sender} node:`, payload);
+            console.log(`Event '${ctx.eventName}' received from ${ctx.nodeID} node:`, ctx.params);
         }
     }
 }
@@ -224,7 +226,11 @@ The validation errors are not sent back to the caller, they are logged and you c
 
 
 # Internal events
-The broker broadcasts some internal events. These events always starts with `$` prefix.
+The broker emits some internal events. These events always starts with `$` prefix.
+
+{% note info %}
+Internal events are emitted with `broadcastLocal`, i.e. they are delivered only to the services running on the same node (they are not sent through the transporter). The only exceptions are the `$circuit-breaker.*` events, which are sent with `broker.broadcast` to every node.
+{% endnote %}
 
 ## `$services.changed`
 The broker sends this event if the local node or a remote node loads or destroys services.
@@ -341,7 +347,7 @@ The broker emits this event when an error occurs in the [transporter](networking
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
+  "module": "transporter" // Name of the module where the error happened
   "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
@@ -352,7 +358,7 @@ The broker emits this event when an error occurs in the [cacher](caching.html) m
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
+  "module": "cacher" // Name of the module where the error happened
   "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
@@ -363,7 +369,7 @@ The broker emits this event when an error occurs in the [discoverer](registry.ht
 ```js
 {
   "error": "<the error object with all properties>"
-  "module": "transit" // Name of the module where the error happened
+  "module": "discoverer" // Name of the module where the error happened
   "type": "error-type" // Type of error. Full of error types: https://github.com/moleculerjs/moleculer/blob/master/src/constants.js
 }
 ```
