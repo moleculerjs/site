@@ -31,7 +31,7 @@ Commands:
   cache                                                      Manage cache
   call [options] <actionName> [jsonParams] [meta]            Call an action
   dcall [options] <nodeID> <actionName> [jsonParams] [meta]  Direct call an action
-  clear [pattern]                                            Clear cache entries
+  clear [pattern]                                            Clear cache entries (deprecated, use `cache clear`)
   cls                                                        Clear console
   destroy <serviceName>                                      Destroy a local service
   emit <eventName>                                           Emit an event
@@ -185,24 +185,24 @@ It tries to load the `<current_dir>/math.add.params.json` file to params.
 ```bash
 mol $ call "math.add" --load my-params.json
 ```
-It tries to load the `my-params.jon` file to params.
+It tries to load the `my-params.json` file to params.
 
 #### Call with file stream
 ```bash
 mol $ call "math.add" --stream my-picture.jpg
 ```
-It loads the `my-picture.png` file and send to the `math.add` action as a `Stream`.
+It loads the `my-picture.jpg` file and send to the `math.add` action as a `Stream`.
 
 #### Call and save response to file
 ```bash
 mol $ call "math.add" --save
 ```
-It saved the response to the `<current_dir>/posts.find.response.json` file. The extension is `.json` when the response is `object`. Otherwise it is `.txt`.
+It saves the response to the `<current_dir>/math.add.response.json` file. The extension is `.json` when the response is `object`. Otherwise it is `.txt`.
 
 ```bash
 mol $ call "math.add" --save my-response.json
 ```
-It saved the response to the `my-response.json` file.
+It saves the response to the `my-response.json` file.
 
 ### Direct call
 Get health info from `node-12` node
@@ -230,7 +230,7 @@ Params will be `{ a: 5 }`, meta will be `{ b: 'Bob' }` and options will be `{ gr
 
 ### Benchmark services
 
-Moleculer REPL module has a new bench command to measure your services.
+Moleculer REPL module has a bench command to measure your services.
 
 ```bash
 # Call service until 5 seconds (default)
@@ -267,7 +267,11 @@ mol $ load "./math.service.js"
 
 ### Load all services from a folder
 ```bash
-mol $ load "./services"
+mol $ loadFolder "./services"
+```
+The syntax is `loadFolder <folder> [fileMask]`. The optional `fileMask` is passed to `broker.loadServices()` (default: `**/*.service.js`), so you can load e.g. TypeScript services:
+```bash
+mol $ loadFolder "./services" "**/*.service.ts"
 ```
 
 ### List metrics

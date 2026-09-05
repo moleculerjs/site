@@ -53,11 +53,11 @@ module.exports = {
 ```
 
 {% note info Recommendation %}
-Use [streaming feature](https://moleculer.services/docs/0.13/actions.html#Streaming) when you want to send big data to a service or receive from a service.
+Use [streaming feature](actions.html#Streaming) when you want to send big data to a service or receive from a service.
 {% endnote %}
 
 ## How do I reformat error responses?
-You should define an `onError` hook in API Gateway settings. [More info](https://moleculer.services/docs/0.13/moleculer-web.html#Error-handlers).
+You should define an `onError` hook in API Gateway settings. [More info](moleculer-web.html#Error-handlers).
 
 ```js
 // api.service.js

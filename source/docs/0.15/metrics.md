@@ -20,7 +20,7 @@ module.exports = {
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `enabled` | `Boolean` | `false` | Enable tracing feature. |
+| `enabled` | `Boolean` | `false` | Enable metrics feature. |
 | `reporter` | `Object` or `Array<Object>` | `null` | Metric reporter configuration. [More info](#Metrics-Reporters) |
 | `collectProcessMetrics` | `Boolean` | | Collect process & OS related metrics. Default: `process.env.NODE_ENV !== "test"` |
 | `collectInterval` | `Number` | `5` | Collect time period in seconds. |
@@ -57,7 +57,7 @@ module.exports = {
                     excludes: ["moleculer.broker.**","moleculer.request.**"],
                     
                     metricNamePrefix: "mol:", // Original "moleculer.node.type". With prefix: "mol:moleculer.node.type" 
-                    metricNameSuffix: ".value", // Original "moleculer.node.type". With prefix: "moleculer.node.type.value"
+                    metricNameSuffix: ".value", // Original "moleculer.node.type". With suffix: "moleculer.node.type.value"
                 
                     metricNameFormatter: name => name.toUpperCase().replace(/[.:]/g, "_"),
                     labelNameFormatter: name => name.toUpperCase().replace(/[.:]/g, "_")
@@ -249,7 +249,7 @@ module.exports = {
 };
 ```
 
-### Customer Reporter
+### Custom Reporter
 Custom metrics module can be created. We recommend to copy the source of [Console Reporter](https://github.com/moleculerjs/moleculer/blob/master/src/metrics/reporters/console.js) and implement the `init`, `stop`, `metricChanged` methods.
 
 **Create custom metrics**
@@ -288,6 +288,18 @@ Counter provides the following methods
 increment(labels?: GenericObject, value?: number, timestamp?: number)
 set(value: number, labels?: GenericObject, timestamp?: number)
 ```
+
+{% note info Registry methods %}
+The methods above are the methods of the metric instance. When you call them through the registry (`broker.metrics`), the first argument is always the metric name and the `value` defaults to `1`:
+```typescript
+broker.metrics.increment(name: string, labels?: GenericObject, value?: number, timestamp?: number)
+broker.metrics.decrement(name: string, labels?: GenericObject, value?: number, timestamp?: number)
+broker.metrics.set(name: string, value: any, labels?: GenericObject, timestamp?: number)
+broker.metrics.observe(name: string, value: number, labels?: GenericObject, timestamp?: number)
+broker.metrics.timer(name: string, labels?: GenericObject, timestamp?: number)
+```
+E.g. to increment a counter without labels by 5, call `broker.metrics.increment("posts.get.total", null, 5)`.
+{% endnote %}
 
 ### Gauge
 A gauge is a metric that represents a single numerical value that can arbitrarily go up and down. Gauges are typically used for measured values like current memory usage, but also "counts" that can go up and down, like the number of concurrent requests. It can also provide 1-minute rate.
@@ -436,7 +448,7 @@ module.exports = {
         // Get posts.
         get(ctx) {
             // Increment metric
-            this.broker.metrics.increment("posts.get.total", 1);
+            this.broker.metrics.increment("posts.get.total", null, 1);
 
             return this.posts;
         }
@@ -483,7 +495,7 @@ module.exports = {
         this.broker.metrics.register({ 
             type: "gauge", 
             name: "posts.total", 
-            labelNames: ["userID"]
+            labelNames: ["userID"],
             description: "Number of posts by user",
             unit: "post"
         });
@@ -499,7 +511,7 @@ module.exports = {
 
     actions: {
         // Create a new post
-        create(ctx) {
+        async create(ctx) {
             // Measure the post creation time
             const timeEnd = this.broker.metrics.timer("posts.creation.time");
             const post = await this.adapter.create(ctx.params);
