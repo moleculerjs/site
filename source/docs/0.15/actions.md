@@ -3,7 +3,7 @@ title: Actions
 
 The actions are the callable/public methods of the service — in other words its service endpoints or handlers. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request, but the call is routed by the broker to a local or remote instance of the service, so the caller does not need to know where the service runs.
 
-If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
+If you have multiple instances of services, the broker will load balance the request among instances. By default, local instances are preferred (`registry.preferLocal: true`), and a call to a local instance never goes through the transporter. [Read more about balancing](balancing.html).
 
 <div align="center">
     <img src="assets/action-balancing.gif" alt="Action balancing diagram" />
@@ -29,7 +29,7 @@ Moleculer provides various calling options to customize the behavior of service 
 | Name | Type | Default | Description |
 | ------- | ----- | ------- | ------- |
 | `timeout` | `Number` | `null` | Timeout of request in milliseconds. If the request is timed out and you don't define `fallbackResponse`, broker will throw a `RequestTimeout` error. To disable set `0`. If it's not defined, the `requestTimeout` value from broker options will be used. [Read more](fault-tolerance.html#Timeout). |
-| `retries` | `Number` | `null` | Count of retry of request. If the request is timed out, broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. [Read more](fault-tolerance.html#Retry). |
+| `retries` | `Number` | `null` | Count of retry of request. If the call fails with a retryable error (e.g. timeout), broker will try to call again. To disable set `0`. If it's not defined, the `retryPolicy.retries` value from broker options will be used. It only takes effect if `retryPolicy.enabled: true` is set in the broker options (default: `false`). [Read more](fault-tolerance.html#Retry). |
 | `fallbackResponse` | `Any` | `null` | Returns it, if the request has failed. [Read more](fault-tolerance.html#Fallback). |
 | `nodeID` | `String` | `null` | Target nodeID. If set, it will make a direct call to the specified node. |
 | `meta` | `Object` | `{}` | Metadata of request. Access it via `ctx.meta` in actions handlers. It will be transferred & merged at nested calls, as well. |
@@ -56,6 +56,10 @@ const res = await broker.call("user.recommendation", { limit: 5 }, {
     fallbackResponse: defaultRecommendation
 });
 ```
+
+{% note warn %}
+The `retries` option has no effect unless the retry policy is enabled in the broker options (`retryPolicy: { enabled: true }`). It is disabled by default, in which case the retry middleware does not wrap the action handlers at all. [Read more](fault-tolerance.html#Retry).
+{% endnote %}
 
 **Call with promise error handling**
 ```js
@@ -261,12 +265,16 @@ Moleculer.js allows you to execute multiple service calls simultaneously using t
 **Common Options**:
 You can optionally provide a second argument to `mcall` to specify common options that apply to all calls within the request. This object can include properties like `meta` or `timeout`.
 
+{% note warn %}
+If a call definition has its own `options`, it **replaces** the common options entirely for that call (they are not merged). So if you set per-call `options`, remember to repeat the common `meta`, `timeout`, etc. in it, if you need them.
+{% endnote %}
+
 **`mcall` with Array \<Object\>**
 
 ```js
 await broker.mcall(
     [
-        { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        { action: 'posts.find', params: { author: 1 } },
         { action: 'users.find', params: { name: 'John' } }
     ],
     {
@@ -280,7 +288,7 @@ await broker.mcall(
 ```js
 await broker.mcall(
     {
-        posts: { action: 'posts.find', params: { author: 1 }, options: { /* Calling options for this call. */} },
+        posts: { action: 'posts.find', params: { author: 1 } },
         users: { action: 'users.find', params: { name: 'John' } }
     }, 
     {
@@ -290,13 +298,29 @@ await broker.mcall(
 );
 ```
 
+**Per-call options (replacing the common options)**
+```js
+await broker.mcall(
+    [
+        // This call uses only its own options; the common `meta` below is NOT applied to it.
+        { action: 'posts.find', params: { author: 1 }, options: { timeout: 500 } },
+        { action: 'users.find', params: { name: 'John' } }
+    ],
+    { meta: { token: '63f20c2d-8902-4d86-ad87-b58c9e2333c2' } }
+);
+```
+
 #### Response handling
-The `mcall` method offers a `settled` option that allows you to receive detailed information about the results of each call, including their success or failure status. With `settled: true`, `mcall` always resolves as a `Promise`, and the response contains an array with objects for each call. Each object has a status property ("fulfilled" for success, "rejected" for failure) and a `value` property containing the response data (for successful calls) or the error reason (for failed calls). Note that, without this option you won't know how many (and which) calls were rejected.
+The `mcall` method offers a `settled` option that allows you to receive detailed information about the results of each call, including their success or failure status. With `settled: true`, `mcall` always resolves (it never rejects because of a failed call). Note that, without this option you won't know how many (and which) calls were rejected, because the first rejection rejects the whole `mcall`.
+
+The shape of the result depends on the definition format:
+- **Array form**: the response is an array with an object for each call (like `Promise.allSettled`). Each object has a `status` property (`"fulfilled"` for success, `"rejected"` for failure) and either a `value` property containing the response data (for successful calls) or a `reason` property containing the error (for failed calls).
+- **Object form**: the response is an object containing only the results of the **successful** calls under their keys. The keys of the failed calls are simply missing; the status and the error reason are not available in the result.
 
 **Example**
 ```js
 const res = await broker.mcall([
-    { action: "posts.find", params: { limit: 2, offset: 0 },
+    { action: "posts.find", params: { limit: 2, offset: 0 } },
     { action: "users.find", params: { limit: 2, sort: "username" } },
     { action: "service.notfound", params: { notfound: 1 } }
 ], { settled: true });
@@ -321,11 +345,11 @@ Stream handling enables efficient transfer of data streams between services. Thi
 **Send a file to a service as a stream**
 ```js
 const stream = fs.createReadStream(fileName);
-ctx.call("file.save", { filename: "as.txt" }, { stream: fs.createReadStream() });
+ctx.call("file.save", { filename: "as.txt" }, { stream });
 ```
 
 {% note info Object Mode Streaming%}
-[Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. In order to enable it set `$streamObjectMode: true` in [`meta`](actions.html#Metadata).
+[Object Mode Streaming](https://nodejs.org/api/stream.html#stream_object_mode) is also supported. If the passed stream is already in object mode (`readableObjectMode === true`), the broker detects it automatically. Otherwise, you can enable it by setting the `$streamObjectMode: true` [header](actions.html#Headers): `ctx.call("file.save", params, { stream, headers: { $streamObjectMode: true } })`.
 {% endnote %}
 
 **Receiving a stream in a service**
@@ -450,7 +474,7 @@ const DbService = require("moleculer-db");
 
 module.exports = {
     name: "posts",
-    mixins: [DbService]
+    mixins: [DbService],
     hooks: {
         before: {
             // Define a global hook for all actions
@@ -499,7 +523,7 @@ const DbService = require("moleculer-db");
 
 module.exports = {
     name: "users",
-    mixins: [DbService]
+    mixins: [DbService],
     hooks: {
         after: {
             // Define a global hook for all actions to remove sensitive data
@@ -588,11 +612,17 @@ broker.createService({
 });
 ```
 ### Execution order
-It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels.  Overall, the hooks have the following execution logic:
+It is important to keep in mind that hooks have a specific execution order. This is especially important to remember when multiple hooks are registered at different ([service](#Service-level-declaration) and/or [action](#Action-level-declaration)) levels. There are three levels:
 
-- `before` hooks: global (`*`) `->` service level `->` action level.
+- `*` (all actions of the service): the `"*"` key in the service `hooks` block.
+- service level: a named (or wildcard/pattern) action key in the service `hooks` block, e.g. `hello` or `create-*`.
+- action level: the `hooks` property inside the action definition.
 
-- `after` hooks: action level `->` service level `->` global (`*`).
+Overall, the hooks have the following execution logic:
+
+- `before` hooks: `*` (all actions) `->` service level `->` action level.
+
+- `after` hooks: action level `->` service level `->` `*` (all actions).
 
 {% note info%}
 When using several hooks it might be difficult visualize their execution order. However, you can set the [`logLevel` to `debug`](logging.html#Log-Level-Setting) to quickly check the execution order of global and service level hooks.
@@ -683,7 +713,7 @@ const MyAuthMixin = require("./authorize.mixin");
 
 module.exports = {
     name: "posts",
-    mixins: [MyAuthMixin]
+    mixins: [MyAuthMixin],
     hooks: {
         before: {
             "*": ["checkIsAuthenticated"],

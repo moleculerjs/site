@@ -12,8 +12,8 @@ When you call an action or emit an event, the broker creates a `Context` instanc
 | `ctx.nodeID` | `String` | The caller or target Node ID. |
 | `ctx.action` | `Object` | Instance of action definition. |
 | `ctx.event` | `Object` | Instance of event definition. |
-| `ctx.eventName` | `Object` | The emitted event name. |
-| `ctx.eventType` | `String` | Type of event ("emit" or "broadcast"). |
+| `ctx.eventName` | `String` | The emitted event name. |
+| `ctx.eventType` | `String` | Type of event (`"emit"`, `"broadcast"` or `"broadcastLocal"`). |
 | `ctx.eventGroups` | `Array<String>` | Groups of event. |
 | `ctx.caller` | `String` | Service full name of the caller. E.g.: `v3.myService` |
 | `ctx.requestID` | `String` | Request ID. If you make nested-calls, it will be the same ID. |
@@ -32,8 +32,8 @@ When you call an action or emit an event, the broker creates a `Context` instanc
 | Name | Response |  Description |
 | ------- | ----- | ------- |
 | `ctx.call()` | `Promise` | Make nested-call. Same arguments like in `broker.call` |
-| `ctx.emit()` | `void` | Emit an event, same as `broker.emit` |
-| `ctx.broadcast()` | `void` | Broadcast an event, same as `broker.broadcast` |
+| `ctx.emit()` | `Promise` | Emit an event, same as `broker.emit` |
+| `ctx.broadcast()` | `Promise` | Broadcast an event, same as `broker.broadcast` |
 | `ctx.startSpan(name, opts)` | `Span` | Creates a new child span. |
 | `ctx.finishSpan(span)` | `void` | Finishes a span. |
 | `ctx.toJSON()` | `Object` | Convert `Context` to a printable JSON. |

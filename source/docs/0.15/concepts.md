@@ -48,9 +48,9 @@ All the details that we've just seen might seem scary and complicated but you do
 Now that we've defined the architecture of our shop, let's implement it. We're going to use NATS, an open source messaging system, as a communication bus. So go ahead and get the latest version of [NATS Server](https://docs.nats.io/running-a-nats-service/introduction/installation). Run it with the default settings. You should get the following message:
 
 ```
-[18141] 2016/10/31 13:13:40.732616 [INF] Starting nats-server version 0.9.4
-[18141] 2016/10/31 13:13:40.732704 [INF] Listening for client connections on 0.0.0.0:4222
-[18141] 2016/10/31 13:13:40.732967 [INF] Server is ready
+[INF] Starting nats-server
+[INF] Listening for client connections on 0.0.0.0:4222
+[INF] Server is ready
 ```
 
 Next, create a new directory for our application, create a new `package.json` and install the dependencies. We´re going to use `moleculer` to create our services, `moleculer-web` as the HTTP gateway and `nats` for communication. In the end your `package.json` should look like this:
@@ -60,14 +60,14 @@ Next, create a new directory for our application, create a new `package.json` an
 {
   "name": "moleculer-store",
   "dependencies": {
-    "moleculer": "^0.14.0",
-    "moleculer-web": "^0.9.0",
-    "nats": "^1.3.2"
+    "moleculer": "^0.15.0",
+    "moleculer-web": "^0.11.0",
+    "nats": "^2.0.0"
   }
 }
 ```
 
-Finally, we need to configure the brokers and create our services. So let's create a new file (`index.js`) and do it:
+Finally, we need to configure the brokers and create our services. So let's create a new file (`index.js`) and do it. For simplicity, this example creates both brokers (`node-1` and `node-2`) in a single process; in production each node runs as its own process (e.g. started with the [Runner](runner.html)), but the code of the services is exactly the same.
 ```javascript
 // index.js
 const { ServiceBroker } = require("moleculer");

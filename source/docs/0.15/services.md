@@ -75,7 +75,7 @@ module.exports = {
         transport: "mailgun"
     },
 
-    action: {
+    actions: {
         send(ctx) {
             if (this.settings.transport == "mailgun") {
                 ...
@@ -94,7 +94,7 @@ There are some internal settings which are used by core modules. These setting n
 | `$noVersionPrefix` | `Boolean` | `false` | Disable version prefixing in action names. |
 | `$noServiceNamePrefix` | `Boolean` | `false` | Disable service name prefixing in action names. |
 | `$dependencyTimeout` | `Number` | `0` | Timeout for dependency waiting. |
-| `$shutdownTimeout` | `Number` | `0` | Timeout for waiting for active requests at shutdown. |
+| `$shutdownTimeout` | `Number` | `0` | Timeout for waiting for active requests at shutdown. `0` means the broker-level `tracking.shutdownTimeout` option is used (default: `5000` ms). It takes effect only if [context tracking](context.html#Context-tracking) is enabled. |
 | `$secureSettings` | `Array` | `[]` | List of secure settings. |
 
 ### Secure service settings
@@ -131,7 +131,7 @@ const ApiGwService = require("moleculer-web");
 
 module.exports = {
     name: "api",
-    mixins: [ApiGwService]
+    mixins: [ApiGwService],
     settings: {
         // Change port setting
         port: 8080
@@ -252,11 +252,11 @@ module.exports = {
             console.log("Sender:", ctx.nodeID);
             console.log("Metadata:", ctx.meta);
             console.log("The called event name:", ctx.eventName);
-        }
+        },
 
-        // Subscribe to a local event
+        // Subscribe to an internal event (it is delivered locally only, via `broadcastLocal`)
         "$node.connected"(ctx) {
-            this.logger.info(`Node '${ctx.params.id}' is connected!`);
+            this.logger.info(`Node '${ctx.params.node.id}' is connected!`);
         }
     }
 };
@@ -274,8 +274,8 @@ module.exports = {
         "order.created": {
             // Register handler to the "other" group instead of "payment" group.
             group: "other",
-            handler(payload) {
-                // ...
+            handler(ctx) {
+                // ctx.params contains the payload
             }
         }
     }
@@ -438,12 +438,12 @@ In service functions, `this` is always pointed to the Service instance. It has s
 | ------- | ----- | ------- |
 | `this.name` | `String` | Name of service (from schema) |
 | `this.version` | `Number` or `String` | Version of service (from schema) |
-| `this.fullName` | `String` | Name of version prefix |
+| `this.fullName` | `String` | Full name including the version prefix (e.g. `v2.posts`) |
 | `this.settings` | `Object` | Settings of service (from schema) |
 | `this.metadata` | `Object` | Metadata of service (from schema) |
 | `this.schema` | `Object` | Schema definition of service |
 | `this.broker` | `ServiceBroker` | Instance of broker |
-| `this.Promise` | `Promise` | Class of Promise (Bluebird) |
+| `this.Promise` | `Promise` | Promise class used by the broker (native `Promise`, unless `options.Promise` is set in broker options) |
 | `this.logger` | `Logger` | Logger instance |
 | `this.actions` | `Object` | Actions of service. _Service can call own actions directly_ |
 | `this.waitForServices` | `Function` | Link to `broker.waitForServices` method |
@@ -615,7 +615,7 @@ module.exports = {
         this.server.close();
     },
 
-    methods() {
+    methods: {
         // HTTP handler
         httpHandler(req, res) {
             res.end("Hello Moleculer!");
@@ -644,7 +644,7 @@ class GreeterService extends Service {
         this.parseServiceSchema({
             name: "greeter",
             version: "v2",
-            meta: {
+            metadata: {
                 scalable: true
             },
             dependencies: [
@@ -693,8 +693,8 @@ class GreeterService extends Service {
     }
 
     // Event handler
-    userCreated(user) {
-        this.broker.call("mail.send", { user });
+    userCreated(ctx) {
+        this.broker.call("mail.send", { user: ctx.params });
     }
 
     serviceCreated() {

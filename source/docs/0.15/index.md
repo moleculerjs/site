@@ -16,7 +16,7 @@ The same code also runs as a **modular monolith**: keep every service in a singl
 - many fault tolerance / resilience features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
 - plugin/middleware system
 - support versioned services
-- support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
+- support [Stream](https://nodejs.org/api/stream.html)s
 - service mixins
 - built-in caching solution (Memory, MemoryLRU, Redis)
 - pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
@@ -59,7 +59,7 @@ Check the results on your computer! Just clone [this repo](https://github.com/ic
 [Check out our benchmark results.](benchmark.html)
 
 {% note info Versioning %}
-Until Moleculer reaches a `1.0` release, breaking changes will be released with a new minor version. For example `0.14.1`, and `0.14.4` will be backward compatible, but `0.15.0` will have breaking changes.
+Until Moleculer reaches a `1.0` release, breaking changes are released with a new minor version. For example `0.15.1` and `0.15.4` are backward compatible, but `0.16.0` may contain breaking changes.
 {% endnote %}
 
 

@@ -43,10 +43,13 @@ const broker = new ServiceBroker({
 
 > If the circuit-breaker state is changed, ServiceBroker will send [internal events](events.html#circuit-breaker-opened).
 
+### How it works
+The circuit breaker state is tracked by the **calling** broker, per endpoint, i.e. per `nodeID:actionName` pair. When a breaker trips, the affected endpoint is marked unavailable in the caller's registry, so the [balancer](balancing.html) skips that node and picks another instance of the service (if there is one). Other nodes calling the same action maintain their own, independent breakers. After `halfOpenTime` the breaker switches to `half-open` and lets a single probe request through: if it succeeds the breaker closes and the endpoint becomes available again; if it fails the endpoint stays blocked and the next probe is attempted after another `halfOpenTime`. Only errors that pass the `check` function *and* originate from the target node itself (or locally, e.g. a `RequestTimeoutError`) are counted as failures; errors propagated from a further downstream node called by the target are not.
+
 These global options can be overridden in action definition, as well.
 ```js
 // users.service.js
-module.export = {
+module.exports = {
     name: "users",
     actions: {
         create: {
@@ -62,7 +65,7 @@ module.export = {
 ```
 
 ## Retry
-There is an exponential backoff retry solution. It can recall failed requests with response [`MoleculerRetryableError`](https://moleculer.services/docs/0.14/errors.html#MoleculerRetryableError).
+There is an exponential backoff retry solution. It can recall failed requests with response [`MoleculerRetryableError`](errors.html#MoleculerRetryableError). It is disabled by default (`enabled: false`).
 
 **Enable it in the broker options**
 ```js
@@ -71,7 +74,7 @@ const broker = new ServiceBroker({
         enabled: true,
         retries: 5,
         delay: 100,
-        maxDelay: 2000,
+        maxDelay: 1000,
         factor: 2,
         check: err => err && !!err.retryable
     }
@@ -85,7 +88,7 @@ const broker = new ServiceBroker({
 | `enabled` | `Boolean` | `false` | Enable feature. |
 | `retries` | `Number` | `5` | Count of retries. |
 | `delay` | `Number` | `100` | First delay in milliseconds. |
-| `maxDelay` | `Number` | `2000` | Maximum delay in milliseconds. |
+| `maxDelay` | `Number` | `1000` | Maximum delay in milliseconds. |
 | `factor` | `Number` | `2` | Backoff factor for delay. `2` means exponential backoff. |
 | `check` | `Function` | `err && !!err.retryable` | A function to check failed requests. |
 
@@ -94,10 +97,14 @@ const broker = new ServiceBroker({
 broker.call("posts.find", {}, { retries: 3 });
 ```
 
+{% note info Retry and timeout %}
+`RequestTimeoutError` (and `QueueIsFullError`) are retryable errors, so when the retry policy is enabled, a timed-out call is retried up to `retries` times, and every attempt gets a fresh `timeout` window. The worst-case duration of one `broker.call` is therefore roughly `(retries + 1) × timeout` plus the backoff delays.
+{% endnote %}
+
 **Overwrite the retry policy values in action definitions** 
 ```js
 // users.service.js
-module.export = {
+module.exports = {
     name: "users",
     actions: {
         find: {
@@ -120,7 +127,7 @@ module.export = {
 ```
 
 ## Timeout
-Timeout can be set for service calling. It can be set globally in broker options, or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
+Timeout can be set for service calling. It can be set globally in broker options (`requestTimeout`, in milliseconds; the default is `0`, which means disabled), in the action definition (`timeout`), or in calling options. If the timeout is defined and request is timed out, broker will throw a `RequestTimeoutError` error.
 
 **Enable it in the broker options**
 ```js
@@ -145,8 +152,8 @@ Bulkhead feature is implemented in Moleculer framework to control the concurrent
 const broker = new ServiceBroker({
     bulkhead: {
         enabled: true,
-        concurrency: 3,
-        maxQueueSize: 10,
+        concurrency: 10,
+        maxQueueSize: 100,
     }
 });
 ```
@@ -156,8 +163,8 @@ const broker = new ServiceBroker({
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | `enabled` | `Boolean` | `false` | Enable feature. |
-| `concurrency` | `Number` | `3` | Maximum concurrent executions. |
-| `maxQueueSize` | `Number` | `10` | Maximum size of queue |
+| `concurrency` | `Number` | `10` | Maximum concurrent executions. |
+| `maxQueueSize` | `Number` | `100` | Maximum size of queue |
 
 The `concurrency` value restricts the concurrent request executions. If the `maxQueueSize` is bigger than `0`, broker stores the additional requests in a queue if all slots are taken. If the queue size reaches the `maxQueueSize` limit, broker will throw `QueueIsFull` exception for every addition requests.
 
@@ -168,7 +175,7 @@ The `concurrency` value restricts the concurrent request executions. If the `max
 **Overwrite the retry policy values in action definitions** 
 ```js
 // users.service.js
-module.export = {
+module.exports = {
     name: "users",
     actions: {
         find: {
