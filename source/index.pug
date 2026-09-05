@@ -2,7 +2,7 @@ layout: index
 headline: Moleculer
 description: Moleculer is a microservices framework for Node.js and TypeScript with built-in service discovery, load balancing, circuit breakers, distributed tracing and an event bus — no Kubernetes, Consul or service mesh required.
 subtitle: Microservices framework for Node.js and TypeScript.
-tagline: Service discovery, load balancing, circuit breakers, distributed tracing and a built-in event bus — without Kubernetes, Consul, Istio or a service mesh. Start as a modular monolith, split into distributed services later without changing your code.
+tagline: Service discovery, load balancing, circuit breakers, distributed tracing and a built-in event bus — without Kubernetes, Consul, Istio or a service mesh. Start as a modular monolith, split into distributed services later without changing your service code.
 comments: false
 ---
 ul#intro-feature-list
@@ -10,7 +10,7 @@ ul#intro-feature-list
         .intro-feature
             .intro-feature-icon
                 i.fa.fa-server
-            h3.intro-feature-title No infrastructure to run
+            h3.intro-feature-title No Consul, etcd or service mesh to run
             p.intro-feature-desc
                 | Service registry, service discovery, load balancing and health checks are built into the framework — not into Consul, etcd or a Kubernetes control plane.
                 a(href='/docs/0.15/registry.html') Read about discovery.
@@ -36,7 +36,7 @@ ul#intro-feature-list
                 i.fa.fa-chart-line
             h3.intro-feature-title Observable
             p.intro-feature-desc
-                | Built-in metrics (Prometheus, StatsD, Datadog) and distributed tracing (Jaeger, Zipkin, Datadog, New Relic) — no sidecar, no agent.
+                | Built-in metrics (Prometheus, StatsD, Datadog) and distributed tracing (Jaeger, Zipkin, Datadog, New Relic) — no sidecar required.
                 a(href='/docs/0.15/tracing.html') Learn about tracing.
     li.intro-feature-wrap
         .intro-feature
