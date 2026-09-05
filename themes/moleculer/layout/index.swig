@@ -2,6 +2,9 @@
   <div class="inner">
     <h1 id="banner-title">{{ page.headline }}</h1>
     <h2 id="banner-subtitle">{{ page.subtitle }}</h2>
+    {% if page.tagline %}
+    <p id="banner-tagline">{{ page.tagline }}</p>
+    {% endif %}
     <div id="banner-version">
       <img src="https://img.shields.io/npm/v/moleculer.svg"/>
     </div>

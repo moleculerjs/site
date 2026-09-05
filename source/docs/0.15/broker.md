@@ -1,6 +1,6 @@
 title: Broker
 ---
-The `ServiceBroker` is the main component of Moleculer. It handles services, calls actions, emits events and communicates with remote nodes. You must create a `ServiceBroker` instance on every node.
+The `ServiceBroker` is the main component of Moleculer — the runtime and service container of a node. It hosts services, keeps the local service registry, calls actions (RPC), emits events (pub/sub), applies load balancing and fault-tolerance rules, and communicates with remote nodes through the transporter. You must create a `ServiceBroker` instance on every node.
 
 <div align="center">
     <img src="assets/service-broker.svg" alt="Broker logical diagram" />

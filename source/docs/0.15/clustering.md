@@ -1,9 +1,9 @@
 title: Clustering
 ---
-Moleculer framework supports several software architectures.
+Moleculer framework supports several software architectures. The important property is that the service code is the same in all of them: whether a service runs in the same process as its callers or on another machine is a deployment decision, so you can start as a modular monolith and move to distributed microservices later without a rewrite.
 
 ## Monolith architecture
-In this version, all services are running on the same node like a monolith. There is no network latency and no transporter module. _The local calls are the fastest._
+In this version, all services are running on the same node like a monolith — a *modular monolith*: the services are still separated in code, but calls between them are in-process. There is no network latency and no transporter module. _The local calls are the fastest._
 
 ![Monolith architecture](assets/architectures/monolith.svg)
 

@@ -1,6 +1,6 @@
 # Moleculer — Full Documentation
 
-> Moleculer is a fast, modern, and powerful microservices framework for Node.js. It provides built-in service discovery, load balancing, fault tolerance, caching, event-driven architecture, and multi-transport networking out of the box.
+> Moleculer is a fast, modern, and powerful microservices framework for Node.js and TypeScript. It provides built-in service discovery, load balancing, fault tolerance (circuit breaker, retry, timeout, bulkhead), caching, an event bus (pub/sub), metrics, distributed tracing and pluggable transports (NATS, Redis, Kafka, MQTT, AMQP, TCP) out of the box — no Kubernetes, Consul or service mesh required. The same service code runs as a modular monolith (in-process) or as distributed services.
 >
 > GitHub: https://github.com/moleculerjs/moleculer
 > Website: https://moleculer.services
@@ -8,16 +8,20 @@
 
 ---
 
-Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/). It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+Moleculer is a fast, modern and powerful microservices framework for [Node.js](https://nodejs.org/en/) and TypeScript. It helps you to build efficient, reliable & scalable services. Moleculer provides many features for building and managing your microservices.
+
+If you need to split a Node.js backend into services that call each other, you normally have to assemble the distributed-systems layer yourself: a service registry and service discovery (Consul, etcd, Kubernetes DNS), client-side load balancing, a message broker for RPC and pub/sub, resilience patterns (circuit breaker, retry, timeout, bulkhead), and observability (metrics, distributed tracing). Moleculer ships all of these in one framework. Services talk to each other through a pluggable transport layer (NATS, Redis, Kafka, MQTT, AMQP or plain TCP), and the framework handles discovery, balancing and fault tolerance itself — no Kubernetes, Consul, Istio or service mesh is required, although Moleculer runs fine inside Kubernetes when you want it to.
+
+The same code also runs as a **modular monolith**: keep every service in a single process (in-process calls, no transporter, no network latency) while the codebase is small, then move services into separate processes or containers later without changing your service code. See [Clustering](clustering.html) for the architecture options.
 
 ## Features
 
 - Promise-based solution (async/await compatible)
-- request-reply concept
-- support event driven architecture with balancing
-- built-in service registry & dynamic service discovery
+- request-reply concept (RPC between services)
+- support event driven architecture with balancing (load-balanced and broadcast pub/sub)
+- built-in service registry & dynamic service discovery (no Consul, etcd or Kubernetes needed)
 - load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
-- many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
+- many fault tolerance / resilience features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
 - plugin/middleware system
 - support versioned services
 - support [Stream](https://nodejs.org/dist/latest-v10.x/docs/api/stream.html)s
@@ -31,8 +35,25 @@ Moleculer is a fast, modern and powerful microservices framework for [Node.js](h
 - master-less architecture, all nodes are equal
 - parameter validation with [fastest-validator](https://github.com/icebob/fastest-validator)
 - built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
-- built-in tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin)
+- built-in distributed tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin, NewRelic)
+- TypeScript support: bundled type definitions, an official [TypeScript project template](https://github.com/moleculerjs/moleculer-template-project-typescript) (`moleculer init project-typescript my-project`) and [class/decorator based services](services.html#Use-decorators)
 - official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](https://github.com/moleculerjs/moleculer-db) and many other modules...
+
+## When to choose Moleculer
+
+Moleculer is a good fit when:
+
+- you are building a Node.js (or TypeScript) backend from several services that need to call each other, and you want service discovery, load balancing, retries and circuit breakers without operating Consul, etcd, Istio or a service mesh;
+- you want to start as a modular monolith and move to distributed services later, without rewriting your service code;
+- you need both request/response (RPC) and event-driven (pub/sub) communication between services, over a message broker such as NATS, Redis, Kafka, MQTT or AMQP;
+- you want metrics and distributed tracing to be part of the framework rather than a separate integration project;
+- you are building a single service or a REST API today but want to keep the option to split it later — Moleculer works as a regular web framework too (with [moleculer-web](moleculer-web.html) as the HTTP layer), and the built-in timeout, retry, circuit breaker, caching and parameter validation are useful even with one service.
+
+Moleculer is probably **not** the right choice when:
+
+- your team is fully committed to the NestJS ecosystem and its module/DI conventions — NestJS has a larger ecosystem and more TypeScript-first tooling, and Moleculer would be a second framework to learn;
+- most of your services are not written in Node.js — Moleculer's [protocol](https://github.com/moleculer-framework/protocol) is open and there are third-party implementations, but the first-class ecosystem is Node.js;
+- you need guaranteed, persistent message delivery from the core event bus — built-in events are fire-and-forget; use [moleculer-channels](https://github.com/moleculerjs/moleculer-channels) for durable queues.
 
 ## How fast?
 
@@ -146,28 +167,28 @@ If you don't want to install [moleculer-demo](usage.html#Create-a-Moleculer-proj
 ---
 
 
-This guide covers the core concepts of any Moleculer application.
+This guide covers the core concepts of any Moleculer application. Moleculer has its own names for a few well-known distributed-systems building blocks; each concept below is introduced together with the industry term it corresponds to, so you can map it to what you already know (service registry, message broker, RPC, pub/sub, API gateway).
 
 ## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+A [service](services.html) is a simple JavaScript (or TypeScript) module containing some part of a complex application — what other stacks call a microservice, a bounded context or a module. It exposes **actions** (callable RPC methods / service endpoints) and listens to **events** (pub/sub messages). It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
 
 ## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+A node is a simple OS process running on a local or external network — an instance, a replica, a container or a Kubernetes pod, depending on how you deploy. A single instance of a node can host one or many services.
 
 ### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used). This is Moleculer's **modular monolith** mode: the services are separated in code but run as in-process calls in one process.
 
 ### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+Services distributed across multiple nodes are considered remote — the distributed, cross-process case. In this case, the communication is done over the network via [transporter](#Transporter). Because the calling code is identical for local and remote services, you can start with everything in one process and split services out later without changing them.
 
 ## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+[Service Broker](broker.html) is the heart of Moleculer: the runtime / service container that hosts services on a node. It holds the local **service registry** and performs service discovery, load balancing, fault tolerance (circuit breaker, retries, timeouts) and communication between services (local and remote). Each node must have an instance of Service Broker.
 
 ## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+[Transporter](networking.html) is the transport layer / messaging backend that services use to exchange messages between nodes — typically a message broker such as NATS, Redis, Kafka, MQTT or AMQP, or a broker-less TCP transporter. It transfers events, requests and responses. The transporter is pluggable: switching from Redis to NATS is a configuration change, not a code change.
 
 ## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+[API Gateway](moleculer-web.html) exposes Moleculer services to end-users — it is the HTTP layer / edge service of a Moleculer application. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
 
 ## Overall View
 There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.
@@ -463,7 +484,7 @@ These options can be used in `ServiceBroker` constructor or in `moleculer.config
 
 ---
 
-The `ServiceBroker` is the main component of Moleculer. It handles services, calls actions, emits events and communicates with remote nodes. You must create a `ServiceBroker` instance on every node.
+The `ServiceBroker` is the main component of Moleculer — the runtime and service container of a node. It hosts services, keeps the local service registry, calls actions (RPC), emits events (pub/sub), applies load balancing and fault-tolerance rules, and communicates with remote nodes through the transporter. You must create a `ServiceBroker` instance on every node.
 
 <div align="center">
     <img src="assets/service-broker.svg" alt="Broker logical diagram" />
@@ -665,7 +686,7 @@ The `info` object contains the broker and the service instances, the current con
 
 ---
 
-The `Service` represents a microservice in the Moleculer framework. You can define actions and subscribe to events. To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
+The `Service` represents a microservice in the Moleculer framework. You can define actions (RPC endpoints) and subscribe to events (pub/sub messages). To create a service you must define a schema. The service schema is similar to [a component of VueJS](https://vuejs.org/v2/guide/components.html#What-are-Components).
 
 ## Schema
 The schema has some main parts `name`, `version`, `settings`, `actions`, `methods`, `events` that are described below.
@@ -786,7 +807,7 @@ module.exports = {
 ```
 
 ## Mixins
-Mixins are a flexible way to distribute reusable functionalities for Moleculer services. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
+Mixins are a flexible way to distribute reusable functionalities for Moleculer services — they are the plugin / composition mechanism of the framework, comparable to mixins in Vue or traits in other languages. The Service constructor merges these mixins with the current schema. When a service uses mixins, all properties present in the mixin will be "mixed" into the current service.
 
 **Example how to extend `moleculer-web` service**
 
@@ -1451,7 +1472,7 @@ broker.start();
 ```
 
 ## Internal Services
-The `ServiceBroker` contains some internal services to check the node health or get some registry information. You can disable them by setting `internalServices: false` in broker options.
+The `ServiceBroker` contains some internal services for introspection: health checks, node and service catalogue, and registry information (the `$node.*` actions below). You can disable them by setting `internalServices: false` in broker options.
 
 ### List of nodes
 It lists all known nodes (including local node).
@@ -1628,7 +1649,7 @@ module.exports = {
 ---
 
 
-The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+The actions are the callable/public methods of the service — in other words its service endpoints or handlers. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request, but the call is routed by the broker to a local or remote instance of the service, so the caller does not need to know where the service runs.
 
 If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
 
@@ -2369,14 +2390,14 @@ module.exports = {
 
 ---
 
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services. 
+Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services. It is a publish/subscribe (pub/sub) system that works over any transporter, with two delivery modes: *balanced* events, where one instance per service group handles each event (like NATS queue groups or Kafka consumer groups), and *broadcast* events, which fan out to every listener. 
 
 {% note info %}
 Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
 {% endnote %}
 
 # Balanced events
-Even listeners are arrange into logical groups. It ensures that only one listener from each designated group receives an event. This approach is useful for scenarios where you want to distribute event handling among services while avoiding duplicate processing within a group.
+Balanced events are Moleculer's load-balanced pub/sub — the equivalent of a NATS queue group, a Kafka consumer group or a competing-consumers queue. Event listeners are arranged into logical groups. It ensures that only one listener from each designated group receives an event. This approach is useful for scenarios where you want to distribute event handling among services while avoiding duplicate processing within a group.
 
 Understanding Groups:
 
@@ -2916,7 +2937,9 @@ module.exports = {
 ```
 ---
 
-To enable communication between nodes (ServiceBrokers), you must configure a transporter. The available transporters typically connect to a central message broker, facilitating reliable message exchange among remote nodes. These message brokers primarily support the publish/subscribe messaging pattern.
+To enable communication between nodes (ServiceBrokers), you must configure a transporter. A transporter is Moleculer's transport layer / messaging backend: it carries requests, responses and events between processes over a message broker (NATS, Redis, Kafka, MQTT, AMQP) or, with the TCP transporter, directly between nodes without any broker. The available transporters typically connect to a central message broker, facilitating reliable message exchange among remote nodes. These message brokers primarily support the publish/subscribe messaging pattern.
+
+Because the transporter is an abstraction, the same service code runs unchanged over any of them — you choose the broker for operational reasons (what you already run, throughput, persistence), not because your code depends on it.
 
 
 <div align="center">
@@ -3609,7 +3632,7 @@ module.exports = {
 ---
 
 
-Moleculer has several built-in load balancing strategies. If a service is running on multiple node instances, ServiceRegistry uses these strategies to select a single node from the available ones.
+Moleculer has several built-in load balancing strategies. If a service is running on multiple node instances, ServiceRegistry uses these strategies to select a single node from the available ones. This is client-side load balancing: the calling node picks the target from its own service registry, so no external load balancer, proxy or service mesh sits between the services.
 
 ## Built-in strategies
 To configure strategy, set `strategy` broker options under `registry` property. It can be either a name (in case of built-in strategies) or a `Strategy` class which inherited from `BaseStrategy` (in case of custom strategies).
@@ -3852,6 +3875,8 @@ module.exports = {
 ---
 
 
+Every ServiceBroker keeps a **service registry**: a catalogue of all known nodes, services, actions and events in the cluster. The registry is filled by **service discovery**, so nodes find each other automatically at runtime. This is the part of a microservices stack that is usually delegated to Consul, etcd, Eureka or Kubernetes DNS; in Moleculer it is built into the framework and needs no extra infrastructure by default.
+
 ## Dynamic service discovery
 Within the Moleculer framework, a dedicated module handles node discovery and performs periodic heartbeat verification. This discovery mechanism operates dynamically, eliminating the need for nodes to possess prior knowledge of one another during startup. Upon initialization, each node broadcasts its presence to all others, enabling each node to construct its own local service registry.
 
@@ -4086,7 +4111,7 @@ Moleculer has a built-in service registry module. It stores all information abou
 ---
 
 
-MoleculerJS incorporates a range of built-in fault-tolerance mechanisms designed to enhance the reliability and resilience of your microservices architecture. These features are configurable within the broker options, allowing you to enable or disable them based on your specific requirements and use cases.
+MoleculerJS incorporates a range of built-in fault-tolerance mechanisms — the standard resilience patterns of distributed systems: circuit breaker, retry with exponential backoff, timeout, bulkhead and fallback — designed to enhance the reliability and resilience of your microservices architecture. They are applied by the broker to every service call, so you don't have to wrap calls in a resilience library yourself. These features are configurable within the broker options, allowing you to enable or disable them based on your specific requirements and use cases.
 
 
 ## Circuit Breaker
@@ -4354,10 +4379,10 @@ module.exports = {
 
 ---
 
-Moleculer framework supports several software architectures.
+Moleculer framework supports several software architectures. The important property is that the service code is the same in all of them: whether a service runs in the same process as its callers or on another machine is a deployment decision, so you can start as a modular monolith and move to distributed microservices later without a rewrite.
 
 ## Monolith architecture
-In this version, all services are running on the same node like a monolith. There is no network latency and no transporter module. _The local calls are the fastest._
+In this version, all services are running on the same node like a monolith — a *modular monolith*: the services are still separated in code, but calls between them are in-process. There is no network latency and no transporter module. _The local calls are the fastest._
 
 ![Monolith architecture](assets/architectures/monolith.svg)
 
@@ -4380,7 +4405,7 @@ Do you choose between monolith and microservices when developing your applicatio
 ---
 
 
-Moleculer has a built-in caching solution to cache responses of service actions. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
+Moleculer has a built-in caching layer (the *cacher*) to cache responses of service actions, either in-process (Memory, MemoryLRU) or in a shared Redis cache that all nodes see. To enable it, set a `cacher` type in [broker option](configuration.html#Broker-options) and set the `cache: true` in [action definition](services.html#Actions) what you want to cache.
 
 **Cached action example**
 ```js
@@ -6889,7 +6914,7 @@ module.exports = {
 ---
 
 
-Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer has a built-in metrics module — the metrics half of its observability features, alongside [tracing](tracing.html) — that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 {% note warn %}
 If you want to use [legacy (<= v0.13) metrics](/modules.html#metrics) use `EventLegacy` tracing exporter. [More info](tracing.html#Event-legacy).
@@ -7424,7 +7449,7 @@ module.exports = {
 
 ---
 
-Moleculer has a built-in tracing module that collects tracing information inside a Moleculer application. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer has a built-in distributed tracing module that collects tracing information inside a Moleculer application: every action call and event gets a span, and spans are propagated across nodes, so a request that passes through several services shows up as one trace. Together with [metrics](metrics.html) this is Moleculer's built-in observability layer. Moreover, you can easily create your custom tracing spans. There are several built-in tracing exporter like [Zipkin](https://zipkin.apache.org/), [Jaeger](https://www.jaegertracing.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 **Enable tracing**
 ```js
@@ -8087,7 +8112,7 @@ broker.createService({
 ---
 
 ## moleculer-web [![npm](https://img.shields.io/npm/v/moleculer-web.svg?maxAge=3600)](https://www.npmjs.com/package/moleculer-web)
-The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework. Use it to publish your services as RESTful APIs.
+The [moleculer-web](https://github.com/moleculerjs/moleculer-web) is the official API gateway service for Moleculer framework — the HTTP layer / edge service that turns incoming HTTP requests into service calls. Use it to publish your services as RESTful APIs.
 
 ## Features
 * support HTTP & HTTPS
@@ -10778,6 +10803,14 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 	* Docker & Docker Compose files
 	* tests & coverage with [Jest](http://facebook.github.io/jest/)
 	* lint with [ESLint](http://eslint.org/)
+
+
+* [**project-typescript**](https://github.com/moleculerjs/moleculer-template-project-typescript) - Generate a Moleculer-based project in TypeScript. *Use it if you want to start a new TypeScript project which is based on Moleculer framework*
+	* `moleculer.config.ts` and TypeScript service skeletons (`greeter`, DB sample)
+	* official [API Gateway](https://github.com/moleculerjs/moleculer-web) with optional GraphQL & Socket.IO (optional)
+	* Docker, Docker Compose & Kubernetes files
+	* tests & coverage with [Vitest](https://vitest.dev/)
+	* lint with [ESLint](http://eslint.org/) & [Prettier](https://prettier.io/)
 
 
 * [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*

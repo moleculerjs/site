@@ -1,6 +1,8 @@
 title: Networking
 ---
-To enable communication between nodes (ServiceBrokers), you must configure a transporter. The available transporters typically connect to a central message broker, facilitating reliable message exchange among remote nodes. These message brokers primarily support the publish/subscribe messaging pattern.
+To enable communication between nodes (ServiceBrokers), you must configure a transporter. A transporter is Moleculer's transport layer / messaging backend: it carries requests, responses and events between processes over a message broker (NATS, Redis, Kafka, MQTT, AMQP) or, with the TCP transporter, directly between nodes without any broker. The available transporters typically connect to a central message broker, facilitating reliable message exchange among remote nodes. These message brokers primarily support the publish/subscribe messaging pattern.
+
+Because the transporter is an abstraction, the same service code runs unchanged over any of them — you choose the broker for operational reasons (what you already run, throughput, persistence), not because your code depends on it.
 
 
 <div align="center">

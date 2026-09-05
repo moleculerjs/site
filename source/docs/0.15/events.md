@@ -1,13 +1,13 @@
 title: Events
 ---
-Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services. 
+Broker has a built-in event bus to support [Event-driven architecture](http://microservices.io/patterns/data/event-driven-architecture.html) and to send events to local and remote services. It is a publish/subscribe (pub/sub) system that works over any transporter, with two delivery modes: *balanced* events, where one instance per service group handles each event (like NATS queue groups or Kafka consumer groups), and *broadcast* events, which fan out to every listener. 
 
 {% note info %}
 Please note that built-in events are fire-and-forget meaning that if the service is offline, the event will be lost. For persistent, durable and reliable events please check [moleculer-channels](https://github.com/moleculerjs/moleculer-channels).
 {% endnote %}
 
 # Balanced events
-Even listeners are arrange into logical groups. It ensures that only one listener from each designated group receives an event. This approach is useful for scenarios where you want to distribute event handling among services while avoiding duplicate processing within a group.
+Balanced events are Moleculer's load-balanced pub/sub — the equivalent of a NATS queue group, a Kafka consumer group or a competing-consumers queue. Event listeners are arranged into logical groups. It ensures that only one listener from each designated group receives an event. This approach is useful for scenarios where you want to distribute event handling among services while avoiding duplicate processing within a group.
 
 Understanding Groups:
 

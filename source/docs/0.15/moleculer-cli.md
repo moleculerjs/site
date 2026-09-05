@@ -51,6 +51,14 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 	* lint with [ESLint](http://eslint.org/)
 
 
+* [**project-typescript**](https://github.com/moleculerjs/moleculer-template-project-typescript) - Generate a Moleculer-based project in TypeScript. *Use it if you want to start a new TypeScript project which is based on Moleculer framework*
+	* `moleculer.config.ts` and TypeScript service skeletons (`greeter`, DB sample)
+	* official [API Gateway](https://github.com/moleculerjs/moleculer-web) with optional GraphQL & Socket.IO (optional)
+	* Docker, Docker Compose & Kubernetes files
+	* tests & coverage with [Vitest](https://vitest.dev/)
+	* lint with [ESLint](http://eslint.org/) & [Prettier](https://prettier.io/)
+
+
 * [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*
 	* sample service (`greeter`)
 	* Docker & Docker Compose files

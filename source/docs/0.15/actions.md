@@ -1,7 +1,7 @@
 title: Actions
 ---
 
-The actions are the callable/public methods of the service. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request.
+The actions are the callable/public methods of the service — in other words its service endpoints or handlers. The action calling represents a remote-procedure-call (RPC). It has request parameters & returns response, like a HTTP request, but the call is routed by the broker to a local or remote instance of the service, so the caller does not need to know where the service runs.
 
 If you have multiple instances of services, the broker will load balance the request among instances. [Read more about balancing](balancing.html).
 

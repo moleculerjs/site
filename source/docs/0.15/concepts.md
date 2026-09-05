@@ -1,28 +1,28 @@
 title: Core Concepts
 ---
 
-This guide covers the core concepts of any Moleculer application.
+This guide covers the core concepts of any Moleculer application. Moleculer has its own names for a few well-known distributed-systems building blocks; each concept below is introduced together with the industry term it corresponds to, so you can map it to what you already know (service registry, message broker, RPC, pub/sub, API gateway).
 
 ## Service
-A [service](services.html) is a simple JavaScript module containing some part of a complex application. It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
+A [service](services.html) is a simple JavaScript (or TypeScript) module containing some part of a complex application — what other stacks call a microservice, a bounded context or a module. It exposes **actions** (callable RPC methods / service endpoints) and listens to **events** (pub/sub messages). It is isolated and self-contained, meaning that even if it goes offline or crashes the remaining services would be unaffected.
 
 ## Node
-A node is a simple OS process running on a local or external network. A single instance of a node can host one or many services.
+A node is a simple OS process running on a local or external network — an instance, a replica, a container or a Kubernetes pod, depending on how you deploy. A single instance of a node can host one or many services.
 
 ### Local Services
-Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used).
+Two (or more) services running on a single node are considered local services. They share hardware resources and use local bus to communicate with each other, no network latency ([transporter](#Transporter) is not used). This is Moleculer's **modular monolith** mode: the services are separated in code but run as in-process calls in one process.
 
 ### Remote Services
-Services distributed across multiple nodes are considered remote. In this case, the communication is done via [transporter](#Transporter).
+Services distributed across multiple nodes are considered remote — the distributed, cross-process case. In this case, the communication is done over the network via [transporter](#Transporter). Because the calling code is identical for local and remote services, you can start with everything in one process and split services out later without changing them.
 
 ## Service Broker
-[Service Broker](broker.html) is the heart of Moleculer. It is responsible for management and communication between services (local and remote). Each node must have an instance of Service Broker.
+[Service Broker](broker.html) is the heart of Moleculer: the runtime / service container that hosts services on a node. It holds the local **service registry** and performs service discovery, load balancing, fault tolerance (circuit breaker, retries, timeouts) and communication between services (local and remote). Each node must have an instance of Service Broker.
 
 ## Transporter
-[Transporter](networking.html) is a communication bus that services use to exchange messages. It transfers events, requests and responses.
+[Transporter](networking.html) is the transport layer / messaging backend that services use to exchange messages between nodes — typically a message broker such as NATS, Redis, Kafka, MQTT or AMQP, or a broker-less TCP transporter. It transfers events, requests and responses. The transporter is pluggable: switching from Redis to NATS is a configuration change, not a code change.
 
 ## Gateway
-[API Gateway](moleculer-web.html) exposes Moleculer services to end-users. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+[API Gateway](moleculer-web.html) exposes Moleculer services to end-users — it is the HTTP layer / edge service of a Moleculer application. The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
 
 ## Overall View
 There's nothing better than an example to see how all these concepts fit together. So let's consider a hypothetical online store that only lists its products. It doesn't actually sell anything online.

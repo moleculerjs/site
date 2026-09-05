@@ -1,7 +1,7 @@
 title: Fault tolerance
 ---
 
-MoleculerJS incorporates a range of built-in fault-tolerance mechanisms designed to enhance the reliability and resilience of your microservices architecture. These features are configurable within the broker options, allowing you to enable or disable them based on your specific requirements and use cases.
+MoleculerJS incorporates a range of built-in fault-tolerance mechanisms — the standard resilience patterns of distributed systems: circuit breaker, retry with exponential backoff, timeout, bulkhead and fallback — designed to enhance the reliability and resilience of your microservices architecture. They are applied by the broker to every service call, so you don't have to wrap calls in a resilience library yourself. These features are configurable within the broker options, allowing you to enable or disable them based on your specific requirements and use cases.
 
 
 ## Circuit Breaker

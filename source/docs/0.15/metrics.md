@@ -1,7 +1,7 @@
 title: Metrics
 ---
 
-Moleculer has a built-in metrics module that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
+Moleculer has a built-in metrics module — the metrics half of its observability features, alongside [tracing](tracing.html) — that collects a lot of internal Moleculer & process metric values. Moreover, you can easily define your custom metrics. There are several built-in metrics reporters like `Console`, [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc.
 
 **Enable metrics & define console reporter**
 ```js
