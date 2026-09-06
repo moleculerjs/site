@@ -29,7 +29,7 @@ The same code also runs as a **modular monolith**: keep every service in a singl
 - built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
 - built-in distributed tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin, NewRelic)
 - TypeScript support: bundled type definitions, an official [TypeScript project template](https://github.com/moleculerjs/moleculer-template-project-typescript) (`moleculer init project-typescript my-project`) and [class/decorator based services](services.html#Use-decorators)
-- official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](https://github.com/moleculerjs/moleculer-db) and many other modules...
+- official [API gateway](https://github.com/moleculerjs/moleculer-web), [Database access](moleculer-database.html) and many other modules...
 
 ## When to choose Moleculer
 

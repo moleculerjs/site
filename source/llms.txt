@@ -82,7 +82,8 @@ Moleculer is probably **not** the right choice when:
 ## Official Modules
 
 - [API Gateway (moleculer-web)](https://moleculer.services/docs/0.15/moleculer-web): HTTP/REST gateway — aliases, whitelist, authentication, authorization, CORS, rate limiter, file upload, Express compatibility
-- [Database (moleculer-db)](https://moleculer.services/docs/0.15/moleculer-db): CRUD operations, populating, lifecycle hooks — adapters for MongoDB, Mongoose, Sequelize (PostgreSQL, MySQL, SQLite)
+- [Database Service (@moleculer/database)](https://moleculer.services/docs/0.15/moleculer-database): Recommended database layer — field schema, generated CRUD actions with REST endpoints, populating, scopes, soft delete, caching, multi-tenancy; adapters for NeDB, MongoDB, Knex (PostgreSQL, MySQL, SQLite, MSSQL). Full reference: https://github.com/moleculerjs/database/blob/master/docs/README.md
+- [DB Adapters (moleculer-db, legacy)](https://moleculer.services/docs/0.15/moleculer-db): Predecessor of @moleculer/database, still maintained for existing projects — adapters for MongoDB, Mongoose, Sequelize
 - [REPL Console (moleculer-repl)](https://moleculer.services/docs/0.15/moleculer-repl): Interactive developer console for inspecting services, calling actions, benchmarking
 - [CLI (moleculer-cli)](https://moleculer.services/docs/0.15/moleculer-cli): Project scaffolding, service generation, connecting to running brokers
 

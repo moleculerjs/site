@@ -2,8 +2,8 @@ title: Database Adapters
 ---
 Moleculer framework has an official set of [DB adapters](https://github.com/moleculerjs/moleculer-db). Use them to persist your data in a database.
 
-{% note info Status %}
-`moleculer-db` is the stable, mixin-based data layer with adapters for NeDB, MongoDB, Mongoose and Sequelize. [`@moleculer/database`](https://github.com/moleculerjs/database) is the newer, more advanced database service (field definitions, validation, hooks, permissions, soft delete, multi-tenancy, etc.). New projects may prefer it.
+{% note warn Legacy module %}
+`moleculer-db` is the previous generation data layer. Its successor is [`@moleculer/database`](moleculer-database.html) — use that for new projects. `moleculer-db` is still maintained for existing projects and this page stays as its reference.
 {% endnote %}
 
 {% note info Database per service%}
