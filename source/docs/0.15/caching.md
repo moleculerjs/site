@@ -58,9 +58,9 @@ The syntax of key is:
 ```
 <serviceName>.<actionName>:<parameters or hash of parameters>
 ```
-So if you call the `posts.list` action with params `{ limit: 5, offset: 20 }`, the cacher calculates a hash from the params. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
+So if you call the `posts.find` action with params `{ limit: 5, offset: 20 }`, the cacher concatenates the param names and values into the key (string values are quoted, e.g. `title|"New post"`). It only replaces the tail of the key with a SHA-256 hash when the key is longer than the [`maxParamsLength`](#Limiting-cache-key-length) option. So the next time, when you call this action with the same params, it will find the entry in the cache by key.
 
-**Example hashed cache key for "posts.find" action**
+**Example cache key for "posts.find" action**
 ```
 posts.find:limit|5|offset|20
 ```
@@ -98,16 +98,19 @@ This solution is pretty fast, so we recommend to use it in production. ![](https
 {% endnote %}
 
 ### Limiting cache key length
-Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the key is longer than the configured limit value, the cacher calculates a hash (SHA256) from the full key and adds it to the end of the key.
+Occasionally, the key can be very long, which can cause performance issues. To avoid it, maximize the length of concatenated params in the key with `maxParamsLength` cacher option. When the params part of the key (after the `<actionName>:` prefix) is longer than the configured limit value, the cacher calculates a hash (SHA256, Base64) from the full params string and replaces its tail with the hash, so the params part fits into `maxParamsLength` characters.
 
 > The minimum of `maxParamsLength` is `44` (SHA 256 hash length in Base64).
 > 
 > To disable this feature, set it to `0` or `null`.
 
+The signature of the key generator is `getCacheKey(action, opts, ctx)`, where `action` is the action definition, `opts` is the action's `cache` object (e.g. `keys`) and `ctx` is the Context (only `params`, `meta` and `headers` are used).
+
 **Generate a full key from the whole params without limit**
 ```js
-cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
-// Key: 'posts.find:id|2|title|New post|content|It can be very very looooooooooooooooooong content. So this key will also be too long'
+const params = { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" };
+cacher.getCacheKey({ name: "posts.find" }, {}, { params });
+// Key: 'posts.find:id|2|title|"New post"|content|"It can be very very looooooooooooooooooong content. So this key will also be too long"'
 ```
 
 **Generate a limited-length key**
@@ -121,8 +124,9 @@ const broker = new ServiceBroker({
     }
 });
 
-cacher.getCacheKey("posts.find", { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" });
-// Key: 'posts.find:id|2|title|New pL4ozUU24FATnNpDt1B0t1T5KP/T5/Y+JTIznKDspjT0='
+const params = { id: 2, title: "New post", content: "It can be very very looooooooooooooooooong content. So this key will also be too long" };
+broker.cacher.getCacheKey({ name: "posts.find" }, {}, { params });
+// Key: 'posts.find:id|2|title|"New QI2M9O4CnnlRNL0hQiADVCBUWhFXcqh0OCmUYGFDwyE='
 ```
 
 ## Conditional caching
@@ -374,42 +378,74 @@ Cache locking is a mechanism used to prevent race conditions and ensure data int
 
 Moleculer also supports cache locking feature. For detailed info [check this PR](https://github.com/moleculerjs/moleculer/pull/490).
 
+The lock is configured per action, in the `lock` property of the action's `cache` definition (not in the cacher options). The cacher middleware reads `action.cache.lock`.
+
 **Enable Lock**
 ```js
-const broker = new ServiceBroker({
-    cacher: {
-        ttl: 60,
-        lock: true, // Set to true to enable cache locks. Default is disabled.
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        list: {
+            cache: {
+                ttl: 60,
+                lock: true // Set to true to enable cache locks. Default is disabled.
+            },
+            handler(ctx) { /* ... */ }
+        }
     }
-});
+};
 ```
 
 **Enable with TTL**
 ```js
-const broker = new ServiceBroker({
-    cacher: {
-        ttl: 60,
-        lock: {
-            ttl: 15, // The maximum amount of time you want the resource locked in seconds
-            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        list: {
+            cache: {
+                ttl: 60,
+                lock: {
+                    ttl: 15000, // The maximum amount of time you want the resource locked, in milliseconds (Redis cacher passes it to redlock; the Memory cachers ignore it)
+                    staleTime: 10 // If the remaining TTL of the entry (in seconds) is less than this number, the entry is considered stale and refreshed in the background
+                }
+            },
+            handler(ctx) { /* ... */ }
         }
     }
-});
+};
 ```
 
 **Disable Lock**
 ```js
-const broker = new ServiceBroker({
-    cacher: {
-        ttl: 60,
-        lock: {
-            enable: false, // Set to false to disable.
-            ttl: 15, // The maximum amount of time you want the resource locked in seconds
-            staleTime: 10, // If the TTL is less than this number, means that the resources are staled
+// posts.service.js
+module.exports = {
+    name: "posts",
+    actions: {
+        list: {
+            cache: {
+                ttl: 60,
+                lock: {
+                    enabled: false, // Set to false to disable.
+                    ttl: 15000,
+                    staleTime: 10
+                }
+            },
+            handler(ctx) { /* ... */ }
         }
     }
-});
+};
 ```
+
+**Lock options** (in the action's `cache.lock` object)
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `enabled` | `Boolean` | `false` | Enable the lock feature. `lock: true` is a shorthand for `{ enabled: true }`. |
+| `ttl` | `Number` | `15000` (Redis) | Maximum lock time in milliseconds. Passed to `redlock` by the Redis cacher; ignored by the Memory & MemoryLRU cachers. |
+| `staleTime` | `Number` | `null` | If the remaining TTL of the cached entry (in seconds) is below this value, the entry is refreshed in the background while the stale value is still served. Requires a cacher that implements `getWithTTL` (Memory, Redis). |
+
 **Example for Redis cacher with `redlock` library**
 ```js
 const broker = new ServiceBroker({
@@ -428,10 +464,6 @@ const broker = new ServiceBroker({
         port: 6379,
         password: "1234",
         db: 0
-      },
-      lock: {
-        ttl: 15, //the maximum amount of time you want the resource locked in seconds
-        staleTime: 10, // If the TTL is less than this number, means that the resources are staled
       },
       // Redlock settings
       redlock: {
@@ -457,6 +489,10 @@ const broker = new ServiceBroker({
   }
 });
 ```
+
+{% note info Dependencies %}
+Cache locking with the Redis cacher requires the `redlock` module (`npm install redlock --save`). Without it the lock calls are skipped with an error log message.
+{% endnote %}
 
 ## Built-in Caching Modules
 
@@ -497,7 +533,6 @@ const broker = new ServiceBroker({
 | `clone` | `Boolean` or `Function` | `false` | Clone the cached data when return it. |
 | `keygen` | `Function` | `null` | Custom cache key generator function. |
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
-| `lock` | `Boolean` or `Object` | `null` | Enable lock feature. |
 
 #### Cloning
 The cacher uses the lodash `_.cloneDeep` method for cloning. To change it, set a `Function` to the `clone` option instead of a `Boolean`.
@@ -549,7 +584,6 @@ let broker = new ServiceBroker({
 | `clone` | `Boolean` or `Function` | `false` | Clone the cached data when return it. |
 | `keygen` | `Function` | `null` | Custom cache key generator function. |
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
-| `lock` | `Boolean` or `Object` | `null` | Enable lock feature. |
 
 
 {% note info Dependencies %}
@@ -652,7 +686,7 @@ const broker = new ServiceBroker({
 | `maxParamsLength` | `Number` | `null` | Maximum length of params in generated keys. |
 | `serializer` | `String` | `"JSON"` | Name of a built-in serializer. |
 | `cluster` | `Object` | `null` | Redis Cluster client configuration. [More information](https://github.com/luin/ioredis#cluster) |
-| `lock` | `Boolean` or `Object` | `null` | Enable lock feature. |
+| `redlock` | `Object` or `false` | `null` | [Redlock](https://github.com/mike-marcacci/node-redlock) options used by [cache locking](#Cache-locking) (`clients`, `driftFactor`, `retryCount`, ...). Set to `false` to disable redlock. |
 | `pingInterval` | `Number` | `null` | Emit a Redis PING command every `pingInterval` milliseconds. Can be used to keep connections alive which may have idle timeouts. |
 
 {% note info Dependencies %}
@@ -710,7 +744,7 @@ module.exports = {
 // Get data from cache
 
 const res = await cacher.get("not-existing-key");
-if (res === cacher.opts.missingSymbol) {
+if (res === cacher.opts.missingResponse) {
     console.log("It's not cached.");
 }
 ```

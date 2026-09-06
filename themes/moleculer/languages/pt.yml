@@ -57,6 +57,7 @@ sidebar:
     moleculer_web: API Gateway
     moleculer_repl: Console REPL
     moleculer_cli: Ferramenta CLI
+    moleculer_database: Database Service
     moleculer_db: Adaptadores DB
     other_modules: Outros módulos
     laboratory: Laboratório

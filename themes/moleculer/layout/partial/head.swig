@@ -4,7 +4,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="microservices, nodejs, node.js, typescript, javascript, microservices framework, service discovery, load balancing, circuit breaker, message broker, event-driven, distributed tracing, api gateway, nats, redis, kafka, opensource, moleculer, scaling">
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ config.description }}{% endif %}">
   <meta name="robots" content="index, follow">
   <meta name="docsearch:language" content="{{ config.language }}" />
   <meta name="docsearch:version" content="{{ get_version() }}" />
@@ -13,7 +12,7 @@
   <!-- Alternative links -->
   {% if page.layout == 'page' or page.layout == 'index' %}
     {% for lang in site.data.languages %}
-      <link rel="alternative" hreflang="{{ loop.key }}" href="{{ canonical_url(loop.key) }}">
+      <link rel="alternate" hreflang="{{ loop.key }}" href="{{ canonical_url(loop.key) }}">
     {% endfor %}
   {% endif %}
   <!-- Icon -->
@@ -41,6 +40,7 @@
   {{ feed_tag('atom.xml') }}
   -->
   <!-- Open Graph -->
+  {# open_graph() emits the single <meta name="description"> (page.description, else the page excerpt, else config.description) together with the og:/twitter: descriptions #}
   {{ open_graph({
     fb_admins: config.fb_admins,
     twitter_site: config.twitter
@@ -69,7 +69,6 @@
     "sameAs": [
       "https://twitter.com/MoleculerJS",
       "https://github.com/moleculerjs",
-      "https://gitter.im/moleculerjs/moleculer",
       "https://discord.gg/TSEcDRP",
       "https://stackoverflow.com/questions/tagged/moleculer"
     ]
@@ -81,7 +80,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "MoleculerJS",
-      "author": "Moleculer",
+      "author": { "@type": "Organization", "name": "Moleculer", "url": "https://moleculer.services" },
+      "softwareVersion": "{{ site.data.versions.latest }}",
       "description": "Microservices framework for Node.js and TypeScript with built-in service discovery, load balancing, circuit breakers, distributed tracing and an event bus. Works over NATS, Redis, Kafka, MQTT, AMQP or TCP without Kubernetes, Consul or a service mesh.",
       "url": "https://moleculer.services",
       "sameAs": [

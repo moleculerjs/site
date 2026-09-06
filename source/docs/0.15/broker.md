@@ -160,9 +160,9 @@ broker.ping().then(res => broker.logger.info(res));
 | `broker.waitForServices(serviceNames, timeout, interval)` | `Promise` | Wait for services. |
 | `broker.call(actionName, params, opts)` | `Promise` | Call a service. |
 | `broker.mcall(def)` | `Promise` | Multiple service calling. |
-| `broker.emit(eventName, payload, opts)` | - | Emit a balanced event. |
-| `broker.broadcast(eventName, payload, opts)` | - | Broadcast an event. |
-| `broker.broadcastLocal(eventName, payload, opts)` | - | Broadcast an event to local services only. |
+| `broker.emit(eventName, payload, opts)` | `Promise` | Emit a balanced event. |
+| `broker.broadcast(eventName, payload, opts)` | `Promise` | Broadcast an event. |
+| `broker.broadcastLocal(eventName, payload, opts)` | `Promise` | Broadcast an event to local services only. |
 | `broker.ping(nodeID, timeout)` | `Promise` | Ping remote nodes. |
 | `broker.hasEventListener("eventName")` | `Boolean` | Checks if broker is listening to an event. |
 | `broker.getEventListeners("eventName")` | `Array<Object>` | Returns all registered event listeners for an event name. |

@@ -47,7 +47,7 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 	* sample service (`greeter`)
 	* official [API Gateway](https://github.com/moleculerjs/moleculer-web) (optional)
 	* Docker & Docker Compose files
-	* tests & coverage with [Vitest](https://vitest.dev/)
+	* tests & coverage with [Jest](https://jestjs.io/)
 	* lint with [ESLint](http://eslint.org/)
 
 
@@ -62,7 +62,7 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 * [**nano**](https://github.com/moleculerjs/moleculer-template-nano) - Minimal project template for one microservice. *Use it if you want to create a microservice which connect to others via transporter*
 	* sample service (`greeter`)
 	* Docker & Docker Compose files
-	* tests & coverage with [Vitest](https://vitest.dev/)
+	* tests & coverage with [Jest](https://jestjs.io/)
 	* lint with [ESLint](http://eslint.org/)
 	* Minimal Docker file
 
@@ -71,7 +71,7 @@ $ moleculer init project my-project --answers ./answers.json --no-install
 	* empty service skeleton
 	* examples skeleton
 	* readme skeleton
-	* tests & coverage with [Vitest](https://vitest.dev/)
+	* tests & coverage with [Jest](https://jestjs.io/)
 	* lint with [ESLint](http://eslint.org/)
 
 ### Custom templates
@@ -126,6 +126,20 @@ The `template` directory contains files which will be transformed using [Handleb
 
 Handlebars can also transform file names.
 
+## Create a service
+The `create service` command generates a new service file skeleton into your project. It asks for the service directory (default: `./services`) and, if not given as argument, the service name.
+
+```bash
+# Create a service interactively
+$ moleculer create service
+
+# Create a named service (./services/users.service.js)
+$ moleculer create service users
+
+# Create a TypeScript service (./services/users.service.ts)
+$ moleculer create service users --typescript
+```
+
 ## Start
 This command starts a new `ServiceBroker` locally and switches to REPL mode.
 ```bash
@@ -144,6 +158,8 @@ $ moleculer start
   --commands    Custom REPL command file mask (e.g.: ./commands/*.js)
                                                         [string] [default: null]
 ```
+
+> Note that the `start` and `connect` commands use the lowercase `-h` short flag for hot-reload, while [Moleculer Runner](runner.html) uses the uppercase `-H` (`-h` is help there).
 
 ## Connect
 This command starts a new `ServiceBroker`, connects to a transporter server and switches to REPL mode.
@@ -216,7 +232,7 @@ moleculer call "\$node.health" | jq '.mem.free'
 
 **Example with transporter env var**
 ```bash
-TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
+TRANSPORTER=nats://localhost:4222 moleculer call math.add --@a 5 --@b 3
 ```
 
 ## Emit
@@ -244,22 +260,22 @@ moleculer emit user.created --transporter NATS --@id 3 --@name John
 
 **Example with params & meta**
 ```bash
-moleculer emit math.add --transporter NATS --@id 3 --@name John --#meta-key MyMetaValue
+moleculer emit user.created --transporter NATS --@id 3 --@name John --#meta-key MyMetaValue
 ```
 
 **Example with broadcast & groups**
 ```bash
-moleculer emit math.add --transporter NATS --broadcast --@id 3 --@name John --group accounts
+moleculer emit user.created --transporter NATS --broadcast --@id 3 --@name John --group accounts
 ```
 
 **Example with multi groups**
 ```bash
-moleculer emit math.add --transporter NATS --broadcast --@id 3 --@name John --group accounts --group mail
+moleculer emit user.created --transporter NATS --broadcast --@id 3 --@name John --group accounts --group mail
 ```
 
 >The transporter can be defined via `TRANSPORTER` environment variable, as well.
 
 **Example with transporter env var**
 ```bash
-TRANSPORTER=nats://localhost:42222 moleculer call math.add --@a 5 --@b 3
+TRANSPORTER=nats://localhost:4222 moleculer emit user.created --@id 3 --@name John
 ```

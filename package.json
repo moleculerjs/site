@@ -9,8 +9,9 @@
     "api": "node api-docs-generator.js",
     "references": "documentation build node_modules/moleculer/src/service-broker.js --shallow -f md -o asd.md",
     "modules": "node fetch-modules.js",
+    "llms": "node build-llms-full.js",
     "__prebuild": "npm run api",
-    "build": "hexo generate",
+    "build": "npm run llms && hexo generate",
     "dev": "hexo server",
     "deploy": "hexo deploy"
   },

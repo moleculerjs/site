@@ -396,7 +396,10 @@ module.exports = {
             {
                 path: "/api",
 
-                whitelist: ["**"]
+                whitelist: ["**"],
+
+                // Generate aliases from the `rest` property of the actions
+                autoAliases: true
             }
         ]
     }
@@ -410,8 +413,9 @@ module.exports = {
 
     actions: {
         status: {
-            // Make action callable via API gateway
-            rest: "/users/status",
+            // Make action callable via API gateway as `GET /api/users/status`
+            // (the service name is the base path)
+            rest: "GET /status",
             handler(ctx) {
                 // Check the status...
                 return { status: "Active" };

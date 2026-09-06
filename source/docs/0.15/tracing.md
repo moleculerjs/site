@@ -102,6 +102,10 @@ module.exports = {
 
 The tracing module supports several exporters, custom tracing spans and integration with instrumentation libraries (like [`dd-trace`](https://github.com/DataDog/dd-trace-js)). 
 
+{% note info OpenTelemetry %}
+There is no OpenTelemetry (OTLP) exporter in the core. To send traces to an OpenTelemetry pipeline, use the [Jaeger](#Jaeger) or [Zipkin](#Zipkin) exporter with an OpenTelemetry Collector configured with the Jaeger or Zipkin receiver, which accepts those formats.
+{% endnote %}
+
 ### Console
 This is a debugging exporter which prints full local trace to the console.
 
@@ -277,7 +281,7 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
 
 ```js
 // moleculer.config.js
-{
+module.exports = {
     tracing: {
         enabled: true,
         events: true,
@@ -304,10 +308,10 @@ NewRelic exporter sends tracing spans information in Zipkin v2 format to a [NewR
             },
         ],
     },    
-}
+};
 ```
 
-### Customer Exporter
+### Custom Exporter
 Custom tracing module can be created. We recommend to copy the source of [Console Exporter](https://github.com/moleculerjs/moleculer/blob/master/src/tracing/exporters/console.js) and implement the `init`, `stop`, `spanStarted` and `spanFinished` methods.
 
 **Create custom tracing**
@@ -352,7 +356,7 @@ module.exports = {
                 options: {
                     baseURL: "http://localhost:9411",
                 }
-            }
+            },
             {
                 type: "Jaeger",
                 options: {
@@ -398,7 +402,7 @@ If `Context` is not available, you can create spans via `broker.tracer`.
 // posts.service.js
 module.exports = {
     name: "posts",
-    started() {
+    async started() {
         // Create a span to measure the initialization
         const span = this.broker.tracer.startSpan("initializing db", {
             tags: {
@@ -629,7 +633,7 @@ Please note, this option has a **significant** [impact in performance](https://g
 **Enabling globally the safetyTags**
 ```js
 // moleculer.config.js
-{
+module.exports = {
     tracing: {
         exporter: [{
             type: "Zipkin",
@@ -639,7 +643,7 @@ Please note, this option has a **significant** [impact in performance](https://g
             }
         }]
     }
-}
+};
 ```
 
 

@@ -192,8 +192,12 @@ E.g.: To access the broker, use `req.$service.broker`.
 The `route` has a `mappingPolicy` property to handle routes without aliases.
 
 **Available options:**
-- `all` - enable to request all routes with or without aliases (default)
-- `restrict` - enable to request only the routes with aliases.
+- `all` - enable to request all routes with or without aliases. This is the default when the route has no `aliases` and no `autoAliases`.
+- `restrict` - enable to request only the routes with aliases. This is the default when the route defines `aliases` or has `autoAliases: true`.
+
+{% note info %}
+This is why a direct action URL like `/api/math/add` starts returning `404` as soon as you add an alias (or enable `autoAliases`) to the route: the default policy switches to `restrict`. Set `mappingPolicy: "all"` explicitly if you want to keep both.
+{% endnote %}
 
 ```js
 broker.createService({
@@ -417,8 +421,8 @@ module.exports = {
     get: {
       rest: [
         "GET /:id",
-        { method: 'GET', fullPath: '/posts' }
-        { method: 'GET', path: '/' }, 
+        { method: 'GET', fullPath: '/posts' },
+        { method: 'GET', path: '/' },
         { method: 'GET', path: '/:id', basePath: 'demo_posts' }
     ],
       handler(ctx) {}
@@ -430,10 +434,10 @@ module.exports = {
 Produce those endpoints
 
 ```bash
-    GET     /api/my/awesome/posts/:id/  => posts.get
+    GET     /api/my/awesome/posts/:id   => posts.get
     GET     /posts                      => posts.get
     GET     /api/my/awesome/posts/      => posts.get
-    POST    /api/demo_posts/:id         => posts.get
+    GET     /api/demo_posts/:id         => posts.get
 ```
 
 ## Parameters
@@ -845,7 +849,7 @@ broker.createService({
 });
 ```
 
-> In previous versions of Moleculer Web, you couldn't manipulate the `data` in `onAfterCall`. Now you can, but you must always return the new or original `data`.
+> The `onAfterCall` hook can manipulate the response `data`, but it must always return the new or the original `data`. If it returns `undefined`, the response body will be empty.
 
 
 ## Error handlers

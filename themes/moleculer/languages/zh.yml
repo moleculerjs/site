@@ -57,6 +57,7 @@ sidebar:
     moleculer_web: API 网关
     moleculer_repl: REPL 控制台
     moleculer_cli: CLI 工具
+    moleculer_database: Database Service
     moleculer_db: 数据库适配器
     other_modules: 其他模块
     laboratory: Laboratory

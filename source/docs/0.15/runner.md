@@ -25,6 +25,7 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 | `-e`, `--env` | `Boolean` | `false` | Load environment variables from the '.env' file from the current folder. |
 | `-E`, `--envfile <file>` | `String` | `null` | Load environment variables from the specified file. |
 | `-i`, `--instances` | `Number` | `null` | Launch [number] node instances or `max` for all cpu cores (with `cluster` module) |
+| `-m`, `--mask <mask>` | `String` | `**/*.service.js` | File mask (glob) used when loading services from folders. E.g. `--mask **/*.service.ts` |
 
 
 **Example NPM scripts**
@@ -38,14 +39,14 @@ $ moleculer-runner [options] [service files or directories or glob masks]
 ```
 The `dev` script loads development configurations from the `moleculer.dev.config.js` file, start all services from the `services` folder, enable hot-reloading and switches to REPL mode. Run it with the `npm run dev` command.
 
-The `start` script is to load the default `moleculer.config.js` file if it exists, otherwise only loads options from environment variables. Starts 4 instances of broker, then they start all services from the `services` folder. Run it with `npm start` command.
+The `start` script is to load the default `moleculer.config.js` file if it exists, otherwise only loads options from environment variables. Starts one broker instance per CPU core, and each of them loads all services from the `services` folder. Run it with `npm start` command.
 
 ## Configuration loading logic
 The runner does the following steps to load & merge configurations:
 
 1. Load the config file defined in `MOLECULER_CONFIG` environment variable. If it does not exist, it throws an error.
 2. It loads config file defined in CLI options. If it does not exist, it throws an error. Note that `MOLECULER_CONFIG` has priority over CLI meaning that if both are defined `MOLECULER_CONFIG` is the one that's going to be used.
-3. If not defined, it loads the `moleculer.config.js` file from the current directory. If it does not exist, it loads the `moleculer.config.json` file.
+3. If not defined, it loads the `moleculer.config.js` file from the current directory. If it does not exist, it loads the `moleculer.config.json` file. (The ESM runner looks for `moleculer.config.mjs` first, then `moleculer.config.js` and `moleculer.config.json`.)
 4. Once a config file has been loaded, it merges options with the default options of the ServiceBroker.
 5. The runner observes the options step by step and tries to overwrite them from environment variables. Once `logLevel: "warn"` is set in the config file, but the `LOGLEVEL=debug` environment variable is defined, the runner overwrites it, and it results: `logLevel: "debug"`.
 
@@ -88,6 +89,31 @@ module.exports = async function() {
 };
 ```
 > This function runs with the `MoleculerRunner` instance as the `this` context. Useful if you need to access the flags passed to the runner. Check the [MoleculerRunner](https://github.com/moleculerjs/moleculer/blob/master/src/runner.js) source more details.
+
+### ESM and TypeScript
+
+Besides the default CommonJS `moleculer-runner`, the package ships an ESM runner binary, `moleculer-runner-esm` (`bin/moleculer-runner.mjs`). It loads ESM configuration files and ESM services with `import()` (CommonJS services can be loaded, as well). The CLI options are the same, but **hot-reload does not work for ESM modules** because the hot-reload middleware relies on the CommonJS `require` cache.
+
+```bash
+$ moleculer-runner-esm --repl services/**/*.service.mjs
+```
+
+**Supported configuration file extensions**
+
+| Runner | Default config lookup order | Extensions accepted via `--config` / `MOLECULER_CONFIG` |
+| ------ | --------------------------- | ------------------------------------------------------- |
+| `moleculer-runner` | `moleculer.config.js`, `moleculer.config.json` | `.js`, `.cjs`, `.json`, `.ts` |
+| `moleculer-runner-esm` | `moleculer.config.mjs`, `moleculer.config.js`, `moleculer.config.json` | `.js`, `.mjs`, `.json`, `.ts`, `.mts` |
+
+The runner does not transpile TypeScript itself. A `.ts` (or `.mts`) config file, or `.ts` services, are simply passed to `require()` / `import()`, so a TypeScript loader such as [tsx](https://tsx.is/) or `ts-node` must be registered before the runner starts. Use the `--mask` option to load `.ts` service files from folders.
+
+```bash
+# with tsx
+$ tsx ./node_modules/moleculer/bin/moleculer-runner.js --config moleculer.config.ts --hot --repl services/**/*.service.ts
+
+# with ts-node
+$ node -r ts-node/register ./node_modules/moleculer/bin/moleculer-runner.js --config moleculer.config.ts --mask **/*.service.ts services
+```
 
 ### Environment variables
 The runner transforms the property names to uppercase. If nested, the runner concatenates names with `_`.

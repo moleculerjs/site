@@ -25,7 +25,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install --production
+RUN npm ci --omit=dev
 
 COPY . .
 
@@ -51,8 +51,6 @@ MONGO_URI=mongodb://mongo/project-demo # Set MongoDB URI
 Configure the containers.
 **docker-compose.yml**
 ```yaml
-version: "3.3"
-
 services:
 
   api:
@@ -110,7 +108,7 @@ services:
       - internal
 
   traefik:
-    image: traefik:v2.1
+    image: traefik:v3
     command:
       - "--api.insecure=true" # Don't do that in production!
       - "--providers.docker=true"
@@ -133,10 +131,10 @@ volumes:
 
 **Start containers**
 ```bash
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 Access your app on `http://<docker-host>:3000/`. Traefik dashboard UI on `http://<docker-host>:3001/`
 
 ## Kubernetes deployment
-Moleculer community members are [working on](https://github.com/moleculerjs/moleculer/issues/512) Kubernetes integration. You can check [dkuida](https://github.com/dkuida)'s [step by step tutorial](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07), [lehno](https://github.com/lehno)'s [code samples](https://github.com/lehno/moleculer-k8s-examples) and [tobydeh](https://github.com/tobydeh)'s [deployment guide](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5).
+Moleculer needs no special Kubernetes integration: a Moleculer node is a plain container (like the one built from the Dockerfile above), so you deploy it as a regular `Deployment` and let the nodes find each other through the transporter (e.g. a NATS service in the cluster). For community examples see [dkuida](https://github.com/dkuida)'s [step by step tutorial](https://dankuida.com/moleculer-deployment-thoughts-8e0fc8c0fb07), [lehno](https://github.com/lehno)'s [code samples](https://github.com/lehno/moleculer-k8s-examples), [tobydeh](https://github.com/tobydeh)'s [deployment guide](https://gist.github.com/tobydeh/0aa33a5b672821f777165159b6a22cc5) and the related [discussion](https://github.com/moleculerjs/moleculer/issues/512).

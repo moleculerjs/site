@@ -16,7 +16,7 @@ Deadlocks can occur when two services wait for each other. E.g.: `users` service
 {% endnote %}
 
 ### Stopping logic
-When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services that are stopping. Next, the broker starts [stopping](#stopped-event-handler) all local services. After that, the transporter disconnects and process exits.
+When you call `broker.stop` or stop the process, at first broker publishes an empty service list to remote nodes, so they will route the requests to other instances instead of services that are stopping. Next, the broker starts [stopping](#stopped-event-handler) all local services. After that, the transporter disconnects. Note that `broker.stop()` itself does not exit the process; the process is exited only by the broker's built-in `SIGINT`/`SIGTERM` handler (which calls `broker.stop()` and then `process.exit()`, unless `skipProcessEventRegistration: true` is set) or by the [Runner](runner.html).
 
 <div align="center">
     <img src="assets/lifecycle/broker-stop.svg" alt="Broker stopping lifecycle diagram" />
